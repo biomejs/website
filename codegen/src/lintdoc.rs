@@ -1900,7 +1900,7 @@ fn print_diagnostics_or_actions(
                     filter,
                     &options,
                     file_source,
-                    HtmlAnalyzerServices::default(),
+                    biome_html_analyze::HtmlAnalyzerServices::default(),
                     |signal| {
                         match to_print_kind {
                             ToPrintKind::Diagnostics => {

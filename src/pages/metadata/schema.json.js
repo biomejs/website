@@ -446,11 +446,30 @@ export function GET() {
 					"required": ["eslintCss"]
 				},
 				{
+					"description": "Rules from [Eslint Plugin Astro](https://ota-meshi.github.io/eslint-plugin-astro/)",
+					"type": "object",
+					"properties": { "eslintAstro": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintAstro"]
+				},
+				{
 					"description": "Rules from [Eslint Plugin Drizzle](https://orm.drizzle.team/docs/eslint-plugin)",
 					"type": "object",
 					"properties": { "eslintDrizzle": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintDrizzle"]
+				},
+				{
+					"description": "Action for https://github.com/keithamus/sort-package-json",
+					"type": "string",
+					"const": "sortPackageJson"
+				},
+				{
+					"description": "Rules from [Sherif](https://github.com/QuiiBz/sherif)",
+					"type": "object",
+					"properties": { "sherif": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["sherif"]
 				},
 				{
 					"description": "Rules from [Eslint Plugin Typescript Sort Keys](https://github.com/infctr/eslint-plugin-typescript-sort-keys)",

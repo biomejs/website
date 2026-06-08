@@ -10,12 +10,10 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JavaScript (and super languages)" icon="seti:javascript">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.3.10`
-- Diagnostic Category: [`lint/nursery/noUndeclaredEnvVars`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noUndeclaredEnvVars`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - This rule belongs to the following domains:
@@ -28,7 +26,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noUndeclaredEnvVars": "error"
 			}
 		}
@@ -107,7 +105,7 @@ Supports regular expression patterns (anchors `^` and `$` are implicit).
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noUndeclaredEnvVars": {
 					"options": {
 						"allowedEnvVars": [
@@ -128,8 +126,8 @@ Supports regular expression patterns (anchors `^` and `$` are implicit).
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_undeclared_env_vars.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUndeclaredEnvVars)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_undeclared_env_vars.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noUndeclaredEnvVars)
 
 </TabItem>
 </Tabs>
