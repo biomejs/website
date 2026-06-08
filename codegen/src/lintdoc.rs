@@ -26,7 +26,6 @@ use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
 use biome_formatter::{Expand, LineWidth};
 use biome_graphql_syntax::GraphqlLanguage;
-use biome_html_analyze::HtmlAnalyzerServices;
 use biome_html_parser::HtmlParserOptions;
 use biome_html_syntax::HtmlLanguage;
 use biome_js_parser::JsParserOptions;
@@ -1900,7 +1899,7 @@ fn print_diagnostics_or_actions(
                     filter,
                     &options,
                     file_source,
-                    HtmlAnalyzerServices::default(),
+                    biome_html_analyze::HtmlAnalyzerServices::default(),
                     |signal| {
                         match to_print_kind {
                             ToPrintKind::Diagnostics => {
@@ -2078,12 +2077,11 @@ fn create_service_builders(docs: &'static str) -> Result<HashMap<usize, Analyzer
                     content.push_str(&text);
                 }
             }
-            Event::Start(Tag::Heading { level, .. }) => {
-                // When we encounter a heading we start a new content section to scope any file
-                // system to that section
-                if is_main_heading(level) {
-                    content_section += 1;
-                }
+            Event::Start(Tag::Heading { level, .. })
+            // When we encounter a heading we start a new content section to scope any file
+            // system to that section
+            if is_main_heading(level) => {
+                content_section += 1;
             }
             _ => {}
         }

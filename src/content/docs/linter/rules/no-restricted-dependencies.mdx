@@ -1,0 +1,163 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noRestrictedDependencies
+description: Learn more about noRestrictedDependencies
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="JSON (and super languages)" icon="seti:json">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noRestrictedDependencies`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`e18e/ban-dependencies`](https://github.com/e18e/eslint-plugin)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noRestrictedDependencies": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow dependencies that are known to have better alternatives.
+
+This rule checks `dependencies` and `devDependencies` in `package.json`
+against [e18e](https://e18e.dev/)'s replacement data and suggests modern, native, or more
+maintainable alternatives.
+
+## Examples
+
+### Invalid
+
+```json title='package.json'
+{
+  "dependencies": {
+    "globby": "x.x.x"
+  }
+}
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///package.json">/package.json</a>:3:5 <a href="https://biomejs.dev/linter/rules/no-restricted-dependencies">lint/nursery/noRestrictedDependencies</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use of the restricted dependency </span><span style="color: lightgreen;"><strong>globby</strong></span><span style="color: lightgreen;"> detected.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />    <strong>2 │ </strong>  &quot;dependencies&quot;: &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>    &quot;globby&quot;: &quot;x.x.x&quot;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>  &#125;<br />    <strong>5 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The dependency might be old, not actively maintained, or there's a native alternative.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The following replacement is suggested:<br /></span>    <span style="color: lightgreen;">- Replace with the alternative: </span><span style="color: lightgreen;"><strong>tinyglobby</strong></span><span style="color: lightgreen;">.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Read more: </span><span style="color: lightgreen;"><a href="https://e18e.dev/docs/replacements/globby">https://e18e.dev/docs/replacements/globby</a></span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```json title='package.json'
+{
+  "dependencies": {
+    "tinyglobby": "x.x.x"
+  }
+}
+```
+
+See [the e18e docs](https://e18e.dev/docs/replacements/) for the full list of replacements.
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/nursery/no_restricted_dependencies.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/nursery/noRestrictedDependencies)
+
+</TabItem>
+<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noRestrictedDependencies`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`e18e/ban-dependencies`](https://github.com/e18e/eslint-plugin)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noRestrictedDependencies": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow dependencies that are known to have better alternatives.
+
+This rule checks static imports, dynamic `import()`, and `require()` calls
+and suggests modern, native, or more maintainable alternatives based on
+[e18e](https://e18e.dev/)'s replacement data.
+
+## Examples
+
+### Invalid
+
+```js
+import glob from "globby";
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:18 <a href="https://biomejs.dev/linter/rules/no-restricted-dependencies">lint/nursery/noRestrictedDependencies</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use of the restricted dependency </span><span style="color: lightgreen;"><strong>globby</strong></span><span style="color: lightgreen;"> detected.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>import glob from &quot;globby&quot;;<br />   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The dependency might be old, not actively maintained, or there's a native alternative.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The following replacement is suggested:<br /></span>    <span style="color: lightgreen;">- Replace with the alternative: </span><span style="color: lightgreen;"><strong>tinyglobby</strong></span><span style="color: lightgreen;">.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Read more: </span><span style="color: lightgreen;"><a href="https://e18e.dev/docs/replacements/globby">https://e18e.dev/docs/replacements/globby</a></span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```js
+const glob = require("globby");
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:22 <a href="https://biomejs.dev/linter/rules/no-restricted-dependencies">lint/nursery/noRestrictedDependencies</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use of the restricted dependency </span><span style="color: lightgreen;"><strong>globby</strong></span><span style="color: lightgreen;"> detected.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const glob = require(&quot;globby&quot;);<br />   <strong>   │ </strong>                     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The dependency might be old, not actively maintained, or there's a native alternative.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The following replacement is suggested:<br /></span>    <span style="color: lightgreen;">- Replace with the alternative: </span><span style="color: lightgreen;"><strong>tinyglobby</strong></span><span style="color: lightgreen;">.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Read more: </span><span style="color: lightgreen;"><a href="https://e18e.dev/docs/replacements/globby">https://e18e.dev/docs/replacements/globby</a></span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```js
+const glob = await import("globby");
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:27 <a href="https://biomejs.dev/linter/rules/no-restricted-dependencies">lint/nursery/noRestrictedDependencies</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use of the restricted dependency </span><span style="color: lightgreen;"><strong>globby</strong></span><span style="color: lightgreen;"> detected.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>const glob = await import(&quot;globby&quot;);<br />   <strong>   │ </strong>                          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The dependency might be old, not actively maintained, or there's a native alternative.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The following replacement is suggested:<br /></span>    <span style="color: lightgreen;">- Replace with the alternative: </span><span style="color: lightgreen;"><strong>tinyglobby</strong></span><span style="color: lightgreen;">.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Read more: </span><span style="color: lightgreen;"><a href="https://e18e.dev/docs/replacements/globby">https://e18e.dev/docs/replacements/globby</a></span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+import glob from "tinyglobby";
+```
+
+```js
+const glob = require("tinyglobby");
+```
+
+```js
+const glob = await import("tinyglobby");
+```
+
+See [the e18e docs](https://e18e.dev/docs/replacements/) for the full list of replacements.
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_restricted_dependencies.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noRestrictedDependencies)
+
+</TabItem>
+</Tabs>
+

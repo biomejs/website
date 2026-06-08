@@ -10,20 +10,18 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="JSON (and super languages)" icon="seti:json">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.3.9`
-- Diagnostic Category: [`lint/nursery/useRequiredScripts`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/useRequiredScripts`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
 - This rule doesn't have a fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 ## How to configure
 ```json title="biome.json"
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"useRequiredScripts": "error"
 			}
 		}
@@ -47,7 +45,7 @@ Without required scripts configured, this rule doesn't do anything.
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"useRequiredScripts": {
 					"options": {
 						"requiredScripts": [
@@ -94,8 +92,8 @@ Default: `[]` (no scripts required)
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/nursery/use_required_scripts.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/nursery/useRequiredScripts)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/suspicious/use_required_scripts.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/suspicious/useRequiredScripts)
 
 </TabItem>
 </Tabs>

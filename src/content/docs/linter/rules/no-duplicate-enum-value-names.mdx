@@ -10,14 +10,12 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Tabs>
 <TabItem label="GraphQL" icon="seti:graphql">
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.3.12`
-- Diagnostic Category: [`lint/nursery/noDuplicateEnumValueNames`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/correctness/noDuplicateEnumValueNames`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
 - This rule doesn't have a fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
 - Sources: 
   - Same as [`@graphql-eslint/unique-enum-value-names`](https://the-guild.dev/graphql/eslint/rules/unique-enum-value-names)
 
@@ -26,7 +24,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"correctness": {
 				"noDuplicateEnumValueNames": "error"
 			}
 		}
@@ -52,7 +50,7 @@ enum A {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.graphql:3:8 <a href="https://biomejs.dev/linter/rules/no-duplicate-enum-value-names">lint/nursery/noDuplicateEnumValueNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Duplicate enum value name.</span><br />  <br />    <strong>1 │ </strong>enum A &#123;<br />    <strong>2 │ </strong>  TEST<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  OTHER<br />   <strong>   │ </strong>       <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  TEST<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A GraphQL enum type is only valid if all its values are uniquely named. Make sure to name every enum value differently.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.graphql:3:8 <a href="https://biomejs.dev/linter/rules/no-duplicate-enum-value-names">lint/correctness/noDuplicateEnumValueNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate enum value name.</span><br />  <br />    <strong>1 │ </strong>enum A &#123;<br />    <strong>2 │ </strong>  TEST<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  OTHER<br />   <strong>   │ </strong>       <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>  TEST<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A GraphQL enum type is only valid if all its values are uniquely named. Make sure to name every enum value differently.</span><br />  <br /></code></pre>
 
 ```graphql
 enum B {
@@ -61,7 +59,7 @@ enum B {
 }
 ```
 
-<pre class="language-text"><code class="language-text">code-block.graphql:2:7 <a href="https://biomejs.dev/linter/rules/no-duplicate-enum-value-names">lint/nursery/noDuplicateEnumValueNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Duplicate enum value name.</span><br />  <br />    <strong>1 │ </strong>enum B &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  TEST<br />   <strong>   │ </strong>      <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  TesT<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A GraphQL enum type is only valid if all its values are uniquely named. Make sure to name every enum value differently.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+<pre class="language-text"><code class="language-text">code-block.graphql:2:7 <a href="https://biomejs.dev/linter/rules/no-duplicate-enum-value-names">lint/correctness/noDuplicateEnumValueNames</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Duplicate enum value name.</span><br />  <br />    <strong>1 │ </strong>enum B &#123;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>  TEST<br />   <strong>   │ </strong>      <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>  TesT<br />   <strong>   │ </strong>  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">A GraphQL enum type is only valid if all its values are uniquely named. Make sure to name every enum value differently.</span><br />  <br /></code></pre>
 
 ### Valid
 
@@ -77,8 +75,8 @@ enum A {
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/nursery/no_duplicate_enum_value_names.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/nursery/noDuplicateEnumValueNames)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/correctness/no_duplicate_enum_value_names.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/correctness/noDuplicateEnumValueNames)
 
 </TabItem>
 </Tabs>

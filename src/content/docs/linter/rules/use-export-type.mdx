@@ -35,11 +35,17 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 ## Description
 Promotes the use of `export type` for types.
 
-_TypeScript_ allows adding the `type` keyword on an `export` to indicate that the `export` doesn't exist at runtime.
+_TypeScript_ allows specifying a `type` keyword on an `export` to indicate that the `export` doesn't exist at runtime.
 This allows compilers to safely drop exports of types without looking for their definition.
 
-The rule ensures that types are exported using a type-only `export`.
+The rule ensures that all exports used only as a type use a type-only `export`.
 It also groups inline type exports into a grouped `export type`.
+
+If you use the TypeScript Compiler (TSC) to compile your code into JavaScript,
+then you can disable this rule, as TSC can remove exports only used as types.
+However, for consistency and compatibility with other compilers, you may want to enable this rule.
+In that case, it's recommended to enable TSC's [`verbatimModuleSyntax`](https://www.typescriptlang.org/tsconfig/#verbatimModuleSyntax).
+This configuration ensures that TSC preserves exports not marked with the `type` keyword.
 
 ## Examples
 
@@ -86,6 +92,79 @@ It doesn't warn against a type exported as a value in a re-export clause such as
 ```ts
 export { TypeA } from "./mod.ts"
 ```
+
+## Options
+
+### `style`
+
+The `style` option allows enforcing a style for exporting types.
+The option supports three values:
+
+- `inlineType`: always use `export { type T }` instead of `export type { T }`
+- `separatedType`: always use `export type { T }` instead of `export { type T }`
+- `auto`: use `export type { T }` or `export { type T, V }` when values are exported alongside types (default)
+
+```jsonc title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useExportType": {
+					"options": {
+						"style": "inlineType"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```ts
+import type { A } from "./mod.ts";
+export { A };
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:8 <a href="https://biomejs.dev/linter/rules/use-export-type">lint/style/useExportType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Some exports are only types.</span><br />  <br />    <strong>1 │ </strong>import type &#123; A &#125; from &quot;./mod.ts&quot;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>export &#123; A &#125;;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This export is a type.</span><br />  <br />    <strong>1 │ </strong>import type &#123; A &#125; from &quot;./mod.ts&quot;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>export &#123; A &#125;;<br />   <strong>   │ </strong>         <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using </span><span style="color: lightgreen;"><strong>export type</strong></span><span style="color: lightgreen;"> allows compilers to safely drop exports of types without looking for their definition.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add inline </span><span style="color: lightgreen;"><strong>type</strong></span><span style="color: lightgreen;"> keywords.</span><br />  <br />  <strong>  2 │ </strong>export<span style="opacity: 0.8;">·</span>&#123;<span style="opacity: 0.8;">·</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">y</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">e</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span>A<span style="opacity: 0.8;">·</span>&#125;;<br />  <strong>    │ </strong>         <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>    <br /></code></pre>
+
+```ts
+import { A } from "./mod.ts";
+export type { A };
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:8 <a href="https://biomejs.dev/linter/rules/use-export-type">lint/style/useExportType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Some exports are only types.</span><br />  <br />    <strong>1 │ </strong>import &#123; A &#125; from &quot;./mod.ts&quot;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>export type &#123; A &#125;;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This export is a type.</span><br />  <br />    <strong>1 │ </strong>import &#123; A &#125; from &quot;./mod.ts&quot;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>export type &#123; A &#125;;<br />   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using </span><span style="color: lightgreen;"><strong>export type</strong></span><span style="color: lightgreen;"> allows compilers to safely drop exports of types without looking for their definition.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Add inline </span><span style="color: lightgreen;"><strong>type</strong></span><span style="color: lightgreen;"> keywords.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  import &#123; A &#125; from &quot;./mod.ts&quot;;<br />    <strong>2</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">e</span><span style="color: Tomato;">x</span><span style="color: Tomato;">p</span><span style="color: Tomato;">o</span><span style="color: Tomato;">r</span><span style="color: Tomato;">t</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>t</strong></span><span style="color: Tomato;"><strong>y</strong></span><span style="color: Tomato;"><strong>p</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: Tomato;">&#123;</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">A</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&#125;</span><span style="color: Tomato;">;</span><br />      <strong>2</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">x</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#123;</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><strong>y</strong></span><span style="color: MediumSeaGreen;"><strong>p</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;">A</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#125;</span><span style="color: MediumSeaGreen;">;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  <br />  <br /></code></pre>
+
+```jsonc title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"useExportType": {
+					"options": {
+						"style": "separatedType"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```ts
+import type { A } from "./mod.ts";
+export { A };
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:8 <a href="https://biomejs.dev/linter/rules/use-export-type">lint/style/useExportType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">All exports are only types.</span><br />  <br />    <strong>1 │ </strong>import type &#123; A &#125; from &quot;./mod.ts&quot;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>export &#123; A &#125;;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using </span><span style="color: lightgreen;"><strong>export type</strong></span><span style="color: lightgreen;"> allows compilers to safely drop exports of types without looking for their definition.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>export type</strong></span><span style="color: lightgreen;">.</span><br />  <br />  <strong>  2 │ </strong>export<span style="opacity: 0.8;">·</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;">y</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">e</span><span style="opacity: 0.8;"><span style="color: MediumSeaGreen;">·</span></span>&#123;<span style="opacity: 0.8;">·</span>A<span style="opacity: 0.8;">·</span>&#125;;<br />  <strong>    │ </strong>       <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>      <br /></code></pre>
+
+```ts
+import { A, B } from "./mod.ts";
+export { type A, B };
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:2:8 <a href="https://biomejs.dev/linter/rules/use-export-type">lint/style/useExportType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Orange;">⚠</span></strong> <span style="color: Orange;">Separate type exports from other exports.</span><br />  <br />    <strong>1 │ </strong>import &#123; A, B &#125; from &quot;./mod.ts&quot;;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>export &#123; type A, B &#125;;<br />   <strong>   │ </strong>       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Using </span><span style="color: lightgreen;"><strong>export type</strong></span><span style="color: lightgreen;"> allows compilers to safely drop exports of types without looking for their definition.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Safe fix</span><span style="color: lightgreen;">: </span><span style="color: lightgreen;">Extract types into a new export.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  import &#123; A, B &#125; from &quot;./mod.ts&quot;;<br />    <strong>2</strong>  <strong> │ </strong><span style="color: Tomato;">-</span> <span style="color: Tomato;">e</span><span style="color: Tomato;">x</span><span style="color: Tomato;">p</span><span style="color: Tomato;">o</span><span style="color: Tomato;">r</span><span style="color: Tomato;">t</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>&#123;</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;"><strong>t</strong></span><span style="color: Tomato;"><strong>y</strong></span><span style="color: Tomato;"><strong>p</strong></span><span style="color: Tomato;"><strong>e</strong></span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">A</span><span style="color: Tomato;">,</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">B</span><span style="color: Tomato;"><span style="opacity: 0.8;">·</span></span><span style="color: Tomato;">&#125;</span><span style="color: Tomato;">;</span><br />      <strong>2</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;">e</span><span style="color: MediumSeaGreen;">x</span><span style="color: MediumSeaGreen;">p</span><span style="color: MediumSeaGreen;">o</span><span style="color: MediumSeaGreen;">r</span><span style="color: MediumSeaGreen;">t</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><strong>y</strong></span><span style="color: MediumSeaGreen;"><strong>p</strong></span><span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>&#123;</strong></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">A</span><span style="color: MediumSeaGreen;">,</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;"><strong>&#125;</strong></span><span style="color: MediumSeaGreen;"><strong>;</strong></span><br />      <strong>3</strong><strong> │ </strong><span style="color: MediumSeaGreen;">+</span> <span style="color: MediumSeaGreen;"><strong>e</strong></span><span style="color: MediumSeaGreen;"><strong>x</strong></span><span style="color: MediumSeaGreen;"><strong>p</strong></span><span style="color: MediumSeaGreen;"><strong>o</strong></span><span style="color: MediumSeaGreen;"><strong>r</strong></span><span style="color: MediumSeaGreen;"><strong>t</strong></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;"><strong>&#123;</strong></span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;"><strong>·</strong></span></span><span style="color: MediumSeaGreen;">B</span><span style="color: MediumSeaGreen;"><span style="opacity: 0.8;">·</span></span><span style="color: MediumSeaGreen;">&#125;</span><span style="color: MediumSeaGreen;">;</span><br />    <strong>3</strong> <strong>4</strong><strong> │ </strong>  <br />  <br /></code></pre>
 
 ## Related links
 
