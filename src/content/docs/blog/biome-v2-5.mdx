@@ -28,7 +28,7 @@ The rule [`noUnusedClasses`](/linter/rules/no-unused-classes) analyses all the C
 
 The rule [`noUndeclaredClasses`](/linter/rules/no-undeclared-classes) analyses the `class` and `className` attributes of all your HTML-ish files and JSX files, and emits a diagnostic if a class hasn't been defined in any of the CSS files or `<style>` tags. It also detects the `:global()` pseudo-selector.
 
-What's really informative about this rule is the detailed level of information provided by the diagnostic. The message provides a printed version of the chain of impoted files with their relative CSS files. Here's an example, taken from our internal tests:
+What's really informative about this rule is the detailed level of information provided by the diagnostic. The message provides a printed version of the imported files with their relative CSS files. Here's an example, taken from our internal tests:
 
 ```txt
 Button.jsx:4:28 lint/nursery/noUndeclaredClasses ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -328,7 +328,7 @@ This release also includes several smaller features that are worth mentioning:
 - The JavaScript API now exposes `spanInBytesToSpanInCodeUnits`, which converts byte-based diagnostic spans into UTF-16 code unit spans for JavaScript strings.
 - Several rules received new options, including `noUnusedVariables.ignore`, `useIterableCallbackReturn.allowImplicit`, `useNumericSeparators` grouping options, `noUndeclaredDependencies.bundleDependencies`, and `noImplicitCoercions.allowDoubleNegation`.
 
-For a detailed list of all the new changes, consult the [changelog.](internals/changelog/version/2-5-0/)
+For a detailed list of all the new changes, consult the [changelog.](/internals/changelog/version/2-5-0/)
 
 ## I like where this is going, how can I help?
 
