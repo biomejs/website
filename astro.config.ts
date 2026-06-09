@@ -81,6 +81,8 @@ const plugins = [
 			"/internals/changelog",
 			"/internals/changelog/",
 			"/internals/changelog/**/*",
+			"/chat",
+			"/i18n-dashboard/",
 		],
 	}),
 	starlightChangelogs(),
@@ -881,10 +883,6 @@ export default defineConfig({
 						{
 							label: "GritQL Plugin Recipes",
 							link: "/recipes/gritql-plugins",
-							badge: {
-								text: "new",
-								variant: "success",
-							},
 						},
 					],
 				},
@@ -918,10 +916,6 @@ export default defineConfig({
 						{
 							label: "Language support",
 							link: "/internals/language-support",
-							badge: {
-								text: "updated",
-								variant: "note",
-							},
 							translations: {
 								es: "Soporte de lenguas",
 								fr: "Langages pris en charge",
