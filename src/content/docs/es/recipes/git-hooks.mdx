@@ -22,7 +22,7 @@ Algunos ejemplos de configuraciones _Lefthook_.:
   pre-commit:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
   ```
 
@@ -32,7 +32,7 @@ Algunos ejemplos de configuraciones _Lefthook_.:
   pre-commit:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
         stage_fixed: true
   ```
@@ -45,7 +45,7 @@ Algunos ejemplos de configuraciones _Lefthook_.:
   pre-push:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
   ```
 
@@ -90,8 +90,8 @@ Estos son algunos ejemplos de comandos que pueden resultarte útiles al ejecutar
 ```jsonc title="package.json"
 {
   "lint-staged": {
-    // Ejecuta Biome en archivos por etapas que tengan las siguientes extensiones: js, ts, jsx, tsx, json y jsonc
-    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+    // Ejecuta Biome en archivos por etapas que tengan las siguientes extensiones: js, ts, jsx, tsx, json, jsonc y css
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}": [
       "biome check --files-ignore-unknown=true", // Comprueba el formato y verificar errores
       "biome check --write --no-errors-on-unmatched", // Formatea, organiza importaciones, verifica errores, y aplica correcciones seguras
       "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched", // Formatea y aplica correcciones seguras
@@ -174,7 +174,7 @@ repos:
         entry: npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
-        files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
+        files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?|css)$"
 ```
 
 La opción de pre-commit `files` es opcional,

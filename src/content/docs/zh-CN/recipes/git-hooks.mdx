@@ -23,7 +23,7 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
   pre-commit:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
   ```
 
@@ -33,7 +33,7 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
   pre-commit:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
         stage_fixed: true
   ```
@@ -46,7 +46,7 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
   pre-push:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
   ```
 
@@ -92,8 +92,8 @@ lint-staged 的配置直接集成在 `package.json` 内。
 ```jsonc title="package.json"
 {
   "lint-staged": {
-    // Run Biome on staged files that have the following extensions: js, ts, jsx, tsx, json and jsonc
-    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+    // Run Biome on staged files that have the following extensions: js, ts, jsx, tsx, json, jsonc and css
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}": [
       "biome check --files-ignore-unknown=true", // Check formatting and lint
       "biome check --write --no-errors-on-unmatched", // Format, sort imports, lint, and apply safe fixes
       "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched", // format and apply safe fixes
@@ -178,7 +178,7 @@ repos:
         entry: npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
-        files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
+        files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?|css)$"
 ```
 
 pre-commit 配置项 `files ` 是可选的，
