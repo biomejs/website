@@ -23,7 +23,7 @@ Gitリポジトリのルートに`lefthook.yml`というファイルを追加し
   pre-commit:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
   ```
 
@@ -33,7 +33,7 @@ Gitリポジトリのルートに`lefthook.yml`というファイルを追加し
   pre-commit:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
         stage_fixed: true
   ```
@@ -46,7 +46,7 @@ Gitリポジトリのルートに`lefthook.yml`というファイルを追加し
   pre-push:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
   ```
 
@@ -91,8 +91,8 @@ Git Hooksを実行するときに便利なコマンドの例です：
 ```jsonc title="package.json"
 {
   "lint-staged": {
-    // 次の拡張子を持つステージングファイルに対してBiomeを実行する: js, ts, jsx, tsx, json and jsonc
-    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+    // 次の拡張子を持つステージングファイルに対してBiomeを実行する: js, ts, jsx, tsx, json, jsonc and css
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}": [
       "biome check --files-ignore-unknown=true", // フォーマットのチェックとリント
       "biome check --write --no-errors-on-unmatched", // フォーマット、インポート文のソート、リント、安全な修正の適用
       "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched", // フォーマットと安全な修正の適用
@@ -177,7 +177,7 @@ repos:
         entry: npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
-        files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
+        files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?|css)$"
 ```
 
 Biomeは`--files-ignore-unknown=true`を指定することで未知のファイルを無視するため、pre-commitの `files` オプションは必須ではありません。

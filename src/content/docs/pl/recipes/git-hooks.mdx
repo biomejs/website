@@ -23,7 +23,7 @@ Kilka przykładów konfiguracji _Lefthook_:
   pre-commit:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
   ```
 
@@ -33,7 +33,7 @@ Kilka przykładów konfiguracji _Lefthook_:
   pre-commit:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
         stage_fixed: true
   ```
@@ -46,7 +46,7 @@ Kilka przykładów konfiguracji _Lefthook_:
   pre-push:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
   ```
 
@@ -92,8 +92,8 @@ Oto kilka przykładów poleceń, które mogą być przydatne podczas uruchamiani
 ```jsonc title="package.json"
 {
   "lint-staged": {
-    // Uruchom Biome na przygotowanych plikach z następującymi rozszerzeniami: js, ts, jsx, tsx, json i jsonc
-    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
+    // Uruchom Biome na przygotowanych plikach z następującymi rozszerzeniami: js, ts, jsx, tsx, json, jsonc i css
+    "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}": [
       "biome check --files-ignore-unknown=true", // Sprawdź formatowanie i lintuj
       "biome check --write --no-errors-on-unmatched", // Formatuj, sortuj importy, lintuj i zastosuj bezpieczne poprawki
       "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched", // formatuj i zastosuj bezpieczne poprawki
@@ -178,7 +178,7 @@ repos:
         entry: npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
-        files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
+        files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?|css)$"
 ```
 
 Opcja pre-commit `files` jest opcjonalna,
