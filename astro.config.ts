@@ -81,6 +81,8 @@ const plugins = [
 			"/internals/changelog",
 			"/internals/changelog/",
 			"/internals/changelog/**/*",
+			"/chat",
+			"/i18n-dashboard/",
 		],
 	}),
 	starlightChangelogs(),
