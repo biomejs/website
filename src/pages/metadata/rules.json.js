@@ -4218,7 +4218,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow dependencies that are known to have better alternatives.\n\n This rule checks static imports, dynamic `import()`, and `require()` calls\n and suggests modern, native, or more maintainable alternatives based on\n [e18e](https://e18e.dev/)'s replacement data.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import glob from \"globby\";\n ```\n\n ```js,expect_diagnostic\n const glob = require(\"globby\");\n ```\n\n ```js,expect_diagnostic\n const glob = await import(\"globby\");\n ```\n\n ### Valid\n\n ```js\n import glob from \"tinyglobby\";\n ```\n\n ```js\n const glob = require(\"tinyglobby\");\n ```\n\n ```js\n const glob = await import(\"tinyglobby\");\n ```\n\n See <https://e18e.dev/docs/replacements/> for the full list of replacements.\n\n"
+            "docs": " Disallow dependencies that are known to have better alternatives.\n\n This rule checks static imports, dynamic `import()`, and `require()` calls\n and suggests modern, native, or more maintainable alternatives based on\n [e18e](https://e18e.dev/)'s replacement data.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import glob from \"globby\";\n ```\n\n ```js,expect_diagnostic\n const glob = require(\"globby\");\n ```\n\n ```js,expect_diagnostic\n const glob = await import(\"globby\");\n ```\n\n ### Valid\n\n ```js\n import glob from \"tinyglobby\";\n ```\n\n ```js\n const glob = require(\"tinyglobby\");\n ```\n\n ```js\n const glob = await import(\"tinyglobby\");\n ```\n\n See [the e18e docs](https://e18e.dev/docs/replacements/) for the full list of replacements.\n\n"
           },
           "noUndeclaredClasses": {
             "deprecated": false,
@@ -7642,7 +7642,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow dependencies that are known to have better alternatives.\n\n This rule checks `dependencies` and `devDependencies` in `package.json`\n against [e18e](https://e18e.dev/)'s replacement data and suggests modern, native, or more\n maintainable alternatives.\n\n ## Examples\n\n ### Invalid\n\n ```json,file=package.json,expect_diagnostic\n {\n   \"dependencies\": {\n     \"globby\": \"x.x.x\"\n   }\n }\n ```\n\n ### Valid\n\n ```json,file=package.json\n {\n   \"dependencies\": {\n     \"tinyglobby\": \"x.x.x\"\n   }\n }\n ```\n\n See <https://e18e.dev/docs/replacements/> for the full list of replacements.\n\n"
+            "docs": " Disallow dependencies that are known to have better alternatives.\n\n This rule checks `dependencies` and `devDependencies` in `package.json`\n against [e18e](https://e18e.dev/)'s replacement data and suggests modern, native, or more\n maintainable alternatives.\n\n ## Examples\n\n ### Invalid\n\n ```json,file=package.json,expect_diagnostic\n {\n   \"dependencies\": {\n     \"globby\": \"x.x.x\"\n   }\n }\n ```\n\n ### Valid\n\n ```json,file=package.json\n {\n   \"dependencies\": {\n     \"tinyglobby\": \"x.x.x\"\n   }\n }\n ```\n\n See [the e18e docs](https://e18e.dev/docs/replacements/) for the full list of replacements.\n\n"
           },
           "noTopLevelLiterals": {
             "deprecated": false,
