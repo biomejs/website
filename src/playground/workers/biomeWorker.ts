@@ -227,6 +227,7 @@ self.addEventListener("message", async (e) => {
 					},
 					experimentalFullSupportEnabled,
 				},
+				// @ts-expect-error Temporary
 				markdown: {
 					formatter: {
 						enabled: true,
@@ -277,6 +278,7 @@ self.addEventListener("message", async (e) => {
 				});
 			} else {
 				workspace.updateSettings({
+					// @ts-expect-error Temporary
 					configuration,
 					projectKey,
 					moduleGraphResolutionKind: "modulesAndTypes",
