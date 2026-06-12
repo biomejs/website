@@ -216,9 +216,11 @@ export const LANGUAGE = {
 
 export type Language = (typeof LANGUAGE)[keyof typeof LANGUAGE];
 
-export type LintRule =
-	| keyof typeof LINT_RULES
-	| keyof (typeof LINT_RULES)[keyof typeof LINT_RULES];
+type ValueOf<T> = T[keyof T];
+
+export type LintRule = ValueOf<{
+	[G in keyof typeof LINT_RULES]: ValueOf<(typeof LINT_RULES)[G]>;
+}>;
 
 export interface PlaygroundSettings {
 	lineWidth: number;
@@ -296,7 +298,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		bracketSpacing: true,
 		bracketSameLine: false,
 		expand: Expand.Auto,
-		lintRules: LINT_RULES.recommended,
+		lintRules: LINT_RULES.preset.recommended,
 		enabledLinting: true,
 		analyzerFixMode: "safeFixes",
 		enabledAssist: true,

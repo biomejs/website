@@ -7,24 +7,29 @@ Légende&nbsp;:
 - ✅&nbsp;: pris en charge
 - 🚫&nbsp;: pas en cours
 - ⌛️&nbsp;: en cours
-- ⚠️&nbsp;: partiellement pris en charge (avec quelques mises en garde)
+- 🟡&nbsp;: expérimental
 
-| Langage | Analyse | Formatage | Linting |
-| ------- | ------- | --------- | ------- |
-| JavaScript | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
-| TypeScript | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
-| JSX | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
-| TSX | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
-| JSON | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
-| JSONC | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
-| HTML | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> | <span aria-label="Pris en charge" role="img">✅</span> |
-| Vue | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> |
-| Svelte | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> |
-| Astro | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> | <span aria-label="Partiellement pris en charge" role="img">⚠️</span> |
-| CSS | <span aria-label="Pris en charge" role="img">✅️</span> | <span aria-label="Pris en charge" role="img">✅️</span> | <span aria-label="Pris en charge" role="img">✅️</span> |
-| [YAML](https://github.com/biomejs/biome/issues/2365) | <span aria-label="En cours" role="img">⌛️</span> | <span aria-label="Pas en cours" role="img">🚫</span> | <span aria-label="Pas en cours" role="img">🚫</span> |
-| GraphQL | <span aria-label="Pris en charge" role="img">✅️</span> | <span aria-label="Pris en charge" role="img">✅️</span> | <span aria-label="Pris en charge" role="img">✅️</span>
-| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="En cours" role="img">⌛️</span> | <span aria-label="Pas en cours" role="img">🚫</span> | <span aria-label="Pas en cours" role="img">🚫</span> |
+| Langage                                                  | Analyse                                                    | Formatage                                                  | Linting                                                      | Support des plugins                                          |
+|----------------------------------------------------------|------------------------------------------------------------|------------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------|
+| [JavaScript](#prise-en-charge-de-javascript)             | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>        | <span aria-label="Pris en charge" role="img">✅</span>        |
+| [TypeScript](#prise-en-charge-de-typescript)             | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>        | <span aria-label="Pris en charge" role="img">✅</span>        |
+| JSX                                                      | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>        | <span aria-label="Pris en charge" role="img">✅</span>        |
+| TSX                                                      | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>        | <span aria-label="Pris en charge" role="img">✅</span>        |
+| JSON                                                     | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>        | <span aria-label="Pris en charge" role="img">✅</span>        |
+| JSONC                                                    | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>        | <span aria-label="Pris en charge" role="img">✅</span>        |
+| HTML*                                                    | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>        | <span aria-label="Pris en charge" role="img">✅</span>        |
+| SVG                                                      | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>     | <span aria-label="Pris en charge" role="img">✅</span>        | <span aria-label="Pris en charge" role="img">✅</span>        |
+| [Vue](#prise-en-charge-des-super-langages-en-html)       | <span aria-label="Expérimental" role="img">🟡</span>      | <span aria-label="Expérimental" role="img">🟡</span>      | <span aria-label="Expérimental" role="img">🟡</span>         | <span aria-label="Expérimental" role="img">🟡</span>         |
+| [Svelte](#prise-en-charge-des-super-langages-en-html)    | <span aria-label="Expérimental" role="img">🟡</span>      | <span aria-label="Expérimental" role="img">🟡</span>      | <span aria-label="Expérimental" role="img">🟡</span>         | <span aria-label="Expérimental" role="img">🟡</span>         |
+| [Astro](#prise-en-charge-des-super-langages-en-html)     | <span aria-label="Expérimental" role="img">🟡</span>      | <span aria-label="Expérimental" role="img">🟡</span>      | <span aria-label="Expérimental" role="img">🟡</span>         | <span aria-label="Expérimental" role="img">🟡</span>         |
+| CSS                                                      | <span aria-label="Pris en charge" role="img">✅️</span>    | <span aria-label="Pris en charge" role="img">✅️</span>    | <span aria-label="Pris en charge" role="img">✅️</span>       | <span aria-label="Pris en charge" role="img">✅</span>        |
+| SCSS                                                     | <span aria-label="En cours" role="img">⌛️</span>          | <span aria-label="En cours" role="img">⌛️</span>          | <span aria-label="Pas en cours" role="img">🚫</span>         | <span aria-label="Pas en cours" role="img">🚫</span>         |
+| [YAML](https://github.com/biomejs/biome/issues/2365)     | <span aria-label="En cours" role="img">⌛️</span>          | <span aria-label="En cours" role="img">⌛️</span>          | <span aria-label="Pas en cours" role="img">🚫</span>         | <span aria-label="Pas en cours" role="img">🚫</span>         |
+| GraphQL                                                  | <span aria-label="Pris en charge" role="img">✅️</span>    | <span aria-label="Pris en charge" role="img">✅️</span>    | <span aria-label="Pris en charge" role="img">✅️</span>       | <span aria-label="Pas en cours" role="img">🚫</span>         |
+| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="En cours" role="img">⌛️</span>          | <span aria-label="En cours" role="img">⌛️</span>          | <span aria-label="Pas en cours" role="img">🚫</span>         | <span aria-label="Pas en cours" role="img">🚫</span>         |
+| GritQL                                                   | <span aria-label="Pris en charge" role="img">✅️</span>    | <span aria-label="Pris en charge" role="img">✅️</span>    | <span aria-label="Pas en cours" role="img">🚫</span>         | <span aria-label="Pas en cours" role="img">🚫</span>         |
+
+*\* nécessite actuellement une [activation explicite](/fr/reference/configuration/#html)*
 
 ## Prise en charge de JavaScript
 

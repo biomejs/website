@@ -25,6 +25,10 @@ Biome uses GritQL for two purposes:
 - The [`biome search`](/reference/cli/#biome-search) command, which we hope to
   extend to our IDE extensions as well.
 
+When GritQL is used in analyzer plugins, patterns can also include rewrites
+(`=>`) to provide fixable diagnostics. See [Linter Plugins](/linter/plugins)
+for details about safe vs unsafe fixes and `fix_kind`.
+
 ## Patterns
 
 GritQL queries work through _patterns_. The most common pattern you will see is

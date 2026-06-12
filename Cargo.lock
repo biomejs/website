@@ -361,6 +361,7 @@ dependencies = [
  "biome_rowan",
  "biome_string_case",
  "camino",
+ "schemars",
  "serde",
 ]
 
@@ -418,6 +419,7 @@ dependencies = [
  "camino",
  "enumflags2",
  "notify",
+ "schemars",
  "serde",
  "serde_json",
  "termcolor",
@@ -431,7 +433,9 @@ version = "0.5.7"
 source = "git+https://github.com/biomejs/biome.git?rev=c0b98327a3b14e44d8fbd9a11481bf56c505b8ed#c0b98327a3b14e44d8fbd9a11481bf56c505b8ed"
 dependencies = [
  "quote",
+ "schemars",
  "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -489,6 +493,7 @@ dependencies = [
  "path-absolutize",
  "rayon",
  "rustc-hash 2.1.2",
+ "schemars",
  "serde",
  "smallvec",
  "tracing",
@@ -575,6 +580,7 @@ dependencies = [
  "biome_rowan",
  "biome_string_case",
  "camino",
+ "schemars",
  "serde",
 ]
 
@@ -643,6 +649,7 @@ dependencies = [
  "rand 0.8.5",
  "regex",
  "rustc-hash 2.1.2",
+ "schemars",
  "serde",
  "serde_json",
 ]
@@ -655,6 +662,7 @@ dependencies = [
  "biome_rowan",
  "biome_string_case",
  "camino",
+ "schemars",
  "serde",
 ]
 
@@ -785,6 +793,7 @@ dependencies = [
  "regex",
  "roaring",
  "rustc-hash 2.1.2",
+ "schemars",
  "serde",
  "smallvec",
 ]
@@ -837,6 +846,8 @@ dependencies = [
  "enumflags2",
  "indexmap",
  "rustc-hash 2.1.2",
+ "schemars",
+ "serde",
  "serde_json",
  "smallvec",
  "tracing",
@@ -867,6 +878,7 @@ dependencies = [
  "biome_string_case",
  "camino",
  "enumflags2",
+ "schemars",
  "serde",
 ]
 
@@ -1057,6 +1069,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "biome_markdown_syntax"
+version = "0.0.1"
+source = "git+https://github.com/biomejs/biome.git?rev=c0b98327a3b14e44d8fbd9a11481bf56c505b8ed#c0b98327a3b14e44d8fbd9a11481bf56c505b8ed"
+dependencies = [
+ "biome_rowan",
+ "biome_string_case",
+ "camino",
+ "schemars",
+ "serde",
+]
+
+[[package]]
 name = "biome_markup"
 version = "0.5.7"
 source = "git+https://github.com/biomejs/biome.git?rev=c0b98327a3b14e44d8fbd9a11481bf56c505b8ed#c0b98327a3b14e44d8fbd9a11481bf56c505b8ed"
@@ -1112,6 +1136,7 @@ dependencies = [
  "papaya",
  "rustc-hash 2.1.2",
  "salsa",
+ "schemars",
  "serde",
  "serde_json",
  "static_assertions",
@@ -1323,6 +1348,7 @@ dependencies = [
  "biome_json_formatter",
  "biome_json_parser",
  "biome_json_syntax",
+ "biome_markdown_syntax",
  "biome_module_graph",
  "biome_package",
  "biome_parser",
@@ -1333,6 +1359,8 @@ dependencies = [
  "biome_string_case",
  "biome_text_edit",
  "biome_unicode_table",
+ "biome_yaml_formatter",
+ "biome_yaml_syntax",
  "boxcar",
  "bpaf",
  "camino",
@@ -1347,6 +1375,7 @@ dependencies = [
  "regex",
  "rustc-hash 2.1.2",
  "salsa",
+ "schemars",
  "serde",
  "serde_json",
  "smallvec",
@@ -1451,6 +1480,7 @@ version = "0.5.7"
 source = "git+https://github.com/biomejs/biome.git?rev=c0b98327a3b14e44d8fbd9a11481bf56c505b8ed#c0b98327a3b14e44d8fbd9a11481bf56c505b8ed"
 dependencies = [
  "biome_text_size",
+ "schemars",
  "serde",
  "similar",
 ]
@@ -1476,6 +1506,21 @@ source = "git+https://github.com/biomejs/biome.git?rev=c0b98327a3b14e44d8fbd9a11
 dependencies = [
  "biome_rowan",
  "biome_yaml_syntax",
+]
+
+[[package]]
+name = "biome_yaml_formatter"
+version = "0.1.0"
+source = "git+https://github.com/biomejs/biome.git?rev=c0b98327a3b14e44d8fbd9a11481bf56c505b8ed#c0b98327a3b14e44d8fbd9a11481bf56c505b8ed"
+dependencies = [
+ "biome_deserialize",
+ "biome_diagnostics",
+ "biome_formatter",
+ "biome_rowan",
+ "biome_suppression",
+ "biome_yaml_syntax",
+ "schemars",
+ "serde",
 ]
 
 [[package]]
@@ -2261,9 +2306,9 @@ dependencies = [
 
 [[package]]
 name = "h2"
-version = "0.4.14"
+version = "0.4.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "171fefbc92fe4a4de27e0698d6a5b392d6a0e333506bc49133760b3bcf948733"
+checksum = "2f44da3a8150a6703ed5d34e164b875fd14c2cdab9af1252a9a1020bde2bdc54"
 dependencies = [
  "atomic-waker",
  "bytes",
@@ -2295,9 +2340,9 @@ dependencies = [
 
 [[package]]
 name = "hashbrown"
-version = "0.17.0"
+version = "0.17.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4f467dd6dccf739c208452f8014c75c18bb8301b050ad1cfb27153803edb0f51"
+checksum = "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a"
 dependencies = [
  "allocator-api2",
  "equivalent",
@@ -2360,9 +2405,9 @@ checksum = "6dbf3de79e51f3d586ab4cb9d5c3e2c14aa28ed23d180cf89b4df0454a69cc87"
 
 [[package]]
 name = "hyper"
-version = "1.10.1"
+version = "1.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "55281c53a1894c864990125767da440a4e630446785086f52523b20033b74498"
+checksum = "6299f016b246a94207e63da54dbe807655bf9e00044f73ded42c3ac5305fbcca"
 dependencies = [
  "atomic-waker",
  "bytes",
@@ -2555,7 +2600,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d466e9454f08e4a911e14806c24e16fba1b4c121d1ea474396f396069cf949d9"
 dependencies = [
  "equivalent",
- "hashbrown 0.17.0",
+ "hashbrown 0.17.1",
  "serde",
  "serde_core",
 ]
@@ -2616,6 +2661,16 @@ name = "ipnet"
 version = "2.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d98f6fed1fde3f8c21bc40a1abb88dd75e67924f9cffc3ef95607bad8017f8e2"
+
+[[package]]
+name = "iri-string"
+version = "0.7.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "25e659a4bb38e810ebc252e53b5814ff908a8c58c2a9ce2fae1bbec24cbf4e20"
+dependencies = [
+ "memchr",
+ "serde",
+]
 
 [[package]]
 name = "is_ci"
@@ -3235,7 +3290,7 @@ dependencies = [
  "once_cell",
  "socket2",
  "tracing",
- "windows-sys 0.52.0",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -3575,7 +3630,7 @@ dependencies = [
  "boxcar",
  "crossbeam-queue",
  "crossbeam-utils",
- "hashbrown 0.17.0",
+ "hashbrown 0.17.1",
  "hashlink",
  "indexmap",
  "intrusive-collections",
@@ -3936,7 +3991,7 @@ dependencies = [
  "getrandom 0.4.2",
  "once_cell",
  "rustix",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -4156,20 +4211,20 @@ dependencies = [
 
 [[package]]
 name = "tower-http"
-version = "0.6.11"
+version = "0.6.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4cfcf7e2740e6fc6d4d688b4ef00650406bb94adf4731e43c096c3a19fe40840"
+checksum = "d4e6559d53cc268e5031cd8429d05415bc4cb4aefc4aa5d6cc35fbf5b924a1f8"
 dependencies = [
  "bitflags 2.11.0",
  "bytes",
  "futures-util",
  "http",
  "http-body",
+ "iri-string",
  "pin-project-lite",
  "tower",
  "tower-layer",
  "tower-service",
- "url",
 ]
 
 [[package]]

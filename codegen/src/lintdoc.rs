@@ -2077,12 +2077,11 @@ fn create_service_builders(docs: &'static str) -> Result<HashMap<usize, Analyzer
                     content.push_str(&text);
                 }
             }
-            Event::Start(Tag::Heading { level, .. }) => {
-                // When we encounter a heading we start a new content section to scope any file
-                // system to that section
-                if is_main_heading(level) {
-                    content_section += 1;
-                }
+            Event::Start(Tag::Heading { level, .. })
+            // When we encounter a heading we start a new content section to scope any file
+            // system to that section
+            if is_main_heading(level) => {
+                content_section += 1;
             }
             _ => {}
         }

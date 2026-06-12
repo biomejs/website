@@ -63,8 +63,8 @@ description: A page that maps {name_lower_case} from other sources to Biome
     )?;
 
     let rules = rules
-        .into_iter()
-        .flat_map(|(_, rule)| rule)
+        .into_values()
+        .flatten()
         .collect::<BTreeMap<&str, RuleToDocument>>();
 
     let mut rules_by_source = BTreeMap::<String, BTreeSet<SourceSet>>::new();
