@@ -24,7 +24,7 @@ Alguns exemplos de configurações:
   pre-commit:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
   ```
 
@@ -34,7 +34,7 @@ Alguns exemplos de configurações:
   pre-commit:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
         stage_fixed: true
   ```
@@ -47,7 +47,7 @@ Alguns exemplos de configurações:
   pre-push:
     commands:
       check:
-        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
+        glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
         run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
   ```
 
@@ -93,8 +93,8 @@ Aqui alguns exemplos de comandos que podem ser úteis ao executar os Git hooks:
 ```jsonc title="package.json"
 {
   "lint-staged": {
-    // Executa o Biome em arquivos em stage que possui as seguintes extensões: js, ts, jsx, tsx, json e jsonc.
-    "**.{js|ts|cjs|mjs|d.cts|d.mts|jsx|tsx|json|jsonc}": [
+    // Executa o Biome em arquivos em stage que possui as seguintes extensões: js, ts, jsx, tsx, json, jsonc e css.
+    "**.{js|ts|cjs|mjs|d.cts|d.mts|jsx|tsx|json|jsonc|css}": [
       "biome check --files-ignore-unknown=true", // Formatar e verificar erros.
       "biome check --write --no-errors-on-unmatched", // Formatar, organizar importações, verificar erros e aplicar correções seguras.
       "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched", // Formatar e aplicar correções seguras.
@@ -179,7 +179,7 @@ repos:
         entry: npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
-        files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
+        files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?|css)$"
 ```
 
 A opção `files` é opcional,

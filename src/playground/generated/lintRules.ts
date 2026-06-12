@@ -292,6 +292,7 @@ export const LINT_RULES = {
     usePlaywrightValidDescribeCallback: "usePlaywrightValidDescribeCallback",
     useQwikLoaderLocation: "useQwikLoaderLocation",
     useReactAsyncServerFunction: "useReactAsyncServerFunction",
+    useReactFunctionComponentDefinition: "useReactFunctionComponentDefinition",
     useReactNativePlatformComponents: "useReactNativePlatformComponents",
     useReduceTypeParameter: "useReduceTypeParameter",
     useRegexpExec: "useRegexpExec",
