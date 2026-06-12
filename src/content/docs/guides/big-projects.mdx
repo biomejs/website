@@ -179,6 +179,9 @@ which the `biome.json`/`biome.jsonc` file resides. When using the `extends`
 field, this means that paths in a shared configuration are interpreted from the
 location of the configuration that is extending it, and not from the folder
 of the file being extended.
+There is one exception: `plugins` entries that start with `./` or `../` are
+resolved relative to the configuration file where they are declared, even if
+that file is pulled in via `extends`.
 
 For example, let's assume a project that contains two directories `backend/` and
 `frontend/`, each having their own `biome.json` that both extend a `common.json`
