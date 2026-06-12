@@ -28,6 +28,7 @@ description: A page that maps rules from other sources to Biome
 - [noShoutyConstants](/linter/rules/no-shouty-constants) 
 - [noSuspiciousSemicolonInJsx](/linter/rules/no-suspicious-semicolon-in-jsx) 
 - [noSvgWithoutTitle](/linter/rules/no-svg-without-title) 
+- [noUndeclaredClasses](/linter/rules/no-undeclared-classes) 
 - [noUnusedFunctionParameters](/linter/rules/no-unused-function-parameters) 
 - [noUnusedTemplateLiteral](/linter/rules/no-unused-template-literal) 
 - [noUselessCatchBinding](/linter/rules/no-useless-catch-binding) 
@@ -54,6 +55,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### @e18e/eslint-plugin
 | @e18e/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
+| [ban-dependencies](https://github.com/e18e/eslint-plugin) |[noRestrictedDependencies](/linter/rules/no-restricted-dependencies) |
 | [prefer-array-at](https://github.com/e18e/eslint-plugin) |[useAtIndex](/linter/rules/use-at-index) |
 | [prefer-date-now](https://github.com/e18e/eslint-plugin) |[useDateNow](/linter/rules/use-date-now) |
 | [prefer-exponentiation-operator](https://github.com/e18e/eslint-plugin) |[useExponentiationOperator](/linter/rules/use-exponentiation-operator) |
@@ -448,6 +450,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [async-server-action](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/async-server-action.md) |[useReactAsyncServerFunction](/linter/rules/use-react-async-server-function) |
 | [button-has-type](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/button-has-type.md) |[useButtonType](/linter/rules/use-button-type) |
 | [forbid-elements](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/forbid-elements.md) |[noRestrictedElements](/linter/rules/no-restricted-elements) |
+| [function-component-definition](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/function-component-definition.md) |[useReactFunctionComponentDefinition](/linter/rules/use-react-function-component-definition) (inspired) |
 | [jsx-boolean-value](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md) |[noImplicitBoolean](/linter/rules/no-implicit-boolean) (inspired) |
 | [jsx-curly-brace-presence](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md) |[useConsistentCurlyBraces](/linter/rules/use-consistent-curly-braces) (inspired) |
 | [jsx-fragments](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-fragments.md) |[useFragmentSyntax](/linter/rules/use-fragment-syntax) |
@@ -665,6 +668,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-find](https://typescript-eslint.io/rules/prefer-find) |[useArrayFind](/linter/rules/use-array-find) |
 | [prefer-for-of](https://typescript-eslint.io/rules/prefer-for-of) |[useForOf](/linter/rules/use-for-of) |
 | [prefer-function-type](https://typescript-eslint.io/rules/prefer-function-type) |[useShorthandFunctionType](/linter/rules/use-shorthand-function-type) |
+| [prefer-includes](https://typescript-eslint.io/rules/prefer-includes) |[useIncludes](/linter/rules/use-includes) (inspired) |
 | [prefer-literal-enum-member](https://typescript-eslint.io/rules/prefer-literal-enum-member) |[useLiteralEnumMembers](/linter/rules/use-literal-enum-members) |
 | [prefer-namespace-keyword](https://typescript-eslint.io/rules/prefer-namespace-keyword) |[useNamespaceKeyword](/linter/rules/use-namespace-keyword) |
 | [prefer-nullish-coalescing](https://typescript-eslint.io/rules/prefer-nullish-coalescing) |[useNullishCoalescing](/linter/rules/use-nullish-coalescing) (inspired) |

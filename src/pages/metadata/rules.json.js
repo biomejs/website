@@ -296,7 +296,7 @@ export function GET() {
           },
           "noUnusedClasses": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noUnusedClasses",
             "link": "https://biomejs.dev/linter/rules/no-unused-classes",
             "recommended": false,
@@ -953,7 +953,7 @@ export function GET() {
           },
           "noAriaHiddenOnFocusable": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noAriaHiddenOnFocusable",
             "link": "https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable",
             "recommended": true,
@@ -976,7 +976,7 @@ export function GET() {
           },
           "noAriaUnsupportedElements": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noAriaUnsupportedElements",
             "link": "https://biomejs.dev/linter/rules/no-aria-unsupported-elements",
             "recommended": true,
@@ -1044,7 +1044,7 @@ export function GET() {
           },
           "noInteractiveElementToNoninteractiveRole": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noInteractiveElementToNoninteractiveRole",
             "link": "https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role",
             "recommended": true,
@@ -1061,7 +1061,7 @@ export function GET() {
           },
           "noLabelWithoutControl": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noLabelWithoutControl",
             "link": "https://biomejs.dev/linter/rules/no-label-without-control",
             "recommended": true,
@@ -1078,7 +1078,7 @@ export function GET() {
           },
           "noNoninteractiveElementInteractions": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noNoninteractiveElementInteractions",
             "link": "https://biomejs.dev/linter/rules/no-noninteractive-element-interactions",
             "recommended": false,
@@ -1095,7 +1095,7 @@ export function GET() {
           },
           "noNoninteractiveElementToInteractiveRole": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noNoninteractiveElementToInteractiveRole",
             "link": "https://biomejs.dev/linter/rules/no-noninteractive-element-to-interactive-role",
             "recommended": true,
@@ -1112,7 +1112,7 @@ export function GET() {
           },
           "noNoninteractiveTabindex": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noNoninteractiveTabindex",
             "link": "https://biomejs.dev/linter/rules/no-noninteractive-tabindex",
             "recommended": true,
@@ -1169,7 +1169,7 @@ export function GET() {
           },
           "noRedundantRoles": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noRedundantRoles",
             "link": "https://biomejs.dev/linter/rules/no-redundant-roles",
             "recommended": true,
@@ -1192,7 +1192,7 @@ export function GET() {
           },
           "noStaticElementInteractions": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noStaticElementInteractions",
             "link": "https://biomejs.dev/linter/rules/no-static-element-interactions",
             "recommended": true,
@@ -1258,7 +1258,7 @@ export function GET() {
           },
           "useAriaActivedescendantWithTabindex": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useAriaActivedescendantWithTabindex",
             "link": "https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex",
             "recommended": true,
@@ -1292,7 +1292,7 @@ export function GET() {
           },
           "useAriaPropsSupportedByRole": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useAriaPropsSupportedByRole",
             "link": "https://biomejs.dev/linter/rules/use-aria-props-supported-by-role",
             "recommended": true,
@@ -1344,7 +1344,7 @@ export function GET() {
           },
           "useFocusableInteractive": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useFocusableInteractive",
             "link": "https://biomejs.dev/linter/rules/use-focusable-interactive",
             "recommended": true,
@@ -1361,7 +1361,7 @@ export function GET() {
           },
           "useHeadingContent": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useHeadingContent",
             "link": "https://biomejs.dev/linter/rules/use-heading-content",
             "recommended": true,
@@ -1430,7 +1430,7 @@ export function GET() {
           },
           "useKeyWithClickEvents": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useKeyWithClickEvents",
             "link": "https://biomejs.dev/linter/rules/use-key-with-click-events",
             "recommended": true,
@@ -1447,7 +1447,7 @@ export function GET() {
           },
           "useKeyWithMouseEvents": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useKeyWithMouseEvents",
             "link": "https://biomejs.dev/linter/rules/use-key-with-mouse-events",
             "recommended": true,
@@ -1481,7 +1481,7 @@ export function GET() {
           },
           "useSemanticElements": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useSemanticElements",
             "link": "https://biomejs.dev/linter/rules/use-semantic-elements",
             "recommended": true,
@@ -1498,7 +1498,7 @@ export function GET() {
           },
           "useValidAnchor": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useValidAnchor",
             "link": "https://biomejs.dev/linter/rules/use-valid-anchor",
             "recommended": true,
@@ -1521,7 +1521,7 @@ export function GET() {
           },
           "useValidAriaProps": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useValidAriaProps",
             "link": "https://biomejs.dev/linter/rules/use-valid-aria-props",
             "recommended": true,
@@ -1561,7 +1561,7 @@ export function GET() {
           },
           "useValidAriaValues": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useValidAriaValues",
             "link": "https://biomejs.dev/linter/rules/use-valid-aria-values",
             "recommended": true,
@@ -1578,7 +1578,7 @@ export function GET() {
           },
           "useValidAutocomplete": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useValidAutocomplete",
             "link": "https://biomejs.dev/linter/rules/use-valid-autocomplete",
             "recommended": true,
@@ -1877,7 +1877,7 @@ export function GET() {
           },
           "noUndeclaredClasses": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noUndeclaredClasses",
             "link": "https://biomejs.dev/linter/rules/no-undeclared-classes",
             "recommended": false,
@@ -1929,7 +1929,7 @@ export function GET() {
           },
           "useSvelteRequireEachKey": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useSvelteRequireEachKey",
             "link": "https://biomejs.dev/linter/rules/use-svelte-require-each-key",
             "recommended": true,
@@ -2042,7 +2042,7 @@ export function GET() {
         "style": {
           "noExcessiveLinesPerFile": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noExcessiveLinesPerFile",
             "link": "https://biomejs.dev/linter/rules/no-excessive-lines-per-file",
             "recommended": false,
@@ -4205,7 +4205,7 @@ export function GET() {
           },
           "noRestrictedDependencies": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noRestrictedDependencies",
             "link": "https://biomejs.dev/linter/rules/no-restricted-dependencies",
             "recommended": false,
@@ -4222,7 +4222,7 @@ export function GET() {
           },
           "noUndeclaredClasses": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noUndeclaredClasses",
             "link": "https://biomejs.dev/linter/rules/no-undeclared-classes",
             "recommended": false,
@@ -4479,7 +4479,7 @@ export function GET() {
           },
           "useIncludes": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useIncludes",
             "link": "https://biomejs.dev/linter/rules/use-includes",
             "recommended": false,
@@ -7629,7 +7629,7 @@ export function GET() {
           },
           "noRestrictedDependencies": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "noRestrictedDependencies",
             "link": "https://biomejs.dev/linter/rules/no-restricted-dependencies",
             "recommended": false,
@@ -8865,6 +8865,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce the 'sandbox' attribute for 'iframe' elements.\n\n The sandbox attribute enables an extra set of restrictions for the content in the iframe.\n Using the sandbox attribute is considered a good security practice.\n\n See [the Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox) for details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function MyComponent() {\n   return <iframe src=\"https://example.com\" />;\n }\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent() {\n   return <iframe src=\"https://example.com\" sandbox=\"allow-popups\" />;\n }\n ```\n\n"
+          },
+          "useReactFunctionComponentDefinition": {
+            "deprecated": false,
+            "version": "2.5.0",
+            "name": "useReactFunctionComponentDefinition",
+            "link": "https://biomejs.dev/linter/rules/use-react-function-component-definition",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReact": "function-component-definition"
+                }
+              }
+            ],
+            "docs": " Enforce a specific function type for React function components.\n\n This rule keeps function component definitions consistent. By default, named\n components must be written as function declarations.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n ## Options\n\n ### `namedComponents`\n\n The function style to enforce for named React components.\n Accepted values are:\n - `\"functionDeclaration\"` (default): Enforce function declarations.\n - `\"functionExpression\"`: Enforce function expressions assigned to component bindings.\n - `\"arrowFunction\"`: Enforce arrow functions assigned to component bindings.\n\n #### `\"functionDeclaration\"`\n\n ```json,options\n {\n   \"options\": {\n     \"namedComponents\": \"functionDeclaration\"\n   }\n }\n ```\n\n ##### Invalid\n\n ```jsx,use_options,expect_diagnostic\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n ##### Valid\n\n ```jsx,use_options\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n #### `\"functionExpression\"`\n\n ```json,options\n {\n   \"options\": {\n     \"namedComponents\": \"functionExpression\"\n   }\n }\n ```\n\n ##### Invalid\n\n ```jsx,use_options,expect_diagnostic\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n ```jsx,use_options,expect_diagnostic\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n ##### Valid\n\n ```jsx,use_options\n const MyComponent = function (props) {\n   return <div>{props.name}</div>;\n };\n ```\n\n #### `\"arrowFunction\"`\n\n ```json,options\n {\n   \"options\": {\n     \"namedComponents\": \"arrowFunction\"\n   }\n }\n ```\n\n ##### Invalid\n\n ```jsx,use_options,expect_diagnostic\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n ```jsx,use_options,expect_diagnostic\n const MyComponent = function (props) {\n   return <div>{props.name}</div>;\n };\n ```\n\n ##### Valid\n\n ```jsx,use_options\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n"
           }
         },
         "performance": {
@@ -10017,7 +10034,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 558
+    "numberOrRules": 559
   },
   "syntax": {
     "languages": {
@@ -10087,7 +10104,7 @@ export function GET() {
         "source": {
           "useSortedEnumMembers": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useSortedEnumMembers",
             "link": "https://biomejs.dev/linter/rules/use-sorted-enum-members",
             "recommended": false,
@@ -10104,7 +10121,7 @@ export function GET() {
           },
           "useSortedSelectionSet": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useSortedSelectionSet",
             "link": "https://biomejs.dev/linter/rules/use-sorted-selection-set",
             "recommended": false,
@@ -10121,7 +10138,7 @@ export function GET() {
           },
           "useSortedTypeFields": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useSortedTypeFields",
             "link": "https://biomejs.dev/linter/rules/use-sorted-type-fields",
             "recommended": false,
@@ -10159,7 +10176,7 @@ export function GET() {
           },
           "useSortedAttributes": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useSortedAttributes",
             "link": "https://biomejs.dev/linter/rules/use-sorted-attributes",
             "recommended": false,
@@ -10271,7 +10288,7 @@ export function GET() {
           },
           "useSortedPackageJson": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useSortedPackageJson",
             "link": "https://biomejs.dev/linter/rules/use-sorted-package-json",
             "recommended": false,
@@ -10346,7 +10363,7 @@ export function GET() {
         "source": {
           "useSortedEnumMembers": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.0",
             "name": "useSortedEnumMembers",
             "link": "https://biomejs.dev/linter/rules/use-sorted-enum-members",
             "recommended": false,
