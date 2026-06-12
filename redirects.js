@@ -453,6 +453,7 @@ export default {
   '/linter/rules/useQwikMethodUsage': '/linter/rules/use-qwik-method-usage',
   '/linter/rules/useQwikValidLexicalScope': '/linter/rules/use-qwik-valid-lexical-scope',
   '/linter/rules/useReactAsyncServerFunction': '/linter/rules/use-react-async-server-function',
+  '/linter/rules/useReactFunctionComponentDefinition': '/linter/rules/use-react-function-component-definition',
   '/linter/rules/useReactFunctionComponents': '/linter/rules/use-react-function-components',
   '/linter/rules/useReactNativePlatformComponents': '/linter/rules/use-react-native-platform-components',
   '/linter/rules/useReadonlyClassProperties': '/linter/rules/use-readonly-class-properties',

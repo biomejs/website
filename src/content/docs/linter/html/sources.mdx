@@ -9,7 +9,9 @@ description: A page that maps rules from other sources to Biome
 ---
     
 ## Biome exclusive rules
+- [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) 
 - [noSvgWithoutTitle](/linter/rules/no-svg-without-title) 
+- [noUndeclaredClasses](/linter/rules/no-undeclared-classes) 
 - [useIframeSandbox](/linter/rules/use-iframe-sandbox) 
 - [useVueVapor](/linter/rules/use-vue-vapor) 
 ## Rules from other sources
@@ -25,10 +27,13 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | @html-eslint/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
 | [no-accesskey-attrs](https://html-eslint.org/docs/rules/no-accesskey-attrs) |[noAccessKey](/linter/rules/no-access-key) |
+| [no-aria-hidden-on-focusable](https://html-eslint.org/docs/rules/no-aria-hidden-on-focusable) |[noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable) |
 | [no-duplicate-attrs](https://html-eslint.org/docs/rules/no-duplicate-attrs) |[noDuplicateAttributes](/linter/rules/no-duplicate-attributes) |
+| [no-empty-headings](https://html-eslint.org/docs/rules/no-empty-headings) |[useHeadingContent](/linter/rules/use-heading-content) |
 | [no-inline-styles](https://html-eslint.org/docs/rules/no-inline-styles) |[noInlineStyles](/linter/rules/no-inline-styles) |
 | [no-invalid-role](https://html-eslint.org/docs/rules/no-invalid-role) |[useValidAriaRole](/linter/rules/use-valid-aria-role) |
 | [no-positive-tabindex](https://html-eslint.org/docs/rules/no-positive-tabindex) |[noPositiveTabindex](/linter/rules/no-positive-tabindex) |
+| [no-redundant-role](https://html-eslint.org/docs/rules/no-redundant-role) |[noRedundantRoles](/linter/rules/no-redundant-roles) |
 | [require-button-type](https://html-eslint.org/docs/rules/require-button-type) |[useButtonType](/linter/rules/use-button-type) |
 | [require-frame-title](https://html-eslint.org/docs/rules/require-frame-title) |[useIframeTitle](/linter/rules/use-iframe-title) |
 | [require-img-alt](https://html-eslint.org/docs/rules/require-img-alt) |[useAltText](/linter/rules/use-alt-text) |
@@ -47,21 +52,42 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [alt-text](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/alt-text.md) |[useAltText](/linter/rules/use-alt-text) (inspired) |
 | [anchor-ambiguous-text](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/anchor-ambiguous-text.md) |[noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text) |
 | [anchor-has-content](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/anchor-has-content.md) |[useAnchorContent](/linter/rules/use-anchor-content) (inspired) |
+| [anchor-is-valid](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/anchor-is-valid.md) |[useValidAnchor](/linter/rules/use-valid-anchor) (inspired) |
+| [aria-activedescendant-has-tabindex](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-activedescendant-has-tabindex.md) |[useAriaActivedescendantWithTabindex](/linter/rules/use-aria-activedescendant-with-tabindex) (inspired) |
+| [aria-props](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-props.md) |[useValidAriaProps](/linter/rules/use-valid-aria-props) (inspired) |
+| [aria-proptypes](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-proptypes.md) |[useValidAriaValues](/linter/rules/use-valid-aria-values) (inspired) |
 | [aria-role](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-role.md) |[useValidAriaRole](/linter/rules/use-valid-aria-role) (inspired) |
+| [aria-unsupported-elements](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-unsupported-elements.md) |[noAriaUnsupportedElements](/linter/rules/no-aria-unsupported-elements) (inspired) |
+| [autocomplete-valid](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/autocomplete-valid.md) |[useValidAutocomplete](/linter/rules/use-valid-autocomplete) (inspired) |
+| [click-events-have-key-events](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/click-events-have-key-events.md) |[useKeyWithClickEvents](/linter/rules/use-key-with-click-events) (inspired) |
+| [heading-has-content](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/heading-has-content.md) |[useHeadingContent](/linter/rules/use-heading-content) (inspired) |
 | [html-has-lang](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/html-has-lang.md) |[useHtmlLang](/linter/rules/use-html-lang) (inspired) |
 | [iframe-has-title](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/iframe-has-title.md) |[useIframeTitle](/linter/rules/use-iframe-title) (inspired) |
 | [img-redundant-alt](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/img-redundant-alt.md) |[noRedundantAlt](/linter/rules/no-redundant-alt) (inspired) |
+| [interactive-supports-focus](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/interactive-supports-focus.md) |[useFocusableInteractive](/linter/rules/use-focusable-interactive) (inspired) |
+| [label-has-associated-control](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-associated-control.md) |[noLabelWithoutControl](/linter/rules/no-label-without-control) (inspired) |
 | [lang](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/lang.md) |[useValidLang](/linter/rules/use-valid-lang) (inspired) |
 | [media-has-caption](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/media-has-caption.md) |[useMediaCaption](/linter/rules/use-media-caption) (inspired) |
+| [mouse-events-have-key-events](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/mouse-events-have-key-events.md) |[useKeyWithMouseEvents](/linter/rules/use-key-with-mouse-events) (inspired) |
 | [no-access-key](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-access-key.md) |[noAccessKey](/linter/rules/no-access-key) (inspired) |
+| [no-aria-hidden-on-focusable](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-aria-hidden-on-focusable.md) |[noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable) (inspired) |
 | [no-autofocus](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-autofocus.md) |[noAutofocus](/linter/rules/no-autofocus) (inspired) |
 | [no-distracting-elements](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-distracting-elements.md) |[noDistractingElements](/linter/rules/no-distracting-elements) (inspired) |
+| [no-interactive-element-to-noninteractive-role](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-interactive-element-to-noninteractive-role.md) |[noInteractiveElementToNoninteractiveRole](/linter/rules/no-interactive-element-to-noninteractive-role) (inspired) |
+| [no-noninteractive-element-interactions](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-noninteractive-element-interactions.md) |[noNoninteractiveElementInteractions](/linter/rules/no-noninteractive-element-interactions) (inspired) |
+| [no-noninteractive-element-to-interactive-role](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-noninteractive-element-to-interactive-role.md) |[noNoninteractiveElementToInteractiveRole](/linter/rules/no-noninteractive-element-to-interactive-role) (inspired) |
+| [no-noninteractive-tabindex](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-noninteractive-tabindex.md) |[noNoninteractiveTabindex](/linter/rules/no-noninteractive-tabindex) (inspired) |
+| [no-redundant-roles](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-redundant-roles.md) |[noRedundantRoles](/linter/rules/no-redundant-roles) (inspired) |
+| [no-static-element-interactions](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-static-element-interactions.md) |[noStaticElementInteractions](/linter/rules/no-static-element-interactions) (inspired) |
+| [prefer-tag-over-role](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/prefer-tag-over-role.md) |[useSemanticElements](/linter/rules/use-semantic-elements) (inspired) |
 | [role-has-required-aria-props](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/role-has-required-aria-props.md) |[useAriaPropsForRole](/linter/rules/use-aria-props-for-role) (inspired) |
+| [role-supports-aria-props](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/role-supports-aria-props.md) |[useAriaPropsSupportedByRole](/linter/rules/use-aria-props-supported-by-role) (inspired) |
 | [scope](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/scope.md) |[noHeaderScope](/linter/rules/no-header-scope) (inspired) |
 | [tabindex-no-positive](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/tabindex-no-positive.md) |[noPositiveTabindex](/linter/rules/no-positive-tabindex) (inspired) |
 ### eslint-plugin-qwik
 | eslint-plugin-qwik Rules name | Biome Rules name |
 | ---- | ---- |
+| [jsx-a](https://qwik.dev/docs/advanced/eslint/#jsx-a) |[useValidAnchor](/linter/rules/use-valid-anchor) (inspired) |
 | [jsx-no-script-url](https://qwik.dev/docs/advanced/eslint/#jsx-no-script-url) |[noScriptUrl](/linter/rules/no-script-url) |
 ### eslint-plugin-react
 | eslint-plugin-react Rules name | Biome Rules name |
@@ -77,6 +103,10 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-solid Rules name | Biome Rules name |
 | ---- | ---- |
 | [jsx-no-script-url](https://github.com/solidjs-community/eslint-plugin-solid/blob/main/packages/eslint-plugin-solid/docs/jsx-no-script-url.md) |[noScriptUrl](/linter/rules/no-script-url) |
+### eslint-plugin-svelte
+| eslint-plugin-svelte Rules name | Biome Rules name |
+| ---- | ---- |
+| [require-each-key](https://sveltejs.github.io/eslint-plugin-svelte/rules/require-each-key/) |[useSvelteRequireEachKey](/linter/rules/use-svelte-require-each-key) |
 ### eslint-plugin-vue
 | eslint-plugin-vue Rules name | Biome Rules name |
 | ---- | ---- |
