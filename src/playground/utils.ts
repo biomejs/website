@@ -240,7 +240,11 @@ export function isScssFilename(filename: string): boolean {
 }
 
 export function isGraphqlFilename(filename: string): boolean {
-	return filename.endsWith(".gql") || filename.endsWith(".graphql");
+	return (
+		filename.endsWith(".gql") ||
+		filename.endsWith(".graphql") ||
+		filename.endsWith(".graphqls")
+	);
 }
 
 export function isHtmlFilename(filename: string): boolean {
