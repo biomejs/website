@@ -53,6 +53,9 @@ importers:
       '@codemirror/lang-markdown':
         specifier: 6.5.0
         version: 6.5.0
+      '@codemirror/lang-sass':
+        specifier: 6.0.2
+        version: 6.0.2
       '@codemirror/lang-vue':
         specifier: 0.1.3
         version: 0.1.3
@@ -62,9 +65,6 @@ importers:
       '@codemirror/language':
         specifier: 6.12.3
         version: 6.12.3
-      '@codemirror/legacy-modes':
-        specifier: 6.5.3
-        version: 6.5.3
       '@codemirror/lint':
         specifier: 6.9.7
         version: 6.9.7
@@ -514,6 +514,9 @@ packages:
   '@codemirror/lang-markdown@6.5.0':
     resolution: {integrity: sha512-0K40bZ35jpHya6FriukbgaleaqzBLZfOh7HuzqbMxBXkbYMJDxfF39c23xOgxFezR+3G+tR2/Mup+Xk865OMvw==}
 
+  '@codemirror/lang-sass@6.0.2':
+    resolution: {integrity: sha512-l/bdzIABvnTo1nzdY6U+kPAC51czYQcOErfzQ9zSm9D8GmNPD0WTW8st/CJwBTPLO8jlrbyvlSEcN20dc4iL0Q==}
+
   '@codemirror/lang-vue@0.1.3':
     resolution: {integrity: sha512-QSKdtYTDRhEHCfo5zOShzxCmqKJvgGrZwDQSdbvCRJ5pRLWBS7pD/8e/tH44aVQT6FKm0t6RVNoSUWHOI5vNug==}
 
@@ -522,9 +525,6 @@ packages:
 
   '@codemirror/language@6.12.3':
     resolution: {integrity: sha512-QwCZW6Tt1siP37Jet9Tb02Zs81TQt6qQrZR2H+eGMcFsL1zMrk2/b9CLC7/9ieP1fjIUMgviLWMmgiHoJrj+ZA==}
-
-  '@codemirror/legacy-modes@6.5.3':
-    resolution: {integrity: sha512-xCsmIzH78MyWkib9jlPaaun57XNkfbMIhagfaZVd0iLTqlpw3jXaIcbZm72MTmmn64eTZpBVNjbyYh+QXnxRsg==}
 
   '@codemirror/lint@6.9.6':
     resolution: {integrity: sha512-6Kp7r6XfCi/D/5sdXieMfg9pJU1bUEx96WITuLU6ESaKizCz0QHFMjY/TaFSbigDdEAIgi93itLBIUETP4oK+A==}
@@ -1167,6 +1167,9 @@ packages:
 
   '@lezer/markdown@1.6.3':
     resolution: {integrity: sha512-jpGm5Ps+XErS+xA4urw7ogEGkeZOahVQF21Z6oECF0sj+2liwZopd2+I8uH5I/vZsRuuze3OxBREIANLf6KKUw==}
+
+  '@lezer/sass@1.1.0':
+    resolution: {integrity: sha512-3mMGdCTUZ/84ArHOuXWQr37pnf7f+Nw9ycPUeKX+wu19b7pSMcZGLbaXwvD2APMBDOGxPmpK/O6S1v1EvLoqgQ==}
 
   '@lezer/yaml@1.0.4':
     resolution: {integrity: sha512-2lrrHqxalACEbxIbsjhqGpSW8kWpUKuY6RHgnSAFZa6qK62wvnPxA8hGOwOoDbwHcOFs5M4o27mjGu+P7TvBmw==}
@@ -2131,9 +2134,6 @@ packages:
 
   '@types/nlcst@2.0.3':
     resolution: {integrity: sha512-vSYNSDe6Ix3q+6Z7ri9lyWqgGhJTmzRjZRqyq15N0Z/1/UnVsno9G/N40NBijoYx2seFDIl0+B2mgAb9mezUCA==}
-
-  '@types/node@24.12.2':
-    resolution: {integrity: sha512-A1sre26ke7HDIuY/M23nd9gfB+nrmhtYyMINbjI1zHJxYteKR6qSMX56FsmjMcDb3SMcjJg5BiRRgOCC/yBD0g==}
 
   '@types/node@24.12.4':
     resolution: {integrity: sha512-GUUEShf+PBCGW2KaXwcIt3Yk+e3pkKwWKb9GSyM9WQVE+ep2jzmHdGsHzu4wgcZy5fN9FBdVzjpBQsYlpfpgLA==}
@@ -6761,8 +6761,8 @@ snapshots:
 
   '@astrojs/starlight@0.39.3(astro@6.3.8(@netlify/blobs@10.7.9)(@types/node@24.12.4)(jiti@2.6.1)(rollup@4.60.1)(yaml@2.8.3))(typescript@5.9.3)':
     dependencies:
-      '@astrojs/markdown-remark': 7.1.1
-      '@astrojs/mdx': 5.0.4(astro@6.3.8(@netlify/blobs@10.7.9)(@types/node@24.12.4)(jiti@2.6.1)(rollup@4.60.1)(yaml@2.8.3))
+      '@astrojs/markdown-remark': 7.1.2
+      '@astrojs/mdx': 5.0.6(astro@6.3.8(@netlify/blobs@10.7.9)(@types/node@24.12.4)(jiti@2.6.1)(rollup@4.60.1)(yaml@2.8.3))
       '@astrojs/sitemap': 3.7.2
       '@pagefind/default-ui': 1.5.0
       '@types/hast': 3.0.4
@@ -7069,6 +7069,14 @@ snapshots:
       '@lezer/common': 1.5.2
       '@lezer/markdown': 1.6.3
 
+  '@codemirror/lang-sass@6.0.2':
+    dependencies:
+      '@codemirror/lang-css': 6.3.1
+      '@codemirror/language': 6.12.3
+      '@codemirror/state': 6.6.0
+      '@lezer/common': 1.5.2
+      '@lezer/sass': 1.1.0
+
   '@codemirror/lang-vue@0.1.3':
     dependencies:
       '@codemirror/lang-html': 6.4.11
@@ -7096,10 +7104,6 @@ snapshots:
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.8
       style-mod: 4.1.3
-
-  '@codemirror/legacy-modes@6.5.3':
-    dependencies:
-      '@codemirror/language': 6.12.3
 
   '@codemirror/lint@6.9.6':
     dependencies:
@@ -7585,6 +7589,12 @@ snapshots:
     dependencies:
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
+
+  '@lezer/sass@1.1.0':
+    dependencies:
+      '@lezer/common': 1.5.2
+      '@lezer/highlight': 1.2.3
+      '@lezer/lr': 1.4.8
 
   '@lezer/yaml@1.0.4':
     dependencies:
@@ -8837,10 +8847,6 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
-  '@types/node@24.12.2':
-    dependencies:
-      undici-types: 7.16.0
-
   '@types/node@24.12.4':
     dependencies:
       undici-types: 7.16.0
@@ -8861,7 +8867,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 24.12.2
+      '@types/node': 24.12.4
 
   '@types/triple-beam@1.3.5': {}
 
@@ -8875,7 +8881,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 24.12.2
+      '@types/node': 24.12.4
     optional: true
 
   '@typescript-eslint/project-service@8.58.1(typescript@5.9.3)':
@@ -13303,7 +13309,7 @@ snapshots:
 
   sitemap@9.0.1:
     dependencies:
-      '@types/node': 24.12.2
+      '@types/node': 24.12.4
       '@types/sax': 1.2.7
       arg: 5.0.2
       sax: 1.6.0
