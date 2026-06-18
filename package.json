@@ -30,7 +30,7 @@
     "@astrojs/mdx": "5.0.6",
     "@astrojs/netlify": "7.0.11",
     "@astrojs/prism": "4.0.2",
-    "@astrojs/react": "5.0.6",
+    "@astrojs/react": "5.0.7",
     "@astrojs/rss": "4.0.18",
     "@astrojs/starlight": "0.39.3",
     "@biomejs/biome": "2.4.16",
