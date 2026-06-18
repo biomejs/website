@@ -49,12 +49,9 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
-| [noDeprecatedMediaType](/linter/rules/no-deprecated-media-type) | Disallow deprecated media types. |  |
 | [noDuplicateSelectors](/linter/rules/no-duplicate-selectors) | Disallow duplicate selectors. |  |
-| [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) | Restrict the number of lines in a file. |  |
 | [noExcessiveSelectorClasses](/linter/rules/no-excessive-selector-classes) | Limit the number of classes in a selector. |  |
-| [noHexColors](/linter/rules/no-hex-colors) | Disallow hex colors. |  |
-| [noUnusedClasses](/linter/rules/no-unused-classes) | Reports CSS class selectors that are never referenced in any JSX or HTML file. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
+| [noUnusedClasses](/linter/rules/no-unused-classes) | Reports CSS class selectors that are never referenced in any JSX or HTML file. |  |
 | [useBaseline](/linter/rules/use-baseline) | Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline. |  |
 
 ## `style`
@@ -62,12 +59,15 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | Rule name | Description | Properties |
 | --- | --- | --- |
 | [noDescendingSpecificity](/linter/rules/no-descending-specificity) | Disallow a lower specificity selector from coming after a higher specificity selector. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) | Restrict the number of lines in a file. |  |
+| [noHexColors](/linter/rules/no-hex-colors) | Disallow hex colors. |  |
 | [noValueAtRule](/linter/rules/no-value-at-rule) | Disallow use of `@value` rule in CSS modules. |  |
 
 ## `suspicious`
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
+| [noDeprecatedMediaType](/linter/rules/no-deprecated-media-type) | Disallow deprecated media types. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noDuplicateAtImportRules](/linter/rules/no-duplicate-at-import-rules) | Disallow duplicate `@import` rules. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noDuplicateCustomProperties](/linter/rules/no-duplicate-custom-properties) | Disallow duplicate custom properties within declaration blocks. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noDuplicateFontNames](/linter/rules/no-duplicate-font-names) | Disallow duplicate names within font families. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
@@ -96,6 +96,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 - [noUnknownUnit](/linter/rules/no-unknown-unit) (Severity: [error](/reference/diagnostics#error))
 - [noUnmatchableAnbSelector](/linter/rules/no-unmatchable-anb-selector) (Severity: [error](/reference/diagnostics#error))
 - [noDescendingSpecificity](/linter/rules/no-descending-specificity) (Severity: [warning](/reference/diagnostics#warning))
+- [noDeprecatedMediaType](/linter/rules/no-deprecated-media-type) (Severity: [warning](/reference/diagnostics#warning))
 - [noDuplicateAtImportRules](/linter/rules/no-duplicate-at-import-rules) (Severity: [error](/reference/diagnostics#error))
 - [noDuplicateCustomProperties](/linter/rules/no-duplicate-custom-properties) (Severity: [error](/reference/diagnostics#error))
 - [noDuplicateFontNames](/linter/rules/no-duplicate-font-names) (Severity: [error](/reference/diagnostics#error))
