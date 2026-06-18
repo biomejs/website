@@ -1,3 +1,4 @@
+import { unified } from "@astrojs/markdown-remark";
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
@@ -1065,8 +1066,10 @@ export default defineConfig({
 	},
 
 	markdown: {
+		processor: unified({
+			rehypePlugins: [rehypeSlug],
+		}),
 		syntaxHighlight: "shiki",
-		rehypePlugins: [rehypeSlug],
 		shikiConfig: {
 			langAlias: {
 				cjs: "javascript",

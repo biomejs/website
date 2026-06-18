@@ -4,6 +4,8 @@ allowBuilds:
   sharp: false
   tombi: false
 linkWorkspacePackages: true
+minimumReleaseAgeExclude:
+  - astro@6.4.8
 packages:
   - "scripts"
   - "./"
