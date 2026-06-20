@@ -24,7 +24,7 @@ Kilka przykładów konfiguracji _Lefthook_:
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
-        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
   ```
 
 - Formatuj, lintuj i zastosuj bezpieczne poprawki kodu przed commitowaniem
@@ -34,7 +34,7 @@ Kilka przykładów konfiguracji _Lefthook_:
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
-        run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+        run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
         stage_fixed: true
   ```
 
@@ -47,7 +47,7 @@ Kilka przykładów konfiguracji _Lefthook_:
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
-        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {push_files}
   ```
 
 Zauważ, że nie musisz używać jednocześnie `glob` i `--files-ignore-unknown=true`.
@@ -57,6 +57,11 @@ Jeśli chcesz mieć większą kontrolę nad tym, które pliki są obsługiwane, 
 `--no-errors-on-unmatched` wycisza możliwe błędy w przypadku, gdy *nie są przetwarzane żadne pliki*.
 
 Po skonfigurowaniu uruchom `lefthook install`, aby skonfigurować hooki.
+
+
+:::note
+If you are using an older version of Lefthook and see raw ANSI escape sequences in your terminal, you should either upgrade Lefthook or configure Lefthook colors / set `NO_COLOR`. Alternatively, you can pass `--colors=off` to Biome.
+:::
 
 
 ## Husky

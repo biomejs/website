@@ -24,7 +24,7 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
-        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
   ```
 
 - 提交前进行格式化，lint，以及进行安全的代码修复
@@ -34,7 +34,7 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
-        run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+        run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
         stage_fixed: true
   ```
 
@@ -47,7 +47,7 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
     commands:
       check:
         glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc,css}"
-        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
+        run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true {push_files}
   ```
 
 注意，你不需要同时使用 `glob` 和 `--files-ignore-unknown=true`。
@@ -57,6 +57,11 @@ Git 允许在运行 git 命令的过程中执行 [Git Hooks](https://git-scm.com
 `--no-errors-on-unmatched` 会静默*没有文件被处理*的情况下产生的错误。
 
 完成配置后，运行 `lefthook install` 来设置 hooks。
+
+
+:::note
+If you are using an older version of Lefthook and see raw ANSI escape sequences in your terminal, you should either upgrade Lefthook or configure Lefthook colors / set `NO_COLOR`. Alternatively, you can pass `--colors=off` to Biome.
+:::
 
 
 ## Husky
