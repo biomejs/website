@@ -21,7 +21,6 @@ use biome_console::{
 use biome_css_analyze::CssAnalyzerServices;
 use biome_css_parser::CssParserOptions;
 use biome_css_syntax::CssLanguage;
-use biome_deserialize::json::deserialize_from_json_ast;
 use biome_diagnostics::termcolor::NoColor;
 use biome_diagnostics::{Diagnostic, DiagnosticExt, PrintDiagnostic, Severity, Visit};
 use biome_formatter::{Expand, LineWidth};
@@ -35,11 +34,16 @@ use biome_json_factory::make;
 use biome_json_formatter::context::JsonFormatOptions;
 use biome_json_formatter::format_node;
 use biome_json_parser::JsonParserOptions;
-use biome_json_syntax::{AnyJsonMemberName, AnyJsonValue, JsonLanguage, JsonObjectValue};
+use biome_json_syntax::{
+    AnyJsonMemberName, AnyJsonValue, JsonLanguage, JsonMember, JsonObjectValue,
+};
 use biome_languages::javascript::JsEmbeddingKind;
 use biome_languages::{DocumentFileSource, JsFileSource};
-use biome_rowan::{AstNode, TextSize};
-use biome_ruledoc_utils::{AnalyzerServicesBuilder, CodeBlock, OptionsParsingMode};
+use biome_rowan::{AstNode, AstSeparatedList};
+use biome_ruledoc_utils::{
+    AnalyzerServicesBuilder, CodeBlock, DiagnosticConsoleWriter, OptionsParsingMode,
+    parse_rule_options,
+};
 use biome_service::settings::ServiceLanguage;
 use biome_string_case::Case;
 use biome_text_edit::TextEdit;
@@ -633,7 +637,7 @@ fn generate_rule(payload: GenRule, path_prefix: &str, rule_category: RuleCategor
 
     if !errors.is_empty() {
         bail!(
-            "Errors generate while generating rule content for {}: {:?}",
+            "Errors generate while generating rule content for {}: \n{:?}",
             payload.rule_name,
             errors
         );
@@ -880,7 +884,7 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<(Vec<u8>, String, 
     }
 
     write_how_to_configure(group, rule_name, &mut content, &rule_category)?;
-    write_documentation(group, rule_name, meta.docs, &mut content)?;
+    write_documentation(group, meta, meta.docs, &mut content, rule_category)?;
     let crate_link = rule_crate_name(meta.language);
     let source_code_url = rule_source_code_url(meta.language, group, rule_name, rule_category);
     let test_cases_file_path = format!("{crate_link}/tests/specs/{group}/{rule_name}");
@@ -951,248 +955,104 @@ fn make_json_object_with_single_member<V: Into<AnyJsonValue>>(
 ) -> JsonObjectValue {
     make::json_object_value(
         make::token(biome_json_syntax::JsonSyntaxKind::L_CURLY),
-        make::json_member_list(
-            [make::json_member(
-                AnyJsonMemberName::JsonMemberName(make::json_member_name(
-                    make::json_string_literal(name),
-                )),
-                make::token(biome_json_syntax::JsonSyntaxKind::COLON),
-                value.into(),
-            )],
-            [],
-        ),
+        make::json_member_list([make_json_member(name, value)], []),
         make::token(biome_json_syntax::JsonSyntaxKind::R_CURLY),
     )
 }
 
-fn get_first_member<V: Into<AnyJsonValue>>(parent: V, expected_name: &str) -> Option<AnyJsonValue> {
-    let parent_value: AnyJsonValue = parent.into();
-    let member = parent_value
-        .as_json_object_value()?
-        .json_member_list()
-        .into_iter()
-        .next()?
-        .ok()?;
-    let member_name = member
-        .name()
-        .ok()?
-        .as_json_member_name()?
-        .inner_string_text()
-        .ok()?
-        .to_string();
-
-    if member_name.as_str() == expected_name {
-        member.value().ok()
-    } else {
-        None
-    }
+fn make_json_member<V: Into<AnyJsonValue>>(name: &str, value: V) -> JsonMember {
+    make::json_member(
+        AnyJsonMemberName::JsonMemberName(make::json_member_name(make::json_string_literal(name))),
+        make::token(biome_json_syntax::JsonSyntaxKind::COLON),
+        value.into(),
+    )
 }
 
-/// Parse the options fragment for a lint rule and return the parsed options.
-fn parse_rule_options(
+fn format_rule_options(
     group: &'static str,
-    rule: &'static str,
+    rule: &RuleMetadata,
+    category: RuleCategory,
     test: &CodeBlock,
     code: &str,
-    content: &mut Vec<u8>,
-) -> anyhow::Result<(Option<Configuration>, String)> {
-    let mut write = HTML::new(content).with_mdx();
-
-    let mut write_diagnostic = |_: &str, diag: biome_diagnostics::Error| {
-        Formatter::new(&mut write).write_markup(markup! {
-            {PrintDiagnostic::verbose(&diag)}
-        })?;
-        anyhow::Ok(Option::<Configuration>::None)
+) -> anyhow::Result<String> {
+    let DocumentFileSource::Json(file_source) = test.document_file_source() else {
+        bail!(
+            "The following non-JSON code block for '{group}/{}' was marked as containing configuration options. Only JSON code blocks can used to provide configuration options.\n\n{code}",
+            rule.name
+        );
     };
 
-    match test.document_file_source() {
-        DocumentFileSource::Json(file_source) => {
-            let parse = biome_json_parser::parse_json(code, JsonParserOptions::from(&file_source));
-
-            if parse.has_errors() {
-                for diag in parse.into_diagnostics() {
-                    let error = diag
-                        .with_file_path(test.file_path())
-                        .with_file_source_code(code);
-                    write_diagnostic(code, error)?;
-                }
-                // Parsing failed, but test.expect_diagnostic is true
-                return Ok((None, String::new()));
-            }
-
-            let parsed_root = parse.tree();
-            let parsed_options = parsed_root.value()?;
-
-            let (root, subtract_offset) = match test.options {
-                OptionsParsingMode::NoOptions => {
-                    unreachable!("parse_rule_options should only be called for options blocks")
-                }
-                OptionsParsingMode::RuleOptionsOnly => {
-                    // By convention, the configuration blocks in the documentation
-                    // only contain the settings for the lint rule itself, like so:
-                    //
-                    // ```json,options
-                    // {
-                    //     "options": {
-                    //         ...
-                    //     }
-                    // }
-                    // ```
-                    //
-                    // We therefore extend the JSON AST with some synthetic elements
-                    // to make it match the structure expected by the configuration parse:
-                    //
-                    // {
-                    //     "linter": {
-                    //         "rules": {
-                    //             "<group>": {
-                    //                 "<rule>": {<options>}
-                    //             }
-                    //         }
-                    //     }
-                    // }
-                    //
-                    // Or, for assist actions:
-                    //
-                    // {
-                    //     "assist": {
-                    //         "actions": {
-                    //             "<group>": {
-                    //                 "<rule>": {<options>}
-                    //             }
-                    //         }
-                    //     }
-                    // }
-                    let is_assist = group == "source";
-                    let synthetic_tree = if is_assist {
-                        make_json_object_with_single_member(
-                            "assist",
-                            make_json_object_with_single_member(
-                                "actions",
-                                make_json_object_with_single_member(
-                                    group,
-                                    make_json_object_with_single_member(rule, parsed_options),
-                                ),
-                            ),
-                        )
-                    } else {
-                        make_json_object_with_single_member(
-                            "linter",
-                            make_json_object_with_single_member(
-                                "rules",
-                                make_json_object_with_single_member(
-                                    group,
-                                    make_json_object_with_single_member(rule, parsed_options),
-                                ),
-                            ),
-                        )
-                    };
-
-                    // Create a new JsonRoot from the synthetic AST
-                    let eof_token = parsed_root.eof_token()?;
-                    let mut root_builder = make::json_root(synthetic_tree.into(), eof_token);
-                    if let Some(bom_token) = parsed_root.bom_token() {
-                        root_builder = root_builder.with_bom_token(bom_token);
-                    }
-                    let synthetic_root = root_builder.build();
-
-                    // Adjust source code spans to account for the synthetic nodes
-                    // so that errors are reported at the correct source code locations:
-                    let original_offset =
-                        parsed_root.value().ok().map(|v| AstNode::range(&v).start());
-                    let wrapped_offset = if is_assist {
-                        synthetic_root
-                            .value()
-                            .ok()
-                            .and_then(|v| get_first_member(v, "assist"))
-                            .and_then(|v| get_first_member(v, "actions"))
-                            .and_then(|v| get_first_member(v, group))
-                            .and_then(|v| get_first_member(v, rule))
-                            .map(|v| AstNode::range(&v).start())
-                    } else {
-                        synthetic_root
-                            .value()
-                            .ok()
-                            .and_then(|v| get_first_member(v, "linter"))
-                            .and_then(|v| get_first_member(v, "rules"))
-                            .and_then(|v| get_first_member(v, group))
-                            .and_then(|v| get_first_member(v, rule))
-                            .map(|v| AstNode::range(&v).start())
-                    };
-                    let subtract_offset = wrapped_offset
-                        .zip(original_offset)
-                        .and_then(|(wrapped, original)| wrapped.checked_sub(original))
-                        .unwrap_or_default();
-
-                    (synthetic_root, subtract_offset)
-                }
-                OptionsParsingMode::FullConfiguration => {
-                    // In some rare cases, we want to be able to display full JSON configuration
-                    // instead, e.t. to be able to show off per-file overrides:
-                    //
-                    // ```json,full-options
-                    // {
-                    //     "linter": {
-                    //         "rules": {
-                    //             "<group>": {
-                    //                 "<rule>": {<options>}
-                    //             }
-                    //         }
-                    //     }
-                    // }
-                    // ```
-                    (parsed_root, TextSize::from(0))
-                }
-            };
-
-            // Deserialize the configuration from the partially-synthetic AST,
-            // and report any errors encountered during deserialization.
-            let deserialized = deserialize_from_json_ast::<Configuration>(&root, "");
-            let formatted = format_node(
-                JsonFormatOptions::default().with_expand(Expand::Always),
-                root.syntax(),
-            )?
-            .print()?
-            .as_code()
-            .to_string();
-
-            let (partial_configuration, deserialize_diagnostics) = deserialized.consume();
-
-            if !deserialize_diagnostics.is_empty() {
-                for diag in deserialize_diagnostics {
-                    // Adjust source code spans to account for the synthetic nodes
-                    // so that errors are reported at the correct source code locations:
-                    let new_span = diag
-                        .location()
-                        .span
-                        .and_then(|span| span.checked_sub(subtract_offset));
-
-                    let error = diag
-                        .with_file_path(test.file_path())
-                        .with_file_source_code(code)
-                        .with_file_span(new_span);
-
-                    write_diagnostic(code, error)?;
-                }
-                // Deserialization failed, but test.expect_diagnostic is true
-                return Ok((None, formatted));
-            }
-
-            let Some(result) = partial_configuration else {
-                bail!(
-                    "Failed to deserialize configuration options for '{group}/{rule}' from the following code block due to unknown error.\n\n{code}"
-                );
-            };
-
-            Ok((Some(result), formatted))
-        }
-        _ => {
-            // Only JSON code blocks can contain configuration options
-            bail!(
-                "The following non-JSON code block for '{group}/{rule}' was marked as containing configuration options. Only JSON code blocks can used to provide configuration options.\n\n{code}"
-            );
-        }
+    let parse = biome_json_parser::parse_json(code, JsonParserOptions::from(&file_source));
+    if parse.has_errors() {
+        return Ok(String::new());
     }
+
+    let parsed_root = parse.tree();
+    let parsed_options = parsed_root.value()?;
+
+    let root = match test.options {
+        OptionsParsingMode::NoOptions => {
+            unreachable!("format_rule_options should only be called for options blocks")
+        }
+        OptionsParsingMode::RuleOptionsOnly => {
+            let lint_or_assist = if category == RuleCategory::Lint {
+                "linter"
+            } else {
+                "assist"
+            };
+            let rules_or_actions = if category == RuleCategory::Lint {
+                "rules"
+            } else {
+                "actions"
+            };
+            let parsed_options = make::json_object_value(
+                make::token(biome_json_syntax::JsonSyntaxKind::L_CURLY),
+                make::json_member_list(
+                    [
+                        make_json_member(
+                            "level",
+                            make::json_string_value(make::json_string_literal("on")),
+                        ),
+                        parsed_options
+                            .as_json_object_value()
+                            .unwrap()
+                            .json_member_list()
+                            .first()
+                            .unwrap()
+                            .unwrap(),
+                    ],
+                    [make::token(biome_json_syntax::JsonSyntaxKind::COMMA)],
+                ),
+                make::token(biome_json_syntax::JsonSyntaxKind::R_CURLY),
+            );
+            let synthetic_tree = make_json_object_with_single_member(
+                lint_or_assist,
+                make_json_object_with_single_member(
+                    rules_or_actions,
+                    make_json_object_with_single_member(
+                        group,
+                        make_json_object_with_single_member(rule.name, parsed_options),
+                    ),
+                ),
+            );
+
+            let eof_token = parsed_root.eof_token()?;
+            let mut root_builder = make::json_root(synthetic_tree.into(), eof_token);
+            if let Some(bom_token) = parsed_root.bom_token() {
+                root_builder = root_builder.with_bom_token(bom_token);
+            }
+            root_builder.build()
+        }
+        OptionsParsingMode::FullConfiguration => parsed_root,
+    };
+
+    Ok(format_node(
+        JsonFormatOptions::default().with_expand(Expand::Always),
+        root.syntax(),
+    )?
+    .print()?
+    .as_code()
+    .to_string())
 }
 
 fn write_how_to_configure(
@@ -1238,9 +1098,10 @@ fn write_how_to_configure(
 /// the content for the corresponding documentation page
 fn write_documentation(
     group: &'static str,
-    rule: &'static str,
+    rule: &RuleMetadata,
     docs: &'static str,
     content: &mut Vec<u8>,
+    category: RuleCategory,
 ) -> Result<()> {
     writeln!(content, "## Description")?;
 
@@ -1294,9 +1155,18 @@ fn write_documentation(
             Event::End(TagEnd::CodeBlock) => {
                 if let Some((test, block)) = language.take() {
                     if test.options != OptionsParsingMode::NoOptions {
-                        let (options, formatted) =
-                            parse_rule_options(group, rule, &test, &block, content)
-                                .context("snapshot test failed")?;
+                        let mut diagnostics_writer = DiagnosticConsoleWriter::default();
+                        let options = parse_rule_options(
+                            group,
+                            rule,
+                            category,
+                            &test,
+                            &block,
+                            &mut diagnostics_writer,
+                        )
+                        .context("Failed to parse the rule options")?;
+                        let formatted = format_rule_options(group, rule, category, &test, &block)
+                            .context("Failed to format the rule options")?;
                         last_options = options;
                         write!(content, "{formatted}")?;
                         writeln!(content)?;
@@ -1313,7 +1183,7 @@ fn write_documentation(
 
                         print_diagnostics_or_actions(
                             group,
-                            rule,
+                            rule.name,
                             &test,
                             &block,
                             last_options.clone(),
@@ -1323,7 +1193,7 @@ fn write_documentation(
                                 .unwrap_or(&default_service_builder),
                             ToPrintKind::Diagnostics,
                         )
-                        .context("snapshot test failed")?;
+                        .context("To print diagnostics or actions")?;
                     } else if test.expect_diff {
                         writeln!(content, "```")?;
                         writeln!(content)?;
@@ -1335,7 +1205,7 @@ fn write_documentation(
 
                         print_diagnostics_or_actions(
                             group,
-                            rule,
+                            rule.name,
                             &test,
                             &block,
                             last_options.clone(),
@@ -1345,7 +1215,7 @@ fn write_documentation(
                                 .unwrap_or(&default_service_builder),
                             ToPrintKind::Actions,
                         )
-                        .context("snapshot test failed")?;
+                        .context("To print diagnostics or actions")?;
                     } else {
                         writeln!(content, "```")?;
                         writeln!(content)?;
