@@ -149,6 +149,10 @@ Accepts `OpenFileParams`.
 interface OpenFileParams {
 	content: FileContent;
 	documentFileSource?: DocumentFileSource;
+	/**
+	 * Used to enable further document services e.g. semantic model
+	 */
+	editorFeatures?: EditorFeatures;
 	inlineConfig?: Configuration;
 	path: string;
 	/**
@@ -174,6 +178,10 @@ Accepts `ChangeFileParams`.
 ```ts
 interface ChangeFileParams {
 	content: string;
+	/**
+	 * Used to enable further document services e.g. semantic model
+	 */
+	editorFeatures?: EditorFeatures;
 	inlineConfig?: Configuration;
 	path: string;
 	projectKey: number;
@@ -204,10 +212,10 @@ Returns `void`.
 
 ### `biome/file_exists`
 
-Accepts `FileExitsParams`.
+Accepts `FileExistsParams`.
 
 ```ts
-interface FileExitsParams {
+interface FileExistsParams {
 	filePath: string;
 }
 ```
@@ -649,7 +657,7 @@ Accepts `ParsePatternParams`.
 
 ```ts
 interface ParsePatternParams {
-	defaultLanguage: GritTargetLanguage;
+	defaultLanguage: string;
 	pattern: string;
 }
 ```

@@ -297,7 +297,7 @@ Stops the Biome daemon server process.
 
 Runs formatter, linter and import sorting to the requested files.
 
-**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--profile-rules`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[**`--watch`**\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--profile-rules`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_\]... \[**`--watch`**\] \[_`PATH`_\]...
 
 **Options that changes how the JSON parser behaves**
 - **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
@@ -660,24 +660,24 @@ Runs formatter, linter and import sorting to the requested files.
   When set to true, only the files that have been changed compared to your `defaultBranch` configuration will be linted. This option should be used in CI environments.
 - **`    --since`**=_`REF`_ &mdash; 
   Use this to specify the base branch to compare against when you're using the --changed flag and the `defaultBranch` is not set in your `biome.json`
-- **`    --only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
-  Run only the given lint rule, assist action, group of rules and actions, or domain. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise.
+- **`    --only`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_ &mdash; 
+  Run only the given lint rule, assist action, group of rules and actions, or domain. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise. Use the `plugin` group to run only the analyzer plugins.
 
   Example:
 
   
   ```shell
-  biome check --only=correctness/noUnusedVariables --only=suspicious --only=test
+  biome check --only=correctness/noUnusedVariables --only=suspicious --only=test --only=plugin
   ```
 
-- **`    --skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
-  Skip the given lint rule, assist action, group of rules and actions, or domain by setting the severity level of the rules to `off`. This option takes precedence over `--only`.
+- **`    --skip`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_ &mdash; 
+  Skip the given lint rule, assist action, group of rules and actions, or domain by setting the severity level of the rules to `off`. This option takes precedence over `--only`. Use the `plugin` group to skip the analyzer plugins.
 
   Example:
 
   
   ```shell
-  biome check --skip=correctness/noUnusedVariables --skip=suspicious --skip=project
+  biome check --skip=correctness/noUnusedVariables --skip=suspicious --skip=project --skip=plugin
   ```
 
 - **`    --watch`** &mdash; 
@@ -690,7 +690,7 @@ Runs formatter, linter and import sorting to the requested files.
 
 Run various checks on a set of files.
 
-**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--suppress`**\] \[**`--reason`**=_`STRING`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--profile-rules`**\] \[**`--watch`**\] \[_`PATH`_\]...
+**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--suppress`**\] \[**`--reason`**=_`STRING`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_\]... \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--profile-rules`**\] \[**`--watch`**\] \[_`PATH`_\]...
 
 **Options that changes how the JSON parser behaves**
 - **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
@@ -819,24 +819,24 @@ Run various checks on a set of files.
   Fixes lint rule violations with comment suppressions instead of using a rule code action (fix)
 - **`    --reason`**=_`STRING`_ &mdash; 
   Explanation for suppressing diagnostics with `--suppress`
-- **`    --only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
-  Run only the given lint rule, assist action, group of rules and actions, or domain. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise.
+- **`    --only`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_ &mdash; 
+  Run only the given lint rule, assist action, group of rules and actions, or domain. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise. Use the `plugin` group to run only the analyzer plugins.
 
   Example:
 
   
   ```shell
-  biome lint --only=correctness/noUnusedVariables --only=suspicious --only=test
+  biome lint --only=correctness/noUnusedVariables --only=suspicious --only=test --only=plugin
   ```
 
-- **`    --skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
-  Skip the given lint rule, assist action, group of rules and actions, or domain by setting the severity level of the rules to `off`. This option takes precedence over `--only`.
+- **`    --skip`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_ &mdash; 
+  Skip the given lint rule, assist action, group of rules and actions, or domain by setting the severity level of the rules to `off`. This option takes precedence over `--only`. Use the `plugin` group to skip the analyzer plugins.
 
   Example:
 
   
   ```shell
-  biome lint --skip=correctness/noUnusedVariables --skip=suspicious --skip=project
+  biome lint --skip=correctness/noUnusedVariables --skip=suspicious --skip=project --skip=plugin
   ```
 
 - **`    --stdin-file-path`**=_`PATH`_ &mdash; 
@@ -1202,7 +1202,7 @@ Command to use in CI environments. Runs formatter, linter and import sorting to 
 
 Files won't be modified, the command is a read-only operation.
 
-**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_\]... \[_`PATH`_\]...
+**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_\]... \[_`PATH`_\]...
 
 **Options that changes how the JSON parser behaves**
 - **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
@@ -1549,24 +1549,24 @@ Files won't be modified, the command is a read-only operation.
   The number of threads to use. This is useful when running the CLI in environments with limited resource, for example CI.
    
   Uses environment variable **`BIOME_THREADS`**
-- **`    --only`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
-  Run only the given lint rule, assist action, group of rules and actions, or domain. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise.
+- **`    --only`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_ &mdash; 
+  Run only the given lint rule, assist action, group of rules and actions, or domain. If the severity level of a rule is `off`, then the severity level of the rule is set to `error` if it is a recommended rule or `warn` otherwise. Use the `plugin` group to run only the analyzer plugins.
 
   Example:
 
   
   ```shell
-  biome ci --only=correctness/noUnusedVariables --only=suspicious --only=test
+  biome ci --only=correctness/noUnusedVariables --only=suspicious --only=test --only=plugin
   ```
 
-- **`    --skip`**=_`<GROUP|RULE|DOMAIN|ACTION>`_ &mdash; 
-  Skip the given lint rule, assist action, group of rules and actions, or domain by setting the severity level of the rules to `off`. This option takes precedence over `--only`.
+- **`    --skip`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_ &mdash; 
+  Skip the given lint rule, assist action, group of rules and actions, or domain by setting the severity level of the rules to `off`. This option takes precedence over `--only`. Use the `plugin` group to skip the analyzer plugins.
 
   Example:
 
   
   ```shell
-  biome ci --skip=correctness/noUnusedVariables --skip=suspicious --skip=project
+  biome ci --skip=correctness/noUnusedVariables --skip=suspicious --skip=project --skip=plugin
   ```
 
 - **`-h`**, **`--help`** &mdash; 
