@@ -15,7 +15,7 @@ path = "codegen/src/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-anyhow        = "1.0.102"
+anyhow        = "1.0.103"
 biome_analyze = { git = "https://github.com/biomejs/biome.git", rev = "43964961c88ca0f93ee83d10621844fa2dc7515c", version = "0.5.7", features = ["schema"] }
 
 biome_cli           = { git = "https://github.com/biomejs/biome.git", rev = "43964961c88ca0f93ee83d10621844fa2dc7515c", version = "0.0.0" }
