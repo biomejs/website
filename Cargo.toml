@@ -59,7 +59,7 @@ biome_text_edit       = { git = "https://github.com/biomejs/biome.git", rev = "4
 bpaf           = { version = "0.9.26", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes
 camino         = "1.2.4"
-jiff-static    = "0.2.28"
+jiff-static    = "0.2.31"
 # Needed to fix some weird dependency
 lock_api       = "0.4.14"
 pulldown-cmark = "0.13.4"
