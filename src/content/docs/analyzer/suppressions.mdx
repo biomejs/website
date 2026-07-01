@@ -22,6 +22,8 @@ Suppression comments have the following format:
 // biome-ignore lint/suspicious: <explanation>
 // biome-ignore lint/suspicious/noDebugger: <explanation>
 // biome-ignore lint/suspicious/noDebugger(foo): <explanation>
+// biome-ignore lint/plugin: <explanation>
+// biome-ignore lint/plugin/<plugin-name>: <explanation>
 // biome-ignore-all lint: <explanation>
 // biome-ignore-start lint: <explanation>
 // biome-ignore-end lint: <explanation>
@@ -32,6 +34,7 @@ Let's break it down:
 - `biome-ignore`, `biome-ignore-all`, `biome-ignore-start` and `biome-ignore-end` are the start of a suppression comment.
 - After the space follows the **category** of the suppression comment. It can be `lint`, `assist`, or `syntax`.
 - The category is followed by an optional group, or group and name, separated by slashes. For example, `/suspicious` or `/suspicious/noDebugger`. The more you specify, the more specific (i.e. targeted) your suppression is.
+- Plugin diagnostics use `lint/plugin`. You can target all plugins with `lint/plugin`, or a single plugin with `lint/plugin/<plugin-name>`.
 - Some rules even allow you to specify values during suppression. These can be specified between parentheses, for example: `(foo)`. Refer to the rule documentation to see whether a rule supports suppression with values.
 - `<explanation>` explanation why the rule is disabled.
 
@@ -40,7 +43,6 @@ If you're unsure of the exact category of a rule/action, you can refer to their 
 :::note
 From here onwards, JavaScript is used to explain suppression comments, and the `lint` category is used.
 :::
-
 
 ### Inline suppressions
 
@@ -115,4 +117,22 @@ In the above code:
 - The `f == g` statement raises a diagnostic because the rule `noDoubleEquals` isn't suppressed anymore.
 - The comment `// biome-ignore-end lint/suspicious/noDebugger: reason` at line 10 terminates the suppression of `noDebugger` that was started by the suppression comment at line 2.
 
+### Plugin suppressions
 
+They disable diagnostics emitted by [linter plugins](/linter/plugins). Use `lint/plugin` to suppress diagnostics from all plugins, or `lint/plugin/<plugin-name>` to suppress diagnostics from one plugin. The `<plugin-name>` is the plugin's file name without the `.grit` extension.
+
+In the following example, the suppression comment `biome-ignore lint/plugin/preferObjectSpread: reason` will disable diagnostics emitted by `preferObjectSpread.grit` for the next line:
+
+```js title="file.js" ins={1}
+// biome-ignore lint/plugin/preferObjectSpread: reason
+Object.assign({}, foo);
+```
+
+To suppress diagnostics from all plugins, omit the plugin name:
+
+```js title="file.js" ins={1}
+// biome-ignore lint/plugin: reason
+Object.assign({}, foo);
+```
+
+Plugin suppressions can also be authored as [top-level](#top-level-suppressions) and [range](#range-suppressions) suppressions.
