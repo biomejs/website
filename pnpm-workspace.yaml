@@ -5,7 +5,8 @@ allowBuilds:
   tombi: false
 linkWorkspacePackages: true
 minimumReleaseAgeExclude:
-  - astro@6.4.8
+  - '@astrojs/starlight@0.41.2'
+  - vite@8.1.2
 packages:
   - "scripts"
   - "./"
