@@ -1107,7 +1107,7 @@ fn write_documentation(
 
     let parser = Parser::new(docs);
 
-    let default_service_builder =
+    let mut default_service_builder =
         AnalyzerServicesBuilder::from_files::<RandomState>(Default::default());
 
     let mut service_builders = HashMap::new(); // indexed by section number
@@ -1188,9 +1188,9 @@ fn write_documentation(
                             &block,
                             last_options.clone(),
                             &mut buffer,
-                            service_builders
-                                .get(&section)
-                                .unwrap_or(&default_service_builder),
+                            &mut service_builders
+                                .get_mut(&section)
+                                .unwrap_or(&mut default_service_builder),
                             ToPrintKind::Diagnostics,
                         )
                         .context("To print diagnostics or actions")?;
@@ -1211,8 +1211,8 @@ fn write_documentation(
                             last_options.clone(),
                             &mut buffer,
                             service_builders
-                                .get(&section)
-                                .unwrap_or(&default_service_builder),
+                                .get_mut(&section)
+                                .unwrap_or(&mut default_service_builder),
                             ToPrintKind::Actions,
                         )
                         .context("To print diagnostics or actions")?;
@@ -1466,7 +1466,7 @@ fn print_diagnostics_or_actions(
     code: &str,
     config: Option<Configuration>,
     buffer: &mut HTML<&mut Vec<u8>>,
-    services_builder: &AnalyzerServicesBuilder,
+    services_builder: &mut AnalyzerServicesBuilder,
     to_print_kind: ToPrintKind,
 ) -> Result<()> {
     if test.ignore {
@@ -1512,7 +1512,11 @@ fn print_diagnostics_or_actions(
 
                 let options = test.create_analyzer_options::<JsLanguage>(config)?;
 
-                let services = services_builder.build_for_js_file_source(file_source);
+                let services = services_builder.build_for_js_parse(
+                    test.file_path().into(),
+                    parse,
+                    file_source,
+                );
 
                 biome_js_analyze::analyze(&root, filter, &options, &[], services, |signal| {
                     match to_print_kind {

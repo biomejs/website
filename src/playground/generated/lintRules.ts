@@ -237,6 +237,7 @@ export const LINT_RULES = {
     noReactNativeRawText: "noReactNativeRawText",
     noReactStringRefs: "noReactStringRefs",
     noRestrictedDependencies: "noRestrictedDependencies",
+    noSvelteUnnecessaryStateWrap: "noSvelteUnnecessaryStateWrap",
     noTopLevelLiterals: "noTopLevelLiterals",
     noUndeclaredClasses: "noUndeclaredClasses",
     noUnnecessaryTemplateExpression: "noUnnecessaryTemplateExpression",
