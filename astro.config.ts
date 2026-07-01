@@ -1099,12 +1099,4 @@ export default defineConfig({
 			BIOME_VERSION: JSON.stringify(biomeVersion),
 		},
 	},
-	experimental: {
-		// rustCompiler: true,
-		queuedRendering: {
-			enabled: true,
-			contentCache: true,
-			poolSize: 2000,
-		},
-	},
 });
