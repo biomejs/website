@@ -266,6 +266,53 @@ declare const b: string;
 const r = Boolean(a || b);
 ```
 
+### ignorePrimitives
+
+Ignore `||`, `||=`, and ternary expressions when every non-nullish variant
+of the operand is a primitive the option opts out of. Use `true` to ignore
+all primitives, or an object selecting `string`, `number`, `boolean`, or
+`bigint`. Default: none.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useNullishCoalescing": {
+					"level": "on",
+					"options": {
+						"ignorePrimitives": {
+							"string": true
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+Primitive kinds that are not opted out of are still reported.
+
+```ts title='invalid-primitives.ts'
+declare const count: number | null;
+const value = count || 0;
+```
+
+<pre class="language-text"><code class="language-text"><a href="file:///invalid-primitives.ts">/invalid-primitives.ts</a>:2:21 <a href="https://biomejs.dev/linter/rules/use-nullish-coalescing">lint/nursery/useNullishCoalescing</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use </span><span style="color: lightgreen;"><strong>??</strong></span><span style="color: lightgreen;"> instead of </span><span style="color: lightgreen;"><strong>||</strong></span><span style="color: lightgreen;">.</span><br />  <br />    <strong>1 │ </strong>declare const count: number | null;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>const value = count || 0;<br />   <strong>   │ </strong>                    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">The </span><span style="color: lightgreen;"><strong>||</strong></span><span style="color: lightgreen;"> operator checks for all falsy values (including 0, '', and false), while </span><span style="color: lightgreen;"><strong>??</strong></span><span style="color: lightgreen;"> only checks for null and undefined.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style="color: lightgreen;"><a href="https://github.com/biomejs/biome/issues/8043">https://github.com/biomejs/biome/issues/8043</a></span><span style="color: lightgreen;"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+#### Valid
+
+A `string` operand is not reported when `string` is ignored.
+
+```ts title='valid-primitives.ts'
+declare const name: string | null;
+const value = name || 'default';
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
