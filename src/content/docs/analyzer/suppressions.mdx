@@ -119,7 +119,9 @@ In the above code:
 
 ### Plugin suppressions
 
-They disable diagnostics emitted by [linter plugins](/linter/plugins). Use `lint/plugin` to suppress diagnostics from all plugins, or `lint/plugin/<plugin-name>` to suppress diagnostics from one plugin. The `<plugin-name>` is the plugin's file name without the `.grit` extension.
+They disable diagnostics emitted by [linter plugins](/linter/plugins).
+
+Use `lint/plugin` to suppress diagnostics from all plugins, or `lint/plugin/<plugin-name>` to suppress diagnostics from one plugin. The `<plugin-name>` is the plugin's file name without the `.grit` extension.
 
 In the following example, the suppression comment `biome-ignore lint/plugin/preferObjectSpread: reason` will disable diagnostics emitted by `preferObjectSpread.grit` for the next line:
 
