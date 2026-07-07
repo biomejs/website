@@ -149,7 +149,7 @@ export function GET() {"#,
         parse_module(&schema_js_content, JsParserOptions::default())
             .tree()
             .syntax(),
-        false,
+        vec![],
     )?
     .print()?;
     eprintln!("Done, took {:?}", start.elapsed());
