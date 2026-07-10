@@ -164,11 +164,10 @@ Normally, paths and globs inside Biome's configuration file are resolved
 relative to the folder the configuration file is in. When a configuration file
 is [extended](/reference/configuration/#extends) by another, relative paths
 from the shared configuration are interpreted from the extending
-configuration. Plugin paths normally follow that same rule. The exception is
-when a shared configuration needs to load a plugin relative to the file that
-declared it. In that case, use the object syntax and set
-`"resolutionKind": "config"` on that plugin entry so the plugin path is
-resolved relative to the shared configuration file.
+configuration. Plugin paths normally follow that same rule.
+
+If a shared configuration ships with its own plugin, see
+[Resolving Plugins from Shared Configurations](/linter/plugins/#resolving-plugins-from-shared-configurations).
 
 `files.includes` applies to all of Biome's tools, meaning the files specified
 here are processed by the linter, the formatter and the assist, unless specified

@@ -176,11 +176,10 @@ Files that you `extend` from cannot `extend` other files in turn.
 
 When using `extends`, relative paths from a shared configuration are
 interpreted from the extending configuration, not from the folder of the
-shared file itself. Plugin paths normally follow that same rule too. The
-exception is when a shared configuration needs to load a plugin relative to the
-file that declared it. In that case, use the object syntax and set
-`"resolutionKind": "config"` on that plugin entry so the plugin path is
-resolved relative to the shared configuration file.
+shared file itself. Plugin paths normally follow that same rule too.
+
+If a shared configuration ships with its own plugin, see
+[Resolving Plugins from Shared Configurations](/linter/plugins/#resolving-plugins-from-shared-configurations).
 
 For example, let's assume a project that contains two directories `backend/` and
 `frontend/`, each having their own `biome.json` that both extend a `common.json`
