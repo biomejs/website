@@ -174,11 +174,13 @@ with settings in later files overriding earlier ones.
 
 Files that you `extend` from cannot `extend` other files in turn.
 
-Note that paths in a configuration file are always resolved from the folder in
-which the `biome.json`/`biome.jsonc` file resides. When using the `extends`
-field, this means that paths in a shared configuration are interpreted from the
-location of the configuration that is extending it, and not from the folder
-of the file being extended.
+When using `extends`, relative paths from a shared configuration are
+interpreted from the extending configuration, not from the folder of the
+shared file itself. Plugin paths normally follow that same rule too. The
+exception is when a shared configuration needs to load a plugin relative to the
+file that declared it. In that case, use the object syntax and set
+`"resolutionKind": "config"` on that plugin entry so the plugin path is
+resolved relative to the shared configuration file.
 
 For example, let's assume a project that contains two directories `backend/` and
 `frontend/`, each having their own `biome.json` that both extend a `common.json`

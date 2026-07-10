@@ -29,6 +29,47 @@ the following configuration:
 }
 ```
 
+## Object syntax
+
+If you need more control, plugins also support an object syntax. This lets you
+configure options such as `includes` for an individual plugin:
+
+```json name="biome.json"
+{
+    "plugins": [
+        {
+            "path": "./path-to-plugin.grit",
+            "includes": ["src/**/*.ts"]
+        }
+    ]
+}
+```
+
+### `resolutionKind`
+
+`resolutionKind` is useful for shared configurations that are loaded through
+`extends`:
+
+```json name="biome.shared.jsonc"
+{
+    "plugins": [
+        {
+            "path": "./plugins/no-object-assign.grit",
+            "resolutionKind": "config"
+        }
+    ]
+}
+```
+
+- By default, plugin paths from an extended configuration are resolved from the
+  consuming configuration, just like other relative paths in shared Biome
+  configs.
+- To resolve a plugin path from the configuration file that declared it, use
+  the object syntax and set `"resolutionKind": "config"`.
+- `"resolutionKind": "project"` keeps the default behaviour.
+- `resolutionKind` only affects the plugin `path`. It does not change how
+  `includes` globs are interpreted.
+
 The plugin will now be enabled on all supported files the linter runs on. You
 can see its results when running `biome lint` or `biome check`. For example:
 
