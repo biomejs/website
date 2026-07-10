@@ -58,13 +58,16 @@ This feature is still experimental and disabled by default. To enable this featu
 
 ## Google Apps Script support
 
-Biome supports [Google Apps Script](https://developers.google.com/apps-script) files, which use the `.gs` extension.
+Biome supports [Google Apps Script](https://developers.google.com/apps-script) files with the `.gs` extension.
 
-Apps Script is plain JavaScript that runs in Google's runtime. It has no module system, so Biome parses `.gs` files as [scripts](https://tc39.es/ecma262/multipage/ecmascript-language-scripts-and-modules.html#sec-scripts) rather than modules: top-level `import` and `export` statements are reported as parse errors, matching the runtime.
+Apps Script is plain JavaScript that runs in Google's runtime. It has no module system, so Biome parses `.gs` files as [scripts](https://tc39.es/ecma262/multipage/ecmascript-language-scripts-and-modules.html#sec-scripts) rather than modules. Top-level `import` and `export` statements are reported as parse errors, matching the runtime.
 
-Biome also recognizes the built-in Apps Script service globals — such as `SpreadsheetApp`, `DriveApp`, and `Logger` — so [`noUndeclaredVariables`](/linter/rules/no-undeclared-variables/) does not report them as undeclared, and [`noGlobalAssign`](/linter/rules/no-global-assign/) reports reassigning them.
+Biome also recognizes the built-in service globals provided by Apps Script's core, including `SpreadsheetApp`, `DriveApp`, and `Logger`. As a result:
 
-Only the core built-in services are recognized. If your project relies on [advanced services](https://developers.google.com/apps-script/guides/services/advanced) or other globals, add them through the [`javascript.globals`](/reference/configuration#javascriptglobals) option:
+- [noUndeclaredVariables](/linter/rules/no-undeclared-variables/) does not report these names as undeclared.
+- [noGlobalAssign](/linter/rules/no-global-assign/) reports attempts to reassign them.
+
+Only core built-in services are recognized by default. If your project uses [advanced services](https://developers.google.com/apps-script/guides/services/advanced) or other project-specific globals, declare them with the [`javascript.globals`](/reference/configuration/#javascriptglobals) option:
 
 ```json title=biome.json
 {
