@@ -29,47 +29,6 @@ the following configuration:
 }
 ```
 
-## Object syntax
-
-If you need more control, plugins also support an object syntax. This lets you
-configure options such as `includes` for an individual plugin:
-
-```json name="biome.json"
-{
-    "plugins": [
-        {
-            "path": "./path-to-plugin.grit",
-            "includes": ["src/**/*.ts"]
-        }
-    ]
-}
-```
-
-### `resolutionKind`
-
-`resolutionKind` is useful for shared configurations that are loaded through
-`extends`:
-
-```json name="biome.shared.jsonc"
-{
-    "plugins": [
-        {
-            "path": "./plugins/no-object-assign.grit",
-            "resolutionKind": "config"
-        }
-    ]
-}
-```
-
-- By default, plugin paths from an extended configuration are resolved from the
-  consuming configuration, just like other relative paths in shared Biome
-  configs.
-- To resolve a plugin path from the configuration file that declared it, use
-  the object syntax and set `"resolutionKind": "config"`.
-- `"resolutionKind": "project"` keeps the default behaviour.
-- `resolutionKind` only affects the plugin `path`. It does not change how
-  `includes` globs are interpreted.
-
 The plugin will now be enabled on all supported files the linter runs on. You
 can see its results when running `biome lint` or `biome check`. For example:
 
@@ -137,6 +96,35 @@ In the following example, the first plugin only runs on files inside
 When `includes` is set, the plugin only runs on files that match at least one
 positive pattern and are not excluded by a negated pattern. Patterns follow the
 [glob syntax reference](/reference/configuration/#glob-syntax-reference).
+
+## Resolving Plugins from Shared Configurations
+
+By default, plugin paths from shared configurations are resolved from the
+consuming project. To load a plugin that ships with the shared configuration,
+resolve it from the shared configuration file instead:
+
+```json title="biome.shared.jsonc"
+{
+    "plugins": [
+        {
+            "path": "./plugins/no-object-assign.grit",
+            "resolutionKind": "config"
+        }
+    ]
+}
+```
+
+Then extend the shared configuration:
+
+```json title="biome.json"
+{
+    "extends": ["./biome.shared.jsonc"]
+}
+```
+
+The plugin path is resolved relative to `biome.shared.jsonc`, while `includes` still match files in the consuming project.
+
+See [`plugins.<ITEM>.resolutionKind`](/reference/configuration/#pluginsitemresolutionkind) for the full option reference.
 
 ## Target Languages
 
