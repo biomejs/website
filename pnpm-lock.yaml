@@ -114,8 +114,8 @@ importers:
         specifier: 6.4.8
         version: 6.4.8(@netlify/blobs@10.7.9)(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.62.0)(yaml@2.9.0)
       astro-og-canvas:
-        specifier: 0.11.1
-        version: 0.11.1(astro@6.4.8(@netlify/blobs@10.7.9)(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.62.0)(yaml@2.9.0))
+        specifier: 0.13.0
+        version: 0.13.0(astro@6.4.8(@netlify/blobs@10.7.9)(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.62.0)(yaml@2.9.0))
       canvaskit-wasm:
         specifier: 0.41.1
         version: 0.41.1
@@ -2533,10 +2533,10 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0 || ^6.0.0-beta
 
-  astro-og-canvas@0.11.1:
-    resolution: {integrity: sha512-6omy7MJeOPwxdYH5+eL3zFIY9MhuDRUMuASuCx/eXNrHGUogq9ZHdx19A428KtWhLVuXVcLt7Klw5fxqASAHmg==}
+  astro-og-canvas@0.13.0:
+    resolution: {integrity: sha512-jcIDhE9OGIbd7LstZQ4CyzOpbbEKAlxJqEgdkVu6r26m7yJKlQjKysszfDxlox717cnCLPXKivyFjsufcq8sYA==}
     peerDependencies:
-      astro: ^5.0.0 || ^6.0.0-alpha
+      astro: ^5.0.0 || ^6.0.0 || ^7.0.0
 
   astro-remote@0.3.4:
     resolution: {integrity: sha512-jL5skNQLA0YBc1R3bVGXyHew3FqGqsT7AgLzWAVeTLzFkwVMUYvs4/lKJSmS7ygcF1GnHnoKG6++8GL9VtWwGQ==}
@@ -9263,7 +9263,7 @@ snapshots:
       astro: 6.4.8(@netlify/blobs@10.7.9)(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.62.0)(yaml@2.9.0)
       rehype-expressive-code: 0.43.1
 
-  astro-og-canvas@0.11.1(astro@6.4.8(@netlify/blobs@10.7.9)(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.62.0)(yaml@2.9.0)):
+  astro-og-canvas@0.13.0(astro@6.4.8(@netlify/blobs@10.7.9)(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.62.0)(yaml@2.9.0)):
     dependencies:
       astro: 6.4.8(@netlify/blobs@10.7.9)(@types/node@24.12.4)(jiti@2.7.0)(rollup@4.62.0)(yaml@2.9.0)
       canvaskit-wasm: 0.41.1
