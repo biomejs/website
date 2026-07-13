@@ -39,8 +39,8 @@ importers:
         specifier: 0.4.0
         version: 0.4.0
       '@biomejs/wasm-web':
-        specifier: https://pkg.pr.new/@biomejs/wasm-web@60c8043
-        version: https://pkg.pr.new/@biomejs/wasm-web@60c8043
+        specifier: https://pkg.pr.new/@biomejs/wasm-web@01bba12
+        version: https://pkg.pr.new/@biomejs/wasm-web@01bba12
       '@codemirror/lang-css':
         specifier: 6.3.1
         version: 6.3.1
@@ -462,9 +462,9 @@ packages:
   '@biomejs/wasm-nodejs@2.4.16':
     resolution: {integrity: sha512-3BSGXHJ25Is+9gRgV+Gwz7YdMktrMOBP+Vw3RwXy3Y/CHqXbbNSyhaMt6VFk1J/WAGutdYfBy+NzhlvOftwd+g==}
 
-  '@biomejs/wasm-web@https://pkg.pr.new/@biomejs/wasm-web@60c8043':
-    resolution: {integrity: sha512-IZWd6uo4GfUz/H9047K45f57hfRwAJDCPP3oLJUldwyYnaQzndlPa8/gfaX7qIf0VyW/qDGraruPh97kFaDOkg==, tarball: https://pkg.pr.new/@biomejs/wasm-web@60c8043}
-    version: 0.0.0-rev.60c8043527f7ccc7b505471e1042f2a4324e4d31
+  '@biomejs/wasm-web@https://pkg.pr.new/@biomejs/wasm-web@01bba12':
+    resolution: {integrity: sha512-mtOJ3TBTriCsTqzTf5lOYp+NOnCNsV4zAbD6Ljn7jZXD/sMYEiSj2yQGJW3zY7M9GhxfUyxkN/b/uGZHzJlyAQ==, tarball: https://pkg.pr.new/@biomejs/wasm-web@01bba12}
+    version: 0.0.0-rev.01bba129afefced1c04aa69592b1b7f337a7b609
 
   '@braintree/sanitize-url@7.1.2':
     resolution: {integrity: sha512-jigsZK+sMF/cuiB7sERuo9V7N9jx+dhmHHnQyDSVdpZwVutaBu7WvNYqMDLSgFgfB30n452TP3vjDAvFC973mA==}
@@ -6981,7 +6981,7 @@ snapshots:
 
   '@biomejs/wasm-nodejs@2.4.16': {}
 
-  '@biomejs/wasm-web@https://pkg.pr.new/@biomejs/wasm-web@60c8043': {}
+  '@biomejs/wasm-web@https://pkg.pr.new/@biomejs/wasm-web@01bba12': {}
 
   '@braintree/sanitize-url@7.1.2': {}
 
