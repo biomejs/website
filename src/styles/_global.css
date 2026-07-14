@@ -81,7 +81,7 @@ h5 {
 }
 
 .page-main {
-	@media only screen and (max-width: var(--mobile-breakpoint)) {
+	@media only screen and (--mobile) {
 		margin-top: 64px;
 	}
 }
@@ -128,7 +128,7 @@ h5 {
 :root {
 	scroll-padding-top: 80px;
 
-	@media only screen and (max-width: var(--mobile-breakpoint)) {
+	@media only screen and (--mobile) {
 		scroll-padding-top: 64px;
 	}
 }

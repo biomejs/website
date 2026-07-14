@@ -4,7 +4,7 @@
 
 .head {
 	text-align: center;
-	@media only screen and (min-width: calc(var(--mobile-breakpoint) + 1)) {
+	@media only screen and (--desktop) {
 		font-size: 3.7rem;
 	}
 }

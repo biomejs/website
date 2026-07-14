@@ -17,7 +17,7 @@
 		border-right: none;
 	}
 
-	@media only screen and (max-width: var(--mobile-breakpoint)) {
+	@media only screen and (--mobile) {
 		flex-direction: column;
 		border-left: none;
 		border-right: none;
