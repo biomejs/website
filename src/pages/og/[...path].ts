@@ -9,8 +9,6 @@ const pages = process.env.SKIP_OG
 	: Object.fromEntries(collectionEntries.map(({ id, data }) => [id, data]));
 
 export const { getStaticPaths, GET } = await OGImageRoute({
-	param: "path",
-
 	pages,
 
 	getImageOptions: (_, page) => {
