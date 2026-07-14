@@ -81,6 +81,7 @@ h5 {
 }
 
 .page-main {
+	/* biome-ignore lint/correctness/noUnknownMediaFeatureName: custom media queries are not supported yet */
 	@media only screen and (--mobile) {
 		margin-top: 64px;
 	}
@@ -128,6 +129,7 @@ h5 {
 :root {
 	scroll-padding-top: 80px;
 
+	/* biome-ignore lint/correctness/noUnknownMediaFeatureName: custom media queries are not supported yet */
 	@media only screen and (--mobile) {
 		scroll-padding-top: 64px;
 	}

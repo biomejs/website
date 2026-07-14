@@ -17,6 +17,7 @@
 		border-right: none;
 	}
 
+	/* biome-ignore lint/correctness/noUnknownMediaFeatureName: custom media queries are not supported yet */
 	@media only screen and (--mobile) {
 		flex-direction: column;
 		border-left: none;

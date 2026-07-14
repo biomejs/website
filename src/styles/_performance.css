@@ -4,6 +4,8 @@
 
 .head {
 	text-align: center;
+
+	/* biome-ignore lint/correctness/noUnknownMediaFeatureName: custom media queries are not supported yet */
 	@media only screen and (--desktop) {
 		font-size: 3.7rem;
 	}

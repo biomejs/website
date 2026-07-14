@@ -38,5 +38,7 @@
 
 /* Using var() in media queries is not supported in Lightning CSS. */
 /* Use the Custom Media syntax instead. */
+/* biome-ignore lint/suspicious/noUnknownAtRules: custom media queries are not supported yet */
 @custom-media --mobile (max-width: 768px);
+/* biome-ignore lint/suspicious/noUnknownAtRules: custom media queries are not supported yet */
 @custom-media --desktop (min-width: 769px);
