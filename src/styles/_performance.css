@@ -1,10 +1,14 @@
+@import "_variables";
+
 .hero-code {
 	margin-top: 7rem !important;
 }
 
 .head {
 	text-align: center;
-	@media only screen and (min-width: calc(var(--mobile-breakpoint) + 1)) {
+
+	/* biome-ignore lint/correctness/noUnknownMediaFeatureName: custom media queries are not supported yet */
+	@media only screen and (--desktop) {
 		font-size: 3.7rem;
 	}
 }
