@@ -1098,5 +1098,13 @@ export default defineConfig({
 			PRETTIER_VERSION: JSON.stringify(prettierVersion),
 			BIOME_VERSION: JSON.stringify(biomeVersion),
 		},
+
+		css: {
+			lightningcss: {
+				drafts: {
+					customMedia: true,
+				},
+			},
+		},
 	},
 });
