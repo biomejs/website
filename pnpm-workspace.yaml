@@ -5,7 +5,8 @@ allowBuilds:
   tombi: false
 linkWorkspacePackages: true
 minimumReleaseAgeExclude:
-  - astro@6.4.8
+  - '@astrojs/mdx@7.0.3'
+  - '@astrojs/netlify@8.1.2'
 packages:
   - "scripts"
   - "./"

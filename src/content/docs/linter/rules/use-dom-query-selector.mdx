@@ -77,6 +77,44 @@ document.querySelector("#foo");
 document.querySelectorAll(".foo.bar");
 ```
 
+## Options
+
+### `ignore`
+
+Allow specific variables to use the older DOM query APIs.
+This is useful if your application has APIs that expose methods with
+the same names as DOM query APIs.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useDomQuerySelector": {
+					"level": "on",
+					"options": {
+						"ignore": [
+							"store",
+							"customApi"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+These are ignored, so they are not flagged.
+
+```js
+store.getElementById("COVER_IMAGE");
+customApi.getElementsByClassName("item");
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

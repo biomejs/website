@@ -1098,13 +1098,13 @@ export default defineConfig({
 			PRETTIER_VERSION: JSON.stringify(prettierVersion),
 			BIOME_VERSION: JSON.stringify(biomeVersion),
 		},
-	},
-	experimental: {
-		// rustCompiler: true,
-		queuedRendering: {
-			enabled: true,
-			contentCache: true,
-			poolSize: 2000,
+
+		css: {
+			lightningcss: {
+				drafts: {
+					customMedia: true,
+				},
+			},
 		},
 	},
 });
