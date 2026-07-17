@@ -15,6 +15,7 @@ Legend:
 | [TypeScript](#typescript-support)                        | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
 | JSX                                                      | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
 | TSX                                                      | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
+| [Google Apps Script](#google-apps-script-support)        | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
 | JSON                                                     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
 | JSONC                                                    | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>|
 | HTML*                                                     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
@@ -51,6 +52,27 @@ This feature is still experimental and disabled by default. To enable this featu
 {
   "javascript": {
     "experimentalEmbeddedSnippetsEnabled": true
+  }
+}
+```
+
+## Google Apps Script support
+
+Biome supports [Google Apps Script](https://developers.google.com/apps-script) files with the `.gs` extension.
+
+Apps Script is plain JavaScript that runs in Google's runtime. It has no module system, so Biome parses `.gs` files as [scripts](https://tc39.es/ecma262/multipage/ecmascript-language-scripts-and-modules.html#sec-scripts) rather than modules. Top-level `import` and `export` statements are reported as parse errors, matching the runtime.
+
+Biome also recognizes the built-in service globals provided by Apps Script's core, including `SpreadsheetApp`, `DriveApp`, and `Logger`. As a result:
+
+- [noUndeclaredVariables](/linter/rules/no-undeclared-variables/) does not report these names as undeclared.
+- [noGlobalAssign](/linter/rules/no-global-assign/) reports attempts to reassign them.
+
+Only core built-in services are recognized by default. If your project uses [advanced services](https://developers.google.com/apps-script/guides/services/advanced) or other project-specific globals, declare them with the [`javascript.globals`](/reference/configuration/#javascriptglobals) option:
+
+```json title=biome.json
+{
+  "javascript": {
+    "globals": ["MyLibrary", "BigQuery"]
   }
 }
 ```
