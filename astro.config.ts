@@ -1,3 +1,4 @@
+import { unified } from "@astrojs/markdown-remark";
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
@@ -1065,8 +1066,10 @@ export default defineConfig({
 	},
 
 	markdown: {
+		processor: unified({
+			rehypePlugins: [rehypeSlug],
+		}),
 		syntaxHighlight: "shiki",
-		rehypePlugins: [rehypeSlug],
 		shikiConfig: {
 			langAlias: {
 				cjs: "javascript",
@@ -1095,13 +1098,13 @@ export default defineConfig({
 			PRETTIER_VERSION: JSON.stringify(prettierVersion),
 			BIOME_VERSION: JSON.stringify(biomeVersion),
 		},
-	},
-	experimental: {
-		// rustCompiler: true,
-		queuedRendering: {
-			enabled: true,
-			contentCache: true,
-			poolSize: 2000,
+
+		css: {
+			lightningcss: {
+				drafts: {
+					customMedia: true,
+				},
+			},
 		},
 	},
 });

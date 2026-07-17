@@ -103,6 +103,7 @@ See to the [`noreferrer` documentation](https://html.spec.whatwg.org/multipage/l
 		"rules": {
 			"security": {
 				"noBlankTarget": {
+					"level": "on",
 					"options": {
 						"allowNoReferrer": false
 					}
@@ -135,6 +136,7 @@ configuration, it's allowed to use the domains `https://example.com` and
 		"rules": {
 			"security": {
 				"noBlankTarget": {
+					"level": "on",
 					"options": {
 						"allowDomains": [
 							"https://example.com",
@@ -164,6 +166,7 @@ The diagnostic is applied to all domains not in the allow list:
 		"rules": {
 			"security": {
 				"noBlankTarget": {
+					"level": "on",
 					"options": {
 						"allowDomains": [
 							"https://example.com"

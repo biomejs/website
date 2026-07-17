@@ -4,9 +4,9 @@ use biome_configuration::Configuration;
 use biome_configuration::VERSION;
 use biome_js_formatter::context::JsFormatOptions;
 use biome_js_parser::{JsParserOptions, parse_module};
-use biome_js_syntax::JsFileSource;
 use biome_json_formatter::context::JsonFormatOptions;
 use biome_json_parser::{JsonParserOptions, parse_json};
+use biome_languages::JsFileSource;
 use biome_rowan::AstNode;
 use std::convert::TryInto;
 use std::fs;
@@ -149,7 +149,7 @@ export function GET() {"#,
         parse_module(&schema_js_content, JsParserOptions::default())
             .tree()
             .syntax(),
-        false,
+        vec![],
     )?
     .print()?;
     eprintln!("Done, took {:?}", start.elapsed());

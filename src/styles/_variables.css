@@ -22,8 +22,6 @@
 
 	--unit: 16px;
 	--unit-border-radius: 4px;
-
-	--mobile-breakpoint: 768px;
 }
 
 /* CSS variables */
@@ -37,3 +35,10 @@
 [data-theme="light"] ::backdrop {
 	--sl-border: var(--sl-color-gray-6);
 }
+
+/* Using var() in media queries is not supported in Lightning CSS. */
+/* Use the Custom Media syntax instead. */
+/* biome-ignore lint/suspicious/noUnknownAtRules: custom media queries are not supported yet */
+@custom-media --mobile (max-width: 768px);
+/* biome-ignore lint/suspicious/noUnknownAtRules: custom media queries are not supported yet */
+@custom-media --desktop (min-width: 769px);

@@ -4,6 +4,9 @@ allowBuilds:
   sharp: false
   tombi: false
 linkWorkspacePackages: true
+minimumReleaseAgeExclude:
+  - '@astrojs/mdx@7.0.3'
+  - '@astrojs/netlify@8.1.2'
 packages:
   - "scripts"
   - "./"
