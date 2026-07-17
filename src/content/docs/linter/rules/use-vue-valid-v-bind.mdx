@@ -39,7 +39,11 @@ Forbids `v-bind` directives with missing values or invalid modifiers.
 
 This rule reports v-bind directives in the following cases:
 
-- The directive does not have a value. E.g. `<div v-bind:aaa></div>`
+- The directive has neither a value nor a static argument from which to
+derive one. E.g. `<div v-bind></div>` or `<div v-bind:[foo]></div>`.
+`v-bind:foo` and `:foo` are accepted because they are valid Vue 3.4+
+[same-name shorthand](https://vuejs.org/guide/essentials/template-syntax.html#same-name-shorthand)
+for `:foo="foo"`.
 - The directive has invalid modifiers. E.g. `<div v-bind:aaa.bbb="ccc"></div>`
 
 ## Examples
@@ -62,6 +66,10 @@ This rule reports v-bind directives in the following cases:
 
 ```vue
 <Foo v-bind:foo="foo" />
+```
+
+```vue
+<Foo :foo />
 ```
 
 ## Related links

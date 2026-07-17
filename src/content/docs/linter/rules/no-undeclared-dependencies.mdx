@@ -105,6 +105,7 @@ You can set the options like this:
 		"rules": {
 			"correctness": {
 				"noUndeclaredDependencies": {
+					"level": "on",
 					"options": {
 						"devDependencies": false,
 						"peerDependencies": false,
@@ -135,6 +136,7 @@ In this example, only test files can use dependencies in the `devDependencies` s
 		"rules": {
 			"correctness": {
 				"noUndeclaredDependencies": {
+					"level": "on",
 					"options": {
 						"devDependencies": [
 							"**/tests/*.test.js",

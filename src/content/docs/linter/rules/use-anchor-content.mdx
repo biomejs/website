@@ -93,6 +93,14 @@ function html() {
 <a><div aria-hidden="true"></div>content</a>
 ```
 
+The following is valid because `<a>` is used as a JSX attribute value on a custom
+component. The rule is suppressed for any such prop on a custom component, as the
+component may render the anchor as a content wrapper whose children supply the link text.
+
+```jsx
+<Button render={<a href="/home" aria-label="Home" />}>Home</Button>
+```
+
 ## Accessibility guidelines
 
 - [WCAG 2.4.4](https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context)

@@ -11,7 +11,8 @@ ul.package-manager-selector {
 	border-bottom: none;
 	line-height: 45px;
 
-	@media only screen and (max-width: var(--mobile-breakpoint)) {
+	/* biome-ignore lint/correctness/noUnknownMediaFeatureName: custom media queries are not supported yet */
+	@media only screen and (--mobile) {
 		border-radius: 0;
 		margin: 0 -20px;
 		padding: 0 10px;

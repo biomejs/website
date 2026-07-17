@@ -250,6 +250,7 @@ export default {
   '/linter/rules/noSubstr': '/linter/rules/no-substr',
   '/linter/rules/noSuperWithoutExtends': '/linter/rules/no-super-without-extends',
   '/linter/rules/noSuspiciousSemicolonInJsx': '/linter/rules/no-suspicious-semicolon-in-jsx',
+  '/linter/rules/noSvelteUnnecessaryStateWrap': '/linter/rules/no-svelte-unnecessary-state-wrap',
   '/linter/rules/noSvgWithoutTitle': '/linter/rules/no-svg-without-title',
   '/linter/rules/noSwitchDeclarations': '/linter/rules/no-switch-declarations',
   '/linter/rules/noSyncScripts': '/linter/rules/no-sync-scripts',
