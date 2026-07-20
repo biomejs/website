@@ -1106,9 +1106,11 @@ fn write_documentation(
     writeln!(content, "## Description")?;
 
     let parser = Parser::new(docs);
-
-    let mut default_service_builder =
-        AnalyzerServicesBuilder::from_files::<RandomState>(Default::default());
+    let enable_type_inference = rule.domains.contains(&RuleDomain::Types);
+    let mut default_service_builder = AnalyzerServicesBuilder::from_files::<RandomState>(
+        Default::default(),
+        enable_type_inference,
+    );
 
     let mut service_builders = HashMap::new(); // indexed by section number
     let mut section = 0;
@@ -1143,7 +1145,7 @@ fn write_documentation(
                     // Lazy parse the in-memory file system only when we encounter
                     // a file=<path> attribute to avoid unnecessary work for single-file tests
                     if service_builders.is_empty() {
-                        service_builders = create_service_builders(docs)?;
+                        service_builders = create_service_builders(docs, enable_type_inference)?;
                     }
                 }
 
@@ -1907,7 +1909,10 @@ fn extract_summary_from_rule(content: &str) -> String {
 ///
 /// The reason we create all builders for all sections in one pass is to prevent
 /// having to run multiple parsing passes on the same markdown document.
-fn create_service_builders(docs: &'static str) -> Result<HashMap<usize, AnalyzerServicesBuilder>> {
+fn create_service_builders(
+    docs: &'static str,
+    enable_type_inference: bool,
+) -> Result<HashMap<usize, AnalyzerServicesBuilder>> {
     let parser = Parser::new(docs);
 
     // HashMap to store files organized by their containing markdown section
@@ -1964,7 +1969,12 @@ fn create_service_builders(docs: &'static str) -> Result<HashMap<usize, Analyzer
 
     Ok(files
         .into_iter()
-        .map(|(section, files)| (section, AnalyzerServicesBuilder::from_files(files)))
+        .map(|(section, files)| {
+            (
+                section,
+                AnalyzerServicesBuilder::from_files(files, enable_type_inference),
+            )
+        })
         .collect())
 }
 

@@ -177,6 +177,7 @@ export default {
   '/linter/rules/noNamespace': '/linter/rules/no-namespace',
   '/linter/rules/noNamespaceImport': '/linter/rules/no-namespace-import',
   '/linter/rules/noNegationElse': '/linter/rules/no-negation-else',
+  '/linter/rules/noNegationInEqualityCheck': '/linter/rules/no-negation-in-equality-check',
   '/linter/rules/noNestedComponentDefinitions': '/linter/rules/no-nested-component-definitions',
   '/linter/rules/noNestedPromises': '/linter/rules/no-nested-promises',
   '/linter/rules/noNestedTernary': '/linter/rules/no-nested-ternary',
