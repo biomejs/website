@@ -95,6 +95,11 @@ Data sources of known CSS media feature are:
 @media screen and (-webkit-width > 320px) {}
 ```
 
+```css
+@custom-media --mobile (max-width: 768px);
+@media screen and (--mobile) {}
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

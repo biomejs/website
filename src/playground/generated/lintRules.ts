@@ -222,6 +222,7 @@ export const LINT_RULES = {
     noLoopFunc: "noLoopFunc",
     noMisleadingReturnType: "noMisleadingReturnType",
     noMisusedPromises: "noMisusedPromises",
+    noNegationInEqualityCheck: "noNegationInEqualityCheck",
     noPlaywrightElementHandle: "noPlaywrightElementHandle",
     noPlaywrightEval: "noPlaywrightEval",
     noPlaywrightForceOption: "noPlaywrightForceOption",
