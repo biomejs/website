@@ -53,7 +53,7 @@
     "@lezer/common": "1.5.2",
     "@lunariajs/core": "0.1.1",
     "@lunariajs/starlight": "0.1.1",
-    "@playwright/test": "1.60.0",
+    "@playwright/test": "1.61.1",
     "@replit/codemirror-lang-svelte": "6.0.0",
     "@types/node": "24.13.3",
     "@types/react": "19.2.17",
