@@ -414,6 +414,7 @@ Biome应检查VCS文件的文件夹。默认情况下，Biome将使用找到 `bi
 - `"lf"`, 仅换行符(`\n`)，在Linux和macOS以及git仓库内部常见；
 - `"crlf"`, 回车 + 换行字符(`\r\n`)，在Windows上常见；
 - `"cr"`, 仅回车字符(`\r`)，非常罕见。
+- `"auto"`, 匹配操作系统的换行风格：在 Windows 上为 CRLF (`\r\n`)，在 macOS/Linux 上为 LF (`\n`)。
 
 > 默认值：`"lf"`
 
@@ -596,6 +597,7 @@ JavaScript (和其超级语言) 文件的行结束类型。
 - `"lf"`, 仅换行符(`\n`)，在Linux和macOS以及git仓库内部常见；
 - `"crlf"`, 回车 + 换行字符(`\r\n`)，在Windows上常见；
 - `"cr"`, 仅回车字符(`\r`)，非常罕见。
+- `"auto"`, 匹配操作系统的换行风格：在 Windows 上为 CRLF (`\r\n`)，在 macOS/Linux 上为 LF (`\n`)。
 
 > 默认值：`"lf"`
 
@@ -765,6 +767,7 @@ JSON (和其超级语言) 文件的行结束类型。
 - `"lf"`, 仅换行符(`\n`)，在Linux和macOS以及git仓库内部常见；
 - `"crlf"`, 回车 + 换行字符(`\r\n`)，在Windows上常见；
 - `"cr"`, 仅回车字符(`\r`)，非常罕见。
+- `"auto"`, 匹配操作系统的换行风格：在 Windows 上为 CRLF (`\r\n`)，在 macOS/Linux 上为 LF (`\n`)。
 
 > 默认值：`"lf"`
 
@@ -888,6 +891,7 @@ CSS文件的行结束类型。
 - `"lf"`, 仅换行符(`\n`)，在Linux和macOS以及git仓库内部常见；
 - `"crlf"`, 回车 + 换行字符(`\r\n`)，在Windows上常见；
 - `"cr"`, 仅回车字符(`\r`)，非常罕见。
+- `"auto"`, 匹配操作系统的换行风格：在 Windows 上为 CRLF (`\r\n`)，在 macOS/Linux 上为 LF (`\n`)。
 
 > 默认值：`"lf"`
 
@@ -963,6 +967,7 @@ GraphQL文件的行结束类型。
 - `"lf"`, 仅换行符(`\n`)，在Linux和macOS以及git仓库内部常见；
 - `"crlf"`, 回车 + 换行字符(`\r\n`)，在Windows上常见；
 - `"cr"`, 仅回车字符(`\r`)，非常罕见。
+- `"auto"`, 匹配操作系统的换行风格：在 Windows 上为 CRLF (`\r\n`)，在 macOS/Linux 上为 LF (`\n`)。
 
 > 默认值：`"lf"`
 
@@ -1018,6 +1023,7 @@ Grit文件的行结束类型。
 - `"lf"`, 仅换行符(`\n`)，在Linux和macOS以及git仓库内部常见；
 - `"crlf"`, 回车 + 换行字符(`\r\n`)，在Windows上常见；
 - `"cr"`, 仅回车字符(`\r`)，非常罕见。
+- `"auto"`, 匹配操作系统的换行风格：在 Windows 上为 CRLF (`\r\n`)，在 macOS/Linux 上为 LF (`\n`)。
 
 > 默认值：`"lf"`
 
@@ -1064,6 +1070,18 @@ Grit文件的行结束类型。
   }
 }
 ```
+
+## `html`
+
+### `html.formatter.lineEnding`
+
+HTML文件的行结束类型。
+- `"lf"`, 仅换行符(`\n`)，在Linux和macOS以及git仓库内部常见；
+- `"crlf"`, 回车 + 换行字符(`\r\n`)，在Windows上常见；
+- `"cr"`, 仅回车字符(`\r`)，非常罕见。
+- `"auto"`, 匹配操作系统的换行风格：在 Windows 上为 CRLF (`\r\n`)，在 macOS/Linux 上为 LF (`\n`)。
+
+> 默认值：`"lf"`
 
 ## `overrides`
 
