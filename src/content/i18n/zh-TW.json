@@ -1,0 +1,14 @@
+{
+  "title.docs": "文件",
+  "title.enterprise": "企業支援",
+  "title.playground": "演練場",
+  "users.featured.title": "深受頂尖機構信賴",
+  "users.featured.description": "加入數千名在正式環境中使用 Biome 的開發者與企業行列",
+  "users.title": "誰在使用 Biome",
+  "users.description": "Biome 已獲全球數千家機構採用",
+  "packageManager": "套件管理器",
+  "linter": "程式碼檢查器",
+  "formatter": "程式碼格式化工具",
+  "playground": "演練場",
+  "diagnostics": "診斷訊息"
+}
