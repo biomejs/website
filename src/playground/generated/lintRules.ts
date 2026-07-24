@@ -217,6 +217,7 @@ export const LINT_RULES = {
     noIdenticalTestTitle: "noIdenticalTestTitle",
     noImpliedEval: "noImpliedEval",
     noInlineStyles: "noInlineStyles",
+    noJsRestrictedProperties: "noJsRestrictedProperties",
     noJsxLeakedDollar: "noJsxLeakedDollar",
     noJsxNamespace: "noJsxNamespace",
     noLoopFunc: "noLoopFunc",
