@@ -156,6 +156,7 @@ export default {
   '/linter/rules/noInvalidPositionAtImportRule': '/linter/rules/no-invalid-position-at-import-rule',
   '/linter/rules/noInvalidUseBeforeDeclaration': '/linter/rules/no-invalid-use-before-declaration',
   '/linter/rules/noIrregularWhitespace': '/linter/rules/no-irregular-whitespace',
+  '/linter/rules/noJsRestrictedProperties': '/linter/rules/no-js-restricted-properties',
   '/linter/rules/noJsxLeakedDollar': '/linter/rules/no-jsx-leaked-dollar',
   '/linter/rules/noJsxLiterals': '/linter/rules/no-jsx-literals',
   '/linter/rules/noJsxNamespace': '/linter/rules/no-jsx-namespace',
