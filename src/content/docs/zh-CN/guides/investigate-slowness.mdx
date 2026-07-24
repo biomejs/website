@@ -1,0 +1,42 @@
+---
+title: 排查 Biome 运行缓慢问题
+description: 一份用于定位 Biome 中拖慢速度文件的操作指南
+---
+
+Biome 的设计初衷就是追求高速，极致的高速。但有时它的实际表现达不到预期。绝大多数情况下，问题根源是某个特定文件或依赖包拖慢了整体流程；也有可能是你忘记配置忽略规则，没有排除 `dist/` 或 `build/` 这类目录。无论成因是什么，想要定位拖慢速度的源头往往十分棘手，本文档将带你一步步排查问题。
+
+## 前置基础排查
+在深入复杂排查手段前，先执行以下几步简易操作，判断性能问题是否由下述场景导致：
+1. 若项目存在存放打包产物的 `dist/`、`build/` 目录，或是其他存放压缩代码的文件夹，请尝试在配置项 [`files.includes`](https://biomejs.dev/zh-cn/reference/configuration/#filesincludes) 中使用 `!!` 语法将这些目录设为忽略，观察性能是否改善。
+2. 你是否开启了[项目规则](/linter/domains/#project)？该功能会带来额外性能开销，但能提供更深度的代码分析。你也可以查看对应答疑文档[为什么新版 Biome 检查器相比 v1 速度变慢](/zh-CN/linter/#why-is-biome-linter-so-slow-compared-to-v1)。尝试关闭该功能，查看运行速度是否提升。
+    - 若关闭后速度明显变快，但你想精准定位具体拖慢性能的内容，可以先在 [`files.includes`](https://biomejs.dev/zh-cn/reference/configuration/#filesincludes) 中通过 `!!` 语法添加 `**/node_modules` 忽略规则。
+    - 如果操作后性能恢复正常，说明问题出在依赖包。但不建议长期保留该配置，此举会导致项目无法读取依赖包的类型信息。你可以微调 `files.includes` 配置，单独忽略出问题的某个依赖，而非整个 `node_modules/` 目录；下文会介绍如何定位需要忽略的依赖包。
+
+如果上述方法均无效，或是虽有改善但你需要更细致地定位根源，可以使用追踪日志功能，找到拖慢运行的目标文件……
+
+## 追踪日志排查
+从 2.0 版本开始，Biome 升级了追踪日志能力，专门用于性能问题排查。我们需要组合使用以下命令行参数：
+- 所有 Biome 命令均可搭配 `--log-file=<文件路径>` 参数，程序会将本次运行的全部日志输出至指定文件，而非终端标准输出。
+- 参数 `--log-level=<日志等级>` 支持传入 `tracing` 等级；启用 `--log-level=tracing` 后，Biome 会在日志中输出各执行阶段的耗时数据。
+- 搭配 `--log-kind=json`，可让 Biome 将日志以 JSON 格式输出。
+
+将三个参数组合使用，就能生成一份包含完整耗时信息的 JSON 日志文件，示例命令如下：
+```sh
+biome lint --log-level=tracing --log-kind=json --log-file=tracing.json
+```
+执行后会生成 `tracing.json` 文件，但该文件数据量通常极大，我们可以借助工具 [`jq`](https://github.com/jqlang/jq) 筛选日志内容。
+
+举例：若你想查看构建模块图谱时耗时最长的文件路径，执行如下命令：
+```sh
+cat tracing.json | jq 'select(.span.name == "update_module_graph_internal") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
+```
+执行完成后会生成 `filtered.json`，文件内包含所有执行路径及其对应的耗时数据。
+
+同理，若要定位代码分析耗时最久的文件，使用这条命令：
+```sh
+cat tracing.json | jq '. | select(.span.name == "pull_diagnostics") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
+```
+
+其他可用于提取耗时数据的执行阶段标识：
+- `format_file`：查看各文件格式化操作的耗时。
+- `open_file_internal`：查看文件读取与解析的总耗时。该日志包含 `reason` 字段，可查看文件被读取的触发来源：扫描器扫描、文件监听更新、客户端请求（通常为代码检查或格式化）。（自 Biome 2.1.2 版本起支持）
