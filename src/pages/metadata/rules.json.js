@@ -3961,7 +3961,7 @@ export function GET() {
           },
           "noJsRestrictedProperties": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.6",
             "name": "noJsRestrictedProperties",
             "link": "https://biomejs.dev/linter/rules/no-js-restricted-properties",
             "recommended": false,
