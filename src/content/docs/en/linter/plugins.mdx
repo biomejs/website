@@ -97,6 +97,33 @@ When `includes` is set, the plugin only runs on files that match at least one
 positive pattern and are not excluded by a negated pattern. Patterns follow the
 [glob syntax reference](/reference/configuration/#glob-syntax-reference).
 
+## Resolve plugins from shared configurations
+
+By default, Biome resolves plugin paths in a shared configuration from the directory containing the configuration that extends it. To load a plugin that ships with the shared configuration, set `resolutionKind` to `"config"`:
+
+```json title="biome.shared.jsonc"
+{
+  "plugins": [
+    {
+      "path": "./plugins/no-object-assign.grit",
+      "resolutionKind": "config"
+    }
+  ]
+}
+```
+
+Then extend the shared configuration:
+
+```json title="biome.json"
+{
+  "extends": ["./biome.shared.jsonc"]
+}
+```
+
+Biome resolves the plugin path from the directory containing `biome.shared.jsonc`, while `includes` globs are still resolved from the directory containing the extending configuration.
+
+See [`plugins.<ITEM>.resolutionKind`](/reference/configuration#pluginsitemresolutionkind) for the full option reference.
+
 ## Target Languages
 
 A GritQL snippet always attempts to match against a given _target language_.

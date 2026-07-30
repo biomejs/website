@@ -174,11 +174,9 @@ with settings in later files overriding earlier ones.
 
 Files that you `extend` from cannot `extend` other files in turn.
 
-Note that paths in a configuration file are always resolved from the folder in
-which the `biome.json`/`biome.jsonc` file resides. When using the `extends`
-field, this means that paths in a shared configuration are interpreted from the
-location of the configuration that is extending it, and not from the folder
-of the file being extended.
+Relative paths in a shared configuration are resolved from the directory containing the configuration that extends it, not from the directory containing the shared file. Plugin paths follow the same rule by default.
+
+To load a plugin that ships with a shared configuration, see [Resolve plugins from shared configurations](/linter/plugins#resolve-plugins-from-shared-configurations).
 
 For example, let's assume a project that contains two directories `backend/` and
 `frontend/`, each having their own `biome.json` that both extend a `common.json`

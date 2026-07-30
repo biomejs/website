@@ -84,9 +84,9 @@ Biome implicitly treats `root` as `false` when a nested configuration uses `"ext
 
 ## `plugins`
 
-**Type:** `(string | { path: string, includes?: string[] })[]`
+**Type:** `(string | { path: string, includes?: string[], resolutionKind?: "project" | "config" })[]`
 
-A list of [GritQL plugins](/linter/plugins/) to load. Each entry is either a plugin path or an object containing a path and optional file filters:
+A list of [GritQL plugins](/linter/plugins/) to load. Each entry is either a plugin path or an object containing a path and optional settings:
 
 ```json title="biome.json"
 {
@@ -113,6 +113,31 @@ Path to the plugin's `.grit` file or a directory containing `biome-manifest.json
 A list of [glob patterns](#glob-syntax-reference) selecting the files on which the plugin runs.
 
 If omitted, the plugin runs on every file eligible for linting. An empty list (`[]`) selects no files.
+
+### `plugins.<ITEM>.resolutionKind`
+
+**Type:** `"project" | "config"`<br />
+**Default:** `"project"`
+
+Controls where Biome resolves a relative plugin `path` from:
+
+- `"project"`: Resolves the path from the directory containing the configuration file or, in a shared configuration, from the directory containing the configuration that extends it.
+- `"config"`: Resolves the path from the directory containing the configuration file that declares the plugin.
+
+Set this option to `"config"` when a shared configuration loaded through [`extends`](#extends) ships its own plugins:
+
+```json title="biome.shared.jsonc"
+{
+  "plugins": [
+    {
+      "path": "./plugins/no-object-assign.grit",
+      "resolutionKind": "config"
+    }
+  ]
+}
+```
+
+This option does not change how `includes` globs are resolved.
 
 ## `files`
 
