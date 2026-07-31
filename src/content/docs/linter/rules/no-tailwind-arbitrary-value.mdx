@@ -1,0 +1,253 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noTailwindArbitraryValue
+description: Learn more about noTailwindArbitraryValue
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="HTML" icon="seti:html">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noTailwindArbitraryValue`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`tailwind`](/linter/domains#tailwind)
+- Sources: 
+  - Same as [`tailwindcss/no-arbitrary-value`](https://github.com/francoismassart/eslint-plugin-tailwindcss/blob/master/docs/rules/no-arbitrary-value.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindArbitraryValue": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow arbitrary values in Tailwind CSS utility classes.
+
+Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties
+(e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports
+them so teams can keep styling constrained to named utilities from their Tailwind
+configuration.
+
+## Examples
+
+### Invalid
+
+```html
+<div class="w-[400px]"></div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:15 <a href="https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value">lint/nursery/noTailwindArbitraryValue</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Found an arbitrary value in a Tailwind CSS class.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;w-[400px]&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>              <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Arbitrary values bypass Tailwind's theme configuration, defeating design-system consistency and making styles harder to refactor.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a named utility from your Tailwind configuration instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```html
+<div class="text-[#555] bg-white"></div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:18 <a href="https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value">lint/nursery/noTailwindArbitraryValue</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Found an arbitrary value in a Tailwind CSS class.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;text-[#555] bg-white&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Arbitrary values bypass Tailwind's theme configuration, defeating design-system consistency and making styles harder to refactor.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a named utility from your Tailwind configuration instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```html
+<div class="[color:red]"></div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.html:1:13 <a href="https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value">lint/nursery/noTailwindArbitraryValue</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Found an arbitrary value in a Tailwind CSS class.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;[color:red]&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>            <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Arbitrary values bypass Tailwind's theme configuration, defeating design-system consistency and making styles harder to refactor.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a named utility from your Tailwind configuration instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```html
+<div class="w-4 text-red-500 bg-white"></div>
+```
+
+```html
+<div class="[&:nth-child(3)]:px-2"></div>
+```
+
+## Options
+
+By default, this rule checks the `class` attribute. The `attributes`
+option adds more HTML attributes to check.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindArbitraryValue": {
+					"level": "on",
+					"options": {
+						"attributes": [
+							"classList"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```html
+<div classList="w-[400px]"></div>
+```
+
+<pre class="language-text"><code class="language-text"></code></pre>
+
+### attributes
+
+Additional HTML attribute names to check.
+
+Default: `[]` (the `class` attribute is always checked).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_tailwind_arbitrary_value.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noTailwindArbitraryValue)
+
+</TabItem>
+<TabItem label="JSX and TSX" icon="seti:javascript">
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noTailwindArbitraryValue`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`tailwind`](/linter/domains#tailwind)
+- Sources: 
+  - Same as [`tailwindcss/no-arbitrary-value`](https://github.com/francoismassart/eslint-plugin-tailwindcss/blob/master/docs/rules/no-arbitrary-value.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindArbitraryValue": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow arbitrary values in Tailwind CSS utility classes.
+
+Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties
+(e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports
+them so teams can keep styling constrained to named utilities from their Tailwind
+configuration.
+
+## Examples
+
+### Invalid
+
+```jsx
+<div className="w-[400px]" />;
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:19 <a href="https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value">lint/nursery/noTailwindArbitraryValue</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Found an arbitrary value in a Tailwind CSS class.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div className=&quot;w-[400px]&quot; /&gt;;<br />   <strong>   │ </strong>                  <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Arbitrary values bypass Tailwind's theme configuration, defeating design-system consistency and making styles harder to refactor.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a named utility from your Tailwind configuration instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```jsx
+<div className="text-[#555] bg-white" />;
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:22 <a href="https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value">lint/nursery/noTailwindArbitraryValue</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Found an arbitrary value in a Tailwind CSS class.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div className=&quot;text-[#555] bg-white&quot; /&gt;;<br />   <strong>   │ </strong>                     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Arbitrary values bypass Tailwind's theme configuration, defeating design-system consistency and making styles harder to refactor.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a named utility from your Tailwind configuration instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```jsx
+<div className="[color:red]" />;
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:17 <a href="https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value">lint/nursery/noTailwindArbitraryValue</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Found an arbitrary value in a Tailwind CSS class.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div className=&quot;[color:red]&quot; /&gt;;<br />   <strong>   │ </strong>                <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Arbitrary values bypass Tailwind's theme configuration, defeating design-system consistency and making styles harder to refactor.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a named utility from your Tailwind configuration instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```jsx
+<div className="w-4 text-red-500 bg-white" />;
+```
+
+```jsx
+<div className="[&:nth-child(3)]:px-2" />;
+```
+
+## Options
+
+By default, this rule checks the `class` and `className` JSX attributes.
+The `attributes` option adds more JSX attributes to check, and `functions`
+enables checking string arguments and tagged templates in matching utilities.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindArbitraryValue": {
+					"level": "on",
+					"options": {
+						"attributes": [
+							"classList"
+						],
+						"functions": [
+							"clsx"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+### attributes
+
+Additional JSX attribute names to check.
+
+Default: `[]` (the `class` and `className` attributes are always checked).
+
+### functions
+
+Function or tagged template names whose classes will be checked for arbitrary values.
+
+Default: `[]`.
+
+```jsx
+<div className={clsx("w-[400px]")} />;
+```
+
+<pre class="language-text"><code class="language-text">code-block.jsx:1:25 <a href="https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value">lint/nursery/noTailwindArbitraryValue</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Found an arbitrary value in a Tailwind CSS class.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div className=&#123;clsx(&quot;w-[400px]&quot;)&#125; /&gt;;<br />   <strong>   │ </strong>                        <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Arbitrary values bypass Tailwind's theme configuration, defeating design-system consistency and making styles harder to refactor.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a named utility from your Tailwind configuration instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_tailwind_arbitrary_value.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noTailwindArbitraryValue)
+
+</TabItem>
+</Tabs>
+

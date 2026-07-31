@@ -454,6 +454,51 @@ Enabled when the following dependencies are declared:
 Rules that belong to the domain:
 - [noSvelteUnnecessaryStateWrap](/linter/rules/no-svelte-unnecessary-state-wrap) [(nursery)](/linter/#nursery)
 - [useSvelteRequireEachKey](/linter/rules/use-svelte-require-each-key) [(nursery)](/linter/#nursery)
+## Tailwind
+Use this domain inside Tailwind CSS projects. This domain enables rules that are specific to Tailwind CSS.
+### Tailwind activation
+Enable the **recommended, non-nursery** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"tailwind": "recommended"
+		}
+	}
+}
+```
+
+:::note[No recommended rules]
+Since all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.
+:::
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"tailwind": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"tailwind": "none"
+		}
+	}
+}
+```
+### Tailwind dependencies
+Enabled when the following dependencies are declared:
+- `tailwindcss`: `>=3.0.0`
+
+### Tailwind rules
+Rules that belong to the domain:
+- [noTailwindArbitraryValue](/linter/rules/no-tailwind-arbitrary-value) [(nursery)](/linter/#nursery)
+- [noTailwindArbitraryValue](/linter/rules/no-tailwind-arbitrary-value) [(nursery)](/linter/#nursery)
 ## Test
 Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs.
 ### Test activation

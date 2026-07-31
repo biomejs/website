@@ -256,6 +256,7 @@ export default {
   '/linter/rules/noSvgWithoutTitle': '/linter/rules/no-svg-without-title',
   '/linter/rules/noSwitchDeclarations': '/linter/rules/no-switch-declarations',
   '/linter/rules/noSyncScripts': '/linter/rules/no-sync-scripts',
+  '/linter/rules/noTailwindArbitraryValue': '/linter/rules/no-tailwind-arbitrary-value',
   '/linter/rules/noTemplateCurlyInString': '/linter/rules/no-template-curly-in-string',
   '/linter/rules/noTernary': '/linter/rules/no-ternary',
   '/linter/rules/noThenProperty': '/linter/rules/no-then-property',
