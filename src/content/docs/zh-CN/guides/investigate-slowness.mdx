@@ -8,7 +8,7 @@ Biome 的设计初衷就是追求高速，极致的高速。但有时它的实�
 ## 前置基础排查
 在深入复杂排查手段前，先执行以下几步简易操作，判断性能问题是否由下述场景导致：
 1. 若项目存在存放打包产物的 `dist/`、`build/` 目录，或是其他存放压缩代码的文件夹，请尝试在配置项 [`files.includes`](https://biomejs.dev/zh-cn/reference/configuration/#filesincludes) 中使用 `!!` 语法将这些目录设为忽略，观察性能是否改善。
-2. 你是否开启了[项目规则](/linter/domains/#project)？该功能会带来额外性能开销，但能提供更深度的代码分析。你也可以查看对应答疑文档[为什么新版 Biome 检查器相比 v1 速度变慢](/zh-CN/linter/#why-is-biome-linter-so-slow-compared-to-v1)。尝试关闭该功能，查看运行速度是否提升。
+2. 你是否开启了[项目规则](/linter/domains/#project)？该功能会带来额外性能开销，但能提供更深度的代码分析。你也可以查看对应答疑文档[为什么新版 Biome 检查器相比 v1 速度变慢](/linter/#why-is-biome-linter-so-slow-compared-to-v1)。尝试关闭该功能，查看运行速度是否提升。
     - 若关闭后速度明显变快，但你想精准定位具体拖慢性能的内容，可以先在 [`files.includes`](https://biomejs.dev/zh-cn/reference/configuration/#filesincludes) 中通过 `!!` 语法添加 `**/node_modules` 忽略规则。
     - 如果操作后性能恢复正常，说明问题出在依赖包。但不建议长期保留该配置，此举会导致项目无法读取依赖包的类型信息。你可以微调 `files.includes` 配置，单独忽略出问题的某个依赖，而非整个 `node_modules/` 目录；下文会介绍如何定位需要忽略的依赖包。
 
