@@ -348,6 +348,13 @@ export function GET() {
 					"required": ["eslintStylistic"]
 				},
 				{
+					"description": "Rules from [Eslint Plugin Tailwindcss](https://github.com/francoismassart/eslint-plugin-tailwindcss)",
+					"type": "object",
+					"properties": { "eslintTailwindcss": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintTailwindcss"]
+				},
+				{
 					"description": "Rules from [Eslint Plugin Typescript](https://typescript-eslint.io)",
 					"type": "object",
 					"properties": { "eslintTypeScript": { "type": "string" } },
