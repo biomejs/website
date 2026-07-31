@@ -114,7 +114,7 @@ Stops the Biome daemon server if it is running.
 
 Checks the specified files for formatting, linting, and assist actions.
 
-The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome processes files in the current working directory.
+The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome checks files in the current working directory.
 
 ```shell
 biome check ./src
@@ -137,7 +137,7 @@ Allows `--write` or `--fix` to apply unsafe fixes and assist actions.
 Enables or disables formatting checks for this command.
 
 ```shell
-biome check --formatter-enabled=true
+biome check --formatter-enabled=false
 ```
 
 #### `--linter-enabled=<true|false>`
@@ -166,13 +166,13 @@ biome check --enforce-assist=false
 
 #### `--profile-rules`
 
-Enables rule profiling output. Captures timing only for rule execution, not preprocessing such as querying or building the semantic model.
+Reports how long each rule takes to run. It excludes the time spent preparing the analysis, such as building the semantic model.
 
 #### `--stdin-file-path=PATH`
 
 Reads code from standard input and writes the processed code to standard output.
 
-Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project and bypass `files.includes` and VCS ignore checks.
+Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project. They bypass `files.includes` and VCS ignore checks.
 
 ```shell
 echo 'let a;' | biome check --stdin-file-path=file.js --write
@@ -180,11 +180,11 @@ echo 'let a;' | biome check --stdin-file-path=file.js --write
 
 #### `--staged`
 
-Processes only staged files. This option is intended for local use.
+Checks only staged files. This option is intended for local use.
 
 #### `--changed`
 
-Processes only files changed by commits since the merge base between `REF` and `HEAD`. `REF` comes from `--since` or `vcs.defaultBranch`. Staged and unstaged changes are not included. This option is intended for CI.
+Checks only files with committed changes compared to the configured `vcs.defaultBranch` or the base reference specified by `--since`. Staged and unstaged changes are not included. This option is intended for CI.
 
 #### `--since=REF`
 
@@ -218,7 +218,7 @@ After the initial run, watches the selected paths and reprocesses files modified
 
 Runs the linter on the specified files.
 
-The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome processes files in the current working directory.
+The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome lints files in the current working directory.
 
 ```shell
 biome lint ./src
@@ -268,7 +268,7 @@ biome lint --skip=correctness/noUnusedVariables --skip=suspicious --skip=project
 
 Reads code from standard input and writes the processed code to standard output.
 
-Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project and bypass `files.includes` and VCS ignore checks.
+Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project. They bypass `files.includes` and VCS ignore checks.
 
 ```shell
 echo 'let a;' | biome lint --stdin-file-path=file.js --write
@@ -276,11 +276,11 @@ echo 'let a;' | biome lint --stdin-file-path=file.js --write
 
 #### `--staged`
 
-Processes only staged files. This option is intended for local use.
+Lints only staged files. This option is intended for local use.
 
 #### `--changed`
 
-Processes only files changed by commits since the merge base between `REF` and `HEAD`. `REF` comes from `--since` or `vcs.defaultBranch`. Staged and unstaged changes are not included. This option is intended for CI.
+Lints only files with committed changes compared to the configured `vcs.defaultBranch` or the base reference specified by `--since`. Staged and unstaged changes are not included. This option is intended for CI.
 
 #### `--since=REF`
 
@@ -292,7 +292,7 @@ biome lint --changed --since=main
 
 #### `--profile-rules`
 
-Enables rule profiling output. Captures timing only for rule execution, not preprocessing such as querying or building the semantic model.
+Reports how long each rule takes to run. It excludes the time spent preparing the analysis, such as building the semantic model.
 
 #### `--watch`
 
@@ -302,7 +302,7 @@ After the initial run, watches the selected paths and reprocesses files modified
 
 Formats the specified files.
 
-The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome processes files in the current working directory.
+The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome formats files in the current working directory.
 
 ```shell
 biome format ./src
@@ -316,7 +316,7 @@ This command also accepts [global flags](#global-flags), the relevant [shared fl
 
 Reads code from standard input and writes the processed code to standard output.
 
-Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project and bypass `files.includes` and VCS ignore checks.
+Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project. They bypass `files.includes` and VCS ignore checks.
 
 ```shell
 echo 'let a;' | biome format --stdin-file-path=file.js
@@ -328,11 +328,11 @@ Applies formatting changes.
 
 #### `--staged`
 
-Processes only staged files. This option is intended for local use.
+Formats only staged files. This option is intended for local use.
 
 #### `--changed`
 
-Processes only files changed by commits since the merge base between `REF` and `HEAD`. `REF` comes from `--since` or `vcs.defaultBranch`. Staged and unstaged changes are not included. This option is intended for CI.
+Formats only files with committed changes compared to the configured `vcs.defaultBranch` or the base reference specified by `--since`. Staged and unstaged changes are not included. This option is intended for CI.
 
 #### `--since=REF`
 
@@ -350,7 +350,7 @@ After the initial run, watches the selected paths and reprocesses files modified
 
 Runs formatting checks, linting checks, and assist actions in CI without modifying files.
 
-The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome processes files in the current working directory.
+The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome checks files in the current working directory.
 
 ```shell
 biome ci ./src
@@ -365,7 +365,7 @@ This command also accepts [global flags](#global-flags), the relevant [shared fl
 Enables or disables formatting checks for this command.
 
 ```shell
-biome ci --formatter-enabled=true
+biome ci --formatter-enabled=false
 ```
 
 #### `--linter-enabled=<true|false>`
@@ -394,7 +394,7 @@ biome ci --enforce-assist=false
 
 #### `--changed`
 
-Processes only files changed by commits since the merge base between `REF` and `HEAD`. `REF` comes from `--since` or `vcs.defaultBranch`. Staged and unstaged changes are not included. This option is intended for CI.
+Checks only files with committed changes compared to the configured `vcs.defaultBranch` or the base reference specified by `--since`. Staged and unstaged changes are not included. This option is intended for CI.
 
 #### `--since=REF`
 
@@ -484,16 +484,20 @@ Includes nursery rules in the migration.
 
 ## `biome search`
 
-Finds code that matches a GritQL pattern. This command is experimental.
+EXPERIMENTAL: Finds code that matches a [GritQL pattern](https://docs.grit.io/language/patterns), optionally limited to specific files or directories.
 
-GritQL delimits code snippets with backticks. Because many shells interpret backticks specially, enclose the complete query in single quotes when the shell supports them.
+The required `PATTERN` argument is the GritQL query to find. Rewrite queries aren't supported because `biome search` is read-only.
 
-The required `PATTERN` argument is the GritQL pattern to find. It must be a search pattern because rewrites are not supported.
+:::tip
+Put the query inside single quotes when the shell supports them. This prevents the shell from interpreting GritQL's backticks as commands.
+:::
 
-The optional `PATH` arguments limit the search to one or more files or directories. If omitted, Biome searches files in the current working directory.
+The optional `PATH` arguments limit the search to one or more files or directories. Without a path, Biome searches files in the current working directory.
+
+The following command finds `console.log` invocations in `./src`:
 
 ```shell
-biome search '`console.log($message)`' # find all `console.log` invocations
+biome search '`console.log($message)`' ./src
 ```
 
 This command also accepts [global flags](#global-flags), the relevant [shared flags](#shared-flags), and the following additional flags:
@@ -631,7 +635,7 @@ biome ci --reporter=default --reporter=rdjson --reporter-file=report.json
 
 These flags are accepted by multiple commands. Configuration flags override the equivalent settings from `biome.json` or `biome.jsonc`.
 
-<h3 id="daemon-flags">Daemon server flags</h3>
+### Daemon server flags
 
 #### `--watcher-kind=<polling|recommended|none>`
 
@@ -649,7 +653,17 @@ Uses the **`BIOME_WATCHER_POLLING_INTERVAL`** environment variable.
 
 Defaults to `2000`.
 
-<h3 id="configuration-flags">Configuration flags</h3>
+### JSON parser flags
+
+#### `--json-parse-allow-comments=<true|false>`
+
+Allows parsing comments in `.json` files.
+
+#### `--json-parse-allow-trailing-commas=<true|false>`
+
+Allows parsing trailing commas in `.json` files.
+
+### Configuration flags
 
 #### `--vcs-enabled=<true|false>`
 
@@ -893,6 +907,14 @@ Controls the linter for JSON and languages that extend it.
 
 Controls assist actions for JSON and languages that extend it.
 
+#### `--css-parse-css-modules=<true|false>`
+
+Enables parsing of CSS Modules-specific features. Enable this feature only when your files don't end in `.module.css`.
+
+#### `--css-parse-tailwind-directives=<true|false>`
+
+Enables parsing of Tailwind CSS 4.0 directives and functions.
+
 #### `--css-formatter-enabled=<true|false>`
 
 Controls the formatter for CSS and languages that extend it.
@@ -1071,29 +1093,7 @@ Controls the linter for HTML and languages that extend it.
 
 Controls assist actions for HTML and languages that extend it.
 
-<span id="json-parser-flags"></span>
-
-<h3 id="parser-flags">Parser flags</h3>
-
-#### `--css-parse-css-modules=<true|false>`
-
-Enables parsing of CSS Modules-specific features. Enable this feature only when your files don't end in `.module.css`.
-
-#### `--css-parse-tailwind-directives=<true|false>`
-
-Enables parsing of Tailwind CSS 4.0 directives and functions.
-
-#### `--json-parse-allow-comments=<true|false>`
-
-Allows parsing comments in `.json` files.
-
-#### `--json-parse-allow-trailing-commas=<true|false>`
-
-Allows parsing trailing commas in `.json` files.
-
-<h3 id="logging-flags">Logging flags</h3>
-
-These flags configure internal CLI or daemon server logging. Each flag description identifies which commands use that flag.
+### Logging flags
 
 #### `--log-file=PATH`
 
