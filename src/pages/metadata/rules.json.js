@@ -1875,6 +1875,23 @@ export function GET() {
             ],
             "docs": " Disallow the use of inline styles.\n\n Inline styles via the `style` attribute make code harder to maintain and override,\n prevent reusability of styling, and can be a security concern when implementing\n a strict Content Security Policy (CSP).\n\n Instead of inline styles, use CSS classes, CSS modules, or a styling library.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div style=\"color: red;\"></div>\n ```\n\n ```html,expect_diagnostic\n <p style=\"font-size: 14px;\">Hello</p>\n ```\n\n ### Valid\n\n ```html\n <div class=\"text-red\"></div>\n ```\n\n ```html\n <p class=\"body-text\">Hello</p>\n ```\n\n ## Resources\n\n - [Content Security Policy: Allowing inline styles](https://content-security-policy.com/examples/allow-inline-style)\n\n"
           },
+          "noNonScalableViewport": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNonScalableViewport",
+            "link": "https://biomejs.dev/linter/rules/no-non-scalable-viewport",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-non-scalable-viewport"
+                }
+              }
+            ],
+            "docs": " Disallow disabling zoom with `user-scalable=no` in the `<meta name=\"viewport\">` element.\n\n Disabling zoom can make page content difficult to read for people with low vision.\n\n See [WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) and the\n [html-eslint rule](https://html-eslint.org/docs/rules/no-non-scalable-viewport) for details.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />\n ```\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"user-scalable = no, width=device-width\" />\n ```\n\n ### Valid\n\n ```html\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" />\n <meta name=\"viewport\" content=\"width=device-width\" />\n <meta name=\"viewport\" content=\"user-scalable=nope\" />\n ```\n\n"
+          },
           "noTailwindArbitraryValue": {
             "deprecated": false,
             "version": "next",
@@ -3914,6 +3931,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce a maximum depth that callbacks can be nested.\n\n Deeply nested callbacks make asynchronous control flow difficult to read and follow.\n This rule reports callback functions nested beyond the configured limit.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo1(function () {\n     foo2(function () {\n         foo3(function () {\n             foo4(function () {\n                 foo5(function () {\n                     foo6(function () {});\n                 });\n             });\n         });\n     });\n });\n ```\n\n ### Valid\n\n ```js\n foo1(handleFoo1);\n\n function handleFoo1() {\n     foo2(handleFoo2);\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum callback nesting depth allowed (default: 5).\n\n ```json,options\n {\n     \"options\": {\n         \"max\": 3\n     }\n }\n ```\n\n #### Invalid\n ```js,use_options,expect_diagnostic\n foo1(function () {\n     foo2(function () {\n         foo3(function () {\n             foo4(function () {});\n         });\n     });\n });\n ```\n\n #### Valid\n ```js,use_options\n foo1(function () {\n     foo2(function () {\n         foo3(function () {});\n     });\n });\n ```\n\n"
+          },
+          "noExtendNative": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noExtendNative",
+            "link": "https://biomejs.dev/linter/rules/no-extend-native",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-extend-native"
+                }
+              }
+            ],
+            "docs": " Disallow extending the prototype of built-in objects.\n\n Adding properties to the prototype of a built-in such as `Object`,\n `Array`, or `Error` leaks into every value of that type. The new\n property shows up in every `for...in`, collides with other libraries\n that patch the same prototype, and breaks assumptions across the whole\n program. Extend a subclass or use a standalone helper instead.\n\n This rule flags a direct prototype assignment\n (`Builtin.prototype.x = ...`), computed prototype access\n (`Builtin[\"prototype\"].x = ...`), and\n `Object.defineProperty`/`Object.defineProperties` targeting a\n built-in prototype.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Object.prototype.extra = \"a\";\n ```\n\n ```js,expect_diagnostic\n Array.prototype.times = function () {};\n ```\n\n ```js,expect_diagnostic\n Object.defineProperty(Array.prototype, \"times\", { value: 999 });\n ```\n\n ### Valid\n\n ```js\n class CustomArray extends Array {}\n ```\n\n ```js\n const obj = {};\n obj.extra = \"a\";\n ```\n\n"
           },
           "noIdenticalTestTitle": {
             "deprecated": false,
@@ -8894,6 +8928,23 @@ export function GET() {
             ],
             "docs": " Disallow JSX namespace syntax.\n\n React does not support XML namespaced tags such as `<ns:Component />`.\n Although the JSX specification permits namespaces, React does not implement\n them and using a namespaced element may cause a runtime error.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <ns:testcomponent />\n ```\n\n ```jsx,expect_diagnostic\n <svg:circle cx=\"50\" cy=\"50\" r=\"40\" />\n ```\n\n ### Valid\n\n ```jsx\n <testcomponent />\n ```\n\n ```jsx\n <object.TestComponent />\n ```\n\n"
           },
+          "noNonScalableViewport": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNonScalableViewport",
+            "link": "https://biomejs.dev/linter/rules/no-non-scalable-viewport",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "no-non-scalable-viewport"
+                }
+              }
+            ],
+            "docs": " Disallow disabling zoom with `user-scalable=no` in the `<meta name=\"viewport\">` element.\n\n Disabling zoom can make page content difficult to read for people with low vision.\n\n See [WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) and the\n [html-eslint rule](https://html-eslint.org/docs/rules/no-non-scalable-viewport) for details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />\n ```\n\n ```jsx,expect_diagnostic\n <meta name={\"viewport\"} content={\"user-scalable=no\"} />\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" />\n   <meta name=\"viewport\" content=\"width=device-width\" />\n   <Meta name=\"viewport\" content=\"user-scalable=no\" />\n </>\n ```\n\n"
+          },
           "noReactNativeRawText": {
             "deprecated": false,
             "version": "2.4.13",
@@ -10119,7 +10170,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 564
+    "numberOrRules": 567
   },
   "syntax": {
     "languages": {
