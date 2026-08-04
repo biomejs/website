@@ -47,6 +47,7 @@ import LinterExample from "@/components/linter/example.md";
 import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
 import AwardBanner from "@/components/AwardBanner.astro"
 import FeaturedUsers from "@/components/FeaturedUsers.astro"
+import HomepageCodeBlocks from "@/components/HomepageCodeBlocks.astro";
 
 <div class="gradient"></div>
 
@@ -234,20 +235,4 @@ import FeaturedUsers from "@/components/FeaturedUsers.astro"
 
 <Netlify/>
 
-<script>
-	// The homepage overrides in `src/styles/_overrides.css` give these two code
-	// blocks a fixed height and `overflow: scroll`, which moves the scroll
-	// container from Expressive Code's `<pre>` onto the `<code>` inside it.
-	// Neither element is focusable, so a keyboard user cannot scroll them and the
-	// lines below the fold are unreachable. A mouse user sees all of it.
-	//
-	// WCAG 2.1.1 Keyboard (Level A); axe rule `scrollable-region-focusable`.
-	for (const code of document.querySelectorAll(".linter pre > code, .format pre > code")) {
-		if (
-			code.scrollHeight > code.clientHeight + 2 ||
-			code.scrollWidth > code.clientWidth + 2
-		) {
-			code.setAttribute("tabindex", "0");
-		}
-	}
-</script>
+<HomepageCodeBlocks/>

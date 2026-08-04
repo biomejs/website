@@ -1,0 +1,11 @@
+<script>
+	// Homepage overrides move scrolling from the <pre> to its non-focusable <code>.
+	for (const code of document.querySelectorAll(".linter pre > code, .format pre > code")) {
+		if (
+			code.scrollHeight > code.clientHeight + 2 ||
+			code.scrollWidth > code.clientWidth + 2
+		) {
+			code.setAttribute("tabindex", "0");
+		}
+	}
+</script>
