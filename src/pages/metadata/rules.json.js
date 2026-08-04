@@ -1877,7 +1877,7 @@ export function GET() {
           },
           "noNonScalableViewport": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.7",
             "name": "noNonScalableViewport",
             "link": "https://biomejs.dev/linter/rules/no-non-scalable-viewport",
             "recommended": false,
@@ -1894,7 +1894,7 @@ export function GET() {
           },
           "noTailwindArbitraryValue": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.7",
             "name": "noTailwindArbitraryValue",
             "link": "https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value",
             "recommended": false,
@@ -3934,7 +3934,7 @@ export function GET() {
           },
           "noExtendNative": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.7",
             "name": "noExtendNative",
             "link": "https://biomejs.dev/linter/rules/no-extend-native",
             "recommended": false,
@@ -8930,7 +8930,7 @@ export function GET() {
           },
           "noNonScalableViewport": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.7",
             "name": "noNonScalableViewport",
             "link": "https://biomejs.dev/linter/rules/no-non-scalable-viewport",
             "recommended": false,
@@ -8964,7 +8964,7 @@ export function GET() {
           },
           "noTailwindArbitraryValue": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.7",
             "name": "noTailwindArbitraryValue",
             "link": "https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value",
             "recommended": false,
@@ -10174,6 +10174,19 @@ export function GET() {
   },
   "syntax": {
     "languages": {
+      "css": {
+        "correctness": {
+          "noInvalidPropertySyntax": {
+            "deprecated": false,
+            "version": "2.5.7",
+            "name": "noInvalidPropertySyntax",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-property-syntax",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Parses the value of `syntax` in CSS custom at-rule `@property`\n\n ## Examples\n\n ```js\n class A {\n   #foo;\n   #foo;\n ```\n"
+          }
+        }
+      },
       "js": {
         "correctness": {
           "noDuplicatePrivateClassMembers": {
@@ -10219,7 +10232,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 4
+    "numberOrRules": 5
   },
   "assist": {
     "languages": {
