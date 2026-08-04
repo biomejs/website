@@ -121,6 +121,7 @@ export const LINT_RULES = {
     noInvalidDirectionInLinearGradient: "noInvalidDirectionInLinearGradient",
     noInvalidGridAreas: "noInvalidGridAreas",
     noInvalidPositionAtImportRule: "noInvalidPositionAtImportRule",
+    noInvalidPropertySyntax: "noInvalidPropertySyntax",
     noInvalidUseBeforeDeclaration: "noInvalidUseBeforeDeclaration",
     noMissingVarFunction: "noMissingVarFunction",
     noNestedComponentDefinitions: "noNestedComponentDefinitions",
