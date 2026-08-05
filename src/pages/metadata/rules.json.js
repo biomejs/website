@@ -1875,6 +1875,40 @@ export function GET() {
             ],
             "docs": " Disallow the use of inline styles.\n\n Inline styles via the `style` attribute make code harder to maintain and override,\n prevent reusability of styling, and can be a security concern when implementing\n a strict Content Security Policy (CSP).\n\n Instead of inline styles, use CSS classes, CSS modules, or a styling library.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div style=\"color: red;\"></div>\n ```\n\n ```html,expect_diagnostic\n <p style=\"font-size: 14px;\">Hello</p>\n ```\n\n ### Valid\n\n ```html\n <div class=\"text-red\"></div>\n ```\n\n ```html\n <p class=\"body-text\">Hello</p>\n ```\n\n ## Resources\n\n - [Content Security Policy: Allowing inline styles](https://content-security-policy.com/examples/allow-inline-style)\n\n"
           },
+          "noNonScalableViewport": {
+            "deprecated": false,
+            "version": "2.5.7",
+            "name": "noNonScalableViewport",
+            "link": "https://biomejs.dev/linter/rules/no-non-scalable-viewport",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-non-scalable-viewport"
+                }
+              }
+            ],
+            "docs": " Disallow disabling zoom with `user-scalable=no` in the `<meta name=\"viewport\">` element.\n\n Disabling zoom can make page content difficult to read for people with low vision.\n\n See [WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) and the\n [html-eslint rule](https://html-eslint.org/docs/rules/no-non-scalable-viewport) for details.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />\n ```\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"user-scalable = no, width=device-width\" />\n ```\n\n ### Valid\n\n ```html\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" />\n <meta name=\"viewport\" content=\"width=device-width\" />\n <meta name=\"viewport\" content=\"user-scalable=nope\" />\n ```\n\n"
+          },
+          "noTailwindArbitraryValue": {
+            "deprecated": false,
+            "version": "2.5.7",
+            "name": "noTailwindArbitraryValue",
+            "link": "https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTailwindcss": "no-arbitrary-value"
+                }
+              }
+            ],
+            "docs": " Disallow arbitrary values in Tailwind CSS utility classes.\n\n Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties\n (e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports\n them so teams can keep styling constrained to named utilities from their Tailwind\n configuration.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"w-[400px]\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"text-[#555] bg-white\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"[color:red]\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"w-4 text-red-500 bg-white\"></div>\n ```\n\n ```html\n <div class=\"[&:nth-child(3)]:px-2\"></div>\n ```\n\n ## Options\n\n By default, this rule checks the `class` attribute. The `attributes`\n option adds more HTML attributes to check.\n\n ```json,options\n {\n     \"options\": {\n         \"attributes\": [\"classList\"]\n     }\n }\n ```\n\n ```html,use_options,expect_diagnostic\n <div classList=\"w-[400px]\"></div>\n ```\n\n ### attributes\n\n Additional HTML attribute names to check.\n\n Default: `[]` (the `class` attribute is always checked).\n\n"
+          },
           "noUndeclaredClasses": {
             "deprecated": false,
             "version": "2.5.0",
@@ -3898,6 +3932,23 @@ export function GET() {
             ],
             "docs": " Enforce a maximum depth that callbacks can be nested.\n\n Deeply nested callbacks make asynchronous control flow difficult to read and follow.\n This rule reports callback functions nested beyond the configured limit.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo1(function () {\n     foo2(function () {\n         foo3(function () {\n             foo4(function () {\n                 foo5(function () {\n                     foo6(function () {});\n                 });\n             });\n         });\n     });\n });\n ```\n\n ### Valid\n\n ```js\n foo1(handleFoo1);\n\n function handleFoo1() {\n     foo2(handleFoo2);\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum callback nesting depth allowed (default: 5).\n\n ```json,options\n {\n     \"options\": {\n         \"max\": 3\n     }\n }\n ```\n\n #### Invalid\n ```js,use_options,expect_diagnostic\n foo1(function () {\n     foo2(function () {\n         foo3(function () {\n             foo4(function () {});\n         });\n     });\n });\n ```\n\n #### Valid\n ```js,use_options\n foo1(function () {\n     foo2(function () {\n         foo3(function () {});\n     });\n });\n ```\n\n"
           },
+          "noExtendNative": {
+            "deprecated": false,
+            "version": "2.5.7",
+            "name": "noExtendNative",
+            "link": "https://biomejs.dev/linter/rules/no-extend-native",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-extend-native"
+                }
+              }
+            ],
+            "docs": " Disallow extending the prototype of built-in objects.\n\n Adding properties to the prototype of a built-in such as `Object`,\n `Array`, or `Error` leaks into every value of that type. The new\n property shows up in every `for...in`, collides with other libraries\n that patch the same prototype, and breaks assumptions across the whole\n program. Extend a subclass or use a standalone helper instead.\n\n This rule flags a direct prototype assignment\n (`Builtin.prototype.x = ...`), computed prototype access\n (`Builtin[\"prototype\"].x = ...`), and\n `Object.defineProperty`/`Object.defineProperties` targeting a\n built-in prototype.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Object.prototype.extra = \"a\";\n ```\n\n ```js,expect_diagnostic\n Array.prototype.times = function () {};\n ```\n\n ```js,expect_diagnostic\n Object.defineProperty(Array.prototype, \"times\", { value: 999 });\n ```\n\n ### Valid\n\n ```js\n class CustomArray extends Array {}\n ```\n\n ```js\n const obj = {};\n obj.extra = \"a\";\n ```\n\n"
+          },
           "noIdenticalTestTitle": {
             "deprecated": false,
             "version": "2.4.12",
@@ -4594,7 +4645,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce using the nullish coalescing operator (`??`) instead of logical or (`||`).\n\n `??` only checks for `null` and `undefined`, while `||` checks for any falsy value\n including `0`, `''`, and `false`. The rule reports `||`, `||=`, and ternary patterns\n (`x !== null ? x : y`) when type analysis shows the left operand is possibly nullish.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-or.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n ```ts,expect_diagnostic,file=invalid-or-undefined.ts\n declare const maybeNumber: number | undefined;\n const value = maybeNumber || 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid-or-assign.ts\n declare let x: string | null;\n x ||= 'default';\n ```\n\n ```ts,expect_diagnostic\n declare const x: string | null;\n const value = x !== null ? x : 'default';\n ```\n\n ```ts,expect_diagnostic\n declare const x: string | null;\n const value = x == null ? 'default' : x;\n ```\n\n ### Valid\n\n ```ts\n declare const maybeString: string | null;\n const value = maybeString ?? 'default';\n ```\n\n ```ts\n declare const definiteString: string;\n const value = definiteString || 'fallback';\n ```\n\n ```ts\n declare const cond: string | null;\n if (cond || 'fallback') {\n   console.log('in if');\n }\n ```\n\n ```ts\n declare let y: string | null;\n y ??= 'default';\n ```\n\n ## Options\n\n ### ignoreConditionalTests\n\n Ignore `||` expressions inside conditional test positions (if/while/for/do-while/ternary).\n Default: `true`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreConditionalTests\": false\n     }\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n declare const cond: string | null;\n if (cond || 'fallback') {}\n ```\n\n ### ignoreTernaryTests\n\n Ignore ternary expressions that check for `null` or `undefined`. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreTernaryTests\": true\n     }\n }\n ```\n\n ```ts,use_options\n declare const x: string | null;\n const value = x !== null ? x : 'default';\n ```\n\n ### ignoreMixedLogicalExpressions\n\n Ignore `||` and `||=` whose connected logical tree also contains a `&&`. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreMixedLogicalExpressions\": true\n     }\n }\n ```\n\n #### Invalid\n\n `||` and `||=` are still reported when the surrounding logical tree does not contain `&&`.\n\n ```ts,expect_diagnostic,use_options,file=invalid-mixed-or.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n ```ts,expect_diagnostic,use_options,file=invalid-mixed-or-assign.ts\n declare let assigned: string | null;\n assigned ||= 'default';\n ```\n\n #### Valid\n\n `||` and `||=` mixed with `&&` in the same logical tree are not reported.\n\n ```ts,use_options\n declare const a: string | null;\n declare const b: string;\n const r = (a || 'default') && b;\n ```\n\n ```ts,use_options\n declare const b: string;\n declare let assigned: string | null;\n assigned ||= b && 'fallback';\n ```\n\n ### ignoreBooleanCoercion\n\n Ignore `||` and `||=` used inside a `Boolean()` call, where coalescing on\n falsy values is intentional. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreBooleanCoercion\": true\n     }\n }\n ```\n\n #### Invalid\n\n `||` and `||=` outside a `Boolean()` call are still reported.\n\n ```ts,expect_diagnostic,use_options,file=invalid-boolean-coercion.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n #### Valid\n\n `||` and `||=` inside a `Boolean()` call are not reported.\n\n ```ts,use_options,file=valid-boolean-coercion.ts\n declare const a: string | null;\n declare const b: string;\n const r = Boolean(a || b);\n ```\n\n ### ignorePrimitives\n\n Ignore `||`, `||=`, and ternary expressions when every non-nullish variant\n of the operand is a primitive the option opts out of. Use `true` to ignore\n all primitives, or an object selecting `string`, `number`, `boolean`, or\n `bigint`. Default: none.\n\n ```json,options\n {\n     \"options\": {\n         \"ignorePrimitives\": { \"string\": true }\n     }\n }\n ```\n\n #### Invalid\n\n Primitive kinds that are not opted out of are still reported.\n\n ```ts,expect_diagnostic,use_options,file=invalid-primitives.ts\n declare const count: number | null;\n const value = count || 0;\n ```\n\n #### Valid\n\n A `string` operand is not reported when `string` is ignored.\n\n ```ts,use_options,file=valid-primitives.ts\n declare const name: string | null;\n const value = name || 'default';\n ```\n\n"
+            "docs": " Enforce using the nullish coalescing operator (`??`) instead of logical or (`||`).\n\n `??` only checks for `null` and `undefined`, while `||` checks for any falsy value\n including `0`, `''`, and `false`. The rule reports `||`, `||=`, and ternary patterns\n (`x !== null ? x : y`) when type analysis shows the left operand is possibly nullish.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-or.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n ```ts,expect_diagnostic,file=invalid-or-undefined.ts\n declare const maybeNumber: number | undefined;\n const value = maybeNumber || 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid-or-assign.ts\n declare let x: string | null;\n x ||= 'default';\n ```\n\n ```ts,expect_diagnostic\n declare const x: string | null;\n const value = x !== null ? x : 'default';\n ```\n\n ```ts,expect_diagnostic\n declare const x: string | null;\n const value = x == null ? 'default' : x;\n ```\n\n An `if` statement that only assigns to a nullish variable is also reported,\n since it can be rewritten as `??=`.\n\n ```ts,expect_diagnostic,file=invalid-if-assignment.ts\n declare let a: { x: string } | null;\n declare function makeA(): { x: string };\n if (!a) {\n     a = makeA();\n }\n ```\n\n ### Valid\n\n ```ts\n declare const maybeString: string | null;\n const value = maybeString ?? 'default';\n ```\n\n ```ts\n declare const definiteString: string;\n const value = definiteString || 'fallback';\n ```\n\n ```ts\n declare const cond: string | null;\n if (cond || 'fallback') {\n   console.log('in if');\n }\n ```\n\n ```ts\n declare let y: string | null;\n y ??= 'default';\n ```\n\n ## Options\n\n ### ignoreConditionalTests\n\n Ignore `||` expressions inside conditional test positions (if/while/for/do-while/ternary).\n Default: `true`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreConditionalTests\": false\n     }\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n declare const cond: string | null;\n if (cond || 'fallback') {}\n ```\n\n ### ignoreTernaryTests\n\n Ignore ternary expressions that check for `null` or `undefined`. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreTernaryTests\": true\n     }\n }\n ```\n\n ```ts,use_options\n declare const x: string | null;\n const value = x !== null ? x : 'default';\n ```\n\n ### ignoreMixedLogicalExpressions\n\n Ignore `||` and `||=` whose connected logical tree also contains a `&&`. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreMixedLogicalExpressions\": true\n     }\n }\n ```\n\n #### Invalid\n\n `||` and `||=` are still reported when the surrounding logical tree does not contain `&&`.\n\n ```ts,expect_diagnostic,use_options,file=invalid-mixed-or.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n ```ts,expect_diagnostic,use_options,file=invalid-mixed-or-assign.ts\n declare let assigned: string | null;\n assigned ||= 'default';\n ```\n\n #### Valid\n\n `||` and `||=` mixed with `&&` in the same logical tree are not reported.\n\n ```ts,use_options\n declare const a: string | null;\n declare const b: string;\n const r = (a || 'default') && b;\n ```\n\n ```ts,use_options\n declare const b: string;\n declare let assigned: string | null;\n assigned ||= b && 'fallback';\n ```\n\n ### ignoreBooleanCoercion\n\n Ignore `||` and `||=` used inside a `Boolean()` call, where coalescing on\n falsy values is intentional. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreBooleanCoercion\": true\n     }\n }\n ```\n\n #### Invalid\n\n `||` and `||=` outside a `Boolean()` call are still reported.\n\n ```ts,expect_diagnostic,use_options,file=invalid-boolean-coercion.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n #### Valid\n\n `||` and `||=` inside a `Boolean()` call are not reported.\n\n ```ts,use_options,file=valid-boolean-coercion.ts\n declare const a: string | null;\n declare const b: string;\n const r = Boolean(a || b);\n ```\n\n ### ignorePrimitives\n\n Ignore `||`, `||=`, and ternary expressions when every non-nullish variant\n of the operand is a primitive the option opts out of. Use `true` to ignore\n all primitives, or an object selecting `string`, `number`, `boolean`, or\n `bigint`. Default: none.\n\n ```json,options\n {\n     \"options\": {\n         \"ignorePrimitives\": { \"string\": true }\n     }\n }\n ```\n\n #### Invalid\n\n Primitive kinds that are not opted out of are still reported.\n\n ```ts,expect_diagnostic,use_options,file=invalid-primitives.ts\n declare const count: number | null;\n const value = count || 0;\n ```\n\n #### Valid\n\n A `string` operand is not reported when `string` is ignored.\n\n ```ts,use_options,file=valid-primitives.ts\n declare const name: string | null;\n const value = name || 'default';\n ```\n\n ### ignoreIfStatements\n\n By default, Biome reports an `if` statement that only assigns to a\n nullish variable, since it can be rewritten as `??=`. Set this to `true`\n to ignore those statements. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreIfStatements\": true\n     }\n }\n ```\n\n #### Invalid\n\n `||` and `||=` are still reported when only `if` statements are ignored.\n\n ```ts,expect_diagnostic,use_options,file=invalid-if-statements.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n #### Valid\n\n An `if` statement performing a nullish assignment is not reported.\n\n ```ts,use_options,file=valid-if-statements.ts\n declare let a: { x: string } | null;\n declare function makeA(): { x: string };\n if (!a) {\n     a = makeA();\n }\n ```\n\n"
           },
           "usePlaywrightValidDescribeCallback": {
             "deprecated": false,
@@ -8877,6 +8928,23 @@ export function GET() {
             ],
             "docs": " Disallow JSX namespace syntax.\n\n React does not support XML namespaced tags such as `<ns:Component />`.\n Although the JSX specification permits namespaces, React does not implement\n them and using a namespaced element may cause a runtime error.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <ns:testcomponent />\n ```\n\n ```jsx,expect_diagnostic\n <svg:circle cx=\"50\" cy=\"50\" r=\"40\" />\n ```\n\n ### Valid\n\n ```jsx\n <testcomponent />\n ```\n\n ```jsx\n <object.TestComponent />\n ```\n\n"
           },
+          "noNonScalableViewport": {
+            "deprecated": false,
+            "version": "2.5.7",
+            "name": "noNonScalableViewport",
+            "link": "https://biomejs.dev/linter/rules/no-non-scalable-viewport",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "no-non-scalable-viewport"
+                }
+              }
+            ],
+            "docs": " Disallow disabling zoom with `user-scalable=no` in the `<meta name=\"viewport\">` element.\n\n Disabling zoom can make page content difficult to read for people with low vision.\n\n See [WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) and the\n [html-eslint rule](https://html-eslint.org/docs/rules/no-non-scalable-viewport) for details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />\n ```\n\n ```jsx,expect_diagnostic\n <meta name={\"viewport\"} content={\"user-scalable=no\"} />\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" />\n   <meta name=\"viewport\" content=\"width=device-width\" />\n   <Meta name=\"viewport\" content=\"user-scalable=no\" />\n </>\n ```\n\n"
+          },
           "noReactNativeRawText": {
             "deprecated": false,
             "version": "2.4.13",
@@ -8893,6 +8961,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow raw text outside `<Text>` components in React Native.\n\n In React Native, every string rendered in the UI must be wrapped in a `<Text>`\n component. Rendering text directly inside containers such as `<View>` throws at\n runtime on native platforms.\n\n By default, the following element names are treated as valid text containers:\n `Text`, `TSpan`, `StyledText`, and `Animated.Text`. Additional components can be\n whitelisted through the `skip` option.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <View>some text</View>\n ```\n\n ```jsx,expect_diagnostic\n <View>{'some text'}</View>\n ```\n\n ```jsx,expect_diagnostic\n const text = 'some text';\n <View>{`${text}`}</View>\n ```\n\n ### Valid\n\n ```jsx\n <View><Text>some text</Text></View>\n ```\n\n ```jsx\n <View><Text>{'some text'}</Text></View>\n ```\n\n ## Options\n\n ### `skip`\n\n An array of additional component names that are allowed to contain raw text.\n\n ```json,options\n {\n     \"options\": {\n         \"skip\": [\"Title\"]\n     }\n }\n ```\n\n ```jsx,use_options\n const Title = ({ children }) => <Text>{children}</Text>;\n <Title>This is the title</Title>;\n ```\n\n"
+          },
+          "noTailwindArbitraryValue": {
+            "deprecated": false,
+            "version": "2.5.7",
+            "name": "noTailwindArbitraryValue",
+            "link": "https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTailwindcss": "no-arbitrary-value"
+                }
+              }
+            ],
+            "docs": " Disallow arbitrary values in Tailwind CSS utility classes.\n\n Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties\n (e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports\n them so teams can keep styling constrained to named utilities from their Tailwind\n configuration.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"w-[400px]\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"text-[#555] bg-white\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"[color:red]\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"w-4 text-red-500 bg-white\" />;\n ```\n\n ```jsx\n <div className=\"[&:nth-child(3)]:px-2\" />;\n ```\n\n ## Options\n\n By default, this rule checks the `class` and `className` JSX attributes.\n The `attributes` option adds more JSX attributes to check, and `functions`\n enables checking string arguments and tagged templates in matching utilities.\n\n ```json,options\n {\n     \"options\": {\n         \"attributes\": [\"classList\"],\n         \"functions\": [\"clsx\"]\n     }\n }\n ```\n\n ### attributes\n\n Additional JSX attribute names to check.\n\n Default: `[]` (the `class` and `className` attributes are always checked).\n\n ### functions\n\n Function or tagged template names whose classes will be checked for arbitrary values.\n\n Default: `[]`.\n\n ```jsx,use_options,expect_diagnostic\n <div className={clsx(\"w-[400px]\")} />;\n ```\n\n"
           },
           "useIframeSandbox": {
             "deprecated": false,
@@ -10085,10 +10170,23 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 562
+    "numberOrRules": 567
   },
   "syntax": {
     "languages": {
+      "css": {
+        "correctness": {
+          "noInvalidPropertySyntax": {
+            "deprecated": false,
+            "version": "2.5.7",
+            "name": "noInvalidPropertySyntax",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-property-syntax",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Parses the value of `syntax` in CSS custom at-rule `@property`\n\n ## Examples\n\n ```js\n class A {\n   #foo;\n   #foo;\n ```\n"
+          }
+        }
+      },
       "js": {
         "correctness": {
           "noDuplicatePrivateClassMembers": {
@@ -10134,7 +10232,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 4
+    "numberOrRules": 5
   },
   "assist": {
     "languages": {
