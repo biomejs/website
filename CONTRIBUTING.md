@@ -1,5 +1,11 @@
 # Contribution guide
 
+## AI Policy
+
+The use of AI in this repository is disallowed for writing of documentation, filing issues, messages. Generally, any human interaction in this repository must be AI-free.
+If you use AI to translate your messages because you aren't proficient in English, that's disallowed too. Use plain translators that don't use AI enhancement.
+You may use AI for coding tasks, which must be disclosed when opening a PR.
+
 ## Install tools
 
 Website is divided into two projects:
