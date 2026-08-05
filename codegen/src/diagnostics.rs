@@ -23,9 +23,12 @@ struct PlainDiagnostic {
 impl Default for PlainDiagnostic {
     fn default() -> Self {
         Self {
-            message: MessageAndDescription::from(markup!(
-                "This is the message of the diagnostic. It will appear in different colours based on the severity of the diagnostic."
-            ).to_owned())
+            message: MessageAndDescription::from(
+                markup!(
+                    "A diagnostic's message is displayed in a color that reflects its severity."
+                )
+                .to_owned(),
+            ),
         }
     }
 }
@@ -46,11 +49,14 @@ struct DiagnosticWithAdvice {
 impl Default for DiagnosticWithAdvice {
     fn default() -> Self {
         Self {
-            message: MessageAndDescription::from(markup!(
-                "This is the message of the diagnostic. It will appear in different colours based on the severity of the diagnostic."
-            ).to_owned()),
+            message: MessageAndDescription::from(
+                markup!(
+                    "A diagnostic's message is displayed in a color that reflects its severity."
+                )
+                .to_owned(),
+            ),
             verbose_advice: Advice::default(),
-            advice: Advice::default()
+            advice: Advice::default(),
         }
     }
 }
@@ -60,25 +66,34 @@ struct Advice {}
 
 impl Advices for Advice {
     fn record(&self, visitor: &mut dyn Visit) -> std::io::Result<()> {
-        visitor.record_log(LogCategory::Error, &"This log is an error.")?;
-        visitor.record_log(LogCategory::Info, &"This log is a warning")?;
-        visitor.record_log(LogCategory::Info, &"This log is an information")?;
+        visitor.record_log(LogCategory::Error, &"An error message.")?;
+        visitor.record_log(LogCategory::Warn, &"A warning message.")?;
+        visitor.record_log(LogCategory::Info, &"An informational message.")?;
         visitor.record_log(
             LogCategory::None,
-            &"This log doesn't have any category. Below, you'll have a command",
+            &"An unstyled message can introduce a command:",
         )?;
         visitor.record_command("biome command")?;
-        visitor.record_log(LogCategory::None, &"Below, a group.")?;
+        visitor.record_log(
+            LogCategory::None,
+            &"Messages can be grouped under a heading:",
+        )?;
 
-        visitor.record_group(&"I am a group", &GroupAdvice {})?;
+        visitor.record_group(&"Related information", &GroupAdvice {})?;
 
-        visitor.record_log(LogCategory::None, &"Below, a list.")?;
+        visitor.record_log(
+            LogCategory::None,
+            &"Messages can also be displayed as a list:",
+        )?;
         visitor.record_list(&[&"First item", &"Second item"])?;
 
-        visitor.record_log(LogCategory::None, &"Below, a diff.")?;
+        visitor.record_log(LogCategory::None, &"A diff can show a suggested change:")?;
         visitor.record_diff(&TextEdit::from_unicode_words("Old code", "New code"))?;
 
-        visitor.record_log(LogCategory::None, &"Below, a code frame.")?;
+        visitor.record_log(
+            LogCategory::None,
+            &"A code frame can highlight a source range:",
+        )?;
         visitor.record_frame(
             Location::builder()
                 .source_code(&"Lorem\nIpsum")
@@ -107,7 +122,7 @@ fn print_diagnostic(diagnostic: biome_diagnostics::Error, root: &Path, name: &st
         "<pre class='language-text'><code class='language-text'>"
     )?;
 
-    let mut writer = HTML::new(&mut content).with_mdx();
+    let mut writer = HTML::new(&mut content);
 
     let mut write_diagnostic = |diag: biome_diagnostics::Error| -> Result<()> {
         Formatter::new(&mut writer).write_markup(markup! {
