@@ -104,6 +104,10 @@ export default defineConfig({
 	compressHTML: true,
 	redirects: {
 		...redirects,
+		"/reference/reporters": "/reference/cli/#reporter-flags",
+		"/pt-br/reference/reporters": "/pt-br/reference/cli/#reporter-flags",
+		"/uk/reference/reporters": "/uk/reference/cli/#reporter-flags",
+		"/ru/reference/reporters": "/ru/reference/cli/#reporter-flags",
 		"/blog/annoucing-biome": "/blog/announcing-biome",
 		"/guides/editors/create-a-extension": "/guides/editors/create-an-extension",
 		"/internals/credits": "/internals/people-and-credits",
@@ -762,19 +766,6 @@ export default defineConfig({
 								"zh-CN": "环境变量",
 								pl: "Zmienne środowiskowe",
 								ru: "Переменные окружения",
-							},
-						},
-						{
-							label: "Reporters",
-							link: "/reference/reporters",
-							translations: {
-								es: "Generador de informes",
-								fr: "Outils de reporting",
-								uk: "Звіти",
-								ja: "リポータ",
-								"zh-CN": "报告器",
-								pl: "Raportowanie",
-								ru: "Создание отчётов",
 							},
 						},
 						{
