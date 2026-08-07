@@ -36,11 +36,11 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 ## Description
 Ensure `async` functions utilize `await`.
 
-This rule reports `async` functions that lack an `await` expression. As `async`
-functions return a promise, the use of `await` is often necessary to capture the
-resolved value and handle the asynchronous operation appropriately. Without `await`,
-the function operates synchronously and might not leverage the advantages of async
-functions.
+This rule reports `async` functions that lack an `await` expression or another
+operation that requires async semantics. As `async` functions return a promise, the
+use of `await` is often necessary to capture the resolved value and handle the
+asynchronous operation appropriately. Without `await`, the function operates
+synchronously and might not leverage the advantages of async functions.
 
 ## Examples
 
@@ -75,6 +75,12 @@ async function noop() { }
 // Async generators that use `yield*` with an async iterable
 async function* delegateToAsyncIterable() {
   yield* otherAsyncIterable();
+}
+
+// `await using` awaits asynchronous resource disposal
+async function consumeResource() {
+  await using resource = acquire();
+  consume(resource);
 }
 ```
 
