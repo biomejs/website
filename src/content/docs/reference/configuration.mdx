@@ -52,9 +52,7 @@ This is required so Biome can orchestrate multiple files in CLI and editors at t
 
 ## `plugins`
 
-A list of [GritQL plugins](/linter/plugins/) to enable. Each entry can be
-either a simple path string or an object with a path and optional file-filtering
-options.
+A list of [GritQL plugins](/linter/plugins/) to enable. Each entry can be either a simple path string or an object with a path and optional settings.
 
 Simple path:
 
@@ -77,7 +75,20 @@ Restricting to specific files:
 }
 ```
 
-You can mix both forms in the same list.
+Resolving a plugin from the configuration file that declares it:
+
+```json title="biome.shared.jsonc"
+{
+  "plugins": [
+    {
+      "path": "./plugins/no-object-assign.grit",
+      "resolutionKind": "config"
+    }
+  ]
+}
+```
+
+You can mix string and object entries in the same `plugins` list.
 
 ### `plugins.<ITEM>.path`
 
@@ -91,6 +102,18 @@ A list of [glob patterns](#glob-syntax-reference) for files the plugin should
 run on. Use negated globs (prefixed with `!`) for exclusions.
 
 When omitted, the plugin runs on every file the linter processes. If `includes` is empty `[]`, the plugin doesn't run on any file.
+
+### `plugins.<ITEM>.resolutionKind`
+
+Controls how the plugin's `path` is resolved:
+
+- `"project"` resolves relative plugin paths from the consuming project. This is the default behaviour and matches how other relative paths in shared configuration files are resolved.
+
+- `"config"` resolves relative plugin paths from the configuration file that declared the plugin. This is useful for shared configurations loaded through `extends` that need to load plugins shipped next to the shared configuration.
+
+This option does not change how `includes` globs are interpreted.
+
+> Default: `"project"`
 
 ## `files`
 
