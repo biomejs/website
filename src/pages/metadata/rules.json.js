@@ -294,6 +294,15 @@ export function GET() {
             ],
             "docs": " Limit the number of classes in a selector.\n\n Selectors with too many chained classes are harder to read, harder to override,\n and often signal overly specific styling.\n This rule enforces an upper bound on how many class selectors can appear in one selector.\n\n Each selector in a selector list is evaluated separately.\n For example, `.foo, .bar.baz` is treated as two selectors, and only `.bar.baz`\n contributes two class selectors.\n\n Nested selectors are checked as written instead of being resolved against their parent selector.\n For example, in `.foo { &.bar {} }`, the nested selector `&.bar` contributes one class selector.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxClasses` is set to `1`:\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 1\n     }\n }\n ```\n ```css,expect_diagnostic,use_options\n .foo .bar {}\n ```\n\n ```css,expect_diagnostic,use_options\n :is(.foo, .bar.baz) {}\n ```\n\n ### Valid\n\n The following examples are valid when `maxClasses` is set to `1`:\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 1\n     }\n }\n ```\n ```css,use_options\n .foo {}\n ```\n\n ```css,use_options\n .foo, div {}\n ```\n\n ## Options\n\n ### `maxClasses`\n\n The maximum number of class selectors allowed in a single selector.\n\n This option has no default value. Configure it explicitly to enable the rule.\n A value of `0` disallows class selectors entirely.\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 2\n     }\n }\n ```\n\n The following selector exceeds the configured limit because it contains three\n class selectors:\n\n ```css,expect_diagnostic,use_options\n .foo .bar.baz {}\n ```\n\n"
           },
+          "noInvalidPropertyInitValue": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noInvalidPropertyInitValue",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-property-init-value",
+            "recommended": true,
+            "fixKind": "none",
+            "docs": " Checks that the `initial-value` of an `@property` rule follows the value format declared by its `syntax`.\n\n Browsers do not register a custom property when its `initial-value` does not follow this\n format.\n\n For function values, this rule checks the function name but does not check its arguments.\n It leaves the browser to validate:\n\n - indexed or unknown `env()` values, whose result may depend on an index or fallback;\n - math functions whose result depends on their arguments, such as `calc()`, `min()`, and\n   `max()`, used with `<angle>`, `<integer>`, `<length>`, `<length-percentage>`, `<number>`,\n   `<percentage>`, `<resolution>`, or `<time>`;\n - color functions such as `rgb()` and `color-mix()` used with `<color>`;\n - image functions such as `linear-gradient()` and `image-set()` used with `<image>`;\n - transform functions such as `rotate()` and `translateX()` used with\n   `<transform-function>` or `<transform-list>`.\n\n ## Examples\n\n ### Invalid\n\n `red` is a color, not a length, so the browser does not register `--size`.\n\n ```css,expect_diagnostic\n @property --size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: red;\n }\n ```\n\n `#fff` is a color, not an image, so the browser does not register `--background-image`.\n\n ```css,expect_diagnostic\n @property --background-image {\n   syntax: \"<image>\";\n   inherits: false;\n   initial-value: #fff;\n }\n ```\n\n `<color>#` requires one or more colors separated by commas. The browser does not register\n `--palette` because `red blue` has no comma.\n\n ```css,expect_diagnostic\n @property --palette {\n   syntax: \"<color>#\";\n   inherits: false;\n   initial-value: red blue;\n }\n ```\n\n ### Valid\n\n Both `1rem` and `calc(1px + 2px)` use length values, so they follow their declared formats.\n\n ```css\n @property --size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: 1rem;\n }\n\n @property --calculated-size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: calc(1px + 2px);\n }\n ```\n\n"
+          },
           "noUnusedClasses": {
             "deprecated": false,
             "version": "2.5.0",
@@ -10188,7 +10197,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 569
+    "numberOrRules": 570
   },
   "syntax": {
     "languages": {
@@ -10201,7 +10210,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-invalid-property-syntax",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Parses the value of `syntax` in CSS custom at-rule `@property`\n\n ## Examples\n\n ```js\n class A {\n   #foo;\n   #foo;\n ```\n"
+            "docs": " Reports invalid `syntax` descriptors in CSS `@property` rules.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @property --size {\n   syntax: \"<length> |\";\n   inherits: false;\n }\n ```\n\n A `syntax` descriptor is required.\n\n ```css,expect_diagnostic\n @property --size {\n   inherits: false;\n   initial-value: 0px;\n }\n ```\n\n ### Valid\n\n ```css\n @property --size {\n   syntax: \"<length> | auto\";\n   inherits: false;\n   initial-value: 0px;\n }\n ```\n"
           }
         }
       },
