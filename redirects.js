@@ -155,6 +155,7 @@ export default {
   '/linter/rules/noInvalidDirectionInLinearGradient': '/linter/rules/no-invalid-direction-in-linear-gradient',
   '/linter/rules/noInvalidGridAreas': '/linter/rules/no-invalid-grid-areas',
   '/linter/rules/noInvalidPositionAtImportRule': '/linter/rules/no-invalid-position-at-import-rule',
+  '/linter/rules/noInvalidPropertyInitValue': '/linter/rules/no-invalid-property-init-value',
   '/linter/rules/noInvalidPropertySyntax': '/linter/rules/no-invalid-property-syntax',
   '/linter/rules/noInvalidUseBeforeDeclaration': '/linter/rules/no-invalid-use-before-declaration',
   '/linter/rules/noIrregularWhitespace': '/linter/rules/no-irregular-whitespace',
