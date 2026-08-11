@@ -37,6 +37,8 @@ Disallow the use of useless `undefined`.
 
 `undefined` is the default value for new variables, parameters, return statements, etc., so specifying it doesn't make any difference.
 
+`return undefined` is allowed when the enclosing function has a return type annotation other than `undefined` or `void`.
+
 ## Examples
 
 ### Invalid
@@ -95,6 +97,12 @@ function* foo() {
 function foo(bar) {}
 function foo({bar}) {}
 foo();
+```
+
+```ts
+function foo(): string | undefined {
+  return undefined;
+}
 ```
 
 ## Related links

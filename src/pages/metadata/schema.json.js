@@ -484,6 +484,20 @@ export function GET() {
 					"properties": { "eslintTypescriptSortKeys": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintTypescriptSortKeys"]
+				},
+				{
+					"description": "Rules from [markdownlint](https://github.com/DavidAnson/markdownlint)",
+					"type": "object",
+					"properties": {
+						"markdownLint": {
+							"type": "array",
+							"maxItems": 2,
+							"minItems": 2,
+							"prefixItems": [{ "type": "string" }, { "type": "string" }]
+						}
+					},
+					"additionalProperties": false,
+					"required": ["markdownLint"]
 				}
 			]
 		},

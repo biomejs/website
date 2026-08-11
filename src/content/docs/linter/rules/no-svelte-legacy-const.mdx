@@ -1,0 +1,77 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noSvelteLegacyConst
+description: Learn more about noSvelteLegacyConst
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="HTML" icon="seti:html">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.5.8`
+- Diagnostic Category: [`lint/nursery/noSvelteLegacyConst`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`svelte`](/linter/domains#svelte)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSvelteLegacyConst": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow legacy Svelte `{@const}` tags.
+
+Declaration tags provide the current syntax for deriving values in Svelte markup (available since Svelte 5.56).
+
+## Examples
+
+### Invalid
+
+```svelte
+{#each boxes as box}
+    {@const area = box.width * box.height}
+    <p>{area}</p>
+{/each}
+```
+
+<pre class="language-text"><code class="language-text">code-block.svelte:2:5 <a href="https://biomejs.dev/linter/rules/no-svelte-legacy-const">lint/nursery/noSvelteLegacyConst</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Avoid legacy Svelte </span><span style="color: lightgreen;"><strong>&#123;@const&#125;</strong></span><span style="color: lightgreen;"> tags.</span><br />  <br />    <strong>1 │ </strong>&#123;#each boxes as box&#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>    &#123;@const area = box.width &#42; box.height&#125;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>3 │ </strong>    &lt;p&gt;&#123;area&#125;&lt;/p&gt;<br />    <strong>4 │ </strong>&#123;/each&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;"><strong>&#123;@const&#125;</strong></span><span style="color: lightgreen;"> legacy syntax is less versatile. </span><span style="color: lightgreen;"><a href="https://svelte.dev/docs/svelte/declaration-tags">Declaration tags</a></span><span style="color: lightgreen;"> are the preferred syntax for deriving values in Svelte markup.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Remove the </span><span style="color: lightgreen;"><strong>@</strong></span><span style="color: lightgreen;"> and add </span><span style="color: lightgreen;"><strong>$state()</strong></span><span style="color: lightgreen;"> or </span><span style="color: lightgreen;"><strong>$derived()</strong></span><span style="color: lightgreen;"> runes if the value should be reactive, for example: </span><span style="color: lightgreen;"><strong>&#123;const area = $derived(box.width &#42; box.height)&#125;</strong></span><span style="color: lightgreen;">.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+```svelte
+{#each boxes as box}
+    {const area = $derived(box.width * box.height)}
+    <p>{area}</p>
+{/each}
+```
+
+### References
+
+- [Svelte declaration tags](https://svelte.dev/docs/svelte/declaration-tags)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_svelte_legacy_const.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noSvelteLegacyConst)
+
+</TabItem>
+</Tabs>
+

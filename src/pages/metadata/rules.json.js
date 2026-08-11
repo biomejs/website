@@ -294,6 +294,15 @@ export function GET() {
             ],
             "docs": " Limit the number of classes in a selector.\n\n Selectors with too many chained classes are harder to read, harder to override,\n and often signal overly specific styling.\n This rule enforces an upper bound on how many class selectors can appear in one selector.\n\n Each selector in a selector list is evaluated separately.\n For example, `.foo, .bar.baz` is treated as two selectors, and only `.bar.baz`\n contributes two class selectors.\n\n Nested selectors are checked as written instead of being resolved against their parent selector.\n For example, in `.foo { &.bar {} }`, the nested selector `&.bar` contributes one class selector.\n\n ## Examples\n\n ### Invalid\n\n The following example will show a diagnostic when `maxClasses` is set to `1`:\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 1\n     }\n }\n ```\n ```css,expect_diagnostic,use_options\n .foo .bar {}\n ```\n\n ```css,expect_diagnostic,use_options\n :is(.foo, .bar.baz) {}\n ```\n\n ### Valid\n\n The following examples are valid when `maxClasses` is set to `1`:\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 1\n     }\n }\n ```\n ```css,use_options\n .foo {}\n ```\n\n ```css,use_options\n .foo, div {}\n ```\n\n ## Options\n\n ### `maxClasses`\n\n The maximum number of class selectors allowed in a single selector.\n\n This option has no default value. Configure it explicitly to enable the rule.\n A value of `0` disallows class selectors entirely.\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 2\n     }\n }\n ```\n\n The following selector exceeds the configured limit because it contains three\n class selectors:\n\n ```css,expect_diagnostic,use_options\n .foo .bar.baz {}\n ```\n\n"
           },
+          "noInvalidPropertyInitValue": {
+            "deprecated": false,
+            "version": "2.5.8",
+            "name": "noInvalidPropertyInitValue",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-property-init-value",
+            "recommended": true,
+            "fixKind": "none",
+            "docs": " Checks that the `initial-value` of an `@property` rule follows the value format declared by its `syntax`.\n\n Browsers do not register a custom property when its `initial-value` does not follow this\n format.\n\n For function values, this rule checks the function name but does not check its arguments.\n It leaves the browser to validate:\n\n - indexed or unknown `env()` values, whose result may depend on an index or fallback;\n - math functions whose result depends on their arguments, such as `calc()`, `min()`, and\n   `max()`, used with `<angle>`, `<integer>`, `<length>`, `<length-percentage>`, `<number>`,\n   `<percentage>`, `<resolution>`, or `<time>`;\n - color functions such as `rgb()` and `color-mix()` used with `<color>`;\n - image functions such as `linear-gradient()` and `image-set()` used with `<image>`;\n - transform functions such as `rotate()` and `translateX()` used with\n   `<transform-function>` or `<transform-list>`.\n\n ## Examples\n\n ### Invalid\n\n `red` is a color, not a length, so the browser does not register `--size`.\n\n ```css,expect_diagnostic\n @property --size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: red;\n }\n ```\n\n `#fff` is a color, not an image, so the browser does not register `--background-image`.\n\n ```css,expect_diagnostic\n @property --background-image {\n   syntax: \"<image>\";\n   inherits: false;\n   initial-value: #fff;\n }\n ```\n\n `<color>#` requires one or more colors separated by commas. The browser does not register\n `--palette` because `red blue` has no comma.\n\n ```css,expect_diagnostic\n @property --palette {\n   syntax: \"<color>#\";\n   inherits: false;\n   initial-value: red blue;\n }\n ```\n\n ### Valid\n\n Both `1rem` and `calc(1px + 2px)` use length values, so they follow their declared formats.\n\n ```css\n @property --size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: 1rem;\n }\n\n @property --calculated-size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: calc(1px + 2px);\n }\n ```\n\n"
+          },
           "noUnusedClasses": {
             "deprecated": false,
             "version": "2.5.0",
@@ -1892,6 +1901,15 @@ export function GET() {
             ],
             "docs": " Disallow disabling zoom with `user-scalable=no` in the `<meta name=\"viewport\">` element.\n\n Disabling zoom can make page content difficult to read for people with low vision.\n\n See [WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) and the\n [html-eslint rule](https://html-eslint.org/docs/rules/no-non-scalable-viewport) for details.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />\n ```\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"user-scalable = no, width=device-width\" />\n ```\n\n ### Valid\n\n ```html\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" />\n <meta name=\"viewport\" content=\"width=device-width\" />\n <meta name=\"viewport\" content=\"user-scalable=nope\" />\n ```\n\n"
           },
+          "noSvelteLegacyConst": {
+            "deprecated": false,
+            "version": "2.5.8",
+            "name": "noSvelteLegacyConst",
+            "link": "https://biomejs.dev/linter/rules/no-svelte-legacy-const",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow legacy Svelte `{@const}` tags.\n\n Declaration tags provide the current syntax for deriving values in Svelte markup (available since Svelte 5.56).\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n {#each boxes as box}\n     {@const area = box.width * box.height}\n     <p>{area}</p>\n {/each}\n ```\n\n ### Valid\n\n ```svelte\n {#each boxes as box}\n     {const area = $derived(box.width * box.height)}\n     <p>{area}</p>\n {/each}\n ```\n\n ### References\n\n - [Svelte declaration tags](https://svelte.dev/docs/svelte/declaration-tags)\n"
+          },
           "noTailwindArbitraryValue": {
             "deprecated": false,
             "version": "2.5.7",
@@ -2697,7 +2715,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow the use of useless `undefined`.\n\n `undefined` is the default value for new variables, parameters, return statements, etc., so specifying it doesn't make any difference.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = undefined;\n ```\n\n ```js,expect_diagnostic\n const {foo = undefined} = bar;\n ```\n\n ```js,expect_diagnostic\n function foo() {\n    return undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function* foo() {\n   yield undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function foo(bar = undefined) {}\n ```\n\n ```js,expect_diagnostic\n function foo({bar = undefined}) {}\n ```\n\n ### Valid\n\n ```js\n let foo;\n const {foo} = bar;\n function foo() {\n   return;\n }\n function* foo() {\n   yield;\n }\n function foo(bar) {}\n function foo({bar}) {}\n foo();\n ```\n\n"
+            "docs": " Disallow the use of useless `undefined`.\n\n `undefined` is the default value for new variables, parameters, return statements, etc., so specifying it doesn't make any difference.\n\n `return undefined` is allowed when the enclosing function has a return type annotation other than `undefined` or `void`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = undefined;\n ```\n\n ```js,expect_diagnostic\n const {foo = undefined} = bar;\n ```\n\n ```js,expect_diagnostic\n function foo() {\n    return undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function* foo() {\n   yield undefined;\n }\n ```\n\n ```js,expect_diagnostic\n function foo(bar = undefined) {}\n ```\n\n ```js,expect_diagnostic\n function foo({bar = undefined}) {}\n ```\n\n ### Valid\n\n ```js\n let foo;\n const {foo} = bar;\n function foo() {\n   return;\n }\n function* foo() {\n   yield;\n }\n function foo(bar) {}\n function foo({bar}) {}\n foo();\n ```\n\n ```ts\n function foo(): string | undefined {\n   return undefined;\n }\n ```\n\n"
           },
           "noUselessUndefinedInitialization": {
             "deprecated": false,
@@ -4709,6 +4727,15 @@ export function GET() {
               }
             ],
             "docs": " Require functions with the \"use server\" directive to be async.\n\n Require Server Functions (functions in a file with a top-level `\"use server\"` directive or functions with their own `\"use server\"` directive) to be async.\n\n See the [React documentation](https://react.dev/reference/rsc/use-server) for more details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <form\n   action={() => {\n     'use server';\n     // ...\n   }}\n >\n   // ...\n </form>\n ```\n\n ```js,expect_diagnostic\n function serverFunction() {\n   'use server';\n   // ...\n }\n ```\n\n ```js,expect_diagnostic\n 'use server';\n export function serverFunction() {\n   // ...\n }\n ```\n\n ### Valid\n\n ```jsx\n <form\n   action={async () => {\n     'use server';\n     // ...\n   }}\n >\n   // ...\n </form>\n ```\n\n ```js\n async function serverFunction() {\n   'use server';\n   // ...\n }\n ```\n\n ```js\n 'use server';\n export async function serverFunction() {\n   // ...\n }\n ```\n\n"
+          },
+          "useReactCompiler": {
+            "deprecated": false,
+            "version": "2.5.8",
+            "name": "useReactCompiler",
+            "link": "https://biomejs.dev/linter/rules/use-react-compiler",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Validate files with React Compiler.\n\n This rule runs React Compiler in lint mode and reports the actionable\n diagnostics it emits. React Compiler validates whether components and\n hooks can be safely compiled.\n\n This rule only runs when the nearest `package.json` declares React 19 or\n newer. Projects using React 18 or earlier, or projects without a React\n dependency in `package.json`, are skipped.\n\n ## Examples\n\n ### Invalid\n\n ```json,file=package.json\n {\n     \"dependencies\": {\n         \"react\": \"^19.0.0\"\n     }\n }\n ```\n\n ```jsx,expect_diagnostic,file=Component.jsx\n import { useState } from \"react\";\n\n function Component(props) {\n     if (props.enabled) {\n         useState(0);\n     }\n\n     return <div />;\n }\n ```\n\n ### Valid\n\n ```jsx\n function Component(props) {\n     return <div>{props.value}</div>;\n }\n ```\n\n ## Options\n\n ### `compilationMode`\n\n Controls which functions React Compiler analyzes. Accepted values are:\n\n - `\"infer\"` (default): analyzes functions that follow React conventions —\n   components (capitalized functions that create JSX or call hooks) and\n   hooks (functions whose name starts with `use`). Files that don't define\n   any such function are skipped entirely.\n - `\"annotation\"`: analyzes only functions annotated with a `\"use memo\"`\n   directive.\n - `\"all\"`: analyzes every function. This can report React-specific\n   diagnostics in non-React code, such as utility functions that update\n   module-level state.\n\n ```json,options\n {\n     \"options\": {\n         \"compilationMode\": \"all\"\n     }\n }\n ```\n\n With `\"compilationMode\": \"all\"`, violations are reported even in\n functions that don't follow React naming conventions:\n\n ```json,file=package.json\n {\n     \"dependencies\": {\n         \"react\": \"^19.0.0\"\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic,file=counter.js\n let counter = 0;\n\n export function increment() {\n     counter = counter + 1;\n     return counter;\n }\n ```\n"
           },
           "useReactNativePlatformComponents": {
             "deprecated": false,
@@ -7569,7 +7596,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Ensure `async` functions utilize `await`.\n\n This rule reports `async` functions that lack an `await` expression. As `async`\n functions return a promise, the use of `await` is often necessary to capture the\n resolved value and handle the asynchronous operation appropriately. Without `await`,\n the function operates synchronously and might not leverage the advantages of async\n functions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n async function fetchData() {\n // Missing `await` for the promise returned by `fetch`\n   return fetch('/data');\n }\n ```\n\n ### Valid\n\n ```js\n async function fetchData() {\n   const response = await fetch('/data');\n   const data = await response.json();\n   return data;\n }\n\n // This rule does not warn about non-async functions\n function processData() {\n   return compute(data);\n }\n\n // Nor does it warn about empty `async` functions\n async function noop() { }\n\n // Async generators that use `yield*` with an async iterable\n async function* delegateToAsyncIterable() {\n   yield* otherAsyncIterable();\n }\n ```\n"
+            "docs": " Ensure `async` functions utilize `await`.\n\n This rule reports `async` functions that lack an `await` expression or another\n operation that requires async semantics. As `async` functions return a promise, the\n use of `await` is often necessary to capture the resolved value and handle the\n asynchronous operation appropriately. Without `await`, the function operates\n synchronously and might not leverage the advantages of async functions.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n async function fetchData() {\n // Missing `await` for the promise returned by `fetch`\n   return fetch('/data');\n }\n ```\n\n ### Valid\n\n ```js\n async function fetchData() {\n   const response = await fetch('/data');\n   const data = await response.json();\n   return data;\n }\n\n // This rule does not warn about non-async functions\n function processData() {\n   return compute(data);\n }\n\n // Nor does it warn about empty `async` functions\n async function noop() { }\n\n // Async generators that use `yield*` with an async iterable\n async function* delegateToAsyncIterable() {\n   yield* otherAsyncIterable();\n }\n\n // `await using` awaits asynchronous resource disposal\n async function consumeResource() {\n   await using resource = acquire();\n   consume(resource);\n }\n ```\n"
           },
           "useDefaultSwitchClauseLast": {
             "deprecated": false,
@@ -8514,7 +8541,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unnecessary fragments\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <>\n     <>foo</>\n     <SomeComponent />\n </>\n ```\n\n ```jsx,expect_diagnostic\n <></>\n ```\n\n ### Valid\n\n ```jsx\n <>\n foo\n </>\n ```\n\n ```jsx\n <React.Fragment>\n foo\n </React.Fragment>\n ```\n\n ```jsx\n <>\n     <Foo />\n     <Bar />\n </>\n ```\n\n ```jsx\n <>foo {bar}</>\n ```\n\n"
+            "docs": " Disallow unnecessary fragments\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <>\n     <>foo</>\n     <SomeComponent />\n </>\n ```\n\n ```jsx,expect_diagnostic\n <></>\n ```\n\n ```jsx,expect_diagnostic\n <Component prop={<><div /></>} />\n ```\n\n The rule doesn't emit a code fix if the a fragment inside an attribute doesn't have any value:\n\n ```jsx,expect_diagnostic\n <Component prop={<>{}</>} />\n ```\n\n ### Valid\n\n ```jsx\n <>\n foo\n </>\n ```\n\n ```jsx\n <React.Fragment>\n foo\n </React.Fragment>\n ```\n\n ```jsx\n <>\n     <Foo />\n     <Bar />\n </>\n ```\n\n ```jsx\n <>foo {bar}</>\n ```\n\n"
           }
         },
         "correctness": {
@@ -10170,7 +10197,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 567
+    "numberOrRules": 570
   },
   "syntax": {
     "languages": {
@@ -10183,7 +10210,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-invalid-property-syntax",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Parses the value of `syntax` in CSS custom at-rule `@property`\n\n ## Examples\n\n ```js\n class A {\n   #foo;\n   #foo;\n ```\n"
+            "docs": " Reports invalid `syntax` descriptors in CSS `@property` rules.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @property --size {\n   syntax: \"<length> |\";\n   inherits: false;\n }\n ```\n\n A `syntax` descriptor is required.\n\n ```css,expect_diagnostic\n @property --size {\n   inherits: false;\n   initial-value: 0px;\n }\n ```\n\n ### Valid\n\n ```css\n @property --size {\n   syntax: \"<length> | auto\";\n   inherits: false;\n   initial-value: 0px;\n }\n ```\n"
           }
         }
       },
