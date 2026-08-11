@@ -296,7 +296,7 @@ export function GET() {
           },
           "noInvalidPropertyInitValue": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.8",
             "name": "noInvalidPropertyInitValue",
             "link": "https://biomejs.dev/linter/rules/no-invalid-property-init-value",
             "recommended": true,
@@ -1903,7 +1903,7 @@ export function GET() {
           },
           "noSvelteLegacyConst": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.8",
             "name": "noSvelteLegacyConst",
             "link": "https://biomejs.dev/linter/rules/no-svelte-legacy-const",
             "recommended": false,
@@ -4730,7 +4730,7 @@ export function GET() {
           },
           "useReactCompiler": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.8",
             "name": "useReactCompiler",
             "link": "https://biomejs.dev/linter/rules/use-react-compiler",
             "recommended": false,
