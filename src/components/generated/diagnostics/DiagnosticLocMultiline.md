@@ -1,7 +1,7 @@
 <pre class='language-text'><code class='language-text'>
 path/to/file.js:2:2 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A diagnostic's message is displayed in a color that reflects its severity.</span>
+  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This diagnostic message is displayed in a color that reflects its severity.</span>
   
     <strong>1 │ </strong>function name() {
   <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>	return 'lorem'

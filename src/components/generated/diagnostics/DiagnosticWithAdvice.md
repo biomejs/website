@@ -1,7 +1,7 @@
 <pre class='language-text'><code class='language-text'>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">A diagnostic's message is displayed in a color that reflects its severity.</span>
+  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">This diagnostic message is displayed in a color that reflects its severity.</span>
   
   <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">An error message.</span>
   

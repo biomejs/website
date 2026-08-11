@@ -25,7 +25,7 @@ impl Default for PlainDiagnostic {
         Self {
             message: MessageAndDescription::from(
                 markup!(
-                    "A diagnostic's message is displayed in a color that reflects its severity."
+                    "This diagnostic message is displayed in a color that reflects its severity."
                 )
                 .to_owned(),
             ),
@@ -51,7 +51,7 @@ impl Default for DiagnosticWithAdvice {
         Self {
             message: MessageAndDescription::from(
                 markup!(
-                    "A diagnostic's message is displayed in a color that reflects its severity."
+                    "This diagnostic message is displayed in a color that reflects its severity."
                 )
                 .to_owned(),
             ),
