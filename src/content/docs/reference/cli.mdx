@@ -1,1930 +1,1134 @@
 ---
 title: CLI
-description: Available commands and arguments in the Biome CLI.
+description: Commands, arguments, and flags available in the Biome CLI.
 ---
 
+import { TabItem, Tabs } from "@astrojs/starlight/components";
+
+Use the command-line interface (CLI) to check, format, lint, and manage Biome from your terminal or CI environment.
+
+The Biome CLI can be run with your project's package manager or as a [standalone native executable](/guides/manual-installation) that does not require Node.js.
+
+<Tabs syncKey="cli-command">
+	<TabItem label="npm" icon="seti:npm">
+		```shell
+		npx @biomejs/biome check .
+		```
+	</TabItem>
+	<TabItem label="pnpm" icon="pnpm">
+		```shell
+		pnpx @biomejs/biome check .
+		```
+	</TabItem>
+	<TabItem label="yarn" icon="seti:yarn">
+		```shell
+		yarn exec biome check .
+		```
+	</TabItem>
+	<TabItem label="Native binary">
+		```shell
+		biome check .
+		```
+	</TabItem>
+</Tabs>
+
+:::tip[Need a refresher?]
+Run `biome --help` to list all available commands, or add `--help` after a command to see its usage, arguments, and flags (e.g. `biome check --help`).
+:::
+
 [//]: # (Start-codegen)
+## Commands
 
+  * [`biome version`](#biome-version)
+  * [`biome upgrade`](#biome-upgrade)
+  * [`biome rage`](#biome-rage)
+  * [`biome start`](#biome-start)
+  * [`biome stop`](#biome-stop)
+  * [`biome check`](#biome-check)
+  * [`biome lint`](#biome-lint)
+  * [`biome format`](#biome-format)
+  * [`biome ci`](#biome-ci)
+  * [`biome init`](#biome-init)
+  * [`biome lsp-proxy`](#biome-lsp-proxy)
+  * [`biome migrate`](#biome-migrate)
+  * [`biome migrate prettier`](#biome-migrate-prettier)
+  * [`biome migrate eslint`](#biome-migrate-eslint)
+  * [`biome search`](#biome-search)
+  * [`biome explain`](#biome-explain)
+  * [`biome clean`](#biome-clean)
 
+[//]: # (End-codegen)
 
-# Command summary
-
-  * [`biome`↴](#biome)
-  * [`biome version`↴](#biome-version)
-  * [`biome upgrade`↴](#biome-upgrade)
-  * [`biome rage`↴](#biome-rage)
-  * [`biome start`↴](#biome-start)
-  * [`biome stop`↴](#biome-stop)
-  * [`biome check`↴](#biome-check)
-  * [`biome lint`↴](#biome-lint)
-  * [`biome format`↴](#biome-format)
-  * [`biome ci`↴](#biome-ci)
-  * [`biome init`↴](#biome-init)
-  * [`biome lsp-proxy`↴](#biome-lsp-proxy)
-  * [`biome migrate`↴](#biome-migrate)
-  * [`biome migrate prettier`↴](#biome-migrate-prettier)
-  * [`biome migrate eslint`↴](#biome-migrate-eslint)
-  * [`biome search`↴](#biome-search)
-  * [`biome explain`↴](#biome-explain)
-  * [`biome clean`↴](#biome-clean)
-
-## biome
-
-Biome's command-line interface for checking, formatting, and linting files, managing configuration, and interacting with the daemon.
-
-**Usage**: **`biome`** _`COMMAND ...`_
-
-**Available options:**
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-- **`-V`**, **`--version`** &mdash; 
-  Prints version information
-
-
-
-**Available commands:**
-- **`version`** &mdash; 
-  Prints the Biome CLI version and information about the connected daemon server, if any, then exits.
-- **`upgrade`** &mdash; 
-  Upgrades Biome to the latest stable version.
-- **`rage`** &mdash; 
-  Prints a troubleshooting report with CLI, platform, environment, configuration, workspace, and daemon server information.
-- **`start`** &mdash; 
-  Starts the Biome daemon server used for integration with third-party clients, such as editor extensions.
-- **`stop`** &mdash; 
-  Stops the Biome daemon server if it is running.
-- **`check`** &mdash; 
-  Checks the specified files for formatting, linting, and assist actions.
-- **`lint`** &mdash; 
-  Runs the linter on the specified files.
-- **`format`** &mdash; 
-  Formats the specified files.
-- **`ci`** &mdash; 
-  Runs formatting checks, linting checks, and assist actions in CI without modifying files.
-- **`init`** &mdash; 
-  Creates a default Biome configuration file in the current working directory.
-- **`lsp-proxy`** &mdash; 
-  Ensures that the Biome daemon server is running, then forwards Language Server Protocol messages between the daemon server and standard input and output.
-- **`migrate`** &mdash; 
-  Previews configuration updates required by breaking changes. The `prettier` and `eslint` subcommands instead import settings from those tools.
-- **`search`** &mdash; 
-  Finds code that matches a GritQL pattern. This command is experimental.
-- **`explain`** &mdash; 
-  Prints documentation for a lint rule or the path to the daemon server log directory.
-- **`clean`** &mdash; 
-  Removes the Biome daemon server log files.
-
-
-## biome version
+## `biome version`
 
 Prints the Biome CLI version and information about the connected daemon server, if any, then exits.
 
-**Usage**: **`biome`** **`version`** 
+This command also accepts [global flags](#global-flags).
 
-**These options are available to many commands and control general CLI behavior, diagnostics, and output.**
-- **`    --colors`**=_`<off|force>`_ &mdash; 
-  Controls ANSI styling: `off` disables it, while `force` enables it even when the output does not appear to support ANSI escapes.
-- **`    --use-server`** &mdash; 
-  Connects to a running instance of the Biome daemon server.
-- **`    --verbose`** &mdash; 
-  Shows additional diagnostic details and lists the files that were processed or modified.
-- **`    --config-path`**=_`PATH`_ &mdash; 
-  Sets the path to the configuration file or the directory where Biome should search for `biome.json` or `biome.jsonc`. This option disables the default configuration file resolution.
-   
-  Uses environment variable **`BIOME_CONFIG_PATH`**
-- **`    --max-diagnostics`**=_`<none|NUMBER>`_ &mdash; 
-  Limits the number of diagnostics displayed. Use `none` to remove the limit.
-   
-  [default: 20]
-- **`    --skip-parse-errors`** &mdash; 
-  Skips files containing syntax errors instead of emitting an error diagnostic.
-- **`    --no-errors-on-unmatched`** &mdash; 
-  Does not emit an error when no files are processed.
-- **`    --error-on-warnings`** &mdash; 
-  Exits with an error status if any warning diagnostics are emitted.
-- \[**`--reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
-- **`    --reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_ &mdash; 
-  Changes how diagnostics and the run summary are written.
-   
-  [default: default]
-- **`    --reporter-file`**=_`PATH`_ &mdash; 
-  Writes the associated reporter's output to `PATH`. Without `--reporter`, it writes the default reporter's output.
-
-
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  Sets the minimum diagnostic severity to display: `info`, `warn`, or `error`. For example, `--diagnostic-level=error` displays only error-level diagnostics.
-   
-  [default: info]
-
-
-
-**Available options:**
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome upgrade
+## `biome upgrade`
 
 Upgrades Biome to the latest stable version.
 
 This command upgrades the current Biome binary based on how it was installed:
 
 - **Standalone**: Upgrades a standalone binary in place to the latest stable version.
-
 - **Homebrew**: If Biome was installed with Homebrew, this command runs `brew upgrade biome`.
 
 Set `BIOME_DISTRIBUTION` to `npm`, `homebrew`, or `standalone` to override automatic detection.
 
+:::note
 This command cannot update Biome binaries installed through npm. Update `@biomejs/biome` with your package manager instead.
+:::
 
-**Usage**: **`biome`** **`upgrade`** 
-
-**Available options:**
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome rage
+## `biome rage`
 
 Prints a troubleshooting report with CLI, platform, environment, configuration, workspace, and daemon server information.
 
-**Usage**: **`biome`** **`rage`** \[**`--daemon-logs`**\] \[**`--formatter`**\] \[**`--linter`**\]
+This command also accepts [global flags](#global-flags), the relevant [shared flags](#shared-flags), and the following additional flags:
 
-**These options are available to many commands and control general CLI behavior, diagnostics, and output.**
-- **`    --colors`**=_`<off|force>`_ &mdash; 
-  Controls ANSI styling: `off` disables it, while `force` enables it even when the output does not appear to support ANSI escapes.
-- **`    --use-server`** &mdash; 
-  Connects to a running instance of the Biome daemon server.
-- **`    --verbose`** &mdash; 
-  Shows additional diagnostic details and lists the files that were processed or modified.
-- **`    --config-path`**=_`PATH`_ &mdash; 
-  Sets the path to the configuration file or the directory where Biome should search for `biome.json` or `biome.jsonc`. This option disables the default configuration file resolution.
-   
-  Uses environment variable **`BIOME_CONFIG_PATH`**
-- **`    --max-diagnostics`**=_`<none|NUMBER>`_ &mdash; 
-  Limits the number of diagnostics displayed. Use `none` to remove the limit.
-   
-  [default: 20]
-- **`    --skip-parse-errors`** &mdash; 
-  Skips files containing syntax errors instead of emitting an error diagnostic.
-- **`    --no-errors-on-unmatched`** &mdash; 
-  Does not emit an error when no files are processed.
-- **`    --error-on-warnings`** &mdash; 
-  Exits with an error status if any warning diagnostics are emitted.
-- \[**`--reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
-- **`    --reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_ &mdash; 
-  Changes how diagnostics and the run summary are written.
-   
-  [default: default]
-- **`    --reporter-file`**=_`PATH`_ &mdash; 
-  Writes the associated reporter's output to `PATH`. Without `--reporter`, it writes the default reporter's output.
+<h3>Flags</h3>
 
+#### `--daemon-logs`
 
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  Sets the minimum diagnostic severity to display: `info`, `warn`, or `error`. For example, `--diagnostic-level=error` displays only error-level diagnostics.
-   
-  [default: info]
+Includes the latest daemon server log. If the CLI is not connected to a daemon server, this flag also discovers running Biome daemon server instances.
 
+#### `--formatter`
 
+Includes the formatter settings loaded from the Biome configuration.
 
-**Options that control internal CLI and daemon server logging.**
-- **`    --log-file`**=_`PATH`_ &mdash; 
-  For file-processing commands, writes internal CLI logs to this file instead of standard output.
-   
-  Uses environment variable **`BIOME_LOG_FILE`**
-- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
-  When starting the daemon server, sets the file name prefix used for rotated log files.
-   
-  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
-   
-  [default: server.log]
-- **`    --log-path`**=_`PATH`_ &mdash; 
-  When starting the daemon server, sets the directory where log files are stored.
-   
-  Uses environment variable **`BIOME_LOG_PATH`**
-   
-  [default: /home/runner/.cache/biome/biome-logs]
-- **`    --log-level`**=_`<none|tracing|debug|info|warn|error>`_ &mdash; 
-  For file-processing commands, sets the internal CLI logging level to `tracing`, `debug`, `info`, `warn`, `error`, or `none`.
-   
-  Uses environment variable **`BIOME_LOG_LEVEL`**
-   
-  [default: none]
-- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  For file-processing commands, selects the internal CLI log format: `pretty`, `compact`, or `json`.
-   
-  Uses environment variable **`BIOME_LOG_KIND`**
-   
-  [default: pretty]
+#### `--linter`
 
+Includes the linter settings and enabled lint rules loaded from the Biome configuration.
 
-
-**Available options:**
-- **`    --daemon-logs`** &mdash; 
-  Includes the latest daemon server log. If the CLI is not connected to a daemon server, this flag also discovers running Biome daemon server instances.
-- **`    --formatter`** &mdash; 
-  Includes the formatter settings loaded from the Biome configuration.
-- **`    --linter`** &mdash; 
-  Includes the linter settings and enabled lint rules loaded from the Biome configuration.
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome start
+## `biome start`
 
 Starts the Biome daemon server used for integration with third-party clients, such as editor extensions.
 
-**Usage**: **`biome`** **`start`** \[**`--log-prefix-name`**=_`STRING`_\] \[**`--log-path`**=_`PATH`_\] \[**`--log-level`**=_`<none|tracing|debug|info|warn|error>`_\] \[**`--log-kind`**=_`<pretty|compact|json>`_\] \[**`--watcher-kind`**=_`<polling|recommended|none>`_\] \[**`--watcher-polling-interval`**=_`NUMBER`_\]
+This command also accepts the relevant [shared flags](#shared-flags).
 
-**Options that control internal CLI and daemon server logging.**
-- **`    --log-file`**=_`PATH`_ &mdash; 
-  For file-processing commands, writes internal CLI logs to this file instead of standard output.
-   
-  Uses environment variable **`BIOME_LOG_FILE`**
-- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
-  When starting the daemon server, sets the file name prefix used for rotated log files.
-   
-  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
-   
-  [default: server.log]
-- **`    --log-path`**=_`PATH`_ &mdash; 
-  When starting the daemon server, sets the directory where log files are stored.
-   
-  Uses environment variable **`BIOME_LOG_PATH`**
-   
-  [default: /home/runner/.cache/biome/biome-logs]
-- **`    --log-level`**=_`<none|tracing|debug|info|warn|error>`_ &mdash; 
-  For file-processing commands, sets the internal CLI logging level to `tracing`, `debug`, `info`, `warn`, `error`, or `none`.
-   
-  Uses environment variable **`BIOME_LOG_LEVEL`**
-   
-  [default: none]
-- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  For file-processing commands, selects the internal CLI log format: `pretty`, `compact`, or `json`.
-   
-  Uses environment variable **`BIOME_LOG_KIND`**
-   
-  [default: pretty]
-
-
-
-**Options that control the Biome daemon server's file watcher.**
-- **`    --watcher-kind`**=_`<polling|recommended|none>`_ &mdash; 
-  Selects how the daemon server detects file changes. `recommended` uses the operating system's recommended watcher, `polling` periodically checks for changes, and `none` disables watching.
-   
-  Uses environment variable **`BIOME_WATCHER_KIND`**
-   
-  [default: recommended]
-- **`    --watcher-polling-interval`**=_`NUMBER`_ &mdash; 
-  Sets how often the polling watcher checks for file changes, in milliseconds. This setting applies only when `--watcher-kind=polling`.
-   
-  Uses environment variable **`BIOME_WATCHER_POLLING_INTERVAL`**
-   
-  [default: 2000]
-
-
-
-**Available options:**
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome stop
+## `biome stop`
 
 Stops the Biome daemon server if it is running.
 
-**Usage**: **`biome`** **`stop`** 
-
-**Available options:**
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome check
+## `biome check`
 
 Checks the specified files for formatting, linting, and assist actions.
 
-**Usage**: **`biome`** **`check`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--profile-rules`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_\]... \[**`--watch`**\] \[_`PATH`_\]...
+The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome checks files in the current working directory.
 
-**Options that change how the JSON parser behaves.**
-- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
-  Allows parsing comments in `.json` files.
-- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
-  Allows parsing trailing commas in `.json` files.
+```shell
+biome check ./src
+```
 
+This command also accepts [global flags](#global-flags), the relevant [shared flags](#shared-flags), and the following additional flags:
 
+<h3>Flags</h3>
 
-**The configuration contained in `biome.json`.**
-- **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
-  Whether Biome should integrate with the version control client.
-- **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
-  The version control client.
-- **`    --vcs-use-ignore-file`**=_`<true|false>`_ &mdash; 
-  When `true`, Biome ignores files listed in `.gitignore`, `.ignore`, and Git's local exclude file.
-- **`    --vcs-root`**=_`PATH`_ &mdash; 
-  Sets the directory where Biome checks for version control files.
+#### `--write`, `--fix`
 
-  Defaults to the directory containing `biome.json` or `biome.jsonc`. If no configuration is found, Biome uses the current working directory.
+Applies formatting changes, safe lint fixes, and safe assist actions.
 
-  If neither directory is available, Biome disables version control integration and emits a diagnostic.
-- **`    --vcs-default-branch`**=_`BRANCH`_ &mdash; 
-  The project's default branch.
-- **`    --files-max-size`**=_`NUMBER`_ &mdash; 
-  The maximum source file size in bytes. Biome ignores larger files. Defaults to `1 MiB`.
-- **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
-  Prevents Biome from emitting diagnostics for unrecognized file types.
-- **`    --format-with-errors`**=_`<true|false>`_ &mdash; 
-  Allows formatting files that contain syntax errors when set to `true`. Defaults to `false`.
-- **`    --indent-style`**=_`<tab|space>`_ &mdash; 
-  Uses tabs or spaces for indentation. Defaults to `tab`.
-- **`    --indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width. Defaults to `2`.
-- **`    --line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  Selects the line ending. `auto` uses the platform convention. Defaults to `lf`.
-- **`    --line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width. Defaults to `80`.
-- **`    --attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in HTML-like languages. Defaults to `auto`.
-- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
-  Places the `>` of a multiline HTML or JSX element at the end of the last line instead of on the next line. Self-closing elements are unaffected. Defaults to `false`.
-- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. Defaults to `true`.
-- **`    --delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces immediately inside supported delimiters when their content fits on one line. It doesn't add spaces before opening delimiters or inside empty delimiters.
+#### `--unsafe`
 
-  The affected delimiters vary by language. Defaults to `false`.
-- **`    --expand`**=_`<auto|always|never>`_ &mdash; 
-  Controls whether arrays and objects are formatted on one line or multiple lines.
+Allows `--write` or `--fix` to apply unsafe fixes and assist actions.
 
-  `auto` formats objects on multiple lines if the first property has a newline, and arrays on one line if they fit.
+#### `--formatter-enabled=<true|false>`
 
-  `always` formats arrays and objects on multiple lines.
+Enables or disables formatting checks for this command.
 
-  `never` formats arrays and objects on one line if they fit.
+```shell
+biome check --formatter-enabled=false
+```
 
-  Defaults to `auto`.
+#### `--linter-enabled=<true|false>`
 
-  When formatting `package.json`, Biome uses `always` unless configured otherwise.
-- **`    --trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. Defaults to `true`; disabling this option can cause compatibility problems with other tools.
-- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
-  Uses `.editorconfig` files to configure the formatter. Settings in `biome.json` or `biome.jsonc` override `.editorconfig` settings. Defaults to `false`.
-- **`    --jsx-everywhere`**=_`<true|false>`_ &mdash; 
-  When enabled, files such as `.js`, `.mjs`, and `.cjs` may contain JSX syntax. Defaults to `true`.
-- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for JavaScript and languages that extend it.
-- **`    --jsx-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in JSX. Defaults to `double`.
-- **`    --quote-properties`**=_`<preserve|as-needed>`_ &mdash; 
-  Controls when object properties are quoted. Defaults to `asNeeded` in configuration (`as-needed` on the CLI).
-- **`    --trailing-commas`**=_`<all|es5|none>`_ &mdash; 
-  Prints trailing commas wherever possible in multiline comma-separated structures. Defaults to `all`.
-- **`    --semicolons`**=_`<always|as-needed>`_ &mdash; 
-  Prints semicolons after every statement or only where needed to avoid automatic semicolon insertion hazards. Defaults to `always`.
-- **`    --arrow-parentheses`**=_`<always|as-needed>`_ &mdash; 
-  Whether to add parentheses around arrow function parameters. Defaults to `always`.
-- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
-  Whether to hug the closing bracket of multiline HTML/JSX tags to the end of the last line, rather than being alone on the following line. If unset, inherits the global bracket placement setting.
-- **`    --javascript-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to JavaScript and languages that extend it. If unset, inherits the global indentation style.
-- **`    --javascript-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to JavaScript and languages that extend it. If unset, inherits the global indentation width.
-- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to JavaScript and languages that extend it. If unset, inherits the global line ending.
-- **`    --javascript-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width applied to JavaScript and languages that extend it. If unset, inherits the global line width.
-- **`    --javascript-formatter-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in JavaScript code. Defaults to `double`.
-- **`    --javascript-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in JSX elements. If unset, inherits the global attribute position setting.
-- **`    --javascript-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. If unset, inherits the global bracket spacing setting.
-- **`    --javascript-formatter-delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces immediately inside supported JavaScript and TypeScript delimiters when their content fits on one line. It doesn't add spaces before opening delimiters or inside empty delimiters.
+Enables or disables linting checks for this command.
 
-  It affects parentheses, square brackets, template interpolations, TypeScript angle brackets, JSX expression braces, and logical NOT. In operator chains, only the final operator receives a following space.
+```shell
+biome check --linter-enabled=true
+```
 
-  If unset, inherits the global delimiter spacing setting.
-- **`    --javascript-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
-  Uses the same `auto`, `always`, and `never` behavior as the global expansion setting.
+#### `--assist-enabled=<true|false>`
 
-  If unset, inherits the global expansion setting.
-- **`    --javascript-formatter-operator-linebreak`**=_`<before|after>`_ &mdash; 
-  When breaking binary expressions into multiple lines, whether to break them before or after the binary operator. Defaults to `after`.
-- **`    --javascript-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-- **`    --javascript-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for JavaScript and languages that extend it.
-- **`    --javascript-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for JavaScript and languages that extend it.
-- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
-  Allows parsing comments in `.json` files.
-- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
-  Allows parsing trailing commas in `.json` files.
-- **`    --json-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for JSON and languages that extend it.
-- **`    --json-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to JSON and languages that extend it. If unset, inherits the global indentation style.
-- **`    --json-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to JSON and languages that extend it. If unset, inherits the global indentation width.
-- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to JSON and languages that extend it. If unset, inherits the global line ending.
-- **`    --json-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width applied to JSON and languages that extend it. If unset, inherits the global line width.
-- **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
-  Prints trailing commas wherever possible in multiline comma-separated structures. Defaults to `none`.
-- **`    --json-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
-  Uses the same `auto`, `always`, and `never` behavior as the global expansion setting.
+Enables or disables assist actions for this command.
 
-  If unset, inherits the global expansion setting.
+```shell
+biome check --assist-enabled=true
+```
 
-  When formatting `package.json`, Biome uses `always` unless configured otherwise.
-- **`    --json-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. If unset, inherits the global bracket spacing setting.
-- **`    --json-formatter-delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces inside JSON square brackets when their content fits on one line. When enabled, `[1, 2, 3]` becomes `[ 1, 2, 3 ]`. Empty brackets are unchanged.
+#### `--enforce-assist=<true|false>`
 
-  If unset, inherits the global delimiter spacing setting.
-- **`    --json-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-- **`    --json-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for JSON and languages that extend it.
-- **`    --json-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for JSON and languages that extend it.
-- **`    --css-parse-css-modules`**=_`<true|false>`_ &mdash; 
-  Enables parsing of CSS Modules-specific features. Enable this feature only when your files don't end in `.module.css`.
-- **`    --css-parse-tailwind-directives`**=_`<true|false>`_ &mdash; 
-  Enables parsing of Tailwind CSS 4.0 directives and functions.
-- **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for CSS and languages that extend it.
-- **`    --css-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to CSS and languages that extend it. If unset, inherits the global indentation style.
-- **`    --css-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to CSS and languages that extend it. If unset, inherits the global indentation width.
-- **`    --css-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to CSS and languages that extend it. If unset, inherits the global line ending.
-- **`    --css-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width for CSS and languages that extend it. If unset, inherits the global line width.
-- **`    --css-formatter-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in CSS code. Defaults to `double`.
-- **`    --css-formatter-delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces inside CSS parentheses and square brackets when their content fits on one line. When enabled, `rgb(0, 0, 0)` becomes `rgb( 0, 0, 0 )` and `[data-attr]` becomes `[ data-attr ]`. Empty delimiters are unchanged.
+Enforces assist actions and causes the command to fail if required actions are not applied. Defaults to `true`.
 
-  If unset, inherits the global delimiter spacing setting.
-- **`    --css-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-- **`    --css-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for CSS files.
-- **`    --css-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for CSS files.
-- **`    --graphql-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for GraphQL files.
-- **`    --graphql-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to GraphQL files. If unset, inherits the global indentation style.
-- **`    --graphql-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to GraphQL files. If unset, inherits the global indentation width.
-- **`    --graphql-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to GraphQL files. If unset, inherits the global line ending.
-- **`    --graphql-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width for GraphQL files. If unset, inherits the global line width.
-- **`    --graphql-formatter-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in GraphQL code. Defaults to `double`.
-- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. If unset, inherits the global bracket spacing setting.
-- **`    --graphql-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-- **`    --graphql-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for GraphQL files.
-- **`    --graphql-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for GraphQL files.
-- **`    --grit-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for GritQL files.
-- **`    --grit-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to GritQL files. If unset, inherits the global indentation style.
-- **`    --grit-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to GritQL files. If unset, inherits the global indentation width.
-- **`    --grit-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to GritQL files. If unset, inherits the global line ending.
-- **`    --grit-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width for GritQL files. If unset, inherits the global line width.
-- **`    --grit-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-- **`    --grit-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for GritQL files.
-- **`    --grit-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for GritQL files.
-- **`    --html-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for HTML and languages that extend it.
-- **`    --html-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to HTML and languages that extend it. If unset, inherits the global indentation style.
-- **`    --html-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to HTML and languages that extend it. If unset, inherits the global indentation width.
-- **`    --html-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to HTML and languages that extend it. If unset, inherits the global line ending.
-- **`    --html-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width for HTML and languages that extend it. If unset, inherits the global line width.
-- **`    --html-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in HTML elements. If unset, inherits the global attribute position setting.
-- **`    --html-formatter-bracket-same-line`**=_`<true|false>`_ &mdash; 
-  Whether to place the closing bracket of a multiline HTML tag at the end of the last line instead of on its own line. If unset, inherits the global `bracketSameLine` setting.
-- **`    --html-formatter-whitespace-sensitivity`**=_`<css|strict|ignore>`_ &mdash; 
-  Whether to account for whitespace sensitivity when formatting HTML and languages that extend it. Defaults to `css`.
-- **`    --html-formatter-indent-script-and-style`**=_`<true|false>`_ &mdash; 
-  Whether to indent `<script>` and `<style>` tags in HTML and languages that extend it. Defaults to `false`.
-- **`    --html-formatter-self-close-void-elements`**=_`<always|never>`_ &mdash; 
-  Controls whether void elements are self-closed. Defaults to `never`.
-- **`    --html-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. Unlike other language-specific trailing newline settings, this option defaults to `true` instead of inheriting the global setting.
-- **`    --html-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for HTML and languages that extend it.
-- **`    --html-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for HTML and languages that extend it.
-- **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
-  Whether Biome should enable assist via LSP and CLI.
+```shell
+biome check --enforce-assist=false
+```
 
+#### `--profile-rules`
 
+Reports how long each rule takes to run. It excludes the time spent preparing the analysis, such as building the semantic model.
 
-**These options are available to many commands and control general CLI behavior, diagnostics, and output.**
-- **`    --colors`**=_`<off|force>`_ &mdash; 
-  Controls ANSI styling: `off` disables it, while `force` enables it even when the output does not appear to support ANSI escapes.
-- **`    --use-server`** &mdash; 
-  Connects to a running instance of the Biome daemon server.
-- **`    --verbose`** &mdash; 
-  Shows additional diagnostic details and lists the files that were processed or modified.
-- **`    --config-path`**=_`PATH`_ &mdash; 
-  Sets the path to the configuration file or the directory where Biome should search for `biome.json` or `biome.jsonc`. This option disables the default configuration file resolution.
-   
-  Uses environment variable **`BIOME_CONFIG_PATH`**
-- **`    --max-diagnostics`**=_`<none|NUMBER>`_ &mdash; 
-  Limits the number of diagnostics displayed. Use `none` to remove the limit.
-   
-  [default: 20]
-- **`    --skip-parse-errors`** &mdash; 
-  Skips files containing syntax errors instead of emitting an error diagnostic.
-- **`    --no-errors-on-unmatched`** &mdash; 
-  Does not emit an error when no files are processed.
-- **`    --error-on-warnings`** &mdash; 
-  Exits with an error status if any warning diagnostics are emitted.
-- \[**`--reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
-- **`    --reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_ &mdash; 
-  Changes how diagnostics and the run summary are written.
-   
-  [default: default]
-- **`    --reporter-file`**=_`PATH`_ &mdash; 
-  Writes the associated reporter's output to `PATH`. Without `--reporter`, it writes the default reporter's output.
+#### `--stdin-file-path=PATH`
 
+Reads code from standard input and writes the processed code to standard output.
 
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  Sets the minimum diagnostic severity to display: `info`, `warn`, or `error`. For example, `--diagnostic-level=error` displays only error-level diagnostics.
-   
-  [default: info]
+Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project. They bypass `files.includes` and VCS ignore checks.
 
+```shell
+echo 'let a;' | biome check --stdin-file-path=file.js --write
+```
 
+#### `--staged`
 
-**Options that control internal CLI and daemon server logging.**
-- **`    --log-file`**=_`PATH`_ &mdash; 
-  For file-processing commands, writes internal CLI logs to this file instead of standard output.
-   
-  Uses environment variable **`BIOME_LOG_FILE`**
-- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
-  When starting the daemon server, sets the file name prefix used for rotated log files.
-   
-  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
-   
-  [default: server.log]
-- **`    --log-path`**=_`PATH`_ &mdash; 
-  When starting the daemon server, sets the directory where log files are stored.
-   
-  Uses environment variable **`BIOME_LOG_PATH`**
-   
-  [default: /home/runner/.cache/biome/biome-logs]
-- **`    --log-level`**=_`<none|tracing|debug|info|warn|error>`_ &mdash; 
-  For file-processing commands, sets the internal CLI logging level to `tracing`, `debug`, `info`, `warn`, `error`, or `none`.
-   
-  Uses environment variable **`BIOME_LOG_LEVEL`**
-   
-  [default: none]
-- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  For file-processing commands, selects the internal CLI log format: `pretty`, `compact`, or `json`.
-   
-  Uses environment variable **`BIOME_LOG_KIND`**
-   
-  [default: pretty]
+Checks only staged files. This option is intended for local use.
 
+#### `--changed`
 
+Checks only files with committed changes compared to the configured `vcs.defaultBranch` or the base reference specified by `--since`. Staged and unstaged changes are not included. This option is intended for CI.
 
-**Available positional items:**
-- _`PATH`_ &mdash; 
-  The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome processes files in the current working directory.
+#### `--since=REF`
 
+Sets the base reference used by `--changed`, overriding `vcs.defaultBranch`. Requires `--changed`.
 
+```shell
+biome check --changed --since=main
+```
 
-**Available options:**
-- **`    --write`** &mdash; 
-  Applies formatting changes, safe lint fixes, and safe assist actions.
-- **`    --unsafe`** &mdash; 
-  Allows `--write` or `--fix` to apply unsafe fixes and assist actions.
-- **`    --fix`** &mdash; 
-  Alias for `--write`.
-- **`    --formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Enables or disables formatting checks for this command.
-- **`    --linter-enabled`**=_`<true|false>`_ &mdash; 
-  Enables or disables linting checks for this command.
-- **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
-  Enables or disables assist actions for this command.
-- **`    --enforce-assist`**=_`<true|false>`_ &mdash; 
-  Enforces assist actions and causes the command to fail if required actions are not applied. Defaults to `true`.
-- **`    --format-with-errors`**=_`<true|false>`_ &mdash; 
-  Allows formatting files that contain syntax errors when set to `true`. Defaults to `false`.
-- **`    --profile-rules`** &mdash; 
-  Enables rule profiling output. Captures timing only for rule execution, not preprocessing such as querying or building the semantic model.
-- **`    --stdin-file-path`**=_`PATH`_ &mdash; 
-  Reads code from standard input and writes the processed code to standard output.
+#### `--only=<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`
 
-  Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project and bypass `files.includes` and VCS ignore checks.
+Runs only the given lint rule, assist action, group of rules and actions, or domain. If a selected rule's severity is `off`, Biome sets it to `error` for a recommended rule or `warn` otherwise. The `plugin` group runs only analyzer plugins.
 
-  Example:
+```shell
+biome check --only=correctness/noUnusedVariables --only=suspicious --only=test --only=plugin
+```
 
-  
-  ```shell
-  echo 'let a;' | biome check --stdin-file-path=file.js --write
-  ```
+#### `--skip=<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`
 
-- **`    --staged`** &mdash; 
-  Processes only staged files. This option is intended for local use.
-- **`    --changed`** &mdash; 
-  Processes only files changed by commits since the merge base between `REF` and `HEAD`. `REF` comes from `--since` or `vcs.defaultBranch`. Staged and unstaged changes are not included. This option is intended for CI.
-- **`    --since`**=_`REF`_ &mdash; 
-  Sets the base reference used by `--changed`, overriding `vcs.defaultBranch`. Requires `--changed`.
-- **`    --only`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_ &mdash; 
-  Runs only the given lint rule, assist action, group of rules and actions, or domain. If a selected rule's severity is `off`, Biome sets it to `error` for a recommended rule or `warn` otherwise. The `plugin` group runs only analyzer plugins.
+Skips the given lint rule, assist action, group of rules and actions, or domain. Matching lint rules are set to `off`. This option takes precedence over `--only`. The `plugin` group skips analyzer plugins.
 
-  Example:
+```shell
+biome check --skip=correctness/noUnusedVariables --skip=suspicious --skip=project --skip=plugin
+```
 
-  
-  ```shell
-  biome check --only=correctness/noUnusedVariables --only=suspicious --only=test --only=plugin
-  ```
+#### `--watch`
 
-- **`    --skip`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_ &mdash; 
-  Skips the given lint rule, assist action, group of rules and actions, or domain. Matching lint rules are set to `off`. This option takes precedence over `--only`. The `plugin` group skips analyzer plugins.
+After the initial run, watches the selected paths and reprocesses files modified afterward.
 
-  Example:
-
-  
-  ```shell
-  biome check --skip=correctness/noUnusedVariables --skip=suspicious --skip=project --skip=plugin
-  ```
-
-- **`    --watch`** &mdash; 
-  After the initial run, watches the selected paths and reprocesses files modified afterward.
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome lint
+## `biome lint`
 
 Runs the linter on the specified files.
 
-**Usage**: **`biome`** **`lint`** \[**`--write`**\] \[**`--unsafe`**\] \[**`--suppress`**\] \[**`--reason`**=_`STRING`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|PLUGIN>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|PLUGIN>`_\]... \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--profile-rules`**\] \[**`--watch`**\] \[_`PATH`_\]...
+The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome lints files in the current working directory.
 
-**Options that change how the JSON parser behaves.**
-- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
-  Allows parsing comments in `.json` files.
-- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
-  Allows parsing trailing commas in `.json` files.
+```shell
+biome lint ./src
+```
 
+This command also accepts [global flags](#global-flags), the relevant [shared flags](#shared-flags), and the following additional flags:
 
+<h3>Flags</h3>
 
-**Settings for integrating Biome with version control.**
-- **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
-  Whether Biome should integrate with the version control client.
-- **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
-  The version control client.
-- **`    --vcs-use-ignore-file`**=_`<true|false>`_ &mdash; 
-  When `true`, Biome ignores files listed in `.gitignore`, `.ignore`, and Git's local exclude file.
-- **`    --vcs-root`**=_`PATH`_ &mdash; 
-  Sets the directory where Biome checks for version control files.
+#### `--write`, `--fix`
 
-  Defaults to the directory containing `biome.json` or `biome.jsonc`. If no configuration is found, Biome uses the current working directory.
+Applies safe lint fixes.
 
-  If neither directory is available, Biome disables version control integration and emits a diagnostic.
-- **`    --vcs-default-branch`**=_`BRANCH`_ &mdash; 
-  The project's default branch.
+#### `--unsafe`
 
+Allows `--write` or `--fix` to apply unsafe lint fixes.
 
+#### `--suppress`
 
-**The file handling configuration.**
-- **`    --files-max-size`**=_`NUMBER`_ &mdash; 
-  The maximum source file size in bytes. Biome ignores larger files. Defaults to `1 MiB`.
-- **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
-  Prevents Biome from emitting diagnostics for unrecognized file types.
+Writes comment suppressions for lint rule violations instead of applying rule fixes.
 
+#### `--reason=STRING`
 
+Adds an explanation to suppressions created by `--suppress`. This flag requires `--suppress`.
 
-**Linter options specific to the JavaScript linter**
-- **`    --javascript-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for JavaScript and languages that extend it.
+```shell
+biome lint --suppress --reason="explanation"
+```
 
+#### `--only=<GROUP|RULE|DOMAIN|PLUGIN>`
 
+Runs only the given lint rule, rule group, or domain. If a rule's severity is `off`, Biome sets it to `error` for a recommended rule or `warn` otherwise. The `plugin` group runs only analyzer plugins.
 
-**Linter options specific to the JSON linter**
-- **`    --json-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for JSON and languages that extend it.
+```shell
+biome lint --only=correctness/noUnusedVariables --only=suspicious --only=test --only=plugin
+```
 
+#### `--skip=<GROUP|RULE|DOMAIN|PLUGIN>`
 
+Skips the given lint rule, rule group, or domain by setting the affected rules to `off`. This option takes precedence over `--only`. The `plugin` group skips analyzer plugins.
 
-**These options are available to many commands and control general CLI behavior, diagnostics, and output.**
-- **`    --colors`**=_`<off|force>`_ &mdash; 
-  Controls ANSI styling: `off` disables it, while `force` enables it even when the output does not appear to support ANSI escapes.
-- **`    --use-server`** &mdash; 
-  Connects to a running instance of the Biome daemon server.
-- **`    --verbose`** &mdash; 
-  Shows additional diagnostic details and lists the files that were processed or modified.
-- **`    --config-path`**=_`PATH`_ &mdash; 
-  Sets the path to the configuration file or the directory where Biome should search for `biome.json` or `biome.jsonc`. This option disables the default configuration file resolution.
-   
-  Uses environment variable **`BIOME_CONFIG_PATH`**
-- **`    --max-diagnostics`**=_`<none|NUMBER>`_ &mdash; 
-  Limits the number of diagnostics displayed. Use `none` to remove the limit.
-   
-  [default: 20]
-- **`    --skip-parse-errors`** &mdash; 
-  Skips files containing syntax errors instead of emitting an error diagnostic.
-- **`    --no-errors-on-unmatched`** &mdash; 
-  Does not emit an error when no files are processed.
-- **`    --error-on-warnings`** &mdash; 
-  Exits with an error status if any warning diagnostics are emitted.
-- \[**`--reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
-- **`    --reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_ &mdash; 
-  Changes how diagnostics and the run summary are written.
-   
-  [default: default]
-- **`    --reporter-file`**=_`PATH`_ &mdash; 
-  Writes the associated reporter's output to `PATH`. Without `--reporter`, it writes the default reporter's output.
+```shell
+biome lint --skip=correctness/noUnusedVariables --skip=suspicious --skip=project --skip=plugin
+```
 
+#### `--stdin-file-path=PATH`
 
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  Sets the minimum diagnostic severity to display: `info`, `warn`, or `error`. For example, `--diagnostic-level=error` displays only error-level diagnostics.
-   
-  [default: info]
+Reads code from standard input and writes the processed code to standard output.
 
+Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project. They bypass `files.includes` and VCS ignore checks.
 
+```shell
+echo 'let a;' | biome lint --stdin-file-path=file.js --write
+```
 
-**Options that control internal CLI and daemon server logging.**
-- **`    --log-file`**=_`PATH`_ &mdash; 
-  For file-processing commands, writes internal CLI logs to this file instead of standard output.
-   
-  Uses environment variable **`BIOME_LOG_FILE`**
-- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
-  When starting the daemon server, sets the file name prefix used for rotated log files.
-   
-  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
-   
-  [default: server.log]
-- **`    --log-path`**=_`PATH`_ &mdash; 
-  When starting the daemon server, sets the directory where log files are stored.
-   
-  Uses environment variable **`BIOME_LOG_PATH`**
-   
-  [default: /home/runner/.cache/biome/biome-logs]
-- **`    --log-level`**=_`<none|tracing|debug|info|warn|error>`_ &mdash; 
-  For file-processing commands, sets the internal CLI logging level to `tracing`, `debug`, `info`, `warn`, `error`, or `none`.
-   
-  Uses environment variable **`BIOME_LOG_LEVEL`**
-   
-  [default: none]
-- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  For file-processing commands, selects the internal CLI log format: `pretty`, `compact`, or `json`.
-   
-  Uses environment variable **`BIOME_LOG_KIND`**
-   
-  [default: pretty]
+#### `--staged`
 
+Lints only staged files. This option is intended for local use.
 
+#### `--changed`
 
-**Available positional items:**
-- _`PATH`_ &mdash; 
-  The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome processes files in the current working directory.
+Lints only files with committed changes compared to the configured `vcs.defaultBranch` or the base reference specified by `--since`. Staged and unstaged changes are not included. This option is intended for CI.
 
+#### `--since=REF`
 
+Sets the base reference used by `--changed`, overriding `vcs.defaultBranch`. Requires `--changed`.
 
-**Available options:**
-- **`    --write`** &mdash; 
-  Applies safe lint fixes.
-- **`    --unsafe`** &mdash; 
-  Allows `--write` or `--fix` to apply unsafe lint fixes.
-- **`    --fix`** &mdash; 
-  Alias for `--write`.
-- **`    --suppress`** &mdash; 
-  Writes comment suppressions for lint rule violations instead of applying rule fixes.
-- **`    --reason`**=_`STRING`_ &mdash; 
-  Adds an explanation to suppressions created by `--suppress`. This flag requires `--suppress`.
-- **`    --only`**=_`<GROUP|RULE|DOMAIN|PLUGIN>`_ &mdash; 
-  Runs only the given lint rule, rule group, or domain. If a rule's severity is `off`, Biome sets it to `error` for a recommended rule or `warn` otherwise. The `plugin` group runs only analyzer plugins.
+```shell
+biome lint --changed --since=main
+```
 
-  Example:
+#### `--profile-rules`
 
-  
-  ```shell
-  biome lint --only=correctness/noUnusedVariables --only=suspicious --only=test --only=plugin
-  ```
+Reports how long each rule takes to run. It excludes the time spent preparing the analysis, such as building the semantic model.
 
-- **`    --skip`**=_`<GROUP|RULE|DOMAIN|PLUGIN>`_ &mdash; 
-  Skips the given lint rule, rule group, or domain by setting the affected rules to `off`. This option takes precedence over `--only`. The `plugin` group skips analyzer plugins.
+#### `--watch`
 
-  Example:
+After the initial run, watches the selected paths and reprocesses files modified afterward.
 
-  
-  ```shell
-  biome lint --skip=correctness/noUnusedVariables --skip=suspicious --skip=project --skip=plugin
-  ```
-
-- **`    --stdin-file-path`**=_`PATH`_ &mdash; 
-  Reads code from standard input and writes the processed code to standard output.
-
-  Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project and bypass `files.includes` and VCS ignore checks.
-
-  Example:
-
-  
-  ```shell
-  echo 'let a;' | biome lint --stdin-file-path=file.js --write
-  ```
-
-- **`    --staged`** &mdash; 
-  Processes only staged files. This option is intended for local use.
-- **`    --changed`** &mdash; 
-  Processes only files changed by commits since the merge base between `REF` and `HEAD`. `REF` comes from `--since` or `vcs.defaultBranch`. Staged and unstaged changes are not included. This option is intended for CI.
-- **`    --since`**=_`REF`_ &mdash; 
-  Sets the base reference used by `--changed`, overriding `vcs.defaultBranch`. Requires `--changed`.
-- **`    --profile-rules`** &mdash; 
-  Enables rule profiling output. Captures timing only for rule execution, not preprocessing such as querying or building the semantic model.
-- **`    --watch`** &mdash; 
-  After the initial run, watches the selected paths and reprocesses files modified afterward.
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome format
+## `biome format`
 
 Formats the specified files.
 
-**Usage**: **`biome`** **`format`** \[**`--write`**\] \[**`--staged`**\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--watch`**\] \[_`PATH`_\]...
+The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome formats files in the current working directory.
 
-**Generic options applied to all files**
-- **`    --format-with-errors`**=_`<true|false>`_ &mdash; 
-  Allows formatting files that contain syntax errors when set to `true`. Defaults to `false`.
-- **`    --indent-style`**=_`<tab|space>`_ &mdash; 
-  Uses tabs or spaces for indentation. Defaults to `tab`.
-- **`    --indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width. Defaults to `2`.
-- **`    --line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  Selects the line ending. `auto` uses the platform convention. Defaults to `lf`.
-- **`    --line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width. Defaults to `80`.
-- **`    --attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in HTML-like languages. Defaults to `auto`.
-- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
-  Places the `>` of a multiline HTML or JSX element at the end of the last line instead of on the next line. Self-closing elements are unaffected. Defaults to `false`.
-- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. Defaults to `true`.
-- **`    --delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces immediately inside supported delimiters when their content fits on one line. It doesn't add spaces before opening delimiters or inside empty delimiters.
+```shell
+biome format ./src
+```
 
-  The affected delimiters vary by language. Defaults to `false`.
-- **`    --expand`**=_`<auto|always|never>`_ &mdash; 
-  Controls whether arrays and objects are formatted on one line or multiple lines.
+This command also accepts [global flags](#global-flags), the relevant [shared flags](#shared-flags), and the following additional flags:
 
-  `auto` formats objects on multiple lines if the first property has a newline, and arrays on one line if they fit.
+<h3>Flags</h3>
 
-  `always` formats arrays and objects on multiple lines.
+#### `--stdin-file-path=PATH`
 
-  `never` formats arrays and objects on one line if they fit.
+Reads code from standard input and writes the processed code to standard output.
 
-  Defaults to `auto`.
+Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project. They bypass `files.includes` and VCS ignore checks.
 
-  When formatting `package.json`, Biome uses `always` unless configured otherwise.
-- **`    --trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. Defaults to `true`; disabling this option can cause compatibility problems with other tools.
-- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
-  Uses `.editorconfig` files to configure the formatter. Settings in `biome.json` or `biome.jsonc` override `.editorconfig` settings. Defaults to `false`.
+```shell
+echo 'let a;' | biome format --stdin-file-path=file.js
+```
 
+#### `--write`, `--fix`
 
+Applies formatting changes.
 
-**Formatting options specific to the JavaScript files**
-- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for JavaScript and languages that extend it.
-- **`    --jsx-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in JSX. Defaults to `double`.
-- **`    --quote-properties`**=_`<preserve|as-needed>`_ &mdash; 
-  Controls when object properties are quoted. Defaults to `asNeeded` in configuration (`as-needed` on the CLI).
-- **`    --trailing-commas`**=_`<all|es5|none>`_ &mdash; 
-  Prints trailing commas wherever possible in multiline comma-separated structures. Defaults to `all`.
-- **`    --semicolons`**=_`<always|as-needed>`_ &mdash; 
-  Prints semicolons after every statement or only where needed to avoid automatic semicolon insertion hazards. Defaults to `always`.
-- **`    --arrow-parentheses`**=_`<always|as-needed>`_ &mdash; 
-  Whether to add parentheses around arrow function parameters. Defaults to `always`.
-- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
-  Whether to hug the closing bracket of multiline HTML/JSX tags to the end of the last line, rather than being alone on the following line. If unset, inherits the global bracket placement setting.
-- **`    --javascript-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to JavaScript and languages that extend it. If unset, inherits the global indentation style.
-- **`    --javascript-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to JavaScript and languages that extend it. If unset, inherits the global indentation width.
-- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to JavaScript and languages that extend it. If unset, inherits the global line ending.
-- **`    --javascript-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width applied to JavaScript and languages that extend it. If unset, inherits the global line width.
-- **`    --javascript-formatter-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in JavaScript code. Defaults to `double`.
-- **`    --javascript-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in JSX elements. If unset, inherits the global attribute position setting.
-- **`    --javascript-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. If unset, inherits the global bracket spacing setting.
-- **`    --javascript-formatter-delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces immediately inside supported JavaScript and TypeScript delimiters when their content fits on one line. It doesn't add spaces before opening delimiters or inside empty delimiters.
+#### `--staged`
 
-  It affects parentheses, square brackets, template interpolations, TypeScript angle brackets, JSX expression braces, and logical NOT. In operator chains, only the final operator receives a following space.
+Formats only staged files. This option is intended for local use.
 
-  If unset, inherits the global delimiter spacing setting.
-- **`    --javascript-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
-  Uses the same `auto`, `always`, and `never` behavior as the global expansion setting.
+#### `--changed`
 
-  If unset, inherits the global expansion setting.
-- **`    --javascript-formatter-operator-linebreak`**=_`<before|after>`_ &mdash; 
-  When breaking binary expressions into multiple lines, whether to break them before or after the binary operator. Defaults to `after`.
-- **`    --javascript-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
+Formats only files with committed changes compared to the configured `vcs.defaultBranch` or the base reference specified by `--since`. Staged and unstaged changes are not included. This option is intended for CI.
 
+#### `--since=REF`
 
+Sets the base reference used by `--changed`, overriding `vcs.defaultBranch`. Requires `--changed`.
 
-**Options that change how the JSON parser behaves.**
-- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
-  Allows parsing comments in `.json` files.
-- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
-  Allows parsing trailing commas in `.json` files.
+```shell
+biome format --changed --since=main
+```
 
+#### `--watch`
 
+After the initial run, watches the selected paths and reprocesses files modified afterward.
 
-**Options that change how the CSS parser behaves.**
-- **`    --css-parse-css-modules`**=_`<true|false>`_ &mdash; 
-  Enables parsing of CSS Modules-specific features. Enable this feature only when your files don't end in `.module.css`.
-- **`    --css-parse-tailwind-directives`**=_`<true|false>`_ &mdash; 
-  Enables parsing of Tailwind CSS 4.0 directives and functions.
-
-
-
-**Options that change how the GraphQL formatter behaves.**
-- **`    --graphql-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for GraphQL files.
-- **`    --graphql-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to GraphQL files. If unset, inherits the global indentation style.
-- **`    --graphql-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to GraphQL files. If unset, inherits the global indentation width.
-- **`    --graphql-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to GraphQL files. If unset, inherits the global line ending.
-- **`    --graphql-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width for GraphQL files. If unset, inherits the global line width.
-- **`    --graphql-formatter-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in GraphQL code. Defaults to `double`.
-- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. If unset, inherits the global bracket spacing setting.
-- **`    --graphql-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-
-
-
-**Options that change how the CSS formatter behaves.**
-- **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for CSS and languages that extend it.
-- **`    --css-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to CSS and languages that extend it. If unset, inherits the global indentation style.
-- **`    --css-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to CSS and languages that extend it. If unset, inherits the global indentation width.
-- **`    --css-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to CSS and languages that extend it. If unset, inherits the global line ending.
-- **`    --css-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width for CSS and languages that extend it. If unset, inherits the global line width.
-- **`    --css-formatter-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in CSS code. Defaults to `double`.
-- **`    --css-formatter-delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces inside CSS parentheses and square brackets when their content fits on one line. When enabled, `rgb(0, 0, 0)` becomes `rgb( 0, 0, 0 )` and `[data-attr]` becomes `[ data-attr ]`. Empty delimiters are unchanged.
-
-  If unset, inherits the global delimiter spacing setting.
-- **`    --css-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-
-
-
-**Options that change how the HTML formatter behaves.**
-- **`    --html-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for HTML and languages that extend it.
-- **`    --html-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to HTML and languages that extend it. If unset, inherits the global indentation style.
-- **`    --html-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to HTML and languages that extend it. If unset, inherits the global indentation width.
-- **`    --html-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to HTML and languages that extend it. If unset, inherits the global line ending.
-- **`    --html-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width for HTML and languages that extend it. If unset, inherits the global line width.
-- **`    --html-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in HTML elements. If unset, inherits the global attribute position setting.
-- **`    --html-formatter-bracket-same-line`**=_`<true|false>`_ &mdash; 
-  Whether to place the closing bracket of a multiline HTML tag at the end of the last line instead of on its own line. If unset, inherits the global `bracketSameLine` setting.
-- **`    --html-formatter-whitespace-sensitivity`**=_`<css|strict|ignore>`_ &mdash; 
-  Whether to account for whitespace sensitivity when formatting HTML and languages that extend it. Defaults to `css`.
-- **`    --html-formatter-indent-script-and-style`**=_`<true|false>`_ &mdash; 
-  Whether to indent `<script>` and `<style>` tags in HTML and languages that extend it. Defaults to `false`.
-- **`    --html-formatter-self-close-void-elements`**=_`<always|never>`_ &mdash; 
-  Controls whether void elements are self-closed. Defaults to `never`.
-- **`    --html-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. Unlike other language-specific trailing newline settings, this option defaults to `true` instead of inheriting the global setting.
-
-
-
-**Settings for integrating Biome with version control.**
-- **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
-  Whether Biome should integrate with the version control client.
-- **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
-  The version control client.
-- **`    --vcs-use-ignore-file`**=_`<true|false>`_ &mdash; 
-  When `true`, Biome ignores files listed in `.gitignore`, `.ignore`, and Git's local exclude file.
-- **`    --vcs-root`**=_`PATH`_ &mdash; 
-  Sets the directory where Biome checks for version control files.
-
-  Defaults to the directory containing `biome.json` or `biome.jsonc`. If no configuration is found, Biome uses the current working directory.
-
-  If neither directory is available, Biome disables version control integration and emits a diagnostic.
-- **`    --vcs-default-branch`**=_`BRANCH`_ &mdash; 
-  The project's default branch.
-
-
-
-**The file handling configuration.**
-- **`    --files-max-size`**=_`NUMBER`_ &mdash; 
-  The maximum source file size in bytes. Biome ignores larger files. Defaults to `1 MiB`.
-- **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
-  Prevents Biome from emitting diagnostics for unrecognized file types.
-
-
-
-**These options are available to many commands and control general CLI behavior, diagnostics, and output.**
-- **`    --colors`**=_`<off|force>`_ &mdash; 
-  Controls ANSI styling: `off` disables it, while `force` enables it even when the output does not appear to support ANSI escapes.
-- **`    --use-server`** &mdash; 
-  Connects to a running instance of the Biome daemon server.
-- **`    --verbose`** &mdash; 
-  Shows additional diagnostic details and lists the files that were processed or modified.
-- **`    --config-path`**=_`PATH`_ &mdash; 
-  Sets the path to the configuration file or the directory where Biome should search for `biome.json` or `biome.jsonc`. This option disables the default configuration file resolution.
-   
-  Uses environment variable **`BIOME_CONFIG_PATH`**
-- **`    --max-diagnostics`**=_`<none|NUMBER>`_ &mdash; 
-  Limits the number of diagnostics displayed. Use `none` to remove the limit.
-   
-  [default: 20]
-- **`    --skip-parse-errors`** &mdash; 
-  Skips files containing syntax errors instead of emitting an error diagnostic.
-- **`    --no-errors-on-unmatched`** &mdash; 
-  Does not emit an error when no files are processed.
-- **`    --error-on-warnings`** &mdash; 
-  Exits with an error status if any warning diagnostics are emitted.
-- \[**`--reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
-- **`    --reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_ &mdash; 
-  Changes how diagnostics and the run summary are written.
-   
-  [default: default]
-- **`    --reporter-file`**=_`PATH`_ &mdash; 
-  Writes the associated reporter's output to `PATH`. Without `--reporter`, it writes the default reporter's output.
-
-
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  Sets the minimum diagnostic severity to display: `info`, `warn`, or `error`. For example, `--diagnostic-level=error` displays only error-level diagnostics.
-   
-  [default: info]
-
-
-
-**Options that control internal CLI and daemon server logging.**
-- **`    --log-file`**=_`PATH`_ &mdash; 
-  For file-processing commands, writes internal CLI logs to this file instead of standard output.
-   
-  Uses environment variable **`BIOME_LOG_FILE`**
-- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
-  When starting the daemon server, sets the file name prefix used for rotated log files.
-   
-  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
-   
-  [default: server.log]
-- **`    --log-path`**=_`PATH`_ &mdash; 
-  When starting the daemon server, sets the directory where log files are stored.
-   
-  Uses environment variable **`BIOME_LOG_PATH`**
-   
-  [default: /home/runner/.cache/biome/biome-logs]
-- **`    --log-level`**=_`<none|tracing|debug|info|warn|error>`_ &mdash; 
-  For file-processing commands, sets the internal CLI logging level to `tracing`, `debug`, `info`, `warn`, `error`, or `none`.
-   
-  Uses environment variable **`BIOME_LOG_LEVEL`**
-   
-  [default: none]
-- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  For file-processing commands, selects the internal CLI log format: `pretty`, `compact`, or `json`.
-   
-  Uses environment variable **`BIOME_LOG_KIND`**
-   
-  [default: pretty]
-
-
-
-**Available positional items:**
-- _`PATH`_ &mdash; 
-  The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome processes files in the current working directory.
-
-
-
-**Available options:**
-- **`    --json-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for JSON and languages that extend it.
-- **`    --json-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to JSON and languages that extend it. If unset, inherits the global indentation style.
-- **`    --json-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to JSON and languages that extend it. If unset, inherits the global indentation width.
-- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to JSON and languages that extend it. If unset, inherits the global line ending.
-- **`    --json-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width applied to JSON and languages that extend it. If unset, inherits the global line width.
-- **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
-  Prints trailing commas wherever possible in multiline comma-separated structures. Defaults to `none`.
-- **`    --json-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
-  Uses the same `auto`, `always`, and `never` behavior as the global expansion setting.
-
-  If unset, inherits the global expansion setting.
-
-  When formatting `package.json`, Biome uses `always` unless configured otherwise.
-- **`    --json-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. If unset, inherits the global bracket spacing setting.
-- **`    --json-formatter-delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces inside JSON square brackets when their content fits on one line. When enabled, `[1, 2, 3]` becomes `[ 1, 2, 3 ]`. Empty brackets are unchanged.
-
-  If unset, inherits the global delimiter spacing setting.
-- **`    --json-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-- **`    --stdin-file-path`**=_`PATH`_ &mdash; 
-  Reads code from standard input and writes the processed code to standard output.
-
-  Biome uses `PATH` to select settings and determine the input type from its extension. Virtual paths don't need to exist or belong to the project and bypass `files.includes` and VCS ignore checks.
-
-  Example:
-
-  
-  ```shell
-  echo 'let a;' | biome format --stdin-file-path=file.js
-  ```
-
-- **`    --write`** &mdash; 
-  Applies formatting changes.
-- **`    --fix`** &mdash; 
-  Alias for `--write`.
-- **`    --staged`** &mdash; 
-  Processes only staged files. This option is intended for local use.
-- **`    --changed`** &mdash; 
-  Processes only files changed by commits since the merge base between `REF` and `HEAD`. `REF` comes from `--since` or `vcs.defaultBranch`. Staged and unstaged changes are not included. This option is intended for CI.
-- **`    --since`**=_`REF`_ &mdash; 
-  Sets the base reference used by `--changed`, overriding `vcs.defaultBranch`. Requires `--changed`.
-- **`    --watch`** &mdash; 
-  After the initial run, watches the selected paths and reprocesses files modified afterward.
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome ci
+## `biome ci`
 
 Runs formatting checks, linting checks, and assist actions in CI without modifying files.
 
-**Usage**: **`biome`** **`ci`** \[**`--formatter-enabled`**=_`<true|false>`_\] \[**`--linter-enabled`**=_`<true|false>`_\] \[**`--assist-enabled`**=_`<true|false>`_\] \[**`--format-with-errors`**=_`<true|false>`_\] \[**`--enforce-assist`**=_`<true|false>`_\] \[**`--changed`**\] \[**`--since`**=_`REF`_\] \[**`--only`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_\]... \[**`--skip`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_\]... \[_`PATH`_\]...
+The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome checks files in the current working directory.
 
-**Options that change how the JSON parser behaves.**
-- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
-  Allows parsing comments in `.json` files.
-- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
-  Allows parsing trailing commas in `.json` files.
+```shell
+biome ci ./src
+```
 
+This command also accepts [global flags](#global-flags), the relevant [shared flags](#shared-flags), and the following additional flags:
 
+<h3>Flags</h3>
 
-**The configuration contained in `biome.json`.**
-- **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
-  Whether Biome should integrate with the version control client.
-- **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
-  The version control client.
-- **`    --vcs-use-ignore-file`**=_`<true|false>`_ &mdash; 
-  When `true`, Biome ignores files listed in `.gitignore`, `.ignore`, and Git's local exclude file.
-- **`    --vcs-root`**=_`PATH`_ &mdash; 
-  Sets the directory where Biome checks for version control files.
+#### `--formatter-enabled=<true|false>`
 
-  Defaults to the directory containing `biome.json` or `biome.jsonc`. If no configuration is found, Biome uses the current working directory.
+Enables or disables formatting checks for this command.
 
-  If neither directory is available, Biome disables version control integration and emits a diagnostic.
-- **`    --vcs-default-branch`**=_`BRANCH`_ &mdash; 
-  The project's default branch.
-- **`    --files-max-size`**=_`NUMBER`_ &mdash; 
-  The maximum source file size in bytes. Biome ignores larger files. Defaults to `1 MiB`.
-- **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
-  Prevents Biome from emitting diagnostics for unrecognized file types.
-- **`    --format-with-errors`**=_`<true|false>`_ &mdash; 
-  Allows formatting files that contain syntax errors when set to `true`. Defaults to `false`.
-- **`    --indent-style`**=_`<tab|space>`_ &mdash; 
-  Uses tabs or spaces for indentation. Defaults to `tab`.
-- **`    --indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width. Defaults to `2`.
-- **`    --line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  Selects the line ending. `auto` uses the platform convention. Defaults to `lf`.
-- **`    --line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width. Defaults to `80`.
-- **`    --attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in HTML-like languages. Defaults to `auto`.
-- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
-  Places the `>` of a multiline HTML or JSX element at the end of the last line instead of on the next line. Self-closing elements are unaffected. Defaults to `false`.
-- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. Defaults to `true`.
-- **`    --delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces immediately inside supported delimiters when their content fits on one line. It doesn't add spaces before opening delimiters or inside empty delimiters.
+```shell
+biome ci --formatter-enabled=false
+```
 
-  The affected delimiters vary by language. Defaults to `false`.
-- **`    --expand`**=_`<auto|always|never>`_ &mdash; 
-  Controls whether arrays and objects are formatted on one line or multiple lines.
+#### `--linter-enabled=<true|false>`
 
-  `auto` formats objects on multiple lines if the first property has a newline, and arrays on one line if they fit.
+Enables or disables linting checks for this command.
 
-  `always` formats arrays and objects on multiple lines.
+```shell
+biome ci --linter-enabled=true
+```
 
-  `never` formats arrays and objects on one line if they fit.
+#### `--assist-enabled=<true|false>`
 
-  Defaults to `auto`.
+Enables or disables assist actions for this command.
 
-  When formatting `package.json`, Biome uses `always` unless configured otherwise.
-- **`    --trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. Defaults to `true`; disabling this option can cause compatibility problems with other tools.
-- **`    --use-editorconfig`**=_`<true|false>`_ &mdash; 
-  Uses `.editorconfig` files to configure the formatter. Settings in `biome.json` or `biome.jsonc` override `.editorconfig` settings. Defaults to `false`.
-- **`    --jsx-everywhere`**=_`<true|false>`_ &mdash; 
-  When enabled, files such as `.js`, `.mjs`, and `.cjs` may contain JSX syntax. Defaults to `true`.
-- **`    --javascript-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for JavaScript and languages that extend it.
-- **`    --jsx-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in JSX. Defaults to `double`.
-- **`    --quote-properties`**=_`<preserve|as-needed>`_ &mdash; 
-  Controls when object properties are quoted. Defaults to `asNeeded` in configuration (`as-needed` on the CLI).
-- **`    --trailing-commas`**=_`<all|es5|none>`_ &mdash; 
-  Prints trailing commas wherever possible in multiline comma-separated structures. Defaults to `all`.
-- **`    --semicolons`**=_`<always|as-needed>`_ &mdash; 
-  Prints semicolons after every statement or only where needed to avoid automatic semicolon insertion hazards. Defaults to `always`.
-- **`    --arrow-parentheses`**=_`<always|as-needed>`_ &mdash; 
-  Whether to add parentheses around arrow function parameters. Defaults to `always`.
-- **`    --bracket-same-line`**=_`<true|false>`_ &mdash; 
-  Whether to hug the closing bracket of multiline HTML/JSX tags to the end of the last line, rather than being alone on the following line. If unset, inherits the global bracket placement setting.
-- **`    --javascript-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to JavaScript and languages that extend it. If unset, inherits the global indentation style.
-- **`    --javascript-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to JavaScript and languages that extend it. If unset, inherits the global indentation width.
-- **`    --javascript-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to JavaScript and languages that extend it. If unset, inherits the global line ending.
-- **`    --javascript-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width applied to JavaScript and languages that extend it. If unset, inherits the global line width.
-- **`    --javascript-formatter-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in JavaScript code. Defaults to `double`.
-- **`    --javascript-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in JSX elements. If unset, inherits the global attribute position setting.
-- **`    --javascript-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. If unset, inherits the global bracket spacing setting.
-- **`    --javascript-formatter-delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces immediately inside supported JavaScript and TypeScript delimiters when their content fits on one line. It doesn't add spaces before opening delimiters or inside empty delimiters.
+```shell
+biome ci --assist-enabled=true
+```
 
-  It affects parentheses, square brackets, template interpolations, TypeScript angle brackets, JSX expression braces, and logical NOT. In operator chains, only the final operator receives a following space.
+#### `--enforce-assist=<true|false>`
 
-  If unset, inherits the global delimiter spacing setting.
-- **`    --javascript-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
-  Uses the same `auto`, `always`, and `never` behavior as the global expansion setting.
+Enforces assist actions and causes the command to fail if required actions are not applied. Defaults to `true`.
 
-  If unset, inherits the global expansion setting.
-- **`    --javascript-formatter-operator-linebreak`**=_`<before|after>`_ &mdash; 
-  When breaking binary expressions into multiple lines, whether to break them before or after the binary operator. Defaults to `after`.
-- **`    --javascript-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-- **`    --javascript-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for JavaScript and languages that extend it.
-- **`    --javascript-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for JavaScript and languages that extend it.
-- **`    --json-parse-allow-comments`**=_`<true|false>`_ &mdash; 
-  Allows parsing comments in `.json` files.
-- **`    --json-parse-allow-trailing-commas`**=_`<true|false>`_ &mdash; 
-  Allows parsing trailing commas in `.json` files.
-- **`    --json-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for JSON and languages that extend it.
-- **`    --json-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to JSON and languages that extend it. If unset, inherits the global indentation style.
-- **`    --json-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to JSON and languages that extend it. If unset, inherits the global indentation width.
-- **`    --json-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to JSON and languages that extend it. If unset, inherits the global line ending.
-- **`    --json-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width applied to JSON and languages that extend it. If unset, inherits the global line width.
-- **`    --json-formatter-trailing-commas`**=_`<none|all>`_ &mdash; 
-  Prints trailing commas wherever possible in multiline comma-separated structures. Defaults to `none`.
-- **`    --json-formatter-expand`**=_`<auto|always|never>`_ &mdash; 
-  Uses the same `auto`, `always`, and `never` behavior as the global expansion setting.
+```shell
+biome ci --enforce-assist=false
+```
 
-  If unset, inherits the global expansion setting.
+#### `--changed`
 
-  When formatting `package.json`, Biome uses `always` unless configured otherwise.
-- **`    --json-formatter-bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. If unset, inherits the global bracket spacing setting.
-- **`    --json-formatter-delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces inside JSON square brackets when their content fits on one line. When enabled, `[1, 2, 3]` becomes `[ 1, 2, 3 ]`. Empty brackets are unchanged.
+Checks only files with committed changes compared to the configured `vcs.defaultBranch` or the base reference specified by `--since`. Staged and unstaged changes are not included. This option is intended for CI.
 
-  If unset, inherits the global delimiter spacing setting.
-- **`    --json-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-- **`    --json-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for JSON and languages that extend it.
-- **`    --json-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for JSON and languages that extend it.
-- **`    --css-parse-css-modules`**=_`<true|false>`_ &mdash; 
-  Enables parsing of CSS Modules-specific features. Enable this feature only when your files don't end in `.module.css`.
-- **`    --css-parse-tailwind-directives`**=_`<true|false>`_ &mdash; 
-  Enables parsing of Tailwind CSS 4.0 directives and functions.
-- **`    --css-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for CSS and languages that extend it.
-- **`    --css-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to CSS and languages that extend it. If unset, inherits the global indentation style.
-- **`    --css-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to CSS and languages that extend it. If unset, inherits the global indentation width.
-- **`    --css-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to CSS and languages that extend it. If unset, inherits the global line ending.
-- **`    --css-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width for CSS and languages that extend it. If unset, inherits the global line width.
-- **`    --css-formatter-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in CSS code. Defaults to `double`.
-- **`    --css-formatter-delimiter-spacing`**=_`<true|false>`_ &mdash; 
-  Controls spaces inside CSS parentheses and square brackets when their content fits on one line. When enabled, `rgb(0, 0, 0)` becomes `rgb( 0, 0, 0 )` and `[data-attr]` becomes `[ data-attr ]`. Empty delimiters are unchanged.
+#### `--since=REF`
 
-  If unset, inherits the global delimiter spacing setting.
-- **`    --css-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-- **`    --css-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for CSS files.
-- **`    --css-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for CSS files.
-- **`    --graphql-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for GraphQL files.
-- **`    --graphql-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to GraphQL files. If unset, inherits the global indentation style.
-- **`    --graphql-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to GraphQL files. If unset, inherits the global indentation width.
-- **`    --graphql-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to GraphQL files. If unset, inherits the global line ending.
-- **`    --graphql-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width for GraphQL files. If unset, inherits the global line width.
-- **`    --graphql-formatter-quote-style`**=_`<double|single>`_ &mdash; 
-  The type of quotes used in GraphQL code. Defaults to `double`.
-- **`    --bracket-spacing`**=_`<true|false>`_ &mdash; 
-  Whether to insert spaces inside braces in object literals. If unset, inherits the global bracket spacing setting.
-- **`    --graphql-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-- **`    --graphql-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for GraphQL files.
-- **`    --graphql-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for GraphQL files.
-- **`    --grit-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for GritQL files.
-- **`    --grit-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to GritQL files. If unset, inherits the global indentation style.
-- **`    --grit-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to GritQL files. If unset, inherits the global indentation width.
-- **`    --grit-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to GritQL files. If unset, inherits the global line ending.
-- **`    --grit-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width for GritQL files. If unset, inherits the global line width.
-- **`    --grit-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
-- **`    --grit-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for GritQL files.
-- **`    --grit-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for GritQL files.
-- **`    --html-formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the formatter for HTML and languages that extend it.
-- **`    --html-formatter-indent-style`**=_`<tab|space>`_ &mdash; 
-  The indent style applied to HTML and languages that extend it. If unset, inherits the global indentation style.
-- **`    --html-formatter-indent-width`**=_`NUMBER`_ &mdash; 
-  The indentation width applied to HTML and languages that extend it. If unset, inherits the global indentation width.
-- **`    --html-formatter-line-ending`**=_`<lf|crlf|cr|auto>`_ &mdash; 
-  The line ending applied to HTML and languages that extend it. If unset, inherits the global line ending.
-- **`    --html-formatter-line-width`**=_`NUMBER`_ &mdash; 
-  The maximum line width for HTML and languages that extend it. If unset, inherits the global line width.
-- **`    --html-formatter-attribute-position`**=_`<multiline|auto>`_ &mdash; 
-  The attribute position style in HTML elements. If unset, inherits the global attribute position setting.
-- **`    --html-formatter-bracket-same-line`**=_`<true|false>`_ &mdash; 
-  Whether to place the closing bracket of a multiline HTML tag at the end of the last line instead of on its own line. If unset, inherits the global `bracketSameLine` setting.
-- **`    --html-formatter-whitespace-sensitivity`**=_`<css|strict|ignore>`_ &mdash; 
-  Whether to account for whitespace sensitivity when formatting HTML and languages that extend it. Defaults to `css`.
-- **`    --html-formatter-indent-script-and-style`**=_`<true|false>`_ &mdash; 
-  Whether to indent `<script>` and `<style>` tags in HTML and languages that extend it. Defaults to `false`.
-- **`    --html-formatter-self-close-void-elements`**=_`<always|never>`_ &mdash; 
-  Controls whether void elements are self-closed. Defaults to `never`.
-- **`    --html-formatter-trailing-newline`**=_`<true|false>`_ &mdash; 
-  Whether to add a trailing newline at the end of the file. Unlike other language-specific trailing newline settings, this option defaults to `true` instead of inheriting the global setting.
-- **`    --html-linter-enabled`**=_`<true|false>`_ &mdash; 
-  Controls the linter for HTML and languages that extend it.
-- **`    --html-assist-enabled`**=_`<true|false>`_ &mdash; 
-  Controls assist actions for HTML and languages that extend it.
-- **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
-  Whether Biome should enable assist via LSP and CLI.
+Sets the base reference used by `--changed`, overriding `vcs.defaultBranch`. Requires `--changed`.
 
+```shell
+biome ci --changed --since=main
+```
 
+#### `--threads=NUMBER`
 
-**These options are available to many commands and control general CLI behavior, diagnostics, and output.**
-- **`    --colors`**=_`<off|force>`_ &mdash; 
-  Controls ANSI styling: `off` disables it, while `force` enables it even when the output does not appear to support ANSI escapes.
-- **`    --use-server`** &mdash; 
-  Connects to a running instance of the Biome daemon server.
-- **`    --verbose`** &mdash; 
-  Shows additional diagnostic details and lists the files that were processed or modified.
-- **`    --config-path`**=_`PATH`_ &mdash; 
-  Sets the path to the configuration file or the directory where Biome should search for `biome.json` or `biome.jsonc`. This option disables the default configuration file resolution.
-   
-  Uses environment variable **`BIOME_CONFIG_PATH`**
-- **`    --max-diagnostics`**=_`<none|NUMBER>`_ &mdash; 
-  Limits the number of diagnostics displayed. Use `none` to remove the limit.
-   
-  [default: 20]
-- **`    --skip-parse-errors`** &mdash; 
-  Skips files containing syntax errors instead of emitting an error diagnostic.
-- **`    --no-errors-on-unmatched`** &mdash; 
-  Does not emit an error when no files are processed.
-- **`    --error-on-warnings`** &mdash; 
-  Exits with an error status if any warning diagnostics are emitted.
-- \[**`--reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
-- **`    --reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_ &mdash; 
-  Changes how diagnostics and the run summary are written.
-   
-  [default: default]
-- **`    --reporter-file`**=_`PATH`_ &mdash; 
-  Writes the associated reporter's output to `PATH`. Without `--reporter`, it writes the default reporter's output.
+Sets the number of threads to use. This is useful in environments with limited resources, such as CI.
 
+```shell
+biome ci --threads=4
+```
 
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  Sets the minimum diagnostic severity to display: `info`, `warn`, or `error`. For example, `--diagnostic-level=error` displays only error-level diagnostics.
-   
-  [default: info]
+Uses the **`BIOME_THREADS`** environment variable.
 
+#### `--only=<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`
 
+Runs only the given lint rule, assist action, group of rules and actions, or domain. If a selected rule's severity is `off`, Biome sets it to `error` for a recommended rule or `warn` otherwise. The `plugin` group runs only analyzer plugins.
 
-**Options that control internal CLI and daemon server logging.**
-- **`    --log-file`**=_`PATH`_ &mdash; 
-  For file-processing commands, writes internal CLI logs to this file instead of standard output.
-   
-  Uses environment variable **`BIOME_LOG_FILE`**
-- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
-  When starting the daemon server, sets the file name prefix used for rotated log files.
-   
-  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
-   
-  [default: server.log]
-- **`    --log-path`**=_`PATH`_ &mdash; 
-  When starting the daemon server, sets the directory where log files are stored.
-   
-  Uses environment variable **`BIOME_LOG_PATH`**
-   
-  [default: /home/runner/.cache/biome/biome-logs]
-- **`    --log-level`**=_`<none|tracing|debug|info|warn|error>`_ &mdash; 
-  For file-processing commands, sets the internal CLI logging level to `tracing`, `debug`, `info`, `warn`, `error`, or `none`.
-   
-  Uses environment variable **`BIOME_LOG_LEVEL`**
-   
-  [default: none]
-- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  For file-processing commands, selects the internal CLI log format: `pretty`, `compact`, or `json`.
-   
-  Uses environment variable **`BIOME_LOG_KIND`**
-   
-  [default: pretty]
+```shell
+biome ci --only=correctness/noUnusedVariables --only=suspicious --only=test --only=plugin
+```
 
+#### `--skip=<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`
 
+Skips the given lint rule, assist action, group of rules and actions, or domain. Matching lint rules are set to `off`. This option takes precedence over `--only`. The `plugin` group skips analyzer plugins.
 
-**Available positional items:**
-- _`PATH`_ &mdash; 
-  The optional `PATH` arguments accept one or more paths to files or directories. If omitted, Biome processes files in the current working directory.
+```shell
+biome ci --skip=correctness/noUnusedVariables --skip=suspicious --skip=project --skip=plugin
+```
 
-
-
-**Available options:**
-- **`    --formatter-enabled`**=_`<true|false>`_ &mdash; 
-  Enables or disables formatting checks for this command.
-- **`    --linter-enabled`**=_`<true|false>`_ &mdash; 
-  Enables or disables linting checks for this command.
-- **`    --assist-enabled`**=_`<true|false>`_ &mdash; 
-  Enables or disables assist actions for this command.
-- **`    --format-with-errors`**=_`<true|false>`_ &mdash; 
-  Allows formatting files that contain syntax errors when set to `true`. Defaults to `false`.
-- **`    --enforce-assist`**=_`<true|false>`_ &mdash; 
-  Enforces assist actions and causes the command to fail if required actions are not applied. Defaults to `true`.
-- **`    --changed`** &mdash; 
-  Processes only files changed by commits since the merge base between `REF` and `HEAD`. `REF` comes from `--since` or `vcs.defaultBranch`. Staged and unstaged changes are not included. This option is intended for CI.
-- **`    --since`**=_`REF`_ &mdash; 
-  Sets the base reference used by `--changed`, overriding `vcs.defaultBranch`. Requires `--changed`.
-- **`    --threads`**=_`NUMBER`_ &mdash; 
-  Sets the number of threads to use. This is useful in environments with limited resources, such as CI.
-   
-  Uses environment variable **`BIOME_THREADS`**
-- **`    --only`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_ &mdash; 
-  Runs only the given lint rule, assist action, group of rules and actions, or domain. If a selected rule's severity is `off`, Biome sets it to `error` for a recommended rule or `warn` otherwise. The `plugin` group runs only analyzer plugins.
-
-  Example:
-
-  
-  ```shell
-  biome ci --only=correctness/noUnusedVariables --only=suspicious --only=test --only=plugin
-  ```
-
-- **`    --skip`**=_`<GROUP|RULE|DOMAIN|ACTION|PLUGIN>`_ &mdash; 
-  Skips the given lint rule, assist action, group of rules and actions, or domain. Matching lint rules are set to `off`. This option takes precedence over `--only`. The `plugin` group skips analyzer plugins.
-
-  Example:
-
-  
-  ```shell
-  biome ci --skip=correctness/noUnusedVariables --skip=suspicious --skip=project --skip=plugin
-  ```
-
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome init
+## `biome init`
 
 Creates a default Biome configuration file in the current working directory.
 
-**Usage**: **`biome`** **`init`** \[**`--jsonc`**\]
+<h3>Flags</h3>
 
-**Available options:**
-- **`    --jsonc`** &mdash; 
-  Creates `biome.jsonc` instead of `biome.json`.
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
+#### `--jsonc`
 
+Creates `biome.jsonc` instead of `biome.json`.
 
-## biome lsp-proxy
+## `biome lsp-proxy`
 
 Ensures that the Biome daemon server is running, then forwards Language Server Protocol messages between the daemon server and standard input and output.
 
-**Usage**: **`biome`** **`lsp-proxy`** \[**`--log-prefix-name`**=_`STRING`_\] \[**`--log-path`**=_`PATH`_\] \[**`--log-level`**=_`<none|tracing|debug|info|warn|error>`_\] \[**`--log-kind`**=_`<pretty|compact|json>`_\] \[**`--watcher-kind`**=_`<polling|recommended|none>`_\] \[**`--watcher-polling-interval`**=_`NUMBER`_\]
+This command also accepts the relevant [shared flags](#shared-flags).
 
-**Options that control internal CLI and daemon server logging.**
-- **`    --log-file`**=_`PATH`_ &mdash; 
-  For file-processing commands, writes internal CLI logs to this file instead of standard output.
-   
-  Uses environment variable **`BIOME_LOG_FILE`**
-- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
-  When starting the daemon server, sets the file name prefix used for rotated log files.
-   
-  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
-   
-  [default: server.log]
-- **`    --log-path`**=_`PATH`_ &mdash; 
-  When starting the daemon server, sets the directory where log files are stored.
-   
-  Uses environment variable **`BIOME_LOG_PATH`**
-   
-  [default: /home/runner/.cache/biome/biome-logs]
-- **`    --log-level`**=_`<none|tracing|debug|info|warn|error>`_ &mdash; 
-  For file-processing commands, sets the internal CLI logging level to `tracing`, `debug`, `info`, `warn`, `error`, or `none`.
-   
-  Uses environment variable **`BIOME_LOG_LEVEL`**
-   
-  [default: none]
-- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  For file-processing commands, selects the internal CLI log format: `pretty`, `compact`, or `json`.
-   
-  Uses environment variable **`BIOME_LOG_KIND`**
-   
-  [default: pretty]
-
-
-
-**Options that control the Biome daemon server's file watcher.**
-- **`    --watcher-kind`**=_`<polling|recommended|none>`_ &mdash; 
-  Selects how the daemon server detects file changes. `recommended` uses the operating system's recommended watcher, `polling` periodically checks for changes, and `none` disables watching.
-   
-  Uses environment variable **`BIOME_WATCHER_KIND`**
-   
-  [default: recommended]
-- **`    --watcher-polling-interval`**=_`NUMBER`_ &mdash; 
-  Sets how often the polling watcher checks for file changes, in milliseconds. This setting applies only when `--watcher-kind=polling`.
-   
-  Uses environment variable **`BIOME_WATCHER_POLLING_INTERVAL`**
-   
-  [default: 2000]
-
-
-
-**Available options:**
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome migrate
+## `biome migrate`
 
 Previews configuration updates required by breaking changes. The `prettier` and `eslint` subcommands instead import settings from those tools.
 
 By default, this command displays the proposed changes without modifying files. Use `--write` to apply them.
 
-**Usage**: **`biome`** **`migrate`** \[**`--write`**\] \[_`COMMAND ...`_\]
+This command also accepts [global flags](#global-flags), the relevant [shared flags](#shared-flags), and the following additional flags:
 
-**These options are available to many commands and control general CLI behavior, diagnostics, and output.**
-- **`    --colors`**=_`<off|force>`_ &mdash; 
-  Controls ANSI styling: `off` disables it, while `force` enables it even when the output does not appear to support ANSI escapes.
-- **`    --use-server`** &mdash; 
-  Connects to a running instance of the Biome daemon server.
-- **`    --verbose`** &mdash; 
-  Shows additional diagnostic details and lists the files that were processed or modified.
-- **`    --config-path`**=_`PATH`_ &mdash; 
-  Sets the path to the configuration file or the directory where Biome should search for `biome.json` or `biome.jsonc`. This option disables the default configuration file resolution.
-   
-  Uses environment variable **`BIOME_CONFIG_PATH`**
-- **`    --max-diagnostics`**=_`<none|NUMBER>`_ &mdash; 
-  Limits the number of diagnostics displayed. Use `none` to remove the limit.
-   
-  [default: 20]
-- **`    --skip-parse-errors`** &mdash; 
-  Skips files containing syntax errors instead of emitting an error diagnostic.
-- **`    --no-errors-on-unmatched`** &mdash; 
-  Does not emit an error when no files are processed.
-- **`    --error-on-warnings`** &mdash; 
-  Exits with an error status if any warning diagnostics are emitted.
-- \[**`--reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
-- **`    --reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_ &mdash; 
-  Changes how diagnostics and the run summary are written.
-   
-  [default: default]
-- **`    --reporter-file`**=_`PATH`_ &mdash; 
-  Writes the associated reporter's output to `PATH`. Without `--reporter`, it writes the default reporter's output.
+<h3>Flags</h3>
 
+#### `--write`, `--fix`
 
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  Sets the minimum diagnostic severity to display: `info`, `warn`, or `error`. For example, `--diagnostic-level=error` displays only error-level diagnostics.
-   
-  [default: info]
+Applies the proposed migration or imported settings.
 
+<h3>Subcommands</h3>
 
-
-**Options that control internal CLI and daemon server logging.**
-- **`    --log-file`**=_`PATH`_ &mdash; 
-  For file-processing commands, writes internal CLI logs to this file instead of standard output.
-   
-  Uses environment variable **`BIOME_LOG_FILE`**
-- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
-  When starting the daemon server, sets the file name prefix used for rotated log files.
-   
-  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
-   
-  [default: server.log]
-- **`    --log-path`**=_`PATH`_ &mdash; 
-  When starting the daemon server, sets the directory where log files are stored.
-   
-  Uses environment variable **`BIOME_LOG_PATH`**
-   
-  [default: /home/runner/.cache/biome/biome-logs]
-- **`    --log-level`**=_`<none|tracing|debug|info|warn|error>`_ &mdash; 
-  For file-processing commands, sets the internal CLI logging level to `tracing`, `debug`, `info`, `warn`, `error`, or `none`.
-   
-  Uses environment variable **`BIOME_LOG_LEVEL`**
-   
-  [default: none]
-- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  For file-processing commands, selects the internal CLI log format: `pretty`, `compact`, or `json`.
-   
-  Uses environment variable **`BIOME_LOG_KIND`**
-   
-  [default: pretty]
-
-
-
-**Available options:**
-- **`    --write`** &mdash; 
-  Applies the proposed migration or imported settings.
-- **`    --fix`** &mdash; 
-  Alias for `--write`.
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-
-**Available commands:**
-- **`prettier`** &mdash; 
-  Imports Prettier configuration and ignore settings into the Biome configuration.
-- **`eslint`** &mdash; 
-  Imports an ESLint configuration and ignore settings from the current working directory into the Biome configuration.
-
-
-## biome migrate prettier
+#### `biome migrate prettier`
 
 Imports Prettier configuration and ignore settings into the Biome configuration.
 
-**Usage**: **`biome`** **`migrate`** **`prettier`** 
-
-**Available options:**
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome migrate eslint
+#### `biome migrate eslint`
 
 Imports an ESLint configuration and ignore settings from the current working directory into the Biome configuration.
 
-**Usage**: **`biome`** **`migrate`** **`eslint`** \[**`--include-inspired`**\] \[**`--include-nursery`**\]
+The `eslint` subcommand accepts these additional flags:
 
-**Available options:**
-- **`    --include-inspired`** &mdash; 
-  Includes Biome rules inspired by ESLint rules in the migration.
-- **`    --include-nursery`** &mdash; 
-  Includes nursery rules in the migration.
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
+##### Flags
 
+###### `--include-inspired`
 
-## biome search
+Includes Biome rules inspired by ESLint rules in the migration.
 
-Finds code that matches a GritQL pattern. This command is experimental.
+###### `--include-nursery`
 
-GritQL delimits code snippets with backticks. Because many shells interpret backticks specially, enclose the complete query in single quotes when the shell supports them.
+Includes nursery rules in the migration.
 
-### Example
+## `biome search`
 
-  ```shell
-  biome search '`console.log($message)`' # find all `console.log` invocations
-  ```
+EXPERIMENTAL: Finds code that matches a [GritQL pattern](https://docs.grit.io/language/patterns), optionally limited to specific files or directories.
 
+The required `PATTERN` argument is the GritQL query to find. Rewrite queries aren't supported because `biome search` is read-only.
 
-**Usage**: **`biome`** **`search`** \[**`-l`**=_`<css|javascript|json>`_\] _`PATTERN`_ \[_`PATH`_\]...
+:::tip
+Put the query inside single quotes when the shell supports them. This prevents the shell from interpreting GritQL's backticks as commands.
+:::
 
-**These options are available to many commands and control general CLI behavior, diagnostics, and output.**
-- **`    --colors`**=_`<off|force>`_ &mdash; 
-  Controls ANSI styling: `off` disables it, while `force` enables it even when the output does not appear to support ANSI escapes.
-- **`    --use-server`** &mdash; 
-  Connects to a running instance of the Biome daemon server.
-- **`    --verbose`** &mdash; 
-  Shows additional diagnostic details and lists the files that were processed or modified.
-- **`    --config-path`**=_`PATH`_ &mdash; 
-  Sets the path to the configuration file or the directory where Biome should search for `biome.json` or `biome.jsonc`. This option disables the default configuration file resolution.
-   
-  Uses environment variable **`BIOME_CONFIG_PATH`**
-- **`    --max-diagnostics`**=_`<none|NUMBER>`_ &mdash; 
-  Limits the number of diagnostics displayed. Use `none` to remove the limit.
-   
-  [default: 20]
-- **`    --skip-parse-errors`** &mdash; 
-  Skips files containing syntax errors instead of emitting an error diagnostic.
-- **`    --no-errors-on-unmatched`** &mdash; 
-  Does not emit an error when no files are processed.
-- **`    --error-on-warnings`** &mdash; 
-  Exits with an error status if any warning diagnostics are emitted.
-- \[**`--reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_\] \[**`--reporter-file`**=_`PATH`_\]
-- **`    --reporter`**=_`<default|concise|summary|json|json-pretty|github|gitlab|junit|checkstyle|rdjson|sarif>`_ &mdash; 
-  Changes how diagnostics and the run summary are written.
-   
-  [default: default]
-- **`    --reporter-file`**=_`PATH`_ &mdash; 
-  Writes the associated reporter's output to `PATH`. Without `--reporter`, it writes the default reporter's output.
+The optional `PATH` arguments limit the search to one or more files or directories. Without a path, Biome searches files in the current working directory.
 
+The following command finds `console.log` invocations in `./src`:
 
-- **`    --diagnostic-level`**=_`<info|warn|error>`_ &mdash; 
-  Sets the minimum diagnostic severity to display: `info`, `warn`, or `error`. For example, `--diagnostic-level=error` displays only error-level diagnostics.
-   
-  [default: info]
+```shell
+biome search '`console.log($message)`' ./src
+```
 
+This command also accepts [global flags](#global-flags), the relevant [shared flags](#shared-flags), and the following additional flags:
 
+<h3>Flags</h3>
 
-**Options that control internal CLI and daemon server logging.**
-- **`    --log-file`**=_`PATH`_ &mdash; 
-  For file-processing commands, writes internal CLI logs to this file instead of standard output.
-   
-  Uses environment variable **`BIOME_LOG_FILE`**
-- **`    --log-prefix-name`**=_`STRING`_ &mdash; 
-  When starting the daemon server, sets the file name prefix used for rotated log files.
-   
-  Uses environment variable **`BIOME_LOG_PREFIX_NAME`**
-   
-  [default: server.log]
-- **`    --log-path`**=_`PATH`_ &mdash; 
-  When starting the daemon server, sets the directory where log files are stored.
-   
-  Uses environment variable **`BIOME_LOG_PATH`**
-   
-  [default: /home/runner/.cache/biome/biome-logs]
-- **`    --log-level`**=_`<none|tracing|debug|info|warn|error>`_ &mdash; 
-  For file-processing commands, sets the internal CLI logging level to `tracing`, `debug`, `info`, `warn`, `error`, or `none`.
-   
-  Uses environment variable **`BIOME_LOG_LEVEL`**
-   
-  [default: none]
-- **`    --log-kind`**=_`<pretty|compact|json>`_ &mdash; 
-  For file-processing commands, selects the internal CLI log format: `pretty`, `compact`, or `json`.
-   
-  Uses environment variable **`BIOME_LOG_KIND`**
-   
-  [default: pretty]
+#### `-l`, `--language=<css|javascript|json>`
 
+Selects the language grammar used for the pattern and searched code: CSS, JavaScript, or JSON.
 
+GritQL patterns are specific to their target grammar, so a search cannot target multiple languages at once.
 
-**The file handling configuration.**
-- **`    --files-max-size`**=_`NUMBER`_ &mdash; 
-  The maximum source file size in bytes. Biome ignores larger files. Defaults to `1 MiB`.
-- **`    --files-ignore-unknown`**=_`<true|false>`_ &mdash; 
-  Prevents Biome from emitting diagnostics for unrecognized file types.
+Defaults to `javascript`.
 
+```shell
+biome search --language=javascript '`console.log($message)`'
+```
 
-
-**Settings for integrating Biome with version control.**
-- **`    --vcs-enabled`**=_`<true|false>`_ &mdash; 
-  Whether Biome should integrate with the version control client.
-- **`    --vcs-client-kind`**=_`<git>`_ &mdash; 
-  The version control client.
-- **`    --vcs-use-ignore-file`**=_`<true|false>`_ &mdash; 
-  When `true`, Biome ignores files listed in `.gitignore`, `.ignore`, and Git's local exclude file.
-- **`    --vcs-root`**=_`PATH`_ &mdash; 
-  Sets the directory where Biome checks for version control files.
-
-  Defaults to the directory containing `biome.json` or `biome.jsonc`. If no configuration is found, Biome uses the current working directory.
-
-  If neither directory is available, Biome disables version control integration and emits a diagnostic.
-- **`    --vcs-default-branch`**=_`BRANCH`_ &mdash; 
-  The project's default branch.
-
-
-
-**Available positional items:**
-- _`PATTERN`_ &mdash; 
-  The required `PATTERN` argument is the GritQL pattern to find. It must be a search pattern because rewrites are not supported.
-- _`PATH`_ &mdash; 
-  The optional `PATH` arguments limit the search to one or more files or directories. If omitted, Biome searches files in the current working directory.
-
-
-
-**Available options:**
-- **`-l`**, **`--language`**=_`<css|javascript|json>`_ &mdash; 
-  Selects the language grammar used for the pattern and searched code: CSS, JavaScript, or JSON.
-
-  GritQL patterns are specific to their target grammar, so a search cannot target multiple languages at once.
-
-  Defaults to `javascript`.
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome explain
+## `biome explain`
 
 Prints documentation for a lint rule or the path to the daemon server log directory.
 
-### Examples
+`NAME` is a lint rule name or `daemon-logs`.
 
-  ```shell
-  biome explain noDebugger
-  ```
+```shell
+biome explain noDebugger
+biome explain daemon-logs
+```
 
-
-  ```shell
-  biome explain daemon-logs
-  ```
-
-
-**Usage**: **`biome`** **`explain`** _`NAME`_
-
-**Available positional items:**
-- _`NAME`_ &mdash; 
-  `NAME` is a lint rule name or `daemon-logs`.
-
-
-
-**Available options:**
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
-
-
-## biome clean
+## `biome clean`
 
 Removes the Biome daemon server log files.
 
-**Usage**: **`biome`** **`clean`** 
+## Global flags
 
-**Available options:**
-- **`-h`**, **`--help`** &mdash; 
-  Prints help information
+These flags are available to many commands and control general CLI behavior, diagnostics, and output.
 
+<h3 id="general-flags">General flags</h3>
 
+#### `-h`, `--help`
 
-[//]: # (End-codegen)
+Prints help information.
 
+#### `-V`, `--version`
 
-## Useful information
+Prints version information.
 
-- When encountering symbolic links, the CLI will expand them until three levels deep. Deeper levels will result into an error diagnostic.
+#### `--colors=<off|force>`
+
+Controls ANSI styling: `off` disables it, while `force` enables it even when the output does not appear to support ANSI escapes.
+
+#### `--use-server`
+
+Connects to a running instance of the Biome daemon server.
+
+#### `--verbose`
+
+Shows additional diagnostic details and lists the files that were processed or modified.
+
+#### `--config-path=PATH`
+
+Sets the path to the configuration file or the directory where Biome should search for `biome.json` or `biome.jsonc`. This option disables the default configuration file resolution.
+
+Uses the **`BIOME_CONFIG_PATH`** environment variable.
+
+#### `--max-diagnostics=<none|NUMBER>`
+
+Limits the number of diagnostics displayed. Use `none` to remove the limit.
+
+Defaults to `20`.
+
+#### `--skip-parse-errors`
+
+Skips files containing syntax errors instead of emitting an error diagnostic.
+
+#### `--no-errors-on-unmatched`
+
+Does not emit an error when no files are processed.
+
+#### `--error-on-warnings`
+
+Exits with an error status if any warning diagnostics are emitted.
+
+#### `--diagnostic-level=<info|warn|error>`
+
+Sets the minimum diagnostic severity to display: `info`, `warn`, or `error`. For example, `--diagnostic-level=error` displays only error-level diagnostics.
+
+Defaults to `info`.
+
+<h3 id="reporter-flags">Reporter flags</h3>
+
+#### `--reporter=FORMAT`
+
+Changes how diagnostics and the run summary are written.
+
+Defaults to `default`.
+
+```shell
+biome ci --reporter=github
+```
+
+| Value | Output |
+| --- | --- |
+| `default` | Full diagnostics and a summary for use in a terminal. |
+| `concise` | One line per diagnostic, with formatter diagnostics grouped together. |
+| `summary` | Diagnostics grouped by category and rule, and formatter diagnostics grouped by file. |
+| `json` | Machine-readable JSON. |
+| `json-pretty` | Pretty-printed JSON using Biome's default JSON formatting settings. |
+| `github` | [GitHub workflow commands](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands) that create annotations. |
+| `gitlab` | A [GitLab Code Quality report](https://docs.gitlab.com/ci/testing/code_quality/#implement-a-custom-tool). |
+| `junit` | JUnit XML for test and CI integrations. |
+| `checkstyle` | [Checkstyle XML](https://checkstyle.org/). |
+| `rdjson` | [Reviewdog diagnostic JSON](https://deepwiki.com/reviewdog/reviewdog/3.2-reviewdog-diagnostic-format). |
+| `sarif` | [SARIF](https://sarifweb.azurewebsites.net/) for static analysis integrations. |
+
+:::caution
+The `json` and `json-pretty` reporters are experimental and may change in patch releases.
+:::
+
+#### `--reporter-file=PATH`
+
+Writes the associated reporter's output to `PATH`. Without `--reporter`, it writes the default reporter's output.
+
+```shell
+biome ci --reporter=junit --reporter-file=report.xml
+```
+
+Repeat `--reporter` to produce multiple outputs. This example prints the default output to the terminal and writes an RDJSON report to a file:
+
+```shell
+biome ci --reporter=default --reporter=rdjson --reporter-file=report.json
+```
+
+## Shared flags
+
+These flags are accepted by multiple commands. Configuration flags override the equivalent settings from `biome.json` or `biome.jsonc`.
+
+### Daemon server flags
+
+#### `--watcher-kind=<polling|recommended|none>`
+
+Selects how the daemon server detects file changes. `recommended` uses the operating system's recommended watcher, `polling` periodically checks for changes, and `none` disables watching.
+
+Uses the **`BIOME_WATCHER_KIND`** environment variable.
+
+Defaults to `recommended`.
+
+#### `--watcher-polling-interval=NUMBER`
+
+Sets how often the polling watcher checks for file changes, in milliseconds. This setting applies only when `--watcher-kind=polling`.
+
+Uses the **`BIOME_WATCHER_POLLING_INTERVAL`** environment variable.
+
+Defaults to `2000`.
+
+### JSON parser flags
+
+#### `--json-parse-allow-comments=<true|false>`
+
+Allows parsing comments in `.json` files.
+
+#### `--json-parse-allow-trailing-commas=<true|false>`
+
+Allows parsing trailing commas in `.json` files.
+
+### Configuration flags
+
+#### `--vcs-enabled=<true|false>`
+
+Whether Biome should integrate with the version control client.
+
+#### `--vcs-client-kind=<git>`
+
+The version control client.
+
+#### `--vcs-use-ignore-file=<true|false>`
+
+When `true`, Biome ignores files listed in `.gitignore`, `.ignore`, and Git's local exclude file.
+
+#### `--vcs-root=PATH`
+
+Sets the directory where Biome checks for version control files.
+
+Defaults to the directory containing `biome.json` or `biome.jsonc`. If no configuration is found, Biome uses the current working directory.
+
+If neither directory is available, Biome disables version control integration and emits a diagnostic.
+
+#### `--vcs-default-branch=BRANCH`
+
+The project's default branch.
+
+#### `--files-max-size=NUMBER`
+
+The maximum source file size in bytes. Biome ignores larger files. Defaults to `1 MiB`.
+
+#### `--files-ignore-unknown=<true|false>`
+
+Prevents Biome from emitting diagnostics for unrecognized file types.
+
+#### `--format-with-errors=<true|false>`
+
+Allows formatting files that contain syntax errors when set to `true`. Defaults to `false`.
+
+#### `--indent-style=<tab|space>`
+
+Uses tabs or spaces for indentation. Defaults to `tab`.
+
+#### `--indent-width=NUMBER`
+
+The indentation width. Defaults to `2`.
+
+#### `--line-ending=<lf|crlf|cr|auto>`
+
+Selects the line ending. `auto` uses the platform convention. Defaults to `lf`.
+
+#### `--line-width=NUMBER`
+
+The maximum line width. Defaults to `80`.
+
+#### `--attribute-position=<multiline|auto>`
+
+The attribute position style in HTML-like languages. Defaults to `auto`.
+
+#### `--bracket-same-line=<true|false>`
+
+Places the `>` of a multiline HTML or JSX element at the end of the last line instead of on the next line. Self-closing elements are unaffected. Defaults to `false`.
+
+#### `--bracket-spacing=<true|false>`
+
+Whether to insert spaces inside braces in object literals. Defaults to `true`.
+
+#### `--delimiter-spacing=<true|false>`
+
+Controls spaces immediately inside supported delimiters when their content fits on one line. It doesn't add spaces before opening delimiters or inside empty delimiters.
+
+The affected delimiters vary by language. Defaults to `false`.
+
+#### `--expand=<auto|always|never>`
+
+Controls whether arrays and objects are formatted on one line or multiple lines.
+
+- `auto`: Formats objects on multiple lines if the first property has a newline, and arrays on one line if they fit.
+- `always`: Formats arrays and objects on multiple lines.
+- `never`: Formats arrays and objects on one line if they fit.
+
+Defaults to `auto`.
+
+When formatting `package.json`, Biome uses `always` unless configured otherwise.
+
+#### `--trailing-newline=<true|false>`
+
+Whether to add a trailing newline at the end of the file. Defaults to `true`.
+
+:::caution[Keep trailing newlines enabled]
+Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
+:::
+
+#### `--use-editorconfig=<true|false>`
+
+Uses `.editorconfig` files to configure the formatter. Settings in `biome.json` or `biome.jsonc` override `.editorconfig` settings. Defaults to `false`.
+
+#### `--jsx-everywhere=<true|false>`
+
+When enabled, files such as `.js`, `.mjs`, and `.cjs` may contain JSX syntax. Defaults to `true`.
+
+#### `--javascript-formatter-enabled=<true|false>`
+
+Controls the formatter for JavaScript and languages that extend it.
+
+#### `--jsx-quote-style=<double|single>`
+
+The type of quotes used in JSX. Defaults to `double`.
+
+#### `--quote-properties=<preserve|as-needed>`
+
+Controls when object properties are quoted. Defaults to `as-needed`.
+
+#### `--trailing-commas=<all|es5|none>`
+
+Prints trailing commas wherever possible in multiline comma-separated structures. Defaults to `all`.
+
+#### `--semicolons=<always|as-needed>`
+
+Prints semicolons after every statement or only where needed to avoid automatic semicolon insertion hazards. Defaults to `always`.
+
+#### `--arrow-parentheses=<always|as-needed>`
+
+Whether to add parentheses around arrow function parameters. Defaults to `always`.
+
+#### `--javascript-formatter-indent-style=<tab|space>`
+
+The indent style applied to JavaScript and languages that extend it. If unset, inherits the global indentation style.
+
+#### `--javascript-formatter-indent-width=NUMBER`
+
+The indentation width applied to JavaScript and languages that extend it. If unset, inherits the global indentation width.
+
+#### `--javascript-formatter-line-ending=<lf|crlf|cr|auto>`
+
+The line ending applied to JavaScript and languages that extend it. If unset, inherits the global line ending.
+
+#### `--javascript-formatter-line-width=NUMBER`
+
+The maximum line width applied to JavaScript and languages that extend it. If unset, inherits the global line width.
+
+#### `--javascript-formatter-quote-style=<double|single>`
+
+The type of quotes used in JavaScript code. Defaults to `double`.
+
+#### `--javascript-formatter-attribute-position=<multiline|auto>`
+
+The attribute position style in JSX elements. If unset, inherits the global attribute position setting.
+
+#### `--javascript-formatter-bracket-spacing=<true|false>`
+
+Whether to insert spaces inside braces in object literals. If unset, inherits the global bracket spacing setting.
+
+#### `--javascript-formatter-delimiter-spacing=<true|false>`
+
+Controls spaces immediately inside supported JavaScript and TypeScript delimiters when their content fits on one line. It doesn't add spaces before opening delimiters or inside empty delimiters.
+
+It affects parentheses, square brackets, template interpolations, TypeScript angle brackets, JSX expression braces, and logical NOT. In operator chains, only the final operator receives a following space.
+
+If unset, inherits the global delimiter spacing setting.
+
+#### `--javascript-formatter-expand=<auto|always|never>`
+
+Uses the same `auto`, `always`, and `never` behavior as the global expansion setting.
+
+If unset, inherits the global expansion setting.
+
+#### `--javascript-formatter-operator-linebreak=<before|after>`
+
+When breaking binary expressions into multiple lines, whether to break them before or after the binary operator. Defaults to `after`.
+
+#### `--javascript-formatter-trailing-newline=<true|false>`
+
+Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
+
+:::caution[Keep trailing newlines enabled]
+Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
+:::
+
+#### `--javascript-linter-enabled=<true|false>`
+
+Controls the linter for JavaScript and languages that extend it.
+
+#### `--javascript-assist-enabled=<true|false>`
+
+Controls assist actions for JavaScript and languages that extend it.
+
+#### `--json-formatter-enabled=<true|false>`
+
+Controls the formatter for JSON and languages that extend it.
+
+#### `--json-formatter-indent-style=<tab|space>`
+
+The indent style applied to JSON and languages that extend it. If unset, inherits the global indentation style.
+
+#### `--json-formatter-indent-width=NUMBER`
+
+The indentation width applied to JSON and languages that extend it. If unset, inherits the global indentation width.
+
+#### `--json-formatter-line-ending=<lf|crlf|cr|auto>`
+
+The line ending applied to JSON and languages that extend it. If unset, inherits the global line ending.
+
+#### `--json-formatter-line-width=NUMBER`
+
+The maximum line width applied to JSON and languages that extend it. If unset, inherits the global line width.
+
+#### `--json-formatter-trailing-commas=<none|all>`
+
+Prints trailing commas wherever possible in multiline comma-separated structures. Defaults to `none`.
+
+#### `--json-formatter-expand=<auto|always|never>`
+
+Uses the same `auto`, `always`, and `never` behavior as the global expansion setting.
+
+If unset, inherits the global expansion setting.
+
+When formatting `package.json`, Biome uses `always` unless configured otherwise.
+
+#### `--json-formatter-bracket-spacing=<true|false>`
+
+Whether to insert spaces inside braces in object literals. If unset, inherits the global bracket spacing setting.
+
+#### `--json-formatter-delimiter-spacing=<true|false>`
+
+Controls spaces inside JSON square brackets when their content fits on one line. When enabled, `[1, 2, 3]` becomes `[ 1, 2, 3 ]`. Empty brackets are unchanged.
+
+If unset, inherits the global delimiter spacing setting.
+
+#### `--json-formatter-trailing-newline=<true|false>`
+
+Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
+
+:::caution[Keep trailing newlines enabled]
+Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
+:::
+
+#### `--json-linter-enabled=<true|false>`
+
+Controls the linter for JSON and languages that extend it.
+
+#### `--json-assist-enabled=<true|false>`
+
+Controls assist actions for JSON and languages that extend it.
+
+#### `--css-parse-css-modules=<true|false>`
+
+Enables parsing of CSS Modules-specific features. Enable this feature only when your files don't end in `.module.css`.
+
+#### `--css-parse-tailwind-directives=<true|false>`
+
+Enables parsing of Tailwind CSS 4.0 directives and functions.
+
+#### `--css-formatter-enabled=<true|false>`
+
+Controls the formatter for CSS and languages that extend it.
+
+#### `--css-formatter-indent-style=<tab|space>`
+
+The indent style applied to CSS and languages that extend it. If unset, inherits the global indentation style.
+
+#### `--css-formatter-indent-width=NUMBER`
+
+The indentation width applied to CSS and languages that extend it. If unset, inherits the global indentation width.
+
+#### `--css-formatter-line-ending=<lf|crlf|cr|auto>`
+
+The line ending applied to CSS and languages that extend it. If unset, inherits the global line ending.
+
+#### `--css-formatter-line-width=NUMBER`
+
+The maximum line width for CSS and languages that extend it. If unset, inherits the global line width.
+
+#### `--css-formatter-quote-style=<double|single>`
+
+The type of quotes used in CSS code. Defaults to `double`.
+
+#### `--css-formatter-delimiter-spacing=<true|false>`
+
+Controls spaces inside CSS parentheses and square brackets when their content fits on one line. When enabled, `rgb(0, 0, 0)` becomes `rgb( 0, 0, 0 )` and `[data-attr]` becomes `[ data-attr ]`. Empty delimiters are unchanged.
+
+If unset, inherits the global delimiter spacing setting.
+
+#### `--css-formatter-trailing-newline=<true|false>`
+
+Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
+
+:::caution[Keep trailing newlines enabled]
+Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
+:::
+
+#### `--css-linter-enabled=<true|false>`
+
+Controls the linter for CSS files.
+
+#### `--css-assist-enabled=<true|false>`
+
+Controls assist actions for CSS files.
+
+#### `--graphql-formatter-enabled=<true|false>`
+
+Controls the formatter for GraphQL files.
+
+#### `--graphql-formatter-indent-style=<tab|space>`
+
+The indent style applied to GraphQL files. If unset, inherits the global indentation style.
+
+#### `--graphql-formatter-indent-width=NUMBER`
+
+The indentation width applied to GraphQL files. If unset, inherits the global indentation width.
+
+#### `--graphql-formatter-line-ending=<lf|crlf|cr|auto>`
+
+The line ending applied to GraphQL files. If unset, inherits the global line ending.
+
+#### `--graphql-formatter-line-width=NUMBER`
+
+The maximum line width for GraphQL files. If unset, inherits the global line width.
+
+#### `--graphql-formatter-quote-style=<double|single>`
+
+The type of quotes used in GraphQL code. Defaults to `double`.
+
+#### `--graphql-formatter-trailing-newline=<true|false>`
+
+Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
+
+:::caution[Keep trailing newlines enabled]
+Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
+:::
+
+#### `--graphql-linter-enabled=<true|false>`
+
+Controls the linter for GraphQL files.
+
+#### `--graphql-assist-enabled=<true|false>`
+
+Controls assist actions for GraphQL files.
+
+#### `--grit-formatter-enabled=<true|false>`
+
+Controls the formatter for GritQL files.
+
+#### `--grit-formatter-indent-style=<tab|space>`
+
+The indent style applied to GritQL files. If unset, inherits the global indentation style.
+
+#### `--grit-formatter-indent-width=NUMBER`
+
+The indentation width applied to GritQL files. If unset, inherits the global indentation width.
+
+#### `--grit-formatter-line-ending=<lf|crlf|cr|auto>`
+
+The line ending applied to GritQL files. If unset, inherits the global line ending.
+
+#### `--grit-formatter-line-width=NUMBER`
+
+The maximum line width for GritQL files. If unset, inherits the global line width.
+
+#### `--grit-formatter-trailing-newline=<true|false>`
+
+Whether to add a trailing newline at the end of the file. If unset, inherits the global trailing newline setting.
+
+:::caution[Keep trailing newlines enabled]
+Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
+:::
+
+#### `--grit-linter-enabled=<true|false>`
+
+Controls the linter for GritQL files.
+
+#### `--grit-assist-enabled=<true|false>`
+
+Controls assist actions for GritQL files.
+
+#### `--html-formatter-enabled=<true|false>`
+
+Controls the formatter for HTML and languages that extend it.
+
+#### `--html-formatter-indent-style=<tab|space>`
+
+The indent style applied to HTML and languages that extend it. If unset, inherits the global indentation style.
+
+#### `--html-formatter-indent-width=NUMBER`
+
+The indentation width applied to HTML and languages that extend it. If unset, inherits the global indentation width.
+
+#### `--html-formatter-line-ending=<lf|crlf|cr|auto>`
+
+The line ending applied to HTML and languages that extend it. If unset, inherits the global line ending.
+
+#### `--html-formatter-line-width=NUMBER`
+
+The maximum line width for HTML and languages that extend it. If unset, inherits the global line width.
+
+#### `--html-formatter-attribute-position=<multiline|auto>`
+
+The attribute position style in HTML elements. If unset, inherits the global attribute position setting.
+
+#### `--html-formatter-bracket-same-line=<true|false>`
+
+Whether to place the closing bracket of a multiline HTML tag at the end of the last line instead of on its own line. If unset, inherits the global `bracketSameLine` setting.
+
+#### `--html-formatter-whitespace-sensitivity=<css|strict|ignore>`
+
+Whether to account for whitespace sensitivity when formatting HTML and languages that extend it. Defaults to `css`.
+
+#### `--html-formatter-indent-script-and-style=<true|false>`
+
+Whether to indent `<script>` and `<style>` tags in HTML and languages that extend it. Defaults to `false`.
+
+#### `--html-formatter-self-close-void-elements=<always|never>`
+
+Controls whether void elements are self-closed. Defaults to `never`.
+
+#### `--html-formatter-trailing-newline=<true|false>`
+
+Whether to add a trailing newline at the end of the file. Unlike other language-specific trailing newline settings, this option defaults to `true` instead of inheriting the global setting.
+
+:::caution[Keep trailing newlines enabled]
+Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
+:::
+
+#### `--html-linter-enabled=<true|false>`
+
+Controls the linter for HTML and languages that extend it.
+
+#### `--html-assist-enabled=<true|false>`
+
+Controls assist actions for HTML and languages that extend it.
+
+### Logging flags
+
+#### `--log-file=PATH`
+
+For file-processing commands, writes internal CLI logs to this file instead of standard output.
+
+Uses the **`BIOME_LOG_FILE`** environment variable.
+
+#### `--log-prefix-name=STRING`
+
+When starting the daemon server, sets the file name prefix used for rotated log files.
+
+Uses the **`BIOME_LOG_PREFIX_NAME`** environment variable.
+
+Defaults to `server.log`.
+
+#### `--log-path=PATH`
+
+When starting the daemon server, sets the directory where log files are stored.
+
+Uses the **`BIOME_LOG_PATH`** environment variable.
+
+Defaults to the `biome-logs` directory inside Biome's platform-specific cache directory.
+
+#### `--log-level=<none|tracing|debug|info|warn|error>`
+
+For file-processing commands, sets the internal CLI logging level to `tracing`, `debug`, `info`, `warn`, `error`, or `none`.
+
+Uses the **`BIOME_LOG_LEVEL`** environment variable.
+
+Defaults to `none`.
+
+#### `--log-kind=<pretty|compact|json>`
+
+For file-processing commands, selects the internal CLI log format: `pretty`, `compact`, or `json`.
+
+Uses the **`BIOME_LOG_KIND`** environment variable.
+
+Defaults to `pretty`.

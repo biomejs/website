@@ -175,6 +175,9 @@ The scanner respects both `files.includes` and the ignored patterns from
   means that `.d.ts` files and `package.json` manifests inside `node_modules/`
   may still get indexed too.
 
+While crawling the file system, Biome follows symbolic-link chains up to three
+links deep. Longer chains are skipped and produce a warning diagnostic.
+
 If you want to explicitly force some files to be ignored by the scanner, you can
 do so using a so-called _force-ignore pattern_. A force-ignore pattern looks
 like a regular negated pattern, but starts with a double exclamation mark
