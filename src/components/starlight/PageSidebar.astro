@@ -1,0 +1,87 @@
+---
+import MobileTableOfContents from "@astrojs/starlight/components/MobileTableOfContents.astro";
+import TableOfContents from "@astrojs/starlight/components/TableOfContents.astro";
+import SiteSponsor from "./SiteSponsor.astro";
+
+const { toc } = Astro.locals.starlightRoute;
+const isPlayground = /^\/playground(?:\/|$)/.test(Astro.url.pathname);
+---
+
+{toc && (
+		<>
+			<div class="lg:sl-hidden">
+				<MobileTableOfContents />
+			</div>
+			<div class="right-sidebar-panel sl-hidden lg:sl-block">
+				<div class="sl-container">
+					<TableOfContents />
+					{
+						!isPlayground && (
+							<div class="sidebar-sponsor print:hidden">
+								<SiteSponsor placement="sidebar" />
+							</div>
+						)
+					}
+				</div>
+			</div>
+		</>
+	)}
+
+<style>
+@layer starlight.core {
+	.right-sidebar-panel {
+		min-height: calc(100vh - var(--sl-nav-height));
+		padding: 1rem var(--sl-sidebar-pad-x);
+	}
+
+	.sl-container {
+		display: flex;
+		flex-direction: column;
+		width: calc(var(--sl-sidebar-width) - 2 * var(--sl-sidebar-pad-x));
+		min-height: calc(100vh - var(--sl-nav-height) - 2rem);
+	}
+
+	.sidebar-sponsor {
+		margin-block-start: auto;
+		padding-block-start: 2rem;
+	}
+
+	.right-sidebar-panel :global(h2) {
+		margin-bottom: 0.5rem;
+		color: var(--sl-color-white);
+		font-size: var(--sl-text-h5);
+		font-weight: 600;
+		line-height: var(--sl-line-height-headings);
+	}
+
+	.right-sidebar-panel :global(:where(a)) {
+		display: block;
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-xs);
+		text-decoration: none;
+		overflow-wrap: anywhere;
+	}
+
+	.right-sidebar-panel :global(:where(a):hover) {
+		color: var(--sl-color-white);
+	}
+
+	@media (min-width: 72rem) {
+		.sl-container {
+			max-width: calc(
+				(
+					(
+						100vw -
+						var(--sl-sidebar-width) -
+						2 *
+						var(--sl-content-pad-x) -
+						2 *
+						var(--sl-sidebar-pad-x)
+					) *
+					0.25
+				)
+			);
+		}
+	}
+}
+</style>

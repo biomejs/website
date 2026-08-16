@@ -1,0 +1,29 @@
+:root {
+	--biome-radius-sm: 0.125rem;
+	--biome-radius-md: 0.25rem;
+}
+
+:is(
+	.sl-link-button,
+	.sl-link-card,
+	.card-grid > .card,
+	.pagination-links > a,
+	site-search button[data-open-modal]
+) {
+	border-radius: var(--biome-radius-md);
+}
+
+:is(.sl-link-card, .card-grid > .card, .pagination-links > a) {
+	box-shadow: none;
+}
+
+site-search button > kbd {
+	border-radius: var(--biome-radius-sm);
+}
+
+@media (min-width: 50rem) {
+	site-search dialog {
+		border-radius: var(--biome-radius-md);
+		box-shadow: none;
+	}
+}

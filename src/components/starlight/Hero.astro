@@ -3,19 +3,19 @@ import Default from "@astrojs/starlight/components/Hero.astro";
 ---
 
 <Default {...Astro.props}>
-  <slot />
+	<slot />
 </Default>
 
 <script>
-  import "@/frontend-scripts/hover.ts";
+import "@/frontend-scripts/hover.ts";
 </script>
 
 <style>
-  :global([data-has-hero] .page) {
-    background:
-      radial-gradient(var(--sl-color-accent-low), transparent 50%) no-repeat -60vw -50vh /
-        105vw 200vh,
-      radial-gradient(var(--sl-color-accent-low), transparent 50%) no-repeat
-        30vw -100vh / 105vw 200vh;
-  }
+:global([data-has-hero] .page) {
+	background:
+		radial-gradient(var(--sl-color-accent-low), transparent 50%) no-repeat -60vw
+		-50vh / 105vw 200vh,
+		radial-gradient(var(--sl-color-accent-low), transparent 50%) no-repeat 30vw
+		-100vh / 105vw 200vh;
+}
 </style>

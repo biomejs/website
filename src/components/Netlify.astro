@@ -3,8 +3,9 @@ import { Image } from "astro:assets";
 import darkNetlify from "../assets/sponsors/logo-netlify-large-fullcolor-darkmode.png";
 import lightNetlify from "../assets/sponsors/logo-netlify-large-fullcolor-lightmode.png";
 ---
+
 <div class="not-content">
-  <a href="https://www.netlify.com" title="This site is powered by Netlify">
+	<a href="https://www.netlify.com" title="This site is powered by Netlify">
 		<Image
 			alt="Netlify"
 			src={lightNetlify}
@@ -21,14 +22,14 @@ import lightNetlify from "../assets/sponsors/logo-netlify-large-fullcolor-lightm
 			class="light:sl-hidden"
 			loading="eager"
 		/>
-  </a>
+	</a>
 </div>
 
 <style>
-  div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 2rem;
-  }
+div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2rem;
+}
 </style>
