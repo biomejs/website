@@ -3,7 +3,7 @@ import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
 import lunaria from "@lunariajs/starlight";
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
 import starlightChangelogs, {
@@ -100,6 +100,26 @@ if (process.env?.E2E !== "true") {
 // https://astro.build/config
 export default defineConfig({
 	site: "https://biomejs.dev",
+	fonts: [
+		{
+			name: "JetBrains Mono",
+			cssVariable: "--font-jetbrains-mono",
+			provider: fontProviders.fontsource(),
+			weights: [400, 700],
+			styles: ["normal"],
+			subsets: ["latin"],
+			fallbacks: ["monospace"],
+		},
+		{
+			name: "Geist",
+			cssVariable: "--font-geist",
+			provider: fontProviders.fontsource(),
+			weights: [400, 500, 600, 700],
+			styles: ["normal", "italic"],
+			subsets: ["latin", "latin-ext", "cyrillic", "cyrillic-ext"],
+			fallbacks: ["sans-serif"],
+		},
+	],
 	output: "static",
 	compressHTML: true,
 	redirects: {
@@ -1050,10 +1070,12 @@ export default defineConfig({
 				baseUrl: "https://github.com/biomejs/website/edit/main/",
 			},
 			components: {
+				Head: "./src/components/starlight/Head.astro",
 				SiteTitle: "./src/components/starlight/SiteTitle.astro",
 				Hero: "./src/components/starlight/Hero.astro",
 				LanguageSelect: "./src/components/starlight/LanguageSelect.astro",
 				Footer: "./src/components/starlight/Footer.astro",
+				PageSidebar: "./src/components/starlight/PageSidebar.astro",
 			},
 		}),
 	],

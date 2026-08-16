@@ -6,6 +6,7 @@
 	--color-5: #ffdc1c;
 	--color-6: #fff065;
 	--color-7: #fffcb4;
+	--biome-color-signal: var(--color-4);
 
 	--gray-1: #020202;
 	--gray-2: #0e0e10;
@@ -16,8 +17,9 @@
 	--gray-7: #dadadc;
 	--gray-8: #f4f4f5;
 
-	--code-font:
-		source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+	--code-font: var(--font-jetbrains-mono);
+	--sl-font: var(--font-geist);
+	--sl-font-mono: var(--font-jetbrains-mono);
 	--body-line-height: 1.5em;
 
 	--unit: 16px;
@@ -33,7 +35,14 @@
 
 :root[data-theme="light"],
 [data-theme="light"] ::backdrop {
+	--biome-color-signal: #9a6700;
 	--sl-border: var(--sl-color-gray-6);
+}
+
+@media (prefers-color-scheme: light) {
+	:root[data-theme="auto"] {
+		--biome-color-signal: #9a6700;
+	}
 }
 
 /* Using var() in media queries is not supported in Lightning CSS. */

@@ -29,7 +29,7 @@ body {
 }
 
 code {
-	font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+	font-family: var(--font-jetbrains-mono);
 	-moz-tab-size: 2;
 	tab-size: 2;
 	background-color: var(--inline-code-background-color);

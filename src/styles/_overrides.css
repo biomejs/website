@@ -47,7 +47,7 @@
 
 .hero > .sl-flex > .actions > .primary,
 .hero > .sl-flex > .actions > .secondary {
-	border-radius: 0.3rem;
+	border-radius: var(--biome-radius-md);
 }
 
 .card-cnt > .card-grid > .card {

@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets";
+import darkDepot from "@/assets/sponsors/depot-logo-horizontal-on-dark@3x.png";
+import lightDepot from "@/assets/sponsors/depot-logo-horizontal-on-light@3x.png";
+
+interface Props {
+	placement: "footer" | "sidebar";
+}
+
+const { placement } = Astro.props;
+---
+
+<div class:list={["site-sponsor", placement]}>
+	<p class="title">Sponsored by</p>
+	<div class="logo">
+		<Image
+			alt="Depot"
+			src={lightDepot}
+			data-canonical-src={lightDepot.src}
+			width="150"
+			class="dark:sl-hidden"
+		/>
+		<Image
+			alt="Depot"
+			src={darkDepot}
+			data-canonical-src={darkDepot.src}
+			width="150"
+			class="light:sl-hidden"
+		/>
+	</div>
+</div>
+
+<style>
+	.site-sponsor {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.title {
+		margin: 0 0 0.75rem;
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+	}
+
+	.logo {
+		display: flex;
+		align-items: center;
+	}
+
+	.logo :global(picture) {
+		display: block;
+		max-width: 100%;
+	}
+
+	.logo :global(img) {
+		max-width: 100%;
+		height: auto;
+	}
+
+	.footer {
+		align-items: center;
+		padding: 0.5rem 2rem;
+	}
+
+	.sidebar {
+		padding-block-start: 1rem;
+		border-block-start: 1px solid var(--sl-color-hairline-light);
+	}
+</style>
