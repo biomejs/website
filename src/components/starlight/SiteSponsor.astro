@@ -1,5 +1,7 @@
 ---
 import { Image } from "astro:assets";
+import darkCodSpeed from "@/assets/sponsors/codspeed-logo-dark.svg";
+import lightCodSpeed from "@/assets/sponsors/codspeed-logo-light.svg";
 import darkDepot from "@/assets/sponsors/depot-logo-horizontal-on-dark@3x.png";
 import lightDepot from "@/assets/sponsors/depot-logo-horizontal-on-light@3x.png";
 
@@ -12,59 +14,107 @@ const { placement } = Astro.props;
 
 <div class:list={["site-sponsor", placement]}>
 	<p class="title">Sponsored by</p>
-	<div class="logo">
-		<Image
-			alt="Depot"
-			src={lightDepot}
-			data-canonical-src={lightDepot.src}
-			width="150"
-			class="dark:sl-hidden"
-		/>
-		<Image
-			alt="Depot"
-			src={darkDepot}
-			data-canonical-src={darkDepot.src}
-			width="150"
-			class="light:sl-hidden"
-		/>
+	<div class="logos">
+		<a
+			class="logo"
+			href="https://depot.dev"
+			rel="nofollow"
+			title="Depot"
+			target="_blank"
+		>
+			<Image
+				alt="Depot"
+				src={lightDepot}
+				data-canonical-src={lightDepot.src}
+				width="150"
+				class="dark:sl-hidden"
+			/>
+			<Image
+				alt="Depot"
+				src={darkDepot}
+				data-canonical-src={darkDepot.src}
+				width="150"
+				class="light:sl-hidden"
+			/>
+		</a>
+		<a
+			class="logo"
+			href="https://codspeed.io/docs"
+			rel="nofollow"
+			title="CodSpeed"
+			target="_blank"
+		>
+			<Image
+				alt="CodSpeed"
+				src={lightCodSpeed}
+				data-canonical-src={lightCodSpeed.src}
+				width="150"
+				class="dark:sl-hidden"
+			/>
+			<Image
+				alt="CodSpeed"
+				src={darkCodSpeed}
+				data-canonical-src={darkCodSpeed.src}
+				width="150"
+				class="light:sl-hidden"
+			/>
+		</a>
 	</div>
 </div>
 
 <style>
-	.site-sponsor {
-		display: flex;
-		flex-direction: column;
-	}
+.site-sponsor {
+	display: flex;
+	flex-direction: column;
+}
 
-	.title {
-		margin: 0 0 0.75rem;
-		color: var(--sl-color-gray-3);
-		font-size: var(--sl-text-xs);
-		font-weight: 600;
-	}
+.title {
+	margin: 0 0 0.75rem;
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+}
 
-	.logo {
-		display: flex;
-		align-items: center;
-	}
+.logos {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1rem;
+	width: 100%;
+}
 
-	.logo :global(picture) {
-		display: block;
-		max-width: 100%;
-	}
+.logo {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	min-width: 0;
+}
 
-	.logo :global(img) {
-		max-width: 100%;
-		height: auto;
-	}
+.logo :global(picture) {
+	display: block;
+	max-width: 100%;
+}
 
-	.footer {
-		align-items: center;
-		padding: 0.5rem 2rem;
-	}
+.logo :global(img) {
+	max-width: 100%;
+	height: auto;
+}
 
-	.sidebar {
-		padding-block-start: 1rem;
-		border-block-start: 1px solid var(--sl-color-hairline-light);
-	}
+.footer {
+	align-items: center;
+	padding: 0.5rem 2rem;
+}
+
+.footer .logos {
+	max-width: 20rem;
+}
+
+.sidebar {
+	padding-block-start: 1rem;
+	border-block-start: 1px solid var(--sl-color-hairline-light);
+}
+
+.sidebar .logos {
+	flex-direction: column;
+}
 </style>

@@ -16,25 +16,25 @@ const isPlayground = /^\/playground(?:\/|$)/.test(Astro.url.pathname);
 </div>
 
 <style>
-  .copyright {
-		display: flex;
-    padding: 2rem;
-    align-items: center;
-		justify-content: center;
-    flex-direction: column;
-    border-top: 1px solid var(--sl-color-gray-5);
-  }
-	.copyright p {
-		text-align: center;
-    margin-top: 1rem;
-  }
-	.copyright picture {
-    vertical-align: top;
-  }
+.copyright {
+	display: flex;
+	padding: 2rem;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	border-top: 1px solid var(--sl-color-gray-5);
+}
+.copyright p {
+	text-align: center;
+	margin-top: 1rem;
+}
+.copyright picture {
+	vertical-align: top;
+}
 
-	@media (min-width: 72rem) {
-		.footer-sponsor {
-			display: none;
-		}
+@media (min-width: 72rem) {
+	.footer-sponsor {
+		display: none;
 	}
+}
 </style>

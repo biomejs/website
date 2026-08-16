@@ -21,7 +21,6 @@
 		}
 	}
 
-	/* biome-ignore lint/correctness/noUnknownMediaFeatureName: custom media queries are not supported yet */
 	@media only screen and (--mobile) {
 		overflow: auto;
 	}

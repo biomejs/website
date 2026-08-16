@@ -25,13 +25,25 @@ const vscodeCode = `
 ---
 
 <Tabs syncKey="action">
-    <TabItem label="VS Code" icon="vscode">
-        <Code title=".vscode/settings.json" code={vscodeCode} lang="json" mark={[action]} ins={3}/>
-    </TabItem>
-    <TabItem label="Zed" icon="zed">
-        <Code title=".zed/settings.json" code={zedCode} lang="json" mark={[action]} ins={3}/>
-    </TabItem>
-    <TabItem label="Other editors">
-        Use the source action code <code>{action}</code>
-    </TabItem>
+	<TabItem label="VS Code" icon="vscode">
+		<Code
+			title=".vscode/settings.json"
+			code={vscodeCode}
+			lang="json"
+			mark={[action]}
+			ins={3}
+		/>
+	</TabItem>
+	<TabItem label="Zed" icon="zed">
+		<Code
+			title=".zed/settings.json"
+			code={zedCode}
+			lang="json"
+			mark={[action]}
+			ins={3}
+		/>
+	</TabItem>
+	<TabItem label="Other editors">
+		Use the source action code <code>{action}</code>
+	</TabItem>
 </Tabs>

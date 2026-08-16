@@ -6,7 +6,8 @@
       "!**/rules.json.js",
       "!**/schema.json.js",
       "!**/redirects.js",
-      "!**/src/playground/generated"
+      "!**/src/playground/generated",
+      "!!*.svg"
     ]
   },
   "assist": {
@@ -19,7 +20,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "suspicious": {
         "noUnknownAtRules": "info"
       },
@@ -53,19 +54,30 @@
   },
   "overrides": [
     {
-      "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+      "includes": ["**/*.astro"],
       "linter": {
         "rules": {
-          "style": {
-            "useConst": "off",
-            "useImportType": "off"
-          },
           "correctness": {
-            "noUnusedVariables": "off",
-            "noUnusedImports": "off"
+            "useJsxKeyInIterable": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.svg"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noSvgWithoutTitle": "off"
           }
         }
       }
     }
-  ]
+  ],
+  "html": {
+    "experimentalFullSupportEnabled": true,
+    "formatter": {
+      "enabled": true
+    }
+  }
 }

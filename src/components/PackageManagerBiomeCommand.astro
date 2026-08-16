@@ -18,7 +18,11 @@ const biomeBin = "biome";
 		<Code frame="none" code={`pnpx ${biomePackage} ${command}`} lang="bash" />
 	</TabItem>
 	<TabItem label="bun" icon="bun">
-		<Code frame="none" code={`bunx --bun ${biomePackage} ${command}`} lang="bash" />
+		<Code
+			frame="none"
+			code={`bunx --bun ${biomePackage} ${command}`}
+			lang="bash"
+		/>
 	</TabItem>
 	<TabItem label="deno" icon="deno">
 		<Code
@@ -28,6 +32,10 @@ const biomeBin = "biome";
 		/>
 	</TabItem>
 	<TabItem label="yarn" icon="seti:yarn">
-		<Code frame="none" code={`yarn exec ${biomeBin} -- ${command}`} lang="bash" />
+		<Code
+			frame="none"
+			code={`yarn exec ${biomeBin} -- ${command}`}
+			lang="bash"
+		/>
 	</TabItem>
 </Tabs>
