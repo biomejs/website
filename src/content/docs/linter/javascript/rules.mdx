@@ -227,12 +227,14 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noUndeclaredClasses](/linter/rules/no-undeclared-classes) | Reports CSS class names in JSX `className` or `class` attributes that are not defined |  |
 | [noUnnecessaryTemplateExpression](/linter/rules/no-unnecessary-template-expression) | Disallow unnecessary template expressions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noUnsafePlusOperands](/linter/rules/no-unsafe-plus-operands) | Disallow `+` operations with operands that are known to be unsafe. |  |
+| [noUnsafeTypeAssertion](/linter/rules/no-unsafe-type-assertion) | Disallow TypeScript type assertions other than const assertions. |  |
 | [noUselessTypeConversion](/linter/rules/no-useless-type-conversion) | Disallow type conversions that do not change the type of an expression. |  |
 | [noVueImportCompilerMacros](/linter/rules/no-vue-import-compiler-macros) | Disallow importing Vue compiler macros. |  |
 | [noVueRefAsOperand](/linter/rules/no-vue-ref-as-operand) | Disallow the use of value wrapped by `ref()`(Composition API) as operand |  |
 | [useArraySome](/linter/rules/use-array-some) | Prefer `Array.prototype.some()` over verbose existence checks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useAwaitThenable](/linter/rules/use-await-thenable) | Enforce that `await` is only used on `Promise` values. |  |
 | [useConsistentTestIt](/linter/rules/use-consistent-test-it) | Enforce consistent use of `it` or `test` for test functions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useControlLabel](/linter/rules/use-control-label) | Enforce that interactive control elements have an accessible label. |  |
 | [useDisposables](/linter/rules/use-disposables) | Detects a disposable object assigned to a variable without using or await using syntax. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useDomNodeTextContent](/linter/rules/use-dom-node-text-content) | Prefer `.textContent` over `.innerText` for DOM node text. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useDomQuerySelector](/linter/rules/use-dom-query-selector) | Prefer `querySelector()` and `querySelectorAll()` over older DOM query APIs. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -257,6 +259,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useRegexpTest](/linter/rules/use-regexp-test) | Enforce the use of `RegExp.prototype.test()` over `String.prototype.match()` and `RegExp.prototype.exec()` in boolean contexts. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSortedClasses](/linter/rules/use-sorted-classes) | Enforce the sorting of CSS utility classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useStringStartsEndsWith](/linter/rules/use-string-starts-ends-with) | Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useTailwindShorthandClasses](/linter/rules/use-tailwind-shorthand-classes) | Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useTestHooksInOrder](/linter/rules/use-test-hooks-in-order) | Enforce that test lifecycle hooks are declared in the order they execute. |  |
 | [useTestHooksOnTop](/linter/rules/use-test-hooks-on-top) | Enforce that lifecycle hooks appear before any test cases in the same block. |  |
 | [useThisInClassMethods](/linter/rules/use-this-in-class-methods) | Enforce that class methods utilize `this`. |  |

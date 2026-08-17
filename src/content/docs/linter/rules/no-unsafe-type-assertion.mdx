@@ -1,0 +1,141 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUnsafeTypeAssertion
+description: Learn more about noUnsafeTypeAssertion
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+<TabItem label="TypeScript and TSX" icon="seti:typescript">
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.5.9`
+- Diagnostic Category: [`lint/nursery/noUnsafeTypeAssertion`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUnsafeTypeAssertion": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow TypeScript type assertions other than const assertions.
+
+Type assertions override TypeScript's inferred type without performing any runtime checks.
+This can hide invalid assumptions about a value and lead to runtime errors.
+
+Safer alternatives include:
+
+- [Type annotations](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-annotations-on-variables)
+- The [`satisfies` operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator)
+- [Type predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates)
+- [Assertion functions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)
+- [Control-flow narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis)
+- Validation libraries, like [Zod](https://zod.dev/), [Valibot](https://valibot.dev/), or [arktype](https://arktype.dev/)
+
+## Examples
+
+### Invalid
+
+```ts
+interface SomeType {
+    value: string;
+}
+declare const value;
+const asserted = value as SomeType;
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:5:24 <a href="https://biomejs.dev/linter/rules/no-unsafe-type-assertion">lint/nursery/noUnsafeTypeAssertion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid unsafe type assertions.</span><br />  <br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong>declare const value;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>const asserted = value as SomeType;<br />   <strong>   │ </strong>                       <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Type assertions override the type for this expression, which can hide type errors and lead to runtime errors.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-annotations-on-variables">type annotation</a></span><span style="color: lightgreen;">, the </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator">satisfies operator</a></span><span style="color: lightgreen;">, a </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates">type predicate</a></span><span style="color: lightgreen;">, or </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis">control-flow narrowing</a></span><span style="color: lightgreen;"> instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```ts
+interface SomeType {
+    value: string;
+}
+declare const value;
+const asserted = <SomeType>value;
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:5:18 <a href="https://biomejs.dev/linter/rules/no-unsafe-type-assertion">lint/nursery/noUnsafeTypeAssertion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid unsafe type assertions.</span><br />  <br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong>declare const value;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>const asserted = &lt;SomeType&gt;value;<br />   <strong>   │ </strong>                 <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Type assertions override the type for this expression, which can hide type errors and lead to runtime errors.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-annotations-on-variables">type annotation</a></span><span style="color: lightgreen;">, the </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator">satisfies operator</a></span><span style="color: lightgreen;">, a </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates">type predicate</a></span><span style="color: lightgreen;">, or </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis">control-flow narrowing</a></span><span style="color: lightgreen;"> instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+```ts
+interface SomeType {
+    value: string;
+}
+declare const asserted;
+(asserted as SomeType).value = "foo";
+```
+
+<pre class="language-text"><code class="language-text">code-block.ts:5:11 <a href="https://biomejs.dev/linter/rules/no-unsafe-type-assertion">lint/nursery/noUnsafeTypeAssertion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Avoid unsafe type assertions.</span><br />  <br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong>declare const asserted;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>(asserted as SomeType).value = &quot;foo&quot;;<br />   <strong>   │ </strong>          <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Type assertions override the type for this expression, which can hide type errors and lead to runtime errors.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-annotations-on-variables">type annotation</a></span><span style="color: lightgreen;">, the </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator">satisfies operator</a></span><span style="color: lightgreen;">, a </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates">type predicate</a></span><span style="color: lightgreen;">, or </span><span style="color: lightgreen;"><a href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis">control-flow narrowing</a></span><span style="color: lightgreen;"> instead.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style="color: lightgreen;"><a href="https://biomejs.dev/linter/#nursery">https://biomejs.dev/linter/#nursery</a></span><span style="color: lightgreen;"> for more information.</span><br />  <br /></code></pre>
+
+### Valid
+
+`const` assertions are allowed:
+
+```ts
+const tuple = ["value", 1] as const;
+```
+
+Use a [type annotation](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-annotations-on-variables):
+
+```ts
+const annotated: string = "value";
+```
+
+Use the [`satisfies` operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator):
+
+```ts
+const checked = { value: "value" } satisfies { value: string };
+```
+
+Use a [type predicate](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates):
+
+```ts
+function isString(value: unknown): value is string {
+    return typeof value === "string";
+}
+```
+
+Use an [assertion function](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions):
+
+```ts
+function assertIsString(value: unknown): asserts value is string {
+    if (!isString(value)) {
+        throw new TypeError("Expected a string");
+    }
+}
+```
+
+Use [control-flow narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis):
+
+```ts
+function narrow(value: string | undefined) {
+    if (value !== undefined) {
+        return value.length;
+    }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_unsafe_type_assertion.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUnsafeTypeAssertion)
+
+</TabItem>
+</Tabs>
+
