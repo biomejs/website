@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noUnknownFunction
-description: Learn more about noUnknownFunction
+description: CSS documentation for noUnknownFunction
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="CSS" icon="seti:css">
+<RuleLanguageSelect current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-function/"}]} />
+
 ## Summary
 - Rule available since: `v1.8.0`
 - Diagnostic Category: [`lint/correctness/noUnknownFunction`](/reference/diagnostics#diagnostic-category)
@@ -98,7 +98,4 @@ a { transform: custom-function(1); }
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unknown_function.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnknownFunction)
-
-</TabItem>
-</Tabs>
 

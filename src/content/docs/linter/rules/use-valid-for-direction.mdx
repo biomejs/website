@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useValidForDirection
-description: Learn more about useValidForDirection
+description: JavaScript (and super languages) documentation for useValidForDirection
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-valid-for-direction/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/correctness/useValidForDirection`](/reference/diagnostics#diagnostic-category)
@@ -79,7 +79,4 @@ for (var i = 0; i < 10; i++) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_valid_for_direction.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useValidForDirection)
-
-</TabItem>
-</Tabs>
 

@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noUntrustedLicenses
-description: Learn more about noUntrustedLicenses
+description: JSON (and super languages) documentation for noUntrustedLicenses
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JSON (and super languages)" icon="seti:json">
+<RuleLanguageSelect current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/no-untrusted-licenses/"}]} />
+
 :::caution
 This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
@@ -245,7 +245,4 @@ Default: `false`
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/nursery/no_untrusted_licenses.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/nursery/noUntrustedLicenses)
-
-</TabItem>
-</Tabs>
 

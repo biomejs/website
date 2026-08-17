@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noConfusingVoidType
-description: Learn more about noConfusingVoidType
+description: JavaScript (and super languages) documentation for noConfusingVoidType
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="TypeScript and TSX" icon="seti:typescript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-confusing-void-type/"}]} />
+
 ## Summary
 - Rule available since: `v1.2.0`
 - Diagnostic Category: [`lint/suspicious/noConfusingVoidType`](/reference/diagnostics#diagnostic-category)
@@ -97,7 +97,4 @@ function printArg<T = void>(arg: T) {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_confusing_void_type.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noConfusingVoidType)
-
-</TabItem>
-</Tabs>
 

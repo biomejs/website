@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useAwaitThenable
-description: Learn more about useAwaitThenable
+description: JavaScript (and super languages) documentation for useAwaitThenable
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-await-thenable/"}]} />
+
 :::caution
 This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
@@ -77,7 +77,4 @@ await createValue();
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_await_thenable.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useAwaitThenable)
-
-</TabItem>
-</Tabs>
 

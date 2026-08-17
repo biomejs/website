@@ -4,75 +4,12 @@
 editUrl: false
 
 title: useValidLang
-description: Learn more about useValidLang
+description: HTML documentation for useValidLang
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JSX and TSX" icon="seti:javascript">
-## Summary
-- Rule available since: `v1.0.0`
-- Diagnostic Category: [`lint/a11y/useValidLang`](/reference/diagnostics#diagnostic-category)
-- This rule is **recommended**, meaning it is enabled by default.
-- This rule doesn't have a fix.
-- The default severity of this rule is [**error**](/reference/diagnostics#error).
-- Sources: 
-  - Same as [`jsx-a11y/lang`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/lang.md)
+<RuleLanguageSelect current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-valid-lang/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-valid-lang/javascript/"}]} />
 
-## How to configure
-```json title="biome.json"
-{
-	"linter": {
-		"rules": {
-			"a11y": {
-				"useValidLang": "error"
-			}
-		}
-	}
-}
-
-```
-## Description
-Ensure that the attribute passed to the `lang` attribute is a correct ISO language and/or country.
-
-## Examples
-
-### Invalid
-
-```jsx
-<html lang="lorem" />
-```
-
-<pre class="language-text"><code class="language-text">code-block.jsx:1:12 <a href="https://biomejs.dev/linter/rules/use-valid-lang">lint/a11y/useValidLang</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a valid value for the </span><span style="color: Tomato;"><strong>lang</strong></span><span style="color: Tomato;"> attribute.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;html lang=&quot;lorem&quot; /&gt;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Some of valid languages:</span><br />  <br />  - ab<br />  - aa<br />  - af<br />  - sq<br />  - am<br />  - ar<br />  - an<br />  - hy<br />  - as<br />  - ay<br />  - az<br />  - ba<br />  - eu<br />  - bn<br />  - dz<br />  <br /></code></pre>
-
-```jsx
-<html lang="en-babab" />
-```
-
-<pre class="language-text"><code class="language-text">code-block.jsx:1:12 <a href="https://biomejs.dev/linter/rules/use-valid-lang">lint/a11y/useValidLang</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a valid value for the </span><span style="color: Tomato;"><strong>lang</strong></span><span style="color: Tomato;"> attribute.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;html lang=&quot;en-babab&quot; /&gt;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br /></code></pre>
-
-```jsx
-<html lang="en-GB-typo" />
-```
-
-<pre class="language-text"><code class="language-text">code-block.jsx:1:12 <a href="https://biomejs.dev/linter/rules/use-valid-lang">lint/a11y/useValidLang</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">Provide a valid value for the </span><span style="color: Tomato;"><strong>lang</strong></span><span style="color: Tomato;"> attribute.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;html lang=&quot;en-GB-typo&quot; /&gt;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Some of valid scripts:</span><br />  <br />  - Arab<br />  - Armn<br />  - Beng<br />  - Cyrl<br />  - Deva<br />  - Ethi<br />  - Grek<br />  - Gujr<br />  - Guru<br />  - Hang<br />  - Hani<br />  - Hans<br />  - Hant<br />  - Hebr<br />  - Hira<br />  <br /></code></pre>
-
-### Valid
-
-```jsx
-<Html lang="en-babab" />
-```
-
-## Related links
-
-- [Disable a rule](/linter/#disable-a-rule)
-- [Configure the code fix](/linter#configure-the-code-fix)
-- [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/use_valid_lang.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useValidLang)
-
-</TabItem>
-<TabItem label="HTML" icon="seti:html">
 ## Summary
 - Rule available since: `v2.4.0`
 - Diagnostic Category: [`lint/a11y/useValidLang`](/reference/diagnostics#diagnostic-category)
@@ -133,7 +70,4 @@ Ensure that the attribute passed to the `lang` attribute is a correct ISO langua
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/use_valid_lang.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/useValidLang)
-
-</TabItem>
-</Tabs>
 

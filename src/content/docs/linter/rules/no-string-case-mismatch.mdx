@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noStringCaseMismatch
-description: Learn more about noStringCaseMismatch
+description: JavaScript (and super languages) documentation for noStringCaseMismatch
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-string-case-mismatch/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/correctness/noStringCaseMismatch`](/reference/diagnostics#diagnostic-category)
@@ -68,7 +68,4 @@ for (let s = "abc"; s === "abc"; s = s.toUpperCase()) {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_string_case_mismatch.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noStringCaseMismatch)
-
-</TabItem>
-</Tabs>
 

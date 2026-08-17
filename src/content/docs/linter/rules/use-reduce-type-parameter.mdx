@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useReduceTypeParameter
-description: Learn more about useReduceTypeParameter
+description: JavaScript (and super languages) documentation for useReduceTypeParameter
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="TypeScript and TSX" icon="seti:typescript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-reduce-type-parameter/"}]} />
+
 :::caution
 This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
@@ -86,7 +86,4 @@ arr.reduce((sum, n) => sum + n, 0);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_reduce_type_parameter.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useReduceTypeParameter)
-
-</TabItem>
-</Tabs>
 

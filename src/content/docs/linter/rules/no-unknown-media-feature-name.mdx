@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noUnknownMediaFeatureName
-description: Learn more about noUnknownMediaFeatureName
+description: CSS documentation for noUnknownMediaFeatureName
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="CSS" icon="seti:css">
+<RuleLanguageSelect current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-media-feature-name/"}]} />
+
 ## Summary
 - Rule available since: `v1.8.0`
 - Diagnostic Category: [`lint/correctness/noUnknownMediaFeatureName`](/reference/diagnostics#diagnostic-category)
@@ -107,7 +107,4 @@ Data sources of known CSS media feature are:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unknown_media_feature_name.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnknownMediaFeatureName)
-
-</TabItem>
-</Tabs>
 

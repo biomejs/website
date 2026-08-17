@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noNextAsyncClientComponent
-description: Learn more about noNextAsyncClientComponent
+description: JavaScript (and super languages) documentation for noNextAsyncClientComponent
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-next-async-client-component/"}]} />
+
 ## Summary
 - Rule available since: `v2.2.0`
 - Diagnostic Category: [`lint/correctness/noNextAsyncClientComponent`](/reference/diagnostics#diagnostic-category)
@@ -81,7 +81,4 @@ export default async function ServerComponent() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_next_async_client_component.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noNextAsyncClientComponent)
-
-</TabItem>
-</Tabs>
 

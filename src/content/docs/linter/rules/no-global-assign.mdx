@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noGlobalAssign
-description: Learn more about noGlobalAssign
+description: JavaScript (and super languages) documentation for noGlobalAssign
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-global-assign/"}]} />
+
 ## Summary
 - Rule available since: `v1.5.0`
 - Diagnostic Category: [`lint/suspicious/noGlobalAssign`](/reference/diagnostics#diagnostic-category)
@@ -78,7 +78,4 @@ window = {};
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_global_assign.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noGlobalAssign)
-
-</TabItem>
-</Tabs>
 

@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noUselessEmptyExport
-description: Learn more about noUselessEmptyExport
+description: JavaScript (and super languages) documentation for noUselessEmptyExport
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="TypeScript and TSX" icon="seti:typescript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-empty-export/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/complexity/noUselessEmptyExport`](/reference/diagnostics#diagnostic-category)
@@ -77,7 +77,4 @@ export {};
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_useless_empty_export.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noUselessEmptyExport)
-
-</TabItem>
-</Tabs>
 

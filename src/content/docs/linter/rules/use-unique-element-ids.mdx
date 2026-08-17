@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useUniqueElementIds
-description: Learn more about useUniqueElementIds
+description: JavaScript (and super languages) documentation for useUniqueElementIds
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JSX and TSX" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-unique-element-ids/"}]} />
+
 ## Summary
 - Rule available since: `v2.0.0`
 - Diagnostic Category: [`lint/correctness/useUniqueElementIds`](/reference/diagnostics#diagnostic-category)
@@ -114,7 +114,4 @@ a DOM element ID.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_unique_element_ids.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useUniqueElementIds)
-
-</TabItem>
-</Tabs>
 

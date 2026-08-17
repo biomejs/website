@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useNumberToFixedDigitsArgument
-description: Learn more about useNumberToFixedDigitsArgument
+description: JavaScript (and super languages) documentation for useNumberToFixedDigitsArgument
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-number-to-fixed-digits-argument/"}]} />
+
 ## Summary
 - Rule available since: `v1.8.0`
 - Diagnostic Category: [`lint/suspicious/useNumberToFixedDigitsArgument`](/reference/diagnostics#diagnostic-category)
@@ -70,7 +70,4 @@ It does not check the type of the callee.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/use_number_to_fixed_digits_argument.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/useNumberToFixedDigitsArgument)
-
-</TabItem>
-</Tabs>
 

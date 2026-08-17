@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noUnusedInstantiation
-description: Learn more about noUnusedInstantiation
+description: JavaScript (and super languages) documentation for noUnusedInstantiation
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unused-instantiation/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.12`
 - Diagnostic Category: [`lint/correctness/noUnusedInstantiation`](/reference/diagnostics#diagnostic-category)
@@ -72,7 +72,4 @@ const thing = new Thing();
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_unused_instantiation.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noUnusedInstantiation)
-
-</TabItem>
-</Tabs>
 

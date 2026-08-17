@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noInvalidUseBeforeDeclaration
-description: Learn more about noInvalidUseBeforeDeclaration
+description: JavaScript (and super languages) documentation for noInvalidUseBeforeDeclaration
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-invalid-use-before-declaration/"}]} />
+
 ## Summary
 - Rule available since: `v1.5.0`
 - Diagnostic Category: [`lint/correctness/noInvalidUseBeforeDeclaration`](/reference/diagnostics#diagnostic-category)
@@ -110,7 +110,4 @@ class C {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_invalid_use_before_declaration.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noInvalidUseBeforeDeclaration)
-
-</TabItem>
-</Tabs>
 

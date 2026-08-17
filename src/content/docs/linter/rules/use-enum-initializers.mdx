@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useEnumInitializers
-description: Learn more about useEnumInitializers
+description: JavaScript (and super languages) documentation for useEnumInitializers
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="TypeScript and TSX" icon="seti:typescript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-enum-initializers/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/style/useEnumInitializers`](/reference/diagnostics#diagnostic-category)
@@ -103,7 +103,4 @@ declare enum Weather {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_enum_initializers.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useEnumInitializers)
-
-</TabItem>
-</Tabs>
 

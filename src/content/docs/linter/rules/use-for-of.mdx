@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useForOf
-description: Learn more about useForOf
+description: JavaScript (and super languages) documentation for useForOf
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-for-of/"}]} />
+
 ## Summary
 - Rule available since: `v1.5.0`
 - Diagnostic Category: [`lint/style/useForOf`](/reference/diagnostics#diagnostic-category)
@@ -92,7 +92,4 @@ for (; i < array.length; i++) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_for_of.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useForOf)
-
-</TabItem>
-</Tabs>
 

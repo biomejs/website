@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noIncrementDecrement
-description: Learn more about noIncrementDecrement
+description: JavaScript (and super languages) documentation for noIncrementDecrement
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-increment-decrement/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.2`
 - Diagnostic Category: [`lint/style/noIncrementDecrement`](/reference/diagnostics#diagnostic-category)
@@ -191,7 +191,4 @@ for (let i = 0, j = l; i < l; i++, j--) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_increment_decrement.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noIncrementDecrement)
-
-</TabItem>
-</Tabs>
 

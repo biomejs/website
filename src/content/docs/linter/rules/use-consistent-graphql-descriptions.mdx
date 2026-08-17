@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useConsistentGraphqlDescriptions
-description: Learn more about useConsistentGraphqlDescriptions
+description: GraphQL documentation for useConsistentGraphqlDescriptions
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="GraphQL" icon="seti:graphql">
+<RuleLanguageSelect current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-consistent-graphql-descriptions/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.6`
 - Diagnostic Category: [`lint/style/useConsistentGraphqlDescriptions`](/reference/diagnostics#diagnostic-category)
@@ -108,7 +108,4 @@ enum EnumValue {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/style/use_consistent_graphql_descriptions.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/style/useConsistentGraphqlDescriptions)
-
-</TabItem>
-</Tabs>
 

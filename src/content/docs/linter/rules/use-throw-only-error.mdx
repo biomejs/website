@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useThrowOnlyError
-description: Learn more about useThrowOnlyError
+description: JavaScript (and super languages) documentation for useThrowOnlyError
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-throw-only-error/"}]} />
+
 ## Summary
 - Rule available since: `v1.8.0`
 - Diagnostic Category: [`lint/style/useThrowOnlyError`](/reference/diagnostics#diagnostic-category)
@@ -91,7 +91,4 @@ This will be improved in the future once Biome supports type inference.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_throw_only_error.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useThrowOnlyError)
-
-</TabItem>
-</Tabs>
 

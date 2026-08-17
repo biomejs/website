@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useValidTypeof
-description: Learn more about useValidTypeof
+description: JavaScript (and super languages) documentation for useValidTypeof
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-valid-typeof/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/correctness/useValidTypeof`](/reference/diagnostics#diagnostic-category)
@@ -94,7 +94,4 @@ typeof foo === bar
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_valid_typeof.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useValidTypeof)
-
-</TabItem>
-</Tabs>
 

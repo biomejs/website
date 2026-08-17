@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useErrorCause
-description: Learn more about useErrorCause
+description: JavaScript (and super languages) documentation for useErrorCause
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-error-cause/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.12`
 - Diagnostic Category: [`lint/style/useErrorCause`](/reference/diagnostics#diagnostic-category)
@@ -164,7 +164,4 @@ try {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_error_cause.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useErrorCause)
-
-</TabItem>
-</Tabs>
 

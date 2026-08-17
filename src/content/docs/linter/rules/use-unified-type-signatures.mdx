@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useUnifiedTypeSignatures
-description: Learn more about useUnifiedTypeSignatures
+description: JavaScript (and super languages) documentation for useUnifiedTypeSignatures
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="TypeScript and TSX" icon="seti:typescript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-unified-type-signatures/"}]} />
+
 ## Summary
 - Rule available since: `v2.1.0`
 - Diagnostic Category: [`lint/style/useUnifiedTypeSignatures`](/reference/diagnostics#diagnostic-category)
@@ -207,7 +207,4 @@ function doThing(foo: boolean): void;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_unified_type_signatures.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useUnifiedTypeSignatures)
-
-</TabItem>
-</Tabs>
 

@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noVueDuplicateKeys
-description: Learn more about noVueDuplicateKeys
+description: JavaScript (and super languages) documentation for noVueDuplicateKeys
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-duplicate-keys/"}]} />
+
 ## Summary
 - Rule available since: `v2.2.5`
 - Diagnostic Category: [`lint/correctness/noVueDuplicateKeys`](/reference/diagnostics#diagnostic-category)
@@ -143,7 +143,4 @@ export default {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_vue_duplicate_keys.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noVueDuplicateKeys)
-
-</TabItem>
-</Tabs>
 

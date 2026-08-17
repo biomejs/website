@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noExtraBooleanCast
-description: Learn more about noExtraBooleanCast
+description: JavaScript (and super languages) documentation for noExtraBooleanCast
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-extra-boolean-cast/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/complexity/noExtraBooleanCast`](/reference/diagnostics#diagnostic-category)
@@ -88,7 +88,4 @@ Boolean(!x);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_extra_boolean_cast.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noExtraBooleanCast)
-
-</TabItem>
-</Tabs>
 

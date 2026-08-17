@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noDuplicateEnumValueNames
-description: Learn more about noDuplicateEnumValueNames
+description: GraphQL documentation for noDuplicateEnumValueNames
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="GraphQL" icon="seti:graphql">
+<RuleLanguageSelect current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-duplicate-enum-value-names/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.12`
 - Diagnostic Category: [`lint/correctness/noDuplicateEnumValueNames`](/reference/diagnostics#diagnostic-category)
@@ -77,7 +77,4 @@ enum A {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/correctness/no_duplicate_enum_value_names.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/correctness/noDuplicateEnumValueNames)
-
-</TabItem>
-</Tabs>
 

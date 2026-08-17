@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useDeprecatedReason
-description: Learn more about useDeprecatedReason
+description: GraphQL documentation for useDeprecatedReason
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="GraphQL" icon="seti:graphql">
+<RuleLanguageSelect current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-deprecated-reason/"}]} />
+
 ## Summary
 - Rule available since: `v1.9.0`
 - Diagnostic Category: [`lint/style/useDeprecatedReason`](/reference/diagnostics#diagnostic-category)
@@ -65,7 +65,4 @@ query {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/style/use_deprecated_reason.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/style/useDeprecatedReason)
-
-</TabItem>
-</Tabs>
 

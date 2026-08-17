@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noImportantStyles
-description: Learn more about noImportantStyles
+description: CSS documentation for noImportantStyles
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="CSS" icon="seti:css">
+<RuleLanguageSelect current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-important-styles/"}]} />
+
 ## Summary
 - Rule available since: `v2.0.0`
 - Diagnostic Category: [`lint/complexity/noImportantStyles`](/reference/diagnostics#diagnostic-category)
@@ -87,7 +87,4 @@ must account for the `!important` rule overriding expected behavior.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/complexity/no_important_styles.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/complexity/noImportantStyles)
-
-</TabItem>
-</Tabs>
 

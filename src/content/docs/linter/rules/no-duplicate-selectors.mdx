@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noDuplicateSelectors
-description: Learn more about noDuplicateSelectors
+description: CSS documentation for noDuplicateSelectors
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="CSS" icon="seti:css">
+<RuleLanguageSelect current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-duplicate-selectors/"}]} />
+
 :::caution
 This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
@@ -112,7 +112,4 @@ a {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_duplicate_selectors.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noDuplicateSelectors)
-
-</TabItem>
-</Tabs>
 

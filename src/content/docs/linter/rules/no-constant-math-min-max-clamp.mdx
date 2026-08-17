@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noConstantMathMinMaxClamp
-description: Learn more about noConstantMathMinMaxClamp
+description: JavaScript (and super languages) documentation for noConstantMathMinMaxClamp
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-constant-math-min-max-clamp/"}]} />
+
 ## Summary
 - Rule available since: `v1.7.0`
 - Diagnostic Category: [`lint/correctness/noConstantMathMinMaxClamp`](/reference/diagnostics#diagnostic-category)
@@ -64,7 +64,4 @@ Math.min(100, Math.max(0, x));
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_constant_math_min_max_clamp.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noConstantMathMinMaxClamp)
-
-</TabItem>
-</Tabs>
 

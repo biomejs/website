@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noRenderReturnValue
-description: Learn more about noRenderReturnValue
+description: JavaScript (and super languages) documentation for noRenderReturnValue
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JSX and TSX" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-render-return-value/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/correctness/noRenderReturnValue`](/reference/diagnostics#diagnostic-category)
@@ -65,7 +65,4 @@ ReactDOM.render(<div />, document.body);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_render_return_value.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noRenderReturnValue)
-
-</TabItem>
-</Tabs>
 

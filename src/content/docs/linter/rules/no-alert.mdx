@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noAlert
-description: Learn more about noAlert
+description: JavaScript (and super languages) documentation for noAlert
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-alert/"}]} />
+
 ## Summary
 - Rule available since: `v2.1.0`
 - Diagnostic Category: [`lint/suspicious/noAlert`](/reference/diagnostics#diagnostic-category)
@@ -90,7 +90,4 @@ function foo() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_alert.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noAlert)
-
-</TabItem>
-</Tabs>
 

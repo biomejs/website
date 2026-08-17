@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noYodaExpression
-description: Learn more about noYodaExpression
+description: JavaScript (and super languages) documentation for noYodaExpression
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-yoda-expression/"}]} />
+
 ## Summary
 - Rule available since: `v1.8.0`
 - Diagnostic Category: [`lint/style/noYodaExpression`](/reference/diagnostics#diagnostic-category)
@@ -93,7 +93,4 @@ if (0 < value && value < 1) {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_yoda_expression.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noYodaExpression)
-
-</TabItem>
-</Tabs>
 

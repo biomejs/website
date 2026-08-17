@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noVueReservedKeys
-description: Learn more about noVueReservedKeys
+description: JavaScript (and super languages) documentation for noVueReservedKeys
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-reserved-keys/"}]} />
+
 ## Summary
 - Rule available since: `v2.1.3`
 - Diagnostic Category: [`lint/correctness/noVueReservedKeys`](/reference/diagnostics#diagnostic-category)
@@ -138,7 +138,4 @@ export default {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_vue_reserved_keys.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noVueReservedKeys)
-
-</TabItem>
-</Tabs>
 

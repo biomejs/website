@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noUselessStringRaw
-description: Learn more about noUselessStringRaw
+description: JavaScript (and super languages) documentation for noUselessStringRaw
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-string-raw/"}]} />
+
 ## Summary
 - Rule available since: `v1.9.4`
 - Diagnostic Category: [`lint/complexity/noUselessStringRaw`](/reference/diagnostics#diagnostic-category)
@@ -67,7 +67,4 @@ String.raw`\n`;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_useless_string_raw.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noUselessStringRaw)
-
-</TabItem>
-</Tabs>
 

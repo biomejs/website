@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noConstantCondition
-description: Learn more about noConstantCondition
+description: JavaScript (and super languages) documentation for noConstantCondition
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-constant-condition/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/correctness/noConstantCondition`](/reference/diagnostics#diagnostic-category)
@@ -120,7 +120,4 @@ while (true) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_constant_condition.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noConstantCondition)
-
-</TabItem>
-</Tabs>
 

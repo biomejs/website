@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noDuplicateArgumentNames
-description: Learn more about noDuplicateArgumentNames
+description: GraphQL documentation for noDuplicateArgumentNames
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="GraphQL" icon="seti:graphql">
+<RuleLanguageSelect current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-duplicate-argument-names/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.11`
 - Diagnostic Category: [`lint/correctness/noDuplicateArgumentNames`](/reference/diagnostics#diagnostic-category)
@@ -64,7 +64,4 @@ query {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/correctness/no_duplicate_argument_names.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/correctness/noDuplicateArgumentNames)
-
-</TabItem>
-</Tabs>
 

@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noJsRestrictedProperties
-description: Learn more about noJsRestrictedProperties
+description: JavaScript (and super languages) documentation for noJsRestrictedProperties
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-js-restricted-properties/"}]} />
+
 :::caution
 This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
@@ -204,7 +204,4 @@ Use this to give context and explain why the property is restricted, and to sugg
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_js_restricted_properties.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noJsRestrictedProperties)
-
-</TabItem>
-</Tabs>
 

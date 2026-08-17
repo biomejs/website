@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noUnknownAtRules
-description: Learn more about noUnknownAtRules
+description: CSS documentation for noUnknownAtRules
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="CSS" icon="seti:css">
+<RuleLanguageSelect current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-at-rules/"}]} />
+
 ## Summary
 - Rule available since: `v2.0.0`
 - Diagnostic Category: [`lint/suspicious/noUnknownAtRules`](/reference/diagnostics#diagnostic-category)
@@ -113,7 +113,4 @@ A list of unknown at-rule names to ignore (case-insensitive).
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_unknown_at_rules.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noUnknownAtRules)
-
-</TabItem>
-</Tabs>
 

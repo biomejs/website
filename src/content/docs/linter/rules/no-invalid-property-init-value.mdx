@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noInvalidPropertyInitValue
-description: Learn more about noInvalidPropertyInitValue
+description: CSS documentation for noInvalidPropertyInitValue
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="CSS" icon="seti:css">
+<RuleLanguageSelect current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-invalid-property-init-value/"}]} />
+
 :::caution
 This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
@@ -115,7 +115,4 @@ Both `1rem` and `calc(1px + 2px)` use length values, so they follow their declar
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_invalid_property_init_value.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noInvalidPropertyInitValue)
-
-</TabItem>
-</Tabs>
 

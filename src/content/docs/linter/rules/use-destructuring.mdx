@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useDestructuring
-description: Learn more about useDestructuring
+description: JavaScript (and super languages) documentation for useDestructuring
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-destructuring/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.9`
 - Diagnostic Category: [`lint/style/useDestructuring`](/reference/diagnostics#diagnostic-category)
@@ -129,7 +129,4 @@ foo = object.foo; // allowed
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_destructuring.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useDestructuring)
-
-</TabItem>
-</Tabs>
 

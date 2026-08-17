@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useGoogleFontPreconnect
-description: Learn more about useGoogleFontPreconnect
+description: JavaScript (and super languages) documentation for useGoogleFontPreconnect
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JSX and TSX" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-google-font-preconnect/"}]} />
+
 ## Summary
 - Rule available since: `v2.0.0`
 - Diagnostic Category: [`lint/performance/useGoogleFontPreconnect`](/reference/diagnostics#diagnostic-category)
@@ -79,7 +79,4 @@ where it's manually added, this rule ensures the `preconnect` attribute is prope
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/performance/use_google_font_preconnect.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/performance/useGoogleFontPreconnect)
-
-</TabItem>
-</Tabs>
 

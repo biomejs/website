@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noSuspiciousSemicolonInJsx
-description: Learn more about noSuspiciousSemicolonInJsx
+description: JavaScript (and super languages) documentation for noSuspiciousSemicolonInJsx
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JSX and TSX" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-suspicious-semicolon-in-jsx/"}]} />
+
 ## Summary
 - Rule available since: `v1.6.0`
 - Diagnostic Category: [`lint/suspicious/noSuspiciousSemicolonInJsx`](/reference/diagnostics#diagnostic-category)
@@ -77,7 +77,4 @@ const Component2 = () => {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_suspicious_semicolon_in_jsx.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noSuspiciousSemicolonInJsx)
-
-</TabItem>
-</Tabs>
 

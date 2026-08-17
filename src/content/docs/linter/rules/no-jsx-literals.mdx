@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noJsxLiterals
-description: Learn more about noJsxLiterals
+description: JavaScript (and super languages) documentation for noJsxLiterals
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JSX and TSX" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-jsx-literals/"}]} />
+
 ## Summary
 - Rule available since: `v2.2.4`
 - Diagnostic Category: [`lint/style/noJsxLiterals`](/reference/diagnostics#diagnostic-category)
@@ -198,7 +198,4 @@ When enabled, the rule will ignore string literals used as prop values.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_jsx_literals.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noJsxLiterals)
-
-</TabItem>
-</Tabs>
 

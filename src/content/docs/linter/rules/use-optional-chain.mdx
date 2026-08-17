@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useOptionalChain
-description: Learn more about useOptionalChain
+description: JavaScript (and super languages) documentation for useOptionalChain
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-optional-chain/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/complexity/useOptionalChain`](/reference/diagnostics#diagnostic-category)
@@ -115,7 +115,4 @@ foo["some long"] && foo["some long string"].baz
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_optional_chain.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/useOptionalChain)
-
-</TabItem>
-</Tabs>
 

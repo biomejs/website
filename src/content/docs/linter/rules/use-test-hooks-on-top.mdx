@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useTestHooksOnTop
-description: Learn more about useTestHooksOnTop
+description: JavaScript (and super languages) documentation for useTestHooksOnTop
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-test-hooks-on-top/"}]} />
+
 :::caution
 This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
@@ -76,7 +76,4 @@ See also: [`useTestHooksInOrder`](https://biomejs.dev/linter/rules/use-test-hook
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_test_hooks_on_top.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useTestHooksOnTop)
-
-</TabItem>
-</Tabs>
 

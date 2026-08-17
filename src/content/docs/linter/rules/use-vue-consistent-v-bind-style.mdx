@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useVueConsistentVBindStyle
-description: Learn more about useVueConsistentVBindStyle
+description: HTML documentation for useVueConsistentVBindStyle
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="HTML" icon="seti:html">
+<RuleLanguageSelect current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-consistent-v-bind-style/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.11`
 - Diagnostic Category: [`lint/style/useVueConsistentVBindStyle`](/reference/diagnostics#diagnostic-category)
@@ -99,7 +99,4 @@ Configures the preferred directive style. Default: `"shorthand"`.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/style/use_vue_consistent_v_bind_style.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/style/useVueConsistentVBindStyle)
-
-</TabItem>
-</Tabs>
 

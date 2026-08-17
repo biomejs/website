@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noShoutyConstants
-description: Learn more about noShoutyConstants
+description: JavaScript (and super languages) documentation for noShoutyConstants
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-shouty-constants/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/style/noShoutyConstants`](/reference/diagnostics#diagnostic-category)
@@ -68,7 +68,4 @@ function f(FOO = "FOO") {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_shouty_constants.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noShoutyConstants)
-
-</TabItem>
-</Tabs>
 

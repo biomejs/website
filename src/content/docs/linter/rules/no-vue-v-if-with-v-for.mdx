@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noVueVIfWithVFor
-description: Learn more about noVueVIfWithVFor
+description: HTML documentation for noVueVIfWithVFor
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="HTML" icon="seti:html">
+<RuleLanguageSelect current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-v-if-with-v-for/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.6`
 - Diagnostic Category: [`lint/correctness/noVueVIfWithVFor`](/reference/diagnostics#diagnostic-category)
@@ -74,7 +74,4 @@ There are two common cases where this can be tempting:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/correctness/no_vue_v_if_with_v_for.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/correctness/noVueVIfWithVFor)
-
-</TabItem>
-</Tabs>
 

@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noDuplicatedSpreadProps
-description: Learn more about noDuplicatedSpreadProps
+description: JavaScript (and super languages) documentation for noDuplicatedSpreadProps
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-duplicated-spread-props/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.8`
 - Diagnostic Category: [`lint/suspicious/noDuplicatedSpreadProps`](/reference/diagnostics#diagnostic-category)
@@ -65,7 +65,4 @@ Even when that is not the case this will lead to unnecessary computations being 
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_duplicated_spread_props.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noDuplicatedSpreadProps)
-
-</TabItem>
-</Tabs>
 

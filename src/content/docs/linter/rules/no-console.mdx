@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noConsole
-description: Learn more about noConsole
+description: JavaScript (and super languages) documentation for noConsole
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-console/"}]} />
+
 ## Summary
 - Rule available since: `v1.6.0`
 - Diagnostic Category: [`lint/suspicious/noConsole`](/reference/diagnostics#diagnostic-category)
@@ -93,7 +93,4 @@ console.assert(true, "explanation"); // Allowed
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_console.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noConsole)
-
-</TabItem>
-</Tabs>
 

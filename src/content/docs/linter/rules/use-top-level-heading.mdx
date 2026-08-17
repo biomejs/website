@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useTopLevelHeading
-description: Learn more about useTopLevelHeading
+description: Markdown documentation for useTopLevelHeading
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="Markdown" icon="seti:markdown">
+<RuleLanguageSelect current="markdown" languages={[{"id":"markdown","label":"Markdown","href":"/linter/rules/use-top-level-heading/"}]} />
+
 :::caution
 This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
@@ -87,7 +87,4 @@ title: Example
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/src/lint/nursery/use_top_level_heading.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/tests/specs/nursery/useTopLevelHeading)
-
-</TabItem>
-</Tabs>
 

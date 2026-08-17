@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noControlCharactersInRegex
-description: Learn more about noControlCharactersInRegex
+description: JavaScript (and super languages) documentation for noControlCharactersInRegex
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-control-characters-in-regex/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/suspicious/noControlCharactersInRegex`](/reference/diagnostics#diagnostic-category)
@@ -98,7 +98,4 @@ var pattern5 = /\n/;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_control_characters_in_regex.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noControlCharactersInRegex)
-
-</TabItem>
-</Tabs>
 

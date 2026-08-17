@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noUnsafeNegation
-description: Learn more about noUnsafeNegation
+description: JavaScript (and super languages) documentation for noUnsafeNegation
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unsafe-negation/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/suspicious/noUnsafeNegation`](/reference/diagnostics#diagnostic-category)
@@ -69,7 +69,4 @@ delete 1 in [1,2];
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_unsafe_negation.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noUnsafeNegation)
-
-</TabItem>
-</Tabs>
 

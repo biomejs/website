@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noUnknownAttribute
-description: Learn more about noUnknownAttribute
+description: JavaScript (and super languages) documentation for noUnknownAttribute
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JSX and TSX" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unknown-attribute/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.3`
 - Diagnostic Category: [`lint/suspicious/noUnknownAttribute`](/reference/diagnostics#diagnostic-category)
@@ -108,7 +108,4 @@ An array of property and attribute names to ignore during validation.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_unknown_attribute.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noUnknownAttribute)
-
-</TabItem>
-</Tabs>
 

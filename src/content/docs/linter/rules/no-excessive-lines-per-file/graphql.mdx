@@ -1,0 +1,194 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noExcessiveLinesPerFile
+description: GraphQL documentation for noExcessiveLinesPerFile
+---
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
+
+<RuleLanguageSelect current="graphql" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-excessive-lines-per-file/"},{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-excessive-lines-per-file/graphql/"},{"id":"html","label":"HTML","href":"/linter/rules/no-excessive-lines-per-file/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-excessive-lines-per-file/javascript/"}]} />
+
+## Summary
+- Rule available since: `v2.3.12`
+- Diagnostic Category: [`lint/style/noExcessiveLinesPerFile`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noExcessiveLinesPerFile": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Restrict the number of lines in a file.
+
+Large files tend to do many things and can make it hard to follow what's going on.
+This rule can help enforce a limit on the number of lines in a file.
+
+## Examples
+
+### Invalid
+
+The following example will show a diagnostic when `maxLines` is set to 2:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noExcessiveLinesPerFile": {
+					"level": "on",
+					"options": {
+						"maxLines": 2
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```graphql
+query Foo { id }
+query Bar { id }
+query Baz { id }
+```
+
+<pre class="language-text"><code class="language-text">code-block.graphql:1:1 <a href="https://biomejs.dev/linter/rules/no-excessive-lines-per-file">lint/style/noExcessiveLinesPerFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This file has too many lines (3). Maximum allowed is 2.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>query Foo &#123; id &#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>query Bar &#123; id &#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>query Baz &#123; id &#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider splitting this file into smaller files.</span><br />  <br /></code></pre>
+
+### Valid
+
+```graphql
+query Foo { id }
+query Bar { id }
+```
+
+## Options
+
+### `maxLines`
+
+This option sets the maximum number of lines allowed in a file.
+If the file exceeds this limit, a diagnostic will be reported.
+
+Default: `300`
+
+#### Examples
+
+The default value for `maxLines` is `300`. The following example shows how to set the
+`maxLines` option to a smaller value. It reports a diagnostic because the file has more
+than 4 lines:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noExcessiveLinesPerFile": {
+					"level": "on",
+					"options": {
+						"maxLines": 4
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```graphql
+query Foo { id }
+query Bar { id }
+query Baz { id }
+query Qux { id }
+query Quux { id }
+```
+
+<pre class="language-text"><code class="language-text">code-block.graphql:1:1 <a href="https://biomejs.dev/linter/rules/no-excessive-lines-per-file">lint/style/noExcessiveLinesPerFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">This file has too many lines (5). Maximum allowed is 4.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>query Foo &#123; id &#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>2 │ </strong>query Bar &#123; id &#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>3 │ </strong>query Baz &#123; id &#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>4 │ </strong>query Qux &#123; id &#125;<br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>5 │ </strong>query Quux &#123; id &#125;<br />   <strong>   │ </strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>6 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Consider splitting this file into smaller files.</span><br />  <br /></code></pre>
+
+### `skipBlankLines`
+
+When this option is set to `true`, blank lines are not counted towards the maximum line limit.
+
+Default: `false`
+
+#### Examples
+
+The following example shows how `skipBlankLines` can prevent a diagnostic by excluding blank
+lines from the total count:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noExcessiveLinesPerFile": {
+					"level": "on",
+					"options": {
+						"maxLines": 2,
+						"skipBlankLines": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```graphql
+query Foo { id }
+
+
+query Bar { id }
+```
+
+## Suppressions
+
+If you need to exceed the line limit in a specific file, you can suppress this rule
+at the top of the file:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noExcessiveLinesPerFile": {
+					"level": "on",
+					"options": {
+						"maxLines": 2
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```graphql
+# biome-ignore-all lint/style/noExcessiveLinesPerFile: generated file
+query Foo { id }
+query Bar { id }
+query Baz { id }
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/style/no_excessive_lines_per_file.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/style/noExcessiveLinesPerFile)
+

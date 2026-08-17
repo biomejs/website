@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noUselessElse
-description: Learn more about noUselessElse
+description: JavaScript (and super languages) documentation for noUselessElse
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-else/"}]} />
+
 ## Summary
 - Rule available since: `v1.3.0`
 - Diagnostic Category: [`lint/style/noUselessElse`](/reference/diagnostics#diagnostic-category)
@@ -117,7 +117,4 @@ function f(x) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_useless_else.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noUselessElse)
-
-</TabItem>
-</Tabs>
 

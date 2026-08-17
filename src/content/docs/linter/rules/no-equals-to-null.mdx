@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noEqualsToNull
-description: Learn more about noEqualsToNull
+description: JavaScript (and super languages) documentation for noEqualsToNull
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-equals-to-null/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.8`
 - Diagnostic Category: [`lint/suspicious/noEqualsToNull`](/reference/diagnostics#diagnostic-category)
@@ -71,7 +71,4 @@ foo !== null;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_equals_to_null.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noEqualsToNull)
-
-</TabItem>
-</Tabs>
 

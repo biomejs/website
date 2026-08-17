@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noEmptyBlockStatements
-description: Learn more about noEmptyBlockStatements
+description: JavaScript (and super languages) documentation for noEmptyBlockStatements
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-empty-block-statements/"}]} />
+
 ## Summary
 - Rule available since: `v1.3.0`
 - Diagnostic Category: [`lint/suspicious/noEmptyBlockStatements`](/reference/diagnostics#diagnostic-category)
@@ -94,7 +94,4 @@ try {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_empty_block_statements.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noEmptyBlockStatements)
-
-</TabItem>
-</Tabs>
 

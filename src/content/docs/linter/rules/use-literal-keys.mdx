@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useLiteralKeys
-description: Learn more about useLiteralKeys
+description: JavaScript (and super languages) documentation for useLiteralKeys
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-literal-keys/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/complexity/useLiteralKeys`](/reference/diagnostics#diagnostic-category)
@@ -81,7 +81,4 @@ a[d.c];
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_literal_keys.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/useLiteralKeys)
-
-</TabItem>
-</Tabs>
 

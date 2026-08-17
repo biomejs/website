@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noGlobalIsNan
-description: Learn more about noGlobalIsNan
+description: JavaScript (and super languages) documentation for noGlobalIsNan
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-global-is-nan/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/suspicious/noGlobalIsNan`](/reference/diagnostics#diagnostic-category)
@@ -60,7 +60,4 @@ Number.isNaN({}); // false
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_global_is_nan.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noGlobalIsNan)
-
-</TabItem>
-</Tabs>
 

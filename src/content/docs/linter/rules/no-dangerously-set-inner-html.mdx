@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noDangerouslySetInnerHtml
-description: Learn more about noDangerouslySetInnerHtml
+description: JavaScript (and super languages) documentation for noDangerouslySetInnerHtml
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JSX and TSX" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-dangerously-set-inner-html/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/security/noDangerouslySetInnerHtml`](/reference/diagnostics#diagnostic-category)
@@ -67,7 +67,4 @@ React.createElement('div', {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/security/no_dangerously_set_inner_html.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/security/noDangerouslySetInnerHtml)
-
-</TabItem>
-</Tabs>
 

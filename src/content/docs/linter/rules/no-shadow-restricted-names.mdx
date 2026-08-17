@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noShadowRestrictedNames
-description: Learn more about noShadowRestrictedNames
+description: JavaScript (and super languages) documentation for noShadowRestrictedNames
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-shadow-restricted-names/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/suspicious/noShadowRestrictedNames`](/reference/diagnostics#diagnostic-category)
@@ -78,7 +78,4 @@ function test(JSON) {console.log(JSON)}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_shadow_restricted_names.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noShadowRestrictedNames)
-
-</TabItem>
-</Tabs>
 

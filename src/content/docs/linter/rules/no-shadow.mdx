@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noShadow
-description: Learn more about noShadow
+description: JavaScript (and super languages) documentation for noShadow
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-shadow/"}]} />
+
 ## Summary
 - Rule available since: `v2.0.0`
 - Diagnostic Category: [`lint/suspicious/noShadow`](/reference/diagnostics#diagnostic-category)
@@ -163,7 +163,4 @@ type Fn = (test: string) => typeof test;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_shadow.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noShadow)
-
-</TabItem>
-</Tabs>
 

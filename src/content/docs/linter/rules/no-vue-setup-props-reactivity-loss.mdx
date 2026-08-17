@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noVueSetupPropsReactivityLoss
-description: Learn more about noVueSetupPropsReactivityLoss
+description: JavaScript (and super languages) documentation for noVueSetupPropsReactivityLoss
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-setup-props-reactivity-loss/"}]} />
+
 ## Summary
 - Rule available since: `v2.2.6`
 - Diagnostic Category: [`lint/correctness/noVueSetupPropsReactivityLoss`](/reference/diagnostics#diagnostic-category)
@@ -72,7 +72,4 @@ export default {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_vue_setup_props_reactivity_loss.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noVueSetupPropsReactivityLoss)
-
-</TabItem>
-</Tabs>
 

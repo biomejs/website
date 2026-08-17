@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noInvalidDirectionInLinearGradient
-description: Learn more about noInvalidDirectionInLinearGradient
+description: CSS documentation for noInvalidDirectionInLinearGradient
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="CSS" icon="seti:css">
+<RuleLanguageSelect current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-invalid-direction-in-linear-gradient/"}]} />
+
 ## Summary
 - Rule available since: `v1.9.0`
 - Diagnostic Category: [`lint/correctness/noInvalidDirectionInLinearGradient`](/reference/diagnostics#diagnostic-category)
@@ -75,7 +75,4 @@ A common mistake (matching outdated non-standard syntax) is to use just a side-o
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_invalid_direction_in_linear_gradient.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noInvalidDirectionInLinearGradient)
-
-</TabItem>
-</Tabs>
 

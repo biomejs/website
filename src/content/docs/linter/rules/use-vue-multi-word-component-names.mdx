@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useVueMultiWordComponentNames
-description: Learn more about useVueMultiWordComponentNames
+description: JavaScript (and super languages) documentation for useVueMultiWordComponentNames
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-multi-word-component-names/"}]} />
+
 ## Summary
 - Rule available since: `v2.2.3`
 - Diagnostic Category: [`lint/style/useVueMultiWordComponentNames`](/reference/diagnostics#diagnostic-category)
@@ -152,7 +152,4 @@ export default {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_vue_multi_word_component_names.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useVueMultiWordComponentNames)
-
-</TabItem>
-</Tabs>
 

@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useConsistentHeadingLevel
-description: Learn more about useConsistentHeadingLevel
+description: Markdown documentation for useConsistentHeadingLevel
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="Markdown" icon="seti:markdown">
+<RuleLanguageSelect current="markdown" languages={[{"id":"markdown","label":"Markdown","href":"/linter/rules/use-consistent-heading-level/"}]} />
+
 :::caution
 This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
@@ -69,7 +69,4 @@ This rule catches cases where a heading skips one or more levels.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/src/lint/nursery/use_consistent_heading_level.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/tests/specs/nursery/useConsistentHeadingLevel)
-
-</TabItem>
-</Tabs>
 

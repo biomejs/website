@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useVueHyphenatedAttributes
-description: Learn more about useVueHyphenatedAttributes
+description: HTML documentation for useVueHyphenatedAttributes
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="HTML" icon="seti:html">
+<RuleLanguageSelect current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-hyphenated-attributes/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.6`
 - Diagnostic Category: [`lint/style/useVueHyphenatedAttributes`](/reference/diagnostics#diagnostic-category)
@@ -147,7 +147,4 @@ This is useful for third-party or internal components that deliberately expose n
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/style/use_vue_hyphenated_attributes.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/style/useVueHyphenatedAttributes)
-
-</TabItem>
-</Tabs>
 

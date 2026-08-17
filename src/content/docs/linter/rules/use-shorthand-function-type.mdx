@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useShorthandFunctionType
-description: Learn more about useShorthandFunctionType
+description: JavaScript (and super languages) documentation for useShorthandFunctionType
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="TypeScript and TSX" icon="seti:typescript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-shorthand-function-type/"}]} />
+
 ## Summary
 - Rule available since: `v1.5.0`
 - Diagnostic Category: [`lint/style/useShorthandFunctionType`](/reference/diagnostics#diagnostic-category)
@@ -107,7 +107,4 @@ type Intersection = ((data: string) => number) & ((id: number) => string);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_shorthand_function_type.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useShorthandFunctionType)
-
-</TabItem>
-</Tabs>
 

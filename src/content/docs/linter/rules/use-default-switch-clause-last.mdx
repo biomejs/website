@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useDefaultSwitchClauseLast
-description: Learn more about useDefaultSwitchClauseLast
+description: JavaScript (and super languages) documentation for useDefaultSwitchClauseLast
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-default-switch-clause-last/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/suspicious/useDefaultSwitchClauseLast`](/reference/diagnostics#diagnostic-category)
@@ -110,7 +110,4 @@ switch (foo) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/use_default_switch_clause_last.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/useDefaultSwitchClauseLast)
-
-</TabItem>
-</Tabs>
 

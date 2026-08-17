@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useFragmentSyntax
-description: Learn more about useFragmentSyntax
+description: JavaScript (and super languages) documentation for useFragmentSyntax
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JSX and TSX" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-fragment-syntax/"}]} />
+
 ## Summary
 - Rule available since: `v1.0.0`
 - Diagnostic Category: [`lint/style/useFragmentSyntax`](/reference/diagnostics#diagnostic-category)
@@ -60,7 +60,4 @@ The shorthand fragment syntax saves keystrokes and is only inapplicable when key
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_fragment_syntax.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useFragmentSyntax)
-
-</TabItem>
-</Tabs>
 

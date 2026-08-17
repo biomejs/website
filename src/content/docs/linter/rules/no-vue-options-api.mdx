@@ -4,12 +4,12 @@
 editUrl: false
 
 title: noVueOptionsApi
-description: Learn more about noVueOptionsApi
+description: JavaScript (and super languages) documentation for noVueOptionsApi
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="JavaScript (and super languages)" icon="seti:javascript">
+<RuleLanguageSelect current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-options-api/"}]} />
+
 ## Summary
 - Rule available since: `v2.3.12`
 - Diagnostic Category: [`lint/style/noVueOptionsApi`](/reference/diagnostics#diagnostic-category)
@@ -153,7 +153,4 @@ onMounted(() => {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_vue_options_api.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noVueOptionsApi)
-
-</TabItem>
-</Tabs>
 

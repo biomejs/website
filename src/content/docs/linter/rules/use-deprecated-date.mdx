@@ -4,12 +4,12 @@
 editUrl: false
 
 title: useDeprecatedDate
-description: Learn more about useDeprecatedDate
+description: GraphQL documentation for useDeprecatedDate
 ---
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";
 
-<Tabs>
-<TabItem label="GraphQL" icon="seti:graphql">
+<RuleLanguageSelect current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-deprecated-date/"}]} />
+
 ## Summary
 - Rule available since: `v2.2.6`
 - Diagnostic Category: [`lint/suspicious/useDeprecatedDate`](/reference/diagnostics#diagnostic-category)
@@ -68,7 +68,4 @@ query {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/suspicious/use_deprecated_date.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/suspicious/useDeprecatedDate)
-
-</TabItem>
-</Tabs>
 
