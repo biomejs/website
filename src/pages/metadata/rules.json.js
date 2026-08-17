@@ -334,6 +334,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.\n\n [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility)\n tracks the availability of web platform features across core browsers.\n This rule helps you avoid features that aren't supported in the browsers you need to target.\n\n Features are categorized into three tiers:\n - **Limited**: Not yet available in all core browsers.\n - **Newly available**: Available in all core browsers for less than 30 months.\n - **Widely available**: Available in all core browsers for at least 30 months.\n\n By default, the rule reports on anything that is not Baseline **widely available**.\n\n Code inside `@supports` blocks is exempt: if you feature-detect a capability before\n using it, the rule does not flag it.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   backdrop-filter: blur(4px);\n }\n ```\n\n ```css,expect_diagnostic\n a { width: abs(20% - 100px); }\n ```\n\n ```css,expect_diagnostic\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ```css,expect_diagnostic\n details::details-content { background: red; }\n ```\n\n ### Valid\n\n ```css\n a { color: red; }\n ```\n\n ```css\n /* @supports exempts feature-detected code */\n @supports (backdrop-filter: blur(4px)) {\n   a { backdrop-filter: blur(4px); }\n }\n ```\n\n ## Options\n\n ### `available`\n\n Specifies the minimum Baseline availability tier to accept. Defaults to `\"widely\"`.\n\n - `\"widely\"`: Only accept features that are Baseline widely available (default).\n - `\"newly\"`: Accept features that are at least Baseline newly available.\n - A year number (e.g. `2023`): Accept features that became newly available in that year or earlier.\n\n Default: `\"widely\"`\n\n ```json,options\n {\n   \"options\": {\n     \"available\": \"newly\"\n   }\n }\n ```\n\n With `\"newly\"`, a property that is newly (but not yet widely) available doesn't trigger the rule:\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n But a limited property still fails:\n\n ```css,expect_diagnostic,use_options\n a { accent-color: red; }\n ```\n\n ### `allowProperties`\n\n A list of CSS property names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowProperties\": [\"backdrop-filter\"]\n   }\n }\n ```\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n ### `allowAtRules`\n\n A list of CSS at-rule names to exclude from checking (without `@`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowAtRules\": [\"view-transition\"]\n   }\n }\n ```\n\n ```css,use_options\n @view-transition { navigation: auto; }\n ```\n\n ### `allowFunctions`\n\n A list of CSS value function names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowFunctions\": [\"abs\"]\n   }\n }\n ```\n\n ```css,use_options\n a { width: abs(20% - 100px); }\n ```\n\n ### `allowMediaConditions`\n\n A list of CSS media query condition names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowMediaConditions\": [\"inverted-colors\"]\n   }\n }\n ```\n\n ```css,use_options\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ### `allowPropertyValues`\n\n An object mapping property names to arrays of allowed values (case-insensitive).\n\n Default: `{}`\n\n ```json,options\n {\n   \"options\": {\n     \"allowPropertyValues\": {\n       \"clip-path\": [\"fill-box\"]\n     }\n   }\n }\n ```\n\n ```css,use_options\n a { clip-path: fill-box; }\n ```\n\n ### `allowSelectors`\n\n A list of CSS pseudo-class or pseudo-element names to exclude from checking\n (without `:` or `::`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowSelectors\": [\"has\"]\n   }\n }\n ```\n\n ```css,use_options\n h1:has(+ h2) { margin: 0; }\n ```\n\n"
+          },
+          "useNamedLayer": {
+            "deprecated": false,
+            "version": "2.5.9",
+            "name": "useNamedLayer",
+            "link": "https://biomejs.dev/linter/rules/use-named-layer",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintCss": "use-layers"
+                }
+              }
+            ],
+            "docs": " Disallow anonymous cascade layers.\n\n A cascade layer created with `@layer { ... }` or imported with\n `@import \"...\" layer` has no name. Anonymous layers get their own place\n in the cascade order, but because they cannot be referred to by name,\n no later rule can add styles to them or reorder them. This makes the\n cascade harder to reason about and prevents reusing the layer.\n\n Give every layer a name so it can be referenced, appended to, and\n ordered explicitly through a `@layer` statement.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @layer {\n   a {\n     color: red;\n   }\n }\n ```\n\n ```css,expect_diagnostic\n @import \"theme.css\" layer;\n ```\n\n ### Valid\n\n ```css\n @layer base {\n   a {\n     color: red;\n   }\n }\n ```\n\n ```css\n @import \"theme.css\" layer(base);\n ```\n\n"
           }
         },
         "style": {
@@ -1953,6 +1970,40 @@ export function GET() {
             ],
             "docs": " Disallow deprecated number modifiers on Vue `v-on` directives.\n\n Vue 3 no longer supports using key code numbers as event modifiers.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <input v-on:keyup.13=\"submit\" />\n ```\n\n ```vue,expect_diagnostic\n <input @keyup.13=\"submit\" />\n ```\n\n ### Valid\n\n ```vue\n <input v-on:keyup.enter=\"submit\" />\n ```\n\n ```vue\n <input @keyup.enter=\"submit\" />\n ```\n\n"
           },
+          "useAstroClientOnlyDirectiveValue": {
+            "deprecated": false,
+            "version": "2.5.9",
+            "name": "useAstroClientOnlyDirectiveValue",
+            "link": "https://biomejs.dev/linter/rules/use-astro-client-only-directive-value",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintAstro": "missing-client-only-directive-value"
+                }
+              }
+            ],
+            "docs": " Require a value for Astro's `client:only` directive.\n\n `client:only` skips server rendering, so Astro needs a framework value to select the client renderer.\n\n ## Examples\n\n ### Invalid\n\n ```astro,expect_diagnostic\n <Component client:only />\n ```\n\n ### Valid\n\n ```astro\n <Component client:only=\"react\" />\n ```\n\n Dynamic expression values are accepted without resolving their bindings.\n\n ```astro\n <Component client:only={renderer} />\n ```\n\n The rule only checks whether an initializer is present. Empty values are accepted.\n\n ## References\n\n - [Astro client directives](https://docs.astro.build/en/reference/directives-reference/#clientonly)\n"
+          },
+          "useControlLabel": {
+            "deprecated": false,
+            "version": "2.5.9",
+            "name": "useControlLabel",
+            "link": "https://biomejs.dev/linter/rules/use-control-label",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "control-has-associated-label"
+                }
+              }
+            ],
+            "docs": " Enforce that interactive control elements have an accessible label.\n\n A control with no accessible label is announced by assistive technology\n as an anonymous control (e.g. just \"button\"), leaving its purpose\n unclear. A label can come from text content, `aria-label`,\n `aria-labelledby`, or `title` attribute.\n\n This rule checks native controls whose accessible name is expected to\n come from their own content or attributes (`button`, `menuitem`).\n Elements hidden from assistive technology with `aria-hidden` are\n skipped, as are elements that already require a text alternative under\n a dedicated rule (e.g. `area`, `img`, checked by `useAltText`).\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<BUTTON>`, `<Button>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<Button>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <button></button>\n ```\n\n ```html,expect_diagnostic\n <button>   </button>\n ```\n\n ### Valid\n\n ```html\n <button>Submit</button>\n ```\n\n ```html\n <button aria-label=\"Close\"></button>\n ```\n\n ```html\n <button><span>Delete</span></button>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 3.3.2](https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
+          },
           "useIframeSandbox": {
             "deprecated": false,
             "version": "2.4.12",
@@ -1995,6 +2046,23 @@ export function GET() {
               }
             ],
             "docs": " Require keyed `{#each}` blocks in Svelte templates.\n\n Svelte uses keyed each blocks to track list items across updates. Without a key, Svelte\n updates items by position, which can cause state to move between items when the list changes.\n\n For more information, see the Svelte documentation on [keyed each blocks](https://svelte.dev/docs/svelte/each#Keyed-each-blocks).\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n {#each items as item}\n   <div>{item}</div>\n {/each}\n ```\n\n ### Valid\n\n ```svelte\n {#each items as item (item.id)}\n   <div>{item}</div>\n {/each}\n ```\n\n"
+          },
+          "useTailwindShorthandClasses": {
+            "deprecated": false,
+            "version": "2.5.9",
+            "name": "useTailwindShorthandClasses",
+            "link": "https://biomejs.dev/linter/rules/use-tailwind-shorthand-classes",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintBetterTailwindcss": "enforce-shorthand-classes"
+                }
+              }
+            ],
+            "docs": " Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same.\n\n This rule detects sequences of Tailwind CSS utility classes that can be replaced by a single\n shorter utility. Using shorthands reduces duplication, keeps class lists readable, and helps\n prevent drift where one side gets updated but the matching side does not.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"w-4 h-4\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"size-4\"></div>\n ```\n\n ## Known limitations\n\n This rule currently doesn't check bare strings inside framework-specific class collections,\n such as array or object entries in Vue, Svelte, or Astro class bindings:\n\n ```svelte\n <div class={[\"w-4 h-4\", selected && \"px-2 py-2\"]}></div>\n <div class={{ \"mr-3 ml-3\": active }}></div>\n ```\n\n It also doesn't check untagged template chunks inside framework class attributes:\n\n ```svelte\n <div class={`border-x border-y ${extra}`}></div>\n ```\n\n In Astro, bare strings inside `class:list` arrays are currently not checked unless they are passed\n to a recognized helper function such as `clsx`.\n"
           },
           "useVueValidVFor": {
             "deprecated": false,
@@ -8150,7 +8218,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-svg-without-title",
             "recommended": true,
             "fixKind": "none",
-            "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <title>foo</title>\n         <circle />\n         <circle />\n     </g>\n </svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ### Valid\n\n\n ```jsx\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"graphics-symbol\">\n     <title>Pass</title>\n     <rect />\n </svg>\n ```\n\n ```jsx\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"presentation\">foo</svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
+            "docs": " Enforces the usage of the `title` element for the `svg` element.\n\n It is not possible to specify the `alt` attribute for the `svg` as for the `img`.\n To make svg accessible, the following methods are available:\n - provide the `title` element as the first child to `svg`\n - provide `role=\"img\"` and `aria-label` or `aria-labelledby` to `svg`\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>\n     <title></title>\n     <circle />\n </svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>foo</svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg>\n     <rect />\n     <rect />\n     <g>\n         <title>foo</title>\n         <circle />\n         <circle />\n     </g>\n </svg>\n ```\n\n ```jsx,expect_diagnostic\n <svg role=\"graphics-symbol\"><rect /></svg>\n ```\n\n ### Valid\n\n\n ```jsx\n <svg>\n     <title>Pass</title>\n     <circle />\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-labelledby=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"title\">\n     <span id=\"title\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"graphics-symbol\">\n     <title>Pass</title>\n     <rect />\n </svg>\n ```\n\n ```jsx\n <svg aria-hidden=\"true\"><rect /></svg>\n ```\n\n ```jsx\n <svg aria-hidden><rect /></svg>\n ```\n\n ```jsx\n <svg role=\"img\" aria-label=\"\">\n     <span id=\"\">Pass</span>\n </svg>\n ```\n\n ```jsx\n <svg role=\"presentation\">foo</svg>\n ```\n\n\n ## Accessibility guidelines\n [Document Structure – SVG 1.1 (Second Edition)](https://www.w3.org/TR/SVG11/struct.html#DescriptionAndTitleElements)\n [ARIA: img role - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role)\n [Accessible SVGs | CSS-Tricks - CSS-Tricks](https://css-tricks.com/accessible-svgs/)\n [Contextually Marking up accessible images and SVGs | scottohara.me](https://www.scottohara.me/blog/2019/05/22/contextual-images-svgs-and-a11y.html)\n [Accessible SVGs](https://www.unimelb.edu.au/accessibility/techniques/accessible-svgs)\n\n"
           },
           "useAltText": {
             "deprecated": false,
@@ -8816,7 +8884,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow missing key props in iterators/collection literals.\n\n Warn if an element that likely requires a key prop--namely, one present in an array literal or an arrow function expression.\n Check out React documentation for [explanation on the why does React need keys.](https://react.dev/learn/rendering-lists#why-does-react-need-keys)\n\n This rule is intended for use in both React and Qwik applications to prevent missing key props in JSX elements inside iterators.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n [<Hello />];\n ```\n ```jsx,expect_diagnostic\n {items.map(item => <li>{item}</li>)}\n ```\n\n ### Valid\n\n ```jsx\n [<Hello key=\"first\" />, <Hello key=\"second\" />, <Hello key=\"third\" />];\n {items.map(item => <li key={item.id}>{item}</li>)}\n ```\n\n ## Options\n\n ### checkShorthandFragments\n\n React fragments can not only be created with `<React.Fragment>`, but also with shorthand\n fragments (`<></>`). To also check if those require a key, pass `true` to this option.\n\n ```json,options\n {\n     \"options\": {\n         \"checkShorthandFragments\": true\n     }\n }\n ```\n ```jsx,expect_diagnostic,use_options\n data.map((x) => <>{x}</>);\n ```\n\n"
+            "docs": " Disallow missing key props in iterators/collection literals.\n\n Warn if an element that likely requires a key prop--namely, one present in an array literal or an arrow function expression.\n Check out React documentation for [explanation on the why does React need keys.](https://react.dev/learn/rendering-lists#why-does-react-need-keys)\n\n This rule is intended for use in both React and Qwik applications to prevent missing key props in JSX elements inside iterators.\n It does not report diagnostics in Astro files.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n [<Hello />];\n ```\n ```jsx,expect_diagnostic\n {items.map(item => <li>{item}</li>)}\n ```\n\n ### Valid\n\n ```jsx\n [<Hello key=\"first\" />, <Hello key=\"second\" />, <Hello key=\"third\" />];\n {items.map(item => <li key={item.id}>{item}</li>)}\n ```\n\n ## Options\n\n ### checkShorthandFragments\n\n React fragments can not only be created with `<React.Fragment>`, but also with shorthand\n fragments (`<></>`). To also check if those require a key, pass `true` to this option.\n\n ```json,options\n {\n     \"options\": {\n         \"checkShorthandFragments\": true\n     }\n }\n ```\n ```jsx,expect_diagnostic,use_options\n data.map((x) => <>{x}</>);\n ```\n\n"
           },
           "useQwikClasslist": {
             "deprecated": false,
@@ -9006,6 +9074,23 @@ export function GET() {
             ],
             "docs": " Disallow arbitrary values in Tailwind CSS utility classes.\n\n Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties\n (e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports\n them so teams can keep styling constrained to named utilities from their Tailwind\n configuration.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"w-[400px]\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"text-[#555] bg-white\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"[color:red]\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"w-4 text-red-500 bg-white\" />;\n ```\n\n ```jsx\n <div className=\"[&:nth-child(3)]:px-2\" />;\n ```\n\n ## Options\n\n By default, this rule checks the `class` and `className` JSX attributes.\n The `attributes` option adds more JSX attributes to check, and `functions`\n enables checking string arguments and tagged templates in matching utilities.\n\n ```json,options\n {\n     \"options\": {\n         \"attributes\": [\"classList\"],\n         \"functions\": [\"clsx\"]\n     }\n }\n ```\n\n ### attributes\n\n Additional JSX attribute names to check.\n\n Default: `[]` (the `class` and `className` attributes are always checked).\n\n ### functions\n\n Function or tagged template names whose classes will be checked for arbitrary values.\n\n Default: `[]`.\n\n ```jsx,use_options,expect_diagnostic\n <div className={clsx(\"w-[400px]\")} />;\n ```\n\n"
           },
+          "useControlLabel": {
+            "deprecated": false,
+            "version": "2.5.9",
+            "name": "useControlLabel",
+            "link": "https://biomejs.dev/linter/rules/use-control-label",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJsxA11y": "control-has-associated-label"
+                }
+              }
+            ],
+            "docs": " Enforce that interactive control elements have an accessible label.\n\n A control with no accessible label is announced by assistive technology\n as an anonymous control (e.g. just \"button\"), leaving its purpose\n unclear. A label can come from text content anywhere inside the\n control, `aria-label`, `aria-labelledby`, or `title` attribute.\n\n This rule checks native controls whose accessible name is expected to\n come from their own content or attributes (`button`, `menuitem`).\n Elements hidden from assistive technology with `aria-hidden` are\n skipped, as are elements that already require a text alternative under\n a dedicated rule (e.g. `area`, `img`, checked by `useAltText`).\n\n The search through the content of a control is permissive: anything\n whose rendered output cannot be determined statically, such as an\n expression, a spread, or a custom component, is assumed to provide a\n label.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <button />;\n ```\n\n ```jsx,expect_diagnostic\n <button></button>;\n ```\n\n An icon button whose content renders nothing announceable:\n\n ```jsx,expect_diagnostic\n <button><i className=\"icon-save\" /></button>;\n ```\n\n ### Valid\n\n ```jsx\n <button>Submit</button>;\n ```\n\n ```jsx\n <button aria-label=\"Close\" />;\n ```\n\n ```jsx\n <button><Icon /><span>Delete</span></button>;\n ```\n\n ```jsx\n <button><img src=\"save.png\" alt=\"Save\" /></button>;\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 3.3.2](https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
+          },
           "useIframeSandbox": {
             "deprecated": false,
             "version": "2.4.12",
@@ -9045,6 +9130,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce a specific function type for React function components.\n\n This rule keeps function component definitions consistent. By default, named\n components must be written as function declarations.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n ## Options\n\n ### `namedComponents`\n\n The function style to enforce for named React components.\n Accepted values are:\n - `\"functionDeclaration\"` (default): Enforce function declarations.\n - `\"functionExpression\"`: Enforce function expressions assigned to component bindings.\n - `\"arrowFunction\"`: Enforce arrow functions assigned to component bindings.\n\n #### `\"functionDeclaration\"`\n\n ```json,options\n {\n   \"options\": {\n     \"namedComponents\": \"functionDeclaration\"\n   }\n }\n ```\n\n ##### Invalid\n\n ```jsx,use_options,expect_diagnostic\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n ##### Valid\n\n ```jsx,use_options\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n #### `\"functionExpression\"`\n\n ```json,options\n {\n   \"options\": {\n     \"namedComponents\": \"functionExpression\"\n   }\n }\n ```\n\n ##### Invalid\n\n ```jsx,use_options,expect_diagnostic\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n ```jsx,use_options,expect_diagnostic\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n ##### Valid\n\n ```jsx,use_options\n const MyComponent = function (props) {\n   return <div>{props.name}</div>;\n };\n ```\n\n #### `\"arrowFunction\"`\n\n ```json,options\n {\n   \"options\": {\n     \"namedComponents\": \"arrowFunction\"\n   }\n }\n ```\n\n ##### Invalid\n\n ```jsx,use_options,expect_diagnostic\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n ```jsx,use_options,expect_diagnostic\n const MyComponent = function (props) {\n   return <div>{props.name}</div>;\n };\n ```\n\n ##### Valid\n\n ```jsx,use_options\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n"
+          },
+          "useTailwindShorthandClasses": {
+            "deprecated": false,
+            "version": "2.5.9",
+            "name": "useTailwindShorthandClasses",
+            "link": "https://biomejs.dev/linter/rules/use-tailwind-shorthand-classes",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintBetterTailwindcss": "enforce-shorthand-classes"
+                }
+              }
+            ],
+            "docs": " Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same.\n\n This rule detects sequences of Tailwind CSS utility classes that can be replaced by a single\n shorter utility. Using shorthands reduces duplication, keeps class lists readable, and helps\n prevent drift where one side gets updated but the matching side does not.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"w-4 h-4\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"size-4\" />;\n ```\n\n ### Where Tailwind is Recognized\n\n The rule checks string arguments and tagged template literals passed to known helper functions.\n This is useful for libraries like [`clsx`](https://github.com/lukeed/clsx),\n [`cva`](https://cva.style/), or CSS-in-JS helpers such as `tw`.\n\n The full list of helper functions is:\n\n - `clsx`\n - `tw`\n - `twMerge`\n - `twJoin`\n - `cva`\n - `tv`\n - `cn`\n - `cc`\n - `cnb`\n - `ctl`\n\n Tagged template members like `tw.div` are also checked when their base function name is recognized.\n\n ## Known limitations\n\n This rule currently doesn't check bare strings inside framework-specific class collections,\n such as array or object entries in Vue, Svelte, or Astro class bindings:\n\n ```svelte,ignore\n <div class={[\"w-4 h-4\", selected && \"px-2 py-2\"]}></div>\n <div class={{ \"mr-3 ml-3\": active }}></div>\n ```\n\n It also doesn't check untagged template chunks inside framework class attributes:\n\n ```svelte,ignore\n <div class={`border-x border-y ${extra}`}></div>\n ```\n\n In Astro, bare strings inside `class:list` arrays are currently not checked unless they are passed\n to a recognized helper function such as `clsx`.\n\n"
           }
         },
         "performance": {
@@ -9623,6 +9725,15 @@ export function GET() {
             ],
             "docs": " Disallow Promises to be used in places where they are almost certainly a\n mistake.\n\n In most cases, if you assign a `Promise` somewhere a `Promise` is not\n allowed, the TypeScript compiler will be able to catch such a mistake.\n But there are a few places where TypeScript allows them -- they're not\n _necessarily_ a mistake -- even though they could be considered almost\n certainly to be one.\n\n This rule disallows using Promises in such places.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=promise-in-condition.js\n const promise = Promise.resolve('value');\n if (promise) { /* This branch will always execute */ }\n ```\n\n ```js,expect_diagnostic,file=promise-in-ternary-condition.js\n const promise = Promise.resolve('value');\n const val = promise ? 123 : 456; // Always evaluates to `123`.\n ```\n\n ```js,expect_diagnostic,file=promise-in-filter.js\n // The following filter has no effect:\n const promise = Promise.resolve('value');\n [1, 2, 3].filter(() => promise);\n ```\n\n ```js,expect_diagnostic,file=promise-while-condition.js\n const promise = Promise.resolve('value');\n while (promise) { /* This is an endless loop */ }\n ```\n\n ```js,expect_diagnostic,file=spread-promise.js\n // Using a `Promise` as an iterable expands to nothing:\n const getData = () => fetch('/');\n console.log({ foo: 42, ...getData() });\n ```\n\n ```js,expect_diagnostic,file=promise-in-forEach.js\n // These `fetch`-es are not `await`-ed in order:\n [1, 2, 3].forEach(async value => {\n     await fetch(`/${value}`);\n });\n ```\n\n ### Valid\n\n ```js,file=valid-promises.js\n const promise = Promise.resolve('value');\n if (await promise) { /* Do something */ }\n\n const val = (await promise) ? 123 : 456;\n\n while (await promise) { /* Do something */ }\n\n const getData = () => fetch('/');\n console.log({ foo: 42, ...(await getData()) });\n\n // for-of puts `await` in outer context:\n for (const value of [1, 2, 3]) {\n     await doSomething(value);\n }\n ```\n\n"
           },
+          "noUnsafeTypeAssertion": {
+            "deprecated": false,
+            "version": "2.5.9",
+            "name": "noUnsafeTypeAssertion",
+            "link": "https://biomejs.dev/linter/rules/no-unsafe-type-assertion",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow TypeScript type assertions other than const assertions.\n\n Type assertions override TypeScript's inferred type without performing any runtime checks.\n This can hide invalid assumptions about a value and lead to runtime errors.\n\n Safer alternatives include:\n\n - [Type annotations](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-annotations-on-variables)\n - The [`satisfies` operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator)\n - [Type predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates)\n - [Assertion functions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)\n - [Control-flow narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis)\n - Validation libraries, like [Zod](https://zod.dev/), [Valibot](https://valibot.dev/), or [arktype](https://arktype.dev/)\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface SomeType {\n     value: string;\n }\n declare const value;\n const asserted = value as SomeType;\n ```\n\n ```ts,expect_diagnostic\n interface SomeType {\n     value: string;\n }\n declare const value;\n const asserted = <SomeType>value;\n ```\n\n ```ts,expect_diagnostic\n interface SomeType {\n     value: string;\n }\n declare const asserted;\n (asserted as SomeType).value = \"foo\";\n ```\n\n ### Valid\n\n `const` assertions are allowed:\n\n ```ts\n const tuple = [\"value\", 1] as const;\n ```\n\n Use a [type annotation](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-annotations-on-variables):\n\n ```ts\n const annotated: string = \"value\";\n ```\n\n Use the [`satisfies` operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator):\n\n ```ts\n const checked = { value: \"value\" } satisfies { value: string };\n ```\n\n Use a [type predicate](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates):\n\n ```ts\n function isString(value: unknown): value is string {\n     return typeof value === \"string\";\n }\n ```\n\n Use an [assertion function](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions):\n\n ```ts\n function assertIsString(value: unknown): asserts value is string {\n     if (!isString(value)) {\n         throw new TypeError(\"Expected a string\");\n     }\n }\n ```\n\n Use [control-flow narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis):\n\n ```ts\n function narrow(value: string | undefined) {\n     if (value !== undefined) {\n         return value.length;\n     }\n }\n ```\n"
+          },
           "useExplicitReturnType": {
             "deprecated": false,
             "version": "2.4.11",
@@ -10197,7 +10308,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 570
+    "numberOrRules": 577
   },
   "syntax": {
     "languages": {
