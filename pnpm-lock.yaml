@@ -204,8 +204,8 @@ importers:
   scripts:
     devDependencies:
       '@biomejs/wasm-nodejs':
-        specifier: 2.4.16
-        version: 2.4.16
+        specifier: 2.5.8
+        version: 2.5.8
 
 packages:
 
@@ -537,8 +537,8 @@ packages:
   '@biomejs/version-utils@0.4.0':
     resolution: {integrity: sha512-jboDhjZY8/bAPl2kgvjrbbyXyM6uimPsasY3TvFhSpPaNorij0UZROi/NjDQqQeZFSaIK3ieiRZXWwoBZh6rQQ==}
 
-  '@biomejs/wasm-nodejs@2.4.16':
-    resolution: {integrity: sha512-3BSGXHJ25Is+9gRgV+Gwz7YdMktrMOBP+Vw3RwXy3Y/CHqXbbNSyhaMt6VFk1J/WAGutdYfBy+NzhlvOftwd+g==}
+  '@biomejs/wasm-nodejs@2.5.8':
+    resolution: {integrity: sha512-Ufp3wD5pqaADvFnDJmHkldYgz7X8QYpiR3VmLGJF1u3ix1EKPPjFNxFh2R2V79345DJqe+F2KTQEgkoe3mv/LA==}
 
   '@biomejs/wasm-web@https://pkg.pr.new/@biomejs/wasm-web@67c3bf0':
     resolution: {integrity: sha512-GeinyPPNmwq1rlHtzXiwJmTrH1FNVASyODEH8IqI5OS2STeHdhAVCqfZhdEhgOhivtO17q8Wg6ihkCkNK0eJ/Q==, tarball: https://pkg.pr.new/@biomejs/wasm-web@67c3bf0}
@@ -7096,7 +7096,7 @@ snapshots:
       undici: 6.26.0
       yaml: 2.9.0
 
-  '@biomejs/wasm-nodejs@2.4.16': {}
+  '@biomejs/wasm-nodejs@2.5.8': {}
 
   '@biomejs/wasm-web@https://pkg.pr.new/@biomejs/wasm-web@67c3bf0': {}
 
