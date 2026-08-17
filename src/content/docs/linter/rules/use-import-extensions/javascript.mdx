@@ -1,0 +1,190 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useImportExtensions (JavaScript)
+description: JavaScript (and super languages) documentation for useImportExtensions
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-import-extensions/javascript/"}]} />
+
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Rule available since: `v1.8.0`
+- Diagnostic Category: [`lint/correctness/useImportExtensions`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useImportExtensions": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce file extensions for relative imports.
+
+Browsers, Deno, and Node.js do not natively support importing files
+without extensions from JavaScript modules. This rule enforces the use
+of file extensions for relative imports to make the code more
+consistent -- and correct.
+
+In some cases, tooling can also benefit from explicit file extensions,
+because they do not need to guess which file to resolve.
+
+The rule checks both static imports (`import ... from "..."`) as well as
+dynamic imports such as `import(...)` and `require(...)`.
+
+## Examples
+
+### Invalid
+
+The following examples assume these imports will resolve to a file with
+an extension. Imports that don't resolve at all will not trigger a
+diagnostic.
+
+```js
+import "./foo";
+```
+
+```js
+import "./foo/";
+```
+
+```js
+import "../";
+```
+
+```js
+import "../.";
+```
+
+```js
+import("./foo");
+```
+
+```js
+require("./foo");
+```
+
+### Valid
+
+```js
+import "biome";
+```
+
+```js
+import "./foo.js";
+```
+
+```js
+import "./bar/index.js";
+```
+
+```js
+import("./foo.js");
+```
+
+```js
+require("./foo.js");
+```
+
+## Options
+
+The rule provides the options described below.
+
+### extensionMappings
+
+A map of file extensions to their suggested replacements. This allows you
+to specify custom mappings for import extensions. For example, you can
+map TypeScript imports to JavaScript extensions.
+
+This is useful if you are bundling your code to JavaScript into a package
+and want to make sure all imports of TypeScript files use the `.js` extension
+instead.
+
+If no mapping is found for a given extension, and the import is missing an extension,
+the rule will suggest using the actual extension of the resolved file.
+
+Default: `{}` (empty object)
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useImportExtensions": {
+					"level": "on",
+					"options": {
+						"extensionMappings": {
+							"ts": "js",
+							"tsx": "js"
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+### forceJsExtensions
+
+Normally, this rule suggests to use the extension of the module that is
+found in your project. For instance, `.ts` or `.tsx` for a TypeScript
+file. If this option is set to `true`, the rule will always suggest to
+use `.js` regardless of the extension in your project.
+
+This is useful if you use the `"module": "node16"` setting when building
+your code with `tsc`.
+
+Default: `false`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useImportExtensions": {
+					"level": "on",
+					"options": {
+						"forceJsExtensions": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+## Editor Configuration
+
+If you use Visual Studio Code, you can ensure that it adds the file
+extension when automatically importing a variable by configuring
+`javascript.preferences.importModuleSpecifierEnding` and
+`typescript.preferences.importModuleSpecifierEnding`
+in your [settings](https://code.visualstudio.com/docs/getstarted/settings).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_import_extensions.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useImportExtensions)
+

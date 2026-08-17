@@ -279,50 +279,12 @@ impl RegistryVisitor<MarkdownLanguage> for RulesVisitor {
 pub fn generate_rule_docs() -> Result<()> {
     let linter_root = project_root().join("src/content/docs/linter");
     let actions_root = project_root().join("src/content/docs/assist");
-    let mut all_rules = RulesVisitor::default();
-    biome_js_analyze::visit_registry(&mut all_rules);
-    biome_json_analyze::visit_registry(&mut all_rules);
-    biome_css_analyze::visit_registry(&mut all_rules);
-    biome_graphql_analyze::visit_registry(&mut all_rules);
-    biome_html_analyze::visit_registry(&mut all_rules);
-    biome_markdown_analyze::visit_registry(&mut all_rules);
-
-    generate_language_rule_docs(
-        &linter_root,
-        &actions_root,
-        SupportedLanguages::Js,
-        &all_rules,
-    )?;
-    generate_language_rule_docs(
-        &linter_root,
-        &actions_root,
-        SupportedLanguages::Json,
-        &all_rules,
-    )?;
-    generate_language_rule_docs(
-        &linter_root,
-        &actions_root,
-        SupportedLanguages::Css,
-        &all_rules,
-    )?;
-    generate_language_rule_docs(
-        &linter_root,
-        &actions_root,
-        SupportedLanguages::Graphql,
-        &all_rules,
-    )?;
-    generate_language_rule_docs(
-        &linter_root,
-        &actions_root,
-        SupportedLanguages::Html,
-        &all_rules,
-    )?;
-    generate_language_rule_docs(
-        &linter_root,
-        &actions_root,
-        SupportedLanguages::Markdown,
-        &all_rules,
-    )?;
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Js)?;
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Json)?;
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Css)?;
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Graphql)?;
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Html)?;
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Markdown)?;
 
     generate_domains()?;
     generate_number_of_rules_and_actions()?;
@@ -365,7 +327,6 @@ fn generate_language_rule_docs(
     linter_root: &Path,
     actions_root: &Path,
     supported_languages: SupportedLanguages,
-    all_rules: &RulesVisitor,
 ) -> Result<()> {
     let visitor = supported_languages.to_visitor();
     let linter_root = supported_languages.as_language_path(linter_root);
@@ -407,14 +368,12 @@ fn generate_language_rule_docs(
         lints.clone(),
         linter_root.join("rules.mdx"),
         &supported_languages,
-        &all_rules.lints,
     )?;
     generate_language_page(
         RuleCategory::Action,
         actions.clone(),
         actions_root.join("actions.mdx"),
         &supported_languages,
-        &all_rules.actions,
     )?;
 
     let rule_sources_buffer = generate_rule_sources(lints.groups.clone(), RuleCategory::Lint)?;
@@ -511,7 +470,6 @@ fn generate_language_page(
     rules: Rules,
     index_page: PathBuf,
     language_prefix: &SupportedLanguages,
-    all_rules: &Rules,
 ) -> Result<()> {
     let website_language = language_prefix.as_website_language();
     let language_prefix = language_prefix.as_prefix();
@@ -572,7 +530,6 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
             &mut recommended_rules,
             path_prefix,
             rule_category,
-            all_rules,
             website_language,
         )?;
     }
@@ -600,7 +557,6 @@ fn generate_group(
     recommended_rules: &mut String,
     path_prefix: &str,
     rule_category: RuleCategory,
-    all_rules: &Rules,
     website_language: &str,
 ) -> Result<()> {
     let is_nursery = group == "nursery";
@@ -618,18 +574,8 @@ fn generate_group(
         for meta in rule_to_document.clone().language_to_metadata.values() {
             let is_recommended = !is_nursery && meta.recommended;
             let dashed_rule = Case::Kebab.convert(rule_name);
-            let all_rule_languages = all_rules
-                .groups
-                .get(group)
-                .and_then(|rules| rules.get(rule_name))
-                .expect("Every language-specific rule should exist in the combined registry");
-            let rule_href = rule_page_href(
-                path_prefix,
-                middle_path,
-                &dashed_rule,
-                all_rule_languages,
-                website_language,
-            );
+            let rule_href =
+                rule_page_href(path_prefix, middle_path, &dashed_rule, website_language);
             let severity = match meta.severity {
                 Severity::Information => {
                     "Severity: [information](/reference/diagnostics#information)".to_string()
@@ -682,27 +628,9 @@ fn rule_page_href(
     path_prefix: &str,
     middle_path: &str,
     dashed_rule: &str,
-    rule: &RuleToDocument,
     website_language: &str,
 ) -> String {
-    let mut languages: Vec<_> = rule
-        .language_to_metadata
-        .keys()
-        .map(|language| {
-            (
-                to_website_language(language),
-                to_language_selector_label(language),
-            )
-        })
-        .collect();
-    languages.sort_by_key(|(_, label)| *label);
-
-    let base_href = format!("/{path_prefix}/{middle_path}/{dashed_rule}");
-    if languages.len() > 1 && languages[0].0 != website_language {
-        format!("{base_href}/{website_language}")
-    } else {
-        base_href
-    }
+    format!("/{path_prefix}/{middle_path}/{dashed_rule}/{website_language}")
 }
 
 struct GenRule<'a> {
@@ -716,8 +644,8 @@ struct GenRule<'a> {
 #[derive(Debug)]
 struct GeneratedRuleVariant {
     website_language: &'static str,
-    slug: &'static str,
     selector_label: &'static str,
+    title_label: &'static str,
     content: Vec<u8>,
 }
 
@@ -742,8 +670,8 @@ fn generate_rule(payload: GenRule, path_prefix: &str, rule_category: RuleCategor
             match result {
                 Ok(content) => Some(GeneratedRuleVariant {
                     website_language: to_website_language(language),
-                    slug: to_language_slug(language),
                     selector_label: to_language_selector_label(language),
+                    title_label: to_language_title(language),
                     content,
                 }),
                 Err(err) => {
@@ -774,74 +702,10 @@ fn generate_rule(payload: GenRule, path_prefix: &str, rule_category: RuleCategor
         }
     }
 
-    if variants.len() == 1 {
-        let variant = variants.pop().unwrap();
-        return write_single_language_rule_page(&payload, variant, path_prefix, rule_category);
-    }
-
-    write_multi_language_rule_pages(&payload, &variants, path_prefix, rule_category)
+    write_language_rule_pages(&payload, &variants, path_prefix, rule_category)
 }
 
-fn write_single_language_rule_page(
-    payload: &GenRule,
-    variant: GeneratedRuleVariant,
-    path_prefix: &str,
-    rule_category: RuleCategory,
-) -> Result<()> {
-    let mut content = Vec::new();
-    let rule_name_case = Case::Kebab.convert(payload.rule_name);
-    let middle_path = match rule_category {
-        RuleCategory::Lint => "rules",
-        RuleCategory::Action => "actions",
-        RuleCategory::Syntax | RuleCategory::Transformation => {
-            unimplemented!("Rule pages are only generated for lint rules and assist actions")
-        }
-    };
-    let language_options = language_options_to_mdx([(
-        variant.website_language,
-        variant.selector_label,
-        format!("/{path_prefix}/{middle_path}/{rule_name_case}/"),
-    )]);
-
-    writeln!(content, "---")?;
-    add_codegen_disclaimer_frontmatter(&mut content, CodegenEditUrl::Disabled)?;
-    writeln!(content, "title: {}", payload.rule_name)?;
-    writeln!(
-        content,
-        "description: {} documentation for {}",
-        variant.selector_label, payload.rule_name
-    )?;
-    writeln!(content, "---")?;
-    writeln!(
-        content,
-        r#"import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";"#
-    )?;
-
-    if rule_category == RuleCategory::Action {
-        writeln!(
-            content,
-            "import EditorAction from \"@/components/EditorAction.astro\";"
-        )?;
-    }
-
-    writeln!(content)?;
-    writeln!(
-        content,
-        "<RuleLanguageSelect current=\"{}\" languages={{{language_options}}} />",
-        variant.website_language
-    )?;
-    writeln!(content)?;
-    writeln!(content, "{}", String::from_utf8(variant.content).unwrap())?;
-
-    fs::write(
-        payload.content_root.join(format!("{rule_name_case}.mdx")),
-        content,
-    )?;
-
-    Ok(())
-}
-
-fn write_multi_language_rule_pages(
+fn write_language_rule_pages(
     payload: &GenRule,
     variants: &[GeneratedRuleVariant],
     path_prefix: &str,
@@ -856,20 +720,12 @@ fn write_multi_language_rule_pages(
         }
     };
     let base_url = format!("/{path_prefix}/{middle_path}/{rule_name_case}");
-    let primary_language = variants
-        .first()
-        .expect("Multi-language rule pages should have at least two variants")
-        .website_language;
 
     let language_options = language_options_to_mdx(variants.iter().map(|variant| {
         (
             variant.website_language,
             variant.selector_label,
-            if variant.website_language == primary_language {
-                format!("{base_url}/")
-            } else {
-                format!("{base_url}/{}/", variant.slug)
-            },
+            format!("{base_url}/{}/", variant.website_language),
         )
     }));
 
@@ -880,7 +736,11 @@ fn write_multi_language_rule_pages(
 
         writeln!(content, "---")?;
         add_codegen_disclaimer_frontmatter(&mut content, CodegenEditUrl::Disabled)?;
-        writeln!(content, "title: {}", payload.rule_name)?;
+        writeln!(
+            content,
+            "title: {} ({})",
+            payload.rule_name, variant.title_label
+        )?;
         writeln!(
             content,
             "description: {} documentation for {}",
@@ -889,7 +749,7 @@ fn write_multi_language_rule_pages(
         writeln!(content, "---")?;
         writeln!(
             content,
-            r#"import RuleLanguageSelect from "@/components/RuleLanguageSelect.astro";"#
+            r#"import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";"#
         )?;
 
         if rule_category == RuleCategory::Action {
@@ -902,28 +762,46 @@ fn write_multi_language_rule_pages(
         writeln!(content)?;
         writeln!(
             content,
-            "<RuleLanguageSelect current=\"{}\" languages={{{language_options}}} />",
+            "<RuleLanguageLinks current=\"{}\" languages={{{language_options}}} />",
             variant.website_language
         )?;
         writeln!(content)?;
         writeln!(
             content,
             "{}",
-            String::from_utf8(variant.content.clone()).unwrap()
+            rule_content_with_language_url(
+                &variant.content,
+                path_prefix,
+                middle_path,
+                &rule_name_case,
+                variant.website_language,
+            )
         )?;
 
-        let output_path = if variant.website_language == primary_language {
-            payload.content_root.join(format!("{rule_name_case}.mdx"))
-        } else {
-            payload
-                .content_root
-                .join(&rule_name_case)
-                .join(format!("{}.mdx", variant.slug))
-        };
+        let output_path = payload
+            .content_root
+            .join(&rule_name_case)
+            .join(format!("{}.mdx", variant.website_language));
         fs::write(output_path, content)?;
     }
 
     Ok(())
+}
+
+fn rule_content_with_language_url(
+    content: &[u8],
+    path_prefix: &str,
+    middle_path: &str,
+    rule_name: &str,
+    language: &str,
+) -> String {
+    let content =
+        String::from_utf8(content.to_vec()).expect("Generated rule content should be UTF-8");
+    let root_url = format!("https://biomejs.dev/{path_prefix}/{middle_path}/{rule_name}");
+    content.replace(
+        &format!("href=\"{root_url}\""),
+        &format!("href=\"{root_url}/{language}\""),
+    )
 }
 
 fn language_options_to_mdx<'a>(
@@ -1712,7 +1590,7 @@ fn markup_to_string(markup: &MarkupBuf) -> String {
     String::from_utf8(buffer).expect("to have convert a buffer into a String")
 }
 
-fn to_language_slug(language: &str) -> &'static str {
+pub(crate) fn to_website_language(language: &str) -> &'static str {
     match language {
         "js" | "jsx" | "ts" => "javascript",
         "json" => "json",
@@ -1726,8 +1604,18 @@ fn to_language_slug(language: &str) -> &'static str {
     }
 }
 
-fn to_website_language(language: &str) -> &'static str {
-    to_language_slug(language)
+fn to_language_title(language: &str) -> &'static str {
+    match language {
+        "js" | "jsx" | "ts" => "JavaScript",
+        "json" => "JSON",
+        "css" => "CSS",
+        "graphql" => "GraphQL",
+        "html" => "HTML",
+        "md" => "Markdown",
+        _ => {
+            panic!("Language {language} isn't supported.")
+        }
+    }
 }
 
 fn to_language_selector_label(language: &str) -> &'static str {
