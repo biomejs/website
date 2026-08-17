@@ -145,7 +145,7 @@ importers:
         version: 3.9.6
       prettier-plugin-svelte:
         specifier: 3.5.2
-        version: 3.5.2(prettier@3.9.6)(svelte@5.55.10(@typescript-eslint/types@8.61.0))
+        version: 3.5.2(prettier@3.9.6)(svelte@5.56.9(@typescript-eslint/types@8.61.0))
       react:
         specifier: 19.2.8
         version: 19.2.8
@@ -174,8 +174,8 @@ importers:
         specifier: 0.25.3
         version: 0.25.3(@astrojs/starlight@0.41.7(@astrojs/markdown-remark@7.2.2)(astro@7.2.2(@astrojs/markdown-remark@7.2.2)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@netlify/blobs@10.7.9)(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(typescript@5.9.3))(astro@7.2.2(@astrojs/markdown-remark@7.2.2)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@netlify/blobs@10.7.9)(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))
       svelte:
-        specifier: 5.55.10
-        version: 5.55.10(@typescript-eslint/types@8.61.0)
+        specifier: 5.56.9
+        version: 5.56.9(@typescript-eslint/types@8.61.0)
       textlint:
         specifier: 15.6.0
         version: 15.6.0
@@ -3477,8 +3477,8 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
 
-  esrap@2.2.11:
-    resolution: {integrity: sha512-gPdx+I+BjYEinNMQaBXFjbaJVyoPMU4ZODg5mE+M4DqVG9VusAVHHjcBX+zqyITlI0DIARwDMMzZwAWj36dRoQ==}
+  esrap@2.3.4:
+    resolution: {integrity: sha512-CHnJXZDfBeOAjLIGNy/0BEsmDu5+irHgUXRW9pGptxCbO3uyjJ98crilzFgiBqizW94UodjX3GAPLg/dhEnUfA==}
     peerDependencies:
       '@typescript-eslint/types': ^8.2.0
     peerDependenciesMeta:
@@ -5886,8 +5886,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  svelte@5.55.10:
-    resolution: {integrity: sha512-v9mFVBY1USosyIWdXE7Cg4AN0ywyKCMcAhONvli8doMowEhFhMdNLKD1j7O/UnsrdVTHaUOk/jv8hD/HClVy+g==}
+  svelte@5.56.9:
+    resolution: {integrity: sha512-VT8kSnlEg8069w7AiCcAk3Yf5xvMnrGTagVOmU/OpOLHaHnNqXhWZCH/4EVga/bT/HtWhvE6/fHrXLErx7OnJA==}
     engines: {node: '>=18'}
 
   svg-parser@2.0.4:
@@ -10435,7 +10435,7 @@ snapshots:
 
   esprima@4.0.1: {}
 
-  esrap@2.2.11(@typescript-eslint/types@8.61.0):
+  esrap@2.3.4(@typescript-eslint/types@8.61.0):
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
     optionalDependencies:
@@ -12756,10 +12756,10 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.5.2(prettier@3.9.6)(svelte@5.55.10(@typescript-eslint/types@8.61.0)):
+  prettier-plugin-svelte@3.5.2(prettier@3.9.6)(svelte@5.56.9(@typescript-eslint/types@8.61.0)):
     dependencies:
       prettier: 3.9.6
-      svelte: 5.55.10(@typescript-eslint/types@8.61.0)
+      svelte: 5.56.9(@typescript-eslint/types@8.61.0)
 
   prettier@3.9.6: {}
 
@@ -13664,7 +13664,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svelte@5.55.10(@typescript-eslint/types@8.61.0):
+  svelte@5.56.9(@typescript-eslint/types@8.61.0):
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.5.5
@@ -13677,7 +13677,7 @@ snapshots:
       clsx: 2.1.1
       devalue: 5.8.1
       esm-env: 1.2.2
-      esrap: 2.2.11(@typescript-eslint/types@8.61.0)
+      esrap: 2.3.4(@typescript-eslint/types@8.61.0)
       is-reference: 3.0.3
       locate-character: 3.0.0
       magic-string: 0.30.21
