@@ -17,6 +17,12 @@ export function GET() {
                 "source": {
                   "stylelint": "font-family-no-missing-generic-family-keyword"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintCss": "font-family-fallbacks"
+                }
               }
             ],
             "docs": " Disallow a missing generic family keyword within font families.\n\n The generic font family can be:\n - placed anywhere in the font family list\n - omitted if a keyword related to property inheritance or a system font is used\n\n This rule checks the font and font-family properties.\n The following special situations are ignored:\n - Property with a keyword value such as `inherit`, `initial`.\n - The last value being a CSS variable.\n - `font-family` property in an `@font-face` rule.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { font-family: Arial; }\n ```\n\n ```css,expect_diagnostic\n a { font: normal 14px/32px -apple-system, BlinkMacSystemFont; }\n ```\n\n ### Valid\n\n ```css\n a { font-family: \"Lucida Grande\", \"Arial\", sans-serif; }\n ```\n\n ```css\n a { font-family: inherit; }\n ```\n\n ```css\n a { font-family: sans-serif; }\n ```\n\n ```css\n a { font-family: var(--font); }\n ```\n\n ```css\n @font-face { font-family: Gentium; }\n ```\n\n"
@@ -101,6 +107,12 @@ export function GET() {
                 "source": {
                   "stylelint": "no-invalid-position-at-import-rule"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintCss": "no-invalid-at-rule-placement"
+                }
               }
             ],
             "docs": " Disallow the use of `@import` at-rules in invalid positions.\n\n Any `@import` rules must precede all other valid at-rules and style rules in a stylesheet (ignoring `@charset` and `@layer`), or else the `@import` rule is invalid.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {}\n @import 'foo.css';\n ```\n\n ### Valid\n\n ```css\n @import 'foo.css';\n a {}\n ```\n\n"
@@ -168,6 +180,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "stylelint": "property-no-unknown"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintCss": "no-invalid-properties"
                 }
               }
             ],
@@ -253,6 +271,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "stylelint": "selector-anb-no-unmatchable"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintCss": "no-unmatchable-selectors"
                 }
               }
             ],
@@ -438,6 +462,12 @@ export function GET() {
                 "source": {
                   "stylelint": "no-duplicate-at-import-rules"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintCss": "no-duplicate-imports"
+                }
               }
             ],
             "docs": " Disallow duplicate `@import` rules.\n\n This rule checks if the file urls of the @import rules are duplicates.\n\n This rule also checks the imported media queries and alerts of duplicates.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n @import 'a.css';\n @import 'a.css';\n ```\n\n ```css,expect_diagnostic\n @import \"a.css\";\n @import 'a.css';\n ```\n\n ```css,expect_diagnostic\n @import url('a.css');\n @import url('a.css');\n ```\n\n ### Valid\n\n ```css\n @import 'a.css';\n @import 'b.css';\n ```\n\n ```css\n @import url('a.css') tv;\n @import url('a.css') projection;\n ```\n\n"
@@ -619,6 +649,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "stylelint": "at-rule-no-unknown"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintCss": "no-invalid-at-rules"
                 }
               }
             ],
