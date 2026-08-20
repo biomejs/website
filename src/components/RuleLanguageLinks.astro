@@ -1,0 +1,85 @@
+---
+export interface RuleLanguage {
+	id: string;
+	label: string;
+	href: string;
+}
+
+interface Props {
+	current: string;
+	languages: RuleLanguage[];
+}
+
+const { current, languages } = Astro.props;
+const onlyLanguage = languages.length === 1 ? languages[0] : undefined;
+---
+
+{onlyLanguage ? (
+        <div class="rule-language not-content">
+            <span class="field-label">Language</span>
+            <span class="language-value">{onlyLanguage.label}</span>
+        </div>
+    ) : (
+        <nav class="rule-language not-content" aria-label="Rule language">
+            <span class="field-label">Language</span>
+            <ul class="language-links">
+                {languages.map(({ id, label, href }) => (
+                    <li>
+                        {id === current ? (
+                            <span aria-current="page">{label}</span>
+                        ) : (
+                            <a href={href}>{label}</a>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    )}
+
+<style>
+.rule-language {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.625rem;
+	max-width: 100%;
+}
+
+.field-label {
+	color: var(--sl-color-gray-1);
+	font-size: var(--sl-text-sm);
+	font-weight: 500;
+}
+
+.language-value {
+	color: var(--biome-color-signal);
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
+}
+
+.language-links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.language-links li {
+	display: inline-flex;
+	align-items: center;
+}
+
+.language-links li + li::before {
+	margin-inline: 0.5rem;
+	color: var(--sl-color-gray-3);
+	content: "·";
+}
+
+.language-links :is(a, span) {
+	color: var(--biome-color-signal);
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
+}
+</style>

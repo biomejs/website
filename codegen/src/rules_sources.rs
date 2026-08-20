@@ -1,4 +1,4 @@
-use crate::lintdoc::RuleToDocument;
+use crate::lintdoc::{RuleToDocument, to_website_language};
 use crate::shared::{
     CodegenEditUrl, add_codegen_disclaimer_frontmatter, add_codegen_rule_suggestion,
 };
@@ -81,11 +81,12 @@ description: A page that maps {name_lower_case} from other sources to Biome
                 continue;
             }
             let kebab_rule_name = Case::Kebab.convert(rule_name);
+            let biome_link = format!(
+                "/{prefix_path}/{kebab_rule_name}/{}",
+                to_website_language(metadata.language)
+            );
             if metadata.sources.is_empty() {
-                exclusive_biome_rules.insert((
-                    rule_name.to_string(),
-                    format!("/{prefix_path}/{kebab_rule_name}"),
-                ));
+                exclusive_biome_rules.insert((rule_name.to_string(), biome_link));
             } else {
                 for source_with_kind in metadata.sources {
                     let source = &source_with_kind.source;
@@ -93,7 +94,7 @@ description: A page that maps {name_lower_case} from other sources to Biome
                     if let Some(set) = set {
                         set.insert(SourceSet {
                             biome_rule_name: rule_name.to_string(),
-                            biome_link: format!("/{prefix_path}/{kebab_rule_name}"),
+                            biome_link: biome_link.clone(),
                             source_link: source.to_rule_url(),
                             source_rule_name: source.as_rule_name().to_string(),
                             inspired: source_with_kind.kind.is_inspired(),
@@ -102,7 +103,7 @@ description: A page that maps {name_lower_case} from other sources to Biome
                         let mut set = BTreeSet::new();
                         set.insert(SourceSet {
                             biome_rule_name: rule_name.to_string(),
-                            biome_link: format!("/{prefix_path}/{kebab_rule_name}"),
+                            biome_link: biome_link.clone(),
                             source_link: source.to_rule_url(),
                             source_rule_name: source.as_rule_name().to_string(),
                             inspired: source_with_kind.kind.is_inspired(),
@@ -116,7 +117,7 @@ description: A page that maps {name_lower_case} from other sources to Biome
 
     writeln!(buffer, "## Biome exclusive {name_lower_case}",)?;
     for (rule, link) in exclusive_biome_rules {
-        writeln!(buffer, "- [{rule}]({link}) ")?;
+        writeln!(buffer, "- [{rule}]({link})")?;
     }
 
     writeln!(buffer, "## {name} from other sources",)?;

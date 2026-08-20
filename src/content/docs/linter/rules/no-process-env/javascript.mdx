@@ -1,0 +1,74 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noProcessEnv (JavaScript)
+description: JavaScript (and super languages) documentation for noProcessEnv
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-process-env/javascript/"}]} />
+
+## Summary
+- Rule available since: `v1.9.1`
+- Diagnostic Category: [`lint/style/noProcessEnv`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`n/no-process-env`](https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-process-env.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noProcessEnv": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the use of `process.env`.
+
+The `process.env` object in Node.js stores configuration settings. Using it directly throughout a project can cause problems:
+
+1. It's harder to maintain
+2. It can lead to conflicts in team development
+3. It complicates deployment across multiple servers
+
+A better practice is to keep all settings in one configuration file and reference it throughout the project.
+
+## Examples
+
+### Invalid
+
+```js
+if (process.env.NODE_ENV === 'development') {
+  // ...
+}
+```
+
+<pre class="language-text"><code class="language-text">code-block.js:1:5 <a href="https://biomejs.dev/linter/rules/no-process-env/javascript">lint/style/noProcessEnv</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Don't use </span><span style="color: lightgreen;"><strong>process.env</strong></span><span style="color: lightgreen;">.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>if (process.env.NODE&#95;ENV === 'development') &#123;<br />   <strong>   │ </strong>    <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong>  // ...<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Use a centralized configuration file instead for better maintainability and deployment consistency.</span><br />  <br /></code></pre>
+
+### Valid
+
+```js
+const config = require('./config');
+if (config.NODE_ENV === 'development') {
+  // ...
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_process_env.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noProcessEnv)
+

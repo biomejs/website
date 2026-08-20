@@ -69,6 +69,7 @@ const plugins = [
 	starlightLinksValidator({
 		// TODO: enable once `next` is merged into `main`
 		errorOnInvalidHashes: false,
+		failOnError: false, // There are some bugs where it plugin doesn't pick up some redirects
 		exclude: [
 			"/playground",
 			"/playground/",

@@ -1,0 +1,81 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueValidVHtml (HTML)
+description: HTML documentation for useVueValidVHtml
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-valid-v-html/html/"}]} />
+
+## Summary
+- Rule available since: `v2.3.6`
+- Diagnostic Category: [`lint/correctness/useVueValidVHtml`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/valid-v-html`](https://eslint.vuejs.org/rules/valid-v-html)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useVueValidVHtml": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce valid `v-html` directives.
+
+This rule reports v-html directives in the following cases:
+
+- The directive has an argument. E.g. `<div v-html:aaa></div>`
+- The directive has a modifier. E.g. `<div v-html.bbb></div>`
+- The directive does not have an attribute value. E.g. `<div v-html></div>`
+
+## Examples
+
+### Invalid
+
+```vue
+<div v-html:aaa="foo"></div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.vue:1:12 <a href="https://biomejs.dev/linter/rules/use-vue-valid-v-html/html">lint/correctness/useVueValidVHtml</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The v-html directive does not accept an argument.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-html:aaa=&quot;foo&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">v-html directives should be used without arguments, like </span><span style="color: lightgreen;"><strong>v-html=&quot;content&quot;</strong></span><span style="color: lightgreen;">.</span><br />  <br /></code></pre>
+
+```vue
+<div v-html.bbb="foo"></div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.vue:1:12 <a href="https://biomejs.dev/linter/rules/use-vue-valid-v-html/html">lint/correctness/useVueValidVHtml</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The v-html directive does not support modifiers.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-html.bbb=&quot;foo&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>           <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">v-html directives do not support any modifiers. Remove the modifier.</span><br />  <br /></code></pre>
+
+```vue
+<div v-html></div>
+```
+
+<pre class="language-text"><code class="language-text">code-block.vue:1:6 <a href="https://biomejs.dev/linter/rules/use-vue-valid-v-html/html">lint/correctness/useVueValidVHtml</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The v-html directive is missing a value.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-html&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">v-html directives require a value containing the HTML content to render.</span><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">For example, use </span><span style="color: lightgreen;"><strong>v-html=&quot;htmlContent&quot;</strong></span><span style="color: lightgreen;"> to render the content of the </span><span style="color: lightgreen;"><strong>htmlContent</strong></span><span style="color: lightgreen;"> variable.</span><br />  <br /></code></pre>
+
+### Valid
+
+```vue
+<div v-html="htmlContent"></div>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/correctness/use_vue_valid_v_html.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/correctness/useVueValidVHtml)
+

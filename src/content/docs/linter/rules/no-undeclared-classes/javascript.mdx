@@ -1,0 +1,79 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUndeclaredClasses (JavaScript)
+description: JavaScript (and super languages) documentation for noUndeclaredClasses
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-undeclared-classes/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-undeclared-classes/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Rule available since: `v2.5.0`
+- Diagnostic Category: [`lint/nursery/noUndeclaredClasses`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUndeclaredClasses": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Reports CSS class names in JSX `className` or `class` attributes that are not defined
+in any imported CSS file.
+
+When a JSX file imports CSS files, every class name used in `className=` or `class=`
+attributes is checked against the available class definitions. Classes that are not
+defined are reported.
+
+This rule checks string literals, variable references (resolved through the semantic
+model), call expressions like `clsx(...)` / `classnames(...)`, object expression keys,
+and array expressions. Dynamic class names that cannot be statically resolved are
+silently skipped.
+
+In Astro files, `class:list={...}` directives and `class={...}` attribute expressions
+are also checked. CSS files imported in the frontmatter (`import "./styles.css"`) are
+included in the class resolution.
+
+## Examples
+
+### Invalid
+
+```js
+import "./styles.css";
+export default () => <div className="missing" />;
+```
+
+### Valid
+
+```js
+import "./styles.css";
+export default () => <div className="header" />;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_undeclared_classes.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUndeclaredClasses)
+

@@ -1,3 +1,4 @@
+use crate::lintdoc::to_website_language;
 use crate::project_root;
 use crate::shared::{CodegenEditUrl, add_codegen_disclaimer_frontmatter};
 use biome_analyze::{RuleDomain, RuleMetadata};
@@ -94,7 +95,12 @@ impl DocDomains {
             for (group, rule) in rules {
                 let dashed_rule = Case::Kebab.convert(rule.name);
 
-                write!(buffer, "- [{}](/linter/rules/{dashed_rule})", rule.name)?;
+                write!(
+                    buffer,
+                    "- [{}](/linter/rules/{dashed_rule}/{})",
+                    rule.name,
+                    to_website_language(rule.language)
+                )?;
 
                 if rule.recommended && group != "nursery" {
                     write!(buffer, " (recommended)")?;
