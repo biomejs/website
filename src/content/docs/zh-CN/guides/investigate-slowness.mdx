@@ -21,19 +21,19 @@ Biome 的设计初衷就是追求高速，极致的高速。但有时它的实�
 - 搭配 `--log-kind=json`，可让 Biome 将日志以 JSON 格式输出。
 
 将三个参数组合使用，就能生成一份包含完整耗时信息的 JSON 日志文件，示例命令如下：
-```sh
+```sh showLineNumbers=false
 biome lint --log-level=tracing --log-kind=json --log-file=tracing.json
 ```
 执行后会生成 `tracing.json` 文件，但该文件数据量通常极大，我们可以借助工具 [`jq`](https://github.com/jqlang/jq) 筛选日志内容。
 
 举例：若你想查看构建模块图谱时耗时最长的文件路径，执行如下命令：
-```sh
+```sh showLineNumbers=false
 cat tracing.json | jq 'select(.span.name == "update_module_graph_internal") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
 ```
 执行完成后会生成 `filtered.json`，文件内包含所有执行路径及其对应的耗时数据。
 
 同理，若要定位代码分析耗时最久的文件，使用这条命令：
-```sh
+```sh showLineNumbers=false
 cat tracing.json | jq '. | select(.span.name == "pull_diagnostics") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
 ```
 

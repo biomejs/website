@@ -54,7 +54,7 @@ First, you have to update your configuration file and tell Biome what's the defa
 
 Then, add the `--changed` option to your command, to process only those files that your VCS acknowledged as "changed". Biome, with the help of the VCS, will determine the changed file from the branch `main` and your current revision:
 
-```shell
+```shell showLineNumbers=false
 biome check --changed
 ```
 
@@ -66,7 +66,7 @@ Also note that `--changed` applies to both the formatter and the linter. Biome o
 
 Alternatively, you can use the option `--since` to specify an arbitrary branch. This option **takes precedence** over the option `vcs.defaultBranch`. For example, you might want to check your changes against the `next` branch:
 
-```shell
+```shell showLineNumbers=false
 biome check --changed --since=next
 ```
 
@@ -75,7 +75,7 @@ biome check --changed --since=next
 Before committing your changes, you may want to check formatting and linting for files added to the index (also known as staged files) without running Biome on the entire project.
 To limit Biome to only processing files slated for committing, pass the `--staged` option to the command:
 
-```shell
+```shell showLineNumbers=false
 biome check --staged
 ```
 

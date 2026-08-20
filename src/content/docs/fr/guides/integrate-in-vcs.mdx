@@ -53,7 +53,7 @@ D’abord, vous devez mettre à jour votre fichier de configuration et dire à B
 
 Puis, ajoutez l’option `--changed` à votre commande pour ne traiter que ces fichiers que votre VCS reconnaît comme étant «&nbsp;modifiés&nbsp;». Biome, avec l’aide du VCS, déterminera les fichiers modifiés en se basant sur la branche `main` et sur votre révision actuelle&nbsp;:
 
-```shell
+```shell showLineNumbers=false
 biome check --changed
 ```
 
@@ -63,7 +63,7 @@ Biome ne vérifie pas ce qui a été modifié, ce qui veut dire que même l’aj
 
 Ou bien vous pouvez utiliser l’option `--since` pour spécifier une branche arbitraire. Cette option **est prioritaire** sur l’option `vcs.defaultBranch`. Par exemple, vous pourriez vouloir vérifier vos modifications par rapport à la branche `next`&nbsp;:
 
-```shell
+```shell showLineNumbers=false
 biome check --changed --since=next
 ```
 
@@ -72,7 +72,7 @@ biome check --changed --since=next
 Avant d’effectuer un commit de vos modifications, il se peut que vous vouliez vérifier le formatage et le linting des fichiers qui ont été ajoutés à _l’index,_ également connus sous le nom de _fichiers indexés_.
 Ajoutez l’option `--staged` à votre commande pour ne traiter que ces fichiers-là&nbsp;:
 
-```shell
+```shell showLineNumbers=false
 biome check --staged
 ```
 

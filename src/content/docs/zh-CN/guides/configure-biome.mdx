@@ -124,7 +124,7 @@ Biome（自 v2.0.0 起）支持嵌套的 `biome.json` 文件。
 控制 Biome 处理哪些文件和文件夹的第一种方法是在 CLI 中列出它们。
 在以下命令中，我们只格式化 `file1.js` 和 `src` 文件夹中的所有文件，因为文件夹是递归遍历的。
 
-```shell
+```shell showLineNumbers=false
 biome format file1.js src/
 ```
 
@@ -166,7 +166,7 @@ Biome 配置文件中的路径和 glob 相对于配置文件所在的文件夹�
 
 并运行以下命令：
 
-```shell
+```shell showLineNumbers=false
 biome format test/
 ```
 
@@ -176,7 +176,7 @@ biome format test/
 
 如果我们运行以下命令，则不会检查任何文件，因为 `test/` 文件夹中的文件在检查器中被显式忽略。
 
-```shell
+```shell showLineNumbers=false
 biome lint test/
 ```
 

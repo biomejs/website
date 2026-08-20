@@ -140,7 +140,7 @@ CLI、設定ファイル、VCSなど、さまざまな方法を使用して処�
 Biomeが処理するファイルやフォルダを制御する最初の方法は、CLIでそれらを列挙することです。
 以下のコマンドでは、`file1.js` と `src` フォルダ内のすべてのファイルのみをフォーマットします。フォルダは再帰的に走査されます。
 
-```shell
+```shell showLineNumbers=false
 biome format file1.js src/
 ```
 
@@ -181,7 +181,7 @@ Biomeの設定ファイル内のパスとglobは、設定ファイルがある�
 
 そして、以下のコマンドを実行します：
 
-```shell
+```shell showLineNumbers=false
 biome format test/
 ```
 
@@ -191,7 +191,7 @@ biome format test/
 
 次のコマンドを実行すると、`test/` フォルダ内のファイルはリンタで明示的に無視されているため、ファイルはリントされません。
 
-```shell
+```shell showLineNumbers=false
 biome lint test/
 ```
 
