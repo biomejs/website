@@ -26,7 +26,7 @@ Biomeは高速であることを目指しています。_非常に高速です�
 
 これら3つの引数を組み合わせると、Biomeのすべての関連するタイミング情報を含むJSONメッセージのログファイルを作成できます。例えば：
 
-```sh
+```sh showLineNumbers=false
 biome lint --log-level=tracing --log-kind=json --log-file=tracing.json
 ```
 
@@ -34,7 +34,7 @@ biome lint --log-level=tracing --log-kind=json --log-file=tracing.json
 
 例えば、モジュールグラフを構築する際にどのパスが最も時間がかかるかを特定したい場合は、次のコマンドを使用できます：
 
-```sh
+```sh showLineNumbers=false
 cat tracing.json | jq 'select(.span.name == "update_module_graph_internal") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
 ```
 
@@ -42,7 +42,7 @@ cat tracing.json | jq 'select(.span.name == "update_module_graph_internal") | { 
 
 同様に、どのファイルの分析が最も遅かったかを特定したい場合は、次のコマンドを使用できます：
 
-```sh
+```sh showLineNumbers=false
 cat tracing.json | jq '. | select(.span.name == "pull_diagnostics") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
 ```
 

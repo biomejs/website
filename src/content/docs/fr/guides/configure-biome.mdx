@@ -174,7 +174,7 @@ La première façon de contrôler quels fichiers et répertoires sont traités p
 Avec la commande suivante, nous ne formatons que `file1.js` et tous les fichiers du répertoire `src`.
 Les répertoires sont parcourus de manière récursive.
 
-```shell
+```shell showLineNumbers=false
 biome format file1.js src/
 ```
 
@@ -218,7 +218,7 @@ Prenons la configuration suivante&nbsp;:
 
 Et exécutons la commande suivante&nbsp;:
 
-```shell
+```shell showLineNumbers=false
 biome format test/
 ```
 
@@ -227,7 +227,7 @@ Les fichiers de `src` ne sont pas formatés parce que le répertoire n’est pas
 
 Si nous exécutons la commande suivante, aucun fichier n’est analysé parce que le répertoire `test` est explicitement ignoré par l’outil de linting.
 
-```shell
+```shell showLineNumbers=false
 biome lint test/
 ```
 

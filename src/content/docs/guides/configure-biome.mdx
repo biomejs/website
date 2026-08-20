@@ -141,7 +141,7 @@ The first way to control which files and folders are processed by Biome is to
 list them in the CLI. In the following command, we only format `file1.js` and
 all the files in the `src` folder, because folders are recursively traversed.
 
-```shell
+```shell showLineNumbers=false
 biome format file1.js src/
 ```
 
@@ -188,7 +188,7 @@ the `src/` folder, the `test/` folder, and ignore files that have `.min.js` in t
 
 And run the following command:
 
-```shell
+```shell showLineNumbers=false
 biome format test/
 ```
 
@@ -201,7 +201,7 @@ CLI.
 If we run the following command, no files are linted because files inside the
 `test/` folder are explicitly ignored for the linter.
 
-```shell
+```shell showLineNumbers=false
 biome lint test/
 ```
 

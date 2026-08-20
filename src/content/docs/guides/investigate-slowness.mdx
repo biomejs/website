@@ -53,7 +53,7 @@ investigation. Specifically, we'll combine the following command-line arguments:
 If we combine these three arguments, we can create a log file with JSON messages
 containing all relevant timing information for Biome. For instance:
 
-```sh
+```sh showLineNumbers=false
 biome lint --log-level=tracing --log-kind=json --log-file=tracing.json
 ```
 
@@ -63,7 +63,7 @@ use [`jq`](https://github.com/jqlang/jq) to filter through this information.
 For example, if you want to figure out which paths take the longest when
 building the module graph, you can use the following command:
 
-```sh
+```sh showLineNumbers=false
 cat tracing.json | jq 'select(.span.name == "update_module_graph_internal") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
 ```
 
@@ -73,7 +73,7 @@ together with the paths used during the invocations.
 Similarly, if you want to figure out which files were slowest to analyse, you
 can use the following command:
 
-```sh
+```sh showLineNumbers=false
 cat tracing.json | jq '. | select(.span.name == "pull_diagnostics") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
 ```
 

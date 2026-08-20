@@ -12,14 +12,25 @@ const biomeBin = "biome";
 
 <Tabs syncKey="command">
 	<TabItem label="npm" icon="seti:npm">
-		<Code frame="none" code={`npx ${biomePackage} ${command}`} lang="bash" />
+		<Code
+			frame="none"
+			showLineNumbers={false}
+			code={`npx ${biomePackage} ${command}`}
+			lang="bash"
+		/>
 	</TabItem>
 	<TabItem label="pnpm" icon="pnpm">
-		<Code frame="none" code={`pnpx ${biomePackage} ${command}`} lang="bash" />
+		<Code
+			frame="none"
+			showLineNumbers={false}
+			code={`pnpx ${biomePackage} ${command}`}
+			lang="bash"
+		/>
 	</TabItem>
 	<TabItem label="bun" icon="bun">
 		<Code
 			frame="none"
+			showLineNumbers={false}
 			code={`bunx --bun ${biomePackage} ${command}`}
 			lang="bash"
 		/>
@@ -27,6 +38,7 @@ const biomeBin = "biome";
 	<TabItem label="deno" icon="deno">
 		<Code
 			frame="none"
+			showLineNumbers={false}
 			code={`deno run -A npm:${biomePackage} ${command}`}
 			lang="bash"
 		/>
@@ -34,6 +46,7 @@ const biomeBin = "biome";
 	<TabItem label="yarn" icon="seti:yarn">
 		<Code
 			frame="none"
+			showLineNumbers={false}
 			code={`yarn exec ${biomeBin} -- ${command}`}
 			lang="bash"
 		/>

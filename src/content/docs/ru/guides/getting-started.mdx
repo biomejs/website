@@ -51,7 +51,7 @@ Biome предоставляет [интерфейс командной стро
 
 <Tabs syncKey="command">
 	<TabItem label="npm" icon="seti:npm">
-		<Code frame="none" code={`
+		<Code frame="none" showLineNumbers={false} code={`
 # Отформатировать все файлы
 npx @biomejs/biome format --write
 
@@ -72,7 +72,7 @@ npx @biomejs/biome check --write <файлы>
     `} lang="bash"  />
 	</TabItem>
 	<TabItem label="pnpm" icon="pnpm">
-		<Code frame="none" code={`
+		<Code frame="none" showLineNumbers={false} code={`
 # Отформатировать все файлы
 pnpx @biomejs/biome format --write
 
@@ -93,7 +93,7 @@ pnpx @biomejs/biome check --write <файлы>
     `} lang="bash"  />
 	</TabItem>
 	<TabItem label="bun" icon="bun">
-		<Code frame="none" code={`
+		<Code frame="none" showLineNumbers={false} code={`
 # Отформатировать все файлы
 bunx --bun @biomejs/biome format --write
 
@@ -114,7 +114,7 @@ bunx --bun @biomejs/biome check --write <файлы>
     `} lang="bash"  />
 	</TabItem>
 	<TabItem label="deno" icon="deno">
-		<Code frame="none" code={`
+		<Code frame="none" showLineNumbers={false} code={`
 # Отформатировать выбранные файлы
 deno run -A npm:@biomejs/biome format --write <файлы>
 
@@ -135,7 +135,7 @@ deno run -A npm:@biomejs/biome check --write <файлы>
     `} lang="bash"  />
 	</TabItem>
 	<TabItem label="yarn" icon="seti:yarn">
-		<Code frame="none" code={`
+		<Code frame="none" showLineNumbers={false} code={`
 # Отформатировать все файлы
 yarn exec biome format --write
 
