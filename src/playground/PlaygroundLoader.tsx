@@ -226,11 +226,11 @@ function PlaygroundLoader() {
 				type: "updateFiles",
 				files: Object.entries(state.files).map(([filename, file]) => ({
 					filename,
-					code: file?.content,
+					code: file?.content ?? "",
 				})),
 			});
 		});
-	}, [loadingState, Object.keys(state.files).length]);
+	}, [loadingState, Object.keys(state.files).join("\0")]);
 
 	// Dispatch updated code to Prettier
 	// biome-ignore lint/correctness/useExhaustiveDependencies: dependencies mismatch
@@ -288,9 +288,11 @@ function buildLocation(state: PlaygroundState): string {
 	const rawQueryParams: Record<string, unknown> = {
 		...state.settings,
 	};
+	delete rawQueryParams.ruleDomains;
 
 	// Eliminate default values
 	const queryStringObj: Record<string, string> = {};
+	const hashStringObj: Record<string, string> = {};
 	for (const key in rawQueryParams) {
 		const defaultValue = String(
 			defaultPlaygroundState.settings[key as keyof PlaygroundSettings],
@@ -302,6 +304,7 @@ function buildLocation(state: PlaygroundState): string {
 			queryStringObj[key] = value;
 		}
 	}
+	const lastSearchStringObj = { ...queryStringObj };
 
 	if (state.tab) {
 		queryStringObj.tab = state.tab;
@@ -314,25 +317,28 @@ function buildLocation(state: PlaygroundState): string {
 	if (state.singleFileMode && Object.keys(state.files).length === 1) {
 		// Single file mode
 		const code = getCurrentCode(state);
-		if (code) {
-			queryStringObj.code = encodeCode(code);
-		}
-
 		const language = guessLanguage(state.currentFile);
+		const isScript = state.currentFile.endsWith(".cjs");
+		if (code || language !== LANGUAGE.TSX || isScript) {
+			hashStringObj.code = encodeCode(code);
+		}
 		if (language !== LANGUAGE.TSX) {
 			queryStringObj.language = language;
 		}
-
-		const gritQuery = getFileState(state, state.currentFile)?.gritQuery;
-		if (gritQuery) {
-			queryStringObj.gritQuery = gritQuery;
+		if (isScript) {
+			queryStringObj.script = "true";
 		}
 	} else {
 		// Populate files
 		for (const filename in state.files) {
 			const content = state.files[filename]?.content ?? "";
-			queryStringObj[`files.${filename}`] = encodeCode(content);
+			hashStringObj[`files.${filename}`] = encodeCode(content);
 		}
+	}
+
+	const gritQuery = getFileState(state, state.currentFile)?.gritQuery;
+	if (gritQuery) {
+		hashStringObj.gritQuery = gritQuery;
 	}
 
 	// handle rule domains
@@ -340,60 +346,80 @@ function buildLocation(state: PlaygroundState): string {
 		const value = state.settings.ruleDomains[key as RuleDomain];
 		if (value !== undefined && value !== "none") {
 			queryStringObj[`ruleDomains.${key}`] = value;
+			lastSearchStringObj[`ruleDomains.${key}`] = value;
 		}
 	}
 
 	const queryString = new URLSearchParams(queryStringObj).toString();
-	lastSearchStore.set(queryString);
+	const hashString = new URLSearchParams(hashStringObj).toString();
+	lastSearchStore.set(new URLSearchParams(lastSearchStringObj).toString());
 
 	let url = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
 	if (queryString !== "") {
 		url += `?${queryString}`;
+	}
+	if (hashString !== "") {
+		url += `#${hashString}`;
 	}
 	return url;
 }
 
 function initState(
 	searchParams: URLSearchParams,
-	includeFiles: boolean,
+	hashParams: URLSearchParams,
+	legacyContentParams: URLSearchParams,
 ): PlaygroundState {
 	let singleFileMode = defaultPlaygroundState.singleFileMode;
 	let hasFiles = false;
 	let files: PlaygroundState["files"] = {};
 
-	if (includeFiles) {
-		// Populate files
-		for (const [key, value] of searchParams) {
-			const match = key.match(FILE_QUERY_KEY_REGEX);
-			if (match != null) {
-				const filename = normalizeFilename(match[1]!);
-				files[filename] = {
-					content: decodeCode(value),
-					biome: emptyBiomeOutput,
-					prettier: emptyPrettierOutput,
-				};
-				singleFileMode = false;
-				hasFiles = true;
-			}
-		}
+	const hashHasFiles = [...hashParams.keys()].some((key) =>
+		FILE_QUERY_KEY_REGEX.test(key),
+	);
+	const fileParams = hashHasFiles ? hashParams : legacyContentParams;
 
-		// Single file mode
-		if (searchParams.get("code")) {
+	// Populate files. Hash content wins over legacy query-string content.
+	for (const [key, value] of fileParams) {
+		const match = key.match(FILE_QUERY_KEY_REGEX);
+		if (match != null) {
+			const filename = normalizeFilename(match[1]!);
+			files[filename] = {
+				content: decodeCode(value),
+				biome: emptyBiomeOutput,
+				prettier: emptyPrettierOutput,
+			};
+			singleFileMode = false;
+			hasFiles = true;
+		}
+	}
+
+	if (!hasFiles) {
+		// Single file mode. Read content from the hash first, then legacy query params.
+		const encodedCode =
+			hashParams.get("code") ?? legacyContentParams.get("code");
+		if (encodedCode !== null) {
 			const ext = getExtension({
 				language: (searchParams.get("language") as Language) ?? LANGUAGE.TSX,
 				script: searchParams.get("script") === "true",
 			});
-			const gritQuery = searchParams.get("gritQuery");
-			const baseFile = {
-				content: decodeCode(searchParams.get("code") ?? ""),
+			files[`main.${ext}`] = {
+				content: decodeCode(encodedCode),
 				biome: emptyBiomeOutput,
 				prettier: emptyPrettierOutput,
 			};
-			files[`main.${ext}`] =
-				gritQuery !== null && gritQuery !== ""
-					? { ...baseFile, gritQuery }
-					: baseFile;
 			hasFiles = true;
+		}
+	}
+
+	const gritQuery =
+		hashParams.get("gritQuery") ?? legacyContentParams.get("gritQuery");
+	if (gritQuery) {
+		const filename = Object.keys(files)[0];
+		if (filename !== undefined) {
+			files[filename] = {
+				...files[filename]!,
+				gritQuery,
+			};
 		}
 	}
 
@@ -402,7 +428,7 @@ function initState(
 	}
 
 	// handle rule domains
-	const ruleDomains = defaultPlaygroundState.settings.ruleDomains;
+	const ruleDomains = { ...defaultPlaygroundState.settings.ruleDomains };
 	const prefixLength = "ruleDomains.".length;
 	for (const key of searchParams.keys()) {
 		if (key.startsWith("ruleDomains.")) {
@@ -467,52 +493,74 @@ function initState(
 			attributePosition:
 				(searchParams.get("attributePosition") as AttributePosition) ??
 				defaultPlaygroundState.settings.attributePosition,
-			bracketSpacing:
-				searchParams.get("bracketSpacing") === "true" ||
+			bracketSpacing: getBooleanParam(
+				searchParams,
+				"bracketSpacing",
 				defaultPlaygroundState.settings.bracketSpacing,
-			bracketSameLine:
-				searchParams.get("bracketSameLine") === "true" ||
+			),
+			bracketSameLine: getBooleanParam(
+				searchParams,
+				"bracketSameLine",
 				defaultPlaygroundState.settings.bracketSameLine,
+			),
 			expand:
 				(searchParams.get("expand") as Expand) ??
 				defaultPlaygroundState.settings.expand,
 			whitespaceSensitivity:
 				(searchParams.get("whitespaceSensitivity") as WhitespaceSensitivity) ??
 				defaultPlaygroundState.settings.whitespaceSensitivity,
-			indentScriptAndStyle:
-				searchParams.get("indentScriptAndStyle") === "true" ||
+			indentScriptAndStyle: getBooleanParam(
+				searchParams,
+				"indentScriptAndStyle",
 				defaultPlaygroundState.settings.indentScriptAndStyle,
+			),
 			lintRules:
 				(searchParams.get("lintRules") as LintRule) ??
 				defaultPlaygroundState.settings.lintRules,
-			enabledLinting:
-				searchParams.get("enabledLinting") === "true" ||
+			enabledLinting: getBooleanParam(
+				searchParams,
+				"enabledLinting",
 				defaultPlaygroundState.settings.enabledLinting,
+			),
 			analyzerFixMode:
 				(searchParams.get("analyzerFixMode") as FixFileMode) ??
 				defaultPlaygroundState.settings.analyzerFixMode,
-			enabledAssist:
-				searchParams.get("enabledAssist") === "true" ||
+			enabledAssist: getBooleanParam(
+				searchParams,
+				"enabledAssist",
 				defaultPlaygroundState.settings.enabledAssist,
-			unsafeParameterDecoratorsEnabled:
-				searchParams.get("unsafeParameterDecoratorsEnabled") === "true" ||
+			),
+			unsafeParameterDecoratorsEnabled: getBooleanParam(
+				searchParams,
+				"unsafeParameterDecoratorsEnabled",
 				defaultPlaygroundState.settings.unsafeParameterDecoratorsEnabled,
-			allowComments:
-				searchParams.get("allowComments") === "true" ||
+			),
+			allowComments: getBooleanParam(
+				searchParams,
+				"allowComments",
 				defaultPlaygroundState.settings.allowComments,
+			),
 			ruleDomains,
-			cssModules:
-				searchParams.get("cssModules") === "true" ||
+			cssModules: getBooleanParam(
+				searchParams,
+				"cssModules",
 				defaultPlaygroundState.settings.cssModules,
-			experimentalEmbeddedSnippetsEnabled:
-				searchParams.get("experimentalEmbeddedSnippetsEnabled") === "true" ||
+			),
+			experimentalEmbeddedSnippetsEnabled: getBooleanParam(
+				searchParams,
+				"experimentalEmbeddedSnippetsEnabled",
 				defaultPlaygroundState.settings.experimentalEmbeddedSnippetsEnabled,
-			experimentalFullSupportEnabled:
-				searchParams.get("experimentalFullSupportEnabled") === "true" ||
+			),
+			experimentalFullSupportEnabled: getBooleanParam(
+				searchParams,
+				"experimentalFullSupportEnabled",
 				defaultPlaygroundState.settings.experimentalFullSupportEnabled,
-			tailwindDirectives:
-				searchParams.get("tailwindDirectives") === "true" ||
+			),
+			tailwindDirectives: getBooleanParam(
+				searchParams,
+				"tailwindDirectives",
 				defaultPlaygroundState.settings.tailwindDirectives,
+			),
 			searchLanguage:
 				(searchParams.get("searchLanguage") as
 					| "js"
@@ -521,6 +569,15 @@ function initState(
 					| undefined) ?? defaultPlaygroundState.settings.searchLanguage,
 		},
 	};
+}
+
+function getBooleanParam(
+	searchParams: URLSearchParams,
+	key: string,
+	defaultValue: boolean,
+): boolean {
+	const value = searchParams.get(key);
+	return value === null ? defaultValue : value === "true";
 }
 
 const lastSearchStore = createLocalStorage("last-search");
@@ -539,20 +596,29 @@ export function usePlaygroundState(): [
 	const [url, setUrl] = useState(window.location.toString());
 
 	const [playgroundState, setPlaygroundState] = useState(() => {
-		let searchQuery = window.location.search;
-		let includeSearchQueryFiles = true;
+		const locationSearchParams = new URLSearchParams(window.location.search);
+		let settingsSearchParams = locationSearchParams;
 
 		// Default to query of last session to load settings
-		if (searchQuery === "") {
-			searchQuery = lastSearchStore.get() ?? "";
-			includeSearchQueryFiles = false;
+		if (window.location.search === "") {
+			settingsSearchParams = new URLSearchParams(lastSearchStore.get() ?? "");
 		}
 
-		return initState(new URLSearchParams(searchQuery), includeSearchQueryFiles);
+		return initState(
+			settingsSearchParams,
+			new URLSearchParams(window.location.hash.slice(1)),
+			locationSearchParams,
+		);
 	});
 
 	function resetPlaygroundState() {
-		setPlaygroundState(initState(new URLSearchParams(""), false));
+		setPlaygroundState(
+			initState(
+				new URLSearchParams(),
+				new URLSearchParams(),
+				new URLSearchParams(),
+			),
+		);
 	}
 
 	useEffect(() => {
