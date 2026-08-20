@@ -13,6 +13,68 @@ import {
 	Semicolons,
 } from "@/playground/types.ts";
 
+const BIOME_DEFAULT_CONFIGURATION = {
+	formatter: {
+		enabled: true,
+		formatWithErrors: false,
+		lineWidth: 80,
+		indentStyle: "tab",
+		indentWidth: 2,
+		attributePosition: "auto",
+		expand: "auto",
+	},
+	linter: {
+		enabled: true,
+		domains: {},
+		rules: {},
+	},
+	assist: {
+		enabled: true,
+	},
+	javascript: {
+		formatter: {
+			quoteStyle: "double",
+			jsxQuoteStyle: "double",
+			quoteProperties: "asNeeded",
+			trailingCommas: "all",
+			semicolons: "always",
+			arrowParentheses: "always",
+			operatorLinebreak: "after",
+			bracketSpacing: true,
+			bracketSameLine: false,
+			attributePosition: "auto",
+		},
+		parser: {
+			unsafeParameterDecoratorsEnabled: false,
+		},
+		experimentalEmbeddedSnippetsEnabled: false,
+	},
+	css: {
+		formatter: {
+			quoteStyle: "double",
+		},
+		parser: {
+			allowWrongLineComments: false,
+			cssModules: false,
+			tailwindDirectives: false,
+		},
+	},
+	json: {
+		formatter: {},
+		parser: {
+			allowComments: false,
+		},
+	},
+	html: {
+		formatter: {
+			enabled: false,
+			indentScriptAndStyle: false,
+			whitespaceSensitivity: "css",
+		},
+		experimentalFullSupportEnabled: false,
+	},
+} satisfies Configuration;
+
 export function createBiomeConfiguration(
 	settings: PlaygroundSettings,
 ): Configuration {
@@ -121,7 +183,48 @@ export function createBiomeConfiguration(
 export function stringifyBiomeConfiguration(
 	settings: PlaygroundSettings,
 ): string {
-	return `${JSON.stringify(createBiomeConfiguration(settings), null, 2)}\n`;
+	const configuration = omitDefaultValues(
+		createBiomeConfiguration(settings),
+		BIOME_DEFAULT_CONFIGURATION,
+	);
+	return `${JSON.stringify(configuration ?? {}, null, 2)}\n`;
+}
+
+function omitDefaultValues(value: unknown, defaultValue: unknown): unknown {
+	if (Object.is(value, defaultValue)) {
+		return undefined;
+	}
+
+	if (Array.isArray(value)) {
+		if (
+			Array.isArray(defaultValue) &&
+			value.length === defaultValue.length &&
+			value.every(
+				(item, index) =>
+					omitDefaultValues(item, defaultValue[index]) === undefined,
+			)
+		) {
+			return undefined;
+		}
+		return value;
+	}
+
+	if (isRecord(value) && isRecord(defaultValue)) {
+		const result: Record<string, unknown> = {};
+		for (const [key, item] of Object.entries(value)) {
+			const difference = omitDefaultValues(item, defaultValue[key]);
+			if (difference !== undefined) {
+				result[key] = difference;
+			}
+		}
+		return Object.keys(result).length === 0 ? undefined : result;
+	}
+
+	return value;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export function getOnlyLintRules(lintRule: LintRule): string[] {
