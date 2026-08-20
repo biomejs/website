@@ -1,4 +1,4 @@
-import type { FixFileMode, RuleDomainValue } from "@biomejs/wasm-web";
+import type { RuleDomainValue } from "@biomejs/wasm-web";
 import {
 	type Dispatch,
 	type SetStateAction,
@@ -21,7 +21,9 @@ import {
 	type LintRule,
 	LoadingState,
 	type OperatorLinebreak,
-	PLAYGROUND_PANE,
+	type PlaygroundFixMode,
+	PlaygroundFlyoutView,
+	PlaygroundProblemsTab,
 	type PlaygroundSettings,
 	type PlaygroundState,
 	type QuoteProperties,
@@ -80,16 +82,20 @@ function PlaygroundLoader() {
 
 				case "updated": {
 					const { filename, biomeOutput } = event.data;
-					setPlaygroundState((state) => ({
-						...state,
-						files: {
-							...state.files,
-							[filename]: {
-								...getFileState(state, filename),
-								biome: biomeOutput,
-							},
-						},
-					}));
+					setPlaygroundState((state) =>
+						state.files[filename] === undefined
+							? state
+							: {
+									...state,
+									files: {
+										...state.files,
+										[filename]: {
+											...getFileState(state, filename),
+											biome: biomeOutput,
+										},
+									},
+								},
+					);
 					break;
 				}
 
@@ -126,16 +132,20 @@ function PlaygroundLoader() {
 			switch (event.data.type) {
 				case "formatted": {
 					const { filename, prettierOutput } = event.data;
-					setPlaygroundState((state) => ({
-						...state,
-						files: {
-							...state.files,
-							[filename]: {
-								...getFileState(state, filename),
-								prettier: prettierOutput,
-							},
-						},
-					}));
+					setPlaygroundState((state) =>
+						state.files[filename] === undefined
+							? state
+							: {
+									...state,
+									files: {
+										...state.files,
+										[filename]: {
+											...getFileState(state, filename),
+											prettier: prettierOutput,
+										},
+									},
+								},
+					);
 					break;
 				}
 
@@ -189,6 +199,8 @@ function PlaygroundLoader() {
 			workerRef.current?.postMessage({
 				type: "updateSettings",
 				settings: state.settings,
+				shouldFormat: state.shouldFormat,
+				fixMode: state.fixMode,
 			});
 
 			workerRef.current?.postMessage({
@@ -209,7 +221,7 @@ function PlaygroundLoader() {
 				code: getCurrentCode(state),
 			});
 		});
-	}, [loadingState, state.settings]);
+	}, [loadingState, state.settings, state.shouldFormat, state.fixMode]);
 
 	// Dispatch updated files
 	// biome-ignore lint/correctness/useExhaustiveDependencies: dependencies mismatch
@@ -303,12 +315,20 @@ function buildLocation(state: PlaygroundState): string {
 	}
 	const lastSearchStringObj = { ...queryStringObj };
 
-	if (state.tab) {
-		queryStringObj.tab = state.tab;
+	if (state.flyoutView !== defaultPlaygroundState.flyoutView) {
+		queryStringObj.view = state.flyoutView ?? "";
 	}
-
-	if (state.pane) {
-		queryStringObj.pane = state.pane;
+	if (state.problemsTab !== defaultPlaygroundState.problemsTab) {
+		queryStringObj.problems = state.problemsTab;
+	}
+	if (state.shouldFormat !== defaultPlaygroundState.shouldFormat) {
+		queryStringObj.format = String(state.shouldFormat);
+	}
+	if (state.fixMode !== defaultPlaygroundState.fixMode) {
+		queryStringObj.fix = state.fixMode;
+	}
+	if (state.comparePrettier !== defaultPlaygroundState.comparePrettier) {
+		queryStringObj.prettier = String(state.comparePrettier);
 	}
 
 	if (state.singleFileMode && Object.keys(state.files).length === 1) {
@@ -332,7 +352,6 @@ function buildLocation(state: PlaygroundState): string {
 			hashStringObj[`files.${filename}`] = encodeCode(content);
 		}
 	}
-
 	const gritQuery = getFileState(state, state.currentFile)?.gritQuery;
 	if (gritQuery) {
 		hashStringObj.gritQuery = gritQuery;
@@ -389,7 +408,6 @@ function initState(
 			hasFiles = true;
 		}
 	}
-
 	if (!hasFiles) {
 		// Single file mode. Read content from the hash first, then legacy query params.
 		const encodedCode =
@@ -439,17 +457,30 @@ function initState(
 
 	return {
 		cursorPosition: 0,
-		tab:
-			(searchParams.get("tab") as PlaygroundState["tab"]) ??
-			defaultPlaygroundState.tab,
 		singleFileMode,
-		pane: Object.values(PLAYGROUND_PANE).includes(
-			searchParams.get("pane") as PlaygroundState["pane"],
-		)
-			? (searchParams.get("pane") as PlaygroundState["pane"])
-			: defaultPlaygroundState.pane,
 		currentFile: Object.keys(files)[0] ?? defaultPlaygroundState.currentFile,
 		files,
+		shouldFormat: getBooleanParam(
+			searchParams,
+			"format",
+			defaultPlaygroundState.shouldFormat,
+		),
+		fixMode: getFixMode(searchParams.get("fix")),
+		comparePrettier: getBooleanParam(
+			searchParams,
+			"prettier",
+			defaultPlaygroundState.comparePrettier,
+		),
+		problemsTab: Object.values(PlaygroundProblemsTab).includes(
+			searchParams.get("problems") as PlaygroundProblemsTab,
+		)
+			? (searchParams.get("problems") as PlaygroundProblemsTab)
+			: defaultPlaygroundState.problemsTab,
+		flyoutView: Object.values(PlaygroundFlyoutView).includes(
+			searchParams.get("view") as PlaygroundFlyoutView,
+		)
+			? (searchParams.get("view") as PlaygroundFlyoutView)
+			: defaultPlaygroundState.flyoutView,
 		settings: {
 			lineWidth: Number.parseInt(
 				searchParams.get("lineWidth") ??
@@ -519,9 +550,6 @@ function initState(
 				"enabledLinting",
 				defaultPlaygroundState.settings.enabledLinting,
 			),
-			analyzerFixMode:
-				(searchParams.get("analyzerFixMode") as FixFileMode) ??
-				defaultPlaygroundState.settings.analyzerFixMode,
 			enabledAssist: getBooleanParam(
 				searchParams,
 				"enabledAssist",
@@ -566,6 +594,18 @@ function initState(
 					| undefined) ?? defaultPlaygroundState.settings.searchLanguage,
 		},
 	};
+}
+
+function getFixMode(value: string | null): PlaygroundFixMode {
+	const fixModes: PlaygroundFixMode[] = [
+		"none",
+		"safeFixes",
+		"safeAndUnsafeFixes",
+		"applySuppressions",
+	];
+	return fixModes.includes(value as PlaygroundFixMode)
+		? (value as PlaygroundFixMode)
+		: defaultPlaygroundState.fixMode;
 }
 
 function getBooleanParam(
