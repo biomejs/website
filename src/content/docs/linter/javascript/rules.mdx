@@ -227,14 +227,14 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noUndeclaredClasses](/linter/rules/no-undeclared-classes/javascript) | Reports CSS class names in JSX `className` or `class` attributes that are not defined |  |
 | [noUnnecessaryTemplateExpression](/linter/rules/no-unnecessary-template-expression/javascript) | Disallow unnecessary template expressions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noUnsafePlusOperands](/linter/rules/no-unsafe-plus-operands/javascript) | Disallow `+` operations with operands that are known to be unsafe. |  |
-| [noUnsafeTypeAssertion](/linter/rules/no-unsafe-type-assertion) | Disallow TypeScript type assertions other than const assertions. |  |
+| [noUnsafeTypeAssertion](/linter/rules/no-unsafe-type-assertion/javascript) | Disallow TypeScript type assertions other than const assertions. |  |
 | [noUselessTypeConversion](/linter/rules/no-useless-type-conversion/javascript) | Disallow type conversions that do not change the type of an expression. |  |
 | [noVueImportCompilerMacros](/linter/rules/no-vue-import-compiler-macros/javascript) | Disallow importing Vue compiler macros. |  |
 | [noVueRefAsOperand](/linter/rules/no-vue-ref-as-operand/javascript) | Disallow the use of value wrapped by `ref()`(Composition API) as operand |  |
 | [useArraySome](/linter/rules/use-array-some/javascript) | Prefer `Array.prototype.some()` over verbose existence checks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useAwaitThenable](/linter/rules/use-await-thenable/javascript) | Enforce that `await` is only used on `Promise` values. |  |
 | [useConsistentTestIt](/linter/rules/use-consistent-test-it/javascript) | Enforce consistent use of `it` or `test` for test functions. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
-| [useControlLabel](/linter/rules/use-control-label) | Enforce that interactive control elements have an accessible label. |  |
+| [useControlLabel](/linter/rules/use-control-label/javascript) | Enforce that interactive control elements have an accessible label. |  |
 | [useDisposables](/linter/rules/use-disposables/javascript) | Detects a disposable object assigned to a variable without using or await using syntax. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useDomNodeTextContent](/linter/rules/use-dom-node-text-content/javascript) | Prefer `.textContent` over `.innerText` for DOM node text. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useDomQuerySelector](/linter/rules/use-dom-query-selector/javascript) | Prefer `querySelector()` and `querySelectorAll()` over older DOM query APIs. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -259,7 +259,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useRegexpTest](/linter/rules/use-regexp-test/javascript) | Enforce the use of `RegExp.prototype.test()` over `String.prototype.match()` and `RegExp.prototype.exec()` in boolean contexts. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useSortedClasses](/linter/rules/use-sorted-classes/javascript) | Enforce the sorting of CSS utility classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useStringStartsEndsWith](/linter/rules/use-string-starts-ends-with/javascript) | Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useTailwindShorthandClasses](/linter/rules/use-tailwind-shorthand-classes) | Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useTailwindShorthandClasses](/linter/rules/use-tailwind-shorthand-classes/javascript) | Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useTestHooksInOrder](/linter/rules/use-test-hooks-in-order/javascript) | Enforce that test lifecycle hooks are declared in the order they execute. |  |
 | [useTestHooksOnTop](/linter/rules/use-test-hooks-on-top/javascript) | Enforce that lifecycle hooks appear before any test cases in the same block. |  |
 | [useThisInClassMethods](/linter/rules/use-this-in-class-methods/javascript) | Enforce that class methods utilize `this`. |  |
@@ -496,7 +496,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useNumberToFixedDigitsArgument](/linter/rules/use-number-to-fixed-digits-argument/javascript) | Enforce using the digits argument with `Number#toFixed()`. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useStaticResponseMethods](/linter/rules/use-static-response-methods/javascript) | Use static `Response` methods instead of `new Response()` constructor when possible. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useStrictMode](/linter/rules/use-strict-mode/javascript) | Enforce the use of the directive `"use strict"` in script files. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
-## Recommended rules
+## Recommended rules 
 - [noAccessKey](/linter/rules/no-access-key/javascript) (Severity: [error](/reference/diagnostics#error))
 - [noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text/javascript) (Severity: [error](/reference/diagnostics#error))
 - [noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable/javascript) (Severity: [error](/reference/diagnostics#error))

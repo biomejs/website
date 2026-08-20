@@ -7,7 +7,7 @@ editUrl: "https://github.com/biomejs/website/edit/main/codegen/src/rules_sources
 title: Rules sources
 description: A page that maps rules from other sources to Biome
 ---
-
+    
 ## Biome exclusive rules
 - [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file/css)
 - [noInvalidPropertyInitValue](/linter/rules/no-invalid-property-init-value/css)
@@ -21,12 +21,18 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### @eslint/css
 | @eslint/css Rules name | Biome Rules name |
 | ---- | ---- |
+| [font-family-fallbacks](https://github.com/eslint/css/blob/main/docs/rules/font-family-fallbacks.md) |[useGenericFontNames](/linter/rules/use-generic-font-names/css) (inspired) |
+| [no-duplicate-imports](https://github.com/eslint/css/blob/main/docs/rules/no-duplicate-imports.md) |[noDuplicateAtImportRules](/linter/rules/no-duplicate-at-import-rules/css) (inspired) |
 | [no-duplicate-keyframe-selectors](https://github.com/eslint/css/blob/main/docs/rules/no-duplicate-keyframe-selectors.md) |[noDuplicateSelectorsKeyframeBlock](/linter/rules/no-duplicate-selectors-keyframe-block/css) |
 | [no-empty-blocks](https://github.com/eslint/css/blob/main/docs/rules/no-empty-blocks.md) |[noEmptyBlock](/linter/rules/no-empty-block/css) |
 | [no-important](https://github.com/eslint/css/blob/main/docs/rules/no-important.md) |[noImportantStyles](/linter/rules/no-important-styles/css) |
+| [no-invalid-at-rule-placement](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-at-rule-placement.md) |[noInvalidPositionAtImportRule](/linter/rules/no-invalid-position-at-import-rule/css) (inspired) |
+| [no-invalid-at-rules](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-at-rules.md) |[noUnknownAtRules](/linter/rules/no-unknown-at-rules/css) (inspired) |
 | [no-invalid-named-grid-areas](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-named-grid-areas.md) |[noInvalidGridAreas](/linter/rules/no-invalid-grid-areas/css) |
+| [no-invalid-properties](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-properties.md) |[noUnknownProperty](/linter/rules/no-unknown-property/css) (inspired) |
+| [no-unmatchable-selectors](https://github.com/eslint/css/blob/main/docs/rules/no-unmatchable-selectors.md) |[noUnmatchableAnbSelector](/linter/rules/no-unmatchable-anb-selector/css) (inspired) |
 | [use-baseline](https://github.com/eslint/css/blob/main/docs/rules/use-baseline.md) |[useBaseline](/linter/rules/use-baseline/css) (inspired) |
-| [use-layers](https://github.com/eslint/css/blob/main/docs/rules/use-layers.md) |[useNamedLayer](/linter/rules/use-named-layer) (inspired) |
+| [use-layers](https://github.com/eslint/css/blob/main/docs/rules/use-layers.md) |[useNamedLayer](/linter/rules/use-named-layer/css) (inspired) |
 ### @html-eslint/eslint-plugin
 | @html-eslint/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
