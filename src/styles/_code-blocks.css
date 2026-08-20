@@ -40,7 +40,8 @@
 	content: "TERMINAL";
 }
 
-.expressive-code .frame:not(.has-title, .is-terminal) pre {
+.expressive-code:not(.linter .expressive-code) .frame:not(.is-terminal) pre {
+	border: 1px solid var(--ec-brdCol);
 	border-top: 0;
 	border-radius: 0 0 var(--biome-radius-sm) var(--biome-radius-sm);
 }
