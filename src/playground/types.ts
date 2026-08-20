@@ -9,33 +9,26 @@ import type { Dispatch, SetStateAction } from "react";
 import { ASSIST_ACTIONS } from "@/playground/generated/assistActions.ts";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 
-export const PlaygroundTab = {
-	Code: "code",
-	Diagnostics: "diagnostics",
-	Formatter: "formatter",
+export const PlaygroundFlyoutView = {
 	FormatterIr: "formatter-ir",
 	Syntax: "syntax",
-	ControlFlowGraph: "control-flow-graph",
-	Console: "console",
-	Settings: "settings",
-	AnalyzerFixes: "analyzer-fixes",
+	ControlFlow: "control-flow",
+	SemanticModel: "semantic-model",
 	TypesIr: "types-ir",
 	TypesRegistered: "types-registered",
-	SemanticModel: "semantic-model",
 	GritQL: "gritql",
 } as const;
-export type PlaygroundTab = (typeof PlaygroundTab)[keyof typeof PlaygroundTab];
+export type PlaygroundFlyoutView =
+	(typeof PlaygroundFlyoutView)[keyof typeof PlaygroundFlyoutView];
 
-export const PLAYGROUND_PANE = {
-	diagnostics: "Diagnostics",
-	console: "Console",
-	gritql: "GritQL",
+export const PlaygroundProblemsTab = {
+	Diagnostics: "diagnostics",
+	Console: "console",
 } as const;
+export type PlaygroundProblemsTab =
+	(typeof PlaygroundProblemsTab)[keyof typeof PlaygroundProblemsTab];
 
-type Pane = typeof PLAYGROUND_PANE;
-
-export type PlaygroundPaneKey = keyof Pane;
-export type PlaygroundPane = Pane[keyof Pane];
+export type PlaygroundFixMode = "none" | FixFileMode;
 
 export type PrettierOptions = import("prettier").Options & {
 	experimentalOperatorPosition?: "start" | "end";
@@ -244,7 +237,6 @@ export interface PlaygroundSettings {
 	expand: Expand;
 	lintRules: LintRule;
 	enabledLinting: boolean;
-	analyzerFixMode: FixFileMode;
 	assistActions: AssistAction;
 	enabledAssist: boolean;
 	unsafeParameterDecoratorsEnabled: boolean;
@@ -269,19 +261,25 @@ export interface PlaygroundFileState {
 export interface PlaygroundState {
 	currentFile: string;
 	singleFileMode: boolean;
-	tab: PlaygroundTab;
-	pane: PlaygroundPane;
 	cursorPosition: number;
 	files: Record<string, undefined | PlaygroundFileState>;
 	settings: PlaygroundSettings;
+	shouldFormat: boolean;
+	fixMode: PlaygroundFixMode;
+	comparePrettier: boolean;
+	problemsTab: PlaygroundProblemsTab;
+	flyoutView: PlaygroundFlyoutView | null;
 }
 
 export const defaultPlaygroundState: PlaygroundState = {
 	cursorPosition: 0,
-	tab: PlaygroundTab.Formatter,
-	pane: PLAYGROUND_PANE.diagnostics,
 	currentFile: "main.tsx",
 	singleFileMode: true,
+	shouldFormat: true,
+	fixMode: "none",
+	comparePrettier: false,
+	problemsTab: PlaygroundProblemsTab.Diagnostics,
+	flyoutView: null,
 	files: {
 		"main.tsx": {
 			content: "",
@@ -306,7 +304,6 @@ export const defaultPlaygroundState: PlaygroundState = {
 		expand: Expand.Auto,
 		lintRules: LINT_RULES.preset.recommended,
 		enabledLinting: true,
-		analyzerFixMode: "safeFixes",
 		assistActions: ASSIST_ACTIONS.preset.recommended,
 		enabledAssist: true,
 		unsafeParameterDecoratorsEnabled: true,
