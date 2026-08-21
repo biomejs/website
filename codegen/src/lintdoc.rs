@@ -751,7 +751,6 @@ fn write_language_rule_pages(
             content,
             r#"import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";"#
         )?;
-
         if rule_category == RuleCategory::Action {
             writeln!(
                 content,
@@ -1307,11 +1306,12 @@ fn write_documentation(
                     } else if test.expect_diagnostic {
                         writeln!(content, "```")?;
                         writeln!(content)?;
+                        let mut diagnostic_html = Vec::new();
                         write!(
-                            content,
+                            diagnostic_html,
                             "<pre class=\"language-text\"><code class=\"language-text\">"
                         )?;
-                        let mut buffer = HTML::new(&mut *content).with_mdx();
+                        let mut buffer = HTML::new(&mut diagnostic_html).with_mdx();
                         let mut diagnostics_writer = DiagnosticHtmlWriter::new(
                             &mut buffer,
                             DiagnosticHtmlWriterMode::Diagnostics,
@@ -1330,14 +1330,21 @@ fn write_documentation(
                             &mut diagnostics_writer,
                         )
                         .context("To print diagnostics or actions")?;
+                        write!(diagnostic_html, "</code></pre>")?;
+                        writeln!(
+                            content,
+                            "<Fragment set:html={{{}}} />",
+                            serde_json::to_string(&String::from_utf8(diagnostic_html)?)?
+                        )?;
                     } else if test.expect_diff {
                         writeln!(content, "```")?;
                         writeln!(content)?;
+                        let mut diagnostic_html = Vec::new();
                         write!(
-                            content,
+                            diagnostic_html,
                             "<pre class=\"language-diff\"><code class=\"language-diff\">"
                         )?;
-                        let mut buffer = HTML::new(&mut *content).with_mdx();
+                        let mut buffer = HTML::new(&mut diagnostic_html).with_mdx();
                         let mut diagnostics_writer = DiagnosticHtmlWriter::new(
                             &mut buffer,
                             DiagnosticHtmlWriterMode::Actions,
@@ -1355,13 +1362,18 @@ fn write_documentation(
                             &mut diagnostics_writer,
                         )
                         .context("To print diagnostics or actions")?;
+                        write!(diagnostic_html, "</code></pre>")?;
+                        writeln!(
+                            content,
+                            "<Fragment set:html={{{}}} />",
+                            serde_json::to_string(&String::from_utf8(diagnostic_html)?)?
+                        )?;
                     } else {
                         writeln!(content, "```")?;
                         writeln!(content)?;
                     }
 
                     if test.expect_diagnostic || test.expect_diff {
-                        writeln!(content, "</code></pre>")?;
                         writeln!(content)?;
                     }
                 } else {
