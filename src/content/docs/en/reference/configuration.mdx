@@ -1748,7 +1748,9 @@ Enables Biome's assist for HTML files.
 
 ### `markdown.parser.frontmatter`
 
-Enables the parsing of frontmatter in Markdown files. When enabled, the leading `---` is considered the opening fence of the frontmatter. Default to `false`.
+Enables the parsing of frontmatter in Markdown files. When enabled, the leading `---` is considered the opening fence of the frontmatter.
+
+> Default: `false`.
 
 ```md
 ---
@@ -1790,14 +1792,14 @@ The type of line ending for HTML files.
 
 The amount of characters that can be written on a single line in Markdown files.
 
-> Default: `80``
+> Default: `80`
 
 ### `html.formatter.proseWrap`
 
 Controls how paragraphs should be formatted. The option accepts the following values:
 
 - `"preserve"`: Biome won't attempt to format any paragraph, and it will the newlines of the user. This is the **default** value.
-- `"alwys"`: Biome attempts to fit the paragraph in the configured `lineWidth`
+- `"always"`: Biome attempts to fit the paragraph in the configured `lineWidth`
   Given the following paragraphs:
   ```md title="file.md"
   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
