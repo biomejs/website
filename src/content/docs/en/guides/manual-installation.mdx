@@ -113,6 +113,23 @@ curl -fsSL https://biomejs.dev/install | bash -s -- --version 2.5.9
 You can also set `BIOME_INSTALL_DIR` to override the installation directory or pass `--no-modify-path` to leave your shell configuration unchanged.
 Pass `--force` to download and reinstall a version that is already installed.
 
+### Windows
+
+The PowerShell installer downloads the latest stable binary to `%LOCALAPPDATA%\Biome\bin` and adds it to your user and current process `PATH`:
+
+```powershell
+irm https://biomejs.dev/install.ps1 | iex
+```
+
+To install a specific version, pass `-Version`:
+
+```powershell
+& ([scriptblock]::Create((irm https://biomejs.dev/install.ps1))) -Version 2.5.9
+```
+
+You can also set `BIOME_INSTALL_DIR` to override the installation directory or pass `-NoModifyPath` to leave your `PATH` unchanged.
+Pass `-Force` to download and reinstall a version that is already installed.
+
 ### Manual download
 
 To install Biome, grab the executable for your platform from the [latest CLI release](https://github.com/biomejs/biome/releases) on GitHub and give it execution permission.
