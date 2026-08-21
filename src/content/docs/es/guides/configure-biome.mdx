@@ -164,7 +164,7 @@ La primera forma de controlar qué archivos y directorios sean procesados por Bi
 En el siguiente comando, formateamos sólo `file1.js` y todos los archivos del directorio `src`.
 Los directorios se recorren recursivamente.
 
-```shell
+```shell showLineNumbers=false
 biome format file1.js src/
 ```
 
@@ -208,7 +208,7 @@ Tomemos la siguiente configuración:
 
 Y ejecuta el siguiente comando:
 
-```shell
+```shell showLineNumbers=false
 biome format test/
 ```
 
@@ -217,7 +217,7 @@ Los archivos en `src` no están formateados porque el directorio no aparece en l
 
 Si ejecutamos el siguiente comando, no se alineará ningún archivo porque el directorio `test` se ignora explícitamente para el linter.
 
-```shell
+```shell showLineNumbers=false
 biome lint test/
 ```
 

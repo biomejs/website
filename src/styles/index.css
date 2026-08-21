@@ -1,5 +1,13 @@
 @import "_overrides";
 @import "_variables";
+@import "_asides";
+@import "_geometry";
+@import "_sidebar";
+@import "_toc";
+@import "_code-blocks";
+@import "_tables";
+@import "_pagination";
+@import "_tabs";
 @import "_prism";
 @import "_credits";
 @import "_pre";

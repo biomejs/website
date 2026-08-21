@@ -52,7 +52,7 @@ Primeiro, você precisa atualizar seu arquivo de configuração e dizer ao Biome
 
 Em seguida, adicione a opção `--changed` ao seu comando, para processar apenas os arquivos que seu VCS reconheceu como "alterados". O Biome, com a ajuda do VCS, determinará os arquivos alterados a partir do branch `main` e da sua revisão atual:
 
-```shell
+```shell showLineNumbers=false
 biome check --changed
 ```
 
@@ -62,7 +62,7 @@ O Biome não verifica o que foi alterado, isso significa que até mesmo adiciona
 
 Alternativamente, você pode usar a opção `--since` para especificar um branch arbitrário. Esta opção **tem precedência** sobre a opção `vcs.defaultBranch`. Por exemplo, você pode querer verificar suas alterações em relação ao branch `next`:
 
-```shell
+```shell showLineNumbers=false
 biome check --changed --since=next
 ```
 
@@ -71,7 +71,7 @@ biome check --changed --since=next
 Antes de commitar suas alterações, você pode querer verificar a formatação e os lints dos arquivos que foram adicionados ao _index_, também conhecidos como _staged files_.
 Adicione a opção `--staged` ao seu comando, para processar apenas esses arquivos:
 
-```shell
+```shell showLineNumbers=false
 biome check --staged
 ```
 

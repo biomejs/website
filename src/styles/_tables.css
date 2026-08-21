@@ -1,0 +1,43 @@
+.sl-markdown-content table:not(:where(.not-content *)) {
+	width: max-content;
+	max-width: 100%;
+	overflow: auto;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--biome-radius-sm);
+	border-spacing: 0;
+	background: var(--sl-color-bg);
+}
+
+.sl-markdown-content :is(th, td):not(:where(.not-content *)) {
+	padding: 0.625rem 0.75rem;
+	border-inline-end: 1px solid var(--sl-color-gray-5);
+	vertical-align: top;
+}
+
+.sl-markdown-content tr > :last-child:not(:where(.not-content *)) {
+	border-inline-end: 0;
+}
+
+.sl-markdown-content thead th:not(:where(.not-content *)) {
+	background: var(--sl-color-gray-6);
+	font-family: var(--font-jetbrains-mono);
+	font-size: 0.8125rem;
+	font-weight: 700;
+	letter-spacing: 0.015em;
+}
+
+.sl-markdown-content tbody td:not(:where(.not-content *)) {
+	transition: background-color 120ms ease;
+}
+
+.sl-markdown-content tbody tr:nth-child(even) > td:not(:where(.not-content *)) {
+	background: color-mix(in srgb, var(--sl-color-gray-6) 38%, transparent);
+}
+
+.sl-markdown-content tbody tr:last-child > td:not(:where(.not-content *)) {
+	border-block-end: 0;
+}
+
+.sl-markdown-content tbody tr:hover > td:not(:where(.not-content *)) {
+	background: color-mix(in srgb, var(--sl-color-gray-5) 32%, transparent);
+}

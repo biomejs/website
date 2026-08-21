@@ -3,7 +3,7 @@ import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
 import lunaria from "@lunariajs/starlight";
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
 import starlightChangelogs, {
@@ -69,6 +69,7 @@ const plugins = [
 	starlightLinksValidator({
 		// TODO: enable once `next` is merged into `main`
 		errorOnInvalidHashes: false,
+		failOnError: false, // There are some bugs where it plugin doesn't pick up some redirects
 		exclude: [
 			"/playground",
 			"/playground/",
@@ -100,10 +101,34 @@ if (process.env?.E2E !== "true") {
 // https://astro.build/config
 export default defineConfig({
 	site: "https://biomejs.dev",
+	fonts: [
+		{
+			name: "JetBrains Mono",
+			cssVariable: "--font-jetbrains-mono",
+			provider: fontProviders.fontsource(),
+			weights: [400, 700],
+			styles: ["normal"],
+			subsets: ["latin"],
+			fallbacks: ["monospace"],
+		},
+		{
+			name: "Geist",
+			cssVariable: "--font-geist",
+			provider: fontProviders.fontsource(),
+			weights: [400, 500, 600, 700],
+			styles: ["normal", "italic"],
+			subsets: ["latin", "latin-ext", "cyrillic", "cyrillic-ext"],
+			fallbacks: ["sans-serif"],
+		},
+	],
 	output: "static",
 	compressHTML: true,
 	redirects: {
 		...redirects,
+		"/reference/reporters": "/reference/cli/#reporter-flags",
+		"/pt-br/reference/reporters": "/pt-br/reference/cli/#reporter-flags",
+		"/uk/reference/reporters": "/uk/reference/cli/#reporter-flags",
+		"/ru/reference/reporters": "/ru/reference/cli/#reporter-flags",
 		"/blog/annoucing-biome": "/blog/announcing-biome",
 		"/guides/editors/create-a-extension": "/guides/editors/create-an-extension",
 		"/internals/credits": "/internals/people-and-credits",
@@ -534,6 +559,15 @@ export default defineConfig({
 										ru: "Источники правил HTML",
 									},
 								},
+								// TODO: uncomment when we officially ship markdown lint rules
+								// {
+								// 	label: "Markdown Rules",
+								// 	link: "/linter/markdown/rules",
+								// },
+								// {
+								// 	label: "Markdown Rules sources",
+								// 	link: "/linter/markdown/sources",
+								// },
 							],
 							translations: {
 								"zh-CN": "检查器",
@@ -753,19 +787,6 @@ export default defineConfig({
 								"zh-CN": "环境变量",
 								pl: "Zmienne środowiskowe",
 								ru: "Переменные окружения",
-							},
-						},
-						{
-							label: "Reporters",
-							link: "/reference/reporters",
-							translations: {
-								es: "Generador de informes",
-								fr: "Outils de reporting",
-								uk: "Звіти",
-								ja: "リポータ",
-								"zh-CN": "报告器",
-								pl: "Raportowanie",
-								ru: "Создание отчётов",
 							},
 						},
 						{
@@ -1041,10 +1062,12 @@ export default defineConfig({
 				baseUrl: "https://github.com/biomejs/website/edit/main/",
 			},
 			components: {
+				Head: "./src/components/starlight/Head.astro",
 				SiteTitle: "./src/components/starlight/SiteTitle.astro",
 				Hero: "./src/components/starlight/Hero.astro",
 				LanguageSelect: "./src/components/starlight/LanguageSelect.astro",
 				Footer: "./src/components/starlight/Footer.astro",
+				PageSidebar: "./src/components/starlight/PageSidebar.astro",
 			},
 		}),
 	],
@@ -1078,6 +1101,9 @@ export default defineConfig({
 				block: "txt",
 			},
 		},
+	},
+	experimental: {
+		collectionStorage: "chunked",
 	},
 
 	vite: {

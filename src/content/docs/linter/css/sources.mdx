@@ -9,10 +9,11 @@ description: A page that maps rules from other sources to Biome
 ---
     
 ## Biome exclusive rules
-- [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) 
-- [noUnusedClasses](/linter/rules/no-unused-classes) 
-- [noUselessEscapeInString](/linter/rules/no-useless-escape-in-string) 
-- [noValueAtRule](/linter/rules/no-value-at-rule) 
+- [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file/css)
+- [noInvalidPropertyInitValue](/linter/rules/no-invalid-property-init-value/css)
+- [noUnusedClasses](/linter/rules/no-unused-classes/css)
+- [noUselessEscapeInString](/linter/rules/no-useless-escape-in-string/css)
+- [noValueAtRule](/linter/rules/no-value-at-rule/css)
 ## Rules from other sources
 :::note
 Some **Biome** rules might **not** have options, compared to the original rule.
@@ -20,47 +21,54 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### @eslint/css
 | @eslint/css Rules name | Biome Rules name |
 | ---- | ---- |
-| [no-duplicate-keyframe-selectors](https://github.com/eslint/css/blob/main/docs/rules/no-duplicate-keyframe-selectors.md) |[noDuplicateSelectorsKeyframeBlock](/linter/rules/no-duplicate-selectors-keyframe-block) |
-| [no-empty-blocks](https://github.com/eslint/css/blob/main/docs/rules/no-empty-blocks.md) |[noEmptyBlock](/linter/rules/no-empty-block) |
-| [no-important](https://github.com/eslint/css/blob/main/docs/rules/no-important.md) |[noImportantStyles](/linter/rules/no-important-styles) |
-| [no-invalid-named-grid-areas](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-named-grid-areas.md) |[noInvalidGridAreas](/linter/rules/no-invalid-grid-areas) |
-| [use-baseline](https://github.com/eslint/css/blob/main/docs/rules/use-baseline.md) |[useBaseline](/linter/rules/use-baseline) (inspired) |
+| [font-family-fallbacks](https://github.com/eslint/css/blob/main/docs/rules/font-family-fallbacks.md) |[useGenericFontNames](/linter/rules/use-generic-font-names/css) (inspired) |
+| [no-duplicate-imports](https://github.com/eslint/css/blob/main/docs/rules/no-duplicate-imports.md) |[noDuplicateAtImportRules](/linter/rules/no-duplicate-at-import-rules/css) (inspired) |
+| [no-duplicate-keyframe-selectors](https://github.com/eslint/css/blob/main/docs/rules/no-duplicate-keyframe-selectors.md) |[noDuplicateSelectorsKeyframeBlock](/linter/rules/no-duplicate-selectors-keyframe-block/css) |
+| [no-empty-blocks](https://github.com/eslint/css/blob/main/docs/rules/no-empty-blocks.md) |[noEmptyBlock](/linter/rules/no-empty-block/css) |
+| [no-important](https://github.com/eslint/css/blob/main/docs/rules/no-important.md) |[noImportantStyles](/linter/rules/no-important-styles/css) |
+| [no-invalid-at-rule-placement](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-at-rule-placement.md) |[noInvalidPositionAtImportRule](/linter/rules/no-invalid-position-at-import-rule/css) (inspired) |
+| [no-invalid-at-rules](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-at-rules.md) |[noUnknownAtRules](/linter/rules/no-unknown-at-rules/css) (inspired) |
+| [no-invalid-named-grid-areas](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-named-grid-areas.md) |[noInvalidGridAreas](/linter/rules/no-invalid-grid-areas/css) |
+| [no-invalid-properties](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-properties.md) |[noUnknownProperty](/linter/rules/no-unknown-property/css) (inspired) |
+| [no-unmatchable-selectors](https://github.com/eslint/css/blob/main/docs/rules/no-unmatchable-selectors.md) |[noUnmatchableAnbSelector](/linter/rules/no-unmatchable-anb-selector/css) (inspired) |
+| [use-baseline](https://github.com/eslint/css/blob/main/docs/rules/use-baseline.md) |[useBaseline](/linter/rules/use-baseline/css) (inspired) |
+| [use-layers](https://github.com/eslint/css/blob/main/docs/rules/use-layers.md) |[useNamedLayer](/linter/rules/use-named-layer/css) (inspired) |
 ### @html-eslint/eslint-plugin
 | @html-eslint/eslint-plugin Rules name | Biome Rules name |
 | ---- | ---- |
-| [use-baseline](https://html-eslint.org/docs/rules/use-baseline) |[useBaseline](/linter/rules/use-baseline) (inspired) |
+| [use-baseline](https://html-eslint.org/docs/rules/use-baseline) |[useBaseline](/linter/rules/use-baseline/css) (inspired) |
 ### Stylelint
 | Stylelint Rules name | Biome Rules name |
 | ---- | ---- |
-| [at-rule-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/at-rule-no-unknown/README.md) |[noUnknownAtRules](/linter/rules/no-unknown-at-rules) |
-| [block-no-empty](https://github.com/stylelint/stylelint/blob/main/lib/rules/block-no-empty/README.md) |[noEmptyBlock](/linter/rules/no-empty-block) |
-| [color-no-hex](https://github.com/stylelint/stylelint/blob/main/lib/rules/color-no-hex/README.md) |[noHexColors](/linter/rules/no-hex-colors) |
-| [custom-property-no-missing-var-function](https://github.com/stylelint/stylelint/blob/main/lib/rules/custom-property-no-missing-var-function/README.md) |[noMissingVarFunction](/linter/rules/no-missing-var-function) |
-| [declaration-block-no-duplicate-custom-properties](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-custom-properties/README.md) |[noDuplicateCustomProperties](/linter/rules/no-duplicate-custom-properties) |
-| [declaration-block-no-duplicate-properties](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-properties/README.md) |[noDuplicateProperties](/linter/rules/no-duplicate-properties) |
-| [declaration-block-no-shorthand-property-overrides](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-shorthand-property-overrides/README.md) |[noShorthandPropertyOverrides](/linter/rules/no-shorthand-property-overrides) |
-| [declaration-no-important](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-no-important/README.md) |[noImportantStyles](/linter/rules/no-important-styles) |
-| [font-family-no-duplicate-names](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-duplicate-names/README.md) |[noDuplicateFontNames](/linter/rules/no-duplicate-font-names) |
-| [font-family-no-missing-generic-family-keyword](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-missing-generic-family-keyword/README.md) |[useGenericFontNames](/linter/rules/use-generic-font-names) |
-| [function-linear-gradient-no-nonstandard-direction](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-linear-gradient-no-nonstandard-direction/README.md) |[noInvalidDirectionInLinearGradient](/linter/rules/no-invalid-direction-in-linear-gradient) |
-| [function-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-no-unknown/README.md) |[noUnknownFunction](/linter/rules/no-unknown-function) |
-| [keyframe-block-no-duplicate-selectors](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-block-no-duplicate-selectors/README.md) |[noDuplicateSelectorsKeyframeBlock](/linter/rules/no-duplicate-selectors-keyframe-block) |
-| [keyframe-declaration-no-important](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-declaration-no-important/README.md) |[noImportantInKeyframe](/linter/rules/no-important-in-keyframe) |
-| [media-feature-name-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/media-feature-name-no-unknown/README.md) |[noUnknownMediaFeatureName](/linter/rules/no-unknown-media-feature-name) |
-| [media-type-no-deprecated](https://github.com/stylelint/stylelint/blob/main/lib/rules/media-type-no-deprecated/README.md) |[noDeprecatedMediaType](/linter/rules/no-deprecated-media-type) |
-| [named-grid-areas-no-invalid](https://github.com/stylelint/stylelint/blob/main/lib/rules/named-grid-areas-no-invalid/README.md) |[noInvalidGridAreas](/linter/rules/no-invalid-grid-areas) |
-| [no-descending-specificity](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-descending-specificity/README.md) |[noDescendingSpecificity](/linter/rules/no-descending-specificity) |
-| [no-duplicate-at-import-rules](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-duplicate-at-import-rules/README.md) |[noDuplicateAtImportRules](/linter/rules/no-duplicate-at-import-rules) |
-| [no-duplicate-selectors](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-duplicate-selectors/README.md) |[noDuplicateSelectors](/linter/rules/no-duplicate-selectors) |
-| [no-empty-source](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-empty-source/README.md) |[noEmptySource](/linter/rules/no-empty-source) |
-| [no-invalid-position-at-import-rule](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-invalid-position-at-import-rule/README.md) |[noInvalidPositionAtImportRule](/linter/rules/no-invalid-position-at-import-rule) |
-| [no-irregular-whitespace](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-irregular-whitespace/README.md) |[noIrregularWhitespace](/linter/rules/no-irregular-whitespace) |
-| [property-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/property-no-unknown/README.md) |[noUnknownProperty](/linter/rules/no-unknown-property) |
-| [selector-anb-no-unmatchable](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-anb-no-unmatchable/README.md) |[noUnmatchableAnbSelector](/linter/rules/no-unmatchable-anb-selector) |
-| [selector-max-class](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-max-class/README.md) |[noExcessiveSelectorClasses](/linter/rules/no-excessive-selector-classes) |
-| [selector-pseudo-class-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-class-no-unknown/README.md) |[noUnknownPseudoClass](/linter/rules/no-unknown-pseudo-class) |
-| [selector-pseudo-element-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-element-no-unknown/README.md) |[noUnknownPseudoElement](/linter/rules/no-unknown-pseudo-element) |
-| [selector-type-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-type-no-unknown/README.md) |[noUnknownTypeSelector](/linter/rules/no-unknown-type-selector) |
-| [unit-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/unit-no-unknown/README.md) |[noUnknownUnit](/linter/rules/no-unknown-unit) |
+| [at-rule-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/at-rule-no-unknown/README.md) |[noUnknownAtRules](/linter/rules/no-unknown-at-rules/css) |
+| [block-no-empty](https://github.com/stylelint/stylelint/blob/main/lib/rules/block-no-empty/README.md) |[noEmptyBlock](/linter/rules/no-empty-block/css) |
+| [color-no-hex](https://github.com/stylelint/stylelint/blob/main/lib/rules/color-no-hex/README.md) |[noHexColors](/linter/rules/no-hex-colors/css) |
+| [custom-property-no-missing-var-function](https://github.com/stylelint/stylelint/blob/main/lib/rules/custom-property-no-missing-var-function/README.md) |[noMissingVarFunction](/linter/rules/no-missing-var-function/css) |
+| [declaration-block-no-duplicate-custom-properties](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-custom-properties/README.md) |[noDuplicateCustomProperties](/linter/rules/no-duplicate-custom-properties/css) |
+| [declaration-block-no-duplicate-properties](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-duplicate-properties/README.md) |[noDuplicateProperties](/linter/rules/no-duplicate-properties/css) |
+| [declaration-block-no-shorthand-property-overrides](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-block-no-shorthand-property-overrides/README.md) |[noShorthandPropertyOverrides](/linter/rules/no-shorthand-property-overrides/css) |
+| [declaration-no-important](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-no-important/README.md) |[noImportantStyles](/linter/rules/no-important-styles/css) |
+| [font-family-no-duplicate-names](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-duplicate-names/README.md) |[noDuplicateFontNames](/linter/rules/no-duplicate-font-names/css) |
+| [font-family-no-missing-generic-family-keyword](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-missing-generic-family-keyword/README.md) |[useGenericFontNames](/linter/rules/use-generic-font-names/css) |
+| [function-linear-gradient-no-nonstandard-direction](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-linear-gradient-no-nonstandard-direction/README.md) |[noInvalidDirectionInLinearGradient](/linter/rules/no-invalid-direction-in-linear-gradient/css) |
+| [function-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-no-unknown/README.md) |[noUnknownFunction](/linter/rules/no-unknown-function/css) |
+| [keyframe-block-no-duplicate-selectors](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-block-no-duplicate-selectors/README.md) |[noDuplicateSelectorsKeyframeBlock](/linter/rules/no-duplicate-selectors-keyframe-block/css) |
+| [keyframe-declaration-no-important](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-declaration-no-important/README.md) |[noImportantInKeyframe](/linter/rules/no-important-in-keyframe/css) |
+| [media-feature-name-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/media-feature-name-no-unknown/README.md) |[noUnknownMediaFeatureName](/linter/rules/no-unknown-media-feature-name/css) |
+| [media-type-no-deprecated](https://github.com/stylelint/stylelint/blob/main/lib/rules/media-type-no-deprecated/README.md) |[noDeprecatedMediaType](/linter/rules/no-deprecated-media-type/css) |
+| [named-grid-areas-no-invalid](https://github.com/stylelint/stylelint/blob/main/lib/rules/named-grid-areas-no-invalid/README.md) |[noInvalidGridAreas](/linter/rules/no-invalid-grid-areas/css) |
+| [no-descending-specificity](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-descending-specificity/README.md) |[noDescendingSpecificity](/linter/rules/no-descending-specificity/css) |
+| [no-duplicate-at-import-rules](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-duplicate-at-import-rules/README.md) |[noDuplicateAtImportRules](/linter/rules/no-duplicate-at-import-rules/css) |
+| [no-duplicate-selectors](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-duplicate-selectors/README.md) |[noDuplicateSelectors](/linter/rules/no-duplicate-selectors/css) |
+| [no-empty-source](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-empty-source/README.md) |[noEmptySource](/linter/rules/no-empty-source/css) |
+| [no-invalid-position-at-import-rule](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-invalid-position-at-import-rule/README.md) |[noInvalidPositionAtImportRule](/linter/rules/no-invalid-position-at-import-rule/css) |
+| [no-irregular-whitespace](https://github.com/stylelint/stylelint/blob/main/lib/rules/no-irregular-whitespace/README.md) |[noIrregularWhitespace](/linter/rules/no-irregular-whitespace/css) |
+| [property-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/property-no-unknown/README.md) |[noUnknownProperty](/linter/rules/no-unknown-property/css) |
+| [selector-anb-no-unmatchable](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-anb-no-unmatchable/README.md) |[noUnmatchableAnbSelector](/linter/rules/no-unmatchable-anb-selector/css) |
+| [selector-max-class](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-max-class/README.md) |[noExcessiveSelectorClasses](/linter/rules/no-excessive-selector-classes/css) |
+| [selector-pseudo-class-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-class-no-unknown/README.md) |[noUnknownPseudoClass](/linter/rules/no-unknown-pseudo-class/css) |
+| [selector-pseudo-element-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-pseudo-element-no-unknown/README.md) |[noUnknownPseudoElement](/linter/rules/no-unknown-pseudo-element/css) |
+| [selector-type-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-type-no-unknown/README.md) |[noUnknownTypeSelector](/linter/rules/no-unknown-type-selector/css) |
+| [unit-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/unit-no-unknown/README.md) |[noUnknownUnit](/linter/rules/no-unknown-unit/css) |
 
 Missing a rule? Help us by [contributing](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) to the [analyzer](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) or create a rule suggestion [here](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

@@ -32,7 +32,7 @@ Utiliza la variante Linux para Windows Subsystem for Linux (WSL).
 
 Biome está disponible como [fórmula Homebrew](https://formulae.brew.sh/formula/biome) para usuarios de macOS y Linux.
 
-```shell
+```shell showLineNumbers=false
 brew install biome
 ```
 
@@ -41,7 +41,7 @@ brew install biome
 Biome publica [imágenes Docker oficiales](https://github.com/biomejs/docker/pkgs/container/biome) compatibles
 con las arquitecturas **amd64** y **arm64** para todas las versiones de Biome a partir de `v1.7.0`.
 
-```
+```text showLineNumbers=false
 ghcr.io/biomejs/biome:{major}
 ghcr.io/biomejs/biome:{major}.{minor}
 ghcr.io/biomejs/biome:{major}.{minor}.{patch}
@@ -53,7 +53,7 @@ Estos son un par de ejemplos de cómo utilizar la imagen Docker:
 El directorio de trabajo por defecto es `/code` en la imagen Docker.
 :::
 
-```shell
+```shell showLineNumbers=false
 # Lint files
 docker run -v $(pwd):/code ghcr.io/biomejs/biome lint
 docker run -v $(pwd):/code ghcr.io/biomejs/biome lint --write
@@ -67,7 +67,7 @@ docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
 
 Para instalar Biome, descarga el ejecutable para tu plataforma de la [última versión CLI](https://github.com/biomejs/biome/releases) en GitHub y dale permiso de ejecución.
 
-<Code lang="shell" code={`
+<Code lang="shell" showLineNumbers={false} code={`
 # macOS arm (M1 o posterior)
 curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
 chmod +x biome

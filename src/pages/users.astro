@@ -9,7 +9,8 @@ const title = Astro.locals.t("users.title");
 const description = Astro.locals.t("users.description");
 ---
 
-<StarlightPage frontmatter={{
+<StarlightPage
+	frontmatter={{
 	title,
 	description,
 	template: "splash",
@@ -18,7 +19,8 @@ const description = Astro.locals.t("users.description");
 		tagline: description,
 		title
 	}
-}}>
+}}
+>
 	<div class="users-page">
 		<section class="users-section">
 			<div class="users-grid">
@@ -41,6 +43,4 @@ const description = Astro.locals.t("users.description");
 			</div>
 		</section>
 	</div>
-
-
 </StarlightPage>

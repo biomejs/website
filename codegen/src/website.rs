@@ -1,4 +1,5 @@
 use crate::project_root;
+use anyhow::Context;
 use biome_cli::biome_command;
 use biome_configuration::Configuration;
 use biome_configuration::VERSION;
@@ -14,17 +15,16 @@ use std::fs;
 /// Generates the following files:
 ///
 /// - Default configuration file: `src/components/generated/DefaultConfiguration.mdx`
-/// - CLI doc file: `src/content/docs/reference/cli.mdx`
+/// - CLI command index: `src/content/docs/reference/cli.mdx`
 /// - Schema js file: `src/pages/schemas/<version>/schema.json.js`
 ///
-/// To generate the CLI doc and the schema of the current version,
-/// pass the environment variable `BIOME_VERSION`
-///
+/// To generate the CLI command index and the schema of the current version,
+/// pass the environment variable `BIOME_VERSION`.
 pub fn generate_files() -> anyhow::Result<()> {
     generate_default_configuration()?;
 
     if VERSION != "0.0.0" {
-        generate_cli_doc()?;
+        generate_cli_command_index()?;
         generate_schema_js()?;
     }
 
@@ -63,34 +63,46 @@ pub(crate) fn generate_default_configuration() -> anyhow::Result<()> {
     Ok(())
 }
 
-/// Generates the CLI doc file: `src/content/docs/reference/cli.mdx`
-pub(crate) fn generate_cli_doc() -> anyhow::Result<()> {
+/// Generates the CLI command index in `src/content/docs/reference/cli.mdx`.
+pub(crate) fn generate_cli_command_index() -> anyhow::Result<()> {
     let cli_doc_path = project_root().join("src/content/docs/reference/cli.mdx");
-
     let mut cli_doc_content = fs::read_to_string(&cli_doc_path)?;
-
     let start = "\n[//]: # (Start-codegen)\n";
     let end = "\n[//]: # (End-codegen)";
-
-    debug_assert!(cli_doc_content.contains(start));
-    debug_assert!(cli_doc_content.contains(end));
-
     let start_index = cli_doc_content
         .find(start)
-        .expect("CLI doc should contain a start placeholder.")
+        .context("CLI doc should contain a start placeholder")?
         + start.len();
-    let end_index = cli_doc_content
+    let end_index = cli_doc_content[start_index..]
         .find(end)
-        .expect("CLI doc should contain an end placeholder.");
+        .map(|offset| start_index + offset)
+        .context("CLI doc should contain an end placeholder after the start placeholder")?;
 
-    cli_doc_content.replace_range(
-        start_index..end_index,
-        &biome_command().render_markdown("biome"),
-    );
-
+    let command_index = render_command_index(&biome_command().render_markdown("biome"))?;
+    cli_doc_content.replace_range(start_index..end_index, &command_index);
     fs::write(cli_doc_path, &cli_doc_content)?;
 
     Ok(())
+}
+
+fn render_command_index(markdown: &str) -> anyhow::Result<String> {
+    let summary_start = markdown
+        .find("# Command summary\n")
+        .context("CLI output should contain a command summary")?
+        + "# Command summary\n".len();
+    let summary = &markdown[summary_start..];
+    let summary_end = summary
+        .find("\n## ")
+        .context("CLI command summary should end before command details")?;
+    let commands = summary[..summary_end]
+        .lines()
+        .filter(|line| line.trim_start().starts_with("* [`biome "))
+        .map(|line| line.replace('↴', ""))
+        .collect::<Vec<_>>();
+
+    (!commands.is_empty())
+        .then(|| format!("## Commands\n\n{}\n", commands.join("\n")))
+        .context("CLI command summary should contain commands")
 }
 
 /// Fetches the configuration schema JSON from the biome repository at the

@@ -1,13 +1,22 @@
 ---
 import { Image } from "astro:assets";
+import darkCodSpeed from "../assets/sponsors/codspeed-logo-dark.svg";
+import lightCodSpeed from "../assets/sponsors/codspeed-logo-light.svg";
 import darkDepot from "../assets/sponsors/depot-logo-horizontal-on-dark@3x.png";
 import lightDepot from "../assets/sponsors/depot-logo-horizontal-on-light@3x.png";
 
 const { title } = Astro.props;
 ---
+
 <h2 class="head">{title}</h2>
 <div class="sponsors">
-	<a class="sponsors-row" href="https://depot.dev" rel="nofollow" title="Depot" target="_blank">
+	<a
+		class="sponsors-row"
+		href="https://depot.dev"
+		rel="nofollow"
+		title="Depot"
+		target="_blank"
+	>
 		<Image
 			alt="Depot"
 			src={lightDepot}
@@ -20,6 +29,30 @@ const { title } = Astro.props;
 			alt="Depot"
 			src={darkDepot}
 			data-canonical-src={darkDepot.src}
+			width="300"
+			class="light:sl-hidden"
+			loading="eager"
+		/>
+	</a>
+	<a
+		class="sponsors-row"
+		href="https://codspeed.io/docs"
+		rel="nofollow"
+		title="CodSpeed"
+		target="_blank"
+	>
+		<Image
+			alt="CodSpeed"
+			src={lightCodSpeed}
+			data-canonical-src={lightCodSpeed.src}
+			width="300"
+			class="dark:sl-hidden"
+			loading="eager"
+		/>
+		<Image
+			alt="CodSpeed"
+			src={darkCodSpeed}
+			data-canonical-src={darkCodSpeed.src}
 			width="300"
 			class="light:sl-hidden"
 			loading="eager"

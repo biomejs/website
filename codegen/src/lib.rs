@@ -5,6 +5,7 @@ use std::path::{Path, PathBuf};
 pub mod diagnostics;
 pub mod domains;
 pub mod env_variables;
+mod legacy_rule_routes;
 pub mod lintdoc;
 pub mod lsp;
 pub mod metadata;

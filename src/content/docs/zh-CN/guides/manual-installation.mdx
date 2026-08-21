@@ -30,7 +30,7 @@ export const version = await getLatestVersion("stable");
 
 Biome可以作为[Homebrew formula](https://formulae.brew.sh/formula/biome)提供给macOS和Linux用户。
 
-```shell
+```shell showLineNumbers=false
 brew install biome
 ```
 
@@ -38,7 +38,7 @@ brew install biome
 
 要安装Biome，请从GitHub的[最新CLI版本](https://github.com/biomejs/biome/releases)中获取适用于您平台的可执行文件，并给它执行权限。
 
-<Code lang="shell" code={`
+<Code lang="shell" showLineNumbers={false} code={`
 # macOS arm (M1或更新版本)
 curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
 chmod +x biome

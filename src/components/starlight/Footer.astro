@@ -1,74 +1,40 @@
 ---
-import { Image } from "astro:assets";
 import Default from "@astrojs/starlight/components/Footer.astro";
-import darkDepot from "@/assets/sponsors/depot-logo-horizontal-on-dark@3x.png";
-import lightDepot from "@/assets/sponsors/depot-logo-horizontal-on-light@3x.png";
+import SiteSponsor from "./SiteSponsor.astro";
+
+const isPlayground = /^\/playground(?:\/|$)/.test(Astro.url.pathname);
 ---
 
 <Default {...Astro.props}>
 	<slot />
 </Default>
 
-<div class="footer-sponsors">
-	<p class="title">
-		Sponsored by
-	</p>
-	<div class="list">
-		<div class="item">
-			<Image
-				alt="Depot"
-				src={lightDepot}
-				data-canonical-src={lightDepot.src}
-				width="150"
-				class="dark:sl-hidden"
-			/>
-			<Image
-				alt="Depot"
-				src={darkDepot}
-				data-canonical-src={darkDepot.src}
-				width="150"
-				class="light:sl-hidden"
-			/>
-		</div>
-	</div>
-
-</div>
+{!isPlayground && <div class="footer-sponsor print:hidden"><SiteSponsor placement="footer" /></div>}
 
 <div class="copyright">
 	<p>Copyright (c) 2023-present Biome Developers and Contributors.</p>
 </div>
 
 <style>
-  .copyright {
-		display: flex;
-    padding: 2rem;
-    align-items: center;
-		justify-content: center;
-    flex-direction: column;
-    border-top: 1px solid var(--sl-color-gray-5);
-  }
-	.copyright p {
-		text-align: center;
-    margin-top: 1rem;
-  }
-	.copyright picture {
-    vertical-align: top;
-  }
+.copyright {
+	display: flex;
+	padding: 2rem;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	border-top: 1px solid var(--sl-color-gray-5);
+}
+.copyright p {
+	text-align: center;
+	margin-top: 1rem;
+}
+.copyright picture {
+	vertical-align: top;
+}
 
-	.footer-sponsors {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: .5rem 2rem;
-
-		.title {
-			font-weight: bold;
-			margin-bottom: 1rem;
-		}
-
-		.list {
-			display: flex;
-			gap: 1rem;
-		}
+@media (min-width: 72rem) {
+	.footer-sponsor {
+		display: none;
 	}
+}
 </style>

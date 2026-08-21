@@ -9,8 +9,8 @@ description: A page that maps rules from other sources to Biome
 ---
     
 ## Biome exclusive rules
-- [noEmptySource](/linter/rules/no-empty-source) 
-- [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file) 
+- [noEmptySource](/linter/rules/no-empty-source/graphql)
+- [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file/graphql)
 ## Rules from other sources
 :::note
 Some **Biome** rules might **not** have options, compared to the original rule.
@@ -18,24 +18,24 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### GraphQL-ESLint
 | GraphQL-ESLint Rules name | Biome Rules name |
 | ---- | ---- |
-| [description-style](https://the-guild.dev/graphql/eslint/rules/description-style) |[useConsistentGraphqlDescriptions](/linter/rules/use-consistent-graphql-descriptions) |
-| [input-name](https://the-guild.dev/graphql/eslint/rules/input-name) |[useInputName](/linter/rules/use-input-name) |
-| [lone-anonymous-operation](https://the-guild.dev/graphql/eslint/rules/lone-anonymous-operation) |[useLoneAnonymousOperation](/linter/rules/use-lone-anonymous-operation) |
-| [lone-executable-definition](https://the-guild.dev/graphql/eslint/rules/lone-executable-definition) |[useLoneExecutableDefinition](/linter/rules/use-lone-executable-definition) |
-| [no-anonymous-operations](https://the-guild.dev/graphql/eslint/rules/no-anonymous-operations) |[useGraphqlNamedOperations](/linter/rules/use-graphql-named-operations) |
-| [no-duplicate-fields](https://the-guild.dev/graphql/eslint/rules/no-duplicate-fields) |[noDuplicateFields](/linter/rules/no-duplicate-fields) |
-| [no-root-type](https://the-guild.dev/graphql/eslint/rules/no-root-type) |[noRootType](/linter/rules/no-root-type) |
-| [require-deprecation-date](https://the-guild.dev/graphql/eslint/rules/require-deprecation-date) |[useDeprecatedDate](/linter/rules/use-deprecated-date) |
-| [require-deprecation-reason](https://the-guild.dev/graphql/eslint/rules/require-deprecation-reason) |[useDeprecatedReason](/linter/rules/use-deprecated-reason) |
-| [unique-argument-names](https://the-guild.dev/graphql/eslint/rules/unique-argument-names) |[noDuplicateArgumentNames](/linter/rules/no-duplicate-argument-names) |
-| [unique-enum-value-names](https://the-guild.dev/graphql/eslint/rules/unique-enum-value-names) |[noDuplicateEnumValueNames](/linter/rules/no-duplicate-enum-value-names) |
-| [unique-field-definition-names](https://the-guild.dev/graphql/eslint/rules/unique-field-definition-names) |[noDuplicateFieldDefinitionNames](/linter/rules/no-duplicate-field-definition-names) |
-| [unique-input-field-names](https://the-guild.dev/graphql/eslint/rules/unique-input-field-names) |[noDuplicateInputFieldNames](/linter/rules/no-duplicate-input-field-names) |
-| [unique-operation-name](https://the-guild.dev/graphql/eslint/rules/unique-operation-name) |[noDuplicateGraphqlOperationName](/linter/rules/no-duplicate-graphql-operation-name) (inspired) |
-| [unique-variable-names](https://the-guild.dev/graphql/eslint/rules/unique-variable-names) |[noDuplicateVariableNames](/linter/rules/no-duplicate-variable-names) |
+| [description-style](https://the-guild.dev/graphql/eslint/rules/description-style) |[useConsistentGraphqlDescriptions](/linter/rules/use-consistent-graphql-descriptions/graphql) |
+| [input-name](https://the-guild.dev/graphql/eslint/rules/input-name) |[useInputName](/linter/rules/use-input-name/graphql) |
+| [lone-anonymous-operation](https://the-guild.dev/graphql/eslint/rules/lone-anonymous-operation) |[useLoneAnonymousOperation](/linter/rules/use-lone-anonymous-operation/graphql) |
+| [lone-executable-definition](https://the-guild.dev/graphql/eslint/rules/lone-executable-definition) |[useLoneExecutableDefinition](/linter/rules/use-lone-executable-definition/graphql) |
+| [no-anonymous-operations](https://the-guild.dev/graphql/eslint/rules/no-anonymous-operations) |[useGraphqlNamedOperations](/linter/rules/use-graphql-named-operations/graphql) |
+| [no-duplicate-fields](https://the-guild.dev/graphql/eslint/rules/no-duplicate-fields) |[noDuplicateFields](/linter/rules/no-duplicate-fields/graphql) |
+| [no-root-type](https://the-guild.dev/graphql/eslint/rules/no-root-type) |[noRootType](/linter/rules/no-root-type/graphql) |
+| [require-deprecation-date](https://the-guild.dev/graphql/eslint/rules/require-deprecation-date) |[useDeprecatedDate](/linter/rules/use-deprecated-date/graphql) |
+| [require-deprecation-reason](https://the-guild.dev/graphql/eslint/rules/require-deprecation-reason) |[useDeprecatedReason](/linter/rules/use-deprecated-reason/graphql) |
+| [unique-argument-names](https://the-guild.dev/graphql/eslint/rules/unique-argument-names) |[noDuplicateArgumentNames](/linter/rules/no-duplicate-argument-names/graphql) |
+| [unique-enum-value-names](https://the-guild.dev/graphql/eslint/rules/unique-enum-value-names) |[noDuplicateEnumValueNames](/linter/rules/no-duplicate-enum-value-names/graphql) |
+| [unique-field-definition-names](https://the-guild.dev/graphql/eslint/rules/unique-field-definition-names) |[noDuplicateFieldDefinitionNames](/linter/rules/no-duplicate-field-definition-names/graphql) |
+| [unique-input-field-names](https://the-guild.dev/graphql/eslint/rules/unique-input-field-names) |[noDuplicateInputFieldNames](/linter/rules/no-duplicate-input-field-names/graphql) |
+| [unique-operation-name](https://the-guild.dev/graphql/eslint/rules/unique-operation-name) |[noDuplicateGraphqlOperationName](/linter/rules/no-duplicate-graphql-operation-name/graphql) (inspired) |
+| [unique-variable-names](https://the-guild.dev/graphql/eslint/rules/unique-variable-names) |[noDuplicateVariableNames](/linter/rules/no-duplicate-variable-names/graphql) |
 ### graphql-schema-linter
 | graphql-schema-linter Rules name | Biome Rules name |
 | ---- | ---- |
-| [enum-values-all-caps](https://github.com/cjoudrey/graphql-schema-linter?tab=readme-ov-file#enum-values-all-caps) |[useGraphqlNamingConvention](/linter/rules/use-graphql-naming-convention) (inspired) |
+| [enum-values-all-caps](https://github.com/cjoudrey/graphql-schema-linter?tab=readme-ov-file#enum-values-all-caps) |[useGraphqlNamingConvention](/linter/rules/use-graphql-naming-convention/graphql) (inspired) |
 
 Missing a rule? Help us by [contributing](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) to the [analyzer](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) or create a rule suggestion [here](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

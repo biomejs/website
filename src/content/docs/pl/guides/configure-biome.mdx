@@ -127,7 +127,7 @@ Pierwszym sposobem kontrolowania, które pliki i foldery są przetwarzane przez 
 wymienienie ich w CLI. W poniższym poleceniu formatujemy tylko `file1.js` i
 wszystkie pliki w folderze `src`, ponieważ foldery są przeszukiwane rekurencyjnie.
 
-```shell
+```shell showLineNumbers=false
 biome format file1.js src/
 ```
 
@@ -174,7 +174,7 @@ folderze `src/`, folderze `test/` i ignorować pliki, które mają `.min.js` w s
 
 I uruchom następujące polecenie:
 
-```shell
+```shell showLineNumbers=false
 biome format test/
 ```
 
@@ -187,7 +187,7 @@ CLI.
 Jeśli uruchomimy następujące polecenie, żadne pliki nie są lintowane, ponieważ pliki w
 folderze `test/` są jawnie ignorowane dla lintera.
 
-```shell
+```shell showLineNumbers=false
 biome lint test/
 ```
 

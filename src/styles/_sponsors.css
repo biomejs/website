@@ -1,13 +1,25 @@
 .sponsors {
 	margin-top: 7rem;
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: row;
+	flex-wrap: nowrap;
 	align-items: center;
+	gap: 1rem;
 	.sponsors-row {
-		margin: 0 auto;
+		flex: 1 1 0;
+		min-width: 0;
+		max-width: 300px;
+		margin: 0;
 	}
-	@media only screen and (max-width: 1200px) {
+	.sponsors-row img {
+		width: 100%;
+		height: auto;
+	}
+	@media only screen and (min-width: 72rem) {
+		flex-direction: column;
 		.sponsors-row {
+			flex: none;
+			width: 300px;
 			margin: 1rem auto;
 		}
 	}

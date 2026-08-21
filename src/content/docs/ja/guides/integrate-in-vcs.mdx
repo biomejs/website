@@ -51,7 +51,7 @@ VCS (バージョン管理システム）の統合は、**追加の**機能を�
 
 次に、コマンドに `--changed` オプションを追加すると、VCSが"変更された"と認識したファイルのみを処理します。Biomeは、VCSの助けを借りて、mainブランチと現在のリビジョンからの変更ファイルを判断します。
 
-```shell
+```shell showLineNumbers=false
 biome check --changed
 ```
 
@@ -61,7 +61,7 @@ Biomeは何が変更されたかをチェックしません。つまり、スペ
 
 あるいは、`--since` オプションを使って任意のブランチを指定することもできます。このオプションは `vcs.defaultBranch` オプションよりも**優先**されます。例えば、変更をnextブランチと比較したい場合は次のようにします。
 
-```shell
+```shell showLineNumbers=false
 biome check --changed --since=next
 ```
 
@@ -70,7 +70,7 @@ biome check --changed --since=next
 変更をコミットする前に、_インデックス_ に追加されたファイル、つまり _ステージされたファイル_ のフォーマットやリントをチェックしたい場合があります。
 コマンドに `--staged` オプションを追加して、ステージされたファイルのみを処理できます：
 
-```shell
+```shell showLineNumbers=false
 biome check --staged
 ```
 

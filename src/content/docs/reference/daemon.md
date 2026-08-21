@@ -193,6 +193,9 @@ Returns `ChangeFileResult`.
 
 ```ts
 interface ChangeFileResult {
+	/**
+	 * Problems found while updating dependency and module data. This does not include lint or parse results for the changed file.
+	 */
 	diagnostics: Diagnostic[];
 }
 ```
@@ -449,6 +452,48 @@ interface PullDiagnosticsResult {
 	 */
 	parseErrors: number;
 	skippedDiagnostics: number;
+	warnings: number;
+}
+```
+
+### `biome/process_file`
+
+Accepts `ProcessFileParams`.
+
+```ts
+interface ProcessFileParams {
+	categories: RuleCategories;
+	content: FileContent;
+	diagnosticLevel: Severity;
+	enabledRules?: string[];
+	enforceAssist: boolean;
+	fixFileMode?: FixFileMode;
+	format: boolean;
+	includeCodeFix: boolean;
+	maxDiagnostics?: unknown;
+	only?: string[];
+	path: string;
+	projectKey: number;
+	skip?: string[];
+	skipParseErrors: boolean;
+	suppressionReason?: unknown;
+	write: boolean;
+}
+```
+
+Returns `ProcessFileResult`.
+
+```ts
+interface ProcessFileResult {
+	appliedFixes: number;
+	diagnostics: Diagnostic[];
+	errors: number;
+	formatWithErrorsDisabled: boolean;
+	infos: number;
+	output?: unknown;
+	parseErrors: number;
+	skippedDiagnostics: number;
+	skippedSuggestedFixes: number;
 	warnings: number;
 }
 ```

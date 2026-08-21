@@ -32,7 +32,7 @@ Windows Subsystem for Linux (WSL) の場合は、Linux版を使用してくだ�
 
 BiomeはmacOSとLinuxユーザー向けに [Homebrew formula](https://formulae.brew.sh/formula/biome) から利用可能です。
 
-```shell
+```shell showLineNumbers=false
 brew install biome
 ```
 
@@ -41,7 +41,7 @@ brew install biome
 Biomeはバージョン `v1.7.0` 移行の各バージョンについて **amd64** および **arm64** アーキテクチャをサポートした
 [公式のDockerイメージ](https://github.com/biomejs/docker/pkgs/container/biome) を公開しています。
 
-```
+```text showLineNumbers=false
 ghcr.io/biomejs/biome:{major}
 ghcr.io/biomejs/biome:{major}.{minor}
 ghcr.io/biomejs/biome:{major}.{minor}.{patch}
@@ -53,7 +53,7 @@ ghcr.io/biomejs/biome:{major}.{minor}.{patch}
 デフォルトの作業ディレクトリはDockerイメージ内の `/code` です。
 :::
 
-```shell
+```shell showLineNumbers=false
 # ファイルをリントする
 docker run -v $(pwd):/code ghcr.io/biomejs/biome lint
 docker run -v $(pwd):/code ghcr.io/biomejs/biome lint --write
@@ -68,7 +68,7 @@ docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
 Biomeをインストールするには、GitHub上の[最新のCLIリリース](https://github.com/biomejs/biome/releases) からプラットフォームに合った実行可能ファイルを取得し、実行権限を与えてください。
 
 {/* <!-- textlint-disable --> */}
-<Code lang="shell" code={`
+<Code lang="shell" showLineNumbers={false} code={`
 # macOS arm (M1以降)
 curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
 chmod +x biome

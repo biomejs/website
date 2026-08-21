@@ -1,3 +1,4 @@
+use crate::lintdoc::to_website_language;
 use crate::project_root;
 use biome_analyze::{
     FixKind, GroupCategory, Queryable, RegistryVisitor, Rule, RuleCategory, RuleGroup,
@@ -91,16 +92,24 @@ struct JsonMetadata {
     pub docs: String,
 }
 
-impl From<RuleMetadata> for JsonMetadata {
-    fn from(value: RuleMetadata) -> Self {
+impl JsonMetadata {
+    fn from_rule(value: RuleMetadata, category: RuleCategory) -> Self {
+        let docs_path = match category {
+            RuleCategory::Action => "assist/actions",
+            RuleCategory::Lint | RuleCategory::Syntax | RuleCategory::Transformation => {
+                "linter/rules"
+            }
+        };
         Self {
             deprecated: value.deprecated.is_some(),
             version: value.version.to_string(),
             name: value.name.to_string(),
             sources: value.sources.to_vec(),
             link: format!(
-                "https://biomejs.dev/linter/rules/{}",
-                Case::Kebab.convert(value.name)
+                "https://biomejs.dev/{}/{}/{}",
+                docs_path,
+                Case::Kebab.convert(value.name),
+                to_website_language(value.language)
             ),
             recommended: value.recommended,
             fix_kind: value.fix_kind,
@@ -125,7 +134,10 @@ impl Metadata {
                     .or_default();
                 let group = languages.entry(R::Group::NAME.into()).or_default();
 
-                group.insert(R::METADATA.name.into(), JsonMetadata::from(R::METADATA));
+                group.insert(
+                    R::METADATA.name.into(),
+                    JsonMetadata::from_rule(R::METADATA, RuleCategory::Syntax),
+                );
             }
             RuleCategory::Lint => {
                 self.lints.number_or_rules += 1;
@@ -136,7 +148,10 @@ impl Metadata {
                     .or_default();
                 let group = languages.entry(R::Group::NAME.into()).or_default();
 
-                group.insert(R::METADATA.name.into(), JsonMetadata::from(R::METADATA));
+                group.insert(
+                    R::METADATA.name.into(),
+                    JsonMetadata::from_rule(R::METADATA, RuleCategory::Lint),
+                );
             }
             RuleCategory::Action => {
                 self.assist.number_or_rules += 1;
@@ -147,7 +162,10 @@ impl Metadata {
                     .or_default();
                 let group = languages.entry(R::Group::NAME.into()).or_default();
 
-                group.insert(R::METADATA.name.into(), JsonMetadata::from(R::METADATA));
+                group.insert(
+                    R::METADATA.name.into(),
+                    JsonMetadata::from_rule(R::METADATA, RuleCategory::Action),
+                );
             }
             RuleCategory::Transformation => {}
         }

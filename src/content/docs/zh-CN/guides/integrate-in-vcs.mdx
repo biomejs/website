@@ -51,7 +51,7 @@ description: 了解 Biome 是如何工作的，如原理、配置等。
 
 然后，在命令行中增加 `--changed` 选项，来处理那些被版本控制系统标记为“变更”的文件。Biome 会在版本控制系统的帮助下，会判断出 `main` 分支的变更文件以及当前修订内容：
 
-```shell
+```shell showLineNumbers=false
 biome format --changed
 ```
 
@@ -61,6 +61,6 @@ Biome 不会检查变更内容，这意味着即使是在文件里增加了空�
 
 或者，可以通过 `--since` 选项来指定任意一个分支。这个选项**优先**于 `vcs.defaultBranch` 选项。例如，你可能想要针对 `next` 分支来检查变更：
 
-```shell
+```shell showLineNumbers=false
 biome format --changed --since=next
 ```
