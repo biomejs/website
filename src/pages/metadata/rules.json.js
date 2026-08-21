@@ -363,7 +363,7 @@ export function GET() {
             "deprecated": false,
             "version": "2.5.9",
             "name": "useNamedLayer",
-            "link": "https://biomejs.dev/linter/rules/use-named-layer",
+            "link": "https://biomejs.dev/linter/rules/use-named-layer/css",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -2010,7 +2010,7 @@ export function GET() {
             "deprecated": false,
             "version": "2.5.9",
             "name": "useAstroClientOnlyDirectiveValue",
-            "link": "https://biomejs.dev/linter/rules/use-astro-client-only-directive-value",
+            "link": "https://biomejs.dev/linter/rules/use-astro-client-only-directive-value/html",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -2027,7 +2027,7 @@ export function GET() {
             "deprecated": false,
             "version": "2.5.9",
             "name": "useControlLabel",
-            "link": "https://biomejs.dev/linter/rules/use-control-label",
+            "link": "https://biomejs.dev/linter/rules/use-control-label/html",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -2087,7 +2087,7 @@ export function GET() {
             "deprecated": false,
             "version": "2.5.9",
             "name": "useTailwindShorthandClasses",
-            "link": "https://biomejs.dev/linter/rules/use-tailwind-shorthand-classes",
+            "link": "https://biomejs.dev/linter/rules/use-tailwind-shorthand-classes/html",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -9114,7 +9114,7 @@ export function GET() {
             "deprecated": false,
             "version": "2.5.9",
             "name": "useControlLabel",
-            "link": "https://biomejs.dev/linter/rules/use-control-label",
+            "link": "https://biomejs.dev/linter/rules/use-control-label/javascript",
             "recommended": false,
             "fixKind": "none",
             "sources": [
@@ -9171,7 +9171,7 @@ export function GET() {
             "deprecated": false,
             "version": "2.5.9",
             "name": "useTailwindShorthandClasses",
-            "link": "https://biomejs.dev/linter/rules/use-tailwind-shorthand-classes",
+            "link": "https://biomejs.dev/linter/rules/use-tailwind-shorthand-classes/javascript",
             "recommended": false,
             "fixKind": "unsafe",
             "sources": [
@@ -9765,7 +9765,7 @@ export function GET() {
             "deprecated": false,
             "version": "2.5.9",
             "name": "noUnsafeTypeAssertion",
-            "link": "https://biomejs.dev/linter/rules/no-unsafe-type-assertion",
+            "link": "https://biomejs.dev/linter/rules/no-unsafe-type-assertion/javascript",
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow TypeScript type assertions other than const assertions.\n\n Type assertions override TypeScript's inferred type without performing any runtime checks.\n This can hide invalid assumptions about a value and lead to runtime errors.\n\n Safer alternatives include:\n\n - [Type annotations](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-annotations-on-variables)\n - The [`satisfies` operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator)\n - [Type predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates)\n - [Assertion functions](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions)\n - [Control-flow narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis)\n - Validation libraries, like [Zod](https://zod.dev/), [Valibot](https://valibot.dev/), or [arktype](https://arktype.dev/)\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface SomeType {\n     value: string;\n }\n declare const value;\n const asserted = value as SomeType;\n ```\n\n ```ts,expect_diagnostic\n interface SomeType {\n     value: string;\n }\n declare const value;\n const asserted = <SomeType>value;\n ```\n\n ```ts,expect_diagnostic\n interface SomeType {\n     value: string;\n }\n declare const asserted;\n (asserted as SomeType).value = \"foo\";\n ```\n\n ### Valid\n\n `const` assertions are allowed:\n\n ```ts\n const tuple = [\"value\", 1] as const;\n ```\n\n Use a [type annotation](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-annotations-on-variables):\n\n ```ts\n const annotated: string = \"value\";\n ```\n\n Use the [`satisfies` operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator):\n\n ```ts\n const checked = { value: \"value\" } satisfies { value: string };\n ```\n\n Use a [type predicate](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates):\n\n ```ts\n function isString(value: unknown): value is string {\n     return typeof value === \"string\";\n }\n ```\n\n Use an [assertion function](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions):\n\n ```ts\n function assertIsString(value: unknown): asserts value is string {\n     if (!isString(value)) {\n         throw new TypeError(\"Expected a string\");\n     }\n }\n ```\n\n Use [control-flow narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#control-flow-analysis):\n\n ```ts\n function narrow(value: string | undefined) {\n     if (value !== undefined) {\n         return value.length;\n     }\n }\n ```\n"
