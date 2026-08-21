@@ -502,6 +502,7 @@ fn generate_language_page(
     add_codegen_disclaimer_frontmatter(&mut index, CodegenEditUrl::Url(LINTDOC_EDIT_URL))?;
     writeln!(index, "title: {language_prefix} {title}")?;
     writeln!(index, "description: {description} for {language_prefix}")?;
+    writeln!(index, "localized: false")?;
     writeln!(index, "---")?;
     writeln!(index)?;
 
@@ -746,6 +747,7 @@ fn write_language_rule_pages(
             "description: {} documentation for {}",
             variant.selector_label, payload.rule_name
         )?;
+        writeln!(content, "localized: false")?;
         writeln!(content, "---")?;
         writeln!(
             content,
