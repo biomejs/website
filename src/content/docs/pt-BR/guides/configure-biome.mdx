@@ -126,7 +126,7 @@ A primeira maneira de controlar quais arquivos e pastas são processados pelo Bi
 listá-los na CLI. No comando a seguir, formatamos apenas `file1.js` e
 todos os arquivos na pasta `src`, porque as pastas são percorridas recursivamente.
 
-```shell
+```shell showLineNumbers=false
 biome format file1.js src/
 ```
 
@@ -173,7 +173,7 @@ da pasta `src/`, da pasta `test/`, e ignorar arquivos que têm `.min.js` em seu 
 
 E execute o seguinte comando:
 
-```shell
+```shell showLineNumbers=false
 biome format test/
 ```
 
@@ -186,7 +186,7 @@ CLI.
 Se executarmos o seguinte comando, nenhum arquivo será analisado (linted) porque os arquivos dentro da
 pasta `test/` são explicitamente ignorados para o linter.
 
-```shell
+```shell showLineNumbers=false
 biome lint test/
 ```
 

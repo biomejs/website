@@ -34,7 +34,7 @@ export const version = await getLatestVersion("stable");
 
 Biome доступен в качестве [формулы Homebrew](https://formulae.brew.sh/formula/biome) для пользователей macOS и Linux.
 
-```shell
+```shell showLineNumbers=false
 brew install biome
 ```
 
@@ -43,7 +43,7 @@ brew install biome
 Biome предоставляет [официальные Docker-образы](https://github.com/biomejs/docker/pkgs/container/biome),
 которые поддерживают архитектуры **amd64** и **arm64** для всех версий Biome, начиная с `v1.7.0`.
 
-```
+```text showLineNumbers=false
 ghcr.io/biomejs/biome:{major}
 ghcr.io/biomejs/biome:{major}.{minor}
 ghcr.io/biomejs/biome:{major}.{minor}.{patch}
@@ -55,7 +55,7 @@ ghcr.io/biomejs/biome:{major}.{minor}.{patch}
 Рабочий каталог Docker-образа по умолчанию — `/code`.
 :::
 
-```shell
+```shell showLineNumbers=false
 # Выполнить линтинг файлов
 docker run -v $(pwd):/code ghcr.io/biomejs/biome lint
 docker run -v $(pwd):/code ghcr.io/biomejs/biome lint --write
@@ -72,7 +72,7 @@ docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
 Чтобы установить Biome, получите исполняемый файл для вашей платформы из
 [последнего выпуска CLI](https://github.com/biomejs/biome/releases) на GitHub и выдайте ему разрешение на выполнение.
 
-<Code lang="shell" code={`
+<Code lang="shell" showLineNumbers={false} code={`
 # macOS arm (M1 или новее)
 curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
 chmod +x biome

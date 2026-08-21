@@ -53,7 +53,7 @@ Od wersji 2.0, Biome ma ulepszone możliwości śledzenia, aby pomóc w tym
 Jeśli połączymy te trzy argumenty, możemy utworzyć plik logu z wiadomościami JSON
 zawierającymi wszystkie istotne informacje o czasie dla Biome. Na przykład:
 
-```sh
+```sh showLineNumbers=false
 biome lint --log-level=tracing --log-kind=json --log-file=tracing.json
 ```
 
@@ -63,7 +63,7 @@ To zapisuje plik `tracing.json`, ale może zawierać _dużo_ danych. Więc użyj
 Na przykład, jeśli chcesz dowiedzieć się, które ścieżki zajmują najdłużej podczas
 budowania grafu modułów, możesz użyć następującego polecenia:
 
-```sh
+```sh showLineNumbers=false
 cat tracing.json | jq 'select(.span.name == "update_module_graph_internal") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
 ```
 
@@ -73,7 +73,7 @@ razem ze ścieżkami używanymi podczas wywołań.
 Podobnie, jeśli chcesz dowiedzieć się, które pliki były najwolniejsze do analizy,
 możesz użyć następującego polecenia:
 
-```sh
+```sh showLineNumbers=false
 cat tracing.json | jq '. | select(.span.name == "pull_diagnostics") | { path: .span.path, time_busy: .["time.busy"], time_idle: .["time.idle"] }' > filtered.json
 ```
 

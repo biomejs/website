@@ -311,7 +311,8 @@ self.addEventListener("message", async (e) => {
 			// Update plugins
 			const plugins = files
 				.map((file) => file.filename)
-				.filter((filename) => filename.endsWith(".grit"));
+				.filter((filename) => isPluginFile(filename))
+				.map((filename) => `/${filename}`);
 
 			workspace.updateSettings({
 				projectKey,
@@ -347,7 +348,7 @@ self.addEventListener("message", async (e) => {
 			filesystem.insert(path, encoder.encode(code));
 
 			// Reload plugins if changed
-			if (filename.endsWith(".grit")) {
+			if (isPluginFile(filename)) {
 				workspace.updateSettings({
 					projectKey,
 					configuration: { ...configuration },
@@ -609,4 +610,12 @@ function getCurrentConfiguration(): Configuration | undefined {
 		return fileConfiguration;
 	}
 	return configuration;
+}
+
+function isPluginFile(filename: string): boolean {
+	return (
+		filename.endsWith(".grit") ||
+		filename === "plugin.js" ||
+		filename === "plugin.ts"
+	);
 }

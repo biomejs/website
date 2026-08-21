@@ -1,0 +1,55 @@
+.sidebar-content .top-level > li > a.large,
+.sidebar-content .top-level > li > details > summary {
+	font-size: var(--sl-text-lg);
+	font-weight: 700;
+}
+
+.sidebar-content details > summary .large {
+	font-weight: 700;
+}
+
+.sidebar-content .top-level > li > details > summary .large {
+	font-size: inherit;
+	font-weight: inherit;
+	color: var(--sl-color-white);
+}
+
+@media (min-width: 50rem) {
+	.sidebar-content .top-level > li > a.large,
+	.sidebar-content .top-level > li > details > summary {
+		font-size: var(--sl-text-base);
+	}
+}
+
+.sidebar-content ul ul {
+	margin-inline-start: 0.5rem;
+	padding-inline-start: 0.625rem;
+	border-inline-start: 1px solid var(--sl-color-hairline-light);
+}
+
+.sidebar-content ul ul li {
+	margin-inline-start: 0;
+	padding-inline-start: 0;
+	border-inline-start: 0;
+}
+
+.sidebar-content a {
+	transition:
+		background-color 120ms ease,
+		color 120ms ease;
+}
+
+.sidebar-content a:hover,
+.sidebar-content a:focus-visible {
+	background: color-mix(in srgb, var(--sl-color-gray-5) 35%, transparent);
+}
+
+.sidebar-content [aria-current="page"],
+.sidebar-content [aria-current="page"]:hover,
+.sidebar-content [aria-current="page"]:focus {
+	padding-inline-start: calc(var(--sl-sidebar-item-padding-inline) - 0.1875rem);
+	border-inline-start: 0.1875rem solid var(--sl-color-text-accent);
+	border-radius: var(--biome-radius-sm);
+	background: color-mix(in srgb, var(--sl-color-text-accent) 12%, transparent);
+	color: var(--sl-color-text-accent);
+}

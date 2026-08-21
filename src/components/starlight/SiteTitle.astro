@@ -21,13 +21,12 @@ function pathsMatch(pathA: string, pathB: string): boolean {
 ---
 
 <div>
-  <AstrolightSiteTitle {...Astro.props} />
+	<AstrolightSiteTitle {...Astro.props} />
 
-  <div class="separator"></div>
+	<div class="separator"></div>
 
-  <div class="menu-items">
-    {
-      menuItems.map((menuItem) => (
+	<div class="menu-items">
+		{menuItems.map((menuItem) => (
         <a
           href={menuItem.href}
           aria-current={
@@ -36,53 +35,52 @@ function pathsMatch(pathA: string, pathB: string): boolean {
         >
           <span>{menuItem.name}</span>
         </a>
-      ))
-    }
-  </div>
+      ))}
+	</div>
 </div>
 
 <style>
-  div {
-    display: flex;
-    gap: var(--sl-content-pad-x);
-    align-items: center;
-  }
+div {
+	display: flex;
+	gap: var(--sl-content-pad-x);
+	align-items: center;
+}
 
-  div.separator {
-    content: "";
-    height: 2rem;
-    border-inline-end: 1px solid var(--sl-color-gray-5);
-  }
+div.separator {
+	content: "";
+	height: 2rem;
+	border-inline-end: 1px solid var(--sl-color-gray-5);
+}
 
-  div a {
-    text-decoration: none;
-    color: var(--sl-color-white);
-    font-size: var(--sl-text-base);
-    font-weight: 500;
-  }
+div a {
+	text-decoration: none;
+	color: var(--sl-color-white);
+	font-size: var(--sl-text-base);
+	font-weight: 500;
+}
 
-  div a:hover {
-    color: var(--sl-color-text-accent);
-  }
+div a:hover {
+	color: var(--sl-color-text-accent);
+}
 
-  [aria-current="page"],
-  [aria-current="page"]:hover,
-  [aria-current="page"]:focus {
-    color: var(--sl-color-text-accent);
-  }
+[aria-current="page"],
+[aria-current="page"]:hover,
+[aria-current="page"]:focus {
+	color: var(--sl-color-text-accent);
+}
 
-  .separator {
-    display: none;
-  }
-  .menu-items {
-    display: none;
-  }
-  @media (min-width: 30em) {
-    div.separator {
-      display: block;
-    }
-    div.menu-items {
-      display: flex;
-    }
-  }
+.separator {
+	display: none;
+}
+.menu-items {
+	display: none;
+}
+@media (min-width: 30em) {
+	div.separator {
+		display: block;
+	}
+	div.menu-items {
+		display: flex;
+	}
+}
 </style>

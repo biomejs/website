@@ -1,0 +1,100 @@
+.expressive-code {
+	--ec-brdRad: var(--biome-radius-sm);
+	--ec-brdCol: var(--sl-color-gray-5);
+}
+
+.expressive-code .frame .header {
+	min-height: 2rem;
+	padding: 0.5rem 0.75rem;
+	align-items: center;
+	border: 1px solid var(--ec-brdCol);
+	border-bottom: 0;
+	border-radius: var(--biome-radius-sm) var(--biome-radius-sm) 0 0;
+	background: var(--sl-color-gray-6);
+	color: var(--sl-color-gray-2);
+	font-family: var(--font-jetbrains-mono);
+	font-size: 0.6875rem;
+	font-weight: 700;
+	letter-spacing: 0.07em;
+	line-height: 1;
+	text-transform: uppercase;
+}
+
+.expressive-code .frame:not(.has-title, .is-terminal) .header {
+	display: flex;
+}
+
+.expressive-code .frame:not(.has-title, .is-terminal) .header::before {
+	content: "CODE";
+	color: var(--sl-color-text-accent);
+}
+
+.expressive-code
+	.frame:not(.has-title, .is-terminal):has(
+		pre[data-language="bash"],
+		pre[data-language="shell"],
+		pre[data-language="sh"],
+		pre[data-language="powershell"]
+	)
+	.header::before {
+	content: "TERMINAL";
+}
+
+.expressive-code:not(.linter .expressive-code) .frame:not(.is-terminal) pre {
+	border: 1px solid var(--ec-brdCol);
+	border-top: 0;
+	border-radius: 0 0 var(--biome-radius-sm) var(--biome-radius-sm);
+}
+
+.expressive-code .frame.has-title:not(.is-terminal) .header {
+	padding-inline-start: 0.75rem;
+	background: var(--sl-color-gray-6);
+}
+
+.expressive-code .frame.has-title:not(.is-terminal) .header::before,
+.expressive-code .frame.has-title:not(.is-terminal) .title::after {
+	display: none;
+}
+
+.expressive-code .frame.has-title:not(.is-terminal) .title {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	color: var(--sl-color-gray-2);
+	font: inherit;
+	letter-spacing: normal;
+	text-transform: none;
+}
+
+.expressive-code .frame.has-title:not(.is-terminal) .title::before {
+	content: "FILE";
+	margin-inline-end: 0.625rem;
+	color: var(--sl-color-text-accent);
+}
+
+.expressive-code .frame.is-terminal .header {
+	justify-content: flex-start;
+}
+
+.expressive-code .frame.is-terminal .header::before {
+	position: static;
+	width: auto;
+	height: auto;
+	margin-inline-end: 0.5rem;
+	background: none;
+	color: var(--sl-color-text-accent);
+	content: "TERMINAL";
+	opacity: 1;
+	-webkit-mask-image: none;
+	mask-image: none;
+}
+
+.expressive-code .copy button {
+	border-radius: var(--biome-radius-sm);
+}
+
+.linter .expressive-code .frame:not(.has-title, .is-terminal) .header {
+	display: none;
+}

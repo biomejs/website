@@ -348,6 +348,13 @@ export function GET() {
 					"required": ["eslintStylistic"]
 				},
 				{
+					"description": "Rules from [Eslint Plugin Tailwindcss](https://github.com/francoismassart/eslint-plugin-tailwindcss)",
+					"type": "object",
+					"properties": { "eslintTailwindcss": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintTailwindcss"]
+				},
+				{
 					"description": "Rules from [Eslint Plugin Typescript](https://typescript-eslint.io)",
 					"type": "object",
 					"properties": { "eslintTypeScript": { "type": "string" } },
@@ -477,6 +484,20 @@ export function GET() {
 					"properties": { "eslintTypescriptSortKeys": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintTypescriptSortKeys"]
+				},
+				{
+					"description": "Rules from [markdownlint](https://github.com/DavidAnson/markdownlint)",
+					"type": "object",
+					"properties": {
+						"markdownLint": {
+							"type": "array",
+							"maxItems": 2,
+							"minItems": 2,
+							"prefixItems": [{ "type": "string" }, { "type": "string" }]
+						}
+					},
+					"additionalProperties": false,
+					"required": ["markdownLint"]
 				}
 			]
 		},

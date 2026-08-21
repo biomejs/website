@@ -3,4 +3,6 @@ const className = Astro.url.pathname.startsWith(Astro.props.href)
 	? "active"
 	: "";
 ---
+
+<!-- biome-ignore lint/a11y/useAnchorContent: There's a slot, it's fine -->
 <a href={Astro.props.href} class={className}><slot /></a>

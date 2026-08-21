@@ -52,7 +52,7 @@ Najpierw musisz zaktualizować plik konfiguracyjny i powiedzieć Biome, jaka jes
 
 Następnie dodaj opcję `--changed` do swojej komendy, aby przetwarzać tylko te pliki, które Twój VCS rozpoznał jako "zmienione". Biome, z pomocą VCS, określi zmienione pliki z gałęzi `main` i Twojej bieżącej rewizji:
 
-```shell
+```shell showLineNumbers=false
 biome check --changed
 ```
 
@@ -62,7 +62,7 @@ Biome nie sprawdza, co się zmieniło, co oznacza, że nawet dodanie spacji lub 
 
 Alternatywnie możesz użyć opcji `--since`, aby określić dowolną gałąź. Ta opcja **ma pierwszeństwo** nad opcją `vcs.defaultBranch`. Na przykład, możesz chcieć sprawdzić swoje zmiany względem gałęzi `next`:
 
-```shell
+```shell showLineNumbers=false
 biome check --changed --since=next
 ```
 
@@ -71,7 +71,7 @@ biome check --changed --since=next
 Przed zatwierdzeniem zmian możesz chcieć sprawdzić formatowanie i lintować pliki, które zostały dodane do _indeksu_, znane również jako _pliki staged_.
 Dodaj opcję `--staged` do swojej komendy, aby przetwarzać tylko te pliki:
 
-```shell
+```shell showLineNumbers=false
 biome check --staged
 ```
 

@@ -32,7 +32,7 @@ Use the Linux variant for Windows Subsystem for Linux (WSL).
 
 Biome is available as a [Homebrew formula](https://formulae.brew.sh/formula/biome) for macOS and Linux users.
 
-```shell
+```shell showLineNumbers=false
 brew install biome
 ```
 
@@ -40,7 +40,7 @@ brew install biome
 
 Biome is available as a community maintained package from the [Winget repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/b/biomejs/biome) for Windows users.
 
-```shell
+```shell showLineNumbers=false
 winget install biomejs.biome
 ```
 
@@ -52,14 +52,14 @@ Biome is available as a community maintained binary from the [Arch Linux Extra r
 The [extra] repository is usually enabled by default in /etc/pacman.conf. If it is disabled, uncomment the following lines:
 ::: 
 
-```ini
+```ini showLineNumbers=false
 [extra]
 Include = /etc/pacman.d/mirrorlist
 ```
 
 To install Biome run:
 
-```shell
+```shell showLineNumbers=false
 pacman -S biome
 ```
 
@@ -68,7 +68,7 @@ pacman -S biome
 Biome publishes [official Docker images](https://github.com/biomejs/docker/pkgs/container/biome) that support
 the **amd64** and **arm64** architectures for all Biome versions starting from `v1.7.0`.
 
-```
+```text showLineNumbers=false
 ghcr.io/biomejs/biome:{major}
 ghcr.io/biomejs/biome:{major}.{minor}
 ghcr.io/biomejs/biome:{major}.{minor}.{patch}
@@ -80,7 +80,7 @@ Here are a couple examples on how to use the Docker image:
 The default workdir is `/code` in the Docker image.
 :::
 
-```shell
+```shell showLineNumbers=false
 # Lint files
 docker run -v $(pwd):/code ghcr.io/biomejs/biome lint
 docker run -v $(pwd):/code ghcr.io/biomejs/biome lint --write
@@ -96,7 +96,7 @@ docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
 
 To install Biome, grab the executable for your platform from the [latest CLI release](https://github.com/biomejs/biome/releases) on GitHub and give it execution permission.
 
-<Code lang="shell" code={`
+<Code lang="shell" showLineNumbers={false} code={`
 # macOS arm (M1 or newer)
 curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
 chmod +x biome

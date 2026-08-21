@@ -53,7 +53,7 @@ En primer lugar, tienes que actualizar tu archivo de configuración y decirle a 
 
 A continuación, añade la opción `--changed` a tu comando, para procesar sólo aquellos archivos que tu VCS reconozca como "cambiados". Biome, con la ayuda del VCS, determinará el archivo cambiado a partir de la rama `main` y su revisión actual:
 
-```shell
+```shell showLineNumbers=false
 biome check --changed
 ```
 
@@ -63,7 +63,7 @@ Biome no comprueba lo que ha cambiado, esto significa que incluso añadiendo esp
 
 Alternativamente, puede utilizar la opción `--since` para especificar una rama arbitraria. Esta opción **tiene precedencia** sobre la opción `vcs.defaultBranch`. Por ejemplo, puedes querer comprobar tus cambios en la rama `next`:
 
-```shell
+```shell showLineNumbers=false
 biome check --changed --since=next
 ```
 
@@ -72,7 +72,7 @@ biome check --changed --since=next
 Antes de confirmar los cambios, puedes comprobar los archivos de formato y lints que se han añadido al _index_, también conocidos como _staged files_.
 Añade la opción `--staged` a tu comando, para procesar sólo aquellos archivos:
 
-```shell
+```shell showLineNumbers=false
 biome check --staged
 ```
 
