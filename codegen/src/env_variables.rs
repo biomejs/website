@@ -15,7 +15,7 @@ The following environment variables configure Biome and its npm package.
 "#;
 
 pub fn generate_env_variables() -> Result<()> {
-    let file_path = project_root().join("src/content/docs/reference/environment-variables.md");
+    let file_path = project_root().join("src/content/docs/en/reference/environment-variables.md");
 
     let mut content = vec![];
 

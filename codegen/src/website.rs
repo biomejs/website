@@ -15,7 +15,7 @@ use std::fs;
 /// Generates the following files:
 ///
 /// - Default configuration file: `src/components/generated/DefaultConfiguration.mdx`
-/// - CLI command index: `src/content/docs/reference/cli.mdx`
+/// - CLI command index: `src/content/docs/en/reference/cli.mdx`
 /// - Schema js file: `src/pages/schemas/<version>/schema.json.js`
 ///
 /// To generate the CLI command index and the schema of the current version,
@@ -63,9 +63,9 @@ pub(crate) fn generate_default_configuration() -> anyhow::Result<()> {
     Ok(())
 }
 
-/// Generates the CLI command index in `src/content/docs/reference/cli.mdx`.
+/// Generates the CLI command index in `src/content/docs/en/reference/cli.mdx`.
 pub(crate) fn generate_cli_command_index() -> anyhow::Result<()> {
-    let cli_doc_path = project_root().join("src/content/docs/reference/cli.mdx");
+    let cli_doc_path = project_root().join("src/content/docs/en/reference/cli.mdx");
     let mut cli_doc_content = fs::read_to_string(&cli_doc_path)?;
     let start = "\n[//]: # (Start-codegen)\n";
     let end = "\n[//]: # (End-codegen)";
