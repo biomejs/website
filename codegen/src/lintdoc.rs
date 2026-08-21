@@ -751,11 +751,6 @@ fn write_language_rule_pages(
             content,
             r#"import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";"#
         )?;
-        writeln!(
-            content,
-            r#"import RawDiagnostic from "@/components/RawDiagnostic.astro";"#
-        )?;
-
         if rule_category == RuleCategory::Action {
             writeln!(
                 content,
@@ -1338,7 +1333,7 @@ fn write_documentation(
                         write!(diagnostic_html, "</code></pre>")?;
                         writeln!(
                             content,
-                            "<RawDiagnostic html={{{}}} />",
+                            "<Fragment set:html={{{}}} />",
                             serde_json::to_string(&String::from_utf8(diagnostic_html)?)?
                         )?;
                     } else if test.expect_diff {
@@ -1370,7 +1365,7 @@ fn write_documentation(
                         write!(diagnostic_html, "</code></pre>")?;
                         writeln!(
                             content,
-                            "<RawDiagnostic html={{{}}} />",
+                            "<Fragment set:html={{{}}} />",
                             serde_json::to_string(&String::from_utf8(diagnostic_html)?)?
                         )?;
                     } else {
