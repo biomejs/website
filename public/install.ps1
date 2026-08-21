@@ -166,10 +166,20 @@ Write-Host "Platform: win32-$Architecture`n" -ForegroundColor Blue
 
 try {
 	New-Item -ItemType Directory -Path $TempDir | Out-Null
+	$SuppressProgress = $PSVersionTable.PSVersion.Major -eq 5
+	if ($SuppressProgress) {
+		# Progress rendering makes Invoke-WebRequest extremely slow in Windows PowerShell 5.1.
+		$PreviousProgressPreference = $ProgressPreference
+		$ProgressPreference = "SilentlyContinue"
+	}
 	try {
 		Invoke-WebRequest -UseBasicParsing -Uri $DownloadUrl -OutFile $TempBinary
 	} catch {
 		Fail "failed to download Biome $Version; see $ReleasesUrl"
+	} finally {
+		if ($SuppressProgress) {
+			$ProgressPreference = $PreviousProgressPreference
+		}
 	}
 
 	Unblock-File -LiteralPath $TempBinary
@@ -184,8 +194,23 @@ if (-not $NoModifyPath) {
 	Add-ToPath $InstallDir
 }
 
+$Banner = @'
+#^^# ^#^ #^^# #_ _# #^^
+#^^_  #  #  # # # #^^
+^^^  ^^^ ^^^^ ^   ^ ^^^
+'@
+$Banner = $Banner.Replace([char] "#", [char] 0x2588)
+$Banner = $Banner.Replace([char] "^", [char] 0x2580)
+$Banner = $Banner.Replace([char] "_", [char] 0x2584)
+
+Write-Host "`n$Banner" -ForegroundColor Blue
 Write-Host ""
 Write-Host "Biome $Version installed successfully." -ForegroundColor Blue
-Write-Host "Binary: $BinaryPath" -ForegroundColor Blue
-Write-Host "`nRun biome --help to get started.`n"
-Write-Host "Learn more at https://biomejs.dev`n" -ForegroundColor Blue
+Write-Host "Binary: " -NoNewline -ForegroundColor Blue
+Write-Host $BinaryPath
+Write-Host "`nRun " -NoNewline
+Write-Host "biome --help" -NoNewline -ForegroundColor Blue
+Write-Host " to get started.`n"
+Write-Host "`nLearn more at " -NoNewline
+Write-Host "https://biomejs.dev" -ForegroundColor Blue
+Write-Host ""
