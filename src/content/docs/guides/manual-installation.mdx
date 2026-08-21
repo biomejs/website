@@ -94,7 +94,9 @@ docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
 
 ## Using a published binary
 
-The installer downloads the latest stable binary for macOS or Linux to `${XDG_BIN_HOME:-$HOME/.local/bin}` and adds it to your `PATH`:
+### Linux and macOS
+
+The installer downloads the latest stable binary to `${XDG_BIN_HOME:-$HOME/.local/bin}` and adds it to your `PATH`:
 
 ```shell
 curl -fsSL https://biomejs.dev/install | bash
