@@ -6,6 +6,7 @@
       "!**/rules.json.js",
       "!**/schema.json.js",
       "!**/redirects.js",
+      "!**/src/components/generated",
       "!**/src/playground/generated",
       "!!*.svg"
     ]
