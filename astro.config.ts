@@ -1104,6 +1104,7 @@ export default defineConfig({
 				cjs: "javascript",
 				grit: "txt",
 				cts: "javascript",
+				block: "txt",
 			},
 		},
 	},
