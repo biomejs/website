@@ -41,7 +41,9 @@ Environment variables:
 
 Examples:
     irm https://biomejs.dev/install.ps1 | iex
-    & ([scriptblock]::Create((irm https://biomejs.dev/install.ps1))) -Version 2.5.9
+
+    $env:BIOME_VERSION = "2.5.9"
+    irm https://biomejs.dev/install.ps1 | iex
 '@
 }
 

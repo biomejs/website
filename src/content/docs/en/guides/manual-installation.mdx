@@ -121,10 +121,11 @@ The PowerShell installer downloads the latest stable binary to `%LOCALAPPDATA%\B
 irm https://biomejs.dev/install.ps1 | iex
 ```
 
-To install a specific version, pass `-Version`:
+To install a specific version, set `BIOME_VERSION` first:
 
 ```powershell
-& ([scriptblock]::Create((irm https://biomejs.dev/install.ps1))) -Version 2.5.9
+$env:BIOME_VERSION = "2.5.9"
+irm https://biomejs.dev/install.ps1 | iex
 ```
 
 You can also set `BIOME_INSTALL_DIR` to override the installation directory or pass `-NoModifyPath` to leave your `PATH` unchanged.
