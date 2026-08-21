@@ -10,7 +10,10 @@ export const collections = {
 	docs: defineCollection({
 		loader: docsLoader(),
 		schema: docsSchema({
-			extend: (context) => blogSchema(context),
+			extend: (context) =>
+				blogSchema(context).extend({
+					localized: z.boolean().default(true),
+				}),
 		}),
 	}),
 	users: defineCollection({
