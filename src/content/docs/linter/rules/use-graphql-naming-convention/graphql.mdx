@@ -7,7 +7,6 @@ title: useGraphqlNamingConvention (GraphQL)
 description: GraphQL documentation for useGraphqlNamingConvention
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
-import RawDiagnostic from "@/components/RawDiagnostic.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-graphql-naming-convention/graphql/"}]} />
 
@@ -48,7 +47,7 @@ enum MyEnum {
 }
 ```
 
-<RawDiagnostic html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.graphql:2:2 <a href=\"https://biomejs.dev/linter/rules/use-graphql-naming-convention\">lint/style/useGraphqlNamingConvention</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Enum values should be in all caps.</span><br />  <br />    <strong>1 │ </strong>enum MyEnum &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong> value<br />   <strong>   │ </strong> <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Change the enum value to be in all caps.</span><br />  <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.graphql:2:2 <a href=\"https://biomejs.dev/linter/rules/use-graphql-naming-convention\">lint/style/useGraphqlNamingConvention</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Enum values should be in all caps.</span><br />  <br />    <strong>1 │ </strong>enum MyEnum &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong> value<br />   <strong>   │ </strong> <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Change the enum value to be in all caps.</span><br />  <br /></code></pre>"} />
 
 ### Valid
 

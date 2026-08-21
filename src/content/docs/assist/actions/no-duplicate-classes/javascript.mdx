@@ -7,7 +7,6 @@ title: noDuplicateClasses (JavaScript)
 description: JavaScript (and super languages) documentation for noDuplicateClasses
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
-import RawDiagnostic from "@/components/RawDiagnostic.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/assist/actions/no-duplicate-classes/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/assist/actions/no-duplicate-classes/javascript/"}]} />
@@ -47,13 +46,13 @@ Duplicate classes are redundant and can indicate copy-paste errors or merge conf
 <div class="flex flex" />;
 ```
 
-<RawDiagnostic html={"<pre class=\"language-diff\"><code class=\"language-diff\">code-block.jsx ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Source action diff:</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style=\"opacity: 0.8;\">·</span>class=&quot;flex<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">x</span>&quot;<span style=\"opacity: 0.8;\">·</span>/&gt;;<br />  <strong>    │ </strong>                <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>     <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-diff\"><code class=\"language-diff\">code-block.jsx ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Source action diff:</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style=\"opacity: 0.8;\">·</span>class=&quot;flex<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">x</span>&quot;<span style=\"opacity: 0.8;\">·</span>/&gt;;<br />  <strong>    │ </strong>                <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>     <br /></code></pre>"} />
 
 ```jsx
 <div class="p-4 text-red-500 p-4 bg-white" />;
 ```
 
-<RawDiagnostic html={"<pre class=\"language-diff\"><code class=\"language-diff\">code-block.jsx ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Source action diff:</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style=\"opacity: 0.8;\">·</span>class=&quot;p-4<span style=\"opacity: 0.8;\">·</span>text-red-500<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">4</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span>bg-white&quot;<span style=\"opacity: 0.8;\">·</span>/&gt;;<br />  <strong>    │ </strong>                             <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>             <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-diff\"><code class=\"language-diff\">code-block.jsx ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Source action diff:</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style=\"opacity: 0.8;\">·</span>class=&quot;p-4<span style=\"opacity: 0.8;\">·</span>text-red-500<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">4</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span>bg-white&quot;<span style=\"opacity: 0.8;\">·</span>/&gt;;<br />  <strong>    │ </strong>                             <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>             <br /></code></pre>"} />
 
 ## Options
 
