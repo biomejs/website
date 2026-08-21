@@ -7,6 +7,7 @@ title: useVueValidVOn (HTML)
 description: HTML documentation for useVueValidVOn
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RawDiagnostic from "@/components/RawDiagnostic.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-valid-v-on/html/"}]} />
 
@@ -59,7 +60,7 @@ is invalid but `<div @click.stop></div>` is valid.
 <Foo v-on />
 ```
 
-<pre class="language-text"><code class="language-text">code-block.vue:1:6 <a href="https://biomejs.dev/linter/rules/use-vue-valid-v-on/html">lint/correctness/useVueValidVOn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style="color: Tomato;">✖</span></strong> <span style="color: Tomato;">The v-on directive is missing an event name.</span><br />  <br />  <strong><span style="color: Tomato;">&gt;</span></strong> <strong>1 │ </strong>&lt;Foo v-on /&gt;<br />   <strong>   │ </strong>     <strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><strong><span style="color: Tomato;">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style="color: lightgreen;">ℹ</span></strong> <span style="color: lightgreen;">Provide an event name after the colon, e.g. v-on:click=&quot;handler&quot;.</span><br />  <br /></code></pre>
+<RawDiagnostic html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:6 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-on\">lint/correctness/useVueValidVOn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The v-on directive is missing an event name.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;Foo v-on /&gt;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Provide an event name after the colon, e.g. v-on:click=&quot;handler&quot;.</span><br />  <br /></code></pre>"} />
 
 ### Valid
 
