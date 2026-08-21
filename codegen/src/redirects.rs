@@ -12,7 +12,7 @@ pub fn generate_redirects() -> Result<()> {
         let root_path = format!("/{path_prefix}/{rule_slug}");
         let language_path = format!("{root_path}/{language}");
         let target_file = project_root()
-            .join("src/content/docs")
+            .join("src/content/docs/en")
             .join(format!("{}.mdx", language_path.trim_start_matches('/')));
         ensure!(
             target_file.exists(),
