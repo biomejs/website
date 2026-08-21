@@ -1,0 +1,23 @@
+<script>
+	// Homepage overrides move scrolling from the <pre> to its non-focusable <code>.
+	const codeBlocks = document.querySelectorAll(".linter pre > code, .format pre > code");
+	const updateCodeBlockFocus = () => {
+		for (const code of codeBlocks) {
+			const overflowing =
+				code.scrollHeight > code.clientHeight + 2 ||
+				code.scrollWidth > code.clientWidth + 2;
+			if (overflowing) {
+				code.setAttribute("tabindex", "0");
+			} else {
+				code.removeAttribute("tabindex");
+			}
+		}
+	};
+
+	updateCodeBlockFocus();
+
+	const resizeObserver = new ResizeObserver(updateCodeBlockFocus);
+	for (const code of codeBlocks) {
+		resizeObserver.observe(code);
+	}
+</script>
