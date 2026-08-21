@@ -90,6 +90,17 @@ jobs:
           if (($userPath -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
             throw "The user PATH was not updated"
           }
+          $env:Path = (($env:Path -split ";" | Where-Object { $_ -ne $env:BIOME_INSTALL_DIR }) -join ";")
+          $userPath = (($userPath -split ";" | Where-Object { $_ -ne $env:BIOME_INSTALL_DIR }) -join ";")
+          [Environment]::SetEnvironmentVariable("Path", $userPath, "User")
+          Get-Content -LiteralPath public/install.ps1 -Raw | Invoke-Expression
+          if (($env:Path -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "A rerun did not restore the current process PATH"
+          }
+          $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+          if (($userPath -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "A rerun did not restore the user PATH"
+          }
 
       - name: Test installer with Windows PowerShell 5.1
         if: runner.os == 'Windows'
@@ -105,4 +116,15 @@ jobs:
           $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
           if (($userPath -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
             throw "The user PATH was not updated"
+          }
+          $env:Path = (($env:Path -split ";" | Where-Object { $_ -ne $env:BIOME_INSTALL_DIR }) -join ";")
+          $userPath = (($userPath -split ";" | Where-Object { $_ -ne $env:BIOME_INSTALL_DIR }) -join ";")
+          [Environment]::SetEnvironmentVariable("Path", $userPath, "User")
+          Get-Content -LiteralPath public/install.ps1 -Raw | Invoke-Expression
+          if (($env:Path -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "A rerun did not restore the current process PATH"
+          }
+          $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+          if (($userPath -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "A rerun did not restore the user PATH"
           }
