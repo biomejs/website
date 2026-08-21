@@ -119,7 +119,7 @@ if [[ "$force" == false && -x "$INSTALL_DIR/$APP" ]]; then
 fi
 
 mkdir -p "$INSTALL_DIR"
-tmp_dir="$(mktemp -d "${TMPDIR:-/tmp}/biome-install.XXXXXX")"
+tmp_dir="$(mktemp -d "$INSTALL_DIR/.biome-install.XXXXXX")"
 trap 'rm -rf "$tmp_dir"' EXIT HUP INT TERM
 
 unbuffered_sed() {

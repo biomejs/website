@@ -152,6 +152,9 @@ if (-not $Force -and (Test-Path -LiteralPath $BinaryPath -PathType Leaf)) {
 		$InstalledVersion = $InstalledVersion -replace "^Version:\s*", ""
 		if ($InstalledVersion -eq $Version) {
 			Write-Host "`nBiome version $Version is already installed at $BinaryPath`n" -ForegroundColor Blue
+			if (-not $NoModifyPath) {
+				Add-ToPath $InstallDir
+			}
 			return
 		}
 	} catch {
@@ -160,7 +163,7 @@ if (-not $Force -and (Test-Path -LiteralPath $BinaryPath -PathType Leaf)) {
 }
 
 New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
-$TempDir = Join-Path ([IO.Path]::GetTempPath()) ("biome-install-" + [Guid]::NewGuid().ToString("N"))
+$TempDir = Join-Path $InstallDir (".biome-install-" + [Guid]::NewGuid().ToString("N"))
 $TempBinary = Join-Path $TempDir "$App.exe"
 
 Write-Host "`nInstalling Biome version: $Version" -ForegroundColor Blue
