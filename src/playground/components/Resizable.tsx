@@ -13,8 +13,10 @@ interface Props {
 const DEFAULT_MINIMUM_SIZE = 100;
 const KEYBOARD_STEP = 10;
 
+type Axis = "width" | "height";
+
 type ResizeHandler = {
-	styleProperty: "height" | "width";
+	axis: Axis;
 	resizingCursor: string;
 	calculateSize: (container: HTMLDivElement, event: MouseEvent) => number;
 	keyboardDelta: (key: string) => number;
@@ -23,7 +25,7 @@ type ResizeHandler = {
 const handlers: Record<Props["direction"], ResizeHandler> = {
 	top: {
 		resizingCursor: "row-resize",
-		styleProperty: "height",
+		axis: "height",
 		calculateSize: (container, event) =>
 			container.getBoundingClientRect().bottom - event.clientY,
 		keyboardDelta: (key) =>
@@ -35,7 +37,7 @@ const handlers: Record<Props["direction"], ResizeHandler> = {
 	},
 	left: {
 		resizingCursor: "col-resize",
-		styleProperty: "width",
+		axis: "width",
 		calculateSize: (container, event) =>
 			container.getBoundingClientRect().right - event.clientX,
 		keyboardDelta: (key) =>
@@ -47,7 +49,7 @@ const handlers: Record<Props["direction"], ResizeHandler> = {
 	},
 	right: {
 		resizingCursor: "col-resize",
-		styleProperty: "width",
+		axis: "width",
 		calculateSize: (container, event) =>
 			event.clientX - container.getBoundingClientRect().left,
 		keyboardDelta: (key) =>
@@ -59,16 +61,28 @@ const handlers: Record<Props["direction"], ResizeHandler> = {
 	},
 };
 
+function getParentSize(container: HTMLDivElement, axis: Axis): number {
+	const parent = container.parentElement;
+	if (!parent) return 0;
+	return axis === "width" ? parent.clientWidth : parent.clientHeight;
+}
+
+function getCurrentSize(container: HTMLDivElement, axis: Axis): number {
+	const rectangle = container.getBoundingClientRect();
+	return axis === "width" ? rectangle.width : rectangle.height;
+}
+
+/** Largest size (px) that still leaves every sibling its minimum. */
 function getMaximumSize(
 	container: HTMLDivElement,
-	styleProperty: ResizeHandler["styleProperty"],
+	axis: Axis,
 	minimumSize: number,
 ): number {
 	const parent = container.parentElement;
 	if (!parent) return Number.POSITIVE_INFINITY;
 
-	const horizontal = styleProperty === "width";
-	const parentSize = horizontal ? parent.clientWidth : parent.clientHeight;
+	const horizontal = axis === "width";
+	const parentSize = getParentSize(container, axis);
 	const minimumProperty = horizontal ? "minWidth" : "minHeight";
 	let reservedSize = 0;
 
@@ -77,17 +91,22 @@ function getMaximumSize(
 		const style = getComputedStyle(sibling);
 		if (style.display === "none" || style.position === "absolute") continue;
 
-		const rectangle = sibling.getBoundingClientRect();
-		const currentSize = horizontal ? rectangle.width : rectangle.height;
 		const siblingMinimum = Number.parseFloat(style[minimumProperty]) || 0;
 		const fixed =
 			Number(style.flexGrow) === 0 && Number(style.flexShrink) === 0;
-		reservedSize += fixed ? currentSize : siblingMinimum;
+		reservedSize += fixed
+			? getCurrentSize(sibling as HTMLDivElement, axis)
+			: siblingMinimum;
 	}
 
 	return Math.max(minimumSize, parentSize - reservedSize);
 }
 
+/**
+ * A panel whose size along one axis can be dragged. The size is stored as a
+ * fraction of the parent, so nested panels keep their ratio when an ancestor
+ * (or the window) is resized. `minimumSize` is an absolute px floor.
+ */
 export default function Resizable({
 	name,
 	direction,
@@ -95,37 +114,54 @@ export default function Resizable({
 	minimumSize = DEFAULT_MINIMUM_SIZE,
 	children,
 }: Props) {
-	const sizeStore = useMemo(() => createLocalStorage(`${name}-size`), [name]);
+	const ratioStore = useMemo(() => createLocalStorage(`${name}-ratio`), [name]);
 	const [isResizing, setIsResizing] = useState(false);
-	const [rawSize, setRawSize] = useState<number | undefined>(
-		sizeStore.getNumber(),
-	);
+	const [ratio, setRatio] = useState<number | undefined>(() => {
+		const stored = ratioStore.getNumber();
+		return stored !== undefined && Number.isFinite(stored) && stored > 0
+			? stored
+			: undefined;
+	});
+	const [maximumSize, setMaximumSize] = useState<number>();
+	const [currentSize, setCurrentSize] = useState<number>();
 	const ref = useRef<HTMLDivElement>(null);
 	const handler = handlers[direction];
-	const size =
-		rawSize === undefined ? undefined : Math.max(minimumSize, rawSize);
-	const [maximumSize, setMaximumSize] = useState<number>();
+	const { axis } = handler;
+
+	// Sizes used to be stored in px under `<name>-size`; drop the stale key.
+	useEffect(() => {
+		createLocalStorage(`${name}-size`).clear();
+	}, [name]);
+
+	const storeRatio = useCallback(
+		(nextRatio: number) => {
+			setRatio(nextRatio);
+			ratioStore.set(nextRatio);
+		},
+		[ratioStore],
+	);
 
 	const setSize = useCallback(
 		(nextSize: number) => {
-			const maximum = ref.current
-				? getMaximumSize(ref.current, handler.styleProperty, minimumSize)
-				: Number.POSITIVE_INFINITY;
+			const container = ref.current;
+			if (!container) return;
+			const parentSize = getParentSize(container, axis);
+			if (parentSize <= 0) return;
+			const maximum = getMaximumSize(container, axis, minimumSize);
 			const constrainedSize = Math.min(
 				maximum,
 				Math.max(minimumSize, nextSize),
 			);
-			setRawSize(constrainedSize);
-			sizeStore.set(constrainedSize);
+			storeRatio(constrainedSize / parentSize);
 		},
-		[handler.styleProperty, minimumSize, sizeStore],
+		[axis, minimumSize, storeRatio],
 	);
 
 	const resetSize = useCallback(() => {
-		sizeStore.clear();
-		setRawSize(undefined);
+		ratioStore.clear();
+		setRatio(undefined);
 		setIsResizing(false);
-	}, [sizeStore]);
+	}, [ratioStore]);
 
 	useEffect(() => {
 		if (!isResizing) return;
@@ -135,26 +171,22 @@ export default function Resizable({
 		};
 	}, [handler.resizingCursor, isResizing]);
 
+	// Keep the limits (and the ratio, if it no longer fits) in sync with the
+	// parent's size and siblings.
 	useEffect(() => {
 		const container = ref.current;
 		const parent = container?.parentElement;
 		if (!container || !parent) return;
 
 		const updateConstraints = () => {
-			const nextMaximum = getMaximumSize(
-				container,
-				handler.styleProperty,
-				minimumSize,
-			);
+			const parentSize = getParentSize(container, axis);
+			const nextMaximum = getMaximumSize(container, axis, minimumSize);
 			setMaximumSize(nextMaximum);
-			if (rawSize !== undefined) {
-				const constrainedSize = Math.min(
-					nextMaximum,
-					Math.max(minimumSize, rawSize),
-				);
-				if (constrainedSize !== rawSize) {
-					setRawSize(constrainedSize);
-					sizeStore.set(constrainedSize);
+			setCurrentSize(getCurrentSize(container, axis));
+			if (ratio !== undefined && parentSize > 0) {
+				const size = ratio * parentSize;
+				if (size > nextMaximum) {
+					storeRatio(nextMaximum / parentSize);
 				}
 			}
 		};
@@ -162,13 +194,17 @@ export default function Resizable({
 		updateConstraints();
 		const resizeObserver = new ResizeObserver(updateConstraints);
 		resizeObserver.observe(parent);
+		resizeObserver.observe(container);
 		const mutationObserver = new MutationObserver(updateConstraints);
 		mutationObserver.observe(parent, { childList: true });
 		return () => {
 			resizeObserver.disconnect();
 			mutationObserver.disconnect();
 		};
-	}, [handler.styleProperty, minimumSize, rawSize, sizeStore]);
+	}, [axis, minimumSize, ratio, storeRatio]);
+
+	const minimumProperty = axis === "width" ? "minWidth" : "minHeight";
+	const percentage = ratio === undefined ? undefined : `${ratio * 100}%`;
 
 	return (
 		<div
@@ -177,15 +213,11 @@ export default function Resizable({
 			data-resize-direction={direction}
 			data-resizing={isResizing || undefined}
 			style={{
-				[handler.styleProperty]: size,
-				[handler.styleProperty === "width" ? "minWidth" : "minHeight"]:
-					minimumSize,
-				flexBasis:
-					handler.styleProperty === "width" && size !== undefined
-						? size
-						: undefined,
-				flexGrow: size === undefined ? undefined : 0,
-				flexShrink: size === undefined ? undefined : 0,
+				[minimumProperty]: minimumSize,
+				[axis]: percentage,
+				flexBasis: percentage,
+				flexGrow: percentage === undefined ? undefined : 0,
+				flexShrink: percentage === undefined ? undefined : 0,
 			}}
 		>
 			{children}
@@ -196,7 +228,7 @@ export default function Resizable({
 				aria-orientation={direction === "top" ? "horizontal" : "vertical"}
 				aria-valuemin={minimumSize}
 				aria-valuemax={maximumSize && Math.round(maximumSize)}
-				aria-valuenow={Math.round(size ?? minimumSize)}
+				aria-valuenow={Math.round(currentSize ?? minimumSize)}
 				onPointerDown={(event) => {
 					event.preventDefault();
 					event.currentTarget.setPointerCapture(event.pointerId);
@@ -226,13 +258,11 @@ export default function Resizable({
 					const delta = handler.keyboardDelta(event.key);
 					if (delta === 0) return;
 					event.preventDefault();
-					const currentSize =
-						rawSize ??
-						(direction === "top"
-							? ref.current?.clientHeight
-							: ref.current?.clientWidth) ??
-						minimumSize;
-					setSize(currentSize + delta);
+					const container = ref.current;
+					const size = container
+						? getCurrentSize(container, axis)
+						: (currentSize ?? minimumSize);
+					setSize(size + delta);
 				}}
 			/>
 		</div>
