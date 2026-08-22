@@ -23,6 +23,7 @@ export const { getStaticPaths, GET } = await OGImageRoute({
 		console.log(page);
 		return {
 			title: page.title,
+			// @ts-expect-error
 			description: page.description ?? "",
 			logo: {
 				path: "./public/img/logo-avatar.png",
