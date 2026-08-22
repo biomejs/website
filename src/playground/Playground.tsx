@@ -53,15 +53,28 @@ import {
 	useWindowSize,
 } from "./utils.ts";
 
-const VIEWS: Array<{ view: PlaygroundViewType; label: string }> = [
+type ViewItem = { view: PlaygroundViewType; label: string };
+
+/** Tools shown directly in the toolbar. */
+const TOOLS: ViewItem[] = [
+	{ view: PlaygroundView.GritQL, label: "GritQL search" },
+];
+
+/** Biome internals, grouped behind a collapsible "Internals" toggle. */
+const INTERNALS: ViewItem[] = [
 	{ view: PlaygroundView.FormatterIr, label: "Formatter IR" },
 	{ view: PlaygroundView.Syntax, label: "Syntax tree" },
 	{ view: PlaygroundView.ControlFlow, label: "Control flow" },
 	{ view: PlaygroundView.SemanticModel, label: "Semantic model" },
 	{ view: PlaygroundView.TypesIr, label: "Types IR" },
 	{ view: PlaygroundView.TypesRegistered, label: "Types registered" },
-	{ view: PlaygroundView.GritQL, label: "GritQL search" },
 ];
+
+const VIEWS: ViewItem[] = [...TOOLS, ...INTERNALS];
+
+function isInternal(view: PlaygroundViewType): boolean {
+	return INTERNALS.some((item) => item.view === view);
+}
 
 function viewLabel(view: PlaygroundViewType): string {
 	return VIEWS.find((item) => item.view === view)?.label ?? view;
@@ -73,6 +86,9 @@ export default function Playground({
 }: PlaygroundProps) {
 	const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
 	const [rightDrawerOpen, setRightDrawerOpen] = useState(false);
+	const [internalsExpanded, setInternalsExpanded] = useState(() =>
+		playgroundState.openViews.some(isInternal),
+	);
 	const file = getFileState(playgroundState, playgroundState.currentFile);
 	const biomeOutput = file.biome;
 	const prettierOutput = file.prettier;
@@ -259,20 +275,43 @@ export default function Playground({
 			}
 		/>
 	);
+	const viewButton = ({ view, label }: ViewItem) => (
+		<button
+			type="button"
+			key={view}
+			className={playgroundState.openViews.includes(view) ? "active" : ""}
+			aria-pressed={playgroundState.openViews.includes(view)}
+			onClick={() => toggleView(view)}
+		>
+			{label}
+		</button>
+	);
+	const openInternalsCount =
+		playgroundState.openViews.filter(isInternal).length;
+
 	const viewToggles = (
-		<nav className="playground-view-toggles" aria-label="Internal views">
-			<span className="playground-view-toggles-label">Inspect</span>
-			{VIEWS.map(({ view, label }) => (
+		<nav className="playground-view-toggles" aria-label="Tools">
+			<span className="playground-view-toggles-label">Tools</span>
+			{TOOLS.map(viewButton)}
+			<div
+				className={`playground-view-group${internalsExpanded ? " expanded" : ""}`}
+			>
 				<button
 					type="button"
-					key={view}
-					className={playgroundState.openViews.includes(view) ? "active" : ""}
-					aria-pressed={playgroundState.openViews.includes(view)}
-					onClick={() => toggleView(view)}
+					className="playground-view-group-toggle"
+					aria-expanded={internalsExpanded}
+					onClick={() => setInternalsExpanded((expanded) => !expanded)}
 				>
-					{label}
+					Internals
+					{!internalsExpanded && openInternalsCount > 0 && (
+						<span className="playground-view-group-count">
+							{openInternalsCount}
+						</span>
+					)}
+					<span aria-hidden={true}>{internalsExpanded ? "‹" : "›"}</span>
 				</button>
-			))}
+				{internalsExpanded && INTERNALS.map(viewButton)}
+			</div>
 			{playgroundState.openViews.length > 0 && (
 				<button
 					type="button"
@@ -336,19 +375,11 @@ export default function Playground({
 							className="playground-mobile-view-list"
 							aria-label="Internal views"
 						>
-							{VIEWS.map(({ view, label }) => (
-								<button
-									type="button"
-									key={view}
-									className={
-										playgroundState.openViews.includes(view) ? "active" : ""
-									}
-									aria-pressed={playgroundState.openViews.includes(view)}
-									onClick={() => toggleView(view)}
-								>
-									{label}
-								</button>
-							))}
+							{TOOLS.map(viewButton)}
+							<span className="playground-mobile-view-list-label">
+								Internals
+							</span>
+							{INTERNALS.map(viewButton)}
 						</nav>
 						{viewPanes.length > 0 && (
 							<div className="playground-mobile-view-stack">{viewPanes}</div>
