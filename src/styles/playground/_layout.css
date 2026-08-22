@@ -196,7 +196,7 @@
 
 .playground-editor > .cm-theme,
 .playground-output-stack .cm-theme,
-.playground-flyout .cm-theme {
+.playground-view-pane .cm-theme {
 	height: 100%;
 }
 
@@ -354,13 +354,65 @@
 	overflow: auto;
 }
 
-.playground-flyout {
+/* min-width = editor (100) + view stack (140) + output (300) minimums. Kept
+ * constant so the sidebar's resize limit stays valid when a view opens. */
+.playground-main {
+	display: flex;
+	flex: 1 1 0;
+	flex-direction: column;
+	min-width: 540px;
+	min-height: 0;
+}
+
+.playground-view-toggles {
+	display: flex;
+	flex: 0 0 auto;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 5px;
+	padding: 5px 8px;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-view-toggles-label {
+	margin-right: 4px;
+	color: var(--sl-color-gray-2);
+}
+
+.playground-view-toggles button.active {
+	border-color: var(--sl-color-text-accent);
+	background: var(--sl-color-gray-5);
+}
+
+.playground-view-toggles-close {
+	margin-left: auto;
+}
+
+.playground-workspace {
+	display: flex;
+	flex: 1 1 0;
+	min-height: 0;
+}
+
+.playground-view-stack {
 	position: relative;
+	display: flex;
+	flex: 1 1 0;
+	flex-direction: column;
+	min-width: 140px;
+	min-height: 0;
+	border-right: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-view-pane {
 	display: grid;
 	grid-template-rows: auto minmax(0, 1fr);
 	flex: 1 1 0;
-	min-width: 110px;
-	border-right: 1px solid var(--sl-color-gray-5);
+	min-height: 0;
+}
+
+.playground-view-pane + .playground-view-pane {
+	border-top: 1px solid var(--sl-color-gray-5);
 }
 
 .playground-resize-handle {
@@ -400,7 +452,7 @@
 	background: var(--sl-color-text-accent);
 }
 
-.playground-flyout-header,
+.playground-view-pane-header,
 .playground-drawer > header {
 	display: flex;
 	align-items: center;
@@ -411,7 +463,7 @@
 	font-weight: 600;
 }
 
-.playground-flyout-header button,
+.playground-view-pane-header button,
 .playground-drawer > header button {
 	border: 0;
 	border-radius: 0;
@@ -419,12 +471,12 @@
 	font-size: 18px;
 }
 
-.playground-flyout-body {
+.playground-view-pane-body {
 	min-height: 0;
 	overflow: auto;
 }
 
-.playground-flyout-body:has(> .collapsible-container) {
+.playground-view-pane-body:has(> .collapsible-container) {
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
@@ -462,28 +514,6 @@
 .playground-syntax-panel {
 	min-height: 0;
 	overflow: hidden;
-}
-
-.playground-view-strip {
-	display: flex;
-	flex: 0 0 39px;
-	flex-direction: column;
-	align-items: stretch;
-	gap: 2px;
-	padding: 5px 4px;
-	overflow-y: auto;
-}
-
-.playground-view-strip button {
-	padding: 7px 5px;
-	border: 0;
-	background: transparent;
-	writing-mode: vertical-rl;
-	text-orientation: mixed;
-}
-
-.playground-view-strip button.active {
-	box-shadow: inset -2px 0 0 var(--sl-color-text-accent);
 }
 
 .playground-mobile-actions {
@@ -540,10 +570,16 @@
 	border-bottom: 1px solid var(--sl-color-gray-5);
 }
 
-.playground-mobile-flyout {
-	height: calc(100% - 100px);
+.playground-mobile-view-stack {
+	display: flex;
+	flex-direction: column;
 	min-height: 0;
 	overflow: auto;
+}
+
+.playground-mobile-view-stack .playground-view-pane {
+	flex: 0 0 auto;
+	height: max(320px, 55vh);
 }
 
 @media (max-width: 768px) {

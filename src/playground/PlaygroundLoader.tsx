@@ -22,10 +22,10 @@ import {
 	LoadingState,
 	type OperatorLinebreak,
 	type PlaygroundFixMode,
-	PlaygroundFlyoutView,
 	PlaygroundProblemsTab,
 	type PlaygroundSettings,
 	type PlaygroundState,
+	PlaygroundView,
 	type QuoteProperties,
 	type QuoteStyle,
 	type RuleDomain,
@@ -315,8 +315,8 @@ function buildLocation(state: PlaygroundState): string {
 	}
 	const lastSearchStringObj = { ...queryStringObj };
 
-	if (state.flyoutView !== defaultPlaygroundState.flyoutView) {
-		queryStringObj.view = state.flyoutView ?? "";
+	if (state.openViews.length > 0) {
+		queryStringObj.view = state.openViews.join(",");
 	}
 	if (state.problemsTab !== defaultPlaygroundState.problemsTab) {
 		queryStringObj.problems = state.problemsTab;
@@ -484,11 +484,7 @@ function initState(
 		)
 			? (searchParams.get("problems") as PlaygroundProblemsTab)
 			: defaultPlaygroundState.problemsTab,
-		flyoutView: Object.values(PlaygroundFlyoutView).includes(
-			searchParams.get("view") as PlaygroundFlyoutView,
-		)
-			? (searchParams.get("view") as PlaygroundFlyoutView)
-			: defaultPlaygroundState.flyoutView,
+		openViews: parseOpenViews(searchParams.get("view")),
 		settings: {
 			lineWidth: Number.parseInt(
 				searchParams.get("lineWidth") ??
@@ -602,6 +598,17 @@ function initState(
 					| undefined) ?? defaultPlaygroundState.settings.searchLanguage,
 		},
 	};
+}
+
+function parseOpenViews(value: string | null): PlaygroundView[] {
+	if (!value) return defaultPlaygroundState.openViews;
+	const known = Object.values(PlaygroundView);
+	const views: PlaygroundView[] = [];
+	for (const part of value.split(",")) {
+		const view = part as PlaygroundView;
+		if (known.includes(view) && !views.includes(view)) views.push(view);
+	}
+	return views;
 }
 
 function getFixMode(value: string | null): PlaygroundFixMode {
