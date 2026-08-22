@@ -394,6 +394,45 @@
 	margin-left: auto;
 }
 
+/* "Internals" expands sideways into its own row of toggles */
+.playground-view-group {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 5px;
+	padding: 2px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+}
+
+.playground-view-group.expanded {
+	border-color: var(--sl-color-gray-5);
+	background: var(--sl-color-gray-6);
+}
+
+.playground-shell .playground-view-group-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	border-color: transparent;
+	background: transparent;
+}
+
+.playground-view-group.expanded .playground-view-group-toggle {
+	font-weight: 600;
+}
+
+.playground-view-group-count {
+	min-width: 1.4em;
+	padding: 0 4px;
+	border-radius: 999px;
+	background: var(--sl-color-text-accent);
+	color: var(--sl-color-text-invert);
+	font-size: 11px;
+	line-height: 1.4em;
+	text-align: center;
+}
+
 .playground-workspace {
 	display: flex;
 	flex: 1 1 0;
@@ -574,6 +613,16 @@
 	gap: 5px;
 	padding: 8px;
 	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-mobile-view-list-label {
+	grid-column: 1 / -1;
+	padding-top: 4px;
+	font-size: 12px;
+	font-weight: 650;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-2);
 }
 
 .playground-mobile-view-stack {

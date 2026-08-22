@@ -1,9 +1,18 @@
 // Smoke tests for the playground to ensure that the basic functionality works.
 
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
 function encodeCode(code: string): string {
 	return Buffer.from(code, "utf16le").toString("base64");
+}
+
+/** Toggles a view from the toolbar, expanding the "Internals" group first if needed. */
+async function toggleView(page: Page, name: string) {
+	const button = page.getByRole("button", { name, exact: true });
+	if (!(await button.isVisible())) {
+		await page.getByRole("button", { name: "Internals" }).click();
+	}
+	await button.click();
 }
 
 test.describe("playground should format code", () => {
@@ -65,7 +74,7 @@ test.describe("playground should show formatter IR", () => {
 
 	test("javascript", async ({ page }) => {
 		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
-		await page.getByRole("button", { name: "Formatter IR" }).click();
+		await toggleView(page, "Formatter IR");
 		await page
 			.locator(".playground-view-pane")
 			.getByLabel("Compare Prettier")
@@ -82,7 +91,7 @@ test.describe("playground should show formatter IR", () => {
 		await page.goto(
 			"/playground?files.main.css=ZABpAHYAIAB7AGMAbwBsAG8AcgA6ACAAYgBsAHUAZQA7AH0A",
 		);
-		await page.getByRole("button", { name: "Formatter IR" }).click();
+		await toggleView(page, "Formatter IR");
 		await page
 			.locator(".playground-view-pane")
 			.getByLabel("Compare Prettier")
@@ -99,7 +108,7 @@ test.describe("playground should show formatter IR", () => {
 		await page.goto(
 			"/playground?files.main.html=PABkAGkAdgA%2BADwALwBkAGkAdgA%2BAA%3D%3D",
 		);
-		await page.getByRole("button", { name: "Formatter IR" }).click();
+		await toggleView(page, "Formatter IR");
 		await page
 			.locator(".playground-view-pane")
 			.getByLabel("Compare Prettier")
@@ -365,11 +374,11 @@ test.describe("playground layout", () => {
 		page,
 	}) => {
 		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
-		await page.getByRole("button", { name: "Syntax tree" }).click();
+		await toggleView(page, "Syntax tree");
 		await expect(page.getByTestId("biome-output")).toBeVisible();
 		await expect(page).toHaveURL(/view=syntax/);
 		// Views accumulate: both panes stay open, ordered by when they were opened.
-		await page.getByRole("button", { name: "Semantic model" }).click();
+		await toggleView(page, "Semantic model");
 		await expect(page).toHaveURL(/view=syntax%2Csemantic-model/);
 		await expect(page.locator(".playground-view-pane")).toHaveCount(2);
 		await expect(page.getByTestId("biome-output")).toBeVisible();
@@ -393,7 +402,7 @@ test.describe("playground layout", () => {
 
 	test("shows syntax tabs and gives formatter IR space", async ({ page }) => {
 		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
-		await page.getByRole("button", { name: "Syntax tree" }).click();
+		await toggleView(page, "Syntax tree");
 		await expect(page.getByRole("tab", { name: "AST" })).toHaveAttribute(
 			"aria-selected",
 			"true",
@@ -403,7 +412,7 @@ test.describe("playground layout", () => {
 		await expect(page.getByTestId("cst-output")).toBeVisible();
 		await expect(page.getByTestId("ast-output")).not.toBeAttached();
 
-		await page.getByRole("button", { name: "Formatter IR" }).click();
+		await toggleView(page, "Formatter IR");
 		await expect
 			.poll(() =>
 				page
@@ -436,6 +445,7 @@ test.describe("playground layout", () => {
 				{ resizeKeys, sizes },
 			);
 			await page.goto("/playground?prettier=true");
+			await page.getByRole("button", { name: "Internals" }).click();
 			await page
 				.getByRole("button", { name: "Formatter IR" })
 				.evaluate((button) => (button as HTMLButtonElement).click());
