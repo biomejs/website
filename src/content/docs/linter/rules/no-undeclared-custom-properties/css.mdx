@@ -1,0 +1,82 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUndeclaredCustomProperties (CSS)
+description: CSS documentation for noUndeclaredCustomProperties
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-undeclared-custom-properties/css/"},{"id":"html","label":"HTML","href":"/linter/rules/no-undeclared-custom-properties/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-undeclared-custom-properties/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noUndeclaredCustomProperties`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUndeclaredCustomProperties": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Reports custom properties used with `var()` that have no visible declaration.
+
+This rule checks custom properties defined by declarations such as `--theme: blue`,
+registrations such as `@property --theme`, imported stylesheets, linked stylesheets, and
+`<style>` blocks in HTML-like files. Files that aren't imported by the project
+aren't analyzed.
+
+Locally scoped styles in Vue, Svelte, and Astro are visible only within their component.
+Global styles can provide custom properties to imported child components.
+
+## Examples
+
+### Invalid
+
+```css title='invalid.css'
+a {
+  color: var(--link-color);
+}
+```
+
+### Valid
+
+```css title='valid.css'
+:root {
+  --link-color: blue;
+}
+
+a {
+  color: var(--link-color);
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_undeclared_custom_properties.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noUndeclaredCustomProperties)
+

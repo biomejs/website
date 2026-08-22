@@ -204,6 +204,7 @@ export const LINT_RULES = {
     useYield: "useYield",
   } as const,
   nursery: {
+    noAstroSetHtmlDirective: "noAstroSetHtmlDirective",
     noBaseToString: "noBaseToString",
     noComponentHookFactories: "noComponentHookFactories",
     noConditionalExpect: "noConditionalExpect",
@@ -248,6 +249,7 @@ export const LINT_RULES = {
     noTailwindArbitraryValue: "noTailwindArbitraryValue",
     noTopLevelLiterals: "noTopLevelLiterals",
     noUndeclaredClasses: "noUndeclaredClasses",
+    noUndeclaredCustomProperties: "noUndeclaredCustomProperties",
     noUnnecessaryTemplateExpression: "noUnnecessaryTemplateExpression",
     noUnsafePlusOperands: "noUnsafePlusOperands",
     noUnsafeTypeAssertion: "noUnsafeTypeAssertion",
