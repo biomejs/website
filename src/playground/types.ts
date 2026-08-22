@@ -8,7 +8,7 @@ import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 
-export const PlaygroundFlyoutView = {
+export const PlaygroundView = {
 	FormatterIr: "formatter-ir",
 	Syntax: "syntax",
 	ControlFlow: "control-flow",
@@ -17,8 +17,8 @@ export const PlaygroundFlyoutView = {
 	TypesRegistered: "types-registered",
 	GritQL: "gritql",
 } as const;
-export type PlaygroundFlyoutView =
-	(typeof PlaygroundFlyoutView)[keyof typeof PlaygroundFlyoutView];
+export type PlaygroundView =
+	(typeof PlaygroundView)[keyof typeof PlaygroundView];
 
 export const PlaygroundProblemsTab = {
 	Diagnostics: "diagnostics",
@@ -264,7 +264,8 @@ export interface PlaygroundState {
 	/** Show Prettier's IR next to Biome's in the Formatter IR view. */
 	comparePrettierIr: boolean;
 	problemsTab: PlaygroundProblemsTab;
-	flyoutView: PlaygroundFlyoutView | null;
+	/** Internal views open between the editor and the output, in open order. */
+	openViews: PlaygroundView[];
 }
 
 export const defaultPlaygroundState: PlaygroundState = {
@@ -276,7 +277,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 	comparePrettier: false,
 	comparePrettierIr: false,
 	problemsTab: PlaygroundProblemsTab.Diagnostics,
-	flyoutView: null,
+	openViews: [],
 	files: {
 		"main.tsx": {
 			content: "",
