@@ -7,12 +7,16 @@ function encodeCode(code: string): string {
 }
 
 /** Toggles a view from the toolbar, expanding the "Internals" group first if needed. */
-async function toggleView(page: Page, name: string) {
+async function toggleView(
+	page: Page,
+	name: string,
+	options: { additive?: boolean } = {},
+) {
 	const button = page.getByRole("button", { name, exact: true });
 	if (!(await button.isVisible())) {
 		await page.getByRole("button", { name: "Internals" }).click();
 	}
-	await button.click();
+	await button.click(options.additive ? { modifiers: ["Shift"] } : {});
 }
 
 test.describe("playground should format code", () => {
@@ -377,8 +381,12 @@ test.describe("playground layout", () => {
 		await toggleView(page, "Syntax tree");
 		await expect(page.getByTestId("biome-output")).toBeVisible();
 		await expect(page).toHaveURL(/view=syntax/);
-		// Views accumulate: both panes stay open, ordered by when they were opened.
-		await toggleView(page, "Semantic model");
+		// A plain click switches tools; shift-click opens alongside, in open order.
+		await toggleView(page, "Control flow");
+		await expect(page).toHaveURL(/view=control-flow/);
+		await expect(page.locator(".playground-view-pane")).toHaveCount(1);
+		await toggleView(page, "Syntax tree");
+		await toggleView(page, "Semantic model", { additive: true });
 		await expect(page).toHaveURL(/view=syntax%2Csemantic-model/);
 		await expect(page.locator(".playground-view-pane")).toHaveCount(2);
 		await expect(page.getByTestId("biome-output")).toBeVisible();
@@ -395,9 +403,14 @@ test.describe("playground layout", () => {
 		await page.getByRole("button", { name: "Close Syntax tree" }).click();
 		await expect(page).toHaveURL(/view=semantic-model/);
 		await expect(page.locator(".playground-view-pane")).toHaveCount(1);
-		await page.getByRole("button", { name: "Close all" }).click();
+		// Plain-clicking the only open tool closes it.
+		await toggleView(page, "Semantic model");
 		await expect(page.locator(".playground-view-stack")).toHaveCount(0);
 		await expect(page).not.toHaveURL(/view=/);
+		await toggleView(page, "Syntax tree");
+		await toggleView(page, "Semantic model", { additive: true });
+		await page.getByRole("button", { name: "Close all" }).click();
+		await expect(page.locator(".playground-view-stack")).toHaveCount(0);
 	});
 
 	test("shows syntax tabs and gives formatter IR space", async ({ page }) => {
