@@ -267,6 +267,8 @@ export interface PlaygroundState {
 	shouldFormat: boolean;
 	fixMode: PlaygroundFixMode;
 	comparePrettier: boolean;
+	/** Show Prettier's IR next to Biome's in the Formatter IR view. */
+	comparePrettierIr: boolean;
 	problemsTab: PlaygroundProblemsTab;
 	flyoutView: PlaygroundFlyoutView | null;
 }
@@ -278,6 +280,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 	shouldFormat: true,
 	fixMode: "none",
 	comparePrettier: false,
+	comparePrettierIr: false,
 	problemsTab: PlaygroundProblemsTab.Diagnostics,
 	flyoutView: null,
 	files: {

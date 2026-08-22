@@ -218,6 +218,10 @@ export default function Playground({
 	const flyout = playgroundState.flyoutView ? (
 		<FlyoutBody
 			view={playgroundState.flyoutView}
+			comparePrettierIr={playgroundState.comparePrettierIr}
+			onComparePrettierIrChange={(comparePrettierIr) =>
+				setPlaygroundState((state) => ({ ...state, comparePrettierIr }))
+			}
 			biomeOutput={biomeOutput}
 			prettierOutput={prettierOutput}
 			extensions={codeMirrorExtensions}
@@ -589,6 +593,8 @@ function FlyoutHeader({
 
 function FlyoutBody({
 	view,
+	comparePrettierIr,
+	onComparePrettierIrChange,
 	biomeOutput,
 	prettierOutput,
 	extensions,
@@ -602,6 +608,8 @@ function FlyoutBody({
 	onLanguageChange,
 }: {
 	view: PlaygroundFlyoutViewType;
+	comparePrettierIr: boolean;
+	onComparePrettierIrChange: (compare: boolean) => void;
 	biomeOutput: ReturnType<typeof getFileState>["biome"];
 	prettierOutput: ReturnType<typeof getFileState>["prettier"];
 	extensions: Extension[];
@@ -620,6 +628,8 @@ function FlyoutBody({
 				<FormatterIrTab
 					biome={biomeOutput.formatter.ir}
 					prettier={prettierOutput}
+					comparePrettier={comparePrettierIr}
+					onComparePrettierChange={onComparePrettierIrChange}
 				/>
 			);
 		case PlaygroundFlyoutView.Syntax:
