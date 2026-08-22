@@ -543,10 +543,10 @@ test.describe("playground layout", () => {
 			await page.evaluate(
 				({ resizeKeys, sizes }) => {
 					for (const key of resizeKeys) {
-						localStorage.removeItem(`playground:${key}-size`);
+						localStorage.removeItem(`playground:${key}-ratio`);
 					}
 					for (const [key, size] of Object.entries(sizes)) {
-						localStorage.setItem(`playground:${key}-size`, String(size));
+						localStorage.setItem(`playground:${key}-ratio`, String(size));
 					}
 				},
 				{ resizeKeys, sizes },
@@ -558,7 +558,9 @@ test.describe("playground layout", () => {
 			await page.locator(".playground-view-stack").waitFor();
 		};
 
-		await loadWithSizes(Object.fromEntries(resizeKeys.map((key) => [key, 1])));
+		await loadWithSizes(
+			Object.fromEntries(resizeKeys.map((key) => [key, 0.001])),
+		);
 		for (const [label, minimum] of [
 			["playground sidebar", 220],
 			["playground editor", 100],
@@ -576,7 +578,9 @@ test.describe("playground layout", () => {
 		}
 
 		await page.setViewportSize({ width: 769, height: 800 });
-		await loadWithSizes(Object.fromEntries(resizeKeys.map((key) => [key, 1])));
+		await loadWithSizes(
+			Object.fromEntries(resizeKeys.map((key) => [key, 0.001])),
+		);
 		const narrowShell = await page.locator(".playground-shell").boundingBox();
 		const narrowStack = await page
 			.locator(".playground-view-stack")
@@ -593,7 +597,7 @@ test.describe("playground layout", () => {
 		await page.setViewportSize({ width: 1280, height: 800 });
 
 		for (const key of resizeKeys) {
-			await loadWithSizes({ [key]: 5000 });
+			await loadWithSizes({ [key]: 5 });
 			const shell = await page.locator(".playground-shell").boundingBox();
 			const sidebar = await page.locator(".playground-sidebar").boundingBox();
 			const editor = await page.locator(".playground-editor").boundingBox();
@@ -641,10 +645,10 @@ test.describe("playground layout", () => {
 		const gritCode = encodeURIComponent(
 			encodeCode('console.log("a");\nconsole.log("b");'),
 		);
-		for (const size of [1, 5000]) {
+		for (const size of [0.001, 5]) {
 			await page.goto("/playground");
 			await page.evaluate((size) => {
-				localStorage.setItem("playground:gritql-matches-size", String(size));
+				localStorage.setItem("playground:gritql-matches-ratio", String(size));
 			}, size);
 			await page.goto(`/playground#code=${gritCode}`);
 			await page.getByRole("button", { name: "GritQL search" }).click();
