@@ -67,7 +67,7 @@ test.describe("playground should show formatter IR", () => {
 		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
 		await page.getByRole("button", { name: "Formatter IR" }).click();
 		await page
-			.locator(".playground-flyout")
+			.locator(".playground-view-pane")
 			.getByLabel("Compare Prettier")
 			.check();
 		await expect(
@@ -84,7 +84,7 @@ test.describe("playground should show formatter IR", () => {
 		);
 		await page.getByRole("button", { name: "Formatter IR" }).click();
 		await page
-			.locator(".playground-flyout")
+			.locator(".playground-view-pane")
 			.getByLabel("Compare Prettier")
 			.check();
 		await expect(
@@ -101,7 +101,7 @@ test.describe("playground should show formatter IR", () => {
 		);
 		await page.getByRole("button", { name: "Formatter IR" }).click();
 		await page
-			.locator(".playground-flyout")
+			.locator(".playground-view-pane")
 			.getByLabel("Compare Prettier")
 			.check();
 		await expect(
@@ -361,15 +361,34 @@ test.describe("playground layout", () => {
 		).toBeVisible();
 	});
 
-	test("keeps output visible while switching internal views", async ({
+	test("keeps output visible while opening internal views", async ({
 		page,
 	}) => {
 		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
 		await page.getByRole("button", { name: "Syntax tree" }).click();
 		await expect(page.getByTestId("biome-output")).toBeVisible();
 		await expect(page).toHaveURL(/view=syntax/);
+		// Views accumulate: both panes stay open, ordered by when they were opened.
 		await page.getByRole("button", { name: "Semantic model" }).click();
+		await expect(page).toHaveURL(/view=syntax%2Csemantic-model/);
+		await expect(page.locator(".playground-view-pane")).toHaveCount(2);
+		await expect(page.getByTestId("biome-output")).toBeVisible();
+		const editor = await page.locator(".playground-editor").boundingBox();
+		const stack = await page.locator(".playground-view-stack").boundingBox();
+		const output = await page.locator(".playground-output-stack").boundingBox();
+		expect(stack?.x).toBeGreaterThanOrEqual(
+			(editor?.x ?? 0) + (editor?.width ?? 0) - 1,
+		);
+		expect(output?.x).toBeGreaterThanOrEqual(
+			(stack?.x ?? 0) + (stack?.width ?? 0) - 1,
+		);
+
+		await page.getByRole("button", { name: "Close Syntax tree" }).click();
 		await expect(page).toHaveURL(/view=semantic-model/);
+		await expect(page.locator(".playground-view-pane")).toHaveCount(1);
+		await page.getByRole("button", { name: "Close all" }).click();
+		await expect(page.locator(".playground-view-stack")).toHaveCount(0);
+		await expect(page).not.toHaveURL(/view=/);
 	});
 
 	test("shows syntax tabs and gives formatter IR space", async ({ page }) => {
@@ -388,7 +407,7 @@ test.describe("playground layout", () => {
 		await expect
 			.poll(() =>
 				page
-					.locator(".playground-flyout-body [data-testid='biome-ir-output']")
+					.locator(".playground-view-pane-body [data-testid='biome-ir-output']")
 					.first()
 					.evaluate((element) => element.getBoundingClientRect().height),
 			)
@@ -399,7 +418,7 @@ test.describe("playground layout", () => {
 		const resizeKeys = [
 			"playground-sidebar",
 			"playground-editor",
-			"playground-output",
+			"playground-view-stack",
 			"playground-biome-output",
 			"playground-problems",
 		];
@@ -420,14 +439,14 @@ test.describe("playground layout", () => {
 			await page
 				.getByRole("button", { name: "Formatter IR" })
 				.evaluate((button) => (button as HTMLButtonElement).click());
-			await page.locator(".playground-flyout").waitFor();
+			await page.locator(".playground-view-stack").waitFor();
 		};
 
 		await loadWithSizes(Object.fromEntries(resizeKeys.map((key) => [key, 1])));
 		for (const [label, minimum] of [
 			["playground sidebar", 220],
 			["playground editor", 100],
-			["playground output", 300],
+			["playground view stack", 140],
 			["playground biome output", 140],
 			["playground problems", 150],
 		] as const) {
@@ -443,41 +462,42 @@ test.describe("playground layout", () => {
 		await page.setViewportSize({ width: 769, height: 800 });
 		await loadWithSizes(Object.fromEntries(resizeKeys.map((key) => [key, 1])));
 		const narrowShell = await page.locator(".playground-shell").boundingBox();
-		const narrowStrip = await page
-			.locator(".playground-view-strip")
+		const narrowStack = await page
+			.locator(".playground-view-stack")
 			.boundingBox();
-		const narrowFlyout = await page.locator(".playground-flyout").boundingBox();
-		expect(narrowFlyout?.width).toBeGreaterThanOrEqual(110);
+		const narrowOutput = await page
+			.locator(".playground-output-stack")
+			.boundingBox();
+		expect(narrowStack?.width).toBeGreaterThanOrEqual(140);
 		expect(
-			(narrowStrip?.x ?? 0) + (narrowStrip?.width ?? 0),
-		).toBeLessThanOrEqual((narrowShell?.x ?? 0) + (narrowShell?.width ?? 0));
+			(narrowOutput?.x ?? 0) + (narrowOutput?.width ?? 0),
+		).toBeLessThanOrEqual(
+			(narrowShell?.x ?? 0) + (narrowShell?.width ?? 0) + 1,
+		);
 		await page.setViewportSize({ width: 1280, height: 800 });
 
 		for (const key of resizeKeys) {
 			await loadWithSizes({ [key]: 5000 });
 			const shell = await page.locator(".playground-shell").boundingBox();
-			const strip = await page.locator(".playground-view-strip").boundingBox();
 			const sidebar = await page.locator(".playground-sidebar").boundingBox();
 			const editor = await page.locator(".playground-editor").boundingBox();
+			const stack = await page.locator(".playground-view-stack").boundingBox();
 			const output = await page
 				.locator(".playground-output-stack")
 				.boundingBox();
-			const flyout = await page.locator(".playground-flyout").boundingBox();
-			expect(
-				shell && strip && sidebar && editor && output && flyout,
-			).toBeTruthy();
+			expect(shell && sidebar && editor && stack && output).toBeTruthy();
 			expect(sidebar?.x).toBeGreaterThanOrEqual(shell?.x ?? 0);
 			expect(editor?.x).toBeGreaterThanOrEqual(
 				(sidebar?.x ?? 0) + (sidebar?.width ?? 0) - 1,
 			);
-			expect(output?.x).toBeGreaterThanOrEqual(
+			expect(stack?.x).toBeGreaterThanOrEqual(
 				(editor?.x ?? 0) + (editor?.width ?? 0) - 1,
 			);
-			expect(flyout?.x).toBeGreaterThanOrEqual(
-				(output?.x ?? 0) + (output?.width ?? 0) - 1,
+			expect(output?.x).toBeGreaterThanOrEqual(
+				(stack?.x ?? 0) + (stack?.width ?? 0) - 1,
 			);
-			expect((strip?.x ?? 0) + (strip?.width ?? 0)).toBeLessThanOrEqual(
-				(shell?.x ?? 0) + (shell?.width ?? 0),
+			expect((output?.x ?? 0) + (output?.width ?? 0)).toBeLessThanOrEqual(
+				(shell?.x ?? 0) + (shell?.width ?? 0) + 1,
 			);
 			const outputStack = page.locator(".playground-output-stack");
 			const biomePane = await outputStack
@@ -498,7 +518,7 @@ test.describe("playground layout", () => {
 			expect(prettierPane?.width).toBeGreaterThanOrEqual(140);
 			expect(codeOutput?.height).toBeGreaterThanOrEqual(120);
 			expect((problems?.y ?? 0) + (problems?.height ?? 0)).toBeLessThanOrEqual(
-				(output?.y ?? 0) + (output?.height ?? 0),
+				(output?.y ?? 0) + (output?.height ?? 0) + 1,
 			);
 		}
 

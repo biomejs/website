@@ -31,10 +31,10 @@ import SyntaxTab from "./tabs/SyntaxTab.tsx";
 import TyeInfoTab from "./tabs/TypeInfoTab.tsx";
 import {
 	type BiomeAstSyntacticData,
-	PlaygroundFlyoutView,
-	type PlaygroundFlyoutView as PlaygroundFlyoutViewType,
 	PlaygroundProblemsTab,
 	type PlaygroundProps,
+	PlaygroundView,
+	type PlaygroundView as PlaygroundViewType,
 } from "./types.ts";
 import {
 	getCurrentCode,
@@ -53,15 +53,19 @@ import {
 	useWindowSize,
 } from "./utils.ts";
 
-const FLYOUTS: Array<{ view: PlaygroundFlyoutViewType; label: string }> = [
-	{ view: PlaygroundFlyoutView.FormatterIr, label: "Formatter IR" },
-	{ view: PlaygroundFlyoutView.Syntax, label: "Syntax tree" },
-	{ view: PlaygroundFlyoutView.ControlFlow, label: "Control flow" },
-	{ view: PlaygroundFlyoutView.SemanticModel, label: "Semantic model" },
-	{ view: PlaygroundFlyoutView.TypesIr, label: "Types IR" },
-	{ view: PlaygroundFlyoutView.TypesRegistered, label: "Types registered" },
-	{ view: PlaygroundFlyoutView.GritQL, label: "GritQL search" },
+const VIEWS: Array<{ view: PlaygroundViewType; label: string }> = [
+	{ view: PlaygroundView.FormatterIr, label: "Formatter IR" },
+	{ view: PlaygroundView.Syntax, label: "Syntax tree" },
+	{ view: PlaygroundView.ControlFlow, label: "Control flow" },
+	{ view: PlaygroundView.SemanticModel, label: "Semantic model" },
+	{ view: PlaygroundView.TypesIr, label: "Types IR" },
+	{ view: PlaygroundView.TypesRegistered, label: "Types registered" },
+	{ view: PlaygroundView.GritQL, label: "GritQL search" },
 ];
+
+function viewLabel(view: PlaygroundViewType): string {
+	return VIEWS.find((item) => item.view === view)?.label ?? view;
+}
 
 export default function Playground({
 	setPlaygroundState,
@@ -181,12 +185,16 @@ export default function Playground({
 		}
 	}, [playgroundState.cursorPosition]);
 
-	const selectFlyout = (view: PlaygroundFlyoutViewType) => {
+	const toggleView = (view: PlaygroundViewType) => {
 		setPlaygroundState((state) => ({
 			...state,
-			flyoutView: state.flyoutView === view ? null : view,
+			openViews: state.openViews.includes(view)
+				? state.openViews.filter((item) => item !== view)
+				: [...state.openViews, view],
 		}));
 	};
+	const closeAllViews = () =>
+		setPlaygroundState((state) => ({ ...state, openViews: [] }));
 
 	const editor = (
 		<CodeMirror
@@ -215,9 +223,9 @@ export default function Playground({
 		/>
 	);
 
-	const flyout = playgroundState.flyoutView ? (
-		<FlyoutBody
-			view={playgroundState.flyoutView}
+	const renderView = (view: PlaygroundViewType) => (
+		<ViewBody
+			view={view}
 			comparePrettierIr={playgroundState.comparePrettierIr}
 			onComparePrettierIrChange={(comparePrettierIr) =>
 				setPlaygroundState((state) => ({ ...state, comparePrettierIr }))
@@ -250,11 +258,52 @@ export default function Playground({
 				}))
 			}
 		/>
-	) : null;
+	);
+	const viewToggles = (
+		<nav className="playground-view-toggles" aria-label="Internal views">
+			<span className="playground-view-toggles-label">Inspect</span>
+			{VIEWS.map(({ view, label }) => (
+				<button
+					type="button"
+					key={view}
+					className={playgroundState.openViews.includes(view) ? "active" : ""}
+					aria-pressed={playgroundState.openViews.includes(view)}
+					onClick={() => toggleView(view)}
+				>
+					{label}
+				</button>
+			))}
+			{playgroundState.openViews.length > 0 && (
+				<button
+					type="button"
+					className="playground-view-toggles-close"
+					onClick={closeAllViews}
+				>
+					Close all
+				</button>
+			)}
+		</nav>
+	);
 
-	return (
-		<div className={`playground-shell${mobile ? " mobile" : ""}`}>
-			{mobile && (
+	const viewPanes = playgroundState.openViews.map((view) => (
+		<section className="playground-view-pane" key={view}>
+			<header className="playground-view-pane-header">
+				<span>{viewLabel(view)}</span>
+				<button
+					type="button"
+					aria-label={`Close ${viewLabel(view)}`}
+					onClick={() => toggleView(view)}
+				>
+					×
+				</button>
+			</header>
+			<div className="playground-view-pane-body">{renderView(view)}</div>
+		</section>
+	));
+
+	if (mobile) {
+		return (
+			<div className="playground-shell mobile">
 				<div className="playground-mobile-actions">
 					<button type="button" onClick={() => setLeftDrawerOpen(true)}>
 						Files &amp; settings
@@ -263,27 +312,69 @@ export default function Playground({
 						Internals
 					</button>
 				</div>
-			)}
-			{!mobile && (
-				<Resizable
-					name="playground-sidebar"
-					direction="right"
-					className="playground-sidebar"
-					minimumSize={220}
-				>
-					<PlaygroundSidebar
-						state={playgroundState}
-						setPlaygroundState={setPlaygroundState}
-					/>
-				</Resizable>
-			)}
-			{mobile ? (
-				<>
-					<main className="playground-editor">{editor}</main>
-					<section className="playground-output-stack">{output}</section>
-				</>
-			) : (
-				<>
+				<main className="playground-editor">{editor}</main>
+				<section className="playground-output-stack">{output}</section>
+				{leftDrawerOpen && (
+					<Drawer
+						side="left"
+						title="Files & settings"
+						onClose={() => setLeftDrawerOpen(false)}
+					>
+						<PlaygroundSidebar
+							state={playgroundState}
+							setPlaygroundState={setPlaygroundState}
+						/>
+					</Drawer>
+				)}
+				{rightDrawerOpen && (
+					<Drawer
+						side="right"
+						title="Internals"
+						onClose={() => setRightDrawerOpen(false)}
+					>
+						<nav
+							className="playground-mobile-view-list"
+							aria-label="Internal views"
+						>
+							{VIEWS.map(({ view, label }) => (
+								<button
+									type="button"
+									key={view}
+									className={
+										playgroundState.openViews.includes(view) ? "active" : ""
+									}
+									aria-pressed={playgroundState.openViews.includes(view)}
+									onClick={() => toggleView(view)}
+								>
+									{label}
+								</button>
+							))}
+						</nav>
+						{viewPanes.length > 0 && (
+							<div className="playground-mobile-view-stack">{viewPanes}</div>
+						)}
+					</Drawer>
+				)}
+			</div>
+		);
+	}
+
+	return (
+		<div className="playground-shell">
+			<Resizable
+				name="playground-sidebar"
+				direction="right"
+				className="playground-sidebar"
+				minimumSize={220}
+			>
+				<PlaygroundSidebar
+					state={playgroundState}
+					setPlaygroundState={setPlaygroundState}
+				/>
+			</Resizable>
+			<div className="playground-main">
+				{viewToggles}
+				<div className="playground-workspace">
 					<Resizable
 						name="playground-editor"
 						direction="right"
@@ -292,83 +383,19 @@ export default function Playground({
 					>
 						{editor}
 					</Resizable>
-					{playgroundState.flyoutView ? (
+					{viewPanes.length > 0 && (
 						<Resizable
-							name="playground-output"
+							name="playground-view-stack"
 							direction="right"
-							className="playground-output-stack"
-							minimumSize={300}
+							className="playground-view-stack"
+							minimumSize={140}
 						>
-							{output}
+							{viewPanes}
 						</Resizable>
-					) : (
-						<section className="playground-output-stack">{output}</section>
 					)}
-				</>
-			)}
-			{!mobile && playgroundState.flyoutView && (
-				<section className="playground-flyout">
-					<FlyoutHeader
-						view={playgroundState.flyoutView}
-						onClose={() =>
-							setPlaygroundState((state) => ({ ...state, flyoutView: null }))
-						}
-					/>
-					<div className="playground-flyout-body">{flyout}</div>
-				</section>
-			)}
-			{!mobile && (
-				<nav className="playground-view-strip" aria-label="Internal views">
-					{FLYOUTS.map(({ view, label }) => (
-						<button
-							type="button"
-							key={view}
-							className={playgroundState.flyoutView === view ? "active" : ""}
-							onClick={() => selectFlyout(view)}
-						>
-							{label}
-						</button>
-					))}
-				</nav>
-			)}
-			{mobile && leftDrawerOpen && (
-				<Drawer
-					side="left"
-					title="Files & settings"
-					onClose={() => setLeftDrawerOpen(false)}
-				>
-					<PlaygroundSidebar
-						state={playgroundState}
-						setPlaygroundState={setPlaygroundState}
-					/>
-				</Drawer>
-			)}
-			{mobile && rightDrawerOpen && (
-				<Drawer
-					side="right"
-					title="Internals"
-					onClose={() => setRightDrawerOpen(false)}
-				>
-					<nav
-						className="playground-mobile-view-list"
-						aria-label="Internal views"
-					>
-						{FLYOUTS.map(({ view, label }) => (
-							<button
-								type="button"
-								key={view}
-								className={playgroundState.flyoutView === view ? "active" : ""}
-								onClick={() => selectFlyout(view)}
-							>
-								{label}
-							</button>
-						))}
-					</nav>
-					{playgroundState.flyoutView && (
-						<div className="playground-mobile-flyout">{flyout}</div>
-					)}
-				</Drawer>
-			)}
+					<section className="playground-output-stack">{output}</section>
+				</div>
+			</div>
 		</div>
 	);
 }
@@ -574,24 +601,7 @@ function OutputStack({
 	);
 }
 
-function FlyoutHeader({
-	view,
-	onClose,
-}: {
-	view: PlaygroundFlyoutViewType;
-	onClose: () => void;
-}) {
-	return (
-		<header className="playground-flyout-header">
-			<span>{FLYOUTS.find((item) => item.view === view)?.label}</span>
-			<button type="button" aria-label="Close internal view" onClick={onClose}>
-				×
-			</button>
-		</header>
-	);
-}
-
-function FlyoutBody({
+function ViewBody({
 	view,
 	comparePrettierIr,
 	onComparePrettierIrChange,
@@ -607,7 +617,7 @@ function FlyoutBody({
 	onGritQueryChange,
 	onLanguageChange,
 }: {
-	view: PlaygroundFlyoutViewType;
+	view: PlaygroundViewType;
 	comparePrettierIr: boolean;
 	onComparePrettierIrChange: (compare: boolean) => void;
 	biomeOutput: ReturnType<typeof getFileState>["biome"];
@@ -623,7 +633,7 @@ function FlyoutBody({
 	onLanguageChange: Parameters<typeof GritQLSearchTab>[0]["onLanguageChange"];
 }) {
 	switch (view) {
-		case PlaygroundFlyoutView.FormatterIr:
+		case PlaygroundView.FormatterIr:
 			return (
 				<FormatterIrTab
 					biome={biomeOutput.formatter.ir}
@@ -632,7 +642,7 @@ function FlyoutBody({
 					onComparePrettierChange={onComparePrettierIrChange}
 				/>
 			);
-		case PlaygroundFlyoutView.Syntax:
+		case PlaygroundView.Syntax:
 			return (
 				<SyntaxTab
 					ast={biomeOutput.syntax.ast}
@@ -640,25 +650,25 @@ function FlyoutBody({
 					ref={astRef}
 				/>
 			);
-		case PlaygroundFlyoutView.ControlFlow:
+		case PlaygroundView.ControlFlow:
 			return <ControlFlowTab graph={biomeOutput.analysis.controlFlowGraph} />;
-		case PlaygroundFlyoutView.SemanticModel:
+		case PlaygroundView.SemanticModel:
 			return (
 				<SemanticModelTab
 					code={biomeOutput.analysis.semanticModel}
 					extensions={extensions}
 				/>
 			);
-		case PlaygroundFlyoutView.TypesIr:
+		case PlaygroundView.TypesIr:
 			return <TyeInfoTab code={biomeOutput.types.ir} extensions={extensions} />;
-		case PlaygroundFlyoutView.TypesRegistered:
+		case PlaygroundView.TypesRegistered:
 			return (
 				<TyeInfoTab
 					code={biomeOutput.types.registered}
 					extensions={extensions}
 				/>
 			);
-		case PlaygroundFlyoutView.GritQL:
+		case PlaygroundView.GritQL:
 			return (
 				<GritQLSearchTab
 					editorRef={editorRef}
