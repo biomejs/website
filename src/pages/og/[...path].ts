@@ -2,16 +2,25 @@ import { getCollection } from "astro:content";
 import { OGImageRoute } from "astro-og-canvas";
 
 const collectionEntries = await getCollection("docs");
+const changelogEntries = await getCollection("changelogs");
+
+console.log(changelogEntries);
 
 /** Paths for all of our Markdown content we want to generate OG images for. */
 const pages = process.env.SKIP_OG
 	? {}
-	: Object.fromEntries(collectionEntries.map(({ id, data }) => [id, data]));
+	: Object.fromEntries(
+			[...collectionEntries, ...changelogEntries].map(({ id, data }) => [
+				id,
+				data,
+			]),
+		);
 
 export const { getStaticPaths, GET } = await OGImageRoute({
 	pages,
 
 	getImageOptions: (_, page) => {
+		console.log(page);
 		return {
 			title: page.title,
 			description: page.description ?? "",
