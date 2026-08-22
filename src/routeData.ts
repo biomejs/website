@@ -57,7 +57,9 @@ export const onRequest = defineRouteMiddleware(async (context) => {
 });
 
 const docs = await getCollection("docs");
+const changelogs = await getCollection("changelogs");
 const routes = new Set(docs.map(({ id }) => `${id}.png`));
+const changelogRoutes = new Set(changelogs.map(({ id }) => `${id}.png`));
 
 /**
  * Get the path to the OpenGraph image for a page
@@ -79,6 +81,12 @@ async function getOgImageUrl(
 	}
 
 	if (routes.has(imagePath)) return `/og/${imagePath}`;
+	if (changelogRoutes.has(imagePath)) return `/og/${imagePath}`;
+
+	const baseChangelogImagePath = imagePath.slice(imagePath.indexOf("/") + 1);
+	if (changelogRoutes.has(baseChangelogImagePath)) {
+		return `/og/${baseChangelogImagePath}`;
+	}
 
 	return undefined;
 }
