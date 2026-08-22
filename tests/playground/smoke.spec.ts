@@ -66,6 +66,10 @@ test.describe("playground should show formatter IR", () => {
 	test("javascript", async ({ page }) => {
 		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
 		await page.getByRole("button", { name: "Formatter IR" }).click();
+		await page
+			.locator(".playground-flyout")
+			.getByLabel("Compare Prettier")
+			.check();
 		await expect(
 			page.getByTestId("biome-ir-output").getByRole("textbox"),
 		).toContainText("let");
@@ -79,6 +83,10 @@ test.describe("playground should show formatter IR", () => {
 			"/playground?files.main.css=ZABpAHYAIAB7AGMAbwBsAG8AcgA6ACAAYgBsAHUAZQA7AH0A",
 		);
 		await page.getByRole("button", { name: "Formatter IR" }).click();
+		await page
+			.locator(".playground-flyout")
+			.getByLabel("Compare Prettier")
+			.check();
 		await expect(
 			page.getByTestId("biome-ir-output").getByRole("textbox"),
 		).toContainText("div");
@@ -92,6 +100,10 @@ test.describe("playground should show formatter IR", () => {
 			"/playground?files.main.html=PABkAGkAdgA%2BADwALwBkAGkAdgA%2BAA%3D%3D",
 		);
 		await page.getByRole("button", { name: "Formatter IR" }).click();
+		await page
+			.locator(".playground-flyout")
+			.getByLabel("Compare Prettier")
+			.check();
 		await expect(
 			page.getByTestId("biome-ir-output").getByRole("textbox"),
 		).toContainText("div");
@@ -376,7 +388,7 @@ test.describe("playground layout", () => {
 		await expect
 			.poll(() =>
 				page
-					.locator(".playground-flyout-body .collapsible-container")
+					.locator(".playground-flyout-body [data-testid='biome-ir-output']")
 					.first()
 					.evaluate((element) => element.getBoundingClientRect().height),
 			)
@@ -467,15 +479,16 @@ test.describe("playground layout", () => {
 			expect((strip?.x ?? 0) + (strip?.width ?? 0)).toBeLessThanOrEqual(
 				(shell?.x ?? 0) + (shell?.width ?? 0),
 			);
-			const biomePane = await page
+			const outputStack = page.locator(".playground-output-stack");
+			const biomePane = await outputStack
 				.locator(".playground-output-pane")
 				.first()
 				.boundingBox();
-			const prettierPane = await page
+			const prettierPane = await outputStack
 				.locator(".playground-output-pane")
 				.nth(1)
 				.boundingBox();
-			const codeOutput = await page
+			const codeOutput = await outputStack
 				.locator(".playground-code-output")
 				.boundingBox();
 			const problems = await page.locator(".playground-problems").boundingBox();
