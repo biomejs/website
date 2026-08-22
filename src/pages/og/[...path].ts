@@ -4,8 +4,6 @@ import { OGImageRoute } from "astro-og-canvas";
 const collectionEntries = await getCollection("docs");
 const changelogEntries = await getCollection("changelogs");
 
-console.log(changelogEntries);
-
 /** Paths for all of our Markdown content we want to generate OG images for. */
 const pages = process.env.SKIP_OG
 	? {}
@@ -20,7 +18,6 @@ export const { getStaticPaths, GET } = await OGImageRoute({
 	pages,
 
 	getImageOptions: (_, page) => {
-		console.log(page);
 		return {
 			title: page.title,
 			// @ts-expect-error Expected error
