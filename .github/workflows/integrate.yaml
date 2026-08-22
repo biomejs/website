@@ -47,15 +47,15 @@ jobs:
       matrix:
         include:
           - platform: Linux x64
-            runner: ubuntu-latest
+            runner: depot-ubuntu-24.04
           - platform: Linux ARM64
-            runner: ubuntu-24.04-arm
+            runner: depot-ubuntu-24.04-arm
           - platform: macOS
-            runner: macos-latest
+            runner: depot-macos-latest
           - platform: macOS Intel
-            runner: macos-15-intel
+            runner: depot-macos-15-intel
           - platform: Windows x64
-            runner: windows-latest
+            runner: depot-windows-latest
           - platform: Windows ARM64
             runner: windows-11-arm
     steps:
