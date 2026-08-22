@@ -15,16 +15,22 @@
 	font: inherit;
 }
 
+/* The sidebar itself must not scroll: its resize handle is positioned just
+ * outside its right edge and a scroll container would clip it (and put the
+ * scrollbar over what remains). The content scrolls instead. */
 .playground-sidebar {
 	position: relative;
+	display: flex;
 	flex: 0 0 280px;
+	flex-direction: column;
 	min-width: 0;
 	border-right: 1px solid var(--sl-color-gray-5);
-	overflow: auto;
 }
 
 .playground-sidebar-content {
-	min-height: 100%;
+	flex: 1 1 0;
+	min-height: 0;
+	overflow: auto;
 }
 
 .playground-sidebar-section + .playground-sidebar-section {
