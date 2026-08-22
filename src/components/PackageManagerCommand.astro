@@ -43,4 +43,9 @@ import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
 			lang="bash"
 		/>
 	</TabItem>
+	{Astro.props.standalone && (
+			<TabItem label="standalone" icon="seti:shell">
+				<Code frame="none" showLineNumbers={false} code={Astro.props.standalone} lang="bash" />
+			</TabItem>
+		)}
 </Tabs>

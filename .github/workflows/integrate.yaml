@@ -37,3 +37,94 @@ jobs:
 
       - name: Run tsc
         run: pnpm tsc
+
+  installers:
+    name: Installers (${{ matrix.platform }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: Linux x64
+            runner: depot-ubuntu-24.04
+          - platform: Linux ARM64
+            runner: depot-ubuntu-24.04-arm
+          - platform: macOS
+            runner: depot-macos-latest
+          - platform: macOS Intel
+            runner: depot-macos-15-intel
+          - platform: Windows x64
+            runner: depot-windows-latest
+          - platform: Windows ARM64
+            runner: windows-11-arm
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+
+      - name: Test shell installer
+        if: runner.os != 'Windows'
+        shell: bash
+        env:
+          BIOME_INSTALL_DIR: ${{ runner.temp }}/biome/bin
+          INSTALLER_HOME: ${{ runner.temp }}/biome/home
+        run: |
+          mkdir -p "$INSTALLER_HOME"
+          touch "$INSTALLER_HOME/.bashrc"
+          HOME="$INSTALLER_HOME" SHELL=/bin/bash bash public/install
+          "$BIOME_INSTALL_DIR/biome" --version
+          grep -Fq "export PATH=\"$BIOME_INSTALL_DIR:\$PATH\"" "$INSTALLER_HOME/.bashrc"
+
+      - name: Test installer with PowerShell 7
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          BIOME_INSTALL_DIR: ${{ runner.temp }}\biome-pwsh
+        run: |
+          Get-Content -LiteralPath public/install.ps1 -Raw | Invoke-Expression
+          biome --version
+          if (($env:Path -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "The current process PATH was not updated"
+          }
+          $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+          if (($userPath -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "The user PATH was not updated"
+          }
+          $env:Path = (($env:Path -split ";" | Where-Object { $_ -ne $env:BIOME_INSTALL_DIR }) -join ";")
+          $userPath = (($userPath -split ";" | Where-Object { $_ -ne $env:BIOME_INSTALL_DIR }) -join ";")
+          [Environment]::SetEnvironmentVariable("Path", $userPath, "User")
+          Get-Content -LiteralPath public/install.ps1 -Raw | Invoke-Expression
+          if (($env:Path -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "A rerun did not restore the current process PATH"
+          }
+          $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+          if (($userPath -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "A rerun did not restore the user PATH"
+          }
+
+      - name: Test installer with Windows PowerShell 5.1
+        if: runner.os == 'Windows'
+        shell: powershell
+        env:
+          BIOME_INSTALL_DIR: ${{ runner.temp }}\biome-windows-powershell
+        run: |
+          Get-Content -LiteralPath public/install.ps1 -Raw | Invoke-Expression
+          biome --version
+          if (($env:Path -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "The current process PATH was not updated"
+          }
+          $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+          if (($userPath -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "The user PATH was not updated"
+          }
+          $env:Path = (($env:Path -split ";" | Where-Object { $_ -ne $env:BIOME_INSTALL_DIR }) -join ";")
+          $userPath = (($userPath -split ";" | Where-Object { $_ -ne $env:BIOME_INSTALL_DIR }) -join ";")
+          [Environment]::SetEnvironmentVariable("Path", $userPath, "User")
+          Get-Content -LiteralPath public/install.ps1 -Raw | Invoke-Expression
+          if (($env:Path -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "A rerun did not restore the current process PATH"
+          }
+          $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+          if (($userPath -split ";") -notcontains $env:BIOME_INSTALL_DIR) {
+            throw "A rerun did not restore the user PATH"
+          }
