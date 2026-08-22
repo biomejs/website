@@ -329,6 +329,9 @@ function buildLocation(state: PlaygroundState): string {
 	if (state.comparePrettier !== defaultPlaygroundState.comparePrettier) {
 		queryStringObj.prettier = String(state.comparePrettier);
 	}
+	if (state.comparePrettierIr !== defaultPlaygroundState.comparePrettierIr) {
+		queryStringObj.prettierIr = String(state.comparePrettierIr);
+	}
 
 	if (state.singleFileMode && Object.keys(state.files).length === 1) {
 		// Single file mode
@@ -469,6 +472,11 @@ function initState(
 			searchParams,
 			"prettier",
 			defaultPlaygroundState.comparePrettier,
+		),
+		comparePrettierIr: getBooleanParam(
+			searchParams,
+			"prettierIr",
+			defaultPlaygroundState.comparePrettierIr,
 		),
 		problemsTab: Object.values(PlaygroundProblemsTab).includes(
 			searchParams.get("problems") as PlaygroundProblemsTab,
