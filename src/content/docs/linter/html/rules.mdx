@@ -82,11 +82,13 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
+| [noAstroSetHtmlDirective](/linter/rules/no-astro-set-html-directive/html) | Disallow the use of Astro's `set:html` directive. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noInlineStyles](/linter/rules/no-inline-styles/html) | Disallow the use of inline styles. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noNonScalableViewport](/linter/rules/no-non-scalable-viewport/html) | Disallow disabling zoom with `user-scalable=no` in the `<meta name="viewport">` element. |  |
 | [noSvelteLegacyConst](/linter/rules/no-svelte-legacy-const/html) | Disallow legacy Svelte `{@const}` tags. |  |
 | [noTailwindArbitraryValue](/linter/rules/no-tailwind-arbitrary-value/html) | Disallow arbitrary values in Tailwind CSS utility classes. |  |
 | [noUndeclaredClasses](/linter/rules/no-undeclared-classes/html) | Reports CSS class names in HTML `class` attributes that are not defined |  |
+| [noUndeclaredCustomProperties](/linter/rules/no-undeclared-custom-properties/html) | Reports custom properties used with `var()` that have no visible declaration. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noVueVOnNumberValues](/linter/rules/no-vue-v-on-number-values/html) | Disallow deprecated number modifiers on Vue `v-on` directives. |  |
 | [useAstroClientOnlyDirectiveValue](/linter/rules/use-astro-client-only-directive-value/html) | Require a value for Astro's `client:only` directive. |  |
 | [useControlLabel](/linter/rules/use-control-label/html) | Enforce that interactive control elements have an accessible label. |  |
@@ -116,7 +118,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file/html) | Restrict the number of lines in a file. |  |
 | [useVueConsistentVBindStyle](/linter/rules/use-vue-consistent-v-bind-style/html) | Enforce a consistent style for `v-bind` in Vue templates. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useVueConsistentVOnStyle](/linter/rules/use-vue-consistent-v-on-style/html) | Enforce a consistent style for `v-on` in Vue templates. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useVueHyphenatedAttributes](/linter/rules/use-vue-hyphenated-attributes/html) | Enforce hyphenated (kebab-case) attribute names in Vue templates. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueHyphenatedAttributes](/linter/rules/use-vue-hyphenated-attributes/html) | Disallow uppercase letters in Vue template attribute names. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 ## Recommended rules 
 - [noAccessKey](/linter/rules/no-access-key/html) (Severity: [error](/reference/diagnostics#error))
 - [noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text/html) (Severity: [error](/reference/diagnostics#error))

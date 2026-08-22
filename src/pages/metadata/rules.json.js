@@ -327,6 +327,15 @@ export function GET() {
             "fixKind": "none",
             "docs": " Checks that the `initial-value` of an `@property` rule follows the value format declared by its `syntax`.\n\n Browsers do not register a custom property when its `initial-value` does not follow this\n format.\n\n For function values, this rule checks the function name but does not check its arguments.\n It leaves the browser to validate:\n\n - indexed or unknown `env()` values, whose result may depend on an index or fallback;\n - math functions whose result depends on their arguments, such as `calc()`, `min()`, and\n   `max()`, used with `<angle>`, `<integer>`, `<length>`, `<length-percentage>`, `<number>`,\n   `<percentage>`, `<resolution>`, or `<time>`;\n - color functions such as `rgb()` and `color-mix()` used with `<color>`;\n - image functions such as `linear-gradient()` and `image-set()` used with `<image>`;\n - transform functions such as `rotate()` and `translateX()` used with\n   `<transform-function>` or `<transform-list>`.\n\n ## Examples\n\n ### Invalid\n\n `red` is a color, not a length, so the browser does not register `--size`.\n\n ```css,expect_diagnostic\n @property --size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: red;\n }\n ```\n\n `#fff` is a color, not an image, so the browser does not register `--background-image`.\n\n ```css,expect_diagnostic\n @property --background-image {\n   syntax: \"<image>\";\n   inherits: false;\n   initial-value: #fff;\n }\n ```\n\n `<color>#` requires one or more colors separated by commas. The browser does not register\n `--palette` because `red blue` has no comma.\n\n ```css,expect_diagnostic\n @property --palette {\n   syntax: \"<color>#\";\n   inherits: false;\n   initial-value: red blue;\n }\n ```\n\n ### Valid\n\n Both `1rem` and `calc(1px + 2px)` use length values, so they follow their declared formats.\n\n ```css\n @property --size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: 1rem;\n }\n\n @property --calculated-size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: calc(1px + 2px);\n }\n ```\n\n"
           },
+          "noUndeclaredCustomProperties": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUndeclaredCustomProperties",
+            "link": "https://biomejs.dev/linter/rules/no-undeclared-custom-properties/css",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Reports custom properties used with `var()` that have no visible declaration.\n\n This rule checks custom properties defined by declarations such as `--theme: blue`,\n registrations such as `@property --theme`, imported stylesheets, linked stylesheets, and\n `<style>` blocks in HTML-like files. Files that aren't imported by the project\n aren't analyzed.\n\n Locally scoped styles in Vue, Svelte, and Astro are visible only within their component.\n Global styles can provide custom properties to imported child components.\n\n ## Examples\n\n ### Invalid\n\n ```css,file=invalid.css\n a {\n   color: var(--link-color);\n }\n ```\n\n ### Valid\n\n ```css,file=valid.css\n :root {\n   --link-color: blue;\n }\n\n a {\n   color: var(--link-color);\n }\n ```\n\n"
+          },
           "noUnusedClasses": {
             "deprecated": false,
             "version": "2.5.0",
@@ -1920,6 +1929,23 @@ export function GET() {
           }
         },
         "nursery": {
+          "noAstroSetHtmlDirective": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noAstroSetHtmlDirective",
+            "link": "https://biomejs.dev/linter/rules/no-astro-set-html-directive/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintAstro": "no-set-html-directive"
+                }
+              }
+            ],
+            "docs": " Disallow the use of Astro's `set:html` directive.\n\n `set:html` renders HTML without escaping it. Using `set:html` can introduce cross-site scripting vulnerabilities.\n When raw HTML is required, sanitize the value before passing it to `set:html`, then suppress the diagnostic with an explanation.\n\n ## Examples\n\n ### Invalid\n\n ```astro,expect_diagnostic\n <div set:html={content} />\n ```\n\n ### Valid\n\n ```astro\n <div>{content}</div>\n ```\n\n ## References\n\n - [Astro `set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml)\n - [OWASP HTML sanitization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#html-sanitization)\n"
+          },
           "noInlineStyles": {
             "deprecated": false,
             "version": "2.4.9",
@@ -1988,6 +2014,15 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Reports CSS class names in HTML `class` attributes that are not defined\n in any `<style>` block or linked stylesheet available to the file.\n\n When an HTML file has `<style>` blocks or `<link rel=\"stylesheet\">` elements,\n every class name used in `class=\"...\"` attributes is checked against the\n available class definitions. Classes that are not defined are reported.\n\n ## Framework style scoping\n\n Different frameworks scope their embedded styles differently. For the\n **same file**, both locally and globally scoped classes are considered\n valid — a scoped `<style>` block defines classes that are available to\n that component's own template. When traversing **parent files** (via\n upward import traversal), only globally scoped classes are visible:\n\n - **HTML** `<style>`: always global.\n - **Vue** `<style>` (no attribute): global.\n - **Vue** `<style scoped>`: local — visible within the same component,\n   not to child components.\n - **Astro** `<style>` (default): local — visible within the same component,\n   not to child components.\n - **Astro** `<style is:global>`: global.\n - **Svelte** `<style>` (default): local — visible within the same component,\n   not to child components. Individual selectors inside `:global(...)` within\n   a scoped block are still treated as global.\n\n ## Components\n\n Components (custom elements) are excluded from this check, as they may receive\n class names as props or use scoped styling. A component is identified by:\n - Tag names starting with an uppercase letter (e.g., `MyComponent`)\n - Tag names containing a hyphen (e.g., `my-component`)\n - Member expressions (e.g., `Component.Item`)\n\n ## No false positives on unstyled files\n\n If the file has no style information (no `<style>` blocks and no linked\n stylesheets), this rule does not emit diagnostics to avoid false positives.\n\n ## Examples\n\n ### Invalid\n\n ```html,ignore\n <style>.card { border: 1px solid; }</style>\n <div class=\"header\">Content</div>\n ```\n\n ### Valid\n\n ```html,ignore\n <style>.card { border: 1px solid; }</style>\n <div class=\"card\">Content</div>\n ```\n\n ```html,ignore\n <style>.card { border: 1px solid; }</style>\n <MyComponent class=\"any-class\">Components are not checked</MyComponent>\n ```\n\n"
+          },
+          "noUndeclaredCustomProperties": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUndeclaredCustomProperties",
+            "link": "https://biomejs.dev/linter/rules/no-undeclared-custom-properties/html",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Reports custom properties used with `var()` that have no visible declaration.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div style=\"color: var(--text-color)\"></div>\n ```\n\n ### Valid\n\n ```html\n <div style=\"--text-color: blue; color: var(--text-color)\"></div>\n ```\n\n"
           },
           "noVueVOnNumberValues": {
             "deprecated": false,
@@ -2254,7 +2289,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce hyphenated (kebab-case) attribute names in Vue templates.\n\n Vue style guide recommends using hyphenated attribute (and prop) names in templates to\n keep them consistent and distinguish them from JavaScript identifiers written in camelCase/PascalCase.\n\n This rule flags attributes that are detected as camelCase, PascalCase, CONSTANT_CASE, snake_case\n or that contain any uppercase ASCII letter. It uses Biome's internal `Case::identify` helper.\n\n Allowed:\n - kebab-case attributes (e.g. `data-test-id`)\n - pure lowercase single word attributes (e.g. `class`, `id`)\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div fooBar=\"x\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyComp :someProp=\"x\" />\n ```\n\n ### Valid\n\n ```vue\n <div data-test-id=\"x\"></div>\n <div class=\"foo\"></div>\n <MyComp :some-prop=\"x\" />\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ### `ignore`\n\n A list of attribute names that should be ignored by the rule (they won't be required to be hyphenated).\n Use this when you have a fixed set of camelCase / PascalCase prop names you intentionally allow.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\"someProp\", \"fooBar\"]\n   }\n }\n ```\n\n #### Valid (using `ignore`)\n\n ```vue,use_options\n <div fooBar=\"x\"></div>\n ```\n\n ### `ignoreTags`\n\n A list of tag names whose attributes should be skipped entirely.\n This is useful for third-party or internal components that deliberately expose non‑hyphenated prop names.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTags\": [\"MyComp\", \"AnotherWidget\"]\n   }\n }\n ```\n\n #### Valid (using `ignoreTags`)\n\n ```vue,use_options\n <MyComp :someProp=\"x\" />\n ```\n\n"
+            "docs": " Disallow uppercase letters in Vue template attribute names.\n\n Vue style guide recommends using hyphenated attribute (and prop) names in templates to\n keep them consistent and distinguish them from JavaScript identifiers written in camelCase/PascalCase.\n\n Like the upstream ESLint rule, this rule flags attribute names that contain uppercase letters.\n It doesn't require exact kebab-case, so punctuation such as colons and underscores is allowed.\n\n Allowed:\n - names without uppercase letters (e.g. `data-test-id`, `pt:header:id`, `some_attr`)\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div fooBar=\"x\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyComp :someProp=\"x\" />\n ```\n\n ### Valid\n\n ```vue\n <div data-test-id=\"x\"></div>\n <div class=\"foo\"></div>\n <MyComp :some-prop=\"x\" />\n <MyComp pt:header:data-test-id=\"x\" />\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ### `ignore`\n\n A list of attribute names that should be exempt from the uppercase-letter check.\n Use this when you have a fixed set of camelCase / PascalCase prop names you intentionally allow.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\"someProp\", \"fooBar\"]\n   }\n }\n ```\n\n #### Valid (using `ignore`)\n\n ```vue,use_options\n <div fooBar=\"x\"></div>\n ```\n\n ### `ignoreTags`\n\n A list of tag names whose attributes should be exempt from the uppercase-letter check.\n This is useful for third-party or internal components that deliberately expose camelCase or PascalCase prop names.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTags\": [\"MyComp\", \"AnotherWidget\"]\n   }\n }\n ```\n\n #### Valid (using `ignoreTags`)\n\n ```vue,use_options\n <MyComp :someProp=\"x\" />\n ```\n\n"
           }
         }
       },
@@ -2573,7 +2608,7 @@ export function GET() {
             "name": "noThisInStatic",
             "link": "https://biomejs.dev/linter/rules/no-this-in-static/javascript",
             "recommended": true,
-            "fixKind": "safe",
+            "fixKind": "unsafe",
             "sources": [
               {
                 "kind": "sameLogic",
@@ -4452,6 +4487,15 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Reports CSS class names in JSX `className` or `class` attributes that are not defined\n in any imported CSS file.\n\n When a JSX file imports CSS files, every class name used in `className=` or `class=`\n attributes is checked against the available class definitions. Classes that are not\n defined are reported.\n\n This rule checks string literals, variable references (resolved through the semantic\n model), call expressions like `clsx(...)` / `classnames(...)`, object expression keys,\n and array expressions. Dynamic class names that cannot be statically resolved are\n silently skipped.\n\n In Astro files, `class:list={...}` directives and `class={...}` attribute expressions\n are also checked. CSS files imported in the frontmatter (`import \"./styles.css\"`) are\n included in the class resolution.\n\n ## Examples\n\n ### Invalid\n\n ```js,ignore\n import \"./styles.css\";\n export default () => <div className=\"missing\" />;\n ```\n\n ### Valid\n\n ```js,ignore\n import \"./styles.css\";\n export default () => <div className=\"header\" />;\n ```\n\n"
+          },
+          "noUndeclaredCustomProperties": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUndeclaredCustomProperties",
+            "link": "https://biomejs.dev/linter/rules/no-undeclared-custom-properties/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Reports custom properties used with `var()` that have no visible declaration.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div style=\"color: var(--text-color)\" />\n ```\n\n ### Valid\n\n ```jsx\n <div style=\"--text-color: blue; color: var(--text-color)\" />\n ```\n\n"
           },
           "noUnnecessaryTemplateExpression": {
             "deprecated": false,
@@ -10344,7 +10388,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 577
+    "numberOrRules": 581
   },
   "syntax": {
     "languages": {
