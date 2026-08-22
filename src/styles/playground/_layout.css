@@ -1,0 +1,683 @@
+.playground-shell {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	min-width: 0;
+	font-size: 13px;
+	background: var(--sl-color-bg);
+	color: var(--sl-color-text);
+	overflow: hidden;
+}
+
+.playground-shell button,
+.playground-shell input,
+.playground-shell select {
+	font: inherit;
+}
+
+/* The sidebar itself must not scroll: its resize handle is positioned just
+ * outside its right edge and a scroll container would clip it (and put the
+ * scrollbar over what remains). The content scrolls instead. */
+.playground-sidebar {
+	position: relative;
+	display: flex;
+	flex: 0 0 280px;
+	flex-direction: column;
+	min-width: 0;
+	border-right: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-sidebar-content {
+	flex: 1 1 0;
+	min-height: 0;
+	overflow: auto;
+}
+
+.playground-sidebar-section + .playground-sidebar-section {
+	border-top: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-section-label {
+	padding: 8px 10px;
+	font-size: 12px;
+	font-weight: 650;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-2);
+}
+
+.playground-files-actions,
+.playground-button-row {
+	display: flex;
+	gap: 5px;
+	padding: 0 8px 7px;
+}
+
+.playground-shell button {
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 4px;
+	padding: 4px 7px;
+	background: var(--sl-color-gray-6);
+	color: inherit;
+	cursor: pointer;
+}
+
+.playground-shell button:hover,
+.playground-shell button.active,
+.playground-shell [aria-selected="true"] {
+	background: var(--sl-color-gray-5);
+}
+
+.playground-filename-input {
+	box-sizing: border-box;
+	width: calc(100% - 16px);
+	margin: 0 8px 7px;
+	padding: 5px 7px;
+	border: 1px solid var(--sl-color-gray-4);
+	border-radius: 4px;
+	background: var(--sl-color-bg);
+	color: inherit;
+}
+
+.playground-file-tree details > summary {
+	padding: 4px 8px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.playground-directory-children {
+	padding-left: 12px;
+}
+
+.playground-file-row {
+	display: flex;
+	align-items: center;
+	min-width: 0;
+	border-left: 2px solid transparent;
+}
+
+.playground-file-row.active {
+	border-left-color: var(--sl-color-text-accent);
+	background: var(--sl-color-gray-6);
+}
+
+.playground-file-row .playground-file-open {
+	flex: 1;
+	min-width: 0;
+	padding: 5px 8px;
+	border: 0;
+	background: transparent;
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.playground-file-row .playground-filename-input {
+	flex: 1;
+	min-width: 0;
+	width: auto;
+	margin: 2px 4px;
+}
+
+.playground-file-row .playground-file-rename,
+.playground-file-row .playground-file-delete {
+	margin-right: 4px;
+	padding: 0 5px;
+	border: 0;
+	background: transparent;
+	opacity: 0.35;
+}
+
+.playground-file-row:hover .playground-file-rename,
+.playground-file-row:hover .playground-file-delete,
+.playground-file-rename:focus-visible,
+.playground-file-delete:focus-visible {
+	opacity: 1;
+}
+
+.playground-eject-button {
+	margin: 0 8px 8px;
+}
+
+.playground-settings-ejected {
+	padding: 0 8px 8px;
+}
+
+.playground-settings-ejected p,
+.playground-editor-note {
+	margin: 0 0 8px;
+	font-size: 12.5px;
+	line-height: 1.4;
+	color: var(--sl-color-gray-2);
+}
+
+.playground-settings-ejected .playground-button-row {
+	padding: 0;
+}
+
+.playground-sidebar .settings-tab h2 {
+	margin: 0;
+	padding: 7px 9px;
+	font-size: 12.5px;
+}
+
+.playground-sidebar .settings-tab section {
+	padding: 5px 9px 9px;
+}
+
+.playground-sidebar .field-row,
+.playground-editor-options .field-row {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(90px, auto);
+	align-items: center;
+	gap: 6px;
+	margin: 5px 0;
+}
+
+.playground-sidebar .field-row:has(input[type="checkbox"]) {
+	grid-template-columns: auto 1fr;
+}
+
+.playground-sidebar select,
+.playground-sidebar input[type="number"] {
+	min-width: 0;
+	max-width: 130px;
+}
+
+.playground-editor-options {
+	padding: 0 9px 9px;
+}
+
+.playground-editor-note {
+	margin-top: 8px;
+}
+
+.playground-editor {
+	position: relative;
+	flex: 1.2 1 0;
+	min-width: 100px;
+	border-right: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-editor > .cm-theme,
+.playground-output-stack .cm-theme,
+.playground-view-pane .cm-theme {
+	height: 100%;
+}
+
+.playground-output-stack {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 0;
+	min-width: 300px;
+	border-right: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-output-toolbar {
+	display: flex;
+	flex: 0 0 auto;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 7px;
+	padding: 6px 8px;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-output-toolbar label {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	white-space: nowrap;
+}
+
+.playground-output-toolbar label:has(input:disabled) {
+	color: var(--sl-color-gray-3);
+	cursor: not-allowed;
+}
+
+.playground-output-toolbar input[type="checkbox"]:disabled {
+	opacity: 0.45;
+	filter: grayscale(1);
+	cursor: not-allowed;
+}
+
+.playground-fix-control {
+	display: inline-flex;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.playground-fix-control legend {
+	float: left;
+	margin-right: 5px;
+}
+
+.playground-fix-control button {
+	border-radius: 0;
+	margin-left: -1px;
+}
+
+.playground-fix-control button:first-child {
+	margin-left: 0;
+	border-radius: 4px 0 0 4px;
+}
+
+.playground-fix-control button:last-child {
+	border-radius: 0 4px 4px 0;
+}
+
+.playground-code-output {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	flex: 1 1 0;
+	min-height: 0;
+}
+
+.playground-code-output.split {
+	min-height: 120px;
+}
+
+.playground-code-output.split {
+	display: flex;
+}
+
+.playground-output-pane {
+	position: relative;
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
+	flex: 1 1 0;
+	min-width: 0;
+	min-height: 0;
+}
+
+.playground-code-output.split .playground-output-pane {
+	min-width: 140px;
+}
+
+.playground-output-pane + .playground-output-pane {
+	border-left: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-output-heading {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 18px;
+	background: var(--sl-color-gray-6);
+}
+
+.playground-output-heading img {
+	width: 18px;
+	height: 18px;
+	margin-right: 10px;
+	object-fit: contain;
+}
+
+.playground-problems {
+	position: relative;
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
+	flex: 0 0 auto;
+	height: 34%;
+	min-height: 150px;
+	border-top: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-problems.collapsed {
+	height: auto !important;
+	min-height: 0;
+}
+
+.playground-problems-tabs {
+	display: flex;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-problems-tabs button {
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+}
+
+.playground-problems-tabs .playground-problems-collapse {
+	margin-left: auto;
+	padding-inline: 10px;
+}
+
+.playground-problems-tabs [aria-selected="true"] {
+	box-shadow: inset 0 -2px 0 var(--sl-color-text-accent);
+}
+
+.playground-problems-body {
+	min-height: 0;
+	overflow: auto;
+}
+
+/* min-width = editor (100) + view stack (140) + output (300) minimums. Kept
+ * constant so the sidebar's resize limit stays valid when a view opens. */
+.playground-main {
+	display: flex;
+	flex: 1 1 0;
+	flex-direction: column;
+	min-width: 540px;
+	min-height: 0;
+}
+
+.playground-view-toggles {
+	display: flex;
+	flex: 0 0 auto;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 5px;
+	padding: 5px 8px;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-view-toggles-label {
+	margin-right: 4px;
+	color: var(--sl-color-gray-2);
+}
+
+.playground-view-toggles button.active {
+	border-color: var(--sl-color-text-accent);
+	background: var(--sl-color-gray-5);
+}
+
+.playground-view-toggles-close {
+	margin-left: auto;
+}
+
+/* "Internals" expands sideways into its own row of toggles */
+.playground-view-group {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 5px;
+	padding: 2px;
+	border: 1px solid transparent;
+	border-radius: 6px;
+}
+
+.playground-view-group.expanded {
+	border-color: var(--sl-color-gray-5);
+	background: var(--sl-color-gray-6);
+}
+
+.playground-shell .playground-view-group-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	border-color: transparent;
+	background: transparent;
+}
+
+.playground-view-group.expanded .playground-view-group-toggle {
+	font-weight: 600;
+}
+
+.playground-view-group-count {
+	min-width: 1.4em;
+	padding: 0 4px;
+	border-radius: 999px;
+	background: var(--sl-color-text-accent);
+	color: var(--sl-color-text-invert);
+	font-size: 11px;
+	line-height: 1.4em;
+	text-align: center;
+}
+
+.playground-workspace {
+	display: flex;
+	flex: 1 1 0;
+	min-height: 0;
+}
+
+.playground-view-stack {
+	position: relative;
+	display: flex;
+	flex: 1 1 0;
+	flex-direction: column;
+	min-width: 140px;
+	min-height: 0;
+	border-right: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-view-pane {
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
+	flex: 1 1 0;
+	min-height: 0;
+}
+
+.playground-view-pane + .playground-view-pane {
+	border-top: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-resize-handle {
+	position: absolute;
+	z-index: 5;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline-offset: -2px;
+}
+
+[data-resize-direction="right"] > .playground-resize-handle {
+	top: 0;
+	right: -3px;
+	bottom: 0;
+	width: 6px;
+	cursor: col-resize;
+}
+
+[data-resize-direction="left"] > .playground-resize-handle {
+	top: 0;
+	bottom: 0;
+	left: -3px;
+	width: 6px;
+	cursor: col-resize;
+}
+
+[data-resize-direction="top"] > .playground-resize-handle {
+	top: -3px;
+	right: 0;
+	left: 0;
+	height: 6px;
+	cursor: row-resize;
+}
+
+[data-resizing] > .playground-resize-handle {
+	background: var(--sl-color-text-accent);
+}
+
+.playground-view-pane-header,
+.playground-drawer > header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	min-height: 37px;
+	padding-left: 9px;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+	font-weight: 600;
+}
+
+.playground-view-pane-header button,
+.playground-drawer > header button {
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	font-size: 18px;
+}
+
+.playground-view-pane-body {
+	min-height: 0;
+	overflow: auto;
+}
+
+.playground-view-pane-body:has(> .collapsible-container) {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.playground-ir {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 0;
+}
+
+.playground-syntax {
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
+	height: 100%;
+	min-height: 0;
+}
+
+.playground-syntax-tabs {
+	display: flex;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-syntax-tabs button {
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+}
+
+.playground-syntax-tabs [aria-selected="true"] {
+	box-shadow: inset 0 -2px 0 var(--sl-color-text-accent);
+}
+
+.playground-syntax-panel {
+	min-height: 0;
+	overflow: hidden;
+}
+
+.playground-mobile-actions {
+	display: flex;
+	justify-content: space-between;
+	padding: 5px;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-drawer-layer {
+	position: fixed;
+	inset: 65px 0 0;
+	z-index: 100;
+}
+
+.playground-drawer-backdrop {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	border-radius: 0;
+	background: rgb(0 0 0 / 45%);
+}
+
+.playground-drawer {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
+	width: min(90vw, 390px);
+	background: var(--sl-color-bg);
+	box-shadow: 0 0 16px rgb(0 0 0 / 25%);
+}
+
+.playground-drawer.left {
+	left: 0;
+}
+.playground-drawer.right {
+	right: 0;
+}
+
+.playground-drawer-body {
+	min-height: 0;
+	overflow: auto;
+}
+
+.playground-mobile-view-list {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 5px;
+	padding: 8px;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-mobile-view-list-label {
+	grid-column: 1 / -1;
+	padding-top: 4px;
+	font-size: 12px;
+	font-weight: 650;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-2);
+}
+
+.playground-mobile-view-stack {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	overflow: auto;
+}
+
+.playground-mobile-view-stack .playground-view-pane {
+	flex: 0 0 auto;
+	height: max(320px, 55vh);
+}
+
+@media (max-width: 768px) {
+	.playground-shell.mobile {
+		display: block;
+		overflow-y: auto;
+	}
+
+	.playground-shell.mobile .playground-editor {
+		height: max(340px, 50vh);
+		border-right: 0;
+		border-bottom: 1px solid var(--sl-color-gray-5);
+	}
+
+	.playground-shell.mobile .playground-output-stack {
+		height: max(520px, 65vh);
+		border-right: 0;
+	}
+
+	.playground-code-output.split {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		overflow: auto;
+	}
+
+	.playground-shell.mobile .playground-code-output > .playground-output-pane {
+		width: auto !important;
+		flex-basis: auto !important;
+	}
+
+	.playground-shell.mobile
+		.playground-code-output
+		> .playground-output-pane
+		> .playground-resize-handle {
+		display: none;
+	}
+
+	.playground-code-output.split .playground-output-pane {
+		min-height: 260px;
+	}
+
+	.playground-output-pane + .playground-output-pane {
+		border-left: 0;
+		border-top: 1px solid var(--sl-color-gray-5);
+	}
+}
