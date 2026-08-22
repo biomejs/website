@@ -7,19 +7,14 @@ import init, {
 	type RuleCategories,
 	Workspace,
 } from "@biomejs/wasm-web";
-import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
-	ArrowParentheses,
-	AttributePosition,
+	createBiomeConfiguration,
+	getOnlyLintRules,
+} from "@/playground/configuration.ts";
+import {
 	type BiomeOutput,
-	Expand,
-	IndentStyle,
 	LoadingState,
-	OperatorLinebreak,
 	type PlaygroundSettings,
-	QuoteProperties,
-	QuoteStyle,
-	Semicolons,
 } from "@/playground/types.ts";
 
 const encoder = new TextEncoder();
@@ -34,6 +29,7 @@ let fullSettings: undefined | PlaygroundSettings;
 let only: AnalyzerSelector[] = [];
 // Configuration that comes from a virtual file. It takes precedence over the settings
 let fileConfiguration: undefined | Configuration;
+let virtualPlugins: string[] = [];
 
 const originalConsole = {
 	log: console.log,
@@ -112,176 +108,12 @@ self.addEventListener("message", async (e) => {
 				break;
 			}
 
-			fullSettings = e.data.settings;
+			const settings = e.data.settings as PlaygroundSettings;
+			fullSettings = settings;
 
-			const {
-				lineWidth,
-				indentStyle,
-				indentWidth,
-				quoteStyle,
-				jsxQuoteStyle,
-				quoteProperties,
-				lintRules,
-				enabledLinting,
-				trailingCommas,
-				semicolons,
-				arrowParentheses,
-				operatorLinebreak,
-				bracketSpacing,
-				bracketSameLine,
-				expand,
-				indentScriptAndStyle,
-				whitespaceSensitivity,
-				enabledAssist,
-				unsafeParameterDecoratorsEnabled,
-				allowComments,
-				attributePosition,
-				ruleDomains,
-				experimentalEmbeddedSnippetsEnabled,
-				experimentalFullSupportEnabled,
-				cssModules,
-				tailwindDirectives,
-			} = e.data.settings as PlaygroundSettings;
-
-			configuration = {
-				...configuration,
-
-				formatter: {
-					enabled: true,
-					formatWithErrors: true,
-					lineWidth: lineWidth,
-					indentStyle: indentStyle === IndentStyle.Tab ? "tab" : "space",
-					indentWidth,
-					attributePosition:
-						attributePosition === AttributePosition.Auto ? "auto" : "multiline",
-					expand:
-						expand === Expand.Auto
-							? "auto"
-							: expand === Expand.Always
-								? "always"
-								: "never",
-				},
-
-				linter: {
-					enabled: enabledLinting,
-					domains: ruleDomains,
-				},
-
-				assist: {
-					enabled: enabledAssist,
-				},
-
-				javascript: {
-					formatter: {
-						quoteStyle: quoteStyle === QuoteStyle.Double ? "double" : "single",
-						jsxQuoteStyle:
-							jsxQuoteStyle === QuoteStyle.Double ? "double" : "single",
-						quoteProperties:
-							quoteProperties === QuoteProperties.Preserve
-								? "preserve"
-								: "asNeeded",
-						trailingCommas,
-						semicolons:
-							semicolons === Semicolons.Always ? "always" : "asNeeded",
-						arrowParentheses:
-							arrowParentheses === ArrowParentheses.Always
-								? "always"
-								: "asNeeded",
-						operatorLinebreak:
-							operatorLinebreak === OperatorLinebreak.Before
-								? "before"
-								: "after",
-						bracketSpacing,
-						bracketSameLine,
-						attributePosition:
-							attributePosition === AttributePosition.Auto
-								? "auto"
-								: "multiline",
-					},
-					parser: {
-						unsafeParameterDecoratorsEnabled,
-					},
-					experimentalEmbeddedSnippetsEnabled,
-				},
-				css: {
-					formatter: {
-						quoteStyle: quoteStyle === QuoteStyle.Double ? "double" : "single",
-					},
-					parser: {
-						allowWrongLineComments: true,
-						cssModules,
-						tailwindDirectives,
-					},
-				},
-				json: {
-					formatter: {},
-					parser: {
-						allowComments,
-					},
-				},
-				html: {
-					formatter: {
-						enabled: true,
-						indentScriptAndStyle,
-						whitespaceSensitivity,
-					},
-					experimentalFullSupportEnabled,
-				},
-				markdown: {
-					formatter: {
-						enabled: true,
-					},
-				},
-				yaml: {
-					formatter: {
-						enabled: true,
-					},
-				},
-			};
-
-			switch (lintRules) {
-				case LINT_RULES.preset.recommended: {
-					configuration!.linter!.rules = {
-						nursery: {
-							preset: "none",
-						},
-					};
-					break;
-				}
-				case LINT_RULES.preset.all: {
-					configuration!.linter!.rules = {
-						preset: "all",
-					};
-					break;
-				}
-				case LINT_RULES.preset.none: {
-					configuration!.linter!.rules = {
-						preset: "none",
-					};
-					break;
-				}
-
-				default: {
-					configuration!.linter!.rules = {
-						preset: "recommended",
-					};
-					only = [lintRules];
-				}
-			}
-
-			if (fileConfiguration) {
-				workspace.updateSettings({
-					configuration: fileConfiguration,
-					projectKey,
-					moduleGraphResolutionKind: "modulesAndTypes",
-				});
-			} else {
-				workspace.updateSettings({
-					configuration,
-					projectKey,
-					moduleGraphResolutionKind: "modulesAndTypes",
-				});
-			}
+			configuration = createBiomeConfiguration(settings);
+			only = getOnlyLintRules(settings.lintRules) as AnalyzerSelector[];
+			updateWorkspaceSettings();
 			break;
 		}
 
@@ -295,33 +127,32 @@ self.addEventListener("message", async (e) => {
 				files: { filename: string; code: string }[];
 			};
 
-			// Remove files that no longer exists
-			const filenames = new Set<string>(...files.map((file) => file.filename));
+			// Remove files that no longer exist.
+			const filenames = new Set(files.map((file) => file.filename));
 			for (const filename of knownFiles) {
 				if (!filenames.has(filename)) {
-					filesystem.remove(filename);
+					filesystem.remove(`/${filename}`);
+					knownFiles.delete(filename);
 				}
 			}
 
 			// Insert new or existing files
 			for (const { filename, code } of files) {
 				filesystem.insert(`/${filename}`, encoder.encode(code));
+				knownFiles.add(filename);
 			}
 
+			const configFile = files.find((file) => file.filename === "biome.json");
+			fileConfiguration = configFile
+				? parseFileConfiguration(configFile.code)
+				: undefined;
+
 			// Update plugins
-			const plugins = files
+			virtualPlugins = files
 				.map((file) => file.filename)
 				.filter((filename) => isPluginFile(filename))
 				.map((filename) => `/${filename}`);
-
-			workspace.updateSettings({
-				projectKey,
-				configuration: {
-					...configuration,
-					plugins,
-				},
-				moduleGraphResolutionKind: "modulesAndTypes",
-			});
+			updateWorkspaceSettings();
 
 			// TODO: Handle diagnostics
 			workspace.scanProject({
@@ -349,11 +180,7 @@ self.addEventListener("message", async (e) => {
 
 			// Reload plugins if changed
 			if (isPluginFile(filename)) {
-				workspace.updateSettings({
-					projectKey,
-					configuration: { ...configuration },
-					moduleGraphResolutionKind: "modulesAndTypes",
-				});
+				updateWorkspaceSettings();
 			}
 
 			workspace.openFile({
@@ -366,21 +193,11 @@ self.addEventListener("message", async (e) => {
 			});
 
 			if (filename === "biome.json") {
-				try {
-					fileConfiguration = JSON.parse(code) as Configuration;
-					workspace.updateSettings({
-						projectKey,
-						configuration: fileConfiguration,
-						moduleGraphResolutionKind: "modulesAndTypes",
-					});
+				const parsedConfiguration = parseFileConfiguration(code);
+				if (parsedConfiguration !== undefined) {
+					fileConfiguration = parsedConfiguration;
+					updateWorkspaceSettings();
 					console.info("Correct set custom configuration");
-					// biome-ignore lint/suspicious/noExplicitAny: It's an error message
-				} catch (e: any) {
-					// Let's use debug, because it could be noisy while typing
-					console.debug(
-						"The Biome configuration isn't a valid JSON.\n",
-						e.message,
-					);
 				}
 			}
 
@@ -511,7 +328,7 @@ self.addEventListener("message", async (e) => {
 				projectKey,
 				path,
 				categories,
-				only,
+				only: fileConfiguration ? [] : only,
 				skip: [],
 				includeCodeFix: true,
 			});
@@ -618,4 +435,38 @@ function isPluginFile(filename: string): boolean {
 		filename === "plugin.js" ||
 		filename === "plugin.ts"
 	);
+}
+
+function updateWorkspaceSettings(): void {
+	if (!workspace || projectKey == null) {
+		return;
+	}
+
+	const currentConfiguration = getCurrentConfiguration();
+	workspace.updateSettings({
+		projectKey,
+		configuration: {
+			...currentConfiguration,
+			plugins: [
+				...(currentConfiguration?.plugins ?? []),
+				...virtualPlugins.filter(
+					(plugin) => !currentConfiguration?.plugins?.includes(plugin),
+				),
+			],
+		},
+		moduleGraphResolutionKind: "modulesAndTypes",
+	});
+}
+
+function parseFileConfiguration(code: string): Configuration | undefined {
+	try {
+		return JSON.parse(code) as Configuration;
+	} catch (error) {
+		// This can be noisy while the user is editing the configuration.
+		console.debug(
+			"The Biome configuration isn't valid JSON.\n",
+			error instanceof Error ? error.message : error,
+		);
+		return undefined;
+	}
 }
