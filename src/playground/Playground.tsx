@@ -201,14 +201,26 @@ export default function Playground({
 		}
 	}, [playgroundState.cursorPosition]);
 
-	const toggleView = (view: PlaygroundViewType) => {
-		setPlaygroundState((state) => ({
-			...state,
-			openViews: state.openViews.includes(view)
-				? state.openViews.filter((item) => item !== view)
-				: [...state.openViews, view],
-		}));
+	/**
+	 * Plain click switches to `view` alone (or closes it if it is the only one
+	 * open); `additive` (shift-click) adds/removes it next to the others.
+	 */
+	const selectView = (view: PlaygroundViewType, additive: boolean) => {
+		setPlaygroundState((state) => {
+			const isOpen = state.openViews.includes(view);
+			if (additive) {
+				return {
+					...state,
+					openViews: isOpen
+						? state.openViews.filter((item) => item !== view)
+						: [...state.openViews, view],
+				};
+			}
+			const onlyThisOpen = isOpen && state.openViews.length === 1;
+			return { ...state, openViews: onlyThisOpen ? [] : [view] };
+		});
 	};
+	const toggleView = (view: PlaygroundViewType) => selectView(view, true);
 	const closeAllViews = () =>
 		setPlaygroundState((state) => ({ ...state, openViews: [] }));
 
@@ -281,7 +293,8 @@ export default function Playground({
 			key={view}
 			className={playgroundState.openViews.includes(view) ? "active" : ""}
 			aria-pressed={playgroundState.openViews.includes(view)}
-			onClick={() => toggleView(view)}
+			title="Click to switch; shift-click to open alongside other tools"
+			onClick={(event) => selectView(view, event.shiftKey)}
 		>
 			{label}
 		</button>
