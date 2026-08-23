@@ -413,6 +413,30 @@ test.describe("playground layout", () => {
 		await expect(page.locator(".playground-view-stack")).toHaveCount(0);
 	});
 
+	test("collapses the output panel", async ({ page }) => {
+		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
+		const editorBefore = await page.locator(".playground-editor").boundingBox();
+		await page.getByRole("button", { name: "Collapse output" }).click();
+		await expect(page.getByTestId("biome-output")).toHaveCount(0);
+		const collapsed = await page
+			.locator(".playground-output-stack.collapsed")
+			.boundingBox();
+		expect(collapsed?.width).toBeLessThan(50);
+		const editorAfter = await page.locator(".playground-editor").boundingBox();
+		expect(editorAfter?.width).toBeGreaterThan(editorBefore?.width ?? 0);
+
+		// Persists across reloads.
+		await page.reload();
+		await expect(
+			page.getByRole("button", { name: "Expand output" }),
+		).toBeVisible();
+		await page.getByRole("button", { name: "Expand output" }).click();
+		await expect(page.getByTestId("biome-output")).toBeVisible();
+		await page.evaluate(() =>
+			localStorage.removeItem("playground:output-collapsed"),
+		);
+	});
+
 	test("shows syntax tabs and gives formatter IR space", async ({ page }) => {
 		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
 		await toggleView(page, "Syntax tree");

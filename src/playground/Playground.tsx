@@ -37,6 +37,7 @@ import {
 	type PlaygroundView as PlaygroundViewType,
 } from "./types.ts";
 import {
+	createLocalStorage,
 	getCurrentCode,
 	getFileState,
 	isCssFilename,
@@ -76,6 +77,8 @@ function isInternal(view: PlaygroundViewType): boolean {
 	return INTERNALS.some((item) => item.view === view);
 }
 
+const outputCollapsedStore = createLocalStorage("output-collapsed");
+
 function viewLabel(view: PlaygroundViewType): string {
 	return VIEWS.find((item) => item.view === view)?.label ?? view;
 }
@@ -89,6 +92,15 @@ export default function Playground({
 	const [internalsExpanded, setInternalsExpanded] = useState(() =>
 		playgroundState.openViews.some(isInternal),
 	);
+	const [outputCollapsed, setOutputCollapsed] = useState(() =>
+		outputCollapsedStore.getBoolean(),
+	);
+	const toggleOutputCollapsed = () => {
+		setOutputCollapsed((collapsed) => {
+			outputCollapsedStore.set(!collapsed);
+			return !collapsed;
+		});
+	};
 	const file = getFileState(playgroundState, playgroundState.currentFile);
 	const biomeOutput = file.biome;
 	const prettierOutput = file.prettier;
@@ -239,7 +251,7 @@ export default function Playground({
 		/>
 	);
 
-	const output = (
+	const renderOutput = (onCollapse?: () => void) => (
 		<OutputStack
 			state={playgroundState}
 			setPlaygroundState={setPlaygroundState}
@@ -248,8 +260,10 @@ export default function Playground({
 			prettierOutput={prettierOutput}
 			extensions={codeMirrorExtensions}
 			editorRef={editorRef}
+			onCollapse={onCollapse}
 		/>
 	);
+	const output = renderOutput();
 
 	const renderView = (view: PlaygroundViewType) => (
 		<ViewBody
@@ -418,7 +432,9 @@ export default function Playground({
 			</Resizable>
 			<div className="playground-main">
 				{viewToggles}
-				<div className="playground-workspace">
+				<div
+					className={`playground-workspace${outputCollapsed ? " output-collapsed" : ""}`}
+				>
 					<Resizable
 						name="playground-editor"
 						direction="right"
@@ -437,7 +453,23 @@ export default function Playground({
 							{viewPanes}
 						</Resizable>
 					)}
-					<section className="playground-output-stack">{output}</section>
+					{outputCollapsed ? (
+						<section className="playground-output-stack collapsed">
+							<button
+								type="button"
+								className="playground-output-collapse"
+								aria-label="Expand output"
+								aria-expanded={false}
+								onClick={toggleOutputCollapsed}
+							>
+								<span aria-hidden={true}>‹</span>
+							</button>
+						</section>
+					) : (
+						<section className="playground-output-stack">
+							{renderOutput(toggleOutputCollapsed)}
+						</section>
+					)}
 				</div>
 			</div>
 		</div>
@@ -452,6 +484,7 @@ function OutputStack({
 	prettierOutput,
 	extensions,
 	editorRef,
+	onCollapse,
 }: {
 	state: Parameters<typeof PlaygroundSidebar>[0]["state"];
 	setPlaygroundState: Parameters<
@@ -462,6 +495,8 @@ function OutputStack({
 	prettierOutput: ReturnType<typeof getFileState>["prettier"];
 	extensions: Extension[];
 	editorRef: RefObject<ReactCodeMirrorRef | null>;
+	/** When given, the toolbar shows a button that collapses the whole panel. */
+	onCollapse?: (() => void) | undefined;
 }) {
 	const [problemsCollapsed, setProblemsCollapsed] = useState(false);
 	const outputCode =
@@ -474,56 +509,69 @@ function OutputStack({
 	return (
 		<>
 			<div className="playground-output-toolbar">
-				<label>
-					<input
-						type="checkbox"
-						checked={state.shouldFormat}
-						onChange={(event) =>
-							setPlaygroundState((current) => ({
-								...current,
-								shouldFormat: event.target.checked,
-							}))
-						}
-					/>
-					Format
-				</label>
-				<fieldset className="playground-fix-control">
-					<legend>Fix</legend>
-					{[
-						["none", "None"],
-						["safeFixes", "Safe"],
-						["safeAndUnsafeFixes", "Safe + unsafe"],
-						["applySuppressions", "Suppressions"],
-					].map(([value, label]) => (
-						<button
-							type="button"
-							key={value}
-							className={state.fixMode === value ? "active" : ""}
-							onClick={() =>
+				<div className="playground-output-controls">
+					<label>
+						<input
+							type="checkbox"
+							checked={state.shouldFormat}
+							onChange={(event) =>
 								setPlaygroundState((current) => ({
 									...current,
-									fixMode: value as typeof current.fixMode,
+									shouldFormat: event.target.checked,
 								}))
 							}
-						>
-							{label}
-						</button>
-					))}
-				</fieldset>
-				<label>
-					<input
-						type="checkbox"
-						disabled={!state.shouldFormat}
-						checked={state.comparePrettier}
-						onChange={(event) =>
-							setPlaygroundState((current) => ({
-								...current,
-								comparePrettier: event.target.checked,
-							}))
-						}
-					/>
-					Compare Prettier
-				</label>
+						/>
+						Format
+					</label>
+					<fieldset className="playground-fix-control">
+						<legend>Fix</legend>
+						{[
+							["none", "None"],
+							["safeFixes", "Safe"],
+							["safeAndUnsafeFixes", "Safe + unsafe"],
+							["applySuppressions", "Suppressions"],
+						].map(([value, label]) => (
+							<button
+								type="button"
+								key={value}
+								className={state.fixMode === value ? "active" : ""}
+								onClick={() =>
+									setPlaygroundState((current) => ({
+										...current,
+										fixMode: value as typeof current.fixMode,
+									}))
+								}
+							>
+								{label}
+							</button>
+						))}
+					</fieldset>
+					<label>
+						<input
+							type="checkbox"
+							disabled={!state.shouldFormat}
+							checked={state.comparePrettier}
+							onChange={(event) =>
+								setPlaygroundState((current) => ({
+									...current,
+									comparePrettier: event.target.checked,
+								}))
+							}
+						/>
+						Compare Prettier
+					</label>
+				</div>
+				{onCollapse && (
+					<button
+						type="button"
+						className="playground-output-collapse"
+						aria-label="Collapse output"
+						aria-expanded={true}
+						onClick={onCollapse}
+					>
+						<span aria-hidden={true}>›</span>
+					</button>
+				)}
 			</div>
 			<div
 				className={`playground-code-output${state.comparePrettier ? " split" : ""}`}
