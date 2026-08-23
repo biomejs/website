@@ -1,4 +1,5 @@
 .playground-shell {
+	--playground-toolbar-height: 42px; /* one row of toolbar controls */
 	display: flex;
 	width: 100%;
 	height: 100%;
@@ -216,13 +217,62 @@
 }
 
 .playground-output-toolbar {
+	position: relative;
 	display: flex;
 	flex: 0 0 auto;
-	align-items: center;
-	flex-wrap: wrap;
+	align-items: flex-start;
 	gap: 7px;
+	min-height: var(--playground-toolbar-height);
 	padding: 6px 8px;
 	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+/* leave room for the collapse button in the toolbar's corner */
+.playground-output-stack:not(.collapsed) > .playground-output-toolbar {
+	padding-right: 40px;
+}
+
+.playground-output-controls {
+	display: flex;
+	flex: 1 1 auto;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 7px;
+	min-width: 0;
+}
+
+/* Same treatment as the problems panel's collapse chevron: borderless, the
+ * full height of its toolbar row, in the top-right corner. Collapsed, the
+ * strip is exactly this button, so it keeps its size and position. */
+.playground-shell .playground-output-collapse {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: var(--playground-toolbar-height);
+	margin: 0;
+	padding: 0 10px;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+}
+
+.playground-output-stack.collapsed {
+	flex: 0 0 auto;
+	width: auto;
+	min-width: 0;
+}
+
+.playground-output-stack.collapsed .playground-output-collapse {
+	position: static;
+	box-shadow: inset 0 -1px 0 var(--sl-color-gray-5);
+}
+
+/* whatever sits next to the collapsed output fills the freed width */
+.playground-workspace.output-collapsed > :nth-last-child(2) {
+	flex-grow: 1 !important;
 }
 
 .playground-output-toolbar label {
