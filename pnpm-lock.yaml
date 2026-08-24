@@ -145,7 +145,7 @@ importers:
         version: 3.9.6
       prettier-plugin-svelte:
         specifier: 3.5.2
-        version: 3.5.2(prettier@3.9.6)(svelte@5.56.9(@typescript-eslint/types@8.61.0))
+        version: 3.5.2(prettier@3.9.6)(svelte@5.56.10(@typescript-eslint/types@8.61.0))
       react:
         specifier: 19.2.8
         version: 19.2.8
@@ -174,8 +174,8 @@ importers:
         specifier: 0.25.3
         version: 0.25.3(@astrojs/starlight@0.41.7(@astrojs/markdown-remark@7.2.4)(astro@7.2.4(@astrojs/markdown-remark@7.2.4)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@netlify/blobs@10.7.9)(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(typescript@5.9.3))(astro@7.2.4(@astrojs/markdown-remark@7.2.4)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@netlify/blobs@10.7.9)(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))
       svelte:
-        specifier: 5.56.9
-        version: 5.56.9(@typescript-eslint/types@8.61.0)
+        specifier: 5.56.10
+        version: 5.56.10(@typescript-eslint/types@8.61.0)
       textlint:
         specifier: 15.8.0
         version: 15.8.0
@@ -5746,8 +5746,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  svelte@5.56.9:
-    resolution: {integrity: sha512-VT8kSnlEg8069w7AiCcAk3Yf5xvMnrGTagVOmU/OpOLHaHnNqXhWZCH/4EVga/bT/HtWhvE6/fHrXLErx7OnJA==}
+  svelte@5.56.10:
+    resolution: {integrity: sha512-Lcxbj8I/KAbpY+VjtY4ENQBV0dDCipfGAhqb51XQZ67CIQqXgsv/8dPkbILaj4Fb6/b6JAEM/PIVbILXgDQy2g==}
     engines: {node: '>=18'}
 
   svg-parser@2.0.4:
@@ -12459,10 +12459,10 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.5.2(prettier@3.9.6)(svelte@5.56.9(@typescript-eslint/types@8.61.0)):
+  prettier-plugin-svelte@3.5.2(prettier@3.9.6)(svelte@5.56.10(@typescript-eslint/types@8.61.0)):
     dependencies:
       prettier: 3.9.6
-      svelte: 5.56.9(@typescript-eslint/types@8.61.0)
+      svelte: 5.56.10(@typescript-eslint/types@8.61.0)
 
   prettier@3.9.6: {}
 
@@ -13326,7 +13326,7 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  svelte@5.56.9(@typescript-eslint/types@8.61.0):
+  svelte@5.56.10(@typescript-eslint/types@8.61.0):
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/sourcemap-codec': 1.5.5
