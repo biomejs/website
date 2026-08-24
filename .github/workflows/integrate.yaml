@@ -53,7 +53,7 @@ jobs:
           - platform: macOS
             runner: depot-macos-latest
           - platform: macOS Intel
-            runner: depot-macos-15-intel
+            runner: macos-15-intel
           - platform: Windows x64
             runner: depot-windows-latest
           - platform: Windows ARM64
