@@ -1,9 +1,11 @@
 ---
 import Default from "@astrojs/starlight/components/LanguageSelect.astro";
 import Select from "@astrojs/starlight/components/Select.astro";
+
+const { localized } = Astro.locals.starlightRoute.entry.data;
 ---
 
-<Default><slot /></Default>
+{localized && <Default><slot /></Default>}
 <version-select>
 	<Select
 		icon="biome"

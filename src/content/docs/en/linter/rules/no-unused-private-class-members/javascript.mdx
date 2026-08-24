@@ -1,0 +1,108 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUnusedPrivateClassMembers (JavaScript)
+description: JavaScript (and super languages) documentation for noUnusedPrivateClassMembers
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unused-private-class-members/javascript/"}]} />
+
+## Summary
+- Rule available since: `v1.3.3`
+- Diagnostic Category: [`lint/correctness/noUnusedPrivateClassMembers`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`no-unused-private-class-members`](https://eslint.org/docs/latest/rules/no-unused-private-class-members)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnusedPrivateClassMembers": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow unused private class members
+
+Private class members that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring.
+Such class members take up space in the code and can lead to confusion by readers.
+
+## Examples
+
+### Invalid
+
+```js
+class OnlyWrite {
+  #usedOnlyInWrite = 5;
+
+  method() {
+       this.#usedOnlyInWrite = 212;
+  }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:3 <a href=\"https://biomejs.dev/linter/rules/no-unused-private-class-members\">lint/correctness/noUnusedPrivateClassMembers</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This private class member is defined but never used.</span><br />  <br />    <strong>1 │ </strong>class OnlyWrite &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  #usedOnlyInWrite = 5;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />    <strong>4 │ </strong>  method() &#123;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove unused declaration.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  class OnlyWrite &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>#</strong></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>s</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>O</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>l</strong></span><span style=\"color: Tomato;\"><strong>y</strong></span><span style=\"color: Tomato;\"><strong>I</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>W</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>=</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>5</strong></span><span style=\"color: Tomato;\"><strong>;</strong></span><br />    <strong>3</strong> <strong>2</strong><strong> │ </strong>  <br />    <strong>4</strong> <strong>3</strong><strong> │ </strong>    method() &#123;<br />  <br /></code></pre>"} />
+
+```ts
+ class TsBioo {
+   private unusedProperty = 5;
+ }
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:2:12 <a href=\"https://biomejs.dev/linter/rules/no-unused-private-class-members\">lint/correctness/noUnusedPrivateClassMembers</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This private class member is defined but never used.</span><br />  <br />    <strong>1 │ </strong> class TsBioo &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>   private unusedProperty = 5;<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong> &#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove unused declaration.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>   class TsBioo &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>p</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>v</strong></span><span style=\"color: Tomato;\"><strong>a</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>s</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>P</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>p</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>y</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>=</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>5</strong></span><span style=\"color: Tomato;\"><strong>;</strong></span><br />    <strong>3</strong> <strong>2</strong><strong> │ </strong>   &#125;<br />    <strong>4</strong> <strong>3</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```ts
+ class TsBioo {
+   private unusedMethod() {}
+ }
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:2:12 <a href=\"https://biomejs.dev/linter/rules/no-unused-private-class-members\">lint/correctness/noUnusedPrivateClassMembers</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This private class member is defined but never used.</span><br />  <br />    <strong>1 │ </strong> class TsBioo &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>   private unusedMethod() &#123;&#125;<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong> &#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove unused declaration.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>   class TsBioo &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>p</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>v</strong></span><span style=\"color: Tomato;\"><strong>a</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>s</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>M</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>h</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>(</strong></span><span style=\"color: Tomato;\"><strong>)</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>&#123;</strong></span><span style=\"color: Tomato;\"><strong>&#125;</strong></span><br />    <strong>3</strong> <strong>2</strong><strong> │ </strong>   &#125;<br />    <strong>4</strong> <strong>3</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+class UsedMember {
+  #usedMember = 42;
+
+  method() {
+       return this.#usedMember;
+  }
+}
+```
+
+## Caveats
+
+The rule currently considers that all TypeScript private members are used if it encounters a computed access.
+In the following example `member` is not reported. It is considered as used.
+
+```ts
+ class TsBioo {
+   private member: number;
+
+   set_with_name(name: string, value: number) {
+     this[name] = value;
+   }
+ }
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_unused_private_class_members.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noUnusedPrivateClassMembers)
+

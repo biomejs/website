@@ -9,6 +9,13 @@ import { type Dispatch, type SetStateAction, useId, useState } from "react";
 import EnumSelect from "@/playground/components/EnumSelect";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
+	canDeletePlaygroundFile,
+	createPlaygroundFile,
+	deletePlaygroundFile,
+	openPlaygroundFile,
+	renamePlaygroundFile,
+} from "@/playground/state.ts";
+import {
 	ArrowParentheses,
 	AttributePosition,
 	Expand,
@@ -28,11 +35,9 @@ import {
 import {
 	classnames,
 	createPlaygroundSettingsSetter,
-	getFileState,
 	guessLanguage,
 	isScriptFilename,
 	modifyFilename,
-	normalizeFilename,
 } from "@/playground/utils";
 
 export interface SettingsTabProps {
@@ -198,92 +203,27 @@ export default function SettingsTab({
 	);
 
 	function setCurrentFilename(newFilename: string) {
-		setPlaygroundState((state) => {
-			if (state.currentFile === newFilename) {
-				return state;
-			}
-
-			const { [state.currentFile]: _, ...otherFiles } = state.files;
-
-			const files: PlaygroundState["files"] = {
-				...otherFiles,
-				[newFilename]: state.files[state.currentFile]!,
-			};
-
-			return {
-				...state,
-				currentFile: newFilename,
-				files,
-			};
-		});
+		setPlaygroundState((state) =>
+			renamePlaygroundFile(state, state.currentFile, newFilename),
+		);
 	}
 
 	function deleteFile(filename: string) {
-		setPlaygroundState((state) => {
-			const { [filename]: _, ...files } = state.files;
-			let currentFile = state.currentFile;
-
-			if (currentFile === filename) {
-				const files = Object.keys(state.files);
-				const index = files.indexOf(filename);
-				currentFile = files[index + 1] ?? files[index - 1] ?? currentFile;
-			}
-
-			return {
-				...state,
-				currentFile,
-				files: {
-					...files,
-					// Make sure currentFile is still accessible
-					[currentFile]: getFileState(state, currentFile),
-				},
-			};
-		});
+		setPlaygroundState((state) => deletePlaygroundFile(state, filename));
 	}
 
 	function createFile(filename: string) {
-		const normalizedFilename = normalizeFilename(filename);
-
-		setPlaygroundState((state) => ({
-			...state,
-			currentFile: normalizedFilename,
-			files: {
-				...state.files,
-				[normalizedFilename]: getFileState(
-					{
-						files: {},
-					},
-					normalizedFilename,
-				),
-			},
-		}));
+		setPlaygroundState((state) => createPlaygroundFile(state, filename));
 	}
 
 	function renameFile(oldFilename: string, newFilename: string) {
-		const normalizedNewFilename = normalizeFilename(newFilename);
-
-		setPlaygroundState((state) => {
-			const { [oldFilename]: oldFile, ...files } = state.files;
-
-			return {
-				...state,
-				currentFile:
-					state.currentFile === oldFilename
-						? normalizedNewFilename
-						: state.currentFile,
-				files: {
-					...files,
-					[normalizedNewFilename]: oldFile,
-				},
-			};
-		});
+		setPlaygroundState((state) =>
+			renamePlaygroundFile(state, oldFilename, newFilename),
+		);
 	}
 
 	function setCurrentFile(currentFile: string) {
-		setPlaygroundState((state) => ({
-			...state,
-			currentFile,
-		}));
+		setPlaygroundState((state) => openPlaygroundFile(state, currentFile));
 	}
 
 	function toggleSingleFileMode() {
@@ -331,6 +271,9 @@ export default function SettingsTab({
 					deleteFile={deleteFile}
 					setCurrentFile={setCurrentFile}
 					renameFile={renameFile}
+					canDeleteFile={(filename) =>
+						canDeletePlaygroundFile({ files }, filename)
+					}
 				/>
 			)}
 			<FormatterSettings
@@ -452,6 +395,7 @@ function FileView({
 	createFile,
 	deleteFile,
 	renameFile,
+	canDeleteFile,
 	setCurrentFile,
 	files,
 }: {
@@ -459,6 +403,7 @@ function FileView({
 	deleteFile: (filename: string) => void;
 	setCurrentFile: (filename: string) => void;
 	renameFile: (oldFilename: string, newFilename: string) => void;
+	canDeleteFile: (filename: string) => boolean;
 	currentFile: string;
 	files: string[];
 }) {
@@ -481,7 +426,7 @@ function FileView({
 							key={filename}
 							isActive={filename === currentFile}
 							filename={filename}
-							canDelete={files.length > 1}
+							canDelete={canDeleteFile(filename)}
 							onClick={() => {
 								setCurrentFile(filename);
 							}}

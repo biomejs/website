@@ -1,7 +1,10 @@
 ---
 import { Font } from "astro:assets";
 
-const { head } = Astro.locals.starlightRoute;
+const { localized } = Astro.locals.starlightRoute.entry.data;
+const head = Astro.locals.starlightRoute.head.filter(
+	({ attrs }) => localized || attrs?.rel !== "alternate",
+);
 ---
 
 {head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}

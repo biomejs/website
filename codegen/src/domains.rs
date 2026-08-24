@@ -39,7 +39,7 @@ pub fn generate_domains() -> anyhow::Result<()> {
     domains.write_description(&mut buffer)?;
 
     fs::write(
-        project_root().join("src/content/docs/linter/domains.mdx"),
+        project_root().join("src/content/docs/en/linter/domains.mdx"),
         buffer,
     )?;
 

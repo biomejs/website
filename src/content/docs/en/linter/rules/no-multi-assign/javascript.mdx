@@ -1,0 +1,66 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noMultiAssign (JavaScript)
+description: JavaScript (and super languages) documentation for noMultiAssign
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-multi-assign/javascript/"}]} />
+
+## Summary
+- Rule available since: `v2.3.11`
+- Diagnostic Category: [`lint/style/noMultiAssign`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`no-multi-assign`](https://eslint.org/docs/latest/rules/no-multi-assign)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noMultiAssign": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow use of chained assignment expressions
+
+Chaining the assignment of variables can lead to unexpected results and
+be difficult to read.
+
+## Examples
+
+### Invalid
+
+```js
+const foo = bar = "baz";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:7 <a href=\"https://biomejs.dev/linter/rules/no-multi-assign\">lint/style/noMultiAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected chained assignment.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const foo = bar = &quot;baz&quot;;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Variables with chained assignments in declarations may cause unintended implicit globals or unexpected scoping.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Split into separate assignments.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+const foo = "baz";
+const bar = "baz";
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_multi_assign.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noMultiAssign)
+

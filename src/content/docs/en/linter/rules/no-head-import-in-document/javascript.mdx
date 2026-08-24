@@ -1,0 +1,81 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noHeadImportInDocument (JavaScript)
+description: JavaScript (and super languages) documentation for noHeadImportInDocument
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-head-import-in-document/javascript/"}]} />
+
+## Summary
+- Rule available since: `v1.9.4`
+- Diagnostic Category: [`lint/suspicious/noHeadImportInDocument`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`next`](/linter/domains#next)
+- Sources: 
+  - Same as [`@next/next/no-head-import-in-document`](https://nextjs.org/docs/messages/no-head-import-in-document)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noHeadImportInDocument": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Prevent using the `next/head` module in `pages/_document.js` on Next.js projects.
+
+Importing `next/head` within the custom `pages/_document.js` file can cause
+unexpected behavior in your application. The `next/head` component is designed
+to be used at the page level, and when used in the custom document it can interfere
+with the global document structure, which leads to issues with rendering and SEO.
+
+To modify `<head>` elements across all pages, you should use the `<Head />`
+component from the `next/document` module.
+
+## Examples
+
+### Valid
+
+```jsx
+// pages/_document.js
+import Document, { Html, Head, Main, NextScript } from "next/document";
+
+class MyDocument extends Document {
+  static async getInitialProps(ctx) {
+    //...
+  }
+
+  render() {
+    return (
+      <Html>
+        <Head></Head>
+      </Html>
+    );
+  }
+}
+
+export default MyDocument;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_head_import_in_document.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noHeadImportInDocument)
+

@@ -1,0 +1,96 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueValidVElseIf (HTML)
+description: HTML documentation for useVueValidVElseIf
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-valid-v-else-if/html/"}]} />
+
+## Summary
+- Rule available since: `v2.3.6`
+- Diagnostic Category: [`lint/correctness/useVueValidVElseIf`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/valid-v-else-if`](https://eslint.vuejs.org/rules/valid-v-else-if)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useVueValidVElseIf": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce valid `v-else-if` directives.
+
+Biome flags these cases:
+
+- Has an argument: `<div v-else-if:arg="b"></div>`.
+- Has modifiers: `<div v-else-if.mod="b"></div>`.
+- Missing value: `<div v-else-if></div>`.
+- Not preceded by a sibling with `v-if`/`v-else-if`.
+- On the same element as `v-if` or `v-else`.
+
+## Examples
+
+### Invalid
+
+```vue
+<div v-if="a"></div><div v-else-if:arg="b"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:26 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-else-if\">lint/correctness/useVueValidVElseIf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The v-else-if directive cannot take an argument.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-if=&quot;a&quot;&gt;&lt;/div&gt;&lt;div v-else-if:arg=&quot;b&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the argument from the v-else-if directive.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">For example, use </span><span style=\"color: lightgreen;\"><strong>v-else-if=&quot;condition&quot;</strong></span><span style=\"color: lightgreen;\"> instead of </span><span style=\"color: lightgreen;\"><strong>v-else-if:arg=&quot;condition&quot;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br /></code></pre>"} />
+
+```vue
+<div v-if="a"></div><div v-else-if.mod="b"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:35 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-else-if\">lint/correctness/useVueValidVElseIf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The v-else-if directive cannot have modifiers.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-if=&quot;a&quot;&gt;&lt;/div&gt;&lt;div v-else-if.mod=&quot;b&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the modifier from the v-else-if directive.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">For example, use </span><span style=\"color: lightgreen;\"><strong>v-else-if=&quot;condition&quot;</strong></span><span style=\"color: lightgreen;\"> instead of </span><span style=\"color: lightgreen;\"><strong>v-else-if.mod=&quot;condition&quot;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br /></code></pre>"} />
+
+```vue
+<div v-if="a"></div><div v-else-if></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:26 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-else-if\">lint/correctness/useVueValidVElseIf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The v-else-if directive requires a conditional expression value.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-if=&quot;a&quot;&gt;&lt;/div&gt;&lt;div v-else-if&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Provide an expression after the '=' sign.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">For example, use </span><span style=\"color: lightgreen;\"><strong>v-else-if=&quot;condition&quot;</strong></span><span style=\"color: lightgreen;\"> instead of just </span><span style=\"color: lightgreen;\"><strong>v-else-if</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br /></code></pre>"} />
+
+```vue
+<div v-else-if="b"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:6 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-else-if\">lint/correctness/useVueValidVElseIf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The v-else-if directive must follow an element with v-if or v-else-if.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-else-if=&quot;b&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add a preceding element with v-if or v-else-if, or remove this directive.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">v-else-if directives are part of conditional chains and must follow another conditional directive.</span><br />  <br /></code></pre>"} />
+
+```vue
+<div v-if="a" v-else-if="b"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:6 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-else-if\">lint/correctness/useVueValidVElseIf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Cannot use v-else-if together with v-if or v-else on the same element.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-if=&quot;a&quot; v-else-if=&quot;b&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Split into separate elements or remove one of the conflicting directives.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Each element should only have one conditional directive from the v-if/v-else-if/v-else family.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<div v-if="a"></div><div v-else-if="b"></div><div v-else></div>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/correctness/use_vue_valid_v_else_if.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/correctness/useVueValidVElseIf)
+

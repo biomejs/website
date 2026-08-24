@@ -17,7 +17,7 @@ If the docs are not available in your language yet and you would like to transla
 
 2. Make sure the i18n config in Starlight already configured, or you can configure it then create a PR for it first, read ["Configure i18n"](https://starlight.astro.build/guides/i18n/#configure-i18n).
 
-3. Progressively copy only file/folder you want to translate from `src/content/docs` directory to a new/existing directory (exclude all other translated code, e.g. `ja`, `pt-br`, etc.) with the name of your language, e.g. `src/content/docs/de` for German. (If you're not sure what the language code is, you can find it [here](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).). Note: Starlight will automatically fallback to English if a translation for specific doc is not available.
+3. Progressively copy only the file/folder you want to translate from the English source in `src/content/docs/en` to a new/existing directory with the name of your language, e.g. `src/content/docs/de` for German. (If you're not sure what the language code is, you can find it [here](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).) Note: Starlight will automatically fall back to English if a translation for a specific doc is not available.
 
 4. Translate the files you copied in the previous step and create a PR or Draft PR for each file you translated.
 
