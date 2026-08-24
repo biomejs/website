@@ -1,0 +1,88 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noMisleadingInstantiator (JavaScript)
+description: JavaScript (and super languages) documentation for noMisleadingInstantiator
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-misleading-instantiator/javascript/"}]} />
+
+## Summary
+- Rule available since: `v1.3.0`
+- Diagnostic Category: [`lint/suspicious/noMisleadingInstantiator`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`@typescript-eslint/no-misused-new`](https://typescript-eslint.io/rules/no-misused-new)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noMisleadingInstantiator": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce proper usage of `new` and `constructor`.
+
+In JavaScript, classes utilize the `constructor` method to initialize a new instance. On the other hand, TypeScript interfaces can describe a class type with a `new()` method signature, though this pattern is not commonly seen in real-world code. Developers, especially those new to JavaScript or TypeScript, might occasionally confuse the use of `constructor` with `new`.
+This rule triggers warnings in the following scenarios:
+
+- When a class has a method named `new`.
+- When an interface defines a method named `constructor` or `new` that returns the interface type.
+- When a type alias has a `constructor` method.
+
+You should not use this rule if you intentionally want a class with a `new` method, and you're confident nobody working in your code will mistake it with an `constructor`.
+
+## Examples
+
+### Invalid
+
+```ts
+interface I {
+  new (): I;
+  constructor(): void;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:2:3 <a href=\"https://biomejs.dev/linter/rules/no-misleading-instantiator\">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Don't use the </span><span style=\"color: Tomato;\"><strong>new</strong></span><span style=\"color: Tomato;\"> method in interfaces.</span><br />  <br />    <strong>1 │ </strong>interface I &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  new (): I;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>  constructor(): void;<br />    <strong>4 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>new</strong></span><span style=\"color: lightgreen;\"> in an interface suggests it's instantiable, which is incorrect. The returned type should different from the constructor's type.</span><br />  <br /></code></pre>"} />
+
+```ts
+class C {
+  new(): C;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:2:3 <a href=\"https://biomejs.dev/linter/rules/no-misleading-instantiator\">lint/suspicious/noMisleadingInstantiator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Don't use the </span><span style=\"color: Tomato;\"><strong>new</strong></span><span style=\"color: Tomato;\"> method in classes.</span><br />  <br />    <strong>1 │ </strong>class C &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  new(): C;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>new</strong></span><span style=\"color: lightgreen;\"> is typically used to instantiate objects. In classes, its usage can be misleading.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```ts
+declare class C {
+  constructor();
+}
+
+interface I {
+  new (): C;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_misleading_instantiator.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noMisleadingInstantiator)
+

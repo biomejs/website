@@ -1,46 +1,47 @@
 ---
 import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+
+interface Props {
+	npm: string[];
+	pnpm: string[];
+	yarn: string[];
+	bun: string[];
+	deno: string[];
+}
+
+const { npm, pnpm, yarn, bun, deno } = Astro.props;
+
+let npmCommand = npm.reduce((acc, command) => {
+	return `${acc}npm ${command}\n`;
+}, "");
+let pnpmCommand = pnpm.reduce((acc, command) => {
+	return `${acc}pnpm ${command}\n`;
+}, "");
+let yarnCommand = yarn.reduce((acc, command) => {
+	return `${acc}yarn ${command}\n`;
+}, "");
+let bunCommand = bun.reduce((acc, command) => {
+	return `${acc}bun ${command}\n`;
+}, "");
+let denoCommand = deno.reduce((acc, command) => {
+	return `${acc}deno ${command}\n`;
+}, "");
 ---
 
 <Tabs syncKey="command">
 	<TabItem label="npm" icon="seti:npm">
-		<Code
-			frame="none"
-			showLineNumbers={false}
-			code={`${Astro.props.npx ? "npx" : "npm"} ${Astro.props.npx ?? Astro.props.npm ?? Astro.props.command}`}
-			lang="bash"
-		/>
+		<Code frame="none" showLineNumbers={false} code={npmCommand} lang="bash" />
 	</TabItem>
 	<TabItem label="pnpm" icon="pnpm">
-		<Code
-			frame="none"
-			showLineNumbers={false}
-			code={`pnpm ${Astro.props.pnpm ?? Astro.props.command}`}
-			lang="bash"
-		/>
+		<Code frame="none" showLineNumbers={false} code={pnpmCommand} lang="bash" />
 	</TabItem>
 	<TabItem label="bun" icon="bun">
-		<Code
-			frame="none"
-			showLineNumbers={false}
-			code={`bun${Astro.props.bun ? "" : "x"} ${Astro.props.bunx ?? Astro.props.bun ?? Astro.props.command}`}
-			lang="bash"
-		/>
+		<Code frame="none" showLineNumbers={false} code={bunCommand} lang="bash" />
 	</TabItem>
 	<TabItem label="deno" icon="deno">
-		<Code
-			frame="none"
-			showLineNumbers={false}
-			code={`deno ${Astro.props.deno ?? Astro.props.command}`}
-			lang="bash"
-		/>
+		<Code frame="none" showLineNumbers={false} code={denoCommand} lang="bash" />
 	</TabItem>
 	<TabItem label="yarn" icon="seti:yarn">
-		<Code
-			frame="none"
-			showLineNumbers={false}
-			code={`yarn ${Astro.props.yarn ?? Astro.props.command}`}
-			lang="bash"
-		/>
+		<Code frame="none" showLineNumbers={false} code={yarnCommand} lang="bash" />
 	</TabItem>
 </Tabs>

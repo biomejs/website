@@ -1,0 +1,106 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noImportAssign (JavaScript)
+description: JavaScript (and super languages) documentation for noImportAssign
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-import-assign/javascript/"}]} />
+
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/suspicious/noImportAssign`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`no-import-assign`](https://eslint.org/docs/latest/rules/no-import-assign)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noImportAssign": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow assigning to imported bindings
+
+## Examples
+
+### Invalid
+
+```js
+import x from "y";
+x = 1;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:1 <a href=\"https://biomejs.dev/linter/rules/no-import-assign\">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The imported variable </span><span style=\"color: Tomato;\"><strong>x</strong></span><span style=\"color: Tomato;\"> is read-only</span><br />  <br />    <strong>1 │ </strong>import x from &quot;y&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>x = 1;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The variable is imported here</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>import x from &quot;y&quot;;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>x = 1;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a local variable instead of reassigning an import.</span><br />  <br /></code></pre>"} />
+
+```js
+import y from "y";
+[y] = 1;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:2 <a href=\"https://biomejs.dev/linter/rules/no-import-assign\">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The imported variable </span><span style=\"color: Tomato;\"><strong>y</strong></span><span style=\"color: Tomato;\"> is read-only</span><br />  <br />    <strong>1 │ </strong>import y from &quot;y&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>[y] = 1;<br />   <strong>   │ </strong> <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The variable is imported here</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>import y from &quot;y&quot;;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>[y] = 1;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a local variable instead of reassigning an import.</span><br />  <br /></code></pre>"} />
+
+```js
+import z from "y";
+({ z } = 1);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:4 <a href=\"https://biomejs.dev/linter/rules/no-import-assign\">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The imported variable </span><span style=\"color: Tomato;\"><strong>z</strong></span><span style=\"color: Tomato;\"> is read-only</span><br />  <br />    <strong>1 │ </strong>import z from &quot;y&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>(&#123; z &#125; = 1);<br />   <strong>   │ </strong>   <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The variable is imported here</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>import z from &quot;y&quot;;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>(&#123; z &#125; = 1);<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a local variable instead of reassigning an import.</span><br />  <br /></code></pre>"} />
+
+```js
+import a from "y";
+[...a] = 1;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:5 <a href=\"https://biomejs.dev/linter/rules/no-import-assign\">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The imported variable </span><span style=\"color: Tomato;\"><strong>a</strong></span><span style=\"color: Tomato;\"> is read-only</span><br />  <br />    <strong>1 │ </strong>import a from &quot;y&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>[...a] = 1;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The variable is imported here</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>import a from &quot;y&quot;;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>[...a] = 1;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a local variable instead of reassigning an import.</span><br />  <br /></code></pre>"} />
+
+```js
+import b from "y";
+({ ...b } = 1);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:7 <a href=\"https://biomejs.dev/linter/rules/no-import-assign\">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The imported variable </span><span style=\"color: Tomato;\"><strong>b</strong></span><span style=\"color: Tomato;\"> is read-only</span><br />  <br />    <strong>1 │ </strong>import b from &quot;y&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>(&#123; ...b &#125; = 1);<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The variable is imported here</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>import b from &quot;y&quot;;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>(&#123; ...b &#125; = 1);<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a local variable instead of reassigning an import.</span><br />  <br /></code></pre>"} />
+
+```js
+import c from "y";
+for (c in y) {};
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:6 <a href=\"https://biomejs.dev/linter/rules/no-import-assign\">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The imported variable </span><span style=\"color: Tomato;\"><strong>c</strong></span><span style=\"color: Tomato;\"> is read-only</span><br />  <br />    <strong>1 │ </strong>import c from &quot;y&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>for (c in y) &#123;&#125;;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The variable is imported here</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>import c from &quot;y&quot;;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>for (c in y) &#123;&#125;;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a local variable instead of reassigning an import.</span><br />  <br /></code></pre>"} />
+
+```js
+import d from "y";
+d += 1;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:1 <a href=\"https://biomejs.dev/linter/rules/no-import-assign\">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The imported variable </span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"> is read-only</span><br />  <br />    <strong>1 │ </strong>import d from &quot;y&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>d += 1;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The variable is imported here</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>import d from &quot;y&quot;;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>d += 1;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a local variable instead of reassigning an import.</span><br />  <br /></code></pre>"} />
+
+```js
+import * as e from "y";
+e = 1;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:1 <a href=\"https://biomejs.dev/linter/rules/no-import-assign\">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The imported variable </span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"> is read-only</span><br />  <br />    <strong>1 │ </strong>import &#42; as e from &quot;y&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>e = 1;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The variable is imported here</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>import &#42; as e from &quot;y&quot;;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>e = 1;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a local variable instead of reassigning an import.</span><br />  <br /></code></pre>"} />
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_import_assign.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noImportAssign)
+

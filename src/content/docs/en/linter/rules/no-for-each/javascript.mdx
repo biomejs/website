@@ -1,0 +1,146 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noForEach (JavaScript)
+description: JavaScript (and super languages) documentation for noForEach
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-for-each/javascript/"}]} />
+
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/complexity/noForEach`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`unicorn/no-array-for-each`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md)
+  - Same as [`needless_for_each`](https://rust-lang.github.io/rust-clippy/master/#needless_for_each)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noForEach": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Prefer `for...of` statement instead of `Array.forEach`.
+
+Here's a summary of why `forEach` may be disallowed, and why `for...of` is preferred for almost any use-case of `forEach`:
+
+- Performance: Using `forEach` can lead to performance issues, especially when working with large arrays.
+When more requirements are added on, `forEach` typically gets chained with other methods like `filter` or `map`, causing multiple iterations over the same Array.
+Encouraging for loops discourages chaining and encourages single-iteration logic (e.g. using a continue instead of `filter`).
+
+
+- Readability: While `forEach` is a simple and concise way to iterate over an array, it can make the code less readable, especially when the callback function is complex.
+In contrast, using a for loop or a `for...of` loop can make the code more explicit and easier to read.
+
+
+- Debugging: `forEach` can make debugging more difficult, because it hides the iteration process.
+
+
+
+## Caveat
+
+We consider all objects with a method named `forEach` to be iterable.
+This way, this rule applies to all objects with a method called `forEach`, not just `Array` instances.
+
+## Exception for Index Usage
+
+When the index is explicitly used in the `forEach` callback, it is acceptable to use `forEach`. This is because:
+
+- The index is directly available as the second argument in `forEach`, making it convenient for scenarios where the index is necessary.
+- In sparse arrays, `forEach` will skip undefined entries, which differs from the behavior of `for...of` with `Object.entries` that includes these entries.
+This can be important for certain array operations, particularly in TypeScript environments with strict type checking.
+
+## Examples
+
+### Invalid
+
+```js
+els.forEach((el) => {
+  f(el);
+})
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/no-for-each\">lint/complexity/noForEach</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Prefer </span><span style=\"color: Orange;\"><strong>for...of</strong></span><span style=\"color: Orange;\"> instead of </span><span style=\"color: Orange;\"><strong>forEach</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>els.forEach((el) =&gt; &#123;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  f(el);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>&#125;)<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>forEach</strong></span><span style=\"color: lightgreen;\"> may lead to performance issues when working with large arrays. When combined with functions like </span><span style=\"color: lightgreen;\"><strong>filter</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>map</strong></span><span style=\"color: lightgreen;\">, this causes multiple iterations over the same type.</span><br />  <br /></code></pre>"} />
+
+```js
+els["forEach"](el => {
+  f(el);
+})
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/no-for-each\">lint/complexity/noForEach</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Prefer </span><span style=\"color: Orange;\"><strong>for...of</strong></span><span style=\"color: Orange;\"> instead of </span><span style=\"color: Orange;\"><strong>forEach</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>els[&quot;forEach&quot;](el =&gt; &#123;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  f(el);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>&#125;)<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>forEach</strong></span><span style=\"color: lightgreen;\"> may lead to performance issues when working with large arrays. When combined with functions like </span><span style=\"color: lightgreen;\"><strong>filter</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>map</strong></span><span style=\"color: lightgreen;\">, this causes multiple iterations over the same type.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+els.forEach((el, i) => {
+  f(el, i)
+})
+```
+
+```js
+for (const el of els) {
+  f(el);
+}
+```
+
+## Options
+
+The rule provides a `validIdentifiers` option that allows specific variable names to call `forEach`.
+In the following configuration, it's allowed to call `forEach` with expressions that match `Effect` or `_`:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"complexity": {
+				"noForEach": {
+					"level": "on",
+					"options": {
+						"allowedIdentifiers": [
+							"Effect",
+							"_"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+Effect.forEach((el) => {
+  f(el);
+})
+_.forEach((el) => {
+  f(el);
+})
+```
+
+Values with dots (e.g., "lib.\_") will not be accepted.
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_for_each.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noForEach)
+

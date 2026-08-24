@@ -171,8 +171,14 @@ export default defineConfig({
 			expressiveCode: {
 				shiki: {
 					langAlias: {
+						block: "txt",
 						cjs: "javascript",
+						editorconfig: "ini",
 						grit: "txt",
+						"js,expect_diagnostic": "javascript",
+						svg: "html",
+						"ts,expect_diagnostic": "typescript",
+						"vue,expect_diagnostic": "vue",
 					},
 				},
 			},

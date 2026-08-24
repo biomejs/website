@@ -1,0 +1,198 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noExcessiveLinesPerFile (JavaScript)
+description: JavaScript (and super languages) documentation for noExcessiveLinesPerFile
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-excessive-lines-per-file/css/"},{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-excessive-lines-per-file/graphql/"},{"id":"html","label":"HTML","href":"/linter/rules/no-excessive-lines-per-file/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-excessive-lines-per-file/javascript/"}]} />
+
+## Summary
+- Rule available since: `v2.3.12`
+- Diagnostic Category: [`lint/style/noExcessiveLinesPerFile`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`max-lines`](https://eslint.org/docs/latest/rules/max-lines)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noExcessiveLinesPerFile": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Restrict the number of lines in a file.
+
+Large files tend to do many things and can make it hard to follow what's going on.
+This rule can help enforce a limit on the number of lines in a file.
+
+## Examples
+
+### Invalid
+
+The following example will show a diagnostic when `maxLines` is set to 2:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noExcessiveLinesPerFile": {
+					"level": "on",
+					"options": {
+						"maxLines": 2
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+const a = 1;
+const b = 2;
+const c = 3;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/no-excessive-lines-per-file\">lint/style/noExcessiveLinesPerFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This file has too many lines (3). Maximum allowed is 2.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const a = 1;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const b = 2;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>const c = 3;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Consider splitting this file into smaller files.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+const a = 1;
+const b = 2;
+```
+
+## Options
+
+### `maxLines`
+
+This option sets the maximum number of lines allowed in a file.
+If the file exceeds this limit, a diagnostic will be reported.
+
+Default: `300`
+
+#### Examples
+
+The default value for `maxLines` is `300`. The following example shows how to set the
+`maxLines` option to a smaller value. It reports a diagnostic because the file has more
+than 4 lines:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noExcessiveLinesPerFile": {
+					"level": "on",
+					"options": {
+						"maxLines": 4
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+const a = 1;
+const b = 2;
+const c = 3;
+const d = 4;
+const e = 5;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/no-excessive-lines-per-file\">lint/style/noExcessiveLinesPerFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This file has too many lines (5). Maximum allowed is 4.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const a = 1;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const b = 2;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>const c = 3;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const d = 4;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>const e = 5;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Consider splitting this file into smaller files.</span><br />  <br /></code></pre>"} />
+
+### `skipBlankLines`
+
+When this option is set to `true`, blank lines are not counted towards the maximum line limit.
+
+Default: `false`
+
+#### Examples
+
+The following example shows how `skipBlankLines` can prevent a diagnostic by excluding blank
+lines from the total count:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noExcessiveLinesPerFile": {
+					"level": "on",
+					"options": {
+						"maxLines": 2,
+						"skipBlankLines": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+const a = 1;
+
+
+const b = 2;
+```
+
+## Suppressions
+
+If you need to exceed the line limit in a specific file, you can suppress this rule
+at the top of the file:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"style": {
+				"noExcessiveLinesPerFile": {
+					"level": "on",
+					"options": {
+						"maxLines": 2
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+// biome-ignore-all lint/style/noExcessiveLinesPerFile: generated file
+const a = 1;
+const b = 2;
+const c = 3;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_excessive_lines_per_file.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noExcessiveLinesPerFile)
+

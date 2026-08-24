@@ -1,0 +1,82 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueValidVCloak (HTML)
+description: HTML documentation for useVueValidVCloak
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-valid-v-cloak/html/"}]} />
+
+## Summary
+- Rule available since: `v2.3.11`
+- Diagnostic Category: [`lint/correctness/useVueValidVCloak`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/valid-v-cloak`](https://eslint.vuejs.org/rules/valid-v-cloak)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"useVueValidVCloak": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce valid `v-cloak` Vue directives.
+
+This rule reports `v-cloak` directives in the following cases:
+
+- The directive has an argument. E.g. `<div v-cloak:aaa></div>`
+- The directive has any modifiers. E.g. `<div v-cloak.bbb></div>`
+- The directive has an attribute value. E.g. `<div v-cloak="foo"></div>`
+
+## Examples
+
+### Invalid
+
+```vue
+<div v-cloak:arg></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:13 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-cloak\">lint/correctness/useVueValidVCloak</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The v-cloak directive must not have an argument.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-cloak:arg&gt;&lt;/div&gt;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use v-cloak without arguments, e.g. </span><span style=\"color: lightgreen;\"><strong>v-cloak</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the argument.</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style=\"opacity: 0.8;\">·</span>v-cloak<span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">g</span>&gt;&lt;/div&gt;<br />  <strong>    │ </strong>            <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>       <br /></code></pre>"} />
+
+```vue
+<div v-cloak.mod></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:13 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-cloak\">lint/correctness/useVueValidVCloak</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The v-cloak directive does not support modifiers.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-cloak.mod&gt;&lt;/div&gt;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the modifier; v-cloak is a stand-alone control directive.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the modifier.</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style=\"opacity: 0.8;\">·</span>v-cloak<span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">d</span>&gt;&lt;/div&gt;<br />  <strong>    │ </strong>            <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>       <br /></code></pre>"} />
+
+```vue
+<div v-cloak="value"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:13 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-cloak\">lint/correctness/useVueValidVCloak</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The v-cloak directive must not have a value.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-cloak=&quot;value&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">v-cloak is a boolean-like directive and should be used without a value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the value.</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style=\"opacity: 0.8;\">·</span>v-cloak<span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">&quot;</span>&gt;&lt;/div&gt;<br />  <strong>    │ </strong>            <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>       <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<div v-cloak></div>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/correctness/use_vue_valid_v_cloak.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/correctness/useVueValidVCloak)
+

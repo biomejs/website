@@ -1,0 +1,76 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noDuplicateParameters (JavaScript)
+description: JavaScript (and super languages) documentation for noDuplicateParameters
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-duplicate-parameters/javascript/"}]} />
+
+## Summary
+- Rule available since: `v1.0.0`
+- Diagnostic Category: [`lint/suspicious/noDuplicateParameters`](/reference/diagnostics#diagnostic-category)
+- This rule is **recommended**, meaning it is enabled by default.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`no-dupe-args`](https://eslint.org/docs/latest/rules/no-dupe-args)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noDuplicateParameters": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow duplicate function parameter name.
+
+If more than one parameter has the same name in a function definition,
+the last occurrence overrides the preceding occurrences.
+A duplicated name might be a typing error.
+
+## Examples
+
+### Invalid
+
+```js
+var f = function(a, b, b) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:24 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-parameters\">lint/suspicious/noDuplicateParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Duplicate parameter name.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>var f = function(a, b, b) &#123;&#125;<br />   <strong>   │ </strong>                       <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The parameter overrides a preceding parameter by using the same name.</span><br />  <br /></code></pre>"} />
+
+```js
+function b(a, b, b) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:18 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-parameters\">lint/suspicious/noDuplicateParameters</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Duplicate parameter name.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>function b(a, b, b) &#123;&#125;<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The parameter overrides a preceding parameter by using the same name.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+function i(i, b, c) {}
+var j = function (j, b, c) {};
+function k({ k, b }, { c, d }) {}
+function l([, l]) {}
+function foo([[a, b], [c, d]]) {}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_duplicate_parameters.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noDuplicateParameters)
+

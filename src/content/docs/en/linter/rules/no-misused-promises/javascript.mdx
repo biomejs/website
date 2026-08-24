@@ -1,0 +1,131 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noMisusedPromises (JavaScript)
+description: JavaScript (and super languages) documentation for noMisusedPromises
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-misused-promises/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)
+:::
+## Summary
+- Rule available since: `v2.1.0`
+- Diagnostic Category: [`lint/nursery/noMisusedPromises`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`types`](/linter/domains#types)
+- Sources: 
+  - Same as [`@typescript-eslint/no-misused-promises`](https://typescript-eslint.io/rules/no-misused-promises)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noMisusedPromises": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow Promises to be used in places where they are almost certainly a
+mistake.
+
+In most cases, if you assign a `Promise` somewhere a `Promise` is not
+allowed, the TypeScript compiler will be able to catch such a mistake.
+But there are a few places where TypeScript allows them -- they're not
+_necessarily_ a mistake -- even though they could be considered almost
+certainly to be one.
+
+This rule disallows using Promises in such places.
+
+## Examples
+
+### Invalid
+
+```js title='promise-in-condition.js'
+const promise = Promise.resolve('value');
+if (promise) { /* This branch will always execute */ }
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///promise-in-condition.js\">/promise-in-condition.js</a>:2:5 <a href=\"https://biomejs.dev/linter/rules/no-misused-promises\">lint/nursery/noMisusedPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A Promise was found where a conditional was expected.</span><br />  <br />    <strong>1 │ </strong>const promise = Promise.resolve('value');<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>if (promise) &#123; /&#42; This branch will always execute &#42;/ &#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A Promise is always truthy, so this is most likely a mistake.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">You may have intended to &#96;await&#96; the Promise instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js title='promise-in-ternary-condition.js'
+const promise = Promise.resolve('value');
+const val = promise ? 123 : 456; // Always evaluates to `123`.
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///promise-in-ternary-condition.js\">/promise-in-ternary-condition.js</a>:2:13 <a href=\"https://biomejs.dev/linter/rules/no-misused-promises\">lint/nursery/noMisusedPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A Promise was found where a conditional was expected.</span><br />  <br />    <strong>1 │ </strong>const promise = Promise.resolve('value');<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const val = promise ? 123 : 456; // Always evaluates to &#96;123&#96;.<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A Promise is always truthy, so this is most likely a mistake.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">You may have intended to &#96;await&#96; the Promise instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js title='promise-in-filter.js'
+// The following filter has no effect:
+const promise = Promise.resolve('value');
+[1, 2, 3].filter(() => promise);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///promise-in-filter.js\">/promise-in-filter.js</a>:3:18 <a href=\"https://biomejs.dev/linter/rules/no-misused-promises\">lint/nursery/noMisusedPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function returns a Promise where a conditional was expected.</span><br />  <br />    <strong>1 │ </strong>// The following filter has no effect:<br />    <strong>2 │ </strong>const promise = Promise.resolve('value');<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>[1, 2, 3].filter(() =&gt; promise);<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A Promise is always truthy, so this is most likely a mistake.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">You may have intended to &#96;await&#96; the Promise, but this does not work inside a synchronous callback.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js title='promise-while-condition.js'
+const promise = Promise.resolve('value');
+while (promise) { /* This is an endless loop */ }
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///promise-while-condition.js\">/promise-while-condition.js</a>:2:8 <a href=\"https://biomejs.dev/linter/rules/no-misused-promises\">lint/nursery/noMisusedPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A Promise was found where a conditional was expected.</span><br />  <br />    <strong>1 │ </strong>const promise = Promise.resolve('value');<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>while (promise) &#123; /&#42; This is an endless loop &#42;/ &#125;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A Promise is always truthy, so this is most likely a mistake.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">You may have intended to &#96;await&#96; the Promise instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js title='spread-promise.js'
+// Using a `Promise` as an iterable expands to nothing:
+const getData = () => fetch('/');
+console.log({ foo: 42, ...getData() });
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///spread-promise.js\">/spread-promise.js</a>:3:27 <a href=\"https://biomejs.dev/linter/rules/no-misused-promises\">lint/nursery/noMisusedPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A Promise was found where an iterable was expected.</span><br />  <br />    <strong>1 │ </strong>// Using a &#96;Promise&#96; as an iterable expands to nothing:<br />    <strong>2 │ </strong>const getData = () =&gt; fetch('/');<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>console.log(&#123; foo: 42, ...getData() &#125;);<br />   <strong>   │ </strong>                          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The spread syntax is used to expand an iterable, but a Promise needs to be &#96;await&#96;-ed to take its value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js title='promise-in-forEach.js'
+// These `fetch`-es are not `await`-ed in order:
+[1, 2, 3].forEach(async value => {
+    await fetch(`/${value}`);
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///promise-in-forEach.js\">/promise-in-forEach.js</a>:2:19 <a href=\"https://biomejs.dev/linter/rules/no-misused-promises\">lint/nursery/noMisusedPromises</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function returns a Promise, but no return value was expected.</span><br />  <br />    <strong>1 │ </strong>// These &#96;fetch&#96;-es are not &#96;await&#96;-ed in order:<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>[1, 2, 3].forEach(async value =&gt; &#123;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    await fetch(&#96;/$&#123;value&#125;&#96;);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>&#125;);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This may not have the desired result if you expect the Promise to be &#96;await&#96;-ed.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js title='valid-promises.js'
+const promise = Promise.resolve('value');
+if (await promise) { /* Do something */ }
+
+const val = (await promise) ? 123 : 456;
+
+while (await promise) { /* Do something */ }
+
+const getData = () => fetch('/');
+console.log({ foo: 42, ...(await getData()) });
+
+// for-of puts `await` in outer context:
+for (const value of [1, 2, 3]) {
+    await doSomething(value);
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_misused_promises.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noMisusedPromises)
+
