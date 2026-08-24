@@ -277,8 +277,8 @@ impl RegistryVisitor<MarkdownLanguage> for RulesVisitor {
 }
 
 pub fn generate_rule_docs() -> Result<()> {
-    let linter_root = project_root().join("src/content/docs/linter");
-    let actions_root = project_root().join("src/content/docs/assist");
+    let linter_root = project_root().join("src/content/docs/en/linter");
+    let actions_root = project_root().join("src/content/docs/en/assist");
     generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Js)?;
     generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Json)?;
     generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Css)?;
@@ -396,8 +396,8 @@ fn generate_rule_pages() -> Result<()> {
 
     let RulesVisitor { actions, lints } = visitor;
 
-    let linter_root = project_root().join("src/content/docs/linter/rules");
-    let actions_root = project_root().join("src/content/docs/assist/actions");
+    let linter_root = project_root().join("src/content/docs/en/linter/rules");
+    let actions_root = project_root().join("src/content/docs/en/assist/actions");
 
     if linter_root.exists()
         && let Err(err) = fs::remove_dir_all(&linter_root)
