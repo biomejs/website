@@ -329,7 +329,7 @@ export function GET() {
           },
           "noUndeclaredCustomProperties": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.11",
             "name": "noUndeclaredCustomProperties",
             "link": "https://biomejs.dev/linter/rules/no-undeclared-custom-properties/css",
             "recommended": false,
@@ -1931,7 +1931,7 @@ export function GET() {
         "nursery": {
           "noAstroSetHtmlDirective": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.11",
             "name": "noAstroSetHtmlDirective",
             "link": "https://biomejs.dev/linter/rules/no-astro-set-html-directive/html",
             "recommended": true,
@@ -2017,7 +2017,7 @@ export function GET() {
           },
           "noUndeclaredCustomProperties": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.11",
             "name": "noUndeclaredCustomProperties",
             "link": "https://biomejs.dev/linter/rules/no-undeclared-custom-properties/html",
             "recommended": false,
@@ -4490,7 +4490,7 @@ export function GET() {
           },
           "noUndeclaredCustomProperties": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.11",
             "name": "noUndeclaredCustomProperties",
             "link": "https://biomejs.dev/linter/rules/no-undeclared-custom-properties/javascript",
             "recommended": false,
