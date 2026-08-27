@@ -309,6 +309,7 @@
 .playground-fix-control button {
 	border-radius: 0;
 	margin-left: -1px;
+	white-space: nowrap;
 }
 
 .playground-fix-control button:first-child {
@@ -620,7 +621,7 @@
 
 .playground-drawer-layer {
 	position: fixed;
-	inset: 65px 0 0;
+	inset: var(--sl-nav-height, 65px) 0 0;
 	z-index: 100;
 }
 
@@ -640,7 +641,7 @@
 	bottom: 0;
 	display: grid;
 	grid-template-rows: auto minmax(0, 1fr);
-	width: min(90vw, 390px);
+	width: 100%;
 	background: var(--sl-color-bg);
 	box-shadow: 0 0 16px rgb(0 0 0 / 25%);
 }
