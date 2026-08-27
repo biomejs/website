@@ -46,6 +46,9 @@ export default function PlaygroundSidebar({
 			<SidebarSection title="Files">
 				<FileTree state={state} setPlaygroundState={setPlaygroundState} />
 			</SidebarSection>
+			<SidebarSection title="Editor options">
+				<EditorOptions state={state} setPlaygroundState={setPlaygroundState} />
+			</SidebarSection>
 			<SidebarSection title="Settings">
 				{hasConfig ? (
 					<div className="playground-settings-ejected">
@@ -61,7 +64,7 @@ export default function PlaygroundSidebar({
 								type="button"
 								onClick={() => setPlaygroundState(deleteBiomeConfigFile)}
 							>
-								Delete
+								Go back
 							</button>
 						</div>
 					</div>
@@ -72,7 +75,7 @@ export default function PlaygroundSidebar({
 							type="button"
 							onClick={() => setPlaygroundState(createBiomeConfigFile)}
 						>
-							Edit root config
+							Edit Config as JSON
 						</button>
 						<SettingsTab
 							state={state}
@@ -80,9 +83,6 @@ export default function PlaygroundSidebar({
 						/>
 					</>
 				)}
-			</SidebarSection>
-			<SidebarSection title="Editor options">
-				<EditorOptions state={state} setPlaygroundState={setPlaygroundState} />
 			</SidebarSection>
 		</div>
 	);
