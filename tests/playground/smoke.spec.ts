@@ -300,7 +300,7 @@ test.describe("playground layout", () => {
 		await page
 			.getByRole("button", { name: "Set line width to 120 characters" })
 			.click();
-		await page.getByRole("button", { name: "Edit root config" }).click();
+		await page.getByRole("button", { name: "Edit Config as JSON" }).click();
 
 		await expect(
 			page.getByText("Settings are defined by biome.json"),
@@ -368,9 +368,9 @@ test.describe("playground layout", () => {
 			page.getByTestId("biome-output").getByRole("textbox"),
 		).toContainText("let a=5");
 
-		await page.getByRole("button", { name: "Delete", exact: true }).click();
+		await page.getByRole("button", { name: "Go back", exact: true }).click();
 		await expect(
-			page.getByRole("button", { name: "Edit root config" }),
+			page.getByRole("button", { name: "Edit Config as JSON" }),
 		).toBeVisible();
 	});
 
