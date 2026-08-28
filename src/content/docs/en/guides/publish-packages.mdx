@@ -4,287 +4,72 @@ description: Learn how to publish packages for Biome
 ---
 import { Steps } from '@astrojs/starlight/components';
 
-Biome is also able to resolve configuration files and plugins from the `node_modules/`
-folder. So you can export your configuration file from a package, and import it
-in multiple projects.
+Biome can resolve configurations and plugins from packages installed in `node_modules/`. This allows you to publish them once and reuse them across projects.
 
-From Biome v2.6, you can now publish plugins and configurations using a known file called `biome-manifest.json`, or `biome-manifest.jsonc` if you'd like to add comments.
+For Biome v2.6 and later, publish plugins and configurations through a manifest named `biome-manifest.json` or `biome-manifest.jsonc`.
 
-This manifest serves as an entry point to define:
-- named configuration files
-- named plugins
-- named rule presets
+A manifest can export [plugin rules](#export-a-local-lint-rule), [rule presets](#export-rule-presets), and [configurations](#export-multiple-configurations).
 
 ## Publish Biome plugins
 
-Plugins can be published as npm packages using the `biome-manifest.json`.
+Publish Biome plugins as npm packages by declaring their rules and presets in a Biome manifest.
 
-### Define and publish your first lint rule
-
-<Steps>
-  1. Create a new file called `biome-manifest.json` in the root of your project. `version` is mandatory. Define a `"plugins"` key.
-
-     ```json title="biome-manifest.json" ins="version" ins="plugins"
-     {
-       "version": 1,
-       "plugins": {}
-     }
-     ```
-
-     :::tip
-     You can add the `$schema` key, with value `./node_modules/@biomejs/biome/manifest_schema.json`. It will provide autocompletion and validation.
-     :::
-
-  2. Add `"rules"` key to the `"plugins"` object. This field is an array that accepts strings or objects.
-     When a string is provided, it must be an npm package. This allows package authors to depend or other packages.
-     When an object, the key must be the rule name, and the value the path to the physical grit file.
-
-     Let's start by declaring local rules. We add the rule named `useCompanyLogger`, which is located in the `rules/` folder, called `useCompanyLogger.grit`.
-
-     ```json title="biome-manifest.json" ins={4-6} ins="useCompanyLogger"
-     {
-       "version": 1,
-       "plugins": {
-         "rules": [
-           { "useCompanyLogger": "./rules/useCompanyLogger.grit" }
-         ]
-       }
-     }
-     ```
-  3. Update the `package.json` file. You have to update the `files` and `exports` fields
-     - `fields`: Add the manifest file, and all the rules your package exports. If all rules are defined in the same folder, add the folder name.
-     - `exports`: Add the `biome` specifier and map it to the manifest file.
-
-     ```json title="package.json" ins="files" ins="exports"
-     {
-       "name": "@org/biome-plugins",
-       "version": "1.0.0",
-       "files": [
-         "biome-manifest.json",
-         "rules"
-       ],
-       "exports": {
-         "biome": "./biome-manifest.json"
-       }
-     }
-     ```
-  4. Once the plugin is published to npm or your private registry, and you added `@org/biome-plugins` to the list of dependencies, update the configuration.
-     You must append the name of the rule to the package name:
-     ```json title="biome.json" ins="@org/biome-plugins/useCompanyLogger"
-     {
-       "plugins": ["@org/biome-plugins/useCompanyLogger"]
-     }
-     ```
-</Steps>
-
-### Define and publish rule presets
-
-Once you start having many rules published, you'll find the need to group, and that's where the `"presets"` key comes into play.
+### Export a local lint rule
 
 <Steps>
-  1. Update the `plugins` key of the `biome-manifest.json` file. You can add as many presets as you want to the `"presets"` key.
-     In the following example, we add a `"recommended"` present, and a `"strict"` preset.
+  1. Create `biome-manifest.json` in the root of your package. Set the required `version` field and add an empty `plugins.rules` array:
 
-     ```json title="biome-manifest.json" ins="recommended" ins="strict"
-     {
-       "version": 1,
-       "plugins": {
-         "rules": [
-           {"useCompanyLogger": "./rules/useCompanyLogger.grit"},
-           {"noLegacyLibrary": "./rules/noLegacyLibrary.grit"}
-         ],
-         "presets": {
-           "recommended": ["useCompanyLogger"],
-           "strict": ["useCompanyLogger", "noLegacyLibrary"]
-         }
-       }
-     }
-     ```
-  2. Update the `biome.json` file to use the preset you need. To do so **you must** append the name of the preset with `/preset`, and the name of the preset you want to use.
+     
 
-     In this example, we use the `"recommended"` preset by adding `@org/biome-plugins/presets/recommended`.
+### Export rule presets
 
-     ```json title="biome.json" ins="/presets/recommended"
-     {
-       "plugins": ["@org/biome-plugins/presets/recommended"]
-     }
-     ```
-</Steps>
-
-### Import and export multiple packages
-
-As a library author, there might be situations where you might want to add rules from other packages and export them as part of your package.
-
-Let's update the `@org/biome-plugins` package by adding rules from a hypothetical `biome-ux-plugins`. We're only interested in two things from this plugin:
-- Their `minimal` preset
-- Their `noExternalLinks` rule, which isn't part of the `minimal` preset
+Publish groups of related rules as presets by declaring them in a Biome manifest. Presets allow consumers to enable multiple rules together.
 
 <Steps>
+  1. Add a `plugins.presets` field. This example defines `recommended` and `strict` presets:
 
-  1. The `rules` field of the `biome-manifest.json` also accepts strings. Strings *must be only packages*. We will add the `biome-ux-plugins/noExternalLinks` rule, and the `biome-ux-plugins/presets/minimal`.
+     
 
-     The rule `biome-ux-plugins/noExternalLinks` is also added to the recommended preset.
+### Re-export rules from another package
 
-     ```json title="biome-manifest.json" ins="biome-ux-plugins/noExternalLinks" ins="biome-ux-plugins/presets/minimal"
-     {
-       "version": 1,
-       "plugins": {
-         "rules": [
-           "biome-ux-plugins/noExternalLinks",
-           "biome-ux-plugins/presets/minimal",
-           {"useCompanyLogger": "./rules/useCompanyLogger.grit"},
-           {"noLegacyLibrary": "./rules/noLegacyLibrary.grit"}
-         ],
-         "presets": {
-           "recommended": [
-             "useCompanyLogger",
-             "biome-ux-plugins/noExternalLinks"
-           ],
-           "strict": ["useCompanyLogger", "noLegacyLibrary"]
-         }
-       }
-     }
-     ```
+You can re-export rules from dependencies through your package.
 
-  2. Your users will consume the rule that belong `biome-ux-plugins` under your package name. Which means that the rule `biome-ux-plugins/noExternalLinks` and all the rules under the `minimal` preset are scoped to your package `@org/biome-plugins`.
+The following example uses a hypothetical `biome-ux-plugins` package and re-exports its `minimal` preset and its `noExternalLinks` rule, which is not part of that preset.
 
-     This an important detail for your users, especially when you want to document the rules and their suppressions. This aliasing allows you to swap rules for better or new ones without affecting downstream users.
+<Steps>
+  1. Add `biome-ux-plugins/noExternalLinks` and `biome-ux-plugins/presets/minimal` to `rules`, then add `biome-ux-plugins/noExternalLinks` to the `recommended` preset:
 
-     Let's update the `biome.json`, and let's add the new rule `useAnimationFallback` which is a rule that belongs to the `presets/minimal`. We add `@org/biome-plugins/useAnimationFallback`.
-
-     ```json title="biome.json" ins="@org/biome-plugins/useAnimationFallback"
-     {
-       "plugins": [
-         "@org/biome-plugins/presets/recommended",
-         "@org/biome-plugins/useAnimationFallback"
-       ]
-     }
-     ```
-</Steps>
+     
 
 ## Publish Biome configurations
 
-Configurations can be published as npm packages using the `biome-manifest.json`, or using the [legacy](#publish-and-share-configuration-legacy) method.
+Publish configurations as npm packages by declaring them in a Biome manifest. To support consumers using a Biome version earlier than v2.6, use the [legacy method](#publish-and-share-a-configuration-legacy).
 
-### Define multiple configurations
-
-<Steps>
-  1. Create a new file called `biome-configuration.json` in the root of your project. `"version"` is mandatory. Define a `"configs"` key.
-
-     ```json title="biome-configuration.json" ins="version" ins="configs"
-     {
-       "version": 1,
-       "configs": {}
-     }
-     ````
-  2. Let's export two configurations, one called `"recommended"` and the another called `"strict"`.
-
-     ```json title="biome-configuration.json" ins="strict" ins="recommended"
-     {
-       "version": 1,
-       "configs": [
-         { "recommended": "./configs/recommended.json" },
-         { "strict": "./configs/strict.json" }
-       ]
-     }
-     ````
-  3. Update the `package.json` file. You have to update the `files` and `exports` fields
-     - `fields`: Add the manifest file, and all the configs your package exports. If all configs are defined in the same folder, add the folder name.
-     - `exports`: Add the `biome` specifier and map it to the manifest file.
-
-     ```json title="package.json" ins="files" ins="exports"
-     {
-       "name": "@org/biome-plugins",
-       "version": "1.0.0",
-       "files": [
-         "biome-manifest.json",
-         "configs"
-       ],
-       "exports": {
-         "biome": "./biome-manifest.json"
-       }
-     }
-     ```
-  4. Update the `biome.json` by adding the `extends` field. In this example, we want to extend from the `"strict"` configuration. You **must** append `/configs/strict` to the package name. Failing to do so will cause an error.
-
-     ```json title="biome.json" ins="@org/biome-plugins/configs/strict"
-     {
-       "extends": ["@org/biome-plugins/configs/strict"]
-     }
-     ```
-</Steps>
-
-### Import and export configurations
-
-Like rules, you can import configurations from third-party packages, and export them as part of your new package:
+### Export multiple configurations
 
 <Steps>
-  1. The `configs` field of the `biome-manifest.json` also accepts strings. Strings *must be only packages*. We will add the `biome-ux-plugins/configs/nuxt` and the `biome-ux-plugins/astro` configs.
-     ```json title="biome-manifest.json" ins="biome-ux-plugins/configs/nuxt" ins="biome-ux-plugins/astro"
-     {
-       "version": 1,
-       "configs": [
-         "biome-ux-plugins/configs/nuxt",
-         "biome-ux-plugins/astro",
-         { "recommended": "./configs/recommended.json" },
-         { "strict": "./configs/strict.json" }
-       ]
-     }
-     ```
-  2. Your users will consume the rule that belong `biome-ux-plugins` under your package name. In this example, we want to extend from the `"nuxt"` configuration. You **must** append `/configs/nuxt` to the package name. Failing to do so will cause an error.
+  1. Create `biome-manifest.json` in the root of your package. Set the required `version` field and map each configuration name to its file in `configs`:
 
-     ```json title="biome.json" ins="@org/biome-plugins/configs/nuxt"
-     {
-       "extends": ["@org/biome-plugins/configs/nuxt"]
-     }
-     ```
+     
 
-</Steps>
+### Re-export configurations from another package
 
-## Publish and share configuration (legacy)
+You can re-export configurations from dependencies through your package.
 
-:::note
-This method of publishing configuration files is considered legacy. From Biome v2.6,
-you should use the new manifest to publish the configuration. This isn't backwards compatible, so
-downstream users must upgrade to v2.6.
-:::
+The following example uses the same hypothetical `biome-ux-plugins` package and re-exports its `nuxt` and `astro` configurations.
 
-To do so, the first thing to do is to set up your "shared" Biome
-configuration in a certain way. Let's suppose that you want to share a
-configuration from a package called `@org/shared-configs`, using the specifier
-`@org/shared-configs/biome`. You have to create an `exports` entry in the
-`package.json` of this package:
+<Steps>
+  1. Add `biome-ux-plugins/configs/nuxt` and `biome-ux-plugins/configs/astro` to `configs`:
 
-```json title="package.json" ins={5,3}
-{
-  "name": "@org/shared-configs",
-  "type": "module",
-  "exports": {
-    "biome": "./biome.json"
-  }
-}
-```
+     
 
-Make sure that `@org/shared-configs` is correctly installed in your project, and
-update the `biome.json` file to look like the following snippet:
-
-```json title="biome.json"
-{
-  "extends": ["@org/shared-configs/biome"]
-}
-```
-
-Biome will attempt to resolve your library `@org/shared-configs/` from your
-working directory. The working directory is:
-
-- when using the CLI, the folder where you execute your scripts from.
-Usually it matches the location of your `package.json` file;
-- when using the LSP, the root folder of your project.
+## Publish and share a configuration (legacy)
 
 :::caution
-Paths starting with a dot `.` or ending with `.json` or `.jsonc` are always
-treated as relative paths, so they won't be resolved from `node_modules/`.
+Use this legacy method only to support consumers using a version of Biome earlier than v2.6. For Biome v2.6 or later, publish configurations with a [Biome manifest](#publish-biome-configurations).
 :::
 
-For more information about the resolution algorithm, refer to the
-[Node.js documentation](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm).
+<Steps>
+  1. Add a `./biome` entry to the `exports` field that maps to the shared configuration. This example publishes `@org/shared-configs/biome`:
+
+     
