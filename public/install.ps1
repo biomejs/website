@@ -32,12 +32,12 @@ Usage: install.ps1 [options]
 Options:
     -Help, -h              Display this help message
     -Version, -v <version> Install a specific version
-    -Force, -f             Download even if the version is already installed
-    -NoModifyPath          Don't modify the user or current process PATH
+    -Force, -f             Force a fresh download and reinstallation
+    -NoModifyPath          Skip adding Biome to PATH
 
 Environment variables:
-    BIOME_INSTALL_DIR      Installation directory
-    BIOME_VERSION          Version to install
+    BIOME_INSTALL_DIR      Set the installation directory
+    BIOME_VERSION          Set the version to install
 
 Examples:
     irm https://biomejs.dev/install.ps1 | iex
