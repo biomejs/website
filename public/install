@@ -26,7 +26,7 @@ Usage: install [options]
 Options:
     -h, --help              Display this help message
     -v, --version <version> Install a specific version
-    -f, --force             Download even if the version is already installed
+    -f, --force             Force a fresh download and reinstallation
         --no-modify-path    Don't modify shell config files
 
 Environment variables:
