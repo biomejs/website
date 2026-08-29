@@ -31,7 +31,7 @@ Options:
 
 Environment variables:
     BIOME_INSTALL_DIR       Set the installation directory
-    BIOME_VERSION           Version to install
+    BIOME_VERSION           Set the version to install
 
 Examples:
     curl -fsSL https://biomejs.dev/install | bash
