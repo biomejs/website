@@ -30,8 +30,7 @@ Options:
         --no-modify-path    Don't modify shell config files
 
 Environment variables:
-    BIOME_INSTALL_DIR       Installation directory
-    XDG_BIN_HOME            Default installation directory (~/.local/bin)
+    BIOME_INSTALL_DIR       Set the installation directory
     BIOME_VERSION           Version to install
 
 Examples:
