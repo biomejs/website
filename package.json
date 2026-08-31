@@ -34,7 +34,7 @@
     "@astrojs/react": "6.0.4",
     "@astrojs/rss": "4.0.19",
     "@astrojs/starlight": "0.41.7",
-    "@biomejs/biome": "2.5.9",
+    "@biomejs/biome": "2.5.11",
     "@biomejs/version-utils": "0.4.0",
     "@biomejs/wasm-web": "https://pkg.pr.new/@biomejs/wasm-web@7ceb0ee",
     "@codemirror/lang-css": "6.3.1",
