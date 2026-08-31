@@ -1759,6 +1759,26 @@ description: Description
 
 > Default: `false`.
 
+### `markdown.parser.gfm`
+
+Enables the parsing of GitHub Flavored Markdown (GFM). When enabled, the following extensions are parsed:
+- task lists items
+- strikethrough inline markup
+- tables
+
+```md
+- [ ] This is a disabled task
+- [x] This is an enabled task
+
+~~strikethrough~~
+
+| Foo   | Bar   |
+|-------|-------|
+| Lorem | Ipsum |
+```
+
+> Default: `false`
+
 ### `markdown.formatter.enabled`
 
 Enables Biome's formatter for Markdown files.
