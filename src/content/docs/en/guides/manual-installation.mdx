@@ -96,6 +96,47 @@ docker run -v $(pwd):/code ghcr.io/biomejs/biome format --write
 
 ## Using a published binary
 
+### Linux and macOS
+
+The installer downloads the latest stable binary to `${XDG_BIN_HOME:-$HOME/.local/bin}` and adds it to your `PATH`:
+
+```shell
+curl -fsSL https://biomejs.dev/install | bash
+```
+
+:::tip
+You might need to restart your shell after installation before you can run `biome`.
+:::
+
+To install a specific version, pass `--version`:
+
+```shell
+curl -fsSL https://biomejs.dev/install | bash -s -- --version 2.5.9
+```
+
+You can also set `BIOME_INSTALL_DIR` to override the installation directory or pass `--no-modify-path` to leave your shell configuration unchanged.
+Pass `--force` to download and reinstall a version that is already installed.
+
+### Windows
+
+The PowerShell installer downloads the latest stable binary to `%LOCALAPPDATA%\Biome\bin` and adds it to your user and current process `PATH`:
+
+```powershell
+irm https://biomejs.dev/install.ps1 | iex
+```
+
+To install a specific version, set `BIOME_VERSION` first:
+
+```powershell
+$env:BIOME_VERSION = "2.5.9"
+irm https://biomejs.dev/install.ps1 | iex
+```
+
+You can also set `BIOME_INSTALL_DIR` to override the installation directory or pass `-NoModifyPath` to leave your `PATH` unchanged.
+Pass `-Force` to download and reinstall a version that is already installed.
+
+### Manual download
+
 To install Biome, grab the executable for your platform from the [latest CLI release](https://github.com/biomejs/biome/releases) on GitHub and give it execution permission.
 
 <Code lang="shell" showLineNumbers={false} code={`
