@@ -1,58 +1,35 @@
 import type {
-	FixFileMode,
 	RuleDomain,
 	RuleDomains,
 	RuleDomainValue,
 } from "@biomejs/wasm-web";
-import type React from "react";
 import { type Dispatch, type SetStateAction, useId, useState } from "react";
 import EnumSelect from "@/playground/components/EnumSelect";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
-import {
-	canDeletePlaygroundFile,
-	createPlaygroundFile,
-	deletePlaygroundFile,
-	openPlaygroundFile,
-	renamePlaygroundFile,
-} from "@/playground/state.ts";
 import {
 	ArrowParentheses,
 	AttributePosition,
 	Expand,
 	IndentStyle,
-	LANGUAGE,
-	type Language,
 	type LintRule,
 	OperatorLinebreak,
 	type PlaygroundState,
 	QuoteProperties,
 	QuoteStyle,
 	Semicolons,
-	SourceType,
 	TrailingCommas,
 	WhitespaceSensitivity,
 } from "@/playground/types.ts";
-import {
-	classnames,
-	createPlaygroundSettingsSetter,
-	guessLanguage,
-	isScriptFilename,
-	modifyFilename,
-} from "@/playground/utils";
+import { createPlaygroundSettingsSetter } from "@/playground/utils";
 
 export interface SettingsTabProps {
 	state: PlaygroundState;
 	setPlaygroundState: Dispatch<SetStateAction<PlaygroundState>>;
-	onReset: () => void;
 }
 
 export default function SettingsTab({
 	setPlaygroundState,
-	onReset,
 	state: {
-		singleFileMode,
-		currentFile,
-		files,
 		settings: {
 			lineWidth,
 			indentWidth,
@@ -71,7 +48,6 @@ export default function SettingsTab({
 			whitespaceSensitivity,
 			lintRules,
 			enabledLinting,
-			analyzerFixMode,
 			enabledAssist,
 			unsafeParameterDecoratorsEnabled,
 			allowComments,
@@ -158,10 +134,6 @@ export default function SettingsTab({
 		setPlaygroundState,
 		"enabledLinting",
 	);
-	const setAnalyzerFixMode = createPlaygroundSettingsSetter(
-		setPlaygroundState,
-		"analyzerFixMode",
-	);
 
 	const setEnabledAssist = createPlaygroundSettingsSetter(
 		setPlaygroundState,
@@ -202,80 +174,8 @@ export default function SettingsTab({
 		"tailwindDirectives",
 	);
 
-	function setCurrentFilename(newFilename: string) {
-		setPlaygroundState((state) =>
-			renamePlaygroundFile(state, state.currentFile, newFilename),
-		);
-	}
-
-	function deleteFile(filename: string) {
-		setPlaygroundState((state) => deletePlaygroundFile(state, filename));
-	}
-
-	function createFile(filename: string) {
-		setPlaygroundState((state) => createPlaygroundFile(state, filename));
-	}
-
-	function renameFile(oldFilename: string, newFilename: string) {
-		setPlaygroundState((state) =>
-			renamePlaygroundFile(state, oldFilename, newFilename),
-		);
-	}
-
-	function setCurrentFile(currentFile: string) {
-		setPlaygroundState((state) => openPlaygroundFile(state, currentFile));
-	}
-
-	function toggleSingleFileMode() {
-		setPlaygroundState((state) => ({
-			...state,
-			singleFileMode: !state.singleFileMode,
-		}));
-	}
-
-	const language = guessLanguage(currentFile);
-
-	function setLanguage(language: Language): void {
-		renameFile(
-			currentFile,
-			modifyFilename(currentFile, {
-				language,
-				script: isScriptFilename(currentFile),
-			}),
-		);
-	}
-
 	return (
 		<div className="settings-tab">
-			<section className="settings-tab-buttons">
-				<button type="button" onClick={onReset} onKeyDown={onReset}>
-					Reset
-				</button>
-				<button
-					type="button"
-					onClick={toggleSingleFileMode}
-					onKeyDown={toggleSingleFileMode}
-					data-testid="toggle-single-file-mode"
-				>
-					{singleFileMode ? "Multi-file mode" : "Single-file mode"}
-				</button>
-			</section>
-
-			{singleFileMode ? (
-				<LanguageView language={language} setLanguage={setLanguage} />
-			) : (
-				<FileView
-					currentFile={currentFile}
-					files={Object.keys(files)}
-					createFile={createFile}
-					deleteFile={deleteFile}
-					setCurrentFile={setCurrentFile}
-					renameFile={renameFile}
-					canDeleteFile={(filename) =>
-						canDeletePlaygroundFile({ files }, filename)
-					}
-				/>
-			)}
 			<FormatterSettings
 				lineWidth={lineWidth}
 				setLineWidth={setLineWidth}
@@ -315,8 +215,6 @@ export default function SettingsTab({
 				setLintRules={setLintRules}
 				enabledLinting={enabledLinting}
 				setEnabledLinting={setEnabledLinting}
-				analyzerFixMode={analyzerFixMode}
-				setAnalyzerFixMode={setAnalyzerFixMode}
 				ruleDomains={ruleDomains}
 				setRuleDomains={setRuleDomains}
 			/>
@@ -325,8 +223,6 @@ export default function SettingsTab({
 				setEnabledAssist={setEnabledAssist}
 			/>
 			<SyntaxSettings
-				filename={currentFile}
-				setFilename={setCurrentFilename}
 				unsafeParameterDecoratorsEnabled={unsafeParameterDecoratorsEnabled}
 				allowComments={allowComments}
 				setUnsafeParameterDecoratorsEnabled={
@@ -350,225 +246,7 @@ export default function SettingsTab({
 	);
 }
 
-function LanguageView({
-	language,
-	setLanguage,
-}: {
-	language: Language;
-	setLanguage: (language: Language) => void;
-}) {
-	const languageId = useId();
-	return (
-		<section>
-			<div className="field-row">
-				<label htmlFor={languageId}>Language</label>
-				<EnumSelect
-					id={languageId}
-					name="language"
-					options={{
-						[LANGUAGE.JS]: "JavaScript",
-						[LANGUAGE.JSX]: "JSX",
-						[LANGUAGE.TS]: "TypeScript",
-						[LANGUAGE.TSX]: "TSX",
-						[LANGUAGE.JSON]: "JSON",
-						[LANGUAGE.GraphQL]: "GraphQL",
-						[LANGUAGE.Grit]: "Grit",
-						[LANGUAGE.CSS]: "CSS",
-						[LANGUAGE.SCSS]: "SCSS (unstable)",
-						[LANGUAGE.HTML]: "HTML",
-						[LANGUAGE.Vue]: "Vue",
-						[LANGUAGE.Svelte]: "Svelte",
-						[LANGUAGE.Astro]: "Astro",
-						[LANGUAGE.Markdown]: "Markdown (unstable)",
-						[LANGUAGE.YAML]: "YAML (unstable)",
-					}}
-					value={language ?? LANGUAGE.TSX}
-					onChangeValue={setLanguage}
-				/>
-			</div>
-		</section>
-	);
-}
-
-function FileView({
-	currentFile,
-	createFile,
-	deleteFile,
-	renameFile,
-	canDeleteFile,
-	setCurrentFile,
-	files,
-}: {
-	createFile: (filename: string) => void;
-	deleteFile: (filename: string) => void;
-	setCurrentFile: (filename: string) => void;
-	renameFile: (oldFilename: string, newFilename: string) => void;
-	canDeleteFile: (filename: string) => boolean;
-	currentFile: string;
-	files: string[];
-}) {
-	const [isCreatingFile, setCreatingFile] = useState(false);
-
-	return (
-		<div className="file-view">
-			<h2 className="files-heading">
-				Files
-				<button type="button" onClick={() => setCreatingFile(true)}>
-					<span className="sr-only">New</span>
-					<span aria-hidden={true}>+</span>
-				</button>
-			</h2>
-
-			<ul className="files-list">
-				{files.map((filename) => {
-					return (
-						<FileViewItem
-							key={filename}
-							isActive={filename === currentFile}
-							filename={filename}
-							canDelete={canDeleteFile(filename)}
-							onClick={() => {
-								setCurrentFile(filename);
-							}}
-							renameFile={(newFilename) => {
-								renameFile(filename, newFilename);
-							}}
-							deleteFile={() => {
-								deleteFile(filename);
-							}}
-						/>
-					);
-				})}
-			</ul>
-
-			{isCreatingFile && (
-				<FilenameInput
-					onSubmit={(filename) => {
-						createFile(filename);
-						setCreatingFile(false);
-					}}
-					onCancel={() => setCreatingFile(false)}
-				/>
-			)}
-		</div>
-	);
-}
-
-function FileViewItem({
-	filename,
-	isActive,
-	onClick,
-	deleteFile,
-	renameFile,
-	canDelete,
-}: {
-	filename: string;
-	canDelete: boolean;
-	isActive: boolean;
-	renameFile: (newFilename: string) => void;
-	onClick: () => void;
-	deleteFile: () => void;
-}) {
-	const [isRenaming, setIsRenaming] = useState(false);
-
-	const className = classnames(isActive && "active");
-
-	if (isRenaming) {
-		return (
-			<li>
-				<FilenameInput
-					onSubmit={(newFilename) => {
-						renameFile(newFilename);
-						setIsRenaming(false);
-					}}
-					onCancel={() => {
-						setIsRenaming(false);
-					}}
-					initialValue={filename}
-				/>
-			</li>
-		);
-	}
-
-	function onDeleteClick(e: React.MouseEvent | React.KeyboardEvent) {
-		e.preventDefault();
-		e.stopPropagation();
-		deleteFile();
-	}
-
-	function onRenameClick(e: React.MouseEvent | React.KeyboardEvent) {
-		e.preventDefault();
-		e.stopPropagation();
-		setIsRenaming(true);
-	}
-
-	return (
-		<li className={className} onClick={onClick} onKeyDown={onClick}>
-			{filename}
-
-			<button type="button" onClick={onRenameClick} onKeyDown={onRenameClick}>
-				Rename
-			</button>
-
-			{canDelete && (
-				<button type="button" onClick={onDeleteClick} onKeyDown={onDeleteClick}>
-					<span className="sr-only">Delete</span>
-					<span aria-hidden={true}>X</span>
-				</button>
-			)}
-		</li>
-	);
-}
-
-function FilenameInput({
-	onSubmit,
-	onCancel,
-	initialValue,
-}: {
-	onSubmit: (filename: string) => void;
-	onCancel: () => void;
-	initialValue?: string;
-}) {
-	const [filename, setFilename] = useState(initialValue ?? "");
-
-	function onKeyDown(e: React.KeyboardEvent) {
-		if (e.key === "Escape") {
-			onCancel();
-		}
-
-		if (e.key === "Enter") {
-			onSubmit(filename);
-		}
-	}
-
-	function onBlur() {
-		if (filename === "") {
-			onCancel();
-		} else {
-			onSubmit(filename);
-		}
-	}
-
-	function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-		setFilename(e.target.value);
-	}
-
-	return (
-		<input
-			type="text"
-			// biome-ignore lint/a11y/noAutofocus: Not sure how else to do this
-			autoFocus={true}
-			onKeyDown={onKeyDown}
-			onChange={onChange}
-			onBlur={onBlur}
-			value={filename}
-		/>
-	);
-}
-
 function SyntaxSettings({
-	filename,
-	setFilename,
 	unsafeParameterDecoratorsEnabled,
 	setUnsafeParameterDecoratorsEnabled,
 	setAllowComments,
@@ -582,8 +260,6 @@ function SyntaxSettings({
 	tailwindDirectives,
 	setTailwindDirectives,
 }: {
-	filename: string;
-	setFilename: (filename: string) => void;
 	unsafeParameterDecoratorsEnabled: boolean;
 	allowComments: boolean;
 	setUnsafeParameterDecoratorsEnabled: (value: boolean) => void;
@@ -597,8 +273,6 @@ function SyntaxSettings({
 	tailwindDirectives: boolean;
 	setTailwindDirectives: (value: boolean) => void;
 }) {
-	const isScript = isScriptFilename(filename);
-	const enumSelectId = useId();
 	const allowCommentsId = useId();
 	const decoratorsId = useId();
 	const experimentalEmbeddedSnippetsId = useId();
@@ -607,29 +281,8 @@ function SyntaxSettings({
 	const tailwindDirectivesId = useId();
 	return (
 		<>
-			<h2>Syntax options</h2>
+			<h2>Parser options</h2>
 			<section>
-				<div className="field-row">
-					<label htmlFor={enumSelectId}>Source Type</label>
-					<EnumSelect
-						id={enumSelectId}
-						name="sourceType"
-						options={{
-							[SourceType.Module]: "Module",
-							[SourceType.Script]: "Script",
-						}}
-						value={isScript ? SourceType.Script : SourceType.Module}
-						onChangeValue={(sourceType) => {
-							setFilename(
-								modifyFilename(filename, {
-									language: guessLanguage(filename),
-									script: sourceType === SourceType.Script,
-								}),
-							);
-						}}
-					/>
-				</div>
-
 				<div className="field-row">
 					<input
 						id={decoratorsId}
@@ -1005,8 +658,6 @@ function LinterSettings({
 	setLintRules,
 	enabledLinting,
 	setEnabledLinting,
-	analyzerFixMode,
-	setAnalyzerFixMode,
 	ruleDomains,
 	setRuleDomains,
 }: {
@@ -1014,8 +665,6 @@ function LinterSettings({
 	setLintRules: (value: LintRule) => void;
 	enabledLinting: boolean;
 	setEnabledLinting: (value: boolean) => void;
-	analyzerFixMode: FixFileMode;
-	setAnalyzerFixMode: (value: FixFileMode) => void;
 	ruleDomains: RuleDomains;
 	setRuleDomains: (value: RuleDomains) => void;
 }) {
@@ -1043,7 +692,6 @@ function LinterSettings({
 	const domainValues: RuleDomainValue[] = ["all", "recommended", "none"];
 	const lintingEnabled = useId();
 	const lintRulesId = useId();
-	const analyzerFixModeId = useId();
 	return (
 		<>
 			<h2>Linter options</h2>
@@ -1086,22 +734,6 @@ function LinterSettings({
 						)}
 					</select>
 				</div>
-				<div className="field-row">
-					<label htmlFor={analyzerFixModeId}>Fix Mode</label>
-					<select
-						id={analyzerFixModeId}
-						aria-describedby="analyzer-fix-mode-description"
-						name="analyzer-fix-mode"
-						disabled={!enabledLinting}
-						value={analyzerFixMode ?? "safeFixes"}
-						onChange={(e) => setAnalyzerFixMode(e.target.value as FixFileMode)}
-					>
-						<option value={"safeFixes"}>Safe Fixes</option>
-						<option value={"safeAndUnsafeFixes"}>Safe and Unsafe Fixes</option>
-						<option value={"applySuppressions"}>Apply Suppressions</option>
-					</select>
-				</div>
-
 				<h3>Domains</h3>
 				{domainConfigs.map(({ id, label }) => (
 					<div key={id} className="field-row">

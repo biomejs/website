@@ -1,13 +1,14 @@
 allowBuilds:
-  '@parcel/watcher': false
+  "@parcel/watcher": false
   esbuild: false
   sharp: false
   tombi: false
 linkWorkspacePackages: true
 minimumReleaseAgeExclude:
-  - '@astrojs/mdx@7.0.3'
-  - '@astrojs/netlify@8.1.2'
-  - '@biomejs/*'
+  - "@astrojs/mdx@7.0.3"
+  - "@astrojs/netlify@8.1.2"
+  - "@biomejs/*"
+  - "esrap@2.3.4"
 packages:
   - "scripts"
   - "./"
