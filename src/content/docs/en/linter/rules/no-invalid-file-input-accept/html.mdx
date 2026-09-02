@@ -1,0 +1,70 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noInvalidFileInputAccept (HTML)
+description: HTML documentation for noInvalidFileInputAccept
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-invalid-file-input-accept/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-invalid-file-input-accept/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noInvalidFileInputAccept`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`unicorn/no-invalid-file-input-accept`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-invalid-file-input-accept.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noInvalidFileInputAccept": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow invalid `accept` values on file inputs.
+
+An `accept` value must contain comma-separated filename extensions, MIME types, or
+the wildcard MIME types `audio/*`, `image/*`, and `video/*`.
+Browsers ignore invalid entries, so the file picker may not filter files as intended.
+
+## Examples
+
+### Invalid
+
+```html
+<input type="file" accept="image/jpg">
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:28 <a href=\"https://biomejs.dev/linter/rules/no-invalid-file-input-accept\">lint/nursery/noInvalidFileInputAccept</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Use </span><span style=\"color: Tomato;\"><strong>image/jpeg</strong></span><span style=\"color: Tomato;\"> as the file input </span><span style=\"color: Tomato;\"><strong>accept</strong></span><span style=\"color: Tomato;\"> value.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;input type=&quot;file&quot; accept=&quot;image/jpg&quot;&gt;<br />   <strong>   │ </strong>                           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">File input accept values must contain comma-separated filename extensions or valid MIME types.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use the normalized file input </span><span style=\"color: lightgreen;\"><strong>accept</strong></span><span style=\"color: lightgreen;\"> value.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">y</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">/</span><span style=\"color: Tomato;\"><strong>j</strong></span><span style=\"color: Tomato;\"><strong>p</strong></span><span style=\"color: Tomato;\"><strong>g</strong></span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">&gt;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">y</span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">f</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">/</span><span style=\"color: MediumSeaGreen;\"><strong>j</strong></span><span style=\"color: MediumSeaGreen;\"><strong>p</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>g</strong></span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">&gt;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```html
+<input type="file" accept="image/jpeg, .jpg">
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_invalid_file_input_accept.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noInvalidFileInputAccept)
+
