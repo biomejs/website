@@ -10,6 +10,7 @@ description: A page that maps rules from other sources to Biome
     
 ## Biome exclusive rules
 - [noAccumulatingSpread](/linter/rules/no-accumulating-spread/javascript)
+- [noBunModules](/linter/rules/no-bun-modules/javascript)
 - [noConstEnum](/linter/rules/no-const-enum/javascript)
 - [noDelete](/linter/rules/no-delete/javascript)
 - [noDynamicNamespaceImportAccess](/linter/rules/no-dynamic-namespace-import-access/javascript)
@@ -80,6 +81,9 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [jsx-no-leaked-dollar](https://eslint-react.xyz/docs/rules/jsx-no-leaked-dollar) |[noJsxLeakedDollar](/linter/rules/no-jsx-leaked-dollar/javascript) |
 | [jsx-no-namespace](https://eslint-react.xyz/docs/rules/jsx-no-namespace) |[noJsxNamespace](/linter/rules/no-jsx-namespace/javascript) |
 | [jsx-no-useless-fragment](https://eslint-react.xyz/docs/rules/jsx-no-useless-fragment) |[noUselessFragments](/linter/rules/no-useless-fragments/javascript) |
+| [naming-convention-context-name](https://eslint-react.xyz/docs/rules/naming-convention-context-name) |[useReactNamingConvention](/linter/rules/use-react-naming-convention/javascript) |
+| [naming-convention-id-name](https://eslint-react.xyz/docs/rules/naming-convention-id-name) |[useReactNamingConvention](/linter/rules/use-react-naming-convention/javascript) |
+| [naming-convention-ref-name](https://eslint-react.xyz/docs/rules/naming-convention-ref-name) |[useReactNamingConvention](/linter/rules/use-react-naming-convention/javascript) |
 | [no-array-index-key](https://eslint-react.xyz/docs/rules/no-array-index-key) |[noArrayIndexKey](/linter/rules/no-array-index-key/javascript) |
 | [no-forward-ref](https://eslint-react.xyz/docs/rules/no-forward-ref) |[noReactForwardRef](/linter/rules/no-react-forward-ref/javascript) |
 | [no-missing-key](https://eslint-react.xyz/docs/rules/no-missing-key) |[useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable/javascript) |
@@ -274,6 +278,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-unassigned-vars](https://eslint.org/docs/latest/rules/no-unassigned-vars) |[noUnassignedVariables](/linter/rules/no-unassigned-variables/javascript) |
 | [no-undef](https://eslint.org/docs/latest/rules/no-undef) |[noUndeclaredVariables](/linter/rules/no-undeclared-variables/javascript) |
 | [no-undef-init](https://eslint.org/docs/latest/rules/no-undef-init) |[noUselessUndefinedInitialization](/linter/rules/no-useless-undefined-initialization/javascript) |
+| [no-unmodified-loop-condition](https://eslint.org/docs/latest/rules/no-unmodified-loop-condition) |[noUnmodifiedLoopCondition](/linter/rules/no-unmodified-loop-condition/javascript) |
 | [no-unneeded-ternary](https://eslint.org/docs/latest/rules/no-unneeded-ternary) |[noUselessTernary](/linter/rules/no-useless-ternary/javascript) |
 | [no-unreachable](https://eslint.org/docs/latest/rules/no-unreachable) |[noUnreachable](/linter/rules/no-unreachable/javascript) |
 | [no-unsafe-finally](https://eslint.org/docs/latest/rules/no-unsafe-finally) |[noUnsafeFinally](/linter/rules/no-unsafe-finally/javascript) |
@@ -506,6 +511,12 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-leaked-dollar](https://eslint-react.xyz/docs/rules/jsx-no-leaked-dollar) |[noJsxLeakedDollar](/linter/rules/no-jsx-leaked-dollar/javascript) |
 | [no-namespace](https://eslint-react.xyz/docs/rules/jsx-no-namespace) |[noJsxNamespace](/linter/rules/no-jsx-namespace/javascript) |
 | [no-useless-fragment](https://eslint-react.xyz/docs/rules/jsx-no-useless-fragment) |[noUselessFragments](/linter/rules/no-useless-fragments/javascript) |
+### eslint-plugin-react-naming-convention
+| eslint-plugin-react-naming-convention Rules name | Biome Rules name |
+| ---- | ---- |
+| [context-name](https://eslint-react.xyz/docs/rules/naming-convention-context-name) |[useReactNamingConvention](/linter/rules/use-react-naming-convention/javascript) |
+| [id-name](https://eslint-react.xyz/docs/rules/naming-convention-id-name) |[useReactNamingConvention](/linter/rules/use-react-naming-convention/javascript) |
+| [ref-name](https://eslint-react.xyz/docs/rules/naming-convention-ref-name) |[useReactNamingConvention](/linter/rules/use-react-naming-convention/javascript) |
 ### eslint-plugin-react-native
 | eslint-plugin-react-native Rules name | Biome Rules name |
 | ---- | ---- |
@@ -566,7 +577,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-unicorn Rules name | Biome Rules name |
 | ---- | ---- |
 | [error-message](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/error-message.md) |[useErrorMessage](/linter/rules/use-error-message/javascript) |
-| [explicit-length-check](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/explicit-length-check.md) |[useExplicitLengthCheck](/linter/rules/use-explicit-length-check/javascript) |
+| [explicit-length-check](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/explicit-length-check.md) |[useExplicitLengthCheck](/linter/rules/use-explicit-length-check/javascript) (inspired) |
 | [filename-case](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/filename-case.md) |[useFilenamingConvention](/linter/rules/use-filenaming-convention/javascript) (inspired) |
 | [new-for-builtins](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/new-for-builtins.md) |[noInvalidBuiltinInstantiation](/linter/rules/no-invalid-builtin-instantiation/javascript) |
 | [no-array-for-each](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md) |[noForEach](/linter/rules/no-for-each/javascript) |
@@ -574,11 +585,13 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-empty-file](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-empty-file.md) |[noEmptySource](/linter/rules/no-empty-source/javascript) |
 | [no-for-loop](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-for-loop.md) |[useForOf](/linter/rules/use-for-of/javascript) |
 | [no-instanceof-array](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-instanceof-array.md) |[useIsArray](/linter/rules/use-is-array/javascript) |
+| [no-invalid-file-input-accept](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-invalid-file-input-accept.md) |[noInvalidFileInputAccept](/linter/rules/no-invalid-file-input-accept/javascript) |
 | [no-lonely-if](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-lonely-if.md) |[useCollapsedIf](/linter/rules/use-collapsed-if/javascript) |
 | [no-negation-in-equality-check](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-negation-in-equality-check.md) |[noNegationInEqualityCheck](/linter/rules/no-negation-in-equality-check/javascript) |
 | [no-nested-ternary](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-nested-ternary.md) |[noNestedTernary](/linter/rules/no-nested-ternary/javascript) (inspired) |
 | [no-static-only-class](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-static-only-class.md) |[noStaticOnlyClass](/linter/rules/no-static-only-class/javascript) |
 | [no-thenable](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-thenable.md) |[noThenProperty](/linter/rules/no-then-property/javascript) |
+| [no-this-outside-of-class](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-this-outside-of-class.md) |[noThisOutsideOfClass](/linter/rules/no-this-outside-of-class/javascript) |
 | [no-useless-switch-case](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-switch-case.md) |[noUselessSwitchCase](/linter/rules/no-useless-switch-case/javascript) |
 | [no-useless-undefined](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-undefined.md) |[noUselessUndefined](/linter/rules/no-useless-undefined/javascript) |
 | [numeric-separators-style](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/numeric-separators-style.md) |[useNumericSeparators](/linter/rules/use-numeric-separators/javascript) |
@@ -588,8 +601,10 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-at](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-at.md) |[useAtIndex](/linter/rules/use-at-index/javascript) (inspired) |
 | [prefer-date-now](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-date-now.md) |[useDateNow](/linter/rules/use-date-now/javascript) |
 | [prefer-dom-node-text-content](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-dom-node-text-content.md) |[useDomNodeTextContent](/linter/rules/use-dom-node-text-content/javascript) |
+| [prefer-flat-math-min-max](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-flat-math-min-max.md) |[useFlatMathMinMax](/linter/rules/use-flat-math-min-max/javascript) |
 | [prefer-global-this](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-global-this.md) |[useGlobalThis](/linter/rules/use-global-this/javascript) |
 | [prefer-math-min-max](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-math-min-max.md) |[useMathMinMax](/linter/rules/use-math-min-max/javascript) |
+| [prefer-modern-math-apis](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-modern-math-apis.md) |[useModernMathApis](/linter/rules/use-modern-math-apis/javascript) |
 | [prefer-module](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-module.md) |[noGlobalDirnameFilename](/linter/rules/no-global-dirname-filename/javascript) (inspired) |
 | [prefer-node-protocol](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md) |[useNodejsImportProtocol](/linter/rules/use-nodejs-import-protocol/javascript) |
 | [prefer-number-properties](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-number-properties.md) |[useNumberNamespace](/linter/rules/use-number-namespace/javascript) |
@@ -613,6 +628,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [next-tick-style](https://eslint.vuejs.org/rules/next-tick-style) |[useVueNextTickPromise](/linter/rules/use-vue-next-tick-promise/javascript) (inspired) |
 | [no-arrow-functions-in-watch](https://eslint.vuejs.org/rules/no-arrow-functions-in-watch) |[noVueArrowFuncInWatch](/linter/rules/no-vue-arrow-func-in-watch/javascript) |
 | [no-deprecated-data-object-declaration](https://eslint.vuejs.org/rules/no-deprecated-data-object-declaration) |[noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration/javascript) (inspired) |
+| [no-deprecated-dollar-scopedslots-api](https://eslint.vuejs.org/rules/no-deprecated-dollar-scopedslots-api) |[noVueDeprecatedScopedSlots](/linter/rules/no-vue-deprecated-scoped-slots/javascript) |
 | [no-dupe-keys](https://eslint.vuejs.org/rules/no-dupe-keys) |[noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys/javascript) |
 | [no-import-compiler-macros](https://eslint.vuejs.org/rules/no-import-compiler-macros) |[noVueImportCompilerMacros](/linter/rules/no-vue-import-compiler-macros/javascript) |
 | [no-ref-as-operand](https://eslint.vuejs.org/rules/no-ref-as-operand) |[noVueRefAsOperand](/linter/rules/no-vue-ref-as-operand/javascript) |

@@ -206,6 +206,7 @@ export const LINT_RULES = {
   nursery: {
     noAstroSetHtmlDirective: "noAstroSetHtmlDirective",
     noBaseToString: "noBaseToString",
+    noBunModules: "noBunModules",
     noComponentHookFactories: "noComponentHookFactories",
     noConditionalExpect: "noConditionalExpect",
     noDrizzleDeleteWithoutWhere: "noDrizzleDeleteWithoutWhere",
@@ -248,6 +249,7 @@ export const LINT_RULES = {
     noSvelteLegacyConst: "noSvelteLegacyConst",
     noSvelteUnnecessaryStateWrap: "noSvelteUnnecessaryStateWrap",
     noTailwindArbitraryValue: "noTailwindArbitraryValue",
+    noThisOutsideOfClass: "noThisOutsideOfClass",
     noTopLevelLiterals: "noTopLevelLiterals",
     noUndeclaredClasses: "noUndeclaredClasses",
     noUndeclaredCustomProperties: "noUndeclaredCustomProperties",
@@ -258,6 +260,7 @@ export const LINT_RULES = {
     noUntrustedLicenses: "noUntrustedLicenses",
     noUnusedClasses: "noUnusedClasses",
     noUselessTypeConversion: "noUselessTypeConversion",
+    noVueDeprecatedScopedSlots: "noVueDeprecatedScopedSlots",
     noVueImportCompilerMacros: "noVueImportCompilerMacros",
     noVueRefAsOperand: "noVueRefAsOperand",
     noVueVOnNumberValues: "noVueVOnNumberValues",
