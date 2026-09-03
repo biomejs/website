@@ -1072,6 +1072,7 @@ export default defineConfig({
 				SiteTitle: "./src/components/starlight/SiteTitle.astro",
 				Hero: "./src/components/starlight/Hero.astro",
 				LanguageSelect: "./src/components/starlight/LanguageSelect.astro",
+				MobileMenuFooter: "./src/components/starlight/MobileMenuFooter.astro",
 				Footer: "./src/components/starlight/Footer.astro",
 				PageSidebar: "./src/components/starlight/PageSidebar.astro",
 			},

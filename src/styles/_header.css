@@ -1,0 +1,55 @@
+/* Responsive header adjustments for the top navigation bar. */
+
+/*
+ * Between the mobile breakpoint (50rem = 800px) and the full desktop width
+ * (80rem = 1280px), the `.right-group` (social icons + theme + language +
+ * version selects) does not fit alongside the search box. Collapse the social
+ * icons down to the first three and tighten the gap so the version select
+ * (`v2.x`) stays visible and readable on notebooks without a horizontal
+ * scrollbar.
+ */
+@media (min-width: 50rem) and (max-width: 80rem) {
+	.header .social-icons a:nth-child(n + 4) {
+		display: none;
+	}
+
+	/* The trailing divider after the social icons looks orphaned once few
+	   icons remain, so drop it and tighten the remaining gap. */
+	.header .social-icons::after {
+		display: none;
+	}
+
+	.header .right-group,
+	.header .social-icons {
+		gap: 0.5rem;
+	}
+}
+
+/*
+ * On the narrowest of the desktop range (800px–1152px), the site title expands
+ * with its inline Docs / Enterprise / Playground links and crowds out the
+ * search box (which collapses to zero width) and the version select. Collapse
+ * the title back to just the logo so the search box and version select keep
+ * their space.
+ */
+@media (min-width: 50rem) and (max-width: 72rem) {
+	.header .title-wrapper .menu-items {
+		display: none;
+	}
+
+	.header .title-wrapper .separator {
+		display: none;
+	}
+}
+
+/*
+ * At the exact desktop breakpoint (800px) the header still uses a single-line
+ * layout and the full right-group (socials + theme + language + version)
+ * overhangs by a few pixels. Hide the social icons entirely until there is
+ * enough room (864px) so the version select never clips.
+ */
+@media (min-width: 50rem) and (max-width: 54rem) {
+	.header .social-icons {
+		display: none;
+	}
+}
