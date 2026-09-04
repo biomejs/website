@@ -306,6 +306,7 @@ export const LINT_RULES = {
     useThisInClassMethods: "useThisInClassMethods",
     useUnicodeRegex: "useUnicodeRegex",
     useVarsOnTop: "useVarsOnTop",
+    useVueBaseImport: "useVueBaseImport",
     useVueConsistentDefinePropsDeclaration: "useVueConsistentDefinePropsDeclaration",
     useVueNextTickPromise: "useVueNextTickPromise",
     useVueValidVFor: "useVueValidVFor",
