@@ -1,0 +1,34 @@
+---
+import { getCollection } from "astro:content";
+import { Icon } from "@astrojs/starlight/components";
+
+const plugins = await getCollection("plugins");
+---
+
+<table>
+	<thead>
+		<tr>
+			<th>Plugin URL</th>
+			<th>Packages</th>
+		</tr>
+	</thead>
+	<tbody>
+		{plugins.map(plugin =>
+		<tr>
+			<td>
+				<a href={plugin.data.url} target="_blank" rel="noopener">{plugin.data.id}
+					<Icon name="external"/>
+				</a>
+			</td>
+			<td>
+				<ul class="packages">
+					{plugin.data.packages?.map(pkg =>
+						<li><code>{pkg.name}</code>
+							<p>{pkg.description}</p></li>
+					)}
+				</ul>
+			</td>
+		</tr>
+	)}
+	</tbody>
+</table>
