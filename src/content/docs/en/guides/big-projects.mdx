@@ -233,48 +233,4 @@ considered root configurations. You won't be able to run Biome from the root of
 the repository, unless you use the `--config-path` CLI option and point it at
 one of the configurations.
 
-### Exporting a Biome configuration from an NPM package
-
-Biome is also able to resolve configuration files from the `node_modules/`
-folder. So you can export your configuration file from a package, and import it
-in multiple projects.
-
-In order to do so, the first thing to do is to set up your "shared" Biome
-configuration in a certain way. Let's suppose that you want to share a
-configuration from a package called `@org/shared-configs`, using the specifier
-`@org/shared-configs/biome`. You have to create an `exports` entry in the
-`package.json` of this package:
-
-```json title="package.json" ins={5,3}
-{
-  "name": "@org/shared-configs",
-  "type": "module",
-  "exports": {
-    "./biome": "./biome.json"
-  }
-}
-```
-
-Make sure that `@org/shared-configs` is correctly installed in your project, and
-update the `biome.json` file to look like the following snippet:
-
-```json title="biome.json"
-{
-  "extends": ["@org/shared-configs/biome"]
-}
-```
-
-Biome will attempt to resolve your library `@org/shared-configs/` from your
-working directory. The working directory is:
-
-- when using the CLI, the folder where you execute your scripts from.
-  Usually it matches the location of your `package.json` file;
-- when using the LSP, the root folder of your project.
-
-:::caution
-Paths starting with a dot `.` or ending with `.json` or `.jsonc` are always
-treated as relative paths, so they won't be resolved from `node_modules/`.
-:::
-
-For more information about the resolution algorithm, refer to the
-[Node.js documentation](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm).
+If you need to share your configuration file across multiple projects, you can do so by [publishing it as npm package](/guides/publish-packages).
