@@ -29,7 +29,7 @@
     "@astrojs/check": "0.9.10",
     "@astrojs/markdown-remark": "7.2.4",
     "@astrojs/mdx": "7.0.8",
-    "@astrojs/netlify": "8.2.4",
+    "@astrojs/netlify": "8.2.5",
     "@astrojs/prism": "4.0.2",
     "@astrojs/react": "6.0.4",
     "@astrojs/rss": "4.0.19",
