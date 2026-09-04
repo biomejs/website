@@ -331,6 +331,14 @@ export default defineConfig({
 								ru: "Применение Biome в крупных проектах",
 							},
 						},
+						{
+							label: "Publish packages",
+							link: "/guides/publish-packages",
+							badge: {
+								text: "new",
+								variant: "success",
+							},
+						},
 					],
 				},
 				{
