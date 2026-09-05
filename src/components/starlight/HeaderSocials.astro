@@ -1,0 +1,146 @@
+---
+/*
+ * Overflow shell for the header social icons. Renders its `<slot />` (the
+ * site's `SocialIcons`) inside a measuring shell and, on load, moves every
+ * link past the first three into a collapsible `⋯` menu. The menu is a native
+ * `<details>` element so it opens/closes with Escape and works with touch and
+ * keyboard focus without any scripting.
+ *
+ * The collapse only applies below 80rem (1280px). Above that the shell is
+ * wide enough for every icon, so the `⋯` stays hidden and all links render
+ * inline.
+ */
+---
+
+<div class="social-wrap sl-flex" data-social-overflow>
+	<slot />
+	<details class="social-overflow">
+		<summary>
+			<svg
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				fill="currentColor"
+				aria-hidden="true"
+			>
+				<circle cx="5" cy="12" r="1.5" />
+				<circle cx="12" cy="12" r="1.5" />
+				<circle cx="19" cy="12" r="1.5" />
+			</svg>
+			<span class="sr-only">More social links</span>
+		</summary>
+		<div class="social-overflow-panel"></div>
+	</details>
+</div>
+
+<style>
+@layer starlight.core {
+	.social-wrap {
+		position: relative;
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+		flex-wrap: nowrap;
+		min-width: 0;
+	}
+	.social-wrap > a {
+		color: var(--sl-color-text-accent);
+		padding: 0.5em;
+		margin: -0.5em;
+		flex: 0 0 auto;
+	}
+	.social-wrap > a:hover {
+		color: var(--sl-color-white);
+	}
+
+	.social-overflow {
+		display: none;
+	}
+	.social-overflow summary {
+		display: flex;
+		align-items: center;
+		border: 0;
+		background: transparent;
+		color: var(--sl-color-text-accent);
+		cursor: pointer;
+		padding: 0.5em;
+		margin: -0.5em;
+		list-style: none;
+	}
+	.social-overflow summary::-webkit-details-marker {
+		display: none;
+	}
+	.social-overflow summary:hover {
+		color: var(--sl-color-white);
+	}
+
+	@media (max-width: 80rem) {
+		.social-overflow {
+			display: flex;
+			align-items: center;
+		}
+		.social-overflow-panel {
+			position: absolute;
+			top: calc(100% + 0.5rem);
+			right: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0.25rem;
+			padding: 0.5rem;
+			border: 1px solid var(--sl-color-gray-5);
+			border-radius: 0.5rem;
+			background-color: var(--sl-color-black);
+			box-shadow: var(--sl-shadow-lg);
+		}
+		.social-overflow-panel a {
+			color: var(--sl-color-text-accent);
+			padding: 0.5em;
+			margin: -0.5em;
+			display: flex;
+		}
+		.social-overflow-panel a:hover {
+			color: var(--sl-color-white);
+		}
+	}
+}
+</style>
+
+<script>
+(() => {
+	const wrap = document.querySelector(
+		"[data-social-overflow]",
+	) as HTMLElement | null;
+	if (!wrap) return;
+
+	const panel = wrap.querySelector(
+		".social-overflow-panel",
+	) as HTMLElement | null;
+	if (!panel) return;
+
+	const isOverflowActive = () => window.innerWidth < 80 * 16; // 80rem = 1280px
+
+	const moveLinksToPanel = (links: Element[]) => {
+		for (const link of links) panel.append(link);
+	};
+	const moveLinksToWrap = (links: Element[]) => {
+		for (const link of links) wrap.append(link);
+	};
+
+	const sync = () => {
+		const mainLinks = Array.from(wrap.querySelectorAll(":scope > a"));
+		const panelLinks = Array.from(panel.children);
+
+		if (!isOverflowActive()) {
+			// Wide: all links inline
+			moveLinksToWrap(panelLinks);
+		} else {
+			// Narrow: collapse after first 3
+			moveLinksToPanel(mainLinks.slice(3));
+		}
+	};
+
+	window.addEventListener("resize", sync);
+	sync(); // Initial sync
+})();
+</script>

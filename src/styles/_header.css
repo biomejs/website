@@ -1,20 +1,13 @@
 /* Responsive header adjustments for the top navigation bar. */
 
 /*
- * Between the mobile breakpoint (50rem = 800px) and the full desktop width
- * (80rem = 1280px), the `.right-group` (social icons + theme + language +
- * version selects) does not fit alongside the search box. Collapse the social
- * icons down to the first three and tighten the gap so the version select
- * (`v2.x`) stays visible and readable on notebooks without a horizontal
- * scrollbar.
+ * On notebook/small-desktop widths the `.right-group` (social icons + theme +
+ * language + version selects) is too wide to sit alongside the search box.
+ * Tighten the gap and drop the social divider so the remaining space goes to
+ * the social overflow (`⋯`) handled by `HeaderSocials.astro`, keeping the
+ * version select (`v2.x`) visible without a horizontal scrollbar.
  */
 @media (min-width: 50rem) and (max-width: 80rem) {
-	.header .social-icons a:nth-child(n + 4) {
-		display: none;
-	}
-
-	/* The trailing divider after the social icons looks orphaned once few
-	   icons remain, so drop it and tighten the remaining gap. */
 	.header .social-icons::after {
 		display: none;
 	}
@@ -38,18 +31,6 @@
 	}
 
 	.header .title-wrapper .separator {
-		display: none;
-	}
-}
-
-/*
- * At the exact desktop breakpoint (800px) the header still uses a single-line
- * layout and the full right-group (socials + theme + language + version)
- * overhangs by a few pixels. Hide the social icons entirely until there is
- * enough room (864px) so the version select never clips.
- */
-@media (min-width: 50rem) and (max-width: 54rem) {
-	.header .social-icons {
 		display: none;
 	}
 }
