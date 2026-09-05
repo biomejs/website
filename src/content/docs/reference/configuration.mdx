@@ -3,6 +3,10 @@ title: Configuration
 description: Supported configuration options for biome.json and biome.jsonc.
 ---
 
+import { Code } from '@astrojs/starlight/components';
+import { getLatestVersion } from "@biomejs/version-utils";
+export const version = await getLatestVersion("stable");
+
 {/** Make sure to update the redirect in `static/_redirects` when changing the configuration title --> **/}
 
 This reference covers all supported options in `biome.json`/`biome.jsonc`. For a step-by-step introduction, see the [Configure Biome](/guides/configure-biome/) guide.
@@ -33,14 +37,12 @@ If `@biomejs/biome` is installed locally, reference the schema included in the n
 
 If your editor cannot resolve the local file, use the schema published on the Biome website:
 
-```json title="biome.json"
-{
-  "$schema": "https://biomejs.dev/schemas/latest/schema.json"
-}
-```
+<Code title="biome.json" lang="json" code={`{
+    "$schema": "https://biomejs.dev/schemas/${version}/schema.json"
+}`} />
 
 :::tip
-Replace `latest` with your installed Biome version, for example `2.5.10`, to get the most accurate validation and documentation.
+The version in the `$schema` URL above tracks Biome's latest stable release. If your project uses a different Biome version, replace it with that version to get accurate validation and documentation.
 
 Biome will also warn you when your `$schema` URL version doesn't match the package version.
 :::
