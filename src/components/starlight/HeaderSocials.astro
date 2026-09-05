@@ -118,6 +118,10 @@
 	) as HTMLElement | null;
 	if (!panel) return;
 
+	const details = wrap.querySelector(
+		".social-overflow",
+	) as HTMLDetailsElement | null;
+
 	const isOverflowActive = () => window.innerWidth < 80 * 16; // 80rem = 1280px
 
 	const moveLinksToPanel = (links: Element[]) => {
@@ -139,6 +143,19 @@
 			moveLinksToPanel(mainLinks.slice(3));
 		}
 	};
+
+	if (details) {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (details.open && !details.contains(event.target as Node)) {
+				details.open = false;
+			}
+		};
+		document.addEventListener("click", handleClickOutside);
+		// Clean up on page unload
+		window.addEventListener("beforeunload", () => {
+			document.removeEventListener("click", handleClickOutside);
+		});
+	}
 
 	window.addEventListener("resize", sync);
 	sync(); // Initial sync
