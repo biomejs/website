@@ -40,7 +40,7 @@ pub fn generate_lsp_docs() -> Result<()> {
         }
     }
 
-    let mdx_path = project_root().join("src/content/docs/reference/daemon.md");
+    let mdx_path = project_root().join("src/content/docs/en/reference/daemon.md");
     let mut content = fs::read_to_string(&mdx_path)?;
 
     let start_idx = content

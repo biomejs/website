@@ -327,6 +327,15 @@ export function GET() {
             "fixKind": "none",
             "docs": " Checks that the `initial-value` of an `@property` rule follows the value format declared by its `syntax`.\n\n Browsers do not register a custom property when its `initial-value` does not follow this\n format.\n\n For function values, this rule checks the function name but does not check its arguments.\n It leaves the browser to validate:\n\n - indexed or unknown `env()` values, whose result may depend on an index or fallback;\n - math functions whose result depends on their arguments, such as `calc()`, `min()`, and\n   `max()`, used with `<angle>`, `<integer>`, `<length>`, `<length-percentage>`, `<number>`,\n   `<percentage>`, `<resolution>`, or `<time>`;\n - color functions such as `rgb()` and `color-mix()` used with `<color>`;\n - image functions such as `linear-gradient()` and `image-set()` used with `<image>`;\n - transform functions such as `rotate()` and `translateX()` used with\n   `<transform-function>` or `<transform-list>`.\n\n ## Examples\n\n ### Invalid\n\n `red` is a color, not a length, so the browser does not register `--size`.\n\n ```css,expect_diagnostic\n @property --size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: red;\n }\n ```\n\n `#fff` is a color, not an image, so the browser does not register `--background-image`.\n\n ```css,expect_diagnostic\n @property --background-image {\n   syntax: \"<image>\";\n   inherits: false;\n   initial-value: #fff;\n }\n ```\n\n `<color>#` requires one or more colors separated by commas. The browser does not register\n `--palette` because `red blue` has no comma.\n\n ```css,expect_diagnostic\n @property --palette {\n   syntax: \"<color>#\";\n   inherits: false;\n   initial-value: red blue;\n }\n ```\n\n ### Valid\n\n Both `1rem` and `calc(1px + 2px)` use length values, so they follow their declared formats.\n\n ```css\n @property --size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: 1rem;\n }\n\n @property --calculated-size {\n   syntax: \"<length>\";\n   inherits: false;\n   initial-value: calc(1px + 2px);\n }\n ```\n\n"
           },
+          "noUndeclaredCustomProperties": {
+            "deprecated": false,
+            "version": "2.5.11",
+            "name": "noUndeclaredCustomProperties",
+            "link": "https://biomejs.dev/linter/rules/no-undeclared-custom-properties/css",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Reports custom properties used with `var()` that have no visible declaration.\n\n This rule checks custom properties defined by declarations such as `--theme: blue`,\n registrations such as `@property --theme`, imported stylesheets, linked stylesheets, and\n `<style>` blocks in HTML-like files. Files that aren't imported by the project\n aren't analyzed.\n\n Locally scoped styles in Vue, Svelte, and Astro are visible only within their component.\n Global styles can provide custom properties to imported child components.\n\n ## Examples\n\n ### Invalid\n\n ```css,file=invalid.css\n a {\n   color: var(--link-color);\n }\n ```\n\n ### Valid\n\n ```css,file=valid.css\n :root {\n   --link-color: blue;\n }\n\n a {\n   color: var(--link-color);\n }\n ```\n\n"
+          },
           "noUnusedClasses": {
             "deprecated": false,
             "version": "2.5.0",
@@ -393,7 +402,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow a lower specificity selector from coming after a higher specificity selector.\n\n Source order is important in CSS, and when two selectors have the same specificity, the one that occurs last will take priority.\n However, the situation is different when one of the selectors has a higher specificity.\n In that case, source order does not matter: the selector with higher specificity will win out even if it comes first.\n\n The clashes of these two mechanisms for prioritization, source order and specificity, can cause some confusion when reading stylesheets.\n If a selector with higher specificity comes before the selector it overrides, we have to think harder to understand it, because it violates the source order expectation.\n **Stylesheets are most legible when overriding selectors always come after the selectors they override.**\n That way both mechanisms, source order and specificity, work together nicely.\n\n This rule enforces that practice as best it can, reporting fewer errors than it should.\n It cannot catch every actual overriding selector, but it can catch certain common mistakes.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n b a { color: red; }\n a { color: red; }\n ```\n\n ```css,expect_diagnostic\n a {\n   & > b { color: red; }\n }\n b { color: red; }\n ```\n\n ```css,expect_diagnostic\n :root input {\n     color: red;\n }\n html input {\n     color: red;\n }\n ```\n\n\n ### Valid\n\n ```css\n a { color: red; }\n b a { color: red; }\n ```\n\n ```css\n b { color: red; }\n a {\n   & > b { color: red; }\n }\n ```\n\n ```css\n a:hover { color: red; }\n a { color: red; }\n ```\n\n ```css\n a b {\n     color: red;\n }\n /* This selector is overwritten by the one above it, but this is not an error because the rule only evaluates it as a compound selector */\n :where(a) :is(b) {\n     color: blue;\n }\n ```\n\n"
+            "docs": " Disallow a lower specificity selector from coming after a higher specificity selector.\n\n Source order is important in CSS, and when two selectors have the same specificity, the one that occurs last will take priority.\n However, the situation is different when one of the selectors has a higher specificity.\n In that case, source order does not matter: the selector with higher specificity will win out even if it comes first.\n\n The clashes of these two mechanisms for prioritization, source order and specificity, can cause some confusion when reading stylesheets.\n If a selector with higher specificity comes before the selector it overrides, we have to think harder to understand it, because it violates the source order expectation.\n **Stylesheets are most legible when overriding selectors always come after the selectors they override.**\n That way both mechanisms, source order and specificity, work together nicely.\n\n This rule enforces that practice as best it can, reporting fewer errors than it should.\n It cannot catch every actual overriding selector, but it can catch certain common mistakes.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n b a { color: red; }\n a { color: red; }\n ```\n\n ```css,expect_diagnostic\n a {\n   & > b { color: red; }\n }\n b { color: red; }\n ```\n\n ```css,expect_diagnostic\n :root input {\n     color: red;\n }\n html input {\n     color: red;\n }\n ```\n\n ```css,expect_diagnostic\n .a th {\n   color: red;\n }\n\n .a .b .c th {\n   color: green;\n }\n\n .a .b th {\n   color: blue;\n }\n ```\n\n\n ### Valid\n\n ```css\n a { color: red; }\n b a { color: red; }\n ```\n\n ```css\n b { color: red; }\n a {\n   & > b { color: red; }\n }\n ```\n\n ```css\n a:hover { color: red; }\n a { color: red; }\n ```\n\n ```css\n a b {\n     color: red;\n }\n /* This selector is overwritten by the one above it, but this is not an error because the rule only evaluates it as a compound selector */\n :where(a) :is(b) {\n     color: blue;\n }\n ```\n\n ```css\n .a th {\n   color: red;\n }\n\n @media print {\n   .a .b .c th {\n     color: green;\n   }\n }\n ```\n\n"
           },
           "noExcessiveLinesPerFile": {
             "deprecated": false,
@@ -635,7 +644,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow shorthand properties that override related longhand properties.\n\n For details on shorthand properties, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { padding-left: 10px; padding: 20px; }\n ```\n\n ### Valid\n\n ```css\n a { padding: 10px; padding-left: 20px; }\n ```\n\n ```css\n a { transition-property: opacity; } a { transition: opacity 1s linear; }\n ```\n\n"
+            "docs": " Disallow shorthand properties that override related longhand properties.\n\n For details on shorthand properties, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties).\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { padding-left: 10px; padding: 20px; }\n ```\n\n ```css,expect_diagnostic\n @keyframes fade {\n   from { margin-left: 1px; margin: 0; }\n }\n ```\n\n ### Valid\n\n ```css\n a { padding: 10px; padding-left: 20px; }\n ```\n\n ```css\n a { transition-property: opacity; } a { transition: opacity 1s linear; }\n ```\n\n ```css\n body { font-size: var(--font-size); }\n @supports (font: -apple-system-body) {\n   body { font-size: -apple-system-body; }\n }\n ```\n\n"
           },
           "noUnknownAtRules": {
             "deprecated": false,
@@ -1920,6 +1929,23 @@ export function GET() {
           }
         },
         "nursery": {
+          "noAstroSetHtmlDirective": {
+            "deprecated": false,
+            "version": "2.5.11",
+            "name": "noAstroSetHtmlDirective",
+            "link": "https://biomejs.dev/linter/rules/no-astro-set-html-directive/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintAstro": "no-set-html-directive"
+                }
+              }
+            ],
+            "docs": " Disallow the use of Astro's `set:html` directive.\n\n `set:html` renders HTML without escaping it. Using `set:html` can introduce cross-site scripting vulnerabilities.\n When raw HTML is required, sanitize the value before passing it to `set:html`, then suppress the diagnostic with an explanation.\n\n ## Examples\n\n ### Invalid\n\n ```astro,expect_diagnostic\n <div set:html={content} />\n ```\n\n ### Valid\n\n ```astro\n <div>{content}</div>\n ```\n\n ## References\n\n - [Astro `set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml)\n - [OWASP HTML sanitization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#html-sanitization)\n"
+          },
           "noInlineStyles": {
             "deprecated": false,
             "version": "2.4.9",
@@ -1936,6 +1962,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow the use of inline styles.\n\n Inline styles via the `style` attribute make code harder to maintain and override,\n prevent reusability of styling, and can be a security concern when implementing\n a strict Content Security Policy (CSP).\n\n Instead of inline styles, use CSS classes, CSS modules, or a styling library.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div style=\"color: red;\"></div>\n ```\n\n ```html,expect_diagnostic\n <p style=\"font-size: 14px;\">Hello</p>\n ```\n\n ### Valid\n\n ```html\n <div class=\"text-red\"></div>\n ```\n\n ```html\n <p class=\"body-text\">Hello</p>\n ```\n\n ## Resources\n\n - [Content Security Policy: Allowing inline styles](https://content-security-policy.com/examples/allow-inline-style)\n\n"
+          },
+          "noInvalidFileInputAccept": {
+            "deprecated": false,
+            "version": "2.5.12",
+            "name": "noInvalidFileInputAccept",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-file-input-accept/html",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-invalid-file-input-accept"
+                }
+              }
+            ],
+            "docs": " Disallow invalid `accept` values on file inputs.\n\n An `accept` value must contain comma-separated filename extensions, MIME types, or\n the wildcard MIME types `audio/*`, `image/*`, and `video/*`.\n Browsers ignore invalid entries, so the file picker may not filter files as intended.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"file\" accept=\"image/jpg\">\n ```\n\n ### Valid\n\n ```html\n <input type=\"file\" accept=\"image/jpeg, .jpg\">\n ```\n\n"
           },
           "noNonScalableViewport": {
             "deprecated": false,
@@ -1988,6 +2031,15 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Reports CSS class names in HTML `class` attributes that are not defined\n in any `<style>` block or linked stylesheet available to the file.\n\n When an HTML file has `<style>` blocks or `<link rel=\"stylesheet\">` elements,\n every class name used in `class=\"...\"` attributes is checked against the\n available class definitions. Classes that are not defined are reported.\n\n ## Framework style scoping\n\n Different frameworks scope their embedded styles differently. For the\n **same file**, both locally and globally scoped classes are considered\n valid — a scoped `<style>` block defines classes that are available to\n that component's own template. When traversing **parent files** (via\n upward import traversal), only globally scoped classes are visible:\n\n - **HTML** `<style>`: always global.\n - **Vue** `<style>` (no attribute): global.\n - **Vue** `<style scoped>`: local — visible within the same component,\n   not to child components.\n - **Astro** `<style>` (default): local — visible within the same component,\n   not to child components.\n - **Astro** `<style is:global>`: global.\n - **Svelte** `<style>` (default): local — visible within the same component,\n   not to child components. Individual selectors inside `:global(...)` within\n   a scoped block are still treated as global.\n\n ## Components\n\n Components (custom elements) are excluded from this check, as they may receive\n class names as props or use scoped styling. A component is identified by:\n - Tag names starting with an uppercase letter (e.g., `MyComponent`)\n - Tag names containing a hyphen (e.g., `my-component`)\n - Member expressions (e.g., `Component.Item`)\n\n ## No false positives on unstyled files\n\n If the file has no style information (no `<style>` blocks and no linked\n stylesheets), this rule does not emit diagnostics to avoid false positives.\n\n ## Examples\n\n ### Invalid\n\n ```html,ignore\n <style>.card { border: 1px solid; }</style>\n <div class=\"header\">Content</div>\n ```\n\n ### Valid\n\n ```html,ignore\n <style>.card { border: 1px solid; }</style>\n <div class=\"card\">Content</div>\n ```\n\n ```html,ignore\n <style>.card { border: 1px solid; }</style>\n <MyComponent class=\"any-class\">Components are not checked</MyComponent>\n ```\n\n"
+          },
+          "noUndeclaredCustomProperties": {
+            "deprecated": false,
+            "version": "2.5.11",
+            "name": "noUndeclaredCustomProperties",
+            "link": "https://biomejs.dev/linter/rules/no-undeclared-custom-properties/html",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Reports custom properties used with `var()` that have no visible declaration.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div style=\"color: var(--text-color)\"></div>\n ```\n\n ### Valid\n\n ```html\n <div style=\"--text-color: blue; color: var(--text-color)\"></div>\n ```\n\n"
           },
           "noVueVOnNumberValues": {
             "deprecated": false,
@@ -2254,7 +2306,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce hyphenated (kebab-case) attribute names in Vue templates.\n\n Vue style guide recommends using hyphenated attribute (and prop) names in templates to\n keep them consistent and distinguish them from JavaScript identifiers written in camelCase/PascalCase.\n\n This rule flags attributes that are detected as camelCase, PascalCase, CONSTANT_CASE, snake_case\n or that contain any uppercase ASCII letter. It uses Biome's internal `Case::identify` helper.\n\n Allowed:\n - kebab-case attributes (e.g. `data-test-id`)\n - pure lowercase single word attributes (e.g. `class`, `id`)\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div fooBar=\"x\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyComp :someProp=\"x\" />\n ```\n\n ### Valid\n\n ```vue\n <div data-test-id=\"x\"></div>\n <div class=\"foo\"></div>\n <MyComp :some-prop=\"x\" />\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ### `ignore`\n\n A list of attribute names that should be ignored by the rule (they won't be required to be hyphenated).\n Use this when you have a fixed set of camelCase / PascalCase prop names you intentionally allow.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\"someProp\", \"fooBar\"]\n   }\n }\n ```\n\n #### Valid (using `ignore`)\n\n ```vue,use_options\n <div fooBar=\"x\"></div>\n ```\n\n ### `ignoreTags`\n\n A list of tag names whose attributes should be skipped entirely.\n This is useful for third-party or internal components that deliberately expose non‑hyphenated prop names.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTags\": [\"MyComp\", \"AnotherWidget\"]\n   }\n }\n ```\n\n #### Valid (using `ignoreTags`)\n\n ```vue,use_options\n <MyComp :someProp=\"x\" />\n ```\n\n"
+            "docs": " Disallow uppercase letters in Vue template attribute names.\n\n Vue style guide recommends using hyphenated attribute (and prop) names in templates to\n keep them consistent and distinguish them from JavaScript identifiers written in camelCase/PascalCase.\n\n Like the upstream ESLint rule, this rule flags attribute names that contain uppercase letters.\n It doesn't require exact kebab-case, so punctuation such as colons and underscores is allowed.\n\n Allowed:\n - names without uppercase letters (e.g. `data-test-id`, `pt:header:id`, `some_attr`)\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div fooBar=\"x\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyComp :someProp=\"x\" />\n ```\n\n ### Valid\n\n ```vue\n <div data-test-id=\"x\"></div>\n <div class=\"foo\"></div>\n <MyComp :some-prop=\"x\" />\n <MyComp pt:header:data-test-id=\"x\" />\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ### `ignore`\n\n A list of attribute names that should be exempt from the uppercase-letter check.\n Use this when you have a fixed set of camelCase / PascalCase prop names you intentionally allow.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": [\"someProp\", \"fooBar\"]\n   }\n }\n ```\n\n #### Valid (using `ignore`)\n\n ```vue,use_options\n <div fooBar=\"x\"></div>\n ```\n\n ### `ignoreTags`\n\n A list of tag names whose attributes should be exempt from the uppercase-letter check.\n This is useful for third-party or internal components that deliberately expose camelCase or PascalCase prop names.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreTags\": [\"MyComp\", \"AnotherWidget\"]\n   }\n }\n ```\n\n #### Valid (using `ignoreTags`)\n\n ```vue,use_options\n <MyComp :someProp=\"x\" />\n ```\n\n"
           }
         }
       },
@@ -2573,7 +2625,7 @@ export function GET() {
             "name": "noThisInStatic",
             "link": "https://biomejs.dev/linter/rules/no-this-in-static/javascript",
             "recommended": true,
-            "fixKind": "safe",
+            "fixKind": "unsafe",
             "sources": [
               {
                 "kind": "sameLogic",
@@ -3346,7 +3398,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Forbid the use of Node.js builtin modules.\n\n This can be useful for client-side web projects that don't have access to those modules.\n\n The rule also isn't triggered if there are dependencies declared in the `package.json` that match\n the name of a built-in Node.js module.\n\n Type-only imports are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import fs from \"fs\";\n ```\n\n ```js,expect_diagnostic\n import path from \"node:path\";\n ```\n\n ### Valid\n\n ```js\n import fs from \"fs-custom\";\n ```\n\n ```ts\n import type path from \"node:path\";\n ```\n"
+            "docs": " Forbid the use of Node.js builtin modules.\n\n This can be useful for client-side web projects that don't have access to those modules.\n\n The rule doesn't trigger if there are dependencies declared in the `package.json` that match\n the name of a built-in Node.js module.\n\n Type-only imports are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import fs from \"fs\";\n ```\n\n ```js,expect_diagnostic\n import path from \"node:path\";\n ```\n\n ### Valid\n\n ```js\n import fs from \"fs-custom\";\n ```\n\n ```ts\n import type path from \"node:path\";\n ```\n"
           },
           "noNonoctalDecimalEscape": {
             "deprecated": false,
@@ -3974,6 +4026,15 @@ export function GET() {
             ],
             "docs": " Require stringification to avoid values that only use the default object representation.\n\n JavaScript coerces values to strings in several places, such as `String(value)`,\n `value.toString()`, string concatenation, template interpolation, and `Array#join()`.\n When the value only inherits the default object stringification, that often produces\n `\"[object Object]\"` instead of something intentionally readable.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-string.ts\n const value: {} = {};\n String(value);\n ```\n\n ```ts,expect_diagnostic,file=invalid-template.ts\n const value: {} = {};\n `${value}`;\n ```\n\n ```ts,expect_diagnostic,file=invalid-join.ts\n const values: {}[] = [{}];\n values.join(\",\");\n ```\n\n ### Valid\n\n ```ts\n String(1);\n ```\n\n ```ts\n class CustomToString {\n     toString() {\n         return \"ok\";\n     }\n }\n\n `${new CustomToString()}`;\n ```\n"
           },
+          "noBunModules": {
+            "deprecated": false,
+            "version": "2.5.12",
+            "name": "noBunModules",
+            "link": "https://biomejs.dev/linter/rules/no-bun-modules/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Forbid the use of Bun builtin modules.\n\n This can be useful for client-side web projects that don't have access to those modules.\n\n The rule doesn't trigger if there are dependencies declared in the `package.json` that match\n the name of a built-in Bun module.\n\n Type-only imports are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { Database } from \"bun:sqlite\";\n ```\n\n ### Valid\n\n ```js\n import { Database } from \"custom-sqlite\";\n ```\n\n ```ts\n import type { DatabaseOptions } from \"bun:sqlite\";\n ```\n"
+          },
           "noConditionalExpect": {
             "deprecated": false,
             "version": "2.4.2",
@@ -4444,6 +4505,23 @@ export function GET() {
             ],
             "docs": " Disallow unnecessary `$state` wrapping of reactive classes.\n\n Several classes exported from `svelte/reactivity` — such as `SvelteMap`, `SvelteSet`, and\n `SvelteDate` — are already deeply reactive without the `$state` rune. Wrapping them in\n `$state(...)` is redundant and may mislead readers into thinking the reactivity comes from\n the rune rather than the class itself.\n\n Use the `additionalReactiveClasses` option to extend this list with custom reactive classes\n from your own codebase.\n\n Use `allowReassign: true` if you need to reassign the variable itself after declaration,\n which requires `$state` to track the reference change.\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n <script>\n import { SvelteMap } from \"svelte/reactivity\";\n const map = $state(new SvelteMap());\n </script>\n ```\n\n ### Valid\n\n ```svelte\n <script>\n import { SvelteMap } from \"svelte/reactivity\";\n const map = new SvelteMap();\n </script>\n ```\n\n ## Options\n\n ### `allowReassign`\n\n When `true`, suppresses the autofix for variables that are reassigned after declaration.\n Because reassigning a `$state`-wrapped value changes the binding itself, removing `$state`\n would break reactivity for those reassignments. The diagnostic still fires — only the\n unsafe autofix is withheld.\n\n Default: `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowReassign\": true\n   }\n }\n ```\n ```svelte,expect_diagnostic,use_options\n <script>\n import { SvelteMap } from \"svelte/reactivity\";\n const map = $state(new SvelteMap());\n </script>\n ```\n\n ```svelte,expect_diagnostic,use_options\n <script>\n import { SvelteMap } from \"svelte/reactivity\";\n let map = $state(new SvelteMap());\n map = new SvelteMap();\n </script>\n ```\n\n ### `additionalReactiveClasses`\n\n An array of additional class names to treat as already reactive (beyond the built-in\n `svelte/reactivity` classes). Use this to extend the rule with custom reactive classes\n from your own codebase.\n\n ```json,options\n {\n   \"options\": {\n     \"additionalReactiveClasses\": [\"MyReactiveStore\"]\n   }\n }\n ```\n\n #### Invalid\n\n ```svelte,expect_diagnostic,use_options\n <script>\n const store = $state(new MyReactiveStore());\n </script>\n ```\n\n #### Valid\n\n ```svelte,use_options\n <script>\n const store = new MyReactiveStore();\n </script>\n ```\n\n"
           },
+          "noThisOutsideOfClass": {
+            "deprecated": false,
+            "version": "2.5.12",
+            "name": "noThisOutsideOfClass",
+            "link": "https://biomejs.dev/linter/rules/no-this-outside-of-class/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-this-outside-of-class"
+                }
+              }
+            ],
+            "docs": " Disallow `this` outside of classes.\n\n `this` can make its value difficult to understand. The rule allows `this` in class members and\n in TypeScript functions with an explicit `this` parameter.\n\n An arrow function uses `this` from the code around it. Therefore, `this` is allowed in an\n arrow function inside a class member or a TypeScript function with an explicit `this`\n parameter.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function Person(name) {\n     this.name = name;\n }\n ```\n\n ```js,expect_diagnostic\n const getName = function () {\n     return this.name;\n };\n ```\n\n ```js,expect_diagnostic\n (function () {\n     this.initialize();\n })();\n ```\n\n ```js,expect_diagnostic\n const person = {\n     getName() {\n         return this.name;\n     },\n };\n ```\n\n ### Valid\n\n ```js\n class Person {\n     constructor(name) {\n         this.name = name;\n     }\n\n     getName = () => this.name;\n }\n ```\n\n ```ts\n function getName(this: Person) {\n     return this.name;\n }\n ```\n\n"
+          },
           "noUndeclaredClasses": {
             "deprecated": false,
             "version": "2.5.0",
@@ -4452,6 +4530,32 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Reports CSS class names in JSX `className` or `class` attributes that are not defined\n in any imported CSS file.\n\n When a JSX file imports CSS files, every class name used in `className=` or `class=`\n attributes is checked against the available class definitions. Classes that are not\n defined are reported.\n\n This rule checks string literals, variable references (resolved through the semantic\n model), call expressions like `clsx(...)` / `classnames(...)`, object expression keys,\n and array expressions. Dynamic class names that cannot be statically resolved are\n silently skipped.\n\n In Astro files, `class:list={...}` directives and `class={...}` attribute expressions\n are also checked. CSS files imported in the frontmatter (`import \"./styles.css\"`) are\n included in the class resolution.\n\n ## Examples\n\n ### Invalid\n\n ```js,ignore\n import \"./styles.css\";\n export default () => <div className=\"missing\" />;\n ```\n\n ### Valid\n\n ```js,ignore\n import \"./styles.css\";\n export default () => <div className=\"header\" />;\n ```\n\n"
+          },
+          "noUndeclaredCustomProperties": {
+            "deprecated": false,
+            "version": "2.5.11",
+            "name": "noUndeclaredCustomProperties",
+            "link": "https://biomejs.dev/linter/rules/no-undeclared-custom-properties/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Reports custom properties used with `var()` that have no visible declaration.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div style=\"color: var(--text-color)\" />\n ```\n\n ### Valid\n\n ```jsx\n <div style=\"--text-color: blue; color: var(--text-color)\" />\n ```\n\n"
+          },
+          "noUnmodifiedLoopCondition": {
+            "deprecated": false,
+            "version": "2.5.12",
+            "name": "noUnmodifiedLoopCondition",
+            "link": "https://biomejs.dev/linter/rules/no-unmodified-loop-condition/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-unmodified-loop-condition"
+                }
+              }
+            ],
+            "docs": " Disallow loop conditions whose variables are never modified in the loop.\n\n A variable in a loop condition usually changes during the loop. If it does not,\n the loop may never terminate or may not run as intended.\n\n Binary and conditional expressions are checked as a group. The condition is\n considered modified when any variable in the group changes in the loop.\n References inside dynamic expressions, such as function calls and property accesses,\n are ignored because their values may change without a local assignment. A binary or\n conditional expression containing a dynamic expression is ignored as a group.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let node = getNode();\n while (node) {\n     process(node);\n }\n ```\n\n ```js,expect_diagnostic\n for (let index = 0; index < 5;) {\n     process(index);\n }\n ```\n\n ### Valid\n\n ```js\n let node = getNode();\n while (node) {\n     process(node);\n     node = node.parent;\n }\n ```\n\n ```js\n for (let index = 0; index < items.length; index++) {\n     process(items[index]);\n }\n ```\n\n ```js\n while (object.ready) {\n     process(object);\n }\n ```\n\n"
           },
           "noUnnecessaryTemplateExpression": {
             "deprecated": false,
@@ -4503,6 +4607,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow type conversions that do not change the type of an expression.\n\n This rule reports common conversion patterns when the converted expression\n is already known to have the target base type (AKA primitive type).\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-string.ts\n const text: string = \"text\";\n String(text);\n ```\n\n ```ts,expect_diagnostic,file=invalid-boolean.ts\n const value: boolean = true;\n !!value;\n ```\n\n ```ts,expect_diagnostic,file=invalid-assignment.ts\n let str = \"text\";\n str += \"\";\n ```\n\n ### Valid\n\n Genuine conversions are allowed.\n ```ts\n String(1);\n !!0;\n ```\n\n Unboxing boxed values is allowed.\n ```ts\n String(new String());\n ```\n"
+          },
+          "noVueDeprecatedScopedSlots": {
+            "deprecated": false,
+            "version": "2.5.12",
+            "name": "noVueDeprecatedScopedSlots",
+            "link": "https://biomejs.dev/linter/rules/no-vue-deprecated-scoped-slots/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-deprecated-dollar-scopedslots-api"
+                }
+              }
+            ],
+            "docs": " Disallow the deprecated Vue `$scopedSlots` API.\n\n Vue 3 unifies normal and scoped slots under `$slots`. Replace `$scopedSlots` with `$slots` when migrating a component from Vue 2.\n\n See the [Vue 3 migration guide](https://v3-migration.vuejs.org/breaking-changes/slots-unification.html) for more information.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   render() {\n     return this.$scopedSlots.default;\n   }\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   render() {\n     return this.$slots.default;\n   }\n };\n </script>\n ```\n"
           },
           "noVueImportCompilerMacros": {
             "deprecated": false,
@@ -4684,6 +4805,23 @@ export function GET() {
             ],
             "docs": " Ensure that test functions contain at least one `expect()` or similar assertion.\n\n Tests without assertions may pass even when behavior is broken, leading to\n false confidence in the test suite. This rule ensures that every test\n validates some expected behavior using `expect()` or an allowed variant thereof.\n \n ### Allowed `expect` variants\n \n - [`assert`](https://www.chaijs.com/api/assert/)\n - [`expectTypeOf`](https://github.com/mmkal/expect-type)\n - [`assertType`](https://vitest.dev/api/assert-type)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"no assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await page.click(\"button\");\n });\n ```\n\n ### Valid\n\n ```js\n test(\"has assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n ```js\n it(\"soft assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect.soft(page.locator(\"h1\")).toBeVisible();\n });\n ```\n \n Variant assertions are allowed:\n ```js\n it(\"returns bar when passed foo\", () => {\n   assert(myFunc(\"foo\") === \"bar\", \"didn't return bar\");\n });\n ```\n\n ```ts\n it(\"should allow passing 'foo' as an argument\", () => {\n   expectTypeOf(myFunc).toBeCallableWith(\"foo\");\n });\n ```\n ```ts\n it(\"should have proper type\", () => {\n   assertType<(n: string) => string>(myFunc);\n });\n ```\n (This replicates the rule's behavior in eslint-plugin-vitest with `typecheck` set to `true`.)\n\n"
           },
+          "useFlatMathMinMax": {
+            "deprecated": false,
+            "version": "2.5.12",
+            "name": "useFlatMathMinMax",
+            "link": "https://biomejs.dev/linter/rules/use-flat-math-min-max/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "prefer-flat-math-min-max"
+                }
+              }
+            ],
+            "docs": " Prefer flat `Math.min()` and `Math.max()` calls over nested calls of the same method.\n\n `Math.min()` and `Math.max()` accept any number of arguments, so nesting the same call is unnecessary.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const biggest = Math.max(Math.max(a, b), c);\n ```\n\n ```js,expect_diagnostic\n const smallest = Math.min(a, Math.min(b, c));\n ```\n\n ### Valid\n\n ```js\n const biggest = Math.max(a, b, c);\n const clamped = Math.max(Math.min(value, upper), lower);\n ```\n\n"
+          },
           "useImportsFirst": {
             "deprecated": false,
             "version": "2.4.7",
@@ -4734,6 +4872,23 @@ export function GET() {
               }
             ],
             "docs": " Prefer `Math.min()` and `Math.max()` over ternaries for simple comparisons.\n\n Replacing ternary comparisons like `a > b ? b : a` with `Math.min(a, b)` makes the intent clearer and keeps equivalent min/max comparisons consistent across a codebase.\n\n This rule only targets straightforward min/max ternaries and ignores operands that are obviously not numeric, such as `bigint` and `Date` values.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n height > 50 ? 50 : height;\n ```\n\n ```js,expect_diagnostic\n height < 50 ? 50 : height;\n ```\n\n ### Valid\n\n ```js\n Math.min(height, 50);\n ```\n\n ```js\n Math.max(height, 50);\n ```\n\n ```js\n foo ? foo : bar;\n ```\n\n"
+          },
+          "useModernMathApis": {
+            "deprecated": false,
+            "version": "2.5.12",
+            "name": "useModernMathApis",
+            "link": "https://biomejs.dev/linter/rules/use-modern-math-apis/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "prefer-modern-math-apis"
+                }
+              }
+            ],
+            "docs": " Use modern `Math` APIs for common mathematical operations.\n\n Dedicated `Math` methods express mathematical intent directly and avoid reimplementing standard operations.\n This rule recognizes logarithm conversions, sums of squares, and square roots of squared values.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Math.log(x) * Math.LOG10E;\n ```\n\n ```js,expect_diagnostic\n Math.sqrt(a * a + b * b);\n ```\n\n ```js,expect_diagnostic\n Math.sqrt(x ** 2);\n ```\n\n ### Valid\n\n ```js\n Math.log10(x);\n Math.hypot(a, b);\n Math.abs(x);\n ```\n\n"
           },
           "useNamedCaptureGroup": {
             "deprecated": false,
@@ -5032,6 +5187,23 @@ export function GET() {
               }
             ],
             "docs": " Require `var` declarations to appear at the top of their containing scope.\n\n Because `var` declarations are hoisted to the top of the nearest function,\n script, module, or static block, placing them later in the body makes code\n harder to follow. Keeping them at the top makes the scope's variable\n declarations easier to find. Note that this is not a problem for `let` and\n `const` declarations, which are block-scoped and not hoisted.\n\n This rule only allows leading standalone `var` statements. At module\n scope, leading `export var` declarations are allowed too. Directives and\n imports may appear before them.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f() {\n     doSomething();\n     var value = 1;\n }\n ```\n\n ### Valid\n\n ```js\n function f() {\n     var value = 1;\n     doSomething(value);\n }\n ```\n\n Related:\n - [noVar](https://biomejs.dev/linter/rules/no-var/)\n - [useConst](https://biomejs.dev/linter/rules/use-const/)\n"
+          },
+          "useVueBaseImport": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useVueBaseImport",
+            "link": "https://biomejs.dev/linter/rules/use-vue-base-import/javascript",
+            "recommended": true,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "prefer-import-from-vue"
+                }
+              }
+            ],
+            "docs": " Enforce importing Vue's public entry point instead of internal Vue packages.\n\n The `@vue/runtime-dom`, `@vue/runtime-core`, `@vue/reactivity`, and `@vue/shared` packages are internal implementation packages. Their public exports should be imported from `vue` instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { computed } from \"@vue/reactivity\";\n ```\n\n ```js,expect_diagnostic\n export * from \"@vue/shared\";\n ```\n\n ### Valid\n\n ```js\n import { computed } from \"vue\";\n import { internalOnly } from \"@vue/reactivity\";\n ```\n\n"
           },
           "useVueConsistentDefinePropsDeclaration": {
             "deprecated": false,
@@ -5944,7 +6116,7 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslintUnicorn": "explicit-length-check"
                 }
@@ -9013,6 +9185,23 @@ export function GET() {
             ],
             "docs": " Disallows defining React components or custom hooks inside other functions.\n\n Defining components or hooks inside other functions creates new instances on every call.\n React treats each new instance as a completely different component, which destroys and\n recreates the entire component subtree on each render and causes all state to be lost.\n\n ## Examples\n\n ### Invalid\n\n A component is defined inside a factory function:\n\n ```jsx,expect_diagnostic\n function makeComponent(label) {\n   function MyComponent() {\n     return <div>{label}</div>;\n   }\n   return MyComponent;\n }\n ```\n\n A hook is defined inside a factory function:\n\n ```jsx,expect_diagnostic\n function makeHook(key) {\n   function useMyHook() {\n     return useState(key);\n   }\n   return useMyHook;\n }\n ```\n\n ### Valid\n\n Components and hooks defined at the module level:\n\n ```jsx\n function MyComponent() {\n   return <div>Hello</div>;\n }\n\n function useMyHook() {\n   return useState(0);\n }\n ```\n\n Higher-order components that receive a component as a parameter are allowed:\n\n ```jsx\n function withAuth(WrappedComponent) {\n   function AuthenticatedComponent(props) {\n     return <WrappedComponent {...props} />;\n   }\n   return AuthenticatedComponent;\n }\n ```\n\n"
           },
+          "noInvalidFileInputAccept": {
+            "deprecated": false,
+            "version": "2.5.12",
+            "name": "noInvalidFileInputAccept",
+            "link": "https://biomejs.dev/linter/rules/no-invalid-file-input-accept/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-invalid-file-input-accept"
+                }
+              }
+            ],
+            "docs": " Disallow invalid `accept` values on file inputs.\n\n An `accept` value must contain comma-separated filename extensions, MIME types, or\n the wildcard MIME types `audio/*`, `image/*`, and `video/*`.\n Browsers ignore invalid entries, so the file picker may not filter files as intended.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <input type=\"file\" accept=\"image/jpg\" />\n ```\n\n ### Valid\n\n ```jsx\n <input type=\"file\" accept=\"image/jpeg, .jpg\" />\n ```\n\n"
+          },
           "noJsxLeakedDollar": {
             "deprecated": false,
             "version": "2.4.13",
@@ -9166,6 +9355,53 @@ export function GET() {
               }
             ],
             "docs": " Enforce a specific function type for React function components.\n\n This rule keeps function component definitions consistent. By default, named\n components must be written as function declarations.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n ## Options\n\n ### `namedComponents`\n\n The function style to enforce for named React components.\n Accepted values are:\n - `\"functionDeclaration\"` (default): Enforce function declarations.\n - `\"functionExpression\"`: Enforce function expressions assigned to component bindings.\n - `\"arrowFunction\"`: Enforce arrow functions assigned to component bindings.\n\n #### `\"functionDeclaration\"`\n\n ```json,options\n {\n   \"options\": {\n     \"namedComponents\": \"functionDeclaration\"\n   }\n }\n ```\n\n ##### Invalid\n\n ```jsx,use_options,expect_diagnostic\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n ##### Valid\n\n ```jsx,use_options\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n #### `\"functionExpression\"`\n\n ```json,options\n {\n   \"options\": {\n     \"namedComponents\": \"functionExpression\"\n   }\n }\n ```\n\n ##### Invalid\n\n ```jsx,use_options,expect_diagnostic\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n ```jsx,use_options,expect_diagnostic\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n ##### Valid\n\n ```jsx,use_options\n const MyComponent = function (props) {\n   return <div>{props.name}</div>;\n };\n ```\n\n #### `\"arrowFunction\"`\n\n ```json,options\n {\n   \"options\": {\n     \"namedComponents\": \"arrowFunction\"\n   }\n }\n ```\n\n ##### Invalid\n\n ```jsx,use_options,expect_diagnostic\n function MyComponent(props) {\n   return <div>{props.name}</div>;\n }\n ```\n\n ```jsx,use_options,expect_diagnostic\n const MyComponent = function (props) {\n   return <div>{props.name}</div>;\n };\n ```\n\n ##### Valid\n\n ```jsx,use_options\n const MyComponent = (props) => {\n   return <div>{props.name}</div>;\n };\n ```\n\n"
+          },
+          "useReactNamingConvention": {
+            "deprecated": false,
+            "version": "2.5.12",
+            "name": "useReactNamingConvention",
+            "link": "https://biomejs.dev/linter/rules/use-react-naming-convention/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "naming-convention-context-name"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactNamingConvention": "context-name"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "naming-convention-id-name"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactNamingConvention": "id-name"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "naming-convention-ref-name"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactNamingConvention": "ref-name"
+                }
+              }
+            ],
+            "docs": " Enforces naming conventions for React `createContext`, `useId`, and `useRef`.\n\n This rules checks the variable a React API hook is assigned to\n and enforces a name convention to make the intent of a value obvious at a glance:\n\n - A value assigned from `createContext` must be a valid component name (PascalCase) with\n   the suffix `Context`, for example `ThemeContext`.\n - A value assigned from `useId` must be named `id` or a valid camelCase name ending with\n   `Id`, for example `myId`.\n - A value assigned from `useRef` must be named `ref` or a valid camelCase name ending with\n   `Ref`, for example `myRef`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n import { createContext } from \"react\";\n const theme = createContext(\"\");\n ```\n\n ```jsx,expect_diagnostic\n import { useId } from \"react\";\n const randomString = useId();\n ```\n\n ```jsx,expect_diagnostic\n import { useRef } from \"react\";\n const node = useRef(null);\n ```\n\n ### Valid\n\n ```jsx\n import { createContext } from \"react\";\n const ThemeContext = createContext(\"\");\n ```\n\n ```jsx\n import { useId } from \"react\";\n const myId = useId();\n ```\n\n ```jsx\n import { useRef } from \"react\";\n const myRef = useRef(null);\n ```\n\n"
           },
           "useTailwindShorthandClasses": {
             "deprecated": false,
@@ -10344,7 +10580,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 577
+    "numberOrRules": 591
   },
   "syntax": {
     "languages": {

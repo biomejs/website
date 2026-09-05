@@ -1,0 +1,179 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: "https://github.com/biomejs/website/edit/main/codegen/src/lintdoc.rs"
+
+title: HTML Rules
+description: List of available lint rules for HTML
+localized: false
+---
+
+
+import { Icon } from "@astrojs/starlight/components";
+
+Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
+- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle" label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
+- The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
+- The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
+- The icon <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" /></span> indicates that the rule has been implemented and scheduled for the next release.
+
+## `a11y`
+
+| Rule name | Description | Properties |
+| --- | --- | --- |
+| [noAccessKey](/linter/rules/no-access-key/html) | Enforce that the `accesskey` attribute is not used on any HTML element. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text/html) | Disallow ambiguous anchor descriptions. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable/html) | Enforce that aria-hidden="true" is not set on focusable elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noAriaUnsupportedElements](/linter/rules/no-aria-unsupported-elements/html) | Enforce that elements that do not support ARIA roles, states, and properties do not have those attributes. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noAutofocus](/linter/rules/no-autofocus/html) | Enforce that the `autofocus` attribute is not used on elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noDistractingElements](/linter/rules/no-distracting-elements/html) | Enforces that no distracting elements are used. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noHeaderScope](/linter/rules/no-header-scope/html) | The scope prop should be used only on `<th>` elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noInteractiveElementToNoninteractiveRole](/linter/rules/no-interactive-element-to-noninteractive-role/html) | Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noLabelWithoutControl](/linter/rules/no-label-without-control/html) | Enforce that a label element or component has a text label and an associated input. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noNoninteractiveElementInteractions](/linter/rules/no-noninteractive-element-interactions/html) | Disallow use event handlers on non-interactive elements. |  |
+| [noNoninteractiveElementToInteractiveRole](/linter/rules/no-noninteractive-element-to-interactive-role/html) | Enforce that interactive ARIA roles are not assigned to non-interactive HTML elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noNoninteractiveTabindex](/linter/rules/no-noninteractive-tabindex/html) | Enforce that `tabindex` is not assigned to non-interactive HTML elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noPositiveTabindex](/linter/rules/no-positive-tabindex/html) | Prevent the usage of positive integers on `tabindex` attribute. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noRedundantAlt](/linter/rules/no-redundant-alt/html) | Enforce `img` alt prop does not contain the word "image", "picture", or "photo". | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noRedundantRoles](/linter/rules/no-redundant-roles/html) | Enforce explicit `role` property is not the same as implicit/default role property on an element. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noStaticElementInteractions](/linter/rules/no-static-element-interactions/html) | Enforce that static, visible elements (such as `<div>`) that have click handlers use the valid role attribute. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noSvgWithoutTitle](/linter/rules/no-svg-without-title/html) | Enforces the usage of the `title` element for the `svg` element. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useAltText](/linter/rules/use-alt-text/html) | Enforce that all elements that require alternative text have meaningful information to relay back to the end user. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useAnchorContent](/linter/rules/use-anchor-content/html) | Enforce that anchors have content and that the content is accessible to screen readers. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useAriaActivedescendantWithTabindex](/linter/rules/use-aria-activedescendant-with-tabindex/html) | Enforce that `tabindex` is assigned to non-interactive HTML elements with `aria-activedescendant`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useAriaPropsForRole](/linter/rules/use-aria-props-for-role/html) | Enforce that elements with ARIA roles must have all required ARIA attributes for that role. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useAriaPropsSupportedByRole](/linter/rules/use-aria-props-supported-by-role/html) | Enforce that ARIA properties are valid for the roles that are supported by the element. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useButtonType](/linter/rules/use-button-type/html) | Enforces the usage and validity of the attribute `type` for the element `button` | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useFocusableInteractive](/linter/rules/use-focusable-interactive/html) | Elements with an interactive role and interaction handlers must be focusable. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useHeadingContent](/linter/rules/use-heading-content/html) | Enforce that heading elements (`h1`, `h2`, etc.) have content and that the content is | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useHtmlLang](/linter/rules/use-html-lang/html) | Enforce that `html` element has `lang` attribute. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useIframeTitle](/linter/rules/use-iframe-title/html) | Enforces the usage of the attribute `title` for the element `iframe`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useKeyWithClickEvents](/linter/rules/use-key-with-click-events/html) | Enforce elements with a click event handler to also have at least one keyboard event handler. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useKeyWithMouseEvents](/linter/rules/use-key-with-mouse-events/html) | Enforce that `onmouseover` is accompanied by `onfocus` and `onmouseout` by `onblur`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useMediaCaption](/linter/rules/use-media-caption/html) | Enforces that `audio` and `video` elements must have a `track` for captions. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useSemanticElements](/linter/rules/use-semantic-elements/html) | Enforces using semantic DOM elements over the ARIA `role` property. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useValidAnchor](/linter/rules/use-valid-anchor/html) | Enforce that all anchors are valid, and they are navigable elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useValidAriaProps](/linter/rules/use-valid-aria-props/html) | Ensures that ARIA properties `aria-*` are all valid. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useValidAriaRole](/linter/rules/use-valid-aria-role/html) | Elements with ARIA roles must use a valid, non-abstract ARIA role. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useValidAriaValues](/linter/rules/use-valid-aria-values/html) | Enforce that ARIA state and property values are valid. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useValidAutocomplete](/linter/rules/use-valid-autocomplete/html) | Use valid values for the `autocomplete` attribute on `input` elements. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useValidLang](/linter/rules/use-valid-lang/html) | Ensure that the attribute passed to the `lang` attribute is a correct ISO language and/or country. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+
+## `correctness`
+
+| Rule name | Description | Properties |
+| --- | --- | --- |
+| [noDuplicateAttributes](/linter/rules/no-duplicate-attributes/html) | Disallow duplication of attributes. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noVueVIfWithVFor](/linter/rules/no-vue-v-if-with-v-for/html) | Disallow using `v-if` and `v-for` directives on the same element. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueVForKey](/linter/rules/use-vue-v-for-key/html) | Enforce that elements using `v-for` also specify a unique `key`. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidTemplateRoot](/linter/rules/use-vue-valid-template-root/html) | Enforce valid Vue `<template>` root usage. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueValidVBind](/linter/rules/use-vue-valid-v-bind/html) | Forbids `v-bind` directives with missing values or invalid modifiers. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVCloak](/linter/rules/use-vue-valid-v-cloak/html) | Enforce valid `v-cloak` Vue directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueValidVElse](/linter/rules/use-vue-valid-v-else/html) | Enforce valid usage of v-else. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVElseIf](/linter/rules/use-vue-valid-v-else-if/html) | Enforce valid `v-else-if` directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVHtml](/linter/rules/use-vue-valid-v-html/html) | Enforce valid `v-html` directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVIf](/linter/rules/use-vue-valid-v-if/html) | Enforces valid `v-if` usage for Vue templates. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVOn](/linter/rules/use-vue-valid-v-on/html) | Enforce valid `v-on` directives with proper arguments, modifiers, and handlers. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useVueValidVOnce](/linter/rules/use-vue-valid-v-once/html) | Enforce valid `v-once` Vue directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueValidVPre](/linter/rules/use-vue-valid-v-pre/html) | Enforce valid `v-pre` Vue directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueValidVText](/linter/rules/use-vue-valid-v-text/html) | Enforce valid `v-text` Vue directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+
+## `nursery`
+
+| Rule name | Description | Properties |
+| --- | --- | --- |
+| [noAstroSetHtmlDirective](/linter/rules/no-astro-set-html-directive/html) | Disallow the use of Astro's `set:html` directive. |  |
+| [noInlineStyles](/linter/rules/no-inline-styles/html) | Disallow the use of inline styles. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noInvalidFileInputAccept](/linter/rules/no-invalid-file-input-accept/html) | Disallow invalid `accept` values on file inputs. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noNonScalableViewport](/linter/rules/no-non-scalable-viewport/html) | Disallow disabling zoom with `user-scalable=no` in the `<meta name="viewport">` element. |  |
+| [noSvelteLegacyConst](/linter/rules/no-svelte-legacy-const/html) | Disallow legacy Svelte `{@const}` tags. |  |
+| [noTailwindArbitraryValue](/linter/rules/no-tailwind-arbitrary-value/html) | Disallow arbitrary values in Tailwind CSS utility classes. |  |
+| [noUndeclaredClasses](/linter/rules/no-undeclared-classes/html) | Reports CSS class names in HTML `class` attributes that are not defined |  |
+| [noUndeclaredCustomProperties](/linter/rules/no-undeclared-custom-properties/html) | Reports custom properties used with `var()` that have no visible declaration. |  |
+| [noVueVOnNumberValues](/linter/rules/no-vue-v-on-number-values/html) | Disallow deprecated number modifiers on Vue `v-on` directives. |  |
+| [useAstroClientOnlyDirectiveValue](/linter/rules/use-astro-client-only-directive-value/html) | Require a value for Astro's `client:only` directive. |  |
+| [useControlLabel](/linter/rules/use-control-label/html) | Enforce that interactive control elements have an accessible label. |  |
+| [useIframeSandbox](/linter/rules/use-iframe-sandbox/html) | Enforce the 'sandbox' attribute for 'iframe' elements. |  |
+| [useScopedStyles](/linter/rules/use-scoped-styles/html) | Enforce that `<style>` blocks in Vue SFCs have the `scoped` attribute and that `<style>` blocks in Astro components do not have the `is:global` directive. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useSvelteRequireEachKey](/linter/rules/use-svelte-require-each-key/html) | Require keyed `{#each}` blocks in Svelte templates. |  |
+| [useTailwindShorthandClasses](/linter/rules/use-tailwind-shorthand-classes/html) | Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueValidVFor](/linter/rules/use-vue-valid-v-for/html) | Enforces valid `v-for` directives in Vue templates. |  |
+
+## `performance`
+
+| Rule name | Description | Properties |
+| --- | --- | --- |
+| [noSyncScripts](/linter/rules/no-sync-scripts/html) | Prevent the usage of synchronous scripts. |  |
+| [useVueVapor](/linter/rules/use-vue-vapor/html) | Enforce opting in to Vue Vapor mode in `<script setup>` blocks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+
+## `security`
+
+| Rule name | Description | Properties |
+| --- | --- | --- |
+| [noScriptUrl](/linter/rules/no-script-url/html) | Disallow `javascript:` URLs in HTML. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+
+## `style`
+
+| Rule name | Description | Properties |
+| --- | --- | --- |
+| [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file/html) | Restrict the number of lines in a file. |  |
+| [useVueConsistentVBindStyle](/linter/rules/use-vue-consistent-v-bind-style/html) | Enforce a consistent style for `v-bind` in Vue templates. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueConsistentVOnStyle](/linter/rules/use-vue-consistent-v-on-style/html) | Enforce a consistent style for `v-on` in Vue templates. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueHyphenatedAttributes](/linter/rules/use-vue-hyphenated-attributes/html) | Disallow uppercase letters in Vue template attribute names. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+## Recommended rules 
+- [noAccessKey](/linter/rules/no-access-key/html) (Severity: [error](/reference/diagnostics#error))
+- [noAmbiguousAnchorText](/linter/rules/no-ambiguous-anchor-text/html) (Severity: [error](/reference/diagnostics#error))
+- [noAriaHiddenOnFocusable](/linter/rules/no-aria-hidden-on-focusable/html) (Severity: [error](/reference/diagnostics#error))
+- [noAriaUnsupportedElements](/linter/rules/no-aria-unsupported-elements/html) (Severity: [error](/reference/diagnostics#error))
+- [noAutofocus](/linter/rules/no-autofocus/html) (Severity: [error](/reference/diagnostics#error))
+- [noDistractingElements](/linter/rules/no-distracting-elements/html) (Severity: [error](/reference/diagnostics#error))
+- [noHeaderScope](/linter/rules/no-header-scope/html) (Severity: [error](/reference/diagnostics#error))
+- [noInteractiveElementToNoninteractiveRole](/linter/rules/no-interactive-element-to-noninteractive-role/html) (Severity: [error](/reference/diagnostics#error))
+- [noLabelWithoutControl](/linter/rules/no-label-without-control/html) (Severity: [error](/reference/diagnostics#error))
+- [noNoninteractiveElementToInteractiveRole](/linter/rules/no-noninteractive-element-to-interactive-role/html) (Severity: [error](/reference/diagnostics#error))
+- [noNoninteractiveTabindex](/linter/rules/no-noninteractive-tabindex/html) (Severity: [error](/reference/diagnostics#error))
+- [noPositiveTabindex](/linter/rules/no-positive-tabindex/html) (Severity: [error](/reference/diagnostics#error))
+- [noRedundantAlt](/linter/rules/no-redundant-alt/html) (Severity: [error](/reference/diagnostics#error))
+- [noRedundantRoles](/linter/rules/no-redundant-roles/html) (Severity: [error](/reference/diagnostics#error))
+- [noStaticElementInteractions](/linter/rules/no-static-element-interactions/html) (Severity: [error](/reference/diagnostics#error))
+- [noSvgWithoutTitle](/linter/rules/no-svg-without-title/html) (Severity: [error](/reference/diagnostics#error))
+- [useAltText](/linter/rules/use-alt-text/html) (Severity: [error](/reference/diagnostics#error))
+- [useAnchorContent](/linter/rules/use-anchor-content/html) (Severity: [error](/reference/diagnostics#error))
+- [useAriaActivedescendantWithTabindex](/linter/rules/use-aria-activedescendant-with-tabindex/html) (Severity: [error](/reference/diagnostics#error))
+- [useAriaPropsForRole](/linter/rules/use-aria-props-for-role/html) (Severity: [error](/reference/diagnostics#error))
+- [useAriaPropsSupportedByRole](/linter/rules/use-aria-props-supported-by-role/html) (Severity: [error](/reference/diagnostics#error))
+- [useButtonType](/linter/rules/use-button-type/html) (Severity: [error](/reference/diagnostics#error))
+- [useFocusableInteractive](/linter/rules/use-focusable-interactive/html) (Severity: [error](/reference/diagnostics#error))
+- [useHeadingContent](/linter/rules/use-heading-content/html) (Severity: [error](/reference/diagnostics#error))
+- [useHtmlLang](/linter/rules/use-html-lang/html) (Severity: [error](/reference/diagnostics#error))
+- [useIframeTitle](/linter/rules/use-iframe-title/html) (Severity: [error](/reference/diagnostics#error))
+- [useKeyWithClickEvents](/linter/rules/use-key-with-click-events/html) (Severity: [error](/reference/diagnostics#error))
+- [useKeyWithMouseEvents](/linter/rules/use-key-with-mouse-events/html) (Severity: [error](/reference/diagnostics#error))
+- [useMediaCaption](/linter/rules/use-media-caption/html) (Severity: [error](/reference/diagnostics#error))
+- [useSemanticElements](/linter/rules/use-semantic-elements/html) (Severity: [error](/reference/diagnostics#error))
+- [useValidAnchor](/linter/rules/use-valid-anchor/html) (Severity: [error](/reference/diagnostics#error))
+- [useValidAriaProps](/linter/rules/use-valid-aria-props/html) (Severity: [error](/reference/diagnostics#error))
+- [useValidAriaRole](/linter/rules/use-valid-aria-role/html) (Severity: [error](/reference/diagnostics#error))
+- [useValidAriaValues](/linter/rules/use-valid-aria-values/html) (Severity: [error](/reference/diagnostics#error))
+- [useValidAutocomplete](/linter/rules/use-valid-autocomplete/html) (Severity: [error](/reference/diagnostics#error))
+- [useValidLang](/linter/rules/use-valid-lang/html) (Severity: [error](/reference/diagnostics#error))
+- [noDuplicateAttributes](/linter/rules/no-duplicate-attributes/html) (Severity: [error](/reference/diagnostics#error))
+- [noVueVIfWithVFor](/linter/rules/no-vue-v-if-with-v-for/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueVForKey](/linter/rules/use-vue-v-for-key/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidTemplateRoot](/linter/rules/use-vue-valid-template-root/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVBind](/linter/rules/use-vue-valid-v-bind/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVCloak](/linter/rules/use-vue-valid-v-cloak/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVElse](/linter/rules/use-vue-valid-v-else/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVElseIf](/linter/rules/use-vue-valid-v-else-if/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVHtml](/linter/rules/use-vue-valid-v-html/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVIf](/linter/rules/use-vue-valid-v-if/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVOn](/linter/rules/use-vue-valid-v-on/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVOnce](/linter/rules/use-vue-valid-v-once/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVPre](/linter/rules/use-vue-valid-v-pre/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueValidVText](/linter/rules/use-vue-valid-v-text/html) (Severity: [error](/reference/diagnostics#error))
+- [noScriptUrl](/linter/rules/no-script-url/html) (Severity: [error](/reference/diagnostics#error))
+- [useVueConsistentVBindStyle](/linter/rules/use-vue-consistent-v-bind-style/html) (Severity: [information](/reference/diagnostics#information))
+- [useVueConsistentVOnStyle](/linter/rules/use-vue-consistent-v-on-style/html) (Severity: [information](/reference/diagnostics#information))
+- [useVueHyphenatedAttributes](/linter/rules/use-vue-hyphenated-attributes/html) (Severity: [information](/reference/diagnostics#information))
+
+Missing a rule? Help us by [contributing](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) to the [analyzer](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) or create a rule suggestion [here](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

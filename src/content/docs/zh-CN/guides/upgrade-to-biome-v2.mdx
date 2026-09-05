@@ -19,11 +19,11 @@ import {FileTree, Steps} from '@astrojs/starlight/components';
 
             使用包管理器安装 Biome `2.0.6`。
             <PackageManagerCommand
-                npm="install --save-dev --save-exact @biomejs/biome@2.0.6"
-                pnpm="add --save-dev --save-exact @biomejs/biome@2.0.6"
-                yarn="add --dev --exact @biomejs/biome@2.0.6"
-                bun="add --dev --exact @biomejs/biome@2.0.6"
-                deno="add --dev npm:@biomejs/biome@2.0.6" />
+                npm={["install --save-dev --save-exact @biomejs/biome@2.0.6"]}
+                pnpm={["add --save-dev --save-exact @biomejs/biome@2.0.6"]}
+                yarn={["add --dev --exact @biomejs/biome@2.0.6"]}
+                bun={["add --dev --exact @biomejs/biome@2.0.6"]}
+                deno={["add --dev npm:@biomejs/biome@2.0.6"]} />
         </li>
         <li>
             运行命令 `migrate` 以更新配置文件。

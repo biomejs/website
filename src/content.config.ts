@@ -8,7 +8,10 @@ import { changelogsLoader } from "starlight-changelogs/loader";
 
 export const collections = {
 	docs: defineCollection({
-		loader: docsLoader(),
+		loader: docsLoader({
+			generateId: ({ entry }) =>
+				entry.replace(/^en\//, "").replace(/\.mdx?$/, ""),
+		}),
 		schema: docsSchema({
 			extend: (context) =>
 				blogSchema(context).extend({
