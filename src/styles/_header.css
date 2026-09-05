@@ -1,0 +1,36 @@
+/* Responsive header adjustments for the top navigation bar. */
+
+/*
+ * On notebook/small-desktop widths the `.right-group` (social icons + theme +
+ * language + version selects) is too wide to sit alongside the search box.
+ * Tighten the gap and drop the social divider so the remaining space goes to
+ * the social overflow (`⋯`) handled by `HeaderSocials.astro`, keeping the
+ * version select (`v2.x`) visible without a horizontal scrollbar.
+ */
+@media (min-width: 50rem) and (max-width: 80rem) {
+	.header .social-icons::after {
+		display: none;
+	}
+
+	.header .right-group,
+	.header .social-icons {
+		gap: 0.5rem;
+	}
+}
+
+/*
+ * On the narrowest of the desktop range (800px–1152px), the site title expands
+ * with its inline Docs / Enterprise / Playground links and crowds out the
+ * search box (which collapses to zero width) and the version select. Collapse
+ * the title back to just the logo so the search box and version select keep
+ * their space.
+ */
+@media (min-width: 50rem) and (max-width: 72rem) {
+	.header .title-wrapper .menu-items {
+		display: none;
+	}
+
+	.header .title-wrapper .separator {
+		display: none;
+	}
+}
