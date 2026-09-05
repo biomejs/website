@@ -83,7 +83,7 @@
 			position: absolute;
 			top: calc(100% + 0.5rem);
 			right: 0;
-			display: flex;
+			display: none;
 			flex-direction: column;
 			align-items: stretch;
 			gap: 0.25rem;
@@ -92,6 +92,9 @@
 			border-radius: 0.5rem;
 			background-color: var(--sl-color-black);
 			box-shadow: var(--sl-shadow-lg);
+		}
+		.social-overflow[open] .social-overflow-panel {
+			display: flex;
 		}
 		.social-overflow-panel a {
 			color: var(--sl-color-text-accent);
