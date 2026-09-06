@@ -1789,7 +1789,7 @@ Enables the parsing of GitHub Flavored Markdown (GFM). When enabled, the followi
 | Lorem | Ipsum |
 ```
 
-> Default: `false`
+> Default: `true`
 
 ### `markdown.formatter.enabled`
 
@@ -1824,7 +1824,7 @@ The amount of characters that can be written on a single line in Markdown files.
 
 > Default: `80`
 
-### `html.formatter.proseWrap`
+### `markdown.formatter.proseWrap`
 
 Controls how paragraphs should be formatted. The option accepts the following values:
 
@@ -1859,6 +1859,38 @@ Controls how paragraphs should be formatted. The option accepts the following va
 Enables Biome's linter for Markdown files.
 
 > Default: `true`
+
+
+## `yaml`
+
+### `yaml.formatter.enabled`
+
+Enables Biome's formatter for YAML files.
+
+> Default: `true`
+
+
+### `yaml.formatter.indentWidth`
+
+How big the indentation should be for YAML files.
+
+> Default: `2`
+
+### `yaml.formatter.lineEnding`
+
+The type of line ending for HTML files.
+- `"lf"`, Line Feed only (`\n`), common on Linux and macOS as well as inside git repos;
+- `"crlf"`, Carriage Return + Line Feed characters (`\r\n`), common on Windows;
+- `"cr"`, Carriage Return character only (`\r`), used very rarely.
+
+> Default: `"lf"`
+
+### `yaml.formatter.lineWidth`
+
+The amount of characters that can be written on a single line in YAML files.
+
+> Default: `80`
+
 
 ## `overrides`
 
