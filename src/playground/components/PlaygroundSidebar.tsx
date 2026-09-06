@@ -62,6 +62,7 @@ export default function PlaygroundSidebar({
 							</button>
 							<button
 								type="button"
+								title="Discards biome.json and returns to the settings form"
 								onClick={() => setPlaygroundState(deleteBiomeConfigFile)}
 							>
 								Go back

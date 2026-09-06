@@ -612,17 +612,33 @@
 	overflow: hidden;
 }
 
+/* Sticks to the top of the scrolling shell so a partial scroll can't tuck
+ * the buttons under the site header. */
 .playground-mobile-actions {
+	position: sticky;
+	top: 0;
+	z-index: 20;
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 	padding: 5px;
 	border-bottom: 1px solid var(--sl-color-gray-5);
+	background: var(--sl-color-bg);
 }
 
 .playground-drawer-layer {
 	position: fixed;
 	inset: var(--sl-nav-height, 65px) 0 0;
 	z-index: 100;
+}
+
+/* Mobile browsers with a collapsing toolbar don't extend `bottom: 0` under
+ * the hidden toolbar; dynamic viewport units track it. */
+@supports (height: 1dvh) {
+	.playground-drawer-layer {
+		bottom: auto;
+		height: calc(100dvh - var(--sl-nav-height, 65px));
+	}
 }
 
 .playground-drawer-backdrop {
@@ -653,9 +669,26 @@
 	right: 0;
 }
 
+/* The site styles ::-webkit-scrollbar, which forces a classic (non-overlay)
+ * scrollbar on Android. Reserve the gutter on both header and body so the
+ * close buttons line up whether or not the body scrolls. */
+.playground-drawer > header {
+	overflow: hidden;
+	scrollbar-gutter: stable;
+}
+
 .playground-drawer-body {
 	min-height: 0;
 	overflow: auto;
+	scrollbar-gutter: stable;
+}
+
+/* Touch-sized close buttons in the drawers. */
+.playground-drawer > header button,
+.playground-drawer .playground-view-pane-header button {
+	min-width: 44px;
+	min-height: 44px;
+	font-size: 22px;
 }
 
 .playground-mobile-view-list {
