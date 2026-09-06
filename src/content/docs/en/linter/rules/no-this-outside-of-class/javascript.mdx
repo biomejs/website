@@ -1,0 +1,111 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noThisOutsideOfClass (JavaScript)
+description: JavaScript (and super languages) documentation for noThisOutsideOfClass
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-this-outside-of-class/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.5.12`
+- Diagnostic Category: [`lint/nursery/noThisOutsideOfClass`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicorn/no-this-outside-of-class`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-this-outside-of-class.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noThisOutsideOfClass": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `this` outside of classes.
+
+`this` can make its value difficult to understand. The rule allows `this` in class members and
+in TypeScript functions with an explicit `this` parameter.
+
+An arrow function uses `this` from the code around it. Therefore, `this` is allowed in an
+arrow function inside a class member or a TypeScript function with an explicit `this`
+parameter.
+
+## Examples
+
+### Invalid
+
+```js
+function Person(name) {
+    this.name = name;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:5 <a href=\"https://biomejs.dev/linter/rules/no-this-outside-of-class\">lint/nursery/noThisOutsideOfClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Do not use </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> outside of a class.</span><br />  <br />    <strong>1 │ </strong>function Person(name) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    this.name = name;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> depends on how a function is called and may refer to an unexpected object.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a class member, or declare an explicit </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> parameter in a TypeScript function.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const getName = function () {
+    return this.name;
+};
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:12 <a href=\"https://biomejs.dev/linter/rules/no-this-outside-of-class\">lint/nursery/noThisOutsideOfClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Do not use </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> outside of a class.</span><br />  <br />    <strong>1 │ </strong>const getName = function () &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    return this.name;<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> depends on how a function is called and may refer to an unexpected object.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a class member, or declare an explicit </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> parameter in a TypeScript function.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+(function () {
+    this.initialize();
+})();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:5 <a href=\"https://biomejs.dev/linter/rules/no-this-outside-of-class\">lint/nursery/noThisOutsideOfClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Do not use </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> outside of a class.</span><br />  <br />    <strong>1 │ </strong>(function () &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    this.initialize();<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;)();<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> depends on how a function is called and may refer to an unexpected object.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a class member, or declare an explicit </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> parameter in a TypeScript function.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const person = {
+    getName() {
+        return this.name;
+    },
+};
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:16 <a href=\"https://biomejs.dev/linter/rules/no-this-outside-of-class\">lint/nursery/noThisOutsideOfClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Do not use </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> outside of a class.</span><br />  <br />    <strong>1 │ </strong>const person = &#123;<br />    <strong>2 │ </strong>    getName() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        return this.name;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    &#125;,<br />    <strong>5 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> depends on how a function is called and may refer to an unexpected object.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a class member, or declare an explicit </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> parameter in a TypeScript function.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+class Person {
+    constructor(name) {
+        this.name = name;
+    }
+
+    getName = () => this.name;
+}
+```
+
+```ts
+function getName(this: Person) {
+    return this.name;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_this_outside_of_class.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noThisOutsideOfClass)
+
