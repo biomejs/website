@@ -1,0 +1,82 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDeprecatedScopedSlots (JavaScript)
+description: JavaScript (and super languages) documentation for noVueDeprecatedScopedSlots
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-deprecated-scoped-slots/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.5.12`
+- Diagnostic Category: [`lint/nursery/noVueDeprecatedScopedSlots`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-deprecated-dollar-scopedslots-api`](https://eslint.vuejs.org/rules/no-deprecated-dollar-scopedslots-api)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedScopedSlots": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the deprecated Vue `$scopedSlots` API.
+
+Vue 3 unifies normal and scoped slots under `$slots`. Replace `$scopedSlots` with `$slots` when migrating a component from Vue 2.
+
+See the [Vue 3 migration guide](https://v3-migration.vuejs.org/breaking-changes/slots-unification.html) for more information.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  render() {
+    return this.$scopedSlots.default;
+  }
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:17 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-scoped-slots\">lint/nursery/noVueDeprecatedScopedSlots</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The Vue </span><span style=\"color: lightgreen;\"><strong>$scopedSlots</strong></span><span style=\"color: lightgreen;\"> API is deprecated.</span><br />  <br />    <strong>1 │ </strong>export default &#123;<br />    <strong>2 │ </strong>  render() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    return this.$scopedSlots.default;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &#125;<br />    <strong>5 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 exposes all slots through </span><span style=\"color: lightgreen;\"><strong>$slots</strong></span><span style=\"color: lightgreen;\">. See the </span><span style=\"color: lightgreen;\"><a href=\"https://v3-migration.vuejs.org/breaking-changes/slots-unification.html\">Vue 3 migration guide</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Replace </span><span style=\"color: lightgreen;\"><strong>$scopedSlots</strong></span><span style=\"color: lightgreen;\"> with </span><span style=\"color: lightgreen;\"><strong>$slots</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  export default &#123;<br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>    render() &#123;<br />    <strong>3</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">h</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">$</span><span style=\"color: Tomato;\"><strong>s</strong></span><span style=\"color: Tomato;\"><strong>c</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>p</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>S</strong></span><span style=\"color: Tomato;\"><strong>l</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>s</strong></span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">;</span><br />      <strong>3</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">h</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">.</span><span style=\"color: MediumSeaGreen;\">$</span><span style=\"color: MediumSeaGreen;\"><strong>s</strong></span><span style=\"color: MediumSeaGreen;\"><strong>l</strong></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>s</strong></span><span style=\"color: MediumSeaGreen;\">.</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">f</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>    &#125;<br />    <strong>5</strong> <strong>5</strong><strong> │ </strong>  &#125;;<br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+export default {
+  render() {
+    return this.$slots.default;
+  }
+};
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_deprecated_scoped_slots.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueDeprecatedScopedSlots)
+
