@@ -1,0 +1,76 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUnsafeIframeSandbox (JavaScript)
+description: JavaScript (and super languages) documentation for noUnsafeIframeSandbox
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-unsafe-iframe-sandbox/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unsafe-iframe-sandbox/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noUnsafeIframeSandbox`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`react-dom/no-unsafe-iframe-sandbox`](https://eslint-react.xyz/docs/rules/dom-no-unsafe-iframe-sandbox)
+  - Same as [`@eslint-react/dom-no-unsafe-iframe-sandbox`](https://eslint-react.xyz/docs/rules/dom-no-unsafe-iframe-sandbox)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUnsafeIframeSandbox": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow an unsafe combination of the `sandbox` attribute.
+
+This rule reports cases where the attribute may contain `allow-scripts` and `allow-same-origin` at the same time,
+as this combination allows the embedded document to remove the `sandbox` attribute and bypass the restrictions.
+
+See [Play safely in sandboxed IFrames](https://web.dev/articles/sandboxed-iframes) or [this Stack Overflow answer](https://stackoverflow.com/a/62431584) for more details.
+
+## Examples
+
+### Invalid
+
+```jsx
+function MyComponent() {
+  return <iframe src="https://example.com" sandbox="allow-scripts allow-same-origin" />;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:2:44 <a href=\"https://biomejs.dev/linter/rules/no-unsafe-iframe-sandbox\">lint/nursery/noUnsafeIframeSandbox</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Unsafe combination of </span><span style=\"color: Tomato;\"><strong>allow-scripts</strong></span><span style=\"color: Tomato;\"> and </span><span style=\"color: Tomato;\"><strong>allow-same-origin</strong></span><span style=\"color: Tomato;\"> in the </span><span style=\"color: Tomato;\"><strong>sandbox</strong></span><span style=\"color: Tomato;\"> attribute.</span><br />  <br />    <strong>1 │ </strong>function MyComponent() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  return &lt;iframe src=&quot;https://example.com&quot; sandbox=&quot;allow-scripts allow-same-origin&quot; /&gt;;<br />   <strong>   │ </strong>                                           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This lets the embedded document run scripts in the origin of the embedding page, so it can remove its own </span><span style=\"color: lightgreen;\"><strong>sandbox</strong></span><span style=\"color: lightgreen;\"> attribute and escape the restrictions.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>allow-scripts</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>allow-same-origin</strong></span><span style=\"color: lightgreen;\"> from the </span><span style=\"color: lightgreen;\"><strong>sandbox</strong></span><span style=\"color: lightgreen;\"> attribute.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">See </span><span style=\"color: lightgreen;\"><a href=\"https://web.dev/articles/sandboxed-iframes\">Play safely in sandboxed IFrames</a></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><a href=\"https://stackoverflow.com/a/62431584\">this Stack Overflow answer</a></span><span style=\"color: lightgreen;\"> for more details.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```jsx
+function MyComponent() {
+  return <iframe src="https://example.com" sandbox="allow-popups" />;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_unsafe_iframe_sandbox.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUnsafeIframeSandbox)
+

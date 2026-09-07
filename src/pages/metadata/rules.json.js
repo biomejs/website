@@ -368,6 +368,23 @@ export function GET() {
             ],
             "docs": " Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.\n\n [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility)\n tracks the availability of web platform features across core browsers.\n This rule helps you avoid features that aren't supported in the browsers you need to target.\n\n Features are categorized into three tiers:\n - **Limited**: Not yet available in all core browsers.\n - **Newly available**: Available in all core browsers for less than 30 months.\n - **Widely available**: Available in all core browsers for at least 30 months.\n\n By default, the rule reports on anything that is not Baseline **widely available**.\n\n Code inside `@supports` blocks is exempt: if you feature-detect a capability before\n using it, the rule does not flag it.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   backdrop-filter: blur(4px);\n }\n ```\n\n ```css,expect_diagnostic\n a { width: abs(20% - 100px); }\n ```\n\n ```css,expect_diagnostic\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ```css,expect_diagnostic\n details::details-content { background: red; }\n ```\n\n ### Valid\n\n ```css\n a { color: red; }\n ```\n\n ```css\n /* @supports exempts feature-detected code */\n @supports (backdrop-filter: blur(4px)) {\n   a { backdrop-filter: blur(4px); }\n }\n ```\n\n ## Options\n\n ### `available`\n\n Specifies the minimum Baseline availability tier to accept. Defaults to `\"widely\"`.\n\n - `\"widely\"`: Only accept features that are Baseline widely available (default).\n - `\"newly\"`: Accept features that are at least Baseline newly available.\n - A year number (e.g. `2023`): Accept features that became newly available in that year or earlier.\n\n Default: `\"widely\"`\n\n ```json,options\n {\n   \"options\": {\n     \"available\": \"newly\"\n   }\n }\n ```\n\n With `\"newly\"`, a property that is newly (but not yet widely) available doesn't trigger the rule:\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n But a limited property still fails:\n\n ```css,expect_diagnostic,use_options\n a { accent-color: red; }\n ```\n\n ### `allowProperties`\n\n A list of CSS property names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowProperties\": [\"backdrop-filter\"]\n   }\n }\n ```\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n ### `allowAtRules`\n\n A list of CSS at-rule names to exclude from checking (without `@`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowAtRules\": [\"view-transition\"]\n   }\n }\n ```\n\n ```css,use_options\n @view-transition { navigation: auto; }\n ```\n\n ### `allowFunctions`\n\n A list of CSS value function names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowFunctions\": [\"abs\"]\n   }\n }\n ```\n\n ```css,use_options\n a { width: abs(20% - 100px); }\n ```\n\n ### `allowMediaConditions`\n\n A list of CSS media query condition names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowMediaConditions\": [\"inverted-colors\"]\n   }\n }\n ```\n\n ```css,use_options\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ### `allowPropertyValues`\n\n An object mapping property names to arrays of allowed values (case-insensitive).\n\n Default: `{}`\n\n ```json,options\n {\n   \"options\": {\n     \"allowPropertyValues\": {\n       \"clip-path\": [\"fill-box\"]\n     }\n   }\n }\n ```\n\n ```css,use_options\n a { clip-path: fill-box; }\n ```\n\n ### `allowSelectors`\n\n A list of CSS pseudo-class or pseudo-element names to exclude from checking\n (without `:` or `::`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowSelectors\": [\"has\"]\n   }\n }\n ```\n\n ```css,use_options\n h1:has(+ h2) { margin: 0; }\n ```\n\n"
           },
+          "useLayeredStyles": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useLayeredStyles",
+            "link": "https://biomejs.dev/linter/rules/use-layered-styles/css",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintCss": "use-layers"
+                }
+              }
+            ],
+            "docs": " Enforce style rules to be defined within a cascade layer.\n\n This rule reports style rules that are not contained within a cascade layer (`@layer`).\n Rules outside of a cascade layer (excluding `!important`) always take precedence over\n layered rules, making the cascade more difficult to predict and override.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n .my-style {\n   color: red;\n }\n ```\n\n ```css,expect_diagnostic\n @media (min-width: 600px) {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css,expect_diagnostic\n @import \"foo.css\";\n ```\n\n ### Valid\n\n ```css\n @layer {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css\n @layer base {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css\n @layer base {\n   @media (min-width: 600px) {\n     .my-style {\n       color: red;\n     }\n   }\n }\n ```\n\n ```css\n @import \"foo.css\" layer;\n ```\n\n ```css\n @import \"foo.css\" layer(base);\n ```\n\n ## Options\n\n ### `requireImportLayers`\n\n Whether `@import` rules must specify a cascade layer.\n\n When set to `false`, `@import` rules without a `layer` keyword are allowed.\n\n Default: `true`\n\n ```json,options\n {\n   \"options\": {\n     \"requireImportLayers\": false\n   }\n }\n ```\n\n ```css,use_options\n @import \"foo.css\";\n ```\n\n"
+          },
           "useNamedLayer": {
             "deprecated": false,
             "version": "2.5.9",
@@ -1997,6 +2014,23 @@ export function GET() {
             ],
             "docs": " Disallow disabling zoom with `user-scalable=no` in the `<meta name=\"viewport\">` element.\n\n Disabling zoom can make page content difficult to read for people with low vision.\n\n See [WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) and the\n [html-eslint rule](https://html-eslint.org/docs/rules/no-non-scalable-viewport) for details.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />\n ```\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"user-scalable = no, width=device-width\" />\n ```\n\n ### Valid\n\n ```html\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" />\n <meta name=\"viewport\" content=\"width=device-width\" />\n <meta name=\"viewport\" content=\"user-scalable=nope\" />\n ```\n\n"
           },
+          "noSvelteAtHtmlTags": {
+            "deprecated": false,
+            "version": "2.5.11",
+            "name": "noSvelteAtHtmlTags",
+            "link": "https://biomejs.dev/linter/rules/no-svelte-at-html-tags/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSvelte": "no-at-html-tags"
+                }
+              }
+            ],
+            "docs": " Disallow the use of Svelte's `{@html}` tag.\n\n The `{@html}` tag renders its value as unescaped HTML. This can lead to cross-site\n scripting (XSS) vulnerabilities when the value contains untrusted content.\n\n If raw HTML is required, sanitize the value before passing it to `{@html}`.\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n {@html content}\n ```\n\n ### Valid\n\n ```svelte\n {content}\n ```\n\n ### References\n\n - [Svelte HTML tag](https://svelte.dev/docs/svelte/@html)\n\n"
+          },
           "noSvelteLegacyConst": {
             "deprecated": false,
             "version": "2.5.8",
@@ -2040,6 +2074,29 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Reports custom properties used with `var()` that have no visible declaration.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div style=\"color: var(--text-color)\"></div>\n ```\n\n ### Valid\n\n ```html\n <div style=\"--text-color: blue; color: var(--text-color)\"></div>\n ```\n\n"
+          },
+          "noUnsafeIframeSandbox": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUnsafeIframeSandbox",
+            "link": "https://biomejs.dev/linter/rules/no-unsafe-iframe-sandbox/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReactDom": "no-unsafe-iframe-sandbox"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReactXyz": "dom-no-unsafe-iframe-sandbox"
+                }
+              }
+            ],
+            "docs": " Disallow an unsafe combination of the `sandbox` attribute.\n\n This rule reports cases where the attribute may contain `allow-scripts` and `allow-same-origin` at the same time,\n as this combination allows the embedded document to remove the `sandbox` attribute and bypass the restrictions.\n\n See [Play safely in sandboxed IFrames](https://web.dev/articles/sandboxed-iframes) or [this Stack Overflow answer](https://stackoverflow.com/a/62431584) for more details.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <iframe src=\"https://example.com\" sandbox=\"allow-scripts allow-same-origin\"></iframe>\n ```\n\n ### Valid\n\n ```html\n <iframe src=\"https://example.com\" sandbox=\"allow-popups\"></iframe>\n ```\n\n"
           },
           "noVueVOnNumberValues": {
             "deprecated": false,
@@ -4574,6 +4631,29 @@ export function GET() {
             ],
             "docs": " Disallow unnecessary template expressions.\n\n A template expression (or template literal) is unnecessary when it only contains\n string literal expressions that could be written as a regular string literal instead.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const a = `${'hello'}`;\n ```\n\n ```js,expect_diagnostic\n const b = `${\"world\"}`;\n ```\n\n ```js,expect_diagnostic\n const c = `${'hello'}${'world'}`;\n ```\n\n ```js,expect_diagnostic\n const d = `prefix_${'suffix'}`;\n ```\n\n ### Valid\n\n ```js\n // Template with a non-string-literal expression\n const a = `${someVariable}`;\n ```\n\n ```js\n // Template with a non-string-literal interpolation mixed with text\n const b = `Hello, ${name}!`;\n ```\n\n ```js\n // Tagged templates are never flagged\n const c = html`${'foo'}`;\n ```\n\n ```js\n // Templates with newlines in the text part need the template syntax\n const d = `line one\n ${'line two'}`;\n ```\n\n"
           },
+          "noUnsafeIframeSandbox": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUnsafeIframeSandbox",
+            "link": "https://biomejs.dev/linter/rules/no-unsafe-iframe-sandbox/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactDom": "no-unsafe-iframe-sandbox"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "dom-no-unsafe-iframe-sandbox"
+                }
+              }
+            ],
+            "docs": " Disallow an unsafe combination of the `sandbox` attribute.\n\n This rule reports cases where the attribute may contain `allow-scripts` and `allow-same-origin` at the same time,\n as this combination allows the embedded document to remove the `sandbox` attribute and bypass the restrictions.\n\n See [Play safely in sandboxed IFrames](https://web.dev/articles/sandboxed-iframes) or [this Stack Overflow answer](https://stackoverflow.com/a/62431584) for more details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function MyComponent() {\n   return <iframe src=\"https://example.com\" sandbox=\"allow-scripts allow-same-origin\" />;\n }\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent() {\n   return <iframe src=\"https://example.com\" sandbox=\"allow-popups\" />;\n }\n ```\n\n"
+          },
           "noUnsafePlusOperands": {
             "deprecated": false,
             "version": "2.4.10",
@@ -4658,6 +4738,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow the use of value wrapped by `ref()`(Composition API) as operand\n\n To access value wrapped by `ref()`, you must use `.value`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const count = ref(0)\n count++\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const ok = ref(false)\n const msg = ok ? \"yes\" : \"no\"\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const ok = ref(false)\n if (ok) {\n   //\n }\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count)\n   }\n }\n ```\n\n ### Valid\n\n ```js\n import { ref } from \"vue\"\n\n const count = ref(0)\n count.value++\n ```\n\n ```js\n import { ref } from \"vue\"\n\n const ok = ref(true)\n const msg = ok.value ? \"yes\" : \"no\"\n if (ok.value) {\n   //\n }\n ```\n\n ```js\n import { ref } from \"vue\"\n\n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count.value)\n   }\n }\n ```\n\n"
+          },
+          "noXorAsExponentiation": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noXorAsExponentiation",
+            "link": "https://biomejs.dev/linter/rules/no-xor-as-exponentiation/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-xor-as-exponentiation"
+                }
+              }
+            ],
+            "docs": " Disallow the bitwise XOR operator where exponentiation was likely intended.\n\n In JavaScript, `^` is the bitwise XOR operator, not exponentiation.\n Developers coming from languages like Lua, Julia, R, or MATLAB, or from\n math notation, often expect `^` to mean \"to the power of\", so `2 ^ 32`\n silently evaluates to `34` instead of `4294967296`. The actual\n exponentiation operator is `**`.\n\n This rule flags `^` between two decimal integer literals, which is\n almost always this mistake. Hexadecimal, octal, and binary literals\n (such as `0xFF ^ 8`) and any non-literal operands (such as\n `flags ^ MASK`) are ignored, since those are far more likely to be\n intentional bitwise XOR.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const kibibyte = 2 ^ 10; // 8, not 1024\n ```\n\n ```js,expect_diagnostic\n const cube = 3 ^ 3; // 0, not 27\n ```\n\n ### Valid\n\n ```js\n const kibibyte = 2 ** 10;\n const cube = 3 ** 3;\n const masked = flags ^ MASK;\n const bits = 0xFF ^ 8;\n ```\n\n"
           },
           "useArraySome": {
             "deprecated": false,
@@ -10580,7 +10677,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 591
+    "numberOrRules": 596
   },
   "syntax": {
     "languages": {
