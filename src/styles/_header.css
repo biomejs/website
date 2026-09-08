@@ -17,20 +17,3 @@
 		gap: 0.5rem;
 	}
 }
-
-/*
- * On the narrowest of the desktop range (800px–1152px), the site title expands
- * with its inline Docs / Enterprise / Playground links and crowds out the
- * search box (which collapses to zero width) and the version select. Collapse
- * the title back to just the logo so the search box and version select keep
- * their space.
- */
-@media (min-width: 50rem) and (max-width: 72rem) {
-	.header .title-wrapper .menu-items {
-		display: none;
-	}
-
-	.header .title-wrapper .separator {
-		display: none;
-	}
-}
