@@ -266,8 +266,8 @@ importers:
         specifier: 0.35.4
         version: 0.35.4(@types/node@24.13.3)
       starlight-blog:
-        specifier: 0.28.0
-        version: 0.28.0(@astrojs/markdown-satteri@0.3.8)(@astrojs/starlight@0.41.9(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(astro@7.3.1(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13(supports-color@10.2.2))(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(supports-color@10.2.2)(typescript@5.9.3))(astro@7.3.1(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13(supports-color@10.2.2))(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(supports-color@10.2.2)(typescript@5.9.3)
+        specifier: 0.29.0
+        version: 0.29.0(@astrojs/markdown-satteri@0.3.8)(@astrojs/starlight@0.41.9(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(astro@7.3.1(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13(supports-color@10.2.2))(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(supports-color@10.2.2)(typescript@5.9.3))(astro@7.3.1(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13(supports-color@10.2.2))(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(supports-color@10.2.2)(typescript@5.9.3)
       starlight-changelogs:
         specifier: 0.5.1
         version: 0.5.1(@astrojs/starlight@0.41.9(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(astro@7.3.1(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13(supports-color@10.2.2))(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(supports-color@10.2.2)(typescript@5.9.3))(astro@7.3.1(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13(supports-color@10.2.2))(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(supports-color@10.2.2)
@@ -5736,8 +5736,8 @@ packages:
   stack-trace@0.0.10:
     resolution: {integrity: sha512-KGzahc7puUKkzyMt+IqAep+TVNbKP+k2Lmwhub39m1AsTSkaDutx56aDCo+HLDzf/D26BIHTJWNiTG1KAJiQCg==}
 
-  starlight-blog@0.28.0:
-    resolution: {integrity: sha512-tKddmNbbUd20lV/m4Giih2RtDEegpnzPbrNdiwgI29XOCzVKXjtt9T9ckxTJU+cxwG1f0ii++J8duN9iBzw7Iw==}
+  starlight-blog@0.29.0:
+    resolution: {integrity: sha512-Pdv5I84ux0109Zt23TbpCfuRZ8ioWvjmwVnmeYD2h0OH2bgVzo7cKsblzMolkaGc1QDnSX8985xaM1QJvcOhqQ==}
     engines: {node: '>=22.12.0'}
     peerDependencies:
       '@astrojs/starlight': '>=0.41.0'
@@ -13223,7 +13223,7 @@ snapshots:
 
   stack-trace@0.0.10: {}
 
-  starlight-blog@0.28.0(@astrojs/markdown-satteri@0.3.8)(@astrojs/starlight@0.41.9(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(astro@7.3.1(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13(supports-color@10.2.2))(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(supports-color@10.2.2)(typescript@5.9.3))(astro@7.3.1(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13(supports-color@10.2.2))(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(supports-color@10.2.2)(typescript@5.9.3):
+  starlight-blog@0.29.0(@astrojs/markdown-satteri@0.3.8)(@astrojs/starlight@0.41.9(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(astro@7.3.1(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13(supports-color@10.2.2))(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(supports-color@10.2.2)(typescript@5.9.3))(astro@7.3.1(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13(supports-color@10.2.2))(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(supports-color@10.2.2)(typescript@5.9.3):
     dependencies:
       '@astrojs/markdown-remark': 7.3.0(supports-color@10.2.2)
       '@astrojs/mdx': 7.0.8(@astrojs/markdown-satteri@0.3.8)(astro@7.3.1(@astrojs/markdown-remark@7.3.0(supports-color@10.2.2))(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(@netlify/blobs@10.7.13(supports-color@10.2.2))(@types/node@24.13.3)(jiti@2.7.0)(yaml@2.9.0))(supports-color@10.2.2)
