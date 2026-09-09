@@ -18,7 +18,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
-  - Same as [`no-unused-private-class-members`](https://eslint.org/docs/latest/rules/no-unused-private-class-members)
+  - Inspired from [`no-unused-private-class-members`](https://eslint.org/docs/latest/rules/no-unused-private-class-members)
 
 ## How to configure
 ```json title="biome.json"
@@ -82,6 +82,21 @@ class UsedMember {
   }
 }
 ```
+
+Compound assignments read the current value and therefore count as usage:
+
+```js
+class UsedMember {
+  #usedMember;
+
+  method() {
+    this.#usedMember ??= getValue();
+  }
+}
+```
+
+Unlike ESLint's rule, this rule considers a compound assignment to use the
+member even when the assignment's result is discarded.
 
 ## Caveats
 

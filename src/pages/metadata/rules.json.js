@@ -1468,7 +1468,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce that heading elements (`h1`, `h2`, etc.) have content and that the content is\n accessible to screen readers.\n\n Accessible means that it is not hidden using the `aria-hidden` attribute.\n All headings on a page should have content that is accessible to screen readers\n to convey meaningful structure and enable navigation for assistive technology users.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<H1>`, `<h1>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <h1></h1>\n ```\n\n ```html,expect_diagnostic\n <h1 aria-hidden=\"true\">invisible content</h1>\n ```\n\n ```html,expect_diagnostic\n <h1><span aria-hidden=\"true\">hidden</span></h1>\n ```\n\n ### Valid\n\n ```html\n <h1>heading</h1>\n ```\n\n ```html\n <h1 aria-label=\"Screen reader content\"></h1>\n ```\n\n ```html\n <h1><span aria-hidden=\"true\">hidden</span> visible content</h1>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.6](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html)\n\n"
+            "docs": " Enforce that heading elements (`h1`, `h2`, etc.) have content and that the content is\n accessible to screen readers.\n\n Accessible means that it is not hidden using the `aria-hidden` attribute.\n All headings on a page should have content that is accessible to screen readers\n to convey meaningful structure and enable navigation for assistive technology users.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<H1>`, `<h1>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <h1></h1>\n ```\n\n ```html,expect_diagnostic\n <h1 aria-hidden=\"true\">invisible content</h1>\n ```\n\n ```html,expect_diagnostic\n <h1><span aria-hidden=\"true\">hidden</span></h1>\n ```\n\n ### Valid\n\n ```html\n <h1>heading</h1>\n ```\n\n ```html\n <h1 aria-label=\"Screen reader content\"></h1>\n ```\n\n ```html\n <h1><span aria-hidden=\"true\">hidden</span> visible content</h1>\n ```\n\n Directives that render the heading text are treated as content: `set:html`\n and `set:text` in Astro files, `v-html` and `v-text` in Vue files. Headings\n that use them are not reported.\n\n ```astro\n <h1 set:html={heading} />\n ```\n\n ```vue\n <template><h1 v-text=\"heading\"></h1></template>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.6](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html)\n\n"
           },
           "useHtmlLang": {
             "deprecated": false,
@@ -2740,7 +2740,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unnecessary constructors.\n\n _ES2015_ provides a default class constructor if one is not specified.\n As such, providing an empty constructor or one that delegates into its parent is unnecessary.\n\n The rule ignores:\n\n - decorated classes;\n - constructors with at least one [parameter property](https://www.typescriptlang.org/docs/handbook/2/classes.html#parameter-properties);\n - `private` and `protected` constructors.\n\n ## Caveat\n\n This rule reports on constructors whose sole purpose is to make a parent constructor public.\n See the last invalid example.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class A {\n     constructor (a) {}\n }\n ```\n\n ```ts,expect_diagnostic\n class B extends A {\n     constructor (a) {\n         super(a);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n class C {\n     /**\n      * Documented constructor.\n      */\n     constructor () {}\n }\n ```\n\n ```ts,expect_diagnostic\n class A {\n     protected constructor() {\n         this.prop = 1;\n     }\n }\n\n class B extends A {\n     // Make the parent constructor public.\n     constructor () {\n         super();\n     }\n }\n ```\n\n ### Valid\n\n ```js\n class A {\n     constructor (prop) {\n         this.prop = prop;\n     }\n }\n ```\n\n ```js\n class B extends A {\n     constructor () {\n         super(5);\n     }\n }\n ```\n\n ```ts\n class C {\n     // Empty constructor with parameter properties are allowed.\n     constructor (private prop: number) {}\n }\n ```\n\n ```ts\n class D {\n   constructor(public arg: number){}\n }\n\n class F extends D {\n   // constructor with default parameters are allowed.\n   constructor(arg = 4) {\n     super(arg)\n   }\n }\n ```\n\n ```ts\n @Decorator\n class C {\n     constructor (prop: number) {}\n }\n ```\n"
+            "docs": " Disallow unnecessary constructors.\n\n _ES2015_ provides a default class constructor if one is not specified.\n As such, providing an empty constructor or one that delegates into its parent is unnecessary.\n\n The rule ignores:\n\n - decorated classes;\n - constructors with at least one [parameter property](https://www.typescriptlang.org/docs/handbook/2/classes.html#parameter-properties);\n - `private` and `protected` constructors;\n - TypeScript constructors that forward at least one argument to `super`.\n\n TypeScript forwarding constructors can narrow the parameter types accepted by a subclass.\n The rule does not compare parent and child signatures, so it ignores these constructors\n even when the signatures are identical.\n\n ## Caveat\n\n This rule reports on zero-argument constructors whose sole purpose is to make a parent constructor public.\n See the last invalid example.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class A {\n     constructor (a) {}\n }\n ```\n\n ```js,expect_diagnostic\n class B extends A {\n     constructor (a) {\n         super(a);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n class C {\n     /**\n      * Documented constructor.\n      */\n     constructor () {}\n }\n ```\n\n ```ts,expect_diagnostic\n class A {\n     protected constructor() {\n         this.prop = 1;\n     }\n }\n\n class B extends A {\n     // Make the parent constructor public.\n     constructor () {\n         super();\n     }\n }\n ```\n\n ### Valid\n\n ```js\n class A {\n     constructor (prop) {\n         this.prop = prop;\n     }\n }\n ```\n\n ```js\n class B extends A {\n     constructor () {\n         super(5);\n     }\n }\n ```\n\n ```ts\n class C {\n     // Empty constructor with parameter properties are allowed.\n     constructor (private prop: number) {}\n }\n ```\n\n ```ts\n class D {\n   constructor(public arg: number){}\n }\n\n class F extends D {\n   // constructor with default parameters are allowed.\n   constructor(arg = 4) {\n     super(arg)\n   }\n }\n ```\n\n ```ts\n class Base {\n     constructor(public value: string | number) {}\n }\n\n class Narrowed extends Base {\n     constructor(value: string) {\n         super(value);\n     }\n }\n ```\n\n ```ts\n @Decorator\n class C {\n     constructor (prop: number) {}\n }\n ```\n"
           },
           "noUselessContinue": {
             "deprecated": false,
@@ -3816,13 +3816,13 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslint": "no-unused-private-class-members"
                 }
               }
             ],
-            "docs": " Disallow unused private class members\n\n Private class members that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring.\n Such class members take up space in the code and can lead to confusion by readers.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class OnlyWrite {\n   #usedOnlyInWrite = 5;\n\n   method() {\n\t    this.#usedOnlyInWrite = 212;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedProperty = 5;\n  }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedMethod() {}\n  }\n ```\n\n ### Valid\n\n ```js\n class UsedMember {\n   #usedMember = 42;\n\n   method() {\n\t    return this.#usedMember;\n   }\n }\n ```\n\n ## Caveats\n\n The rule currently considers that all TypeScript private members are used if it encounters a computed access.\n In the following example `member` is not reported. It is considered as used.\n\n ```ts\n  class TsBioo {\n    private member: number;\n\n    set_with_name(name: string, value: number) {\n      this[name] = value;\n    }\n  }\n ```\n\n"
+            "docs": " Disallow unused private class members\n\n Private class members that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring.\n Such class members take up space in the code and can lead to confusion by readers.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class OnlyWrite {\n   #usedOnlyInWrite = 5;\n\n   method() {\n\t    this.#usedOnlyInWrite = 212;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedProperty = 5;\n  }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedMethod() {}\n  }\n ```\n\n ### Valid\n\n ```js\n class UsedMember {\n   #usedMember = 42;\n\n   method() {\n\t    return this.#usedMember;\n   }\n }\n ```\n\n Compound assignments read the current value and therefore count as usage:\n\n ```js\n class UsedMember {\n   #usedMember;\n\n   method() {\n     this.#usedMember ??= getValue();\n   }\n }\n ```\n\n Unlike ESLint's rule, this rule considers a compound assignment to use the\n member even when the assignment's result is discarded.\n\n ## Caveats\n\n The rule currently considers that all TypeScript private members are used if it encounters a computed access.\n In the following example `member` is not reported. It is considered as used.\n\n ```ts\n  class TsBioo {\n    private member: number;\n\n    set_with_name(name: string, value: number) {\n      this[name] = value;\n    }\n  }\n ```\n\n"
           },
           "noUnusedVariables": {
             "deprecated": false,
@@ -4789,6 +4789,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce that `await` is _only_ used on `Promise` values.\n\n Values with a callable `then` member are treated as thenable.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=invalid-primitive.js\n await 'value';\n ```\n\n ```js,expect_diagnostic,file=invalid-function-call.js\n const createValue = () => 'value';\n await createValue();\n ```\n\n ### Valid\n\n ```js,file=valid-examples.js\n await Promise.resolve('value');\n\n const createValue = async () => 'value';\n await createValue();\n ```\n\n"
+          },
+          "useBetterDomTraversing": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useBetterDomTraversing",
+            "link": "https://biomejs.dev/linter/rules/use-better-dom-traversing/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintUnicorn": "better-dom-traversing"
+                }
+              }
+            ],
+            "docs": " Prefer modern DOM traversal APIs over positional indexes and chained walks.\n\n Named first-child accessors, `querySelector()`, and `closest()` describe intent more clearly\n than `childNodes[0]`, `children[n]`, and repeated `.parentElement` access.\n Merging chained `.querySelector()` calls with static selectors has the same benefit.\n\n Fixes are unsafe because the replacement is not always equivalent:\n\n - `.childNodes[0]` is `undefined` when empty; `.firstChild` is `null`\n - `.closest()` looks for any matching ancestor, not an exact number of `.parentElement` hops\n - chained `.querySelector()` calls search inside the first match, while a combined selector\n   searches from the original node\n\n `props.children` is ignored because that is component data, not DOM traversal.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n element.childNodes[0];\n ```\n\n ```js,expect_diagnostic\n element.children[0];\n ```\n\n ```js,expect_diagnostic\n element.children[2];\n ```\n\n ```js,expect_diagnostic\n element.parentElement.parentElement;\n ```\n\n ```js,expect_diagnostic\n element.querySelector(\"a\").querySelector(\"b\");\n ```\n\n ### Valid\n\n ```js\n element.firstChild;\n element.firstElementChild;\n element.querySelector(\"li\");\n element.closest(\"form\");\n const child = props.children[0];\n ```\n\n"
           },
           "useConsistentTestIt": {
             "deprecated": false,
@@ -10677,7 +10694,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 596
+    "numberOrRules": 597
   },
   "syntax": {
     "languages": {
