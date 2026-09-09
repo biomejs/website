@@ -271,6 +271,7 @@ export const LINT_RULES = {
     useAstroClientOnlyDirectiveValue: "useAstroClientOnlyDirectiveValue",
     useAwaitThenable: "useAwaitThenable",
     useBaseline: "useBaseline",
+    useBetterDomTraversing: "useBetterDomTraversing",
     useConsistentTestIt: "useConsistentTestIt",
     useControlLabel: "useControlLabel",
     useDisposables: "useDisposables",
