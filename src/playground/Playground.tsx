@@ -6,44 +6,38 @@ import { markdown } from "@codemirror/lang-markdown";
 import { sass } from "@codemirror/lang-sass";
 import { vue } from "@codemirror/lang-vue";
 import { yaml } from "@codemirror/lang-yaml";
+import type { Extension } from "@codemirror/state";
 import { EditorSelection } from "@codemirror/state";
 import type { ViewUpdate } from "@codemirror/view";
 import { svelte } from "@replit/codemirror-lang-svelte";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import { graphql } from "cm6-graphql";
 import * as codeMirrorLangBiomeAst from "codemirror-lang-rome-ast";
-import {
-	createRef,
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from "react";
-
-import CodeMirror from "./CodeMirror";
+import type { ReactNode, RefObject } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import CodeMirror from "./CodeMirror.tsx";
 import { javascriptWithEmbeddedSnippets } from "./codemirror/javascriptWithEmbeddedSnippets.ts";
-import DiagnosticsPane from "./components/DiagnosticsPane";
-import Resizable from "./components/Resizable";
-import SettingsPanel from "./components/SettingsPanel";
-import Tabs from "./components/Tabs";
-import AnalyzerFixesTab from "./tabs/AnalyzerFixesTab";
-import ControlFlowTab from "./tabs/ControlFlowTab";
-import DiagnosticsConsoleTab from "./tabs/DiagnosticsConsoleTab";
-import DiagnosticsListTab from "./tabs/DiagnosticsListTab";
-import FormatterCodeTab from "./tabs/FormatterCodeTab";
-import FormatterIrTab from "./tabs/FormatterIrTab";
-import GritQLSearchTab from "./tabs/GritQLSearchTab";
-import SemanticModelTab from "./tabs/SemanticModelTab";
-import SettingsTab from "./tabs/SettingsTab";
-import SyntaxTab from "./tabs/SyntaxTab";
-import TyeInfoTab from "./tabs/TypeInfoTab";
+import BiomeHeader from "./components/BiomeHeader.tsx";
+import PlaygroundSidebar from "./components/PlaygroundSidebar.tsx";
+import PrettierHeader from "./components/PrettierHeader.tsx";
+import Resizable from "./components/Resizable.tsx";
+import ControlFlowTab from "./tabs/ControlFlowTab.tsx";
+import DiagnosticsConsoleTab from "./tabs/DiagnosticsConsoleTab.tsx";
+import DiagnosticsListTab from "./tabs/DiagnosticsListTab.tsx";
+import FormatterIrTab from "./tabs/FormatterIrTab.tsx";
+import GritQLSearchTab from "./tabs/GritQLSearchTab.tsx";
+import SemanticModelTab from "./tabs/SemanticModelTab.tsx";
+import SyntaxTab from "./tabs/SyntaxTab.tsx";
+import TyeInfoTab from "./tabs/TypeInfoTab.tsx";
 import {
 	type BiomeAstSyntacticData,
+	PlaygroundProblemsTab,
 	type PlaygroundProps,
-	PlaygroundTab,
-} from "./types";
+	PlaygroundView,
+	type PlaygroundView as PlaygroundViewType,
+} from "./types.ts";
 import {
+	createLocalStorage,
 	getCurrentCode,
 	getFileState,
 	isCssFilename,
@@ -58,130 +52,98 @@ import {
 	isVueFilename,
 	isYamlFilename,
 	useWindowSize,
-} from "./utils";
+} from "./utils.ts";
+
+type ViewItem = { view: PlaygroundViewType; label: string };
+
+/** Tools shown directly in the toolbar. */
+const TOOLS: ViewItem[] = [
+	{ view: PlaygroundView.GritQL, label: "GritQL search" },
+];
+
+/** Biome internals, grouped behind a collapsible "Internals" toggle. */
+const INTERNALS: ViewItem[] = [
+	{ view: PlaygroundView.FormatterIr, label: "Formatter IR" },
+	{ view: PlaygroundView.Syntax, label: "Syntax tree" },
+	{ view: PlaygroundView.ControlFlow, label: "Control flow" },
+	{ view: PlaygroundView.SemanticModel, label: "Semantic model" },
+	{ view: PlaygroundView.TypesIr, label: "Types IR" },
+	{ view: PlaygroundView.TypesRegistered, label: "Types registered" },
+];
+
+const VIEWS: ViewItem[] = [...TOOLS, ...INTERNALS];
+
+function isInternal(view: PlaygroundViewType): boolean {
+	return INTERNALS.some((item) => item.view === view);
+}
+
+const outputCollapsedStore = createLocalStorage("output-collapsed");
+
+function viewLabel(view: PlaygroundViewType): string {
+	return VIEWS.find((item) => item.view === view)?.label ?? view;
+}
 
 export default function Playground({
 	setPlaygroundState,
-	resetPlaygroundState,
 	playgroundState,
 }: PlaygroundProps) {
-	const [clipboardStatus, setClipboardStatus] = useState<
-		"success" | "failed" | "normal"
-	>("normal");
-
+	const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
+	const [rightDrawerOpen, setRightDrawerOpen] = useState(false);
+	const [internalsExpanded, setInternalsExpanded] = useState(() =>
+		playgroundState.openViews.some(isInternal),
+	);
+	const [outputCollapsed, setOutputCollapsed] = useState(() =>
+		outputCollapsedStore.getBoolean(),
+	);
+	const toggleOutputCollapsed = () => {
+		setOutputCollapsed((collapsed) => {
+			outputCollapsedStore.set(!collapsed);
+			return !collapsed;
+		});
+	};
 	const file = getFileState(playgroundState, playgroundState.currentFile);
 	const biomeOutput = file.biome;
 	const prettierOutput = file.prettier;
+	const code = getCurrentCode(playgroundState) ?? "";
 	const gritQuery = file.gritQuery ?? "";
 	const gritQueryResults = biomeOutput.gritQuery ?? { matches: [] };
-	const searchLanguage = playgroundState.settings.searchLanguage;
+	const editorRef = useRef<ReactCodeMirrorRef>(null);
+	const astPanelCodeMirrorRef = useRef<ReactCodeMirrorRef>(null);
+	const biomeAstSyntacticDataRef = useRef<BiomeAstSyntacticData | null>(null);
+	const { width } = useWindowSize();
+	const mobile = width !== undefined && width <= 768;
 
 	const codeMirrorExtensions = useMemo(() => {
-		if (isJsonFilename(playgroundState.currentFile)) {
-			return [json()];
-		}
-		if (isCssFilename(playgroundState.currentFile)) {
-			return [css()];
-		}
-		if (isScssFilename(playgroundState.currentFile)) {
-			return [sass()];
-		}
-		if (isGraphqlFilename(playgroundState.currentFile)) {
-			return [graphql()];
-		}
-		if (isHtmlFilename(playgroundState.currentFile)) {
-			return [html()];
-		}
-		if (isVueFilename(playgroundState.currentFile)) {
-			return [vue()];
-		}
-		if (isSvelteFilename(playgroundState.currentFile)) {
-			return [svelte()];
-		}
-		if (isMarkdownFilename(playgroundState.currentFile)) {
-			return [markdown()];
-		}
-		if (isYamlFilename(playgroundState.currentFile)) {
-			return [yaml()];
-		}
+		if (isJsonFilename(playgroundState.currentFile)) return [json()];
+		if (isCssFilename(playgroundState.currentFile)) return [css()];
+		if (isScssFilename(playgroundState.currentFile)) return [sass()];
+		if (isGraphqlFilename(playgroundState.currentFile)) return [graphql()];
+		if (isHtmlFilename(playgroundState.currentFile)) return [html()];
+		if (isVueFilename(playgroundState.currentFile)) return [vue()];
+		if (isSvelteFilename(playgroundState.currentFile)) return [svelte()];
+		if (isMarkdownFilename(playgroundState.currentFile)) return [markdown()];
+		if (isYamlFilename(playgroundState.currentFile)) return [yaml()];
 		const jsx = isJsxFilename(playgroundState.currentFile);
 		const typescript = isTypeScriptFilename(playgroundState.currentFile);
-		if (playgroundState.settings.experimentalEmbeddedSnippetsEnabled) {
-			return [javascriptWithEmbeddedSnippets({ jsx, typescript })];
-		}
-		return [javascript({ jsx, typescript })];
+		return playgroundState.settings.experimentalEmbeddedSnippetsEnabled
+			? [javascriptWithEmbeddedSnippets({ jsx, typescript })]
+			: [javascript({ jsx, typescript })];
 	}, [
 		playgroundState.currentFile,
 		playgroundState.settings.experimentalEmbeddedSnippetsEnabled,
 	]);
 
-	const biomeAstSyntacticDataRef = useRef<BiomeAstSyntacticData | null>(null);
-
-	const astPanelCodeMirrorRef = useRef<null | ReactCodeMirrorRef>(null);
-
-	useEffect(() => {
-		if (clipboardStatus !== "normal") {
-			setClipboardStatus("normal");
-		}
-	}, [clipboardStatus]);
-
 	const onUpdate = useCallback(
 		(viewUpdate: ViewUpdate) => {
 			const cursorPosition = viewUpdate.state.selection.ranges[0]?.from ?? 0;
 			setPlaygroundState((state) =>
-				state.cursorPosition !== cursorPosition
-					? {
-							...state,
-							cursorPosition,
-						}
-					: state,
+				state.cursorPosition === cursorPosition
+					? state
+					: { ...state, cursorPosition },
 			);
 		},
 		[setPlaygroundState],
 	);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies(scrollAstNodeIntoView): not needed
-	useEffect(() => {
-		scrollAstNodeIntoView(playgroundState.cursorPosition);
-	}, [playgroundState.cursorPosition]);
-
-	// We update the syntactic data of `BiomeJsAst` only AstSource(`Display` string of our original AstRepresentation) changed.
-	useEffect(() => {
-		const ast = biomeOutput.syntax.ast;
-		const tree = codeMirrorLangBiomeAst.parser.parse(ast);
-		const rangeMap = new Map();
-		biomeAstSyntacticDataRef.current = {
-			ast: tree,
-			rangeMap,
-		};
-		tree.iterate({
-			enter(node) {
-				if (node.type.name === "SyntaxToken") {
-					const range = node.node.getChild("Range");
-					if (!range) {
-						return;
-					}
-					let current = range.firstChild;
-					// Checking if current node is broken
-					while (current) {
-						if (current.type.isError) {
-							return;
-						}
-						current = current.nextSibling;
-					}
-
-					const children = range.node.getChildren("Number");
-					const first = children.at(0)?.node;
-					const second = children.at(1)?.node;
-					if (first && second) {
-						const start = +ast.slice(first.from, first.to);
-						const end = +ast.slice(second.from, second.to);
-						rangeMap.set([start, end], [node.from, node.to]);
-					}
-				}
-			},
-		});
-	}, [biomeOutput.syntax.ast]);
 
 	const onChange = useCallback(
 		(value: string) => {
@@ -199,12 +161,80 @@ export default function Playground({
 		[setPlaygroundState],
 	);
 
-	const { width } = useWindowSize();
-	const hasNarrowViewport = width !== undefined && width <= 1000;
+	useEffect(() => {
+		const ast = biomeOutput.syntax.ast;
+		const tree = codeMirrorLangBiomeAst.parser.parse(ast);
+		const rangeMap = new Map<[number, number], [number, number]>();
+		biomeAstSyntacticDataRef.current = { ast: tree, rangeMap };
+		tree.iterate({
+			enter(node) {
+				if (node.type.name !== "SyntaxToken") return;
+				const range = node.node.getChild("Range");
+				if (!range) return;
+				let current = range.firstChild;
+				while (current) {
+					if (current.type.isError) return;
+					current = current.nextSibling;
+				}
+				const children = range.node.getChildren("Number");
+				const first = children.at(0)?.node;
+				const second = children.at(1)?.node;
+				if (first && second) {
+					rangeMap.set(
+						[
+							+ast.slice(first.from, first.to),
+							+ast.slice(second.from, second.to),
+						],
+						[node.from, node.to],
+					);
+				}
+			},
+		});
+	}, [biomeOutput.syntax.ast]);
 
-	const editorRef = createRef<ReactCodeMirrorRef>();
+	useEffect(() => {
+		const view = astPanelCodeMirrorRef.current?.view;
+		const rangeMap = biomeAstSyntacticDataRef.current?.rangeMap;
+		if (!view || !rangeMap) return;
+		for (const [sourceRange, displayRange] of rangeMap.entries()) {
+			if (
+				playgroundState.cursorPosition >= sourceRange[0] &&
+				playgroundState.cursorPosition <= sourceRange[1]
+			) {
+				view.dispatch({
+					scrollIntoView: true,
+					selection: EditorSelection.create([
+						EditorSelection.range(displayRange[0], displayRange[1]),
+						EditorSelection.cursor(displayRange[0]),
+					]),
+				});
+				break;
+			}
+		}
+	}, [playgroundState.cursorPosition]);
 
-	const code = getCurrentCode(playgroundState) ?? "";
+	/**
+	 * Plain click switches to `view` alone (or closes it if it is the only one
+	 * open); `additive` (shift-click) adds/removes it next to the others.
+	 */
+	const selectView = (view: PlaygroundViewType, additive: boolean) => {
+		setPlaygroundState((state) => {
+			const isOpen = state.openViews.includes(view);
+			if (additive) {
+				return {
+					...state,
+					openViews: isOpen
+						? state.openViews.filter((item) => item !== view)
+						: [...state.openViews, view],
+				};
+			}
+			const onlyThisOpen = isOpen && state.openViews.length === 1;
+			return { ...state, openViews: onlyThisOpen ? [] : [view] };
+		});
+	};
+	const toggleView = (view: PlaygroundViewType) => selectView(view, true);
+	const closeAllViews = () =>
+		setPlaygroundState((state) => ({ ...state, openViews: [] }));
 
 	const editor = (
 		<CodeMirror
@@ -221,258 +251,558 @@ export default function Playground({
 		/>
 	);
 
-	const results = (
-		<Tabs
-			className="results-tabs"
-			data-testid="results-tabs"
-			selectedTab={playgroundState.tab}
-			onSelect={(tab) =>
+	const renderOutput = (onCollapse?: () => void) => (
+		<OutputStack
+			state={playgroundState}
+			setPlaygroundState={setPlaygroundState}
+			code={code}
+			biomeOutput={biomeOutput}
+			prettierOutput={prettierOutput}
+			extensions={codeMirrorExtensions}
+			editorRef={editorRef}
+			onCollapse={onCollapse}
+		/>
+	);
+	const output = renderOutput();
+
+	const renderView = (view: PlaygroundViewType) => (
+		<ViewBody
+			view={view}
+			comparePrettierIr={playgroundState.comparePrettierIr}
+			onComparePrettierIrChange={(comparePrettierIr) =>
+				setPlaygroundState((state) => ({ ...state, comparePrettierIr }))
+			}
+			biomeOutput={biomeOutput}
+			prettierOutput={prettierOutput}
+			extensions={codeMirrorExtensions}
+			astRef={astPanelCodeMirrorRef}
+			editorRef={editorRef}
+			code={code}
+			gritQuery={gritQuery}
+			gritQueryResults={gritQueryResults}
+			searchLanguage={playgroundState.settings.searchLanguage}
+			onGritQueryChange={(query) =>
 				setPlaygroundState((state) => ({
 					...state,
-					tab: tab as PlaygroundTab,
+					files: {
+						...state.files,
+						[state.currentFile]: {
+							...getFileState(state, state.currentFile),
+							gritQuery: query,
+						},
+					},
 				}))
 			}
-			tabs={[
-				{
-					key: PlaygroundTab.Code,
-					title: "Code",
-					visible: hasNarrowViewport,
-					children: editor,
-				},
-				{
-					key: PlaygroundTab.Diagnostics,
-					title: "Diagnostics",
-					visible: hasNarrowViewport,
-					children: (
-						<DiagnosticsListTab
-							editorRef={editorRef}
-							code={code}
-							diagnostics={biomeOutput.diagnostics.list}
-						/>
-					),
-				},
-				{
-					key: PlaygroundTab.Formatter,
-					title: "Formatter",
-					children: (
-						<FormatterCodeTab
-							biome={biomeOutput.formatter.code}
-							prettier={prettierOutput}
-							extensions={codeMirrorExtensions}
-						/>
-					),
-				},
-				{
-					key: PlaygroundTab.FormatterIr,
-					title: "Formatter IR",
-					children: (
-						<FormatterIrTab
-							biome={biomeOutput.formatter.ir}
-							prettier={prettierOutput}
-						/>
-					),
-				},
-				{
-					key: PlaygroundTab.AnalyzerFixes,
-					title: "Analyzer Fixes",
-					children: (
-						<AnalyzerFixesTab
-							code={biomeOutput.analysis.fixed}
-							extensions={codeMirrorExtensions}
-						/>
-					),
-				},
-				{
-					key: PlaygroundTab.Syntax,
-					title: "Syntax",
-					children: (
-						<SyntaxTab
-							ast={biomeOutput.syntax.ast}
-							cst={biomeOutput.syntax.cst}
-							ref={astPanelCodeMirrorRef}
-						/>
-					),
-				},
-				{
-					key: PlaygroundTab.ControlFlowGraph,
-					title: "Control Flow Graph",
-					children: (
-						<ControlFlowTab graph={biomeOutput.analysis.controlFlowGraph} />
-					),
-				},
-				{
-					key: PlaygroundTab.TypesIr,
-					title: "Types IR",
-					children: (
-						<TyeInfoTab
-							code={biomeOutput.types.ir}
-							extensions={codeMirrorExtensions}
-						/>
-					),
-				},
-				{
-					key: PlaygroundTab.TypesRegistered,
-					title: "Types Registered",
-					children: (
-						<TyeInfoTab
-							code={biomeOutput.types.registered}
-							extensions={codeMirrorExtensions}
-						/>
-					),
-				},
-				{
-					key: PlaygroundTab.SemanticModel,
-					title: "Semantic Model",
-					children: (
-						<SemanticModelTab
-							code={biomeOutput.analysis.semanticModel}
-							extensions={codeMirrorExtensions}
-						/>
-					),
-				},
-				{
-					key: PlaygroundTab.Console,
-					title: "Console",
-					visible: hasNarrowViewport,
-					children: (
-						<DiagnosticsConsoleTab console={biomeOutput.diagnostics.console} />
-					),
-				},
-				{
-					key: PlaygroundTab.GritQL,
-					title: "GritQL",
-					visible: hasNarrowViewport,
-					children: (
-						<GritQLSearchTab
-							editorRef={editorRef}
-							code={code}
-							gritQuery={gritQuery}
-							gritQueryResults={gritQueryResults}
-							searchLanguage={searchLanguage}
-							onGritQueryChange={(query) => {
-								setPlaygroundState((state) => ({
-									...state,
-									files: {
-										...state.files,
-										[state.currentFile]: {
-											...getFileState(state, state.currentFile),
-											gritQuery: query,
-										},
-									},
-								}));
-							}}
-							onLanguageChange={(language) => {
-								setPlaygroundState((state) => ({
-									...state,
-									settings: {
-										...state.settings,
-										gritTargetLanguage: language,
-									},
-								}));
-							}}
-						/>
-					),
-				},
-				{
-					key: PlaygroundTab.Settings,
-					title: "Settings",
-					visible: hasNarrowViewport,
-					children: (
-						<SettingsTab
-							onReset={resetPlaygroundState}
+			onLanguageChange={(searchLanguage) =>
+				setPlaygroundState((state) => ({
+					...state,
+					settings: { ...state.settings, searchLanguage },
+				}))
+			}
+		/>
+	);
+	const viewButton = ({ view, label }: ViewItem) => (
+		<button
+			type="button"
+			key={view}
+			className={playgroundState.openViews.includes(view) ? "active" : ""}
+			aria-pressed={playgroundState.openViews.includes(view)}
+			title="Click to switch; shift-click to open alongside other tools"
+			onClick={(event) => selectView(view, event.shiftKey)}
+		>
+			{label}
+		</button>
+	);
+	const openInternalsCount =
+		playgroundState.openViews.filter(isInternal).length;
+
+	const viewToggles = (
+		<nav className="playground-view-toggles" aria-label="Tools">
+			<span className="playground-view-toggles-label">Tools</span>
+			{TOOLS.map(viewButton)}
+			<div
+				className={`playground-view-group${internalsExpanded ? " expanded" : ""}`}
+			>
+				<button
+					type="button"
+					className="playground-view-group-toggle"
+					aria-expanded={internalsExpanded}
+					onClick={() => setInternalsExpanded((expanded) => !expanded)}
+				>
+					Internals
+					{!internalsExpanded && openInternalsCount > 0 && (
+						<span className="playground-view-group-count">
+							{openInternalsCount}
+						</span>
+					)}
+					<span aria-hidden={true}>{internalsExpanded ? "‹" : "›"}</span>
+				</button>
+				{internalsExpanded && INTERNALS.map(viewButton)}
+			</div>
+			{playgroundState.openViews.length > 0 && (
+				<button
+					type="button"
+					className="playground-view-toggles-close"
+					onClick={closeAllViews}
+				>
+					Close all
+				</button>
+			)}
+		</nav>
+	);
+
+	const viewPanes = playgroundState.openViews.map((view) => (
+		<section className="playground-view-pane" key={view}>
+			<header className="playground-view-pane-header">
+				<span>{viewLabel(view)}</span>
+				<button
+					type="button"
+					aria-label={`Close ${viewLabel(view)}`}
+					onClick={() => toggleView(view)}
+				>
+					×
+				</button>
+			</header>
+			<div className="playground-view-pane-body">{renderView(view)}</div>
+		</section>
+	));
+
+	if (mobile) {
+		return (
+			<div className="playground-shell mobile">
+				<div className="playground-mobile-actions">
+					<button type="button" onClick={() => setLeftDrawerOpen(true)}>
+						Files &amp; settings
+					</button>
+					<button type="button" onClick={() => setRightDrawerOpen(true)}>
+						Internals
+					</button>
+				</div>
+				<main className="playground-editor">{editor}</main>
+				<section className="playground-output-stack">{output}</section>
+				{leftDrawerOpen && (
+					<Drawer
+						side="left"
+						title="Files & settings"
+						onClose={() => setLeftDrawerOpen(false)}
+					>
+						<PlaygroundSidebar
 							state={playgroundState}
 							setPlaygroundState={setPlaygroundState}
 						/>
-					),
-				},
-			]}
-		/>
-	);
-
-	if (hasNarrowViewport) {
-		return results;
+					</Drawer>
+				)}
+				{rightDrawerOpen && (
+					<Drawer
+						side="right"
+						title="Internals"
+						onClose={() => setRightDrawerOpen(false)}
+					>
+						<nav
+							className="playground-mobile-view-list"
+							aria-label="Internal views"
+						>
+							{TOOLS.map(viewButton)}
+							<span className="playground-mobile-view-list-label">
+								Internals
+							</span>
+							{INTERNALS.map(viewButton)}
+						</nav>
+						{viewPanes.length > 0 && (
+							<div className="playground-mobile-view-stack">{viewPanes}</div>
+						)}
+					</Drawer>
+				)}
+			</div>
+		);
 	}
 
 	return (
-		<>
-			<SettingsPanel
-				onReset={resetPlaygroundState}
-				state={playgroundState}
-				setPlaygroundState={setPlaygroundState}
-			/>
-
-			<div className="code-pane">
-				{editor}
-				<Resizable
-					className="diagnostics-pane"
-					name="diagnostics"
-					direction="top"
+		<div className="playground-shell">
+			<Resizable
+				name="playground-sidebar"
+				direction="right"
+				className="playground-sidebar"
+				minimumSize={220}
+			>
+				<PlaygroundSidebar
+					state={playgroundState}
+					setPlaygroundState={setPlaygroundState}
+				/>
+			</Resizable>
+			<div className="playground-main">
+				{viewToggles}
+				<div
+					className={`playground-workspace${outputCollapsed ? " output-collapsed" : ""}`}
 				>
-					<DiagnosticsPane
-						editorRef={editorRef}
-						console={biomeOutput.diagnostics.console}
-						diagnostics={biomeOutput.diagnostics.list}
-						code={code}
-						gritQuery={gritQuery}
-						gritQueryResults={gritQueryResults}
-						searchLanguage={searchLanguage}
-						currentPane={playgroundState.pane}
-						setPlaygroundState={setPlaygroundState}
-						onGritQueryChange={(query) => {
-							setPlaygroundState((state) => ({
-								...state,
-								files: {
-									...state.files,
-									[state.currentFile]: {
-										...getFileState(state, state.currentFile),
-										gritQuery: query,
-									},
-								},
-							}));
-						}}
-						onLanguageChange={(language) => {
-							setPlaygroundState((state) => ({
-								...state,
-								settings: {
-									...state.settings,
-									gritTargetLanguage: language,
-								},
-							}));
-						}}
-					/>
-				</Resizable>
+					<Resizable
+						name="playground-editor"
+						direction="right"
+						className="playground-editor"
+						minimumSize={100}
+					>
+						{editor}
+					</Resizable>
+					{viewPanes.length > 0 && (
+						<Resizable
+							name="playground-view-stack"
+							direction="right"
+							className="playground-view-stack"
+							minimumSize={140}
+						>
+							{viewPanes}
+						</Resizable>
+					)}
+					{outputCollapsed ? (
+						<section className="playground-output-stack collapsed">
+							<button
+								type="button"
+								className="playground-output-collapse"
+								aria-label="Expand output"
+								aria-expanded={false}
+								onClick={toggleOutputCollapsed}
+							>
+								<span aria-hidden={true}>‹</span>
+							</button>
+						</section>
+					) : (
+						<section className="playground-output-stack">
+							{renderOutput(toggleOutputCollapsed)}
+						</section>
+					)}
+				</div>
 			</div>
+		</div>
+	);
+}
 
-			<Resizable className="results-pane" name="results-pane" direction="left">
-				{results}
+function OutputStack({
+	state,
+	setPlaygroundState,
+	code,
+	biomeOutput,
+	prettierOutput,
+	extensions,
+	editorRef,
+	onCollapse,
+}: {
+	state: Parameters<typeof PlaygroundSidebar>[0]["state"];
+	setPlaygroundState: Parameters<
+		typeof PlaygroundSidebar
+	>[0]["setPlaygroundState"];
+	code: string;
+	biomeOutput: ReturnType<typeof getFileState>["biome"];
+	prettierOutput: ReturnType<typeof getFileState>["prettier"];
+	extensions: Extension[];
+	editorRef: RefObject<ReactCodeMirrorRef | null>;
+	/** When given, the toolbar shows a button that collapses the whole panel. */
+	onCollapse?: (() => void) | undefined;
+}) {
+	const [problemsCollapsed, setProblemsCollapsed] = useState(false);
+	const outputCode =
+		state.fixMode === "none"
+			? state.shouldFormat
+				? biomeOutput.formatter.code
+				: code
+			: biomeOutput.analysis.fixed;
+
+	return (
+		<>
+			<div className="playground-output-toolbar">
+				<div className="playground-output-controls">
+					<label>
+						<input
+							type="checkbox"
+							checked={state.shouldFormat}
+							onChange={(event) =>
+								setPlaygroundState((current) => ({
+									...current,
+									shouldFormat: event.target.checked,
+								}))
+							}
+						/>
+						Format
+					</label>
+					<fieldset className="playground-fix-control">
+						<legend>Fix</legend>
+						{[
+							["none", "None"],
+							["safeFixes", "Safe"],
+							["safeAndUnsafeFixes", "Safe + unsafe"],
+							["applySuppressions", "Suppressions"],
+						].map(([value, label]) => (
+							<button
+								type="button"
+								key={value}
+								className={state.fixMode === value ? "active" : ""}
+								onClick={() =>
+									setPlaygroundState((current) => ({
+										...current,
+										fixMode: value as typeof current.fixMode,
+									}))
+								}
+							>
+								{label}
+							</button>
+						))}
+					</fieldset>
+					<label>
+						<input
+							type="checkbox"
+							disabled={!state.shouldFormat}
+							checked={state.comparePrettier}
+							onChange={(event) =>
+								setPlaygroundState((current) => ({
+									...current,
+									comparePrettier: event.target.checked,
+								}))
+							}
+						/>
+						Compare Prettier
+					</label>
+				</div>
+				{onCollapse && (
+					<button
+						type="button"
+						className="playground-output-collapse"
+						aria-label="Collapse output"
+						aria-expanded={true}
+						onClick={onCollapse}
+					>
+						<span aria-hidden={true}>›</span>
+					</button>
+				)}
+			</div>
+			<div
+				className={`playground-code-output${state.comparePrettier ? " split" : ""}`}
+			>
+				{state.comparePrettier && state.shouldFormat ? (
+					<Resizable
+						name="playground-biome-output"
+						direction="right"
+						className="playground-output-pane"
+						minimumSize={140}
+					>
+						<div className="playground-output-heading biome">
+							<BiomeHeader />
+						</div>
+						<CodeMirror
+							value={outputCode}
+							extensions={extensions}
+							readOnly={true}
+							data-testid="biome-output"
+						/>
+					</Resizable>
+				) : (
+					<div className="playground-output-pane">
+						<div className="playground-output-heading biome">
+							<BiomeHeader />
+						</div>
+						<CodeMirror
+							value={outputCode}
+							extensions={extensions}
+							readOnly={true}
+							data-testid="biome-output"
+						/>
+					</div>
+				)}
+				{state.comparePrettier && state.shouldFormat && (
+					<div className="playground-output-pane">
+						<div className="playground-output-heading prettier">
+							<PrettierHeader />
+						</div>
+						<CodeMirror
+							value={
+								prettierOutput.type === "SUCCESS"
+									? prettierOutput.code
+									: prettierOutput.stack
+							}
+							extensions={prettierOutput.type === "SUCCESS" ? extensions : []}
+							readOnly={true}
+							data-testid="prettier-output"
+						/>
+					</div>
+				)}
+			</div>
+			<Resizable
+				name="playground-problems"
+				direction="top"
+				className={`playground-problems${problemsCollapsed ? " collapsed" : ""}`}
+				minimumSize={problemsCollapsed ? 0 : 150}
+			>
+				<div className="playground-problems-tabs" role="tablist">
+					<button
+						type="button"
+						role="tab"
+						aria-selected={
+							state.problemsTab === PlaygroundProblemsTab.Diagnostics
+						}
+						onClick={() =>
+							setPlaygroundState((current) => ({
+								...current,
+								problemsTab: PlaygroundProblemsTab.Diagnostics,
+							}))
+						}
+					>
+						Diagnostics ({biomeOutput.diagnostics.list.length})
+					</button>
+					<button
+						type="button"
+						role="tab"
+						aria-selected={state.problemsTab === PlaygroundProblemsTab.Console}
+						onClick={() =>
+							setPlaygroundState((current) => ({
+								...current,
+								problemsTab: PlaygroundProblemsTab.Console,
+							}))
+						}
+					>
+						Console
+					</button>
+					<button
+						className="playground-problems-collapse"
+						type="button"
+						aria-label={
+							problemsCollapsed
+								? "Expand problems panel"
+								: "Collapse problems panel"
+						}
+						aria-expanded={!problemsCollapsed}
+						onClick={() => setProblemsCollapsed((collapsed) => !collapsed)}
+					>
+						<span aria-hidden={true}>{problemsCollapsed ? "⌃" : "⌄"}</span>
+					</button>
+				</div>
+				{!problemsCollapsed && (
+					<div className="playground-problems-body">
+						{state.problemsTab === PlaygroundProblemsTab.Diagnostics ? (
+							<DiagnosticsListTab
+								editorRef={editorRef}
+								code={code}
+								diagnostics={biomeOutput.diagnostics.list}
+							/>
+						) : (
+							<DiagnosticsConsoleTab
+								console={biomeOutput.diagnostics.console}
+							/>
+						)}
+					</div>
+				)}
 			</Resizable>
 		</>
 	);
+}
 
-	function scrollAstNodeIntoView(cursorPosition: number) {
-		if (
-			astPanelCodeMirrorRef.current == null ||
-			biomeAstSyntacticDataRef.current == null
-		) {
-			return;
-		}
-
-		const view = astPanelCodeMirrorRef.current.view;
-		const rangeMap = biomeAstSyntacticDataRef.current.rangeMap;
-
-		for (const [sourceRange, displaySourceRange] of rangeMap.entries()) {
-			if (
-				cursorPosition >= sourceRange[0] &&
-				cursorPosition <= sourceRange[1]
-			) {
-				view?.dispatch({
-					scrollIntoView: true,
-					selection: EditorSelection.create([
-						EditorSelection.range(displaySourceRange[0], displaySourceRange[1]),
-						EditorSelection.cursor(displaySourceRange[0]),
-					]),
-				});
-			}
-		}
+function ViewBody({
+	view,
+	comparePrettierIr,
+	onComparePrettierIrChange,
+	biomeOutput,
+	prettierOutput,
+	extensions,
+	astRef,
+	editorRef,
+	code,
+	gritQuery,
+	gritQueryResults,
+	searchLanguage,
+	onGritQueryChange,
+	onLanguageChange,
+}: {
+	view: PlaygroundViewType;
+	comparePrettierIr: boolean;
+	onComparePrettierIrChange: (compare: boolean) => void;
+	biomeOutput: ReturnType<typeof getFileState>["biome"];
+	prettierOutput: ReturnType<typeof getFileState>["prettier"];
+	extensions: Extension[];
+	astRef: RefObject<ReactCodeMirrorRef | null>;
+	editorRef: RefObject<ReactCodeMirrorRef | null>;
+	code: string;
+	gritQuery: string;
+	gritQueryResults: { matches: [number, number][]; error: string | undefined };
+	searchLanguage: Parameters<typeof GritQLSearchTab>[0]["searchLanguage"];
+	onGritQueryChange: (query: string) => void;
+	onLanguageChange: Parameters<typeof GritQLSearchTab>[0]["onLanguageChange"];
+}) {
+	switch (view) {
+		case PlaygroundView.FormatterIr:
+			return (
+				<FormatterIrTab
+					biome={biomeOutput.formatter.ir}
+					prettier={prettierOutput}
+					comparePrettier={comparePrettierIr}
+					onComparePrettierChange={onComparePrettierIrChange}
+				/>
+			);
+		case PlaygroundView.Syntax:
+			return (
+				<SyntaxTab
+					ast={biomeOutput.syntax.ast}
+					cst={biomeOutput.syntax.cst}
+					ref={astRef}
+				/>
+			);
+		case PlaygroundView.ControlFlow:
+			return <ControlFlowTab graph={biomeOutput.analysis.controlFlowGraph} />;
+		case PlaygroundView.SemanticModel:
+			return (
+				<SemanticModelTab
+					code={biomeOutput.analysis.semanticModel}
+					extensions={extensions}
+				/>
+			);
+		case PlaygroundView.TypesIr:
+			return <TyeInfoTab code={biomeOutput.types.ir} extensions={extensions} />;
+		case PlaygroundView.TypesRegistered:
+			return (
+				<TyeInfoTab
+					code={biomeOutput.types.registered}
+					extensions={extensions}
+				/>
+			);
+		case PlaygroundView.GritQL:
+			return (
+				<GritQLSearchTab
+					editorRef={editorRef}
+					code={code}
+					gritQuery={gritQuery}
+					gritQueryResults={gritQueryResults}
+					searchLanguage={searchLanguage}
+					onGritQueryChange={onGritQueryChange}
+					onLanguageChange={onLanguageChange}
+				/>
+			);
 	}
+}
+
+function Drawer({
+	side,
+	title,
+	onClose,
+	children,
+}: {
+	side: "left" | "right";
+	title: string;
+	onClose: () => void;
+	children: ReactNode;
+}) {
+	return (
+		<div className="playground-drawer-layer">
+			<button
+				className="playground-drawer-backdrop"
+				type="button"
+				aria-label="Close drawer"
+				onClick={onClose}
+			/>
+			<aside className={`playground-drawer ${side}`}>
+				<header>
+					<span>{title}</span>
+					<button type="button" aria-label={`Close ${title}`} onClick={onClose}>
+						×
+					</button>
+				</header>
+				<div className="playground-drawer-body">{children}</div>
+			</aside>
+		</div>
+	);
 }

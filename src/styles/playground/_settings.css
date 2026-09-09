@@ -31,6 +31,16 @@
 		margin-right: 10px;
 	}
 
+	/* Rows that put the label first right-align the checkbox, matching the
+	 * selects and number inputs. flex would otherwise stretch it. */
+	.field-row label + input[type="checkbox"] {
+		flex: 0 0 auto;
+		width: auto;
+		margin-right: 0;
+		margin-left: auto;
+		align-self: center;
+	}
+
 	select,
 	input[type="number"] {
 		width: 120px;
