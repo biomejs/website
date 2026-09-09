@@ -71,7 +71,7 @@
     "lang-rome-formatter-ir": "0.0.2",
     "mermaid": "11.17.2",
     "prettier": "3.9.6",
-    "prettier-plugin-svelte": "3.5.2",
+    "prettier-plugin-svelte": "4.1.1",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "rehype-autolink-headings": "7.1.0",
