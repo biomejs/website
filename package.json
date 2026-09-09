@@ -28,7 +28,7 @@
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@astrojs/markdown-remark": "7.3.0",
-    "@astrojs/mdx": "7.0.8",
+    "@astrojs/mdx": "8.0.0",
     "@astrojs/netlify": "8.2.5",
     "@astrojs/prism": "4.0.2",
     "@astrojs/react": "6.0.5",
