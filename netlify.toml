@@ -24,6 +24,13 @@ cache-control = '''
 			immutable
 			'''
 
+[[headers]]
+for = "/install"
+
+[headers.values]
+content-type = "text/x-shellscript; charset=utf-8"
+cache-control = "public, max-age=3600"
+
 [context.deploy-preview.environment]
 SKIP_OG = "true"
 
