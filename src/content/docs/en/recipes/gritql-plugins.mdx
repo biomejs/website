@@ -667,6 +667,34 @@ the quotes on both sides.
 
 ## Advanced Patterns
 
+### Flag logging within selected lines
+
+Use [`range()`](/reference/gritql/#matching-source-ranges) to limit a plugin to
+known source positions. This rule reports `console.log()` calls contained
+entirely within lines 2 and 3. The calls before and after that range are skipped.
+If a call spans several lines, the entire call must be inside the selected range
+in order to match.
+
+```grit ins="range"
+`console.log($...)` as $call where {
+    $call <: range(start_line=2, end_line=3),
+    register_diagnostic(
+        span = $call,
+        message = "Remove logging from this region.",
+        severity = "warn"
+    )
+}
+```
+
+```js ins={2-3}
+console.log("before");
+console.log("selected");
+console.log("also selected");
+console.log("after");
+```
+
+[Try this example in the Playground](/playground?tab=syntax&pane=GritQL&code=YwBvAG4AcwBvAGwAZQAuAGwAbwBnACgAIgBiAGUAZgBvAHIAZQAiACkAOwAKAGMAbwBuAHMAbwBsAGUALgBsAG8AZwAoACIAcwBlAGwAZQBjAHQAZQBkACIAKQA7AAoAYwBvAG4AcwBvAGwAZQAuAGwAbwBnACgAIgBhAGwAcwBvACAAcwBlAGwAZQBjAHQAZQBkACIAKQA7AAoAYwBvAG4AcwBvAGwAZQAuAGwAbwBnACgAIgBhAGYAdABlAHIAIgApADsACgA%3D&gritQuery=%60console.log%28%24...%29%60+as+%24call+where+%7B%0A++++%24call+%3C%3A+range%28start_line%3D2%2C+end_line%3D3%29%0A%7D%0A)
+
 ### Combine multiple related rules in one file
 
 You can group **multiple independent rules** into a single `.grit` file using a
