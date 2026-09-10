@@ -370,7 +370,7 @@ export function GET() {
           },
           "useLayeredStyles": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.13",
             "name": "useLayeredStyles",
             "link": "https://biomejs.dev/linter/rules/use-layered-styles/css",
             "recommended": false,
@@ -2077,7 +2077,7 @@ export function GET() {
           },
           "noUnsafeIframeSandbox": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.13",
             "name": "noUnsafeIframeSandbox",
             "link": "https://biomejs.dev/linter/rules/no-unsafe-iframe-sandbox/html",
             "recommended": true,
@@ -4633,7 +4633,7 @@ export function GET() {
           },
           "noUnsafeIframeSandbox": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.13",
             "name": "noUnsafeIframeSandbox",
             "link": "https://biomejs.dev/linter/rules/no-unsafe-iframe-sandbox/javascript",
             "recommended": true,
@@ -4741,7 +4741,7 @@ export function GET() {
           },
           "noXorAsExponentiation": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.13",
             "name": "noXorAsExponentiation",
             "link": "https://biomejs.dev/linter/rules/no-xor-as-exponentiation/javascript",
             "recommended": true,
@@ -4792,7 +4792,7 @@ export function GET() {
           },
           "useBetterDomTraversing": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.13",
             "name": "useBetterDomTraversing",
             "link": "https://biomejs.dev/linter/rules/use-better-dom-traversing/javascript",
             "recommended": false,
@@ -5304,7 +5304,7 @@ export function GET() {
           },
           "useVueBaseImport": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.13",
             "name": "useVueBaseImport",
             "link": "https://biomejs.dev/linter/rules/use-vue-base-import/javascript",
             "recommended": true,
@@ -7584,7 +7584,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-redundant-use-strict/javascript",
             "recommended": true,
             "fixKind": "safe",
-            "docs": " Prevents from having redundant `\"use strict\"`.\n\n The directive `\"use strict\"` **isn't** needed in `.mjs` files, or in `.js` files inside projects where the `package.json` defines library as module:\n\n\n ```json,ignore\n {\n    \"type\": \"module\"\n }\n ```\n\n Instead, `.cjs` files are considered \"scripts\" and the directive `\"use strict\"` is accepted and advised.\n\n ## Examples\n\n ### Invalid\n ```cjs,expect_diagnostic\n \"use strict\";\n function foo() {\n  \t\"use strict\";\n }\n ```\n ```cjs,expect_diagnostic\n \"use strict\";\n \"use strict\";\n\n function foo() {\n\n }\n ```\n ```cjs,expect_diagnostic\n function foo() {\n \"use strict\";\n \"use strict\";\n }\n ```\n ```cjs,expect_diagnostic\n class C1 {\n \ttest() {\n \t\t\"use strict\";\n \t}\n }\n ```\n ```cjs,expect_diagnostic\n const C2 = class {\n \ttest() {\n \t\t\"use strict\";\n \t}\n };\n\n ```\n ### Valid\n ```cjs\n function foo() {\n\n }\n```\n ```cjs\n  function foo() {\n     \"use strict\";\n }\n function bar() {\n     \"use strict\";\n }\n```\n\n"
+            "docs": " Prevents from having redundant `\"use strict\"`.\n\n The directive `\"use strict\"` <a href=\"https://262.ecma-international.org/6.0/#sec-strict-mode-code\">**isn't** needed</a> in an ESM module.\n This includes `.mjs` files, or `.js` files inside projects where the `package.json` defines the library as a module:\n\n ```json,ignore\n {\n    \"type\": \"module\"\n }\n ```\n\n If the type is undefined, ESM module is assumed.\n CommonJS files (`.cjs`, or `.js` files inside a project with `\"type\": \"commonjs\"`) are in non-strict mode. \n For them, the directive `\"use strict\"` is accepted and advised.\n\n ## Examples\n\n ### Invalid\n ```cjs,expect_diagnostic\n \"use strict\";\n function foo() {\n  \t\"use strict\";\n }\n ```\n ```cjs,expect_diagnostic\n \"use strict\";\n \"use strict\";\n\n function foo() {\n\n }\n ```\n ```cjs,expect_diagnostic\n function foo() {\n \"use strict\";\n \"use strict\";\n }\n ```\n ```cjs,expect_diagnostic\n class C1 {\n \ttest() {\n \t\t\"use strict\";\n \t}\n }\n ```\n ```cjs,expect_diagnostic\n const C2 = class {\n \ttest() {\n \t\t\"use strict\";\n \t}\n };\n\n ```\n ### Valid\n ```cjs\n function foo() {\n\n }\n```\n ```cjs\n  function foo() {\n     \"use strict\";\n }\n function bar() {\n     \"use strict\";\n }\n```\n\n"
           },
           "noReturnAssign": {
             "deprecated": false,
