@@ -38,6 +38,20 @@ export const collections = {
 			}),
 		loader: file("src/content/team.json"),
 	}),
+	plugins: defineCollection({
+		schema: () =>
+			z.object({
+				id: z.string(),
+				url: z.url(),
+				packages: z.array(
+					z.object({
+						name: z.string().max(255),
+						description: z.string().max(500),
+					}),
+				),
+			}),
+		loader: file("src/content/plugins.json"),
+	}),
 	changelogs: defineCollection({
 		loader: changelogsLoader([
 			{

@@ -349,6 +349,14 @@ export default defineConfig({
 					],
 				},
 				{
+					label: "Community plugins",
+					link: "/community-plugins",
+					badge: {
+						text: "new",
+						variant: "success",
+					},
+				},
+				{
 					label: "Formatter",
 					items: [
 						{

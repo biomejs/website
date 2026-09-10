@@ -1,0 +1,28 @@
+---
+title: Community plugins
+description: A list of plugins maintained by the community
+---
+import ListPlugins from "@/components/ListPlugins.astro";
+
+This is a list of plugins created and maintained by the community.
+
+<ListPlugins />
+
+## How to add your plugin
+
+If you want to add your plugin to the list:
+1. Open the <a href="https://github.com/biomejs/website/edit/main/src/content/docs/content/plugins.json" target="_blank" rel="noopener">Content Collection file</a>
+2. Add a new entry to the list. We require the following information for each package:
+   - `id`: It's a unique identifier, so make sure there isn't another in the list. Examples: "biome-plugin-foobar`, "Superfast config",
+   - `url`: A URL of your plugin. It can be a website or the URL to the source code.
+   - `packages`: One or more packages (in case your repository/website ships more than one package). Each entry is an object with:
+      - `name`: The name of the package published on npm. Examples: `biome-plugin-foobar`, `@org/biome-config-fast`.
+      - `description`: A brief explanation of the package.
+3. Send a PR. A member of the team will merge it.
+
+
+## What this page isn't
+
+This isn't a repository or registry for plugins. The team doesn't take responsibility for the contents of the plugins the users decide the list on this page, or whether they are deprecated.
+
+
