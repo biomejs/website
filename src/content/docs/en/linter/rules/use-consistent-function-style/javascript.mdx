@@ -1,0 +1,207 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useConsistentFunctionStyle (JavaScript)
+description: JavaScript (and super languages) documentation for useConsistentFunctionStyle
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-consistent-function-style/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useConsistentFunctionStyle`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`func-style`](https://eslint.org/docs/latest/rules/func-style)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentFunctionStyle": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce consistent use of function declarations or expressions assigned to variables.
+
+A consistent function style makes function definitions easier to recognize.
+Use the `style` option to choose the style that matches your project's conventions.
+
+In both styles, callbacks, methods, and default exports are ignored.
+Named exports follow the configured style.
+
+## Examples
+
+### Invalid
+
+```js
+function greet() {
+    return "Hello";
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:10 <a href=\"https://biomejs.dev/linter/rules/use-consistent-function-style\">lint/nursery/useConsistentFunctionStyle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Function expressions are required here, but this is a declaration.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>function greet() &#123;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    return &quot;Hello&quot;;<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Using a consistent function style makes function definitions easier to recognize.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a function expression assigned to a variable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+const greet = function() {
+    return "Hello";
+};
+const farewell = () => "Goodbye";
+```
+
+```js
+export default function greet() {
+    return "Hello";
+}
+```
+
+## Options
+
+### `style`
+
+Type: `"expression" | "declaration"`
+
+Default: `"expression"`
+
+With `"expression"`, the rule requires function expressions or arrow functions
+assigned to variables.
+
+These functions can only be called after the variable is initialized. TypeScript
+overloads are allowed because they require declarations.
+
+```ts
+function identity(value: string): string;
+function identity(value: number): number;
+function identity(value: string | number) {
+    return value;
+}
+```
+
+With `"declaration"`, the rule requires function declarations.
+
+These are hoisted and can be called before their definition. Arrow functions that directly use
+`this` or `super` are allowed to preserve their lexical binding.
+Variables with TypeScript type annotations are also allowed because a function
+declaration cannot be annotated with an existing function type.
+A return type annotation on the function does not qualify for this exception.
+
+The following examples use `"declaration"`:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentFunctionStyle": {
+					"level": "on",
+					"options": {
+						"style": "declaration"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```js
+const greet = function() {};
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:7 <a href=\"https://biomejs.dev/linter/rules/use-consistent-function-style\">lint/nursery/useConsistentFunctionStyle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Function declarations are required here, but this is an expression.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const greet = function() &#123;&#125;;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Using a consistent function style makes function definitions easier to recognize.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a function declaration.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+const greet = (): string => "Hello";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:7 <a href=\"https://biomejs.dev/linter/rules/use-consistent-function-style\">lint/nursery/useConsistentFunctionStyle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Function declarations are required here, but this is an expression.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const greet = (): string =&gt; &quot;Hello&quot;;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Using a consistent function style makes function definitions easier to recognize.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a function declaration.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```js
+function greet() {}
+const getContext = () => this;
+```
+
+```ts
+type Greeting = () => string;
+const greet: Greeting = () => "Hello";
+const farewell: Greeting = function() { return "Goodbye"; };
+```
+
+### `allowArrowFunctions`
+
+Type: `boolean`
+
+Default: `false`
+
+Allow arrow functions regardless of style setting.
+Arrow functions are always allowed when expressions are required.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentFunctionStyle": {
+					"level": "on",
+					"options": {
+						"style": "declaration",
+						"allowArrowFunctions": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```js
+const greet = function() { return "Hello"; };
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:7 <a href=\"https://biomejs.dev/linter/rules/use-consistent-function-style\">lint/nursery/useConsistentFunctionStyle</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Function declarations are required here, but this is an expression.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const greet = function() &#123; return &quot;Hello&quot;; &#125;;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Using a consistent function style makes function definitions easier to recognize.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a function declaration.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```js
+function greet() { return "Hello"; }
+const farewell = () => "Goodbye";
+```
+
+## See Also
+
+- [useArrowFunction](https://biomejs.dev/linter/rules/use-arrow-function/)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_consistent_function_style.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useConsistentFunctionStyle)
+

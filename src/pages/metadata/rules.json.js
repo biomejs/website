@@ -2014,6 +2014,23 @@ export function GET() {
             ],
             "docs": " Disallow disabling zoom with `user-scalable=no` in the `<meta name=\"viewport\">` element.\n\n Disabling zoom can make page content difficult to read for people with low vision.\n\n See [WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) and the\n [html-eslint rule](https://html-eslint.org/docs/rules/no-non-scalable-viewport) for details.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />\n ```\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"user-scalable = no, width=device-width\" />\n ```\n\n ### Valid\n\n ```html\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" />\n <meta name=\"viewport\" content=\"width=device-width\" />\n <meta name=\"viewport\" content=\"user-scalable=nope\" />\n ```\n\n"
           },
+          "noObsoleteTags": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noObsoleteTags",
+            "link": "https://biomejs.dev/linter/rules/no-obsolete-tags/html",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-obsolete-tags"
+                }
+              }
+            ],
+            "docs": " Disallow obsolete HTML elements.\n\n Obsolete elements are no longer part of conforming HTML. Use standard HTML\n elements for structure and semantics, and CSS for presentation.\n\n This rule disallows `acronym`, `applet`, `basefont`, `bgsound`, `big`, `blink`,\n `center`, `dir`, `font`, `frame`, `frameset`, `isindex`, `keygen`, `listing`,\n `marquee`, `menuitem`, `multicol`, `nextid`, `nobr`, `noembed`, `noframes`,\n `plaintext`, `rb`, `rtc`, `spacer`, `strike`, `tt`, and `xmp`.\n\n Tag names are case-insensitive in HTML files. Custom components in template\n languages, such as `<Font />`, are not HTML elements and are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <font color=\"red\">Warning</font>\n ```\n\n ```html,expect_diagnostic\n <acronym title=\"World Wide Web\">WWW</acronym>\n ```\n\n ### Valid\n\n ```html\n <span class=\"warning\">Warning</span>\n <abbr title=\"World Wide Web\">WWW</abbr>\n ```\n\n ## Resources\n\n - [HTML specification: Non-conforming features](https://html.spec.whatwg.org/multipage/obsolete.html#non-conforming-features)\n\n"
+          },
           "noSvelteAtHtmlTags": {
             "deprecated": false,
             "version": "2.5.11",
@@ -2996,7 +3013,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Use arrow functions over function expressions.\n\n An arrow function expression is a compact alternative to a regular function expression,\n with an important distinction:\n `this` is not bound to the arrow function. It inherits `this` from its parent scope.\n\n This rule proposes turning all function expressions that are not generators (`function*`) and don't use `this` into arrow functions.\n\n This rule does not modify top-level function declarations ([discuss here](https://github.com/biomejs/biome/discussions/7108)).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const z = function() {\n     return 0;\n }\n ```\n\n ```js,expect_diagnostic\n const delegatedFetch = async function(url) {\n     return await fetch(url);\n }\n ```\n\n ### Valid\n\n ```js\n const f = function() {\n     return this.prop;\n }\n ```\n\n Named function expressions are ignored:\n\n ```js\n const z = function z() {\n     return 0;\n }\n ```\n\n Functions that reference the [arguments\n object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments)\n are ignored because the arguments object is not available to arrow\n functions.\n\n ```js\n const q = function () {\n     return arguments[0];\n }\n ```\n\n Function expressions that declare the type of `this` are  also ignored:\n\n ```ts\n const z = function(this: A): number {\n     return 0;\n }\n ```\n"
+            "docs": " Use arrow functions over function expressions.\n\n An arrow function expression is a compact alternative to a regular function expression,\n with an important distinction:\n `this` is not bound to the arrow function. It inherits `this` from its parent scope.\n\n This rule proposes turning all function expressions that are not generators (`function*`) and don't use `this` into arrow functions.\n\n This rule does not modify top-level function declarations ([discuss here](https://github.com/biomejs/biome/discussions/7108)).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const z = function() {\n     return 0;\n }\n ```\n\n ```js,expect_diagnostic\n const delegatedFetch = async function(url) {\n     return await fetch(url);\n }\n ```\n\n ### Valid\n\n ```js\n const f = function() {\n     return this.prop;\n }\n ```\n\n Named function expressions are ignored:\n\n ```js\n const z = function z() {\n     return 0;\n }\n ```\n\n Functions that reference the [arguments\n object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments)\n are ignored because the arguments object is not available to arrow\n functions.\n\n ```js\n const q = function () {\n     return arguments[0];\n }\n ```\n\n Function expressions that declare the type of `this` are  also ignored:\n\n ```ts\n const z = function(this: A): number {\n     return 0;\n }\n ```\n\n ## See Also\n\n - [useConsistentFunctionStyle](https://biomejs.dev/linter/rules/use-consistent-function-style)\n\n"
           },
           "useDateNow": {
             "deprecated": false,
@@ -4011,7 +4028,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce JSDoc comment lines to start with a single asterisk, except for the first one.\n\n This rule ensures that every line in a JSDoc block, except the opening one, starts with exactly one asterisk (`*`).\n Extra asterisks are unnecessary in JSDoc comments and are often introduced by mistake.\n\n Double asterisks (`**`) are still allowed, because they mark the start of bold text.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /**\n ** Description\n */\n ```\n\n ```js,expect_diagnostic\n /**\n * Description\n * */\n ```\n\n ```js,expect_diagnostic\n /** @ts-ignore **/\n ```\n\n ### Valid\n\n ```js\n /**\n  * Description\n  * @public\n  */\n ```\n\n ```js\n /** @ts-ignore */\n ```\n\n ```js\n /**\n  * **Bold** text\n  */\n ```\n\n"
+            "docs": " Enforce JSDoc comment lines to start with a single asterisk, except for the first one.\n\n This rule ensures that every line in a JSDoc block, except the opening one, starts with exactly one asterisk (`*`).\n Extra asterisks are unnecessary in JSDoc comments and are often introduced by mistake.\n\n Asterisks that are part of the comment content, such as bold or italic text, are still allowed.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /**\n ** Description\n */\n ```\n\n ```js,expect_diagnostic\n /**\n * Description\n * */\n ```\n\n ```js,expect_diagnostic\n /** @ts-ignore **/\n ```\n\n ### Valid\n\n ```js\n /**\n  * Description\n  * @public\n  */\n ```\n\n ```js\n /** @ts-ignore */\n ```\n\n ```js\n /**\n  * **Bold** text\n  */\n ```\n\n ```js\n /**\n  * *Italic* text\n  */\n ```\n\n"
           },
           "useValidForDirection": {
             "deprecated": false,
@@ -4545,6 +4562,23 @@ export function GET() {
             ],
             "docs": " Disallow dependencies that are known to have better alternatives.\n\n This rule checks static imports, dynamic `import()`, and `require()` calls\n and suggests modern, native, or more maintainable alternatives based on\n [e18e](https://e18e.dev/)'s replacement data.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import glob from \"globby\";\n ```\n\n ```js,expect_diagnostic\n const glob = require(\"globby\");\n ```\n\n ```js,expect_diagnostic\n const glob = await import(\"globby\");\n ```\n\n ### Valid\n\n ```js\n import glob from \"tinyglobby\";\n ```\n\n ```js\n const glob = require(\"tinyglobby\");\n ```\n\n ```js\n const glob = await import(\"tinyglobby\");\n ```\n\n See [the e18e docs](https://e18e.dev/docs/replacements/) for the full list of replacements.\n\n"
           },
+          "noReturnInFinally": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noReturnInFinally",
+            "link": "https://biomejs.dev/linter/rules/no-return-in-finally/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintPromise": "no-return-in-finally"
+                }
+              }
+            ],
+            "docs": " Disallow return statements in `Promise.prototype.finally()` callbacks.\n\n Returning a value from a `Promise.prototype.finally()` callback is ignored, which can be confusing.\n Returned promises and thenables are awaited, and their rejection rejects\n the resulting promise.\n\n Returns inside nested blocks, including conditional branches and loops,\n are also disallowed. Returns inside nested functions are ignored by the rule.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Promise.resolve(1).finally(() => { return 2 });\n ```\n\n ```js,expect_diagnostic\n myPromise.finally(() => { return 2 });\n ```\n\n ```js,expect_diagnostic\n myPromise.finally(() => {\n     if (condition) {\n         return 2;\n     }\n });\n ```\n\n ### Valid\n\n ```js\n Promise.resolve(1).finally(() => { console.log(2) });\n myPromise.finally(() => {});\n\n myPromise.finally(function () {\n     function nested() {\n         return 2;\n     }\n     console.log(nested());\n });\n ```\n\n ## References\n\n - MDN: [`Promise.prototype.finally` documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally)\n\n"
+          },
           "noSvelteUnnecessaryStateWrap": {
             "deprecated": false,
             "version": "2.5.2",
@@ -4806,6 +4840,23 @@ export function GET() {
               }
             ],
             "docs": " Prefer modern DOM traversal APIs over positional indexes and chained walks.\n\n Named first-child accessors, `querySelector()`, and `closest()` describe intent more clearly\n than `childNodes[0]`, `children[n]`, and repeated `.parentElement` access.\n Merging chained `.querySelector()` calls with static selectors has the same benefit.\n\n Fixes are unsafe because the replacement is not always equivalent:\n\n - `.childNodes[0]` is `undefined` when empty; `.firstChild` is `null`\n - `.closest()` looks for any matching ancestor, not an exact number of `.parentElement` hops\n - chained `.querySelector()` calls search inside the first match, while a combined selector\n   searches from the original node\n\n `props.children` is ignored because that is component data, not DOM traversal.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n element.childNodes[0];\n ```\n\n ```js,expect_diagnostic\n element.children[0];\n ```\n\n ```js,expect_diagnostic\n element.children[2];\n ```\n\n ```js,expect_diagnostic\n element.parentElement.parentElement;\n ```\n\n ```js,expect_diagnostic\n element.querySelector(\"a\").querySelector(\"b\");\n ```\n\n ### Valid\n\n ```js\n element.firstChild;\n element.firstElementChild;\n element.querySelector(\"li\");\n element.closest(\"form\");\n const child = props.children[0];\n ```\n\n"
+          },
+          "useConsistentFunctionStyle": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useConsistentFunctionStyle",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-function-style/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "func-style"
+                }
+              }
+            ],
+            "docs": " Enforce consistent use of function declarations or expressions assigned to variables.\n\n A consistent function style makes function definitions easier to recognize.\n Use the `style` option to choose the style that matches your project's conventions.\n\n In both styles, callbacks, methods, and default exports are ignored.\n Named exports follow the configured style.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function greet() {\n     return \"Hello\";\n }\n ```\n\n ### Valid\n\n ```js\n const greet = function() {\n     return \"Hello\";\n };\n const farewell = () => \"Goodbye\";\n ```\n\n ```js\n export default function greet() {\n     return \"Hello\";\n }\n ```\n\n ## Options\n\n ### `style`\n\n Type: `\"expression\" | \"declaration\"`\n\n Default: `\"expression\"`\n\n With `\"expression\"`, the rule requires function expressions or arrow functions\n assigned to variables.\n\n These functions can only be called after the variable is initialized. TypeScript\n overloads are allowed because they require declarations.\n\n ```ts\n function identity(value: string): string;\n function identity(value: number): number;\n function identity(value: string | number) {\n     return value;\n }\n ```\n\n With `\"declaration\"`, the rule requires function declarations.\n\n These are hoisted and can be called before their definition. Arrow functions that directly use\n `this` or `super` are allowed to preserve their lexical binding.\n Variables with TypeScript type annotations are also allowed because a function\n declaration cannot be annotated with an existing function type.\n A return type annotation on the function does not qualify for this exception.\n\n The following examples use `\"declaration\"`:\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"declaration\"\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n const greet = function() {};\n ```\n\n ```ts,use_options,expect_diagnostic\n const greet = (): string => \"Hello\";\n ```\n\n #### Valid\n\n ```js,use_options\n function greet() {}\n const getContext = () => this;\n ```\n\n ```ts,use_options\n type Greeting = () => string;\n const greet: Greeting = () => \"Hello\";\n const farewell: Greeting = function() { return \"Goodbye\"; };\n ```\n\n ### `allowArrowFunctions`\n\n Type: `boolean`\n\n Default: `false`\n\n Allow arrow functions regardless of style setting.\n Arrow functions are always allowed when expressions are required.\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"declaration\",\n         \"allowArrowFunctions\": true\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n const greet = function() { return \"Hello\"; };\n ```\n\n #### Valid\n\n ```js,use_options\n function greet() { return \"Hello\"; }\n const farewell = () => \"Goodbye\";\n ```\n\n ## See Also\n\n - [useArrowFunction](https://biomejs.dev/linter/rules/use-arrow-function/)\n\n"
           },
           "useConsistentTestIt": {
             "deprecated": false,
@@ -5284,6 +5335,29 @@ export function GET() {
               }
             ],
             "docs": " Enforce the use of the `u` or `v` flag for regular expressions.\n\n The `u` flag (Unicode mode) and `v` flag (Unicode Sets mode) enable proper handling\n of Unicode characters in regular expressions. Without these flags, regex patterns\n may not correctly match Unicode characters like emoji or characters outside the\n Basic Multilingual Plane.\n\n The `u` flag was introduced in ES2015 and enables:\n - Correct handling of surrogate pairs (e.g., emoji)\n - Unicode code point escapes (`\\u{...}`)\n - Case-insensitive matching for Unicode characters\n\n The `v` flag was introduced in ES2024 and provides all `u` flag features plus:\n - Set notation in character classes\n - String literals in character classes\n - Improved Unicode property escapes\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /foo/;\n ```\n\n ```js,expect_diagnostic\n /foo/gi;\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\");\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\", \"gi\");\n ```\n\n ### Valid\n\n ```js\n /foo/u;\n /foo/v;\n /foo/giu;\n new RegExp(\"foo\", \"u\");\n new RegExp(\"foo\", \"giv\");\n new RegExp(\"foo\", flags); // dynamic flags are ignored\n ```\n\n"
+          },
+          "useValidTestTitle": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useValidTestTitle",
+            "link": "https://biomejs.dev/linter/rules/use-valid-test-title/javascript",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "valid-title"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "valid-title"
+                }
+              }
+            ],
+            "docs": " Enforce valid titles for unit test cases and test suites.\n\n Checks that the titles of test blocks (`describe`, `test`, `it`) are valid:\n - Titles must not be empty.\n - Titles must not have accidental leading or trailing whitespace.\n - Titles must be string or template literals.\n - Titles must not contain disallowed words (if configured).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n it(\"\", () => {});\n ```\n\n ```js,expect_diagnostic\n describe(\" foo\", () => {});\n ```\n\n ```js,expect_diagnostic\n test(123, () => {});\n ```\n\n ### Valid\n\n ```js\n it(\"should work\", () => {});\n describe(\"my suite\", () => {});\n ```\n\n ## Options\n\n ### `disallowedWords`\n\n A list of words that are not allowed in test titles. Matching is whole-word and case-insensitive.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"disallowedWords\": [\"skip\", \"only\"]\n     }\n }\n ```\n\n"
           },
           "useVarsOnTop": {
             "deprecated": false,
@@ -9379,6 +9453,23 @@ export function GET() {
             ],
             "docs": " Disallow disabling zoom with `user-scalable=no` in the `<meta name=\"viewport\">` element.\n\n Disabling zoom can make page content difficult to read for people with low vision.\n\n See [WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) and the\n [html-eslint rule](https://html-eslint.org/docs/rules/no-non-scalable-viewport) for details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />\n ```\n\n ```jsx,expect_diagnostic\n <meta name={\"viewport\"} content={\"user-scalable=no\"} />\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" />\n   <meta name=\"viewport\" content=\"width=device-width\" />\n   <Meta name=\"viewport\" content=\"user-scalable=no\" />\n </>\n ```\n\n"
           },
+          "noObsoleteTags": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noObsoleteTags",
+            "link": "https://biomejs.dev/linter/rules/no-obsolete-tags/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "no-obsolete-tags"
+                }
+              }
+            ],
+            "docs": " Disallow obsolete HTML elements.\n\n Obsolete elements are no longer part of conforming HTML. Use standard HTML\n elements for structure and semantics, and CSS for presentation.\n\n This rule disallows `acronym`, `applet`, `basefont`, `bgsound`, `big`, `blink`,\n `center`, `dir`, `font`, `frame`, `frameset`, `isindex`, `keygen`, `listing`,\n `marquee`, `menuitem`, `multicol`, `nextid`, `nobr`, `noembed`, `noframes`,\n `plaintext`, `rb`, `rtc`, `spacer`, `strike`, `tt`, and `xmp`.\n\n This rule checks native JSX elements without case sensitivity. Component names\n such as `<Font />`, member expressions such as `<UI.font />`, and namespaced\n names are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <font color=\"red\">Warning</font>;\n ```\n\n ```jsx,expect_diagnostic\n <acronym title=\"World Wide Web\">WWW</acronym>;\n ```\n\n ### Valid\n\n ```jsx\n <span className=\"warning\">Warning</span>;\n <abbr title=\"World Wide Web\">WWW</abbr>;\n <Font />;\n <UI.font />;\n ```\n\n ## Resources\n\n - [HTML specification: Non-conforming features](https://html.spec.whatwg.org/multipage/obsolete.html#non-conforming-features)\n\n"
+          },
           "noReactNativeRawText": {
             "deprecated": false,
             "version": "2.4.13",
@@ -9954,7 +10045,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unknown DOM properties.\n\n In JSX, most DOM properties and attributes should be camelCased to be consistent with standard JavaScript style.\n This can be a possible source of error if you are used to writing plain HTML.\n Only `data-*` and `aria-*` attributes are allowed to use hyphens and lowercase letters in JSX.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div allowTransparency=\"true\" />\n ```\n\n ```jsx,expect_diagnostic\n <div onclick={() => {}} />\n ```\n\n ```jsx,expect_diagnostic\n <div for=\"bar\" />\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"foo\" />\n ```\n\n ```jsx\n <div onClick={() => {}} />\n ```\n\n ```jsx\n <div htmlFor=\"bar\" />\n ```\n\n ```jsx\n <div data-foo=\"bar\" />\n ```\n\n ```jsx\n <div aria-label=\"Close\" />\n ```\n\n ## Options\n\n ### `ignore`\n\n An array of property and attribute names to ignore during validation.\n\n ```json\n {\n   \"noUnknownAttribute\": {\n     \"options\": {\n       \"ignore\": [\"custom-attribute\", \"non-standard-prop\"]\n     }\n   }\n }\n ```\n"
+            "docs": " Disallow unknown DOM properties.\n\n In JSX, most DOM properties and attributes should be camelCased to be consistent with standard JavaScript style.\n This can be a possible source of error if you are used to writing plain HTML.\n Only `data-*` and `aria-*` attributes are allowed to use hyphens and lowercase letters in JSX.\n\n Fullscreen event handlers (`onFullscreenChange`, `onFullscreenError`, and their capture variants),\n `credentialless`, and `maskType` require a React dependency range in `package.json` that allows React 19.3 or later.\n Without that dependency, these properties are reported as unknown.\n `credentialless` is only allowed on `<iframe>`, and `maskType` is only allowed on `<mask>`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div allowTransparency=\"true\" />\n ```\n\n ```jsx,expect_diagnostic\n <div onclick={() => {}} />\n ```\n\n ```jsx,expect_diagnostic\n <div for=\"bar\" />\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"foo\" />\n ```\n\n ```jsx\n <div onClick={() => {}} />\n ```\n\n ```jsx\n <div htmlFor=\"bar\" />\n ```\n\n ```jsx\n <div data-foo=\"bar\" />\n ```\n\n ```jsx\n <div aria-label=\"Close\" />\n ```\n\n ## Options\n\n ### `ignore`\n\n An array of property and attribute names to ignore during validation.\n\n ```json\n {\n   \"noUnknownAttribute\": {\n     \"options\": {\n       \"ignore\": [\"custom-attribute\", \"non-standard-prop\"]\n     }\n   }\n }\n ```\n"
           },
           "useGoogleFontDisplay": {
             "deprecated": false,
@@ -10694,7 +10785,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 597
+    "numberOrRules": 602
   },
   "syntax": {
     "languages": {
