@@ -1,0 +1,91 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noObsoleteTags (JavaScript)
+description: JavaScript (and super languages) documentation for noObsoleteTags
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-obsolete-tags/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-obsolete-tags/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noObsoleteTags`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Inspired from [`@html-eslint/no-obsolete-tags`](https://html-eslint.org/docs/rules/no-obsolete-tags)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noObsoleteTags": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow obsolete HTML elements.
+
+Obsolete elements are no longer part of conforming HTML. Use standard HTML
+elements for structure and semantics, and CSS for presentation.
+
+This rule disallows `acronym`, `applet`, `basefont`, `bgsound`, `big`, `blink`,
+`center`, `dir`, `font`, `frame`, `frameset`, `isindex`, `keygen`, `listing`,
+`marquee`, `menuitem`, `multicol`, `nextid`, `nobr`, `noembed`, `noframes`,
+`plaintext`, `rb`, `rtc`, `spacer`, `strike`, `tt`, and `xmp`.
+
+This rule checks native JSX elements without case sensitivity. Component names
+such as `<Font />`, member expressions such as `<UI.font />`, and namespaced
+names are ignored.
+
+## Examples
+
+### Invalid
+
+```jsx
+<font color="red">Warning</font>;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:2 <a href=\"https://biomejs.dev/linter/rules/no-obsolete-tags\">lint/nursery/noObsoleteTags</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>font</strong></span><span style=\"color: Orange;\"> element is obsolete.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;font color=&quot;red&quot;&gt;Warning&lt;/font&gt;;<br />   <strong>   │ </strong> <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Obsolete elements are no longer part of conforming HTML.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use standard HTML elements for structure and semantics, and CSS for presentation.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```jsx
+<acronym title="World Wide Web">WWW</acronym>;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:2 <a href=\"https://biomejs.dev/linter/rules/no-obsolete-tags\">lint/nursery/noObsoleteTags</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>acronym</strong></span><span style=\"color: Orange;\"> element is obsolete.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;acronym title=&quot;World Wide Web&quot;&gt;WWW&lt;/acronym&gt;;<br />   <strong>   │ </strong> <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Obsolete elements are no longer part of conforming HTML.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use standard HTML elements for structure and semantics, and CSS for presentation.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```jsx
+<span className="warning">Warning</span>;
+<abbr title="World Wide Web">WWW</abbr>;
+<Font />;
+<UI.font />;
+```
+
+## Resources
+
+- [HTML specification: Non-conforming features](https://html.spec.whatwg.org/multipage/obsolete.html#non-conforming-features)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_obsolete_tags.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noObsoleteTags)
+
