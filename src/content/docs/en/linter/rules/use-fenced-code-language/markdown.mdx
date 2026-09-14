@@ -1,0 +1,146 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useFencedCodeLanguage (Markdown)
+description: Markdown documentation for useFencedCodeLanguage
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+
+<RuleLanguageLinks current="markdown" languages={[{"id":"markdown","label":"Markdown","href":"/linter/rules/use-fenced-code-language/markdown/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useFencedCodeLanguage`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`fenced-code-language`](https://github.com/DavidAnson/markdownlint/blob/main/doc/md040.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useFencedCodeLanguage": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce that fenced code blocks specify a code tag (language).
+
+Renderers can use a code tag to select syntax highlighting when they support the language.
+Use `text` for snippets when syntax highlighting is unwanted or unsupported.
+
+## Examples
+
+### Invalid
+
+```md
+```
+console.log(1)
+```
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.md:1:1 <a href=\"https://biomejs.dev/linter/rules/use-fenced-code-language\">lint/nursery/useFencedCodeLanguage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This fenced code block is missing a language tag.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&#96;&#96;&#96;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>console.log(1)<br />    <strong>3 │ </strong>&#96;&#96;&#96;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Renderers use language tags to select syntax highlighting for supported languages.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add a language tag after the opening fence, such as </span><span style=\"color: lightgreen;\"><strong>js</strong></span><span style=\"color: lightgreen;\">, or use </span><span style=\"color: lightgreen;\"><strong>text</strong></span><span style=\"color: lightgreen;\"> when highlighting is unwanted or unsupported.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```md
+```js
+console.log(1)
+```
+```
+
+## Options
+
+The following options are available.
+
+### `allowedLanguages`
+
+A list of language tags fenced code blocks are allowed to declare. When empty (the
+default), any language tag is accepted. Language tags are matched case-sensitively.
+
+Default: `[]`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useFencedCodeLanguage": {
+					"level": "on",
+					"options": {
+						"allowedLanguages": [
+							"js",
+							"ts"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```md
+```python
+print(1)
+```
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.md:1:4 <a href=\"https://biomejs.dev/linter/rules/use-fenced-code-language\">lint/nursery/useFencedCodeLanguage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This language tag isn't in the list of allowed languages.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&#96;&#96;&#96;python<br />   <strong>   │ </strong>   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>print(1)<br />    <strong>3 │ </strong>&#96;&#96;&#96;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>allowedLanguages</strong></span><span style=\"color: lightgreen;\"> option restricts fenced code blocks to a specific set of language tags.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use one of the allowed languages:</span><br />  <br />  - js<br />  - ts<br />  <br /></code></pre>"} />
+
+### `languageOnly`
+
+When `true`, requires the info string to contain exactly the language tag, without
+metadata or other non-whitespace content.
+
+Default: `false`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useFencedCodeLanguage": {
+					"level": "on",
+					"options": {
+						"languageOnly": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```md
+```js startLine=3
+console.log(1)
+```
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.md:1:6 <a href=\"https://biomejs.dev/linter/rules/use-fenced-code-language\">lint/nursery/useFencedCodeLanguage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This info string contains content beyond the language tag.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&#96;&#96;&#96;js startLine=3<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>console.log(1)<br />    <strong>3 │ </strong>&#96;&#96;&#96;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>languageOnly</strong></span><span style=\"color: lightgreen;\"> option requires the info string to contain only a language tag.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove metadata after the language tag.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/src/lint/nursery/use_fenced_code_language.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/tests/specs/nursery/useFencedCodeLanguage)
+

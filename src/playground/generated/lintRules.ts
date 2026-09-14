@@ -248,6 +248,7 @@ export const LINT_RULES = {
     noReactStringRefs: "noReactStringRefs",
     noRestrictedDependencies: "noRestrictedDependencies",
     noReturnInFinally: "noReturnInFinally",
+    noSvelteAtDebugTags: "noSvelteAtDebugTags",
     noSvelteAtHtmlTags: "noSvelteAtHtmlTags",
     noSvelteLegacyConst: "noSvelteLegacyConst",
     noSvelteUnnecessaryStateWrap: "noSvelteUnnecessaryStateWrap",
