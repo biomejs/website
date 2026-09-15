@@ -5,8 +5,9 @@ tableOfContents:
   minHeadingLevel: 2
   maxHeadingLevel: 4
 ---
-
-import { FileTree } from '@astrojs/starlight/components';
+import { Code, FileTree } from '@astrojs/starlight/components';
+import { getLatestVersion } from "@biomejs/version-utils";
+export const version = await getLatestVersion("stable");
 
 This guide will help you to understand how to configure Biome.
 It explains the structure of a Biome configuration file and how Biome resolves its configuration.
@@ -27,20 +28,18 @@ provides. At the moment, Biome provides three tools: the formatter, the linter
 and the assist. All of these tools are enabled by default. You can disable one
 or several of them using the `<tool>.enabled` field:
 
-```json title="biome.json"
-{
-  "$schema": "https://biomejs.dev/schemas/2.4.13/schema.json",
-  "formatter": {
-    "enabled": false
-  },
-  "linter": {
-    "enabled": false
-  },
-  "assist": {
-    "enabled": false
-  }
-}
-```
+<Code title="biome.json" lang="json" code={`{
+  "$schema": "https://biomejs.dev/schemas/${version}/schema.json",
+    "formatter": {
+      "enabled": false
+    },
+    "linter": {
+      "enabled": false
+    },
+    "assist": {
+      "enabled": false
+    }
+}`} />
 
 Options that apply to more than one language are placed in the corresponding tool field.
 Language-specific options of a tool are placed under a `<language>.<tool>` field.
