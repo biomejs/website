@@ -48,8 +48,9 @@ intended to contain a case for each possible variant.
 However, if the union type changes, it's easy to forget to modify the cases to account for
 any new types.
 
-This rule reports when a switch statement over a value typed as a union of literals lacks
+By default, this rule reports when a switch statement over a value typed as a union of literals lacks
 a case for any of those literal types and does not have a default clause.
+Set `requireExplicitCase` to `true` to check for missing cases even when the switch has a `default` clause.
 
 ## Examples
 
@@ -114,6 +115,54 @@ switch (day) {
   case 'Sunday':
     result = 7;
     break;
+}
+```
+
+## Options
+
+### requireExplicitCase
+
+Default: `false`.
+
+A `default` clause handles any value that does not match a `case`.
+By default, the rule accepts this as covering all remaining values in a union.
+This means that adding a value to the union will not produce a diagnostic if the switch has a `default` clause.
+
+Set `requireExplicitCase` to `true` to require a `case` for each value in the union.
+You can still keep `default` as a fallback for unexpected values at runtime.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useExhaustiveSwitchCases": {
+					"level": "on",
+					"options": {
+						"requireExplicitCase": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+With this option enabled, the switch below passes because `"A"`, `"B"`, and `"C"` each have a case.
+The `default` clause stays as a runtime fallback. Removing `case "C"` would produce a diagnostic,
+even though the fallback would handle that value.
+
+```ts title='explicit-case-valid.ts'
+type Letter = "A" | "B" | "C";
+declare const letter: Letter;
+switch (letter) {
+    case "A":
+    case "B":
+    case "C":
+        break;
+    default:
+        throw new Error("Unexpected letter");
 }
 ```
 
