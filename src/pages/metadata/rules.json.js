@@ -2016,7 +2016,7 @@ export function GET() {
           },
           "noObsoleteTags": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.14",
             "name": "noObsoleteTags",
             "link": "https://biomejs.dev/linter/rules/no-obsolete-tags/html",
             "recommended": false,
@@ -2033,7 +2033,7 @@ export function GET() {
           },
           "noSvelteAtDebugTags": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.14",
             "name": "noSvelteAtDebugTags",
             "link": "https://biomejs.dev/linter/rules/no-svelte-at-debug-tags/html",
             "recommended": true,
@@ -2134,7 +2134,7 @@ export function GET() {
           },
           "noVueUndeclaredDirectives": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.14",
             "name": "noVueUndeclaredDirectives",
             "link": "https://biomejs.dev/linter/rules/no-vue-undeclared-directives/html",
             "recommended": false,
@@ -4590,7 +4590,7 @@ export function GET() {
           },
           "noReturnInFinally": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.14",
             "name": "noReturnInFinally",
             "link": "https://biomejs.dev/linter/rules/no-return-in-finally/javascript",
             "recommended": true,
@@ -4869,7 +4869,7 @@ export function GET() {
           },
           "useConsistentFunctionStyle": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.14",
             "name": "useConsistentFunctionStyle",
             "link": "https://biomejs.dev/linter/rules/use-consistent-function-style/javascript",
             "recommended": false,
@@ -5376,7 +5376,7 @@ export function GET() {
           },
           "useValidTestTitle": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.14",
             "name": "useValidTestTitle",
             "link": "https://biomejs.dev/linter/rules/use-valid-test-title/javascript",
             "recommended": false,
@@ -8260,7 +8260,7 @@ export function GET() {
           },
           "noJsonUnsafeValues": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.14",
             "name": "noJsonUnsafeValues",
             "link": "https://biomejs.dev/linter/rules/no-json-unsafe-values/json",
             "recommended": true,
@@ -8320,7 +8320,7 @@ export function GET() {
           },
           "useConsistentObjectKeys": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.14",
             "name": "useConsistentObjectKeys",
             "link": "https://biomejs.dev/linter/rules/use-consistent-object-keys/json",
             "recommended": true,
@@ -9527,7 +9527,7 @@ export function GET() {
           },
           "noObsoleteTags": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.14",
             "name": "noObsoleteTags",
             "link": "https://biomejs.dev/linter/rules/no-obsolete-tags/javascript",
             "recommended": false,
