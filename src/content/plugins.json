@@ -1,0 +1,16 @@
+[
+  {
+    "id": "@biomejs/biome-plugin-formatter-prettier",
+    "metadata": {
+      "description": "Biome is a code formatter for JavaScript, TypeScript, and Rust.",
+      "website": "https://github.com/biomejs/biome",
+      "repository": ""
+    }
+  },
+  {
+    "id": "@biomejs/biome-plugin-formatter-prettier-id",
+    "metadata": {
+      "description": "Biome is a code formatter for JavaScript, TypeScript, and Rust."
+    }
+  }
+]
