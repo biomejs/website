@@ -188,7 +188,7 @@ test.describe("playground links", () => {
 	}
 
 	test("keeps lint rules and assist actions separate", async ({ page }) => {
-		await page.goto("/playground?lintRules=none");
+		await page.goto("/playground?lintRules=none&language=json#code=");
 		const lintRules = page.getByLabel("Lint Rules", { exact: true });
 		const assistActions = page.getByLabel("Assist Actions", { exact: true });
 		await expect(
