@@ -2,7 +2,7 @@ import { unified } from "@astrojs/markdown-remark";
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
-import lunaria from "@lunariajs/starlight";
+import type { AstroIntegration } from "astro";
 import { defineConfig, fontProviders } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
@@ -90,12 +90,22 @@ const plugins = [
 	starlightChangelogs(),
 ];
 
-if (process.env?.E2E !== "true") {
-	plugins.push(
-		lunaria({
-			route: "i18n-dashboard",
-		}),
-	);
+/**
+ * Renders the Lunaria i18n dashboard at `/i18n-dashboard`.
+ * See `lunaria.config.ts` and `src/components/LunariaDashboard.astro`.
+ */
+function lunariaDashboard(): AstroIntegration {
+	return {
+		name: "lunaria-dashboard",
+		hooks: {
+			"astro:config:setup": ({ injectRoute }) => {
+				injectRoute({
+					pattern: "/i18n-dashboard",
+					entrypoint: "./src/components/LunariaDashboard.astro",
+				});
+			},
+		},
+	};
 }
 
 // https://astro.build/config
@@ -1076,6 +1086,7 @@ export default defineConfig({
 				PageSidebar: "./src/components/starlight/PageSidebar.astro",
 			},
 		}),
+		...(process.env?.E2E !== "true" ? [lunariaDashboard()] : []),
 	],
 
 	adapter: netlify({
