@@ -1,16 +1,16 @@
 [
   {
-    "id": "Biome plugins wow",
-    "url": "https://github.com/biomejs/biome",
-    "packages": [
-      {
-        "name": "@biomejs/biome-plugin-formatter-prettier",
-        "description": "Biome is a code formatter for JavaScript, TypeScript, and Rust."
-      },
-      {
-        "name": "@biomejs/biome-plugin-formatter-prettier-rust",
-        "description": "Biome is a code formatter for JavaScript, TypeScript, and Rust."
-      }
-    ]
+    "id": "@biomejs/biome-plugin-formatter-prettier",
+    "metadata": {
+      "description": "Biome is a code formatter for JavaScript, TypeScript, and Rust.",
+      "website": "https://github.com/biomejs/biome",
+      "repository": ""
+    }
+  },
+  {
+    "id": "@biomejs/biome-plugin-formatter-prettier-id",
+    "metadata": {
+      "description": "Biome is a code formatter for JavaScript, TypeScript, and Rust."
+    }
   }
 ]

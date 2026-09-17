@@ -41,14 +41,13 @@ export const collections = {
 	plugins: defineCollection({
 		schema: () =>
 			z.object({
+				// name of the npm package
 				id: z.string(),
-				url: z.url(),
-				packages: z.array(
-					z.object({
-						name: z.string().max(255),
-						description: z.string().max(500),
-					}),
-				),
+				metadata: z.object({
+					repository: z.string().max(255).optional(),
+					website: z.string().max(255).optional(),
+					description: z.string().max(500),
+				}),
 			}),
 		loader: file("src/content/plugins.json"),
 	}),
