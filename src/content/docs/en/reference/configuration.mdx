@@ -53,7 +53,7 @@ Biome will also warn you when your `$schema` URL version doesn't match the packa
 
 Extends the current configuration with settings from one or more other Biome configurations.
 
-In a nested configuration, use `"//"` to extend the root configuration without specifying a relative path. This works at any nesting depth:
+When a subdirectory has its own Biome configuration (a [nested configuration](/guides/big-projects#monorepo)), use `"//"` to extend the configuration at the project root without specifying a relative path. This works at any nesting depth:
 
 ```json title="packages/frontend/biome.json"
 {
