@@ -1281,7 +1281,7 @@ fn write_documentation(
 
                 // Erase the lintdoc-specific attributes in the output by
                 // re-generating the language ID from the source type
-                write!(content, "```{}", &test.tag)?;
+                write!(content, "```{}", test.tag)?;
                 if test.options != OptionsParsingMode::NoOptions {
                     write!(content, " title='biome.json'")?;
                 } else if let Some(file_path) = test.explicit_file_path() {
