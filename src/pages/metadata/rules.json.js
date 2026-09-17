@@ -368,6 +368,23 @@ export function GET() {
             ],
             "docs": " Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.\n\n [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility)\n tracks the availability of web platform features across core browsers.\n This rule helps you avoid features that aren't supported in the browsers you need to target.\n\n Features are categorized into three tiers:\n - **Limited**: Not yet available in all core browsers.\n - **Newly available**: Available in all core browsers for less than 30 months.\n - **Widely available**: Available in all core browsers for at least 30 months.\n\n By default, the rule reports on anything that is not Baseline **widely available**.\n\n Code inside `@supports` blocks is exempt: if you feature-detect a capability before\n using it, the rule does not flag it.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   backdrop-filter: blur(4px);\n }\n ```\n\n ```css,expect_diagnostic\n a { width: abs(20% - 100px); }\n ```\n\n ```css,expect_diagnostic\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ```css,expect_diagnostic\n details::details-content { background: red; }\n ```\n\n ### Valid\n\n ```css\n a { color: red; }\n ```\n\n ```css\n /* @supports exempts feature-detected code */\n @supports (backdrop-filter: blur(4px)) {\n   a { backdrop-filter: blur(4px); }\n }\n ```\n\n ## Options\n\n ### `available`\n\n Specifies the minimum Baseline availability tier to accept. Defaults to `\"widely\"`.\n\n - `\"widely\"`: Only accept features that are Baseline widely available (default).\n - `\"newly\"`: Accept features that are at least Baseline newly available.\n - A year number (e.g. `2023`): Accept features that became newly available in that year or earlier.\n\n Default: `\"widely\"`\n\n ```json,options\n {\n   \"options\": {\n     \"available\": \"newly\"\n   }\n }\n ```\n\n With `\"newly\"`, a property that is newly (but not yet widely) available doesn't trigger the rule:\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n But a limited property still fails:\n\n ```css,expect_diagnostic,use_options\n a { accent-color: red; }\n ```\n\n ### `allowProperties`\n\n A list of CSS property names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowProperties\": [\"backdrop-filter\"]\n   }\n }\n ```\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n ### `allowAtRules`\n\n A list of CSS at-rule names to exclude from checking (without `@`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowAtRules\": [\"view-transition\"]\n   }\n }\n ```\n\n ```css,use_options\n @view-transition { navigation: auto; }\n ```\n\n ### `allowFunctions`\n\n A list of CSS value function names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowFunctions\": [\"abs\"]\n   }\n }\n ```\n\n ```css,use_options\n a { width: abs(20% - 100px); }\n ```\n\n ### `allowMediaConditions`\n\n A list of CSS media query condition names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowMediaConditions\": [\"inverted-colors\"]\n   }\n }\n ```\n\n ```css,use_options\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ### `allowPropertyValues`\n\n An object mapping property names to arrays of allowed values (case-insensitive).\n\n Default: `{}`\n\n ```json,options\n {\n   \"options\": {\n     \"allowPropertyValues\": {\n       \"clip-path\": [\"fill-box\"]\n     }\n   }\n }\n ```\n\n ```css,use_options\n a { clip-path: fill-box; }\n ```\n\n ### `allowSelectors`\n\n A list of CSS pseudo-class or pseudo-element names to exclude from checking\n (without `:` or `::`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowSelectors\": [\"has\"]\n   }\n }\n ```\n\n ```css,use_options\n h1:has(+ h2) { margin: 0; }\n ```\n\n"
           },
+          "useLayeredStyles": {
+            "deprecated": false,
+            "version": "2.5.13",
+            "name": "useLayeredStyles",
+            "link": "https://biomejs.dev/linter/rules/use-layered-styles/css",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintCss": "use-layers"
+                }
+              }
+            ],
+            "docs": " Enforce style rules to be defined within a cascade layer.\n\n This rule reports style rules that are not contained within a cascade layer (`@layer`).\n Rules outside of a cascade layer (excluding `!important`) always take precedence over\n layered rules, making the cascade more difficult to predict and override.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n .my-style {\n   color: red;\n }\n ```\n\n ```css,expect_diagnostic\n @media (min-width: 600px) {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css,expect_diagnostic\n @import \"foo.css\";\n ```\n\n ### Valid\n\n ```css\n @layer {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css\n @layer base {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css\n @layer base {\n   @media (min-width: 600px) {\n     .my-style {\n       color: red;\n     }\n   }\n }\n ```\n\n ```css\n @import \"foo.css\" layer;\n ```\n\n ```css\n @import \"foo.css\" layer(base);\n ```\n\n ## Options\n\n ### `requireImportLayers`\n\n Whether `@import` rules must specify a cascade layer.\n\n When set to `false`, `@import` rules without a `layer` keyword are allowed.\n\n Default: `true`\n\n ```json,options\n {\n   \"options\": {\n     \"requireImportLayers\": false\n   }\n }\n ```\n\n ```css,use_options\n @import \"foo.css\";\n ```\n\n"
+          },
           "useNamedLayer": {
             "deprecated": false,
             "version": "2.5.9",
@@ -402,7 +419,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow a lower specificity selector from coming after a higher specificity selector.\n\n Source order is important in CSS, and when two selectors have the same specificity, the one that occurs last will take priority.\n However, the situation is different when one of the selectors has a higher specificity.\n In that case, source order does not matter: the selector with higher specificity will win out even if it comes first.\n\n The clashes of these two mechanisms for prioritization, source order and specificity, can cause some confusion when reading stylesheets.\n If a selector with higher specificity comes before the selector it overrides, we have to think harder to understand it, because it violates the source order expectation.\n **Stylesheets are most legible when overriding selectors always come after the selectors they override.**\n That way both mechanisms, source order and specificity, work together nicely.\n\n This rule enforces that practice as best it can, reporting fewer errors than it should.\n It cannot catch every actual overriding selector, but it can catch certain common mistakes.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n b a { color: red; }\n a { color: red; }\n ```\n\n ```css,expect_diagnostic\n a {\n   & > b { color: red; }\n }\n b { color: red; }\n ```\n\n ```css,expect_diagnostic\n :root input {\n     color: red;\n }\n html input {\n     color: red;\n }\n ```\n\n ```css,expect_diagnostic\n .a th {\n   color: red;\n }\n\n .a .b .c th {\n   color: green;\n }\n\n .a .b th {\n   color: blue;\n }\n ```\n\n\n ### Valid\n\n ```css\n a { color: red; }\n b a { color: red; }\n ```\n\n ```css\n b { color: red; }\n a {\n   & > b { color: red; }\n }\n ```\n\n ```css\n a:hover { color: red; }\n a { color: red; }\n ```\n\n ```css\n a b {\n     color: red;\n }\n /* This selector is overwritten by the one above it, but this is not an error because the rule only evaluates it as a compound selector */\n :where(a) :is(b) {\n     color: blue;\n }\n ```\n\n ```css\n .a th {\n   color: red;\n }\n\n @media print {\n   .a .b .c th {\n     color: green;\n   }\n }\n ```\n\n"
+            "docs": " Disallow a lower specificity selector from coming after a higher specificity selector.\n\n Source order is important in CSS, and when two selectors have the same specificity, the one that occurs last will take priority.\n However, the situation is different when one of the selectors has a higher specificity.\n In that case, source order does not matter: the selector with higher specificity will win out even if it comes first.\n\n The clashes of these two mechanisms for prioritization, source order and specificity, can cause some confusion when reading stylesheets.\n If a selector with higher specificity comes before the selector it overrides, we have to think harder to understand it, because it violates the source order expectation.\n **Stylesheets are most legible when overriding selectors always come after the selectors they override.**\n That way both mechanisms, source order and specificity, work together nicely.\n\n This rule enforces that practice as best it can, reporting fewer errors than it should.\n It cannot catch every actual overriding selector, but it can catch certain common mistakes.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n b a { color: red; }\n a { color: red; }\n ```\n\n ```css,expect_diagnostic\n a {\n   & > b { color: red; }\n }\n b { color: red; }\n ```\n\n ```css,expect_diagnostic\n :root input {\n     color: red;\n }\n html input {\n     color: red;\n }\n ```\n\n ```css,expect_diagnostic\n .a th {\n   color: red;\n }\n\n .a .b .c th {\n   color: green;\n }\n\n .a .b th {\n   color: blue;\n }\n ```\n\n\n ### Valid\n\n ```css\n a { color: red; }\n b a { color: red; }\n ```\n\n ```css\n b { color: red; }\n a {\n   & > b { color: red; }\n }\n ```\n\n ```css\n a:hover { color: red; }\n a { color: red; }\n ```\n\n ```css\n a b {\n     color: red;\n }\n /* This selector is overwritten by the one above it, but this is not an error because the rule only evaluates it as a compound selector */\n :where(a) :is(b) {\n     color: blue;\n }\n ```\n\n ```css\n .a th {\n   color: red;\n }\n\n @media print {\n   .a .b .c th {\n     color: green;\n   }\n }\n ```\n\n ```css\n @layer one {\n   b a { color: green; }\n }\n\n @layer two {\n   a { color: blue; }\n }\n ```\n\n"
           },
           "noExcessiveLinesPerFile": {
             "deprecated": false,
@@ -1325,7 +1342,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce that anchors have content and that the content is accessible to screen readers.\n\n Accessible means the content is not hidden using the `aria-hidden` attribute.\n Anchor tags should have text content that describes the link destination for screen reader users.\n Alternatively, the anchor can have an accessible name via the `aria-label` or `title` attribute.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<A>`, `<a>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<A>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <a></a>\n ```\n\n ```html,expect_diagnostic\n <a>   </a>\n ```\n\n ```html,expect_diagnostic\n <a aria-hidden=\"true\">content</a>\n ```\n\n ```html,expect_diagnostic\n <a><span aria-hidden=\"true\">content</span></a>\n ```\n\n ### Valid\n\n ```html\n <a>content</a>\n ```\n\n ```html\n <a><span>content</span></a>\n ```\n\n ```html\n <a><span aria-hidden=\"true\"></span>content</a>\n ```\n\n ```html\n <a aria-label=\"Navigate to home\"></a>\n ```\n\n ```html\n <a title=\"Home page\"></a>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.4](https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
+            "docs": " Enforce that anchors have content and that the content is accessible to screen readers.\n\n Accessible means the content is not hidden using the `aria-hidden` attribute.\n Anchor tags should have text content that describes the link destination for screen reader users.\n An `aria-label`, `aria-labelledby`, or `title` attribute alone doesn't satisfy this rule.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<A>`, `<a>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<A>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <a></a>\n ```\n\n ```html,expect_diagnostic\n <a>   </a>\n ```\n\n ```html,expect_diagnostic\n <a aria-hidden=\"true\">content</a>\n ```\n\n ```html,expect_diagnostic\n <a><span aria-hidden=\"true\">content</span></a>\n ```\n\n ```html,expect_diagnostic\n <a aria-label=\"Navigate to home\"></a>\n ```\n\n ```html,expect_diagnostic\n <a title=\"Home page\"></a>\n ```\n\n ### Valid\n\n ```html\n <a>content</a>\n <a><span>content</span></a>\n <a><span aria-hidden=\"true\"></span>content</a>\n <a aria-label=\"Navigate to home\">Home</a>\n <a title=\"Home page\">Home</a>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.4](https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
           },
           "useAriaActivedescendantWithTabindex": {
             "deprecated": false,
@@ -1451,7 +1468,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce that heading elements (`h1`, `h2`, etc.) have content and that the content is\n accessible to screen readers.\n\n Accessible means that it is not hidden using the `aria-hidden` attribute.\n All headings on a page should have content that is accessible to screen readers\n to convey meaningful structure and enable navigation for assistive technology users.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<H1>`, `<h1>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <h1></h1>\n ```\n\n ```html,expect_diagnostic\n <h1 aria-hidden=\"true\">invisible content</h1>\n ```\n\n ```html,expect_diagnostic\n <h1><span aria-hidden=\"true\">hidden</span></h1>\n ```\n\n ### Valid\n\n ```html\n <h1>heading</h1>\n ```\n\n ```html\n <h1 aria-label=\"Screen reader content\"></h1>\n ```\n\n ```html\n <h1><span aria-hidden=\"true\">hidden</span> visible content</h1>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.6](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html)\n\n"
+            "docs": " Enforce that heading elements (`h1`, `h2`, etc.) have content and that the content is\n accessible to screen readers.\n\n Accessible means that it is not hidden using the `aria-hidden` attribute.\n All headings on a page should have content that is accessible to screen readers\n to convey meaningful structure and enable navigation for assistive technology users.\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<H1>`, `<h1>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <h1></h1>\n ```\n\n ```html,expect_diagnostic\n <h1 aria-hidden=\"true\">invisible content</h1>\n ```\n\n ```html,expect_diagnostic\n <h1><span aria-hidden=\"true\">hidden</span></h1>\n ```\n\n ### Valid\n\n ```html\n <h1>heading</h1>\n ```\n\n ```html\n <h1 aria-label=\"Screen reader content\"></h1>\n ```\n\n ```html\n <h1><span aria-hidden=\"true\">hidden</span> visible content</h1>\n ```\n\n Directives that render the heading text are treated as content: `set:html`\n and `set:text` in Astro files, `v-html` and `v-text` in Vue files. Headings\n that use them are not reported.\n\n ```astro\n <h1 set:html={heading} />\n ```\n\n ```vue\n <template><h1 v-text=\"heading\"></h1></template>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.6](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html)\n\n"
           },
           "useHtmlLang": {
             "deprecated": false,
@@ -1997,6 +2014,57 @@ export function GET() {
             ],
             "docs": " Disallow disabling zoom with `user-scalable=no` in the `<meta name=\"viewport\">` element.\n\n Disabling zoom can make page content difficult to read for people with low vision.\n\n See [WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) and the\n [html-eslint rule](https://html-eslint.org/docs/rules/no-non-scalable-viewport) for details.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />\n ```\n\n ```html,expect_diagnostic\n <meta name=\"viewport\" content=\"user-scalable = no, width=device-width\" />\n ```\n\n ### Valid\n\n ```html\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" />\n <meta name=\"viewport\" content=\"width=device-width\" />\n <meta name=\"viewport\" content=\"user-scalable=nope\" />\n ```\n\n"
           },
+          "noObsoleteTags": {
+            "deprecated": false,
+            "version": "2.5.14",
+            "name": "noObsoleteTags",
+            "link": "https://biomejs.dev/linter/rules/no-obsolete-tags/html",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-obsolete-tags"
+                }
+              }
+            ],
+            "docs": " Disallow obsolete HTML elements.\n\n Obsolete elements are no longer part of conforming HTML. Use standard HTML\n elements for structure and semantics, and CSS for presentation.\n\n This rule disallows `acronym`, `applet`, `basefont`, `bgsound`, `big`, `blink`,\n `center`, `dir`, `font`, `frame`, `frameset`, `isindex`, `keygen`, `listing`,\n `marquee`, `menuitem`, `multicol`, `nextid`, `nobr`, `noembed`, `noframes`,\n `plaintext`, `rb`, `rtc`, `spacer`, `strike`, `tt`, and `xmp`.\n\n Tag names are case-insensitive in HTML files. Custom components in template\n languages, such as `<Font />`, are not HTML elements and are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <font color=\"red\">Warning</font>\n ```\n\n ```html,expect_diagnostic\n <acronym title=\"World Wide Web\">WWW</acronym>\n ```\n\n ### Valid\n\n ```html\n <span class=\"warning\">Warning</span>\n <abbr title=\"World Wide Web\">WWW</abbr>\n ```\n\n ## Resources\n\n - [HTML specification: Non-conforming features](https://html.spec.whatwg.org/multipage/obsolete.html#non-conforming-features)\n\n"
+          },
+          "noSvelteAtDebugTags": {
+            "deprecated": false,
+            "version": "2.5.14",
+            "name": "noSvelteAtDebugTags",
+            "link": "https://biomejs.dev/linter/rules/no-svelte-at-debug-tags/html",
+            "recommended": true,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSvelte": "no-at-debug-tags"
+                }
+              }
+            ],
+            "docs": " Disallow the use of Svelte's `{@debug}` tag.\n\n The `{@debug}` tag is a debugging aid that logs the values of the given variables to the\n console whenever they change, and pauses execution when developer tools are open. It\n should be removed once you are done debugging, as it should not remain in production code.\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n {@debug user}\n ```\n\n ### Valid\n\n ```svelte\n {user}\n ```\n\n ### References\n\n - [Svelte debug tag](https://svelte.dev/docs/svelte/@debug)\n\n"
+          },
+          "noSvelteAtHtmlTags": {
+            "deprecated": false,
+            "version": "2.5.11",
+            "name": "noSvelteAtHtmlTags",
+            "link": "https://biomejs.dev/linter/rules/no-svelte-at-html-tags/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSvelte": "no-at-html-tags"
+                }
+              }
+            ],
+            "docs": " Disallow the use of Svelte's `{@html}` tag.\n\n The `{@html}` tag renders its value as unescaped HTML. This can lead to cross-site\n scripting (XSS) vulnerabilities when the value contains untrusted content.\n\n If raw HTML is required, sanitize the value before passing it to `{@html}`.\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n {@html content}\n ```\n\n ### Valid\n\n ```svelte\n {content}\n ```\n\n ### References\n\n - [Svelte HTML tag](https://svelte.dev/docs/svelte/@html)\n\n"
+          },
           "noSvelteLegacyConst": {
             "deprecated": false,
             "version": "2.5.8",
@@ -2040,6 +2108,38 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Reports custom properties used with `var()` that have no visible declaration.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div style=\"color: var(--text-color)\"></div>\n ```\n\n ### Valid\n\n ```html\n <div style=\"--text-color: blue; color: var(--text-color)\"></div>\n ```\n\n"
+          },
+          "noUnsafeIframeSandbox": {
+            "deprecated": false,
+            "version": "2.5.13",
+            "name": "noUnsafeIframeSandbox",
+            "link": "https://biomejs.dev/linter/rules/no-unsafe-iframe-sandbox/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReactDom": "no-unsafe-iframe-sandbox"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReactXyz": "dom-no-unsafe-iframe-sandbox"
+                }
+              }
+            ],
+            "docs": " Disallow an unsafe combination of the `sandbox` attribute.\n\n This rule reports cases where the attribute may contain `allow-scripts` and `allow-same-origin` at the same time,\n as this combination allows the embedded document to remove the `sandbox` attribute and bypass the restrictions.\n\n See [Play safely in sandboxed IFrames](https://web.dev/articles/sandboxed-iframes) or [this Stack Overflow answer](https://stackoverflow.com/a/62431584) for more details.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <iframe src=\"https://example.com\" sandbox=\"allow-scripts allow-same-origin\"></iframe>\n ```\n\n ### Valid\n\n ```html\n <iframe src=\"https://example.com\" sandbox=\"allow-popups\"></iframe>\n ```\n\n"
+          },
+          "noVueUndeclaredDirectives": {
+            "deprecated": false,
+            "version": "2.5.14",
+            "name": "noVueUndeclaredDirectives",
+            "link": "https://biomejs.dev/linter/rules/no-vue-undeclared-directives/html",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow custom Vue directives that are not declared.\n\n Vue resolves a custom directive such as `v-highlight` at runtime. When nothing\n registers it, Vue logs a warning and the element silently loses the behavior the\n directive was supposed to add.\n\n A custom directive is considered declared when any of the following registers it:\n\n - a top-level `<script setup>` binding named after the directive, using the\n   camelCase form prefixed with `v`, such as `vHighlight` for `v-highlight`;\n - the component's `directives` option, written either in `export default`,\n   in `defineComponent(...)`, or in `defineOptions(...)`;\n - the rule's [`globals`](#globals) option, which is how a directive registered\n   globally with `app.directive(...)` is declared to Biome.\n\n Built-in directives such as `v-if` are never reported. Nothing is reported either\n when the component's options cannot be resolved statically, which happens when they\n use `extends`, `mixins`, a spread, or a default export that is not an object literal,\n or when a `<script>` block uses `src=\"...\"` to load its content from another file.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <template>\n     <div v-highlight></div>\n </template>\n ```\n\n ### Valid\n\n A `<script setup>` binding declares the directive:\n\n ```vue,ignore\n <script setup>\n const vHighlight = {};\n </script>\n\n <template><div v-highlight></div></template>\n ```\n\n So does the component's `directives` option:\n\n ```vue,ignore\n <script>\n export default {\n     directives: { highlight: {} },\n };\n </script>\n\n <template><div v-highlight></div></template>\n ```\n\n ## Options\n\n ### `globals`\n\n A list of directive names that are registered globally with `app.directive(...)`.\n Write each name in kebab-case, exactly as it appears in the template without the\n `v-` prefix: `click-outside` for `v-click-outside`. Other spellings such as\n `clickOutside` or `vClickOutside` do not match.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"globals\": [\"click-outside\"]\n     }\n }\n ```\n\n #### Valid (using `globals`)\n\n ```vue,use_options\n <template>\n     <div v-click-outside></div>\n </template>\n ```\n"
           },
           "noVueVOnNumberValues": {
             "deprecated": false,
@@ -2683,7 +2783,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unnecessary constructors.\n\n _ES2015_ provides a default class constructor if one is not specified.\n As such, providing an empty constructor or one that delegates into its parent is unnecessary.\n\n The rule ignores:\n\n - decorated classes;\n - constructors with at least one [parameter property](https://www.typescriptlang.org/docs/handbook/2/classes.html#parameter-properties);\n - `private` and `protected` constructors.\n\n ## Caveat\n\n This rule reports on constructors whose sole purpose is to make a parent constructor public.\n See the last invalid example.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class A {\n     constructor (a) {}\n }\n ```\n\n ```ts,expect_diagnostic\n class B extends A {\n     constructor (a) {\n         super(a);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n class C {\n     /**\n      * Documented constructor.\n      */\n     constructor () {}\n }\n ```\n\n ```ts,expect_diagnostic\n class A {\n     protected constructor() {\n         this.prop = 1;\n     }\n }\n\n class B extends A {\n     // Make the parent constructor public.\n     constructor () {\n         super();\n     }\n }\n ```\n\n ### Valid\n\n ```js\n class A {\n     constructor (prop) {\n         this.prop = prop;\n     }\n }\n ```\n\n ```js\n class B extends A {\n     constructor () {\n         super(5);\n     }\n }\n ```\n\n ```ts\n class C {\n     // Empty constructor with parameter properties are allowed.\n     constructor (private prop: number) {}\n }\n ```\n\n ```ts\n class D {\n   constructor(public arg: number){}\n }\n\n class F extends D {\n   // constructor with default parameters are allowed.\n   constructor(arg = 4) {\n     super(arg)\n   }\n }\n ```\n\n ```ts\n @Decorator\n class C {\n     constructor (prop: number) {}\n }\n ```\n"
+            "docs": " Disallow unnecessary constructors.\n\n _ES2015_ provides a default class constructor if one is not specified.\n As such, providing an empty constructor or one that delegates into its parent is unnecessary.\n\n The rule ignores:\n\n - decorated classes;\n - constructors with at least one [parameter property](https://www.typescriptlang.org/docs/handbook/2/classes.html#parameter-properties);\n - `private` and `protected` constructors;\n - TypeScript constructors that forward at least one argument to `super`.\n\n TypeScript forwarding constructors can narrow the parameter types accepted by a subclass.\n The rule does not compare parent and child signatures, so it ignores these constructors\n even when the signatures are identical.\n\n ## Caveat\n\n This rule reports on zero-argument constructors whose sole purpose is to make a parent constructor public.\n See the last invalid example.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class A {\n     constructor (a) {}\n }\n ```\n\n ```js,expect_diagnostic\n class B extends A {\n     constructor (a) {\n         super(a);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n class C {\n     /**\n      * Documented constructor.\n      */\n     constructor () {}\n }\n ```\n\n ```ts,expect_diagnostic\n class A {\n     protected constructor() {\n         this.prop = 1;\n     }\n }\n\n class B extends A {\n     // Make the parent constructor public.\n     constructor () {\n         super();\n     }\n }\n ```\n\n ### Valid\n\n ```js\n class A {\n     constructor (prop) {\n         this.prop = prop;\n     }\n }\n ```\n\n ```js\n class B extends A {\n     constructor () {\n         super(5);\n     }\n }\n ```\n\n ```ts\n class C {\n     // Empty constructor with parameter properties are allowed.\n     constructor (private prop: number) {}\n }\n ```\n\n ```ts\n class D {\n   constructor(public arg: number){}\n }\n\n class F extends D {\n   // constructor with default parameters are allowed.\n   constructor(arg = 4) {\n     super(arg)\n   }\n }\n ```\n\n ```ts\n class Base {\n     constructor(public value: string | number) {}\n }\n\n class Narrowed extends Base {\n     constructor(value: string) {\n         super(value);\n     }\n }\n ```\n\n ```ts\n @Decorator\n class C {\n     constructor (prop: number) {}\n }\n ```\n"
           },
           "noUselessContinue": {
             "deprecated": false,
@@ -2794,7 +2894,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unnecessary concatenation of string or template literals.\n\n This rule aims to flag concatenation of string or template literals when they could be combined into a single literal.\n Notably, this also includes concatenating a string with a number (unlike the derivative ESLint rule).\n\n Concatenation of multiple strings is allowed for multi-line strings (such as ones used to prevent exceeding the maximum line width).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const a = \"a\" + \"b\";\n ```\n\n ```js,expect_diagnostic\n const foo = \"string\" + 123;\n ```\n\n ```js,expect_diagnostic\n const a = \"a\" + \"b\" + \"c\";\n ```\n\n ```js,expect_diagnostic\n const a = (foo + \"a\") + (\"b\" + \"c\");\n ```\n\n ### Valid\n\n ```js\n const a = 1 + 1;\n ```\n\n ```js\n const a = 1 * '2';\n ```\n\n ```js\n const a = 1 - 2;\n ```\n\n ```js\n const a = foo + bar;\n ```\n\n ```js\n const a = 'foo' + bar;\n ```\n\n Multi-line strings are ignored:\n\n ```js\n const multiline = 'foo' + // formatting\n           'bar'\n ```\n\n ```js\n const alsoMultiline = 'foo'\n           + 'bar'\n           + `baz`\n ```\n"
+            "docs": " Disallow unnecessary concatenation of string or template literals.\n\n This rule aims to flag concatenation of string or template literals when they could be combined into a single literal.\n Notably, this also includes concatenating a string with a number (unlike the derivative ESLint rule).\n\n Concatenations split across multiple lines are allowed (such as ones used to prevent exceeding the maximum line width).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const a = \"a\" + \"b\";\n ```\n\n ```js,expect_diagnostic\n const foo = \"string\" + 123;\n ```\n\n ```js,expect_diagnostic\n const a = \"a\" + \"b\" + \"c\";\n ```\n\n ```js,expect_diagnostic\n const a = (foo + \"a\") + (\"b\" + \"c\");\n ```\n\n ### Valid\n\n ```js\n const a = 1 + 1;\n ```\n\n ```js\n const a = 1 * '2';\n ```\n\n ```js\n const a = 1 - 2;\n ```\n\n ```js\n const a = foo + bar;\n ```\n\n ```js\n const a = 'foo' + bar;\n ```\n\n Multi-line strings are ignored:\n\n ```js\n const multiline = 'foo' + // formatting\n           'bar'\n ```\n\n ```js\n const alsoMultiline = 'foo'\n           + 'bar'\n           + `baz`\n ```\n"
           },
           "noUselessStringRaw": {
             "deprecated": false,
@@ -2939,7 +3039,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Use arrow functions over function expressions.\n\n An arrow function expression is a compact alternative to a regular function expression,\n with an important distinction:\n `this` is not bound to the arrow function. It inherits `this` from its parent scope.\n\n This rule proposes turning all function expressions that are not generators (`function*`) and don't use `this` into arrow functions.\n\n This rule does not modify top-level function declarations ([discuss here](https://github.com/biomejs/biome/discussions/7108)).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const z = function() {\n     return 0;\n }\n ```\n\n ```js,expect_diagnostic\n const delegatedFetch = async function(url) {\n     return await fetch(url);\n }\n ```\n\n ### Valid\n\n ```js\n const f = function() {\n     return this.prop;\n }\n ```\n\n Named function expressions are ignored:\n\n ```js\n const z = function z() {\n     return 0;\n }\n ```\n\n Functions that reference the [arguments\n object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments)\n are ignored because the arguments object is not available to arrow\n functions.\n\n ```js\n const q = function () {\n     return arguments[0];\n }\n ```\n\n Function expressions that declare the type of `this` are  also ignored:\n\n ```ts\n const z = function(this: A): number {\n     return 0;\n }\n ```\n"
+            "docs": " Use arrow functions over function expressions.\n\n An arrow function expression is a compact alternative to a regular function expression,\n with an important distinction:\n `this` is not bound to the arrow function. It inherits `this` from its parent scope.\n\n This rule proposes turning all function expressions that are not generators (`function*`) and don't use `this` into arrow functions.\n\n This rule does not modify top-level function declarations ([discuss here](https://github.com/biomejs/biome/discussions/7108)).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const z = function() {\n     return 0;\n }\n ```\n\n ```js,expect_diagnostic\n const delegatedFetch = async function(url) {\n     return await fetch(url);\n }\n ```\n\n ### Valid\n\n ```js\n const f = function() {\n     return this.prop;\n }\n ```\n\n Named function expressions are ignored:\n\n ```js\n const z = function z() {\n     return 0;\n }\n ```\n\n Functions that reference the [arguments\n object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments)\n are ignored because the arguments object is not available to arrow\n functions.\n\n ```js\n const q = function () {\n     return arguments[0];\n }\n ```\n\n Function expressions that declare the type of `this` are  also ignored:\n\n ```ts\n const z = function(this: A): number {\n     return 0;\n }\n ```\n\n ## See Also\n\n - [useConsistentFunctionStyle](https://biomejs.dev/linter/rules/use-consistent-function-style)\n\n"
           },
           "useDateNow": {
             "deprecated": false,
@@ -3759,13 +3859,13 @@ export function GET() {
             "fixKind": "unsafe",
             "sources": [
               {
-                "kind": "sameLogic",
+                "kind": "inspired",
                 "source": {
                   "eslint": "no-unused-private-class-members"
                 }
               }
             ],
-            "docs": " Disallow unused private class members\n\n Private class members that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring.\n Such class members take up space in the code and can lead to confusion by readers.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class OnlyWrite {\n   #usedOnlyInWrite = 5;\n\n   method() {\n\t    this.#usedOnlyInWrite = 212;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedProperty = 5;\n  }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedMethod() {}\n  }\n ```\n\n ### Valid\n\n ```js\n class UsedMember {\n   #usedMember = 42;\n\n   method() {\n\t    return this.#usedMember;\n   }\n }\n ```\n\n ## Caveats\n\n The rule currently considers that all TypeScript private members are used if it encounters a computed access.\n In the following example `member` is not reported. It is considered as used.\n\n ```ts\n  class TsBioo {\n    private member: number;\n\n    set_with_name(name: string, value: number) {\n      this[name] = value;\n    }\n  }\n ```\n\n"
+            "docs": " Disallow unused private class members\n\n Private class members that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring.\n Such class members take up space in the code and can lead to confusion by readers.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class OnlyWrite {\n   #usedOnlyInWrite = 5;\n\n   method() {\n\t    this.#usedOnlyInWrite = 212;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedProperty = 5;\n  }\n ```\n\n ```ts,expect_diagnostic\n  class TsBioo {\n    private unusedMethod() {}\n  }\n ```\n\n ### Valid\n\n ```js\n class UsedMember {\n   #usedMember = 42;\n\n   method() {\n\t    return this.#usedMember;\n   }\n }\n ```\n\n Compound assignments read the current value and therefore count as usage:\n\n ```js\n class UsedMember {\n   #usedMember;\n\n   method() {\n     this.#usedMember ??= getValue();\n   }\n }\n ```\n\n Unlike ESLint's rule, this rule considers a compound assignment to use the\n member even when the assignment's result is discarded.\n\n ## Caveats\n\n The rule currently considers that all TypeScript private members are used if it encounters a computed access.\n In the following example `member` is not reported. It is considered as used.\n\n ```ts\n  class TsBioo {\n    private member: number;\n\n    set_with_name(name: string, value: number) {\n      this[name] = value;\n    }\n  }\n ```\n\n"
           },
           "noUnusedVariables": {
             "deprecated": false,
@@ -3954,7 +4054,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce JSDoc comment lines to start with a single asterisk, except for the first one.\n\n This rule ensures that every line in a JSDoc block, except the opening one, starts with exactly one asterisk (`*`).\n Extra asterisks are unnecessary in JSDoc comments and are often introduced by mistake.\n\n Double asterisks (`**`) are still allowed, because they mark the start of bold text.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /**\n ** Description\n */\n ```\n\n ```js,expect_diagnostic\n /**\n * Description\n * */\n ```\n\n ```js,expect_diagnostic\n /** @ts-ignore **/\n ```\n\n ### Valid\n\n ```js\n /**\n  * Description\n  * @public\n  */\n ```\n\n ```js\n /** @ts-ignore */\n ```\n\n ```js\n /**\n  * **Bold** text\n  */\n ```\n\n"
+            "docs": " Enforce JSDoc comment lines to start with a single asterisk, except for the first one.\n\n This rule ensures that every line in a JSDoc block, except the opening one, starts with exactly one asterisk (`*`).\n Extra asterisks are unnecessary in JSDoc comments and are often introduced by mistake.\n\n Asterisks that are part of the comment content, such as bold or italic text, are still allowed.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /**\n ** Description\n */\n ```\n\n ```js,expect_diagnostic\n /**\n * Description\n * */\n ```\n\n ```js,expect_diagnostic\n /** @ts-ignore **/\n ```\n\n ### Valid\n\n ```js\n /**\n  * Description\n  * @public\n  */\n ```\n\n ```js\n /** @ts-ignore */\n ```\n\n ```js\n /**\n  * **Bold** text\n  */\n ```\n\n ```js\n /**\n  * *Italic* text\n  */\n ```\n\n"
           },
           "useValidForDirection": {
             "deprecated": false,
@@ -4488,6 +4588,23 @@ export function GET() {
             ],
             "docs": " Disallow dependencies that are known to have better alternatives.\n\n This rule checks static imports, dynamic `import()`, and `require()` calls\n and suggests modern, native, or more maintainable alternatives based on\n [e18e](https://e18e.dev/)'s replacement data.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import glob from \"globby\";\n ```\n\n ```js,expect_diagnostic\n const glob = require(\"globby\");\n ```\n\n ```js,expect_diagnostic\n const glob = await import(\"globby\");\n ```\n\n ### Valid\n\n ```js\n import glob from \"tinyglobby\";\n ```\n\n ```js\n const glob = require(\"tinyglobby\");\n ```\n\n ```js\n const glob = await import(\"tinyglobby\");\n ```\n\n See [the e18e docs](https://e18e.dev/docs/replacements/) for the full list of replacements.\n\n"
           },
+          "noReturnInFinally": {
+            "deprecated": false,
+            "version": "2.5.14",
+            "name": "noReturnInFinally",
+            "link": "https://biomejs.dev/linter/rules/no-return-in-finally/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintPromise": "no-return-in-finally"
+                }
+              }
+            ],
+            "docs": " Disallow return statements in `Promise.prototype.finally()` callbacks.\n\n Returning a value from a `Promise.prototype.finally()` callback is ignored, which can be confusing.\n Returned promises and thenables are awaited, and their rejection rejects\n the resulting promise.\n\n Returns inside nested blocks, including conditional branches and loops,\n are also disallowed. Returns inside nested functions are ignored by the rule.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Promise.resolve(1).finally(() => { return 2 });\n ```\n\n ```js,expect_diagnostic\n myPromise.finally(() => { return 2 });\n ```\n\n ```js,expect_diagnostic\n myPromise.finally(() => {\n     if (condition) {\n         return 2;\n     }\n });\n ```\n\n ### Valid\n\n ```js\n Promise.resolve(1).finally(() => { console.log(2) });\n myPromise.finally(() => {});\n\n myPromise.finally(function () {\n     function nested() {\n         return 2;\n     }\n     console.log(nested());\n });\n ```\n\n ## References\n\n - MDN: [`Promise.prototype.finally` documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally)\n\n"
+          },
           "noSvelteUnnecessaryStateWrap": {
             "deprecated": false,
             "version": "2.5.2",
@@ -4574,6 +4691,29 @@ export function GET() {
             ],
             "docs": " Disallow unnecessary template expressions.\n\n A template expression (or template literal) is unnecessary when it only contains\n string literal expressions that could be written as a regular string literal instead.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const a = `${'hello'}`;\n ```\n\n ```js,expect_diagnostic\n const b = `${\"world\"}`;\n ```\n\n ```js,expect_diagnostic\n const c = `${'hello'}${'world'}`;\n ```\n\n ```js,expect_diagnostic\n const d = `prefix_${'suffix'}`;\n ```\n\n ### Valid\n\n ```js\n // Template with a non-string-literal expression\n const a = `${someVariable}`;\n ```\n\n ```js\n // Template with a non-string-literal interpolation mixed with text\n const b = `Hello, ${name}!`;\n ```\n\n ```js\n // Tagged templates are never flagged\n const c = html`${'foo'}`;\n ```\n\n ```js\n // Templates with newlines in the text part need the template syntax\n const d = `line one\n ${'line two'}`;\n ```\n\n"
           },
+          "noUnsafeIframeSandbox": {
+            "deprecated": false,
+            "version": "2.5.13",
+            "name": "noUnsafeIframeSandbox",
+            "link": "https://biomejs.dev/linter/rules/no-unsafe-iframe-sandbox/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactDom": "no-unsafe-iframe-sandbox"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "dom-no-unsafe-iframe-sandbox"
+                }
+              }
+            ],
+            "docs": " Disallow an unsafe combination of the `sandbox` attribute.\n\n This rule reports cases where the attribute may contain `allow-scripts` and `allow-same-origin` at the same time,\n as this combination allows the embedded document to remove the `sandbox` attribute and bypass the restrictions.\n\n See [Play safely in sandboxed IFrames](https://web.dev/articles/sandboxed-iframes) or [this Stack Overflow answer](https://stackoverflow.com/a/62431584) for more details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function MyComponent() {\n   return <iframe src=\"https://example.com\" sandbox=\"allow-scripts allow-same-origin\" />;\n }\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent() {\n   return <iframe src=\"https://example.com\" sandbox=\"allow-popups\" />;\n }\n ```\n\n"
+          },
           "noUnsafePlusOperands": {
             "deprecated": false,
             "version": "2.4.10",
@@ -4659,6 +4799,23 @@ export function GET() {
             ],
             "docs": " Disallow the use of value wrapped by `ref()`(Composition API) as operand\n\n To access value wrapped by `ref()`, you must use `.value`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const count = ref(0)\n count++\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const ok = ref(false)\n const msg = ok ? \"yes\" : \"no\"\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const ok = ref(false)\n if (ok) {\n   //\n }\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count)\n   }\n }\n ```\n\n ### Valid\n\n ```js\n import { ref } from \"vue\"\n\n const count = ref(0)\n count.value++\n ```\n\n ```js\n import { ref } from \"vue\"\n\n const ok = ref(true)\n const msg = ok.value ? \"yes\" : \"no\"\n if (ok.value) {\n   //\n }\n ```\n\n ```js\n import { ref } from \"vue\"\n\n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count.value)\n   }\n }\n ```\n\n"
           },
+          "noXorAsExponentiation": {
+            "deprecated": false,
+            "version": "2.5.13",
+            "name": "noXorAsExponentiation",
+            "link": "https://biomejs.dev/linter/rules/no-xor-as-exponentiation/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-xor-as-exponentiation"
+                }
+              }
+            ],
+            "docs": " Disallow the bitwise XOR operator where exponentiation was likely intended.\n\n In JavaScript, `^` is the bitwise XOR operator, not exponentiation.\n Developers coming from languages like Lua, Julia, R, or MATLAB, or from\n math notation, often expect `^` to mean \"to the power of\", so `2 ^ 32`\n silently evaluates to `34` instead of `4294967296`. The actual\n exponentiation operator is `**`.\n\n This rule flags `^` between two decimal integer literals, which is\n almost always this mistake. Hexadecimal, octal, and binary literals\n (such as `0xFF ^ 8`) and any non-literal operands (such as\n `flags ^ MASK`) are ignored, since those are far more likely to be\n intentional bitwise XOR.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const kibibyte = 2 ^ 10; // 8, not 1024\n ```\n\n ```js,expect_diagnostic\n const cube = 3 ^ 3; // 0, not 27\n ```\n\n ### Valid\n\n ```js\n const kibibyte = 2 ** 10;\n const cube = 3 ** 3;\n const masked = flags ^ MASK;\n const bits = 0xFF ^ 8;\n ```\n\n"
+          },
           "useArraySome": {
             "deprecated": false,
             "version": "2.4.5",
@@ -4693,6 +4850,40 @@ export function GET() {
             ],
             "docs": " Enforce that `await` is _only_ used on `Promise` values.\n\n Values with a callable `then` member are treated as thenable.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=invalid-primitive.js\n await 'value';\n ```\n\n ```js,expect_diagnostic,file=invalid-function-call.js\n const createValue = () => 'value';\n await createValue();\n ```\n\n ### Valid\n\n ```js,file=valid-examples.js\n await Promise.resolve('value');\n\n const createValue = async () => 'value';\n await createValue();\n ```\n\n"
           },
+          "useBetterDomTraversing": {
+            "deprecated": false,
+            "version": "2.5.13",
+            "name": "useBetterDomTraversing",
+            "link": "https://biomejs.dev/linter/rules/use-better-dom-traversing/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintUnicorn": "better-dom-traversing"
+                }
+              }
+            ],
+            "docs": " Prefer modern DOM traversal APIs over positional indexes and chained walks.\n\n Named first-child accessors, `querySelector()`, and `closest()` describe intent more clearly\n than `childNodes[0]`, `children[n]`, and repeated `.parentElement` access.\n Merging chained `.querySelector()` calls with static selectors has the same benefit.\n\n Fixes are unsafe because the replacement is not always equivalent:\n\n - `.childNodes[0]` is `undefined` when empty; `.firstChild` is `null`\n - `.closest()` looks for any matching ancestor, not an exact number of `.parentElement` hops\n - chained `.querySelector()` calls search inside the first match, while a combined selector\n   searches from the original node\n\n `props.children` is ignored because that is component data, not DOM traversal.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n element.childNodes[0];\n ```\n\n ```js,expect_diagnostic\n element.children[0];\n ```\n\n ```js,expect_diagnostic\n element.children[2];\n ```\n\n ```js,expect_diagnostic\n element.parentElement.parentElement;\n ```\n\n ```js,expect_diagnostic\n element.querySelector(\"a\").querySelector(\"b\");\n ```\n\n ### Valid\n\n ```js\n element.firstChild;\n element.firstElementChild;\n element.querySelector(\"li\");\n element.closest(\"form\");\n const child = props.children[0];\n ```\n\n"
+          },
+          "useConsistentFunctionStyle": {
+            "deprecated": false,
+            "version": "2.5.14",
+            "name": "useConsistentFunctionStyle",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-function-style/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "func-style"
+                }
+              }
+            ],
+            "docs": " Enforce consistent use of function declarations or expressions assigned to variables.\n\n A consistent function style makes function definitions easier to recognize.\n Use the `style` option to choose the style that matches your project's conventions.\n\n In both styles, callbacks, methods, and default exports are ignored.\n Named exports follow the configured style.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function greet() {\n     return \"Hello\";\n }\n ```\n\n ### Valid\n\n ```js\n const greet = function() {\n     return \"Hello\";\n };\n const farewell = () => \"Goodbye\";\n ```\n\n ```js\n export default function greet() {\n     return \"Hello\";\n }\n ```\n\n ## Options\n\n ### `style`\n\n Type: `\"expression\" | \"declaration\"`\n\n Default: `\"expression\"`\n\n With `\"expression\"`, the rule requires function expressions or arrow functions\n assigned to variables.\n\n These functions can only be called after the variable is initialized. TypeScript\n overloads are allowed because they require declarations.\n\n ```ts\n function identity(value: string): string;\n function identity(value: number): number;\n function identity(value: string | number) {\n     return value;\n }\n ```\n\n With `\"declaration\"`, the rule requires function declarations.\n\n These are hoisted and can be called before their definition. Arrow functions that directly use\n `this` or `super` are allowed to preserve their lexical binding.\n Variables with TypeScript type annotations are also allowed because a function\n declaration cannot be annotated with an existing function type.\n A return type annotation on the function does not qualify for this exception.\n\n The following examples use `\"declaration\"`:\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"declaration\"\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n const greet = function() {};\n ```\n\n ```ts,use_options,expect_diagnostic\n const greet = (): string => \"Hello\";\n ```\n\n #### Valid\n\n ```js,use_options\n function greet() {}\n const getContext = () => this;\n ```\n\n ```ts,use_options\n type Greeting = () => string;\n const greet: Greeting = () => \"Hello\";\n const farewell: Greeting = function() { return \"Goodbye\"; };\n ```\n\n ### `allowArrowFunctions`\n\n Type: `boolean`\n\n Default: `false`\n\n Allow arrow functions regardless of style setting.\n Arrow functions are always allowed when expressions are required.\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"declaration\",\n         \"allowArrowFunctions\": true\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n const greet = function() { return \"Hello\"; };\n ```\n\n #### Valid\n\n ```js,use_options\n function greet() { return \"Hello\"; }\n const farewell = () => \"Goodbye\";\n ```\n\n ## See Also\n\n - [useArrowFunction](https://biomejs.dev/linter/rules/use-arrow-function/)\n\n"
+          },
           "useConsistentTestIt": {
             "deprecated": false,
             "version": "2.4.11",
@@ -4714,7 +4905,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce consistent use of `it` or `test` for test functions.\n\n `it` and `test` are aliases for the same function in most test frameworks.\n This rule enforces using one over the other for consistency.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"foo\", () => {});\n ```\n\n ### Valid\n\n ```js\n it(\"foo\", () => {});\n ```\n\n ## Options\n\n ### `function`\n\n The function to use for top-level tests (outside `describe` blocks).\n Accepted values are:\n - `\"it\"` (default): Enforce using `it()` for top-level tests\n - `\"test\"`: Enforce using `test()` for top-level tests\n\n ```json,options\n {\n     \"options\": {\n         \"function\": \"test\"\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n it(\"foo\", () => {});\n ```\n\n #### Valid\n\n ```js,use_options\n test(\"foo\", () => {});\n ```\n\n ### `withinDescribe`\n\n The function to use for tests inside `describe` blocks.\n Accepted values are:\n - `\"it\"` (default): Enforce using `it()` inside describe blocks\n - `\"test\"`: Enforce using `test()` inside describe blocks\n\n ```json,options\n {\n     \"options\": {\n         \"withinDescribe\": \"test\"\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n describe(\"suite\", () => {\n     it(\"foo\", () => {});\n });\n ```\n\n #### Valid\n\n ```js,use_options\n describe(\"suite\", () => {\n     test(\"foo\", () => {});\n });\n ```\n\n"
+            "docs": " Enforce consistent use of `it` or `test` for test functions.\n\n `it` and `test` are aliases for the same function in most test frameworks.\n This rule enforces using one over the other for consistency.\n Imported functions keep their original export through an import alias.\n The fix is unavailable when the preferred name conflicts with another binding or global reference.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"foo\", () => {});\n ```\n\n ### Valid\n\n ```js\n it(\"foo\", () => {});\n ```\n\n ## Options\n\n ### `function`\n\n The function to use for top-level tests (outside `describe` blocks).\n Accepted values are:\n - `\"it\"` (default): Enforce using `it()` for top-level tests\n - `\"test\"`: Enforce using `test()` for top-level tests\n\n ```json,options\n {\n     \"options\": {\n         \"function\": \"test\"\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n it(\"foo\", () => {});\n ```\n\n #### Valid\n\n ```js,use_options\n test(\"foo\", () => {});\n ```\n\n ### `withinDescribe`\n\n The function to use for tests inside `describe` blocks.\n Accepted values are:\n - `\"it\"` (default): Enforce using `it()` inside describe blocks\n - `\"test\"`: Enforce using `test()` inside describe blocks\n\n ```json,options\n {\n     \"options\": {\n         \"withinDescribe\": \"test\"\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n describe(\"suite\", () => {\n     it(\"foo\", () => {});\n });\n ```\n\n #### Valid\n\n ```js,use_options\n describe(\"suite\", () => {\n     test(\"foo\", () => {});\n });\n ```\n\n"
           },
           "useDisposables": {
             "deprecated": false,
@@ -4774,7 +4965,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Require switch-case statements to be exhaustive.\n\n When working with union types in TypeScript, it's common to want to write a switch statement\n intended to contain a case for each possible variant.\n However, if the union type changes, it's easy to forget to modify the cases to account for\n any new types.\n\n This rule reports when a switch statement over a value typed as a union of literals lacks\n a case for any of those literal types and does not have a default clause.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n }\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n   case 'Tuesday':\n     result = 2;\n     break;\n   case 'Wednesday':\n     result = 3;\n     break;\n   case 'Thursday':\n     result = 4;\n     break;\n   case 'Friday':\n     result = 5;\n     break;\n   case 'Saturday':\n     result = 6;\n     break;\n   case 'Sunday':\n     result = 7;\n     break;\n }\n ```\n\n"
+            "docs": " Require switch-case statements to be exhaustive.\n\n When working with union types in TypeScript, it's common to want to write a switch statement\n intended to contain a case for each possible variant.\n However, if the union type changes, it's easy to forget to modify the cases to account for\n any new types.\n\n By default, this rule reports when a switch statement over a value typed as a union of literals lacks\n a case for any of those literal types and does not have a default clause.\n Set `requireExplicitCase` to `true` to check for missing cases even when the switch has a `default` clause.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n }\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n   case 'Tuesday':\n     result = 2;\n     break;\n   case 'Wednesday':\n     result = 3;\n     break;\n   case 'Thursday':\n     result = 4;\n     break;\n   case 'Friday':\n     result = 5;\n     break;\n   case 'Saturday':\n     result = 6;\n     break;\n   case 'Sunday':\n     result = 7;\n     break;\n }\n ```\n\n ## Options\n\n ### requireExplicitCase\n\n Default: `false`.\n\n A `default` clause handles any value that does not match a `case`.\n By default, the rule accepts this as covering all remaining values in a union.\n This means that adding a value to the union will not produce a diagnostic if the switch has a `default` clause.\n\n Set `requireExplicitCase` to `true` to require a `case` for each value in the union.\n You can still keep `default` as a fallback for unexpected values at runtime.\n\n ```json,options\n {\n     \"options\": {\n         \"requireExplicitCase\": true\n     }\n }\n ```\n\n With this option enabled, the switch below passes because `\"A\"`, `\"B\"`, and `\"C\"` each have a case.\n The `default` clause stays as a runtime fallback. Removing `case \"C\"` would produce a diagnostic,\n even though the fallback would handle that value.\n\n ```ts,use_options,file=explicit-case-valid.ts\n type Letter = \"A\" | \"B\" | \"C\";\n declare const letter: Letter;\n switch (letter) {\n     case \"A\":\n     case \"B\":\n     case \"C\":\n         break;\n     default:\n         throw new Error(\"Unexpected letter\");\n }\n ```\n\n"
           },
           "useExpect": {
             "deprecated": false,
@@ -4852,9 +5043,21 @@ export function GET() {
                 "source": {
                   "eslintTypeScript": "prefer-includes"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintUnicorn": "prefer-includes"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintE18e": "prefer-includes"
+                }
               }
             ],
-            "docs": " Prefer `Array#includes()` over `Array#indexOf()` checks.\n\n `Array#indexOf()` returns a numeric index and is commonly compared against `-1` to check\n for the presence of an element. `Array#includes()` is more readable and expressive for\n this purpose, and avoids off-by-one mistakes with the comparison operator.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid1.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) !== -1;\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) >= 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid3.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) === -1;\n ```\n\n ### Valid\n\n ```ts\n const arr = [1, 2, 3];\n arr.includes(1);\n ```\n\n ```ts\n const arr = [1, 2, 3];\n // Positional use of indexOf is fine\n const pos = arr.indexOf(1);\n ```\n\n"
+            "docs": " Prefer `Array#includes()` over `Array#indexOf()`, `Array#lastIndexOf()`, and `Array#some()` when checking for existence or non-existence.\n\n `Array#indexOf()` and `Array#lastIndexOf()` return a numeric index and are commonly compared\n against `-1` to check for the presence of an element. `Array#some()` is sometimes used with a\n strict-equality callback for the same purpose. `Array#includes()` is more readable and\n expressive, and avoids off-by-one mistakes with the comparison operator.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid1.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) !== -1;\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) >= 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid3.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) === -1;\n ```\n\n ```ts,expect_diagnostic,file=invalid4.ts\n const arr = [1, 2, 3];\n arr.lastIndexOf(1) !== -1;\n ```\n\n ```ts,expect_diagnostic,file=invalid5.ts\n const arr = [1, 2, 3];\n arr.some((item) => item === 1);\n ```\n\n ### Valid\n\n ```ts\n const arr = [1, 2, 3];\n\n arr.includes(1);\n\n !arr.includes(1);\n\n // Positional use of indexOf is fine\n const pos = arr.indexOf(1);\n ```\n\n"
           },
           "useMathMinMax": {
             "deprecated": false,
@@ -5171,6 +5374,29 @@ export function GET() {
             ],
             "docs": " Enforce the use of the `u` or `v` flag for regular expressions.\n\n The `u` flag (Unicode mode) and `v` flag (Unicode Sets mode) enable proper handling\n of Unicode characters in regular expressions. Without these flags, regex patterns\n may not correctly match Unicode characters like emoji or characters outside the\n Basic Multilingual Plane.\n\n The `u` flag was introduced in ES2015 and enables:\n - Correct handling of surrogate pairs (e.g., emoji)\n - Unicode code point escapes (`\\u{...}`)\n - Case-insensitive matching for Unicode characters\n\n The `v` flag was introduced in ES2024 and provides all `u` flag features plus:\n - Set notation in character classes\n - String literals in character classes\n - Improved Unicode property escapes\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /foo/;\n ```\n\n ```js,expect_diagnostic\n /foo/gi;\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\");\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\", \"gi\");\n ```\n\n ### Valid\n\n ```js\n /foo/u;\n /foo/v;\n /foo/giu;\n new RegExp(\"foo\", \"u\");\n new RegExp(\"foo\", \"giv\");\n new RegExp(\"foo\", flags); // dynamic flags are ignored\n ```\n\n"
           },
+          "useValidTestTitle": {
+            "deprecated": false,
+            "version": "2.5.14",
+            "name": "useValidTestTitle",
+            "link": "https://biomejs.dev/linter/rules/use-valid-test-title/javascript",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "valid-title"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "valid-title"
+                }
+              }
+            ],
+            "docs": " Enforce valid titles for unit test cases and test suites.\n\n Checks that the titles of test blocks (`describe`, `test`, `it`) are valid:\n - Titles must not be empty.\n - Titles must not have accidental leading or trailing whitespace.\n - Titles must be string or template literals.\n - Titles must not contain disallowed words (if configured).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n it(\"\", () => {});\n ```\n\n ```js,expect_diagnostic\n describe(\" foo\", () => {});\n ```\n\n ```js,expect_diagnostic\n test(123, () => {});\n ```\n\n ### Valid\n\n ```js\n it(\"should work\", () => {});\n describe(\"my suite\", () => {});\n ```\n\n ## Options\n\n ### `disallowedWords`\n\n A list of words that are not allowed in test titles. Matching is whole-word and case-insensitive.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"disallowedWords\": [\"skip\", \"only\"]\n     }\n }\n ```\n\n"
+          },
           "useVarsOnTop": {
             "deprecated": false,
             "version": "2.4.12",
@@ -5190,7 +5416,7 @@ export function GET() {
           },
           "useVueBaseImport": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.13",
             "name": "useVueBaseImport",
             "link": "https://biomejs.dev/linter/rules/use-vue-base-import/javascript",
             "recommended": true,
@@ -7470,7 +7696,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-redundant-use-strict/javascript",
             "recommended": true,
             "fixKind": "safe",
-            "docs": " Prevents from having redundant `\"use strict\"`.\n\n The directive `\"use strict\"` **isn't** needed in `.mjs` files, or in `.js` files inside projects where the `package.json` defines library as module:\n\n\n ```json,ignore\n {\n    \"type\": \"module\"\n }\n ```\n\n Instead, `.cjs` files are considered \"scripts\" and the directive `\"use strict\"` is accepted and advised.\n\n ## Examples\n\n ### Invalid\n ```cjs,expect_diagnostic\n \"use strict\";\n function foo() {\n  \t\"use strict\";\n }\n ```\n ```cjs,expect_diagnostic\n \"use strict\";\n \"use strict\";\n\n function foo() {\n\n }\n ```\n ```cjs,expect_diagnostic\n function foo() {\n \"use strict\";\n \"use strict\";\n }\n ```\n ```cjs,expect_diagnostic\n class C1 {\n \ttest() {\n \t\t\"use strict\";\n \t}\n }\n ```\n ```cjs,expect_diagnostic\n const C2 = class {\n \ttest() {\n \t\t\"use strict\";\n \t}\n };\n\n ```\n ### Valid\n ```cjs\n function foo() {\n\n }\n```\n ```cjs\n  function foo() {\n     \"use strict\";\n }\n function bar() {\n     \"use strict\";\n }\n```\n\n"
+            "docs": " Prevents from having redundant `\"use strict\"`.\n\n The directive `\"use strict\"` <a href=\"https://262.ecma-international.org/6.0/#sec-strict-mode-code\">**isn't** needed</a> in an ESM module.\n This includes `.mjs` files, or `.js` files inside projects where the `package.json` defines the library as a module:\n\n ```json,ignore\n {\n    \"type\": \"module\"\n }\n ```\n\n If the type is undefined, ESM module is assumed.\n CommonJS files (`.cjs`, or `.js` files inside a project with `\"type\": \"commonjs\"`) are in non-strict mode. \n For them, the directive `\"use strict\"` is accepted and advised.\n\n ## Examples\n\n ### Invalid\n ```cjs,expect_diagnostic\n \"use strict\";\n function foo() {\n  \t\"use strict\";\n }\n ```\n ```cjs,expect_diagnostic\n \"use strict\";\n \"use strict\";\n\n function foo() {\n\n }\n ```\n ```cjs,expect_diagnostic\n function foo() {\n \"use strict\";\n \"use strict\";\n }\n ```\n ```cjs,expect_diagnostic\n class C1 {\n \ttest() {\n \t\t\"use strict\";\n \t}\n }\n ```\n ```cjs,expect_diagnostic\n const C2 = class {\n \ttest() {\n \t\t\"use strict\";\n \t}\n };\n\n ```\n ### Valid\n ```cjs\n function foo() {\n\n }\n```\n ```cjs\n  function foo() {\n     \"use strict\";\n }\n function bar() {\n     \"use strict\";\n }\n```\n\n"
           },
           "noReturnAssign": {
             "deprecated": false,
@@ -8032,6 +8258,23 @@ export function GET() {
             ],
             "docs": " Disallow empty keys in JSON objects.\n\n In JSON, using empty keys (keys that are empty strings or contain only whitespace) can lead to accessibility and maintenance issues.\n While technically valid in JSON, empty keys make objects harder to read, can cause confusion when debugging, and may create problems with some JSON parsers or processors.\n Additionally, empty keys often indicate mistakes or oversights in the processes.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"\": \"value\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"validKey\": \"value\",\n   \"\": \"another value\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \" \": \"space as key\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"\\t\": \"tab as key\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"\\n\": \"newline as key\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"key\": \"value\"\n }\n ```\n\n"
           },
+          "noJsonUnsafeValues": {
+            "deprecated": false,
+            "version": "2.5.14",
+            "name": "noJsonUnsafeValues",
+            "link": "https://biomejs.dev/linter/rules/no-json-unsafe-values/json",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJson": "no-unsafe-values"
+                }
+              }
+            ],
+            "docs": " Disallow unsafe JSON values that may cause interoperability issues.\n\n Some JSON values can break when parsed by different tools or languages as parser implementations & data types could differ.\n For example, a very large number might become `Infinity` in JavaScript,\n or a string with an incomplete Unicode pair might fail to decode properly.\n\n The common unsafe values are:\n\n - *Lone surrogates in strings*: Incomplete Unicode character pairs that can cause encoding/decoding failures\n - *Numbers that evaluate to Infinity*: Values like `1e400` that exceed JavaScript's number range\n - *Unintentional zeros*: Very small numbers (e.g., `1e-400`) that silently evaluate to zero due to precision limitations\n - *Unsafe integers*: Numbers outside JavaScript's safe integer range (`±2^53-1`) that lose precision\n - *Subnormal numbers*: Very small floating point values that may be handled differently across systems\n\n These issues can lead to data corruption, silent failures, or inconsistent behavior across different platforms and languages.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"invalid1\": 2e308\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"invalid2\": -2e308\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"invalid3\": \"\\ud83d\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"invalid4\": 1e-400\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"invalid5\": 9007199254740992\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"invalid6\": 2.2250738585072009e-308\n }\n ```\n\n ### Valid\n\n ```jsonc\n [\n \t123,\n \t1234,\n \t12345, // Regular numbers within safe range\n\n \t\"🔥\", // Properly formed Unicode character (fire emoji)\n\n \t\"\\ud83d\\udd25\", // Same character with proper surrogate pair\n\n \t0.00000,\n \t0e0000000,\n \t0.00000e0000 // Zero represented in different valid ways\n ]\n ```\n\n"
+          },
           "noRestrictedDependencies": {
             "deprecated": false,
             "version": "2.5.0",
@@ -8074,6 +8317,23 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Disallow dependencies with untrusted licenses.\n\n When you install a dependency, it comes with a license that defines how you can use it.\n Some licenses may not be compatible with your project's requirements. For example,\n a proprietary project may not be allowed to use copyleft-licensed dependencies, or\n your organization may require all dependencies to use OSI-approved licenses.\n\n This rule reads the `license` field from each dependency's `package.json` inside\n `node_modules` and checks it against the [SPDX license list](https://spdx.org/licenses/).\n It supports compound expressions like `MIT OR Apache-2.0`.\n\n By default, the rule flags dependencies that:\n - Have **no** `license` field.\n - Have a license that is **not** a valid SPDX identifier.\n - Have a license **deprecated** in the SPDX standard.\n\n :::note\n This rule catches only dependencies that are actually used in your project (i.e., imported by some code).\n Currently, the `WITH` specifier is currently not supported.\n :::\n\n ## Examples\n\n ### Invalid\n\n A dependency whose `package.json` has `\"license\": \"my-custom-license\"` is\n flagged because the identifier is not part of the SPDX standard:\n\n ```json,ignore\n {\n     \"dependencies\": {\n         \"untrusted-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n A dependency whose `package.json` has no `license` field at all is also\n flagged:\n\n ```json,ignore\n {\n     \"devDependencies\": {\n         \"no-license-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n ### Valid\n\n A dependency whose `package.json` has `\"license\": \"MIT\"` passes because\n MIT is a valid, non-deprecated SPDX identifier:\n\n ```json,ignore\n {\n     \"dependencies\": {\n         \"trusted-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n ## Options\n\n ### `allow`\n\n A list of extra license identifiers to accept, even if they are not part of\n the SPDX standard. This is useful for custom or proprietary licenses used\n inside your organization.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"allow\": [\"LicenseRef-Company\", \"my-org-license\"]\n     }\n }\n ```\n\n ### `deny`\n\n A list of license identifiers to explicitly reject, even if they are valid\n SPDX identifiers. This lets you block specific licenses that your project\n cannot use, for example, copyleft licenses in a proprietary codebase.\n\n Deny always takes precedence over allow and SPDX validity.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"deny\": [\"GPL-3.0-only\", \"AGPL-3.0-only\"]\n     }\n }\n ```\n\n ### `requireOsiApproved`\n\n When enabled, only licenses that have been approved by the\n [Open Source Initiative](https://opensource.org/) are accepted.\n Licenses in the `allow` list bypass this check.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"requireOsiApproved\": true\n     }\n }\n ```\n\n ### `requireFsfLibre`\n\n When enabled, only licenses that are recognized as free/libre by the\n [Free Software Foundation](https://www.gnu.org/licenses/license-list.html)\n are accepted. Licenses in the `allow` list bypass this check.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"requireFsfLibre\": true\n     }\n }\n ```\n\n ### `ignoreDeprecated`\n\n When enabled, deprecated SPDX license identifiers are accepted without\n being flagged. By default, deprecated identifiers such as `GPL-2.0` (which\n should be `GPL-2.0-only` or `GPL-2.0-or-later`) produce a diagnostic.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreDeprecated\": true\n     }\n }\n ```\n\n"
+          },
+          "useConsistentObjectKeys": {
+            "deprecated": false,
+            "version": "2.5.14",
+            "name": "useConsistentObjectKeys",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-object-keys/json",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJson": "no-unnormalized-keys"
+                }
+              }
+            ],
+            "docs": " Enforce JSON keys with consistent Unicode representation.\n\n Unicode characters can have different internal representations that look identical.\n For example, \"é\" can be stored as one code point (U+00E9) or as \"e\" plus a combining accent (U+0065 + U+0301).\n Unicode normalization converts text to a standard form (such as NFC) so visually identical keys share the same representation.\n This avoids confusing behavior in JSON objects where equality checks and key lookups should treat matching text consistently.\n\n More on Unicode normalization can be found [here](https://www.unicode.org/reports/tr15/).\n\n ## Options\n\n ### `form`\n\n Select the Unicode representation that keys must follow.\n\n Default: `NFC`\n\n `NFC`: Canonical Decomposition followed by Canonical Composition\n\n ```json,options\n {\n     \"options\": {\n         \"form\": \"NFC\"\n     }\n }\n ```\n\n ```json,expect_diagnostic\n {\n     \"caf\\u0065\\u0301\": \"espresso\"\n }\n ```\n\n `NFD`: Canonical Decomposition\n\n ```json,options\n {\n     \"options\": {\n         \"form\": \"NFD\"\n     }\n }\n ```\n\n ```json,expect_diagnostic,use_options\n {\n     \"\\u00C5\": \"precomposed A-ring\"\n }\n ```\n\n `NFKC`: Compatibility Decomposition followed by Canonical Composition\n\n ```json,options\n {\n     \"options\": {\n         \"form\": \"NFKC\"\n     }\n }\n ```\n\n ```json,expect_diagnostic,use_options\n {\n     \"\\u00BD\": \"circled digit one\"\n }\n ```\n\n `NFKD`: Compatibility Decomposition\n\n ```json,options\n {\n     \"options\": {\n         \"form\": \"NFKD\"\n     }\n }\n ```\n\n ```json,expect_diagnostic,use_options\n {\n     \"\\u00BD\": \"vulgar fraction one half\"\n }\n ```\n\n"
           }
         },
         "suspicious": {
@@ -8466,7 +8726,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce that anchors have content and that the content is accessible to screen readers.\n\n Accessible means the content is not hidden using the `aria-hidden` attribute.\n Refer to the references to learn about why this is important.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a />\n ```\n\n ```jsx,expect_diagnostic\n <a></a>\n ```\n\n ```jsx,expect_diagnostic\n <a>    </a>\n ```\n\n ```jsx,expect_diagnostic\n <a aria-hidden>content</a>\n ```\n\n ```jsx,expect_diagnostic\n <a><span aria-hidden=\"true\">content</span></a>\n ```\n\n ### Valid\n\n ```jsx\n <a>content</a>\n ```\n\n ```jsx\n function html() {\n     return { __html: \"foo\" }\n }\n <a dangerouslySetInnerHTML={html()} />\n ```\n\n ```jsx\n <a><TextWrapper aria-hidden={true} />content</a>\n ```\n\n ```jsx\n <a><div aria-hidden=\"true\"></div>content</a>\n ```\n\n The following is valid because `<a>` is used as a JSX attribute value on a custom\n component. The rule is suppressed for any such prop on a custom component, as the\n component may render the anchor as a content wrapper whose children supply the link text.\n\n ```jsx\n <Button render={<a href=\"/home\" aria-label=\"Home\" />}>Home</Button>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.4](https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
+            "docs": " Enforce that anchors have content and that the content is accessible to screen readers.\n\n Accessible means the content is not hidden using the `aria-hidden` attribute.\n Anchor tags should have text content that describes the link destination for screen reader users.\n An `aria-label`, `aria-labelledby`, or `title` attribute alone doesn't satisfy this rule.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a />\n ```\n\n ```jsx,expect_diagnostic\n <a></a>\n ```\n\n ```jsx,expect_diagnostic\n <a>    </a>\n ```\n\n ```jsx,expect_diagnostic\n <a aria-hidden>content</a>\n ```\n\n ```jsx,expect_diagnostic\n <a><span aria-hidden=\"true\">content</span></a>\n ```\n\n ### Valid\n\n ```jsx\n <a>content</a>\n ```\n\n ```jsx\n function html() {\n     return { __html: \"foo\" }\n }\n <a dangerouslySetInnerHTML={html()} />\n ```\n\n ```jsx\n <a><TextWrapper aria-hidden={true} />content</a>\n ```\n\n ```jsx\n <a><div aria-hidden=\"true\"></div>content</a>\n ```\n\n The following is valid because `<a>` is used as a JSX attribute value on a custom\n component. The rule is suppressed for any such prop on a custom component, as the\n component may render the anchor as a content wrapper whose children supply the link text.\n\n ```jsx\n <Button render={<a href=\"/home\" aria-label=\"Home\" />}>Home</Button>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 2.4.4](https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
           },
           "useAriaActivedescendantWithTabindex": {
             "deprecated": false,
@@ -8817,7 +9077,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unnecessary fragments\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <>\n     <>foo</>\n     <SomeComponent />\n </>\n ```\n\n ```jsx,expect_diagnostic\n <></>\n ```\n\n ```jsx,expect_diagnostic\n <Component prop={<><div /></>} />\n ```\n\n The rule doesn't emit a code fix if the a fragment inside an attribute doesn't have any value:\n\n ```jsx,expect_diagnostic\n <Component prop={<>{}</>} />\n ```\n\n ### Valid\n\n ```jsx\n <>\n foo\n </>\n ```\n\n ```jsx\n <React.Fragment>\n foo\n </React.Fragment>\n ```\n\n ```jsx\n <>\n     <Foo />\n     <Bar />\n </>\n ```\n\n ```jsx\n <>foo {bar}</>\n ```\n\n"
+            "docs": " Disallow unnecessary fragments\n\n In Astro templates, fragments with props are allowed, for example `<Fragment slot=\"name\">`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <>\n     <>foo</>\n     <SomeComponent />\n </>\n ```\n\n ```jsx,expect_diagnostic\n <></>\n ```\n\n ```jsx,expect_diagnostic\n <Component prop={<><div /></>} />\n ```\n\n The rule doesn't emit a code fix if the a fragment inside an attribute doesn't have any value:\n\n ```jsx,expect_diagnostic\n <Component prop={<>{}</>} />\n ```\n\n ### Valid\n\n ```jsx\n <>\n foo\n </>\n ```\n\n ```jsx\n <React.Fragment>\n foo\n </React.Fragment>\n ```\n\n ```jsx\n <>\n     <Foo />\n     <Bar />\n </>\n ```\n\n ```jsx\n <>foo {bar}</>\n ```\n\n"
           }
         },
         "correctness": {
@@ -9152,7 +9412,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-unique-element-ids/javascript",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Prevent the usage of static string literal `id` attribute on elements.\n\n In React, hardcoding IDs is discouraged because IDs have to be unique in the DOM.\n You should use [`useId`](https://react.dev/reference/react/useId) to generate unique IDs for accessibility purposes.\n\n Please keep in mind this rule doesn't check whether ids are actually unique or not, and does check whether static literal id isn't passed to the elements or not. So you're encouraged to check by yourself if the ids are actually unique.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div id=\"foo\">bar</div>;\n ```\n\n ```jsx,expect_diagnostic\n React.createElement(\"div\", { id: \"foo\" });\n ```\n\n ### Valid\n\n ```jsx\n const id = useId();\n <div id={id}>bar</div>;\n ```\n\n ```jsx\n const id = useId();\n React.createElement(\"div\", { id });\n ```\n\n ## Options\n\n The following option is available\n\n ### `excludedComponents`\n\n List of unqualified component names to ignore.\n Use it to list components expecting an `id` attribute that does not represent\n a DOM element ID.\n\n **Default**: empty list.\n\n ```json,options\n {\n     \"options\": {\n         \"excludedComponents\": [\n             \"FormattedMessage\"\n         ]\n     }\n }\n ```\n\n ```jsx,use_options\n <FormattedMessage id=\"static\" />\n ```\n\n ```jsx,use_options\n <Library.FormattedMessage id=\"static\" />\n ```\n\n\n"
+            "docs": " Prevent the usage of static string literal `id` attribute on elements outside SVG contexts.\n\n In React, hardcoding IDs is discouraged because IDs have to be unique in the DOM.\n You should use [`useId`](https://react.dev/reference/react/useId) to generate unique IDs for accessibility purposes.\n\n Please keep in mind this rule doesn't check whether ids are actually unique or not, and does check whether static literal id isn't passed to the elements or not. So you're encouraged to check by yourself if the ids are actually unique.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div id=\"foo\">bar</div>;\n ```\n\n ```jsx,expect_diagnostic\n React.createElement(\"div\", { id: \"foo\" });\n ```\n\n ### Valid\n\n ```jsx\n const id = useId();\n <div id={id}>bar</div>;\n ```\n\n ```jsx\n const id = useId();\n React.createElement(\"div\", { id });\n ```\n\n Static IDs are allowed in SVG contexts:\n\n ```jsx\n <svg>\n     <defs>\n         <pattern id=\"dots\" width=\"10\" height=\"10\" />\n     </defs>\n     <rect fill=\"url(#dots)\" width=\"100%\" height=\"100%\" />\n </svg>\n ```\n\n ## Options\n\n The following option is available\n\n ### `excludedComponents`\n\n List of unqualified component names to ignore.\n Use it to list components expecting an `id` attribute that does not represent\n a DOM element ID.\n\n **Default**: empty list.\n\n ```json,options\n {\n     \"options\": {\n         \"excludedComponents\": [\n             \"FormattedMessage\"\n         ]\n     }\n }\n ```\n\n ```jsx,use_options\n <FormattedMessage id=\"static\" />\n ```\n\n ```jsx,use_options\n <Library.FormattedMessage id=\"static\" />\n ```\n\n\n"
           }
         },
         "nursery": {
@@ -9264,6 +9524,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow disabling zoom with `user-scalable=no` in the `<meta name=\"viewport\">` element.\n\n Disabling zoom can make page content difficult to read for people with low vision.\n\n See [WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) and the\n [html-eslint rule](https://html-eslint.org/docs/rules/no-non-scalable-viewport) for details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />\n ```\n\n ```jsx,expect_diagnostic\n <meta name={\"viewport\"} content={\"user-scalable=no\"} />\n ```\n\n ### Valid\n\n ```jsx\n <>\n   <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes\" />\n   <meta name=\"viewport\" content=\"width=device-width\" />\n   <Meta name=\"viewport\" content=\"user-scalable=no\" />\n </>\n ```\n\n"
+          },
+          "noObsoleteTags": {
+            "deprecated": false,
+            "version": "2.5.14",
+            "name": "noObsoleteTags",
+            "link": "https://biomejs.dev/linter/rules/no-obsolete-tags/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "no-obsolete-tags"
+                }
+              }
+            ],
+            "docs": " Disallow obsolete HTML elements.\n\n Obsolete elements are no longer part of conforming HTML. Use standard HTML\n elements for structure and semantics, and CSS for presentation.\n\n This rule disallows `acronym`, `applet`, `basefont`, `bgsound`, `big`, `blink`,\n `center`, `dir`, `font`, `frame`, `frameset`, `isindex`, `keygen`, `listing`,\n `marquee`, `menuitem`, `multicol`, `nextid`, `nobr`, `noembed`, `noframes`,\n `plaintext`, `rb`, `rtc`, `spacer`, `strike`, `tt`, and `xmp`.\n\n This rule checks native JSX elements without case sensitivity. Component names\n such as `<Font />`, member expressions such as `<UI.font />`, and namespaced\n names are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <font color=\"red\">Warning</font>;\n ```\n\n ```jsx,expect_diagnostic\n <acronym title=\"World Wide Web\">WWW</acronym>;\n ```\n\n ### Valid\n\n ```jsx\n <span className=\"warning\">Warning</span>;\n <abbr title=\"World Wide Web\">WWW</abbr>;\n <Font />;\n <UI.font />;\n ```\n\n ## Resources\n\n - [HTML specification: Non-conforming features](https://html.spec.whatwg.org/multipage/obsolete.html#non-conforming-features)\n\n"
           },
           "noReactNativeRawText": {
             "deprecated": false,
@@ -9840,7 +10117,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unknown DOM properties.\n\n In JSX, most DOM properties and attributes should be camelCased to be consistent with standard JavaScript style.\n This can be a possible source of error if you are used to writing plain HTML.\n Only `data-*` and `aria-*` attributes are allowed to use hyphens and lowercase letters in JSX.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div allowTransparency=\"true\" />\n ```\n\n ```jsx,expect_diagnostic\n <div onclick={() => {}} />\n ```\n\n ```jsx,expect_diagnostic\n <div for=\"bar\" />\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"foo\" />\n ```\n\n ```jsx\n <div onClick={() => {}} />\n ```\n\n ```jsx\n <div htmlFor=\"bar\" />\n ```\n\n ```jsx\n <div data-foo=\"bar\" />\n ```\n\n ```jsx\n <div aria-label=\"Close\" />\n ```\n\n ## Options\n\n ### `ignore`\n\n An array of property and attribute names to ignore during validation.\n\n ```json\n {\n   \"noUnknownAttribute\": {\n     \"options\": {\n       \"ignore\": [\"custom-attribute\", \"non-standard-prop\"]\n     }\n   }\n }\n ```\n"
+            "docs": " Disallow unknown DOM properties.\n\n In JSX, most DOM properties and attributes should be camelCased to be consistent with standard JavaScript style.\n This can be a possible source of error if you are used to writing plain HTML.\n Only `data-*` and `aria-*` attributes are allowed to use hyphens and lowercase letters in JSX.\n\n Fullscreen event handlers (`onFullscreenChange`, `onFullscreenError`, and their capture variants),\n `credentialless`, and `maskType` require a React dependency range in `package.json` that allows React 19.3 or later.\n Without that dependency, these properties are reported as unknown.\n `credentialless` is only allowed on `<iframe>`, and `maskType` is only allowed on `<mask>`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div allowTransparency=\"true\" />\n ```\n\n ```jsx,expect_diagnostic\n <div onclick={() => {}} />\n ```\n\n ```jsx,expect_diagnostic\n <div for=\"bar\" />\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"foo\" />\n ```\n\n ```jsx\n <div onClick={() => {}} />\n ```\n\n ```jsx\n <div htmlFor=\"bar\" />\n ```\n\n ```jsx\n <div data-foo=\"bar\" />\n ```\n\n ```jsx\n <div aria-label=\"Close\" />\n ```\n\n ## Options\n\n ### `ignore`\n\n An array of property and attribute names to ignore during validation.\n\n ```json\n {\n   \"noUnknownAttribute\": {\n     \"options\": {\n       \"ignore\": [\"custom-attribute\", \"non-standard-prop\"]\n     }\n   }\n }\n ```\n"
           },
           "useGoogleFontDisplay": {
             "deprecated": false,
@@ -10393,7 +10670,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce marking members as `readonly` if they are never modified outside the constructor.\n\n This rule ensures that class properties, especially private ones, are marked as `readonly` if their values\n remain constant after being initialized. This helps improve code readability, maintainability, and ensures\n immutability where applicable.\n\n It can be configured to check only private members or all class properties.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n class Container {\n     private onlyModifiedInConstructor = 1;\n     constructor(\n         member1: number,\n     ) {\n         this.onlyModifiedInConstructor = onlyModifiedInConstructor;\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     constructor(\n        private constructorParameter: number,\n     ) {\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     private neverModifiedMember = true;\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     #neverModifiedPrivateField = 3;\n }\n ```\n\n ### Valid\n\n ```ts\n class Container {\n     private readonly neverModifiedMember = true;\n     private readonly onlyModifiedInConstructor: number;\n     readonly #neverModifiedPrivateField = 3;\n\n     public constructor(\n         onlyModifiedInConstructor: number,\n         private readonly neverModifiedParameter: string,\n     ) {\n         this.onlyModifiedInConstructor = onlyModifiedInConstructor;\n     }\n }\n ```\n\n ## Options\n\n ### `checkAllProperties`\n\n Checks whether all class properties (including public and protected) should be analyzed.\n By default, `checkAllProperties` is set to `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"checkAllProperties\": true\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n class Example {\n     public constantValue = 42;\n\n     constructor(value: number) {\n         this.constantValue = value;\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n class Example {\n     constructor(protected constructorParameter: string) {\n     }\n }\n ```\n\n"
+            "docs": " Enforce marking instance properties as `readonly` if they are never modified outside the\n constructor, and static properties as `readonly` if they are never reassigned.\n\n This rule ensures that class properties, especially private ones, are marked as `readonly` if their values\n remain constant after being initialized. This helps improve code readability, maintainability, and ensures\n immutability where applicable.\n\n It can be configured to check only private members or all class properties.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n class Container {\n     private onlyModifiedInConstructor = 1;\n     constructor(\n         member1: number,\n     ) {\n         this.onlyModifiedInConstructor = onlyModifiedInConstructor;\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     constructor(\n        private constructorParameter: number,\n     ) {\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     private neverModifiedMember = true;\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     #neverModifiedPrivateField = 3;\n }\n ```\n\n ### Valid\n\n ```ts\n class Container {\n     private readonly neverModifiedMember = true;\n     private readonly onlyModifiedInConstructor: number;\n     readonly #neverModifiedPrivateField = 3;\n\n     public constructor(\n         onlyModifiedInConstructor: number,\n         private readonly neverModifiedParameter: string,\n     ) {\n         this.onlyModifiedInConstructor = onlyModifiedInConstructor;\n     }\n }\n ```\n\n ## Options\n\n ### `checkAllProperties`\n\n Checks whether all class properties (including public and protected) should be analyzed.\n By default, `checkAllProperties` is set to `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"checkAllProperties\": true\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n class Example {\n     public constantValue = 42;\n\n     constructor(value: number) {\n         this.constantValue = value;\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n class Example {\n     constructor(protected constructorParameter: string) {\n     }\n }\n ```\n\n"
           },
           "useShorthandFunctionType": {
             "deprecated": false,
@@ -10580,7 +10857,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 591
+    "numberOrRules": 606
   },
   "syntax": {
     "languages": {

@@ -8,6 +8,8 @@ minimumReleaseAgeExclude:
   - '@astrojs/mdx@7.0.3'
   - '@astrojs/netlify@8.1.2'
   - '@biomejs/*'
+overrides:
+  satteri: 0.10.5
 packages:
   - "scripts"
   - "./"

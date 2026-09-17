@@ -63,6 +63,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-array-at](https://github.com/e18e/eslint-plugin) |[useAtIndex](/linter/rules/use-at-index/javascript) |
 | [prefer-date-now](https://github.com/e18e/eslint-plugin) |[useDateNow](/linter/rules/use-date-now/javascript) |
 | [prefer-exponentiation-operator](https://github.com/e18e/eslint-plugin) |[useExponentiationOperator](/linter/rules/use-exponentiation-operator/javascript) |
+| [prefer-includes](https://github.com/e18e/eslint-plugin) |[useIncludes](/linter/rules/use-includes/javascript) (inspired) |
 | [prefer-object-has-own](https://github.com/e18e/eslint-plugin) |[noPrototypeBuiltins](/linter/rules/no-prototype-builtins/javascript) |
 | [prefer-spread-syntax](https://github.com/e18e/eslint-plugin) |[useObjectSpread](/linter/rules/use-object-spread/javascript) (inspired) |
 ### @eslint-react/eslint-plugin
@@ -74,6 +75,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [dom-no-missing-button-type](https://eslint-react.xyz/docs/rules/dom-no-missing-button-type) |[useButtonType](/linter/rules/use-button-type/javascript) |
 | [dom-no-missing-iframe-sandbox](https://eslint-react.xyz/docs/rules/dom-no-missing-iframe-sandbox) |[useIframeSandbox](/linter/rules/use-iframe-sandbox/javascript) |
 | [dom-no-script-url](https://eslint-react.xyz/docs/rules/dom-no-script-url) |[noScriptUrl](/linter/rules/no-script-url/javascript) |
+| [dom-no-unsafe-iframe-sandbox](https://eslint-react.xyz/docs/rules/dom-no-unsafe-iframe-sandbox) |[noUnsafeIframeSandbox](/linter/rules/no-unsafe-iframe-sandbox/javascript) |
 | [dom-no-unsafe-target-blank](https://eslint-react.xyz/docs/rules/dom-no-unsafe-target-blank) |[noBlankTarget](/linter/rules/no-blank-target/javascript) (inspired) |
 | [dom-no-void-elements-with-children](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children) |[noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children/javascript) |
 | [exhaustive-deps](https://eslint-react.xyz/docs/rules/exhaustive-deps) |[useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies/javascript) |
@@ -97,6 +99,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-empty-headings](https://html-eslint.org/docs/rules/no-empty-headings) |[useHeadingContent](/linter/rules/use-heading-content/javascript) (inspired) |
 | [no-invalid-role](https://html-eslint.org/docs/rules/no-invalid-role) |[useValidAriaRole](/linter/rules/use-valid-aria-role/javascript) (inspired) |
 | [no-non-scalable-viewport](https://html-eslint.org/docs/rules/no-non-scalable-viewport) |[noNonScalableViewport](/linter/rules/no-non-scalable-viewport/javascript) (inspired) |
+| [no-obsolete-tags](https://html-eslint.org/docs/rules/no-obsolete-tags) |[noObsoleteTags](/linter/rules/no-obsolete-tags/javascript) (inspired) |
 | [no-positive-tabindex](https://html-eslint.org/docs/rules/no-positive-tabindex) |[noPositiveTabindex](/linter/rules/no-positive-tabindex/javascript) (inspired) |
 | [no-redundant-role](https://html-eslint.org/docs/rules/no-redundant-role) |[noRedundantRoles](/linter/rules/no-redundant-roles/javascript) (inspired) |
 | [require-button-type](https://html-eslint.org/docs/rules/require-button-type) |[useButtonType](/linter/rules/use-button-type/javascript) (inspired) |
@@ -144,6 +147,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-standalone-expect](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-standalone-expect.md) |[noMisplacedAssertion](/linter/rules/no-misplaced-assertion/javascript) (inspired) |
 | [prefer-hooks-in-order](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-hooks-in-order.md) |[useTestHooksInOrder](/linter/rules/use-test-hooks-in-order/javascript) |
 | [prefer-hooks-on-top](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-hooks-on-top.md) |[useTestHooksOnTop](/linter/rules/use-test-hooks-on-top/javascript) |
+| [valid-title](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/valid-title.md) |[useValidTestTitle](/linter/rules/use-valid-test-title/javascript) |
 ### Clippy
 | Clippy Rules name | Biome Rules name |
 | ---- | ---- |
@@ -183,6 +187,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [dot-notation](https://eslint.org/docs/latest/rules/dot-notation) |[useLiteralKeys](/linter/rules/use-literal-keys/javascript) |
 | [eqeqeq](https://eslint.org/docs/latest/rules/eqeqeq) |[noDoubleEquals](/linter/rules/no-double-equals/javascript) |
 | [for-direction](https://eslint.org/docs/latest/rules/for-direction) |[useValidForDirection](/linter/rules/use-valid-for-direction/javascript) |
+| [func-style](https://eslint.org/docs/latest/rules/func-style) |[useConsistentFunctionStyle](/linter/rules/use-consistent-function-style/javascript) (inspired) |
 | [getter-return](https://eslint.org/docs/latest/rules/getter-return) |[useGetterReturn](/linter/rules/use-getter-return/javascript) |
 | [grouped-accessor-pairs](https://eslint.org/docs/latest/rules/grouped-accessor-pairs) |[useGroupedAccessorPairs](/linter/rules/use-grouped-accessor-pairs/javascript) |
 | [guard-for-in](https://eslint.org/docs/latest/rules/guard-for-in) |[useGuardForIn](/linter/rules/use-guard-for-in/javascript) |
@@ -286,7 +291,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-unsafe-optional-chaining](https://eslint.org/docs/latest/rules/no-unsafe-optional-chaining) |[noUnsafeOptionalChaining](/linter/rules/no-unsafe-optional-chaining/javascript) |
 | [no-unused-expressions](https://eslint.org/docs/latest/rules/no-unused-expressions) |[noUnusedExpressions](/linter/rules/no-unused-expressions/javascript) |
 | [no-unused-labels](https://eslint.org/docs/latest/rules/no-unused-labels) |[noUnusedLabels](/linter/rules/no-unused-labels/javascript) |
-| [no-unused-private-class-members](https://eslint.org/docs/latest/rules/no-unused-private-class-members) |[noUnusedPrivateClassMembers](/linter/rules/no-unused-private-class-members/javascript) |
+| [no-unused-private-class-members](https://eslint.org/docs/latest/rules/no-unused-private-class-members) |[noUnusedPrivateClassMembers](/linter/rules/no-unused-private-class-members/javascript) (inspired) |
 | [no-unused-vars](https://eslint.org/docs/latest/rules/no-unused-vars) |[noUnusedVariables](/linter/rules/no-unused-variables/javascript) |
 | [no-use-before-define](https://eslint.org/docs/latest/rules/no-use-before-define) |[noInvalidUseBeforeDeclaration](/linter/rules/no-invalid-use-before-declaration/javascript) |
 | [no-useless-backreference](https://eslint.org/docs/latest/rules/no-useless-backreference) |[noUselessRegexBackrefs](/linter/rules/no-useless-regex-backrefs/javascript) |
@@ -373,6 +378,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-standalone-expect](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-standalone-expect.md) |[noMisplacedAssertion](/linter/rules/no-misplaced-assertion/javascript) (inspired) |
 | [prefer-hooks-in-order](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/prefer-hooks-in-order.md) |[useTestHooksInOrder](/linter/rules/use-test-hooks-in-order/javascript) |
 | [prefer-hooks-on-top](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/prefer-hooks-on-top.md) |[useTestHooksOnTop](/linter/rules/use-test-hooks-on-top/javascript) |
+| [valid-title](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/valid-title.md) |[useValidTestTitle](/linter/rules/use-valid-test-title/javascript) |
 ### eslint-plugin-jsdoc
 | eslint-plugin-jsdoc Rules name | Biome Rules name |
 | ---- | ---- |
@@ -447,6 +453,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-promise Rules name | Biome Rules name |
 | ---- | ---- |
 | [no-nesting](https://github.com/eslint-community/eslint-plugin-promise/blob/main/docs/rules/no-nesting.md) |[noNestedPromises](/linter/rules/no-nested-promises/javascript) |
+| [no-return-in-finally](https://github.com/eslint-community/eslint-plugin-promise/blob/main/docs/rules/no-return-in-finally.md) |[noReturnInFinally](/linter/rules/no-return-in-finally/javascript) (inspired) |
 ### eslint-plugin-qwik
 | eslint-plugin-qwik Rules name | Biome Rules name |
 | ---- | ---- |
@@ -495,6 +502,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-missing-button-type](https://eslint-react.xyz/docs/rules/dom-no-missing-button-type) |[useButtonType](/linter/rules/use-button-type/javascript) |
 | [no-missing-iframe-sandbox](https://eslint-react.xyz/docs/rules/dom-no-missing-iframe-sandbox) |[useIframeSandbox](/linter/rules/use-iframe-sandbox/javascript) (inspired) |
 | [no-script-url](https://eslint-react.xyz/docs/rules/dom-no-script-url) |[noScriptUrl](/linter/rules/no-script-url/javascript) |
+| [no-unsafe-iframe-sandbox](https://eslint-react.xyz/docs/rules/dom-no-unsafe-iframe-sandbox) |[noUnsafeIframeSandbox](/linter/rules/no-unsafe-iframe-sandbox/javascript) |
 | [no-unsafe-target-blank](https://eslint-react.xyz/docs/rules/dom-no-unsafe-target-blank) |[noBlankTarget](/linter/rules/no-blank-target/javascript) (inspired) |
 | [no-void-elements-with-children](https://eslint-react.xyz/docs/rules/dom-no-void-elements-with-children) |[noVoidElementsWithChildren](/linter/rules/no-void-elements-with-children/javascript) |
 ### eslint-plugin-react-hooks
@@ -576,6 +584,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### eslint-plugin-unicorn
 | eslint-plugin-unicorn Rules name | Biome Rules name |
 | ---- | ---- |
+| [better-dom-traversing](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/better-dom-traversing.md) |[useBetterDomTraversing](/linter/rules/use-better-dom-traversing/javascript) (inspired) |
 | [error-message](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/error-message.md) |[useErrorMessage](/linter/rules/use-error-message/javascript) |
 | [explicit-length-check](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/explicit-length-check.md) |[useExplicitLengthCheck](/linter/rules/use-explicit-length-check/javascript) (inspired) |
 | [filename-case](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/filename-case.md) |[useFilenamingConvention](/linter/rules/use-filenaming-convention/javascript) (inspired) |
@@ -594,6 +603,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-this-outside-of-class](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-this-outside-of-class.md) |[noThisOutsideOfClass](/linter/rules/no-this-outside-of-class/javascript) |
 | [no-useless-switch-case](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-switch-case.md) |[noUselessSwitchCase](/linter/rules/no-useless-switch-case/javascript) |
 | [no-useless-undefined](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-undefined.md) |[noUselessUndefined](/linter/rules/no-useless-undefined/javascript) |
+| [no-xor-as-exponentiation](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-xor-as-exponentiation.md) |[noXorAsExponentiation](/linter/rules/no-xor-as-exponentiation/javascript) |
 | [numeric-separators-style](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/numeric-separators-style.md) |[useNumericSeparators](/linter/rules/use-numeric-separators/javascript) |
 | [prefer-array-flat-map](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-array-flat-map.md) |[useFlatMap](/linter/rules/use-flat-map/javascript) |
 | [prefer-array-index-of](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-array-index-of.md) |[useIndexOf](/linter/rules/use-index-of/javascript) |
@@ -603,6 +613,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-dom-node-text-content](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-dom-node-text-content.md) |[useDomNodeTextContent](/linter/rules/use-dom-node-text-content/javascript) |
 | [prefer-flat-math-min-max](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-flat-math-min-max.md) |[useFlatMathMinMax](/linter/rules/use-flat-math-min-max/javascript) |
 | [prefer-global-this](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-global-this.md) |[useGlobalThis](/linter/rules/use-global-this/javascript) |
+| [prefer-includes](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-includes.md) |[useIncludes](/linter/rules/use-includes/javascript) (inspired) |
 | [prefer-math-min-max](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-math-min-max.md) |[useMathMinMax](/linter/rules/use-math-min-max/javascript) |
 | [prefer-modern-math-apis](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-modern-math-apis.md) |[useModernMathApis](/linter/rules/use-modern-math-apis/javascript) |
 | [prefer-module](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-module.md) |[noGlobalDirnameFilename](/linter/rules/no-global-dirname-filename/javascript) (inspired) |
@@ -636,6 +647,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-reserved-props](https://eslint.vuejs.org/rules/no-reserved-props) |[noVueReservedProps](/linter/rules/no-vue-reserved-props/javascript) |
 | [no-setup-props-reactivity-loss](https://eslint.vuejs.org/rules/no-setup-props-reactivity-loss) |[noVueSetupPropsReactivityLoss](/linter/rules/no-vue-setup-props-reactivity-loss/javascript) (inspired) |
 | [no-shared-component-data](https://eslint.vuejs.org/rules/no-shared-component-data) |[noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration/javascript) (inspired) |
+| [prefer-import-from-vue](https://eslint.vuejs.org/rules/prefer-import-from-vue) |[useVueBaseImport](/linter/rules/use-vue-base-import/javascript) |
 ### typescript-eslint
 | typescript-eslint Rules name | Biome Rules name |
 | ---- | ---- |

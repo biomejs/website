@@ -39,7 +39,7 @@ Enforce JSDoc comment lines to start with a single asterisk, except for the firs
 This rule ensures that every line in a JSDoc block, except the opening one, starts with exactly one asterisk (`*`).
 Extra asterisks are unnecessary in JSDoc comments and are often introduced by mistake.
 
-Double asterisks (`**`) are still allowed, because they mark the start of bold text.
+Asterisks that are part of the comment content, such as bold or italic text, are still allowed.
 
 ## Examples
 
@@ -83,6 +83,12 @@ Double asterisks (`**`) are still allowed, because they mark the start of bold t
 ```js
 /**
  * **Bold** text
+ */
+```
+
+```js
+/**
+ * *Italic* text
  */
 ```
 

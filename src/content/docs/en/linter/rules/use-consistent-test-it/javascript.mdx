@@ -43,6 +43,8 @@ Enforce consistent use of `it` or `test` for test functions.
 
 `it` and `test` are aliases for the same function in most test frameworks.
 This rule enforces using one over the other for consistency.
+Imported functions keep their original export through an import alias.
+The fix is unavailable when the preferred name conflicts with another binding or global reference.
 
 ## Examples
 
