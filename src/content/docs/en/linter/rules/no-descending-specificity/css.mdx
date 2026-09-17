@@ -8,6 +8,7 @@ description: CSS documentation for noDescendingSpecificity
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-descending-specificity/css/"}]} />
 
@@ -153,4 +154,5 @@ a b {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/style/no_descending_specificity.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/style/noDescendingSpecificity)
+- <RulePlaygroundLink rule="noDescendingSpecificity" category="lint" language="css" code={"b a { color: red; }\na { color: red; }\n"} />
 

@@ -8,6 +8,7 @@ description: HTML documentation for noInlineStyles
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-inline-styles/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-inline-styles/javascript/"}]} />
 
@@ -81,4 +82,5 @@ Instead of inline styles, use CSS classes, CSS modules, or a styling library.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_inline_styles.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noInlineStyles)
+- <RulePlaygroundLink rule="noInlineStyles" category="lint" language="html" code={"<div style=\"color: red;\"></div>\n"} />
 

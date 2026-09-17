@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noExportedImport
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-exported-imports/javascript/"}]} />
 
@@ -79,4 +80,5 @@ export { default as D } from "mod";
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_exported_imports.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noExportedImports)
+- <RulePlaygroundLink rule="noExportedImports" category="lint" language="js" code={"import { A } from \"mod\";\nexport { A };\n"} />
 

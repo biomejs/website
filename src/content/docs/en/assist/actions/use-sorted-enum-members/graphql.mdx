@@ -8,6 +8,7 @@ description: GraphQL documentation for useSortedEnumMembers
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/assist/actions/use-sorted-enum-members/graphql/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/assist/actions/use-sorted-enum-members/javascript/"}]} />
@@ -78,4 +79,5 @@ enum Role {
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/assist/source/use_sorted_enum_members.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/source/useSortedEnumMembers)
+- <RulePlaygroundLink rule="useSortedEnumMembers" category="assist" language="graphql" code={"enum Role {\n  SUPER_ADMIN\n  ADMIN\n  USER\n  GOD\n}\n"} />
 

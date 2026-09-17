@@ -8,6 +8,7 @@ description: CSS documentation for useSortedProperties
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/assist/actions/use-sorted-properties/css/"}]} />
@@ -104,4 +105,5 @@ p {
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/assist/source/use_sorted_properties.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/source/useSortedProperties)
+- <RulePlaygroundLink rule="useSortedProperties" category="assist" language="css" code={"p {\n  transition: opacity 1s ease;\n  border: 1px solid black;\n  pointer-events: none;\n  color: black;\n  margin: 8px;\n  display: block;\n  --custom: 100;\n}\n"} />
 

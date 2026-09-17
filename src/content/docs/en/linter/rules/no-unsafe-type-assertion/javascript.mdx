@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnsafeTypeAsse
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unsafe-type-assertion/javascript/"}]} />
 
@@ -136,4 +137,5 @@ function narrow(value: string | undefined) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_unsafe_type_assertion.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUnsafeTypeAssertion)
+- <RulePlaygroundLink rule="noUnsafeTypeAssertion" category="lint" language="ts" code={"interface SomeType {\n    value: string;\n}\ndeclare const value;\nconst asserted = value as SomeType;\n"} />
 

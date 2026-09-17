@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnsafeIframeSa
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-unsafe-iframe-sandbox/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unsafe-iframe-sandbox/javascript/"}]} />
 
@@ -71,4 +72,5 @@ function MyComponent() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_unsafe_iframe_sandbox.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUnsafeIframeSandbox)
+- <RulePlaygroundLink rule="noUnsafeIframeSandbox" category="lint" language="jsx" code={"function MyComponent() {\n  return <iframe src=\"https://example.com\" sandbox=\"allow-scripts allow-same-origin\" />;\n}\n"} />
 

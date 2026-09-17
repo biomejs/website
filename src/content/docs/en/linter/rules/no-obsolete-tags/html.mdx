@@ -8,6 +8,7 @@ description: HTML documentation for noObsoleteTags
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-obsolete-tags/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-obsolete-tags/javascript/"}]} />
 
@@ -83,4 +84,5 @@ languages, such as `<Font />`, are not HTML elements and are ignored.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_obsolete_tags.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noObsoleteTags)
+- <RulePlaygroundLink rule="noObsoleteTags" category="lint" language="html" code={"<font color=\"red\">Warning</font>\n"} />
 

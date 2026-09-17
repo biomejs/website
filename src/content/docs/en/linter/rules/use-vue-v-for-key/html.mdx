@@ -8,6 +8,7 @@ description: HTML documentation for useVueVForKey
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-v-for-key/html/"}]} />
 
@@ -76,4 +77,5 @@ Related rules:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/correctness/use_vue_v_for_key.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/correctness/useVueVForKey)
+- <RulePlaygroundLink rule="useVueVForKey" category="lint" language="vue" code={"<li v-for=\"item in items\">{{ item }}</li>\n"} />
 

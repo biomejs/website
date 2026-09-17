@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noDuplicateElseI
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-duplicate-else-if/javascript/"}]} />
 
@@ -81,4 +82,5 @@ if (a) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_duplicate_else_if.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noDuplicateElseIf)
+- <RulePlaygroundLink rule="noDuplicateElseIf" category="lint" language="js" code={"if (a) {\n    foo();\n} else if (b) {\n    bar();\n} else if (b) {\n    baz();\n}\n"} />
 

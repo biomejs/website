@@ -6,6 +6,7 @@ import type {
 } from "@biomejs/wasm-web";
 import type { parser } from "codemirror-lang-rome-ast";
 import type { Dispatch, SetStateAction } from "react";
+import { ASSIST_ACTIONS } from "@/playground/generated/assistActions.ts";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 
 export const PlaygroundTab = {
@@ -222,6 +223,10 @@ export type LintRule = ValueOf<{
 	[G in keyof typeof LINT_RULES]: ValueOf<(typeof LINT_RULES)[G]>;
 }>;
 
+export type AssistAction = ValueOf<{
+	[G in keyof typeof ASSIST_ACTIONS]: ValueOf<(typeof ASSIST_ACTIONS)[G]>;
+}>;
+
 export interface PlaygroundSettings {
 	lineWidth: number;
 	indentStyle: IndentStyle;
@@ -240,6 +245,7 @@ export interface PlaygroundSettings {
 	lintRules: LintRule;
 	enabledLinting: boolean;
 	analyzerFixMode: FixFileMode;
+	assistActions: AssistAction;
 	enabledAssist: boolean;
 	unsafeParameterDecoratorsEnabled: boolean;
 	allowComments: boolean;
@@ -301,6 +307,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		lintRules: LINT_RULES.preset.recommended,
 		enabledLinting: true,
 		analyzerFixMode: "safeFixes",
+		assistActions: ASSIST_ACTIONS.preset.recommended,
 		enabledAssist: true,
 		unsafeParameterDecoratorsEnabled: true,
 		allowComments: true,

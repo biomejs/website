@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useIncludes
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-includes/javascript/"}]} />
 
@@ -109,4 +110,5 @@ const pos = arr.indexOf(1);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_includes.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useIncludes)
+- <RulePlaygroundLink rule="useIncludes" category="lint" language="ts" code={"const arr = [1, 2, 3];\narr.indexOf(1) !== -1;\n"} />
 

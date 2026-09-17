@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useCollapsedIf
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-collapsed-if/javascript/"}]} />
 
@@ -98,4 +99,5 @@ if (condition) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_collapsed_if.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useCollapsedIf)
+- <RulePlaygroundLink rule="useCollapsedIf" category="lint" language="js" code={"if (condition) {\n    if (anotherCondition) {\n        // ...\n    }\n}\n"} />
 

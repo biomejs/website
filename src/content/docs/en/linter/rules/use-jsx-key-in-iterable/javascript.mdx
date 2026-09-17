@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useJsxKeyInItera
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-jsx-key-in-iterable/javascript/"}]} />
 
@@ -109,4 +110,5 @@ data.map((x) => <>{x}</>);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_jsx_key_in_iterable.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useJsxKeyInIterable)
+- <RulePlaygroundLink rule="useJsxKeyInIterable" category="lint" language="jsx" code={"[<Hello />];\n"} />
 

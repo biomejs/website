@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noDuplicateObjec
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/no-duplicate-object-keys/json/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-duplicate-object-keys/javascript/"}]} />
 
@@ -83,4 +84,5 @@ const obj = {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_duplicate_object_keys.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noDuplicateObjectKeys)
+- <RulePlaygroundLink rule="noDuplicateObjectKeys" category="lint" language="js" code={"const obj = {\n   \ta: 1,\n   \ta: 2,\n}\n"} />
 

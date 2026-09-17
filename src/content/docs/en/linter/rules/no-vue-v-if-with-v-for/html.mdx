@@ -8,6 +8,7 @@ description: HTML documentation for noVueVIfWithVFor
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-v-if-with-v-for/html/"}]} />
 
@@ -75,4 +76,5 @@ There are two common cases where this can be tempting:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/correctness/no_vue_v_if_with_v_for.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/correctness/noVueVIfWithVFor)
+- <RulePlaygroundLink rule="noVueVIfWithVFor" category="lint" language="vue" code={"<TodoItem\n    v-if=\"complete\"\n    v-for=\"todo in todos\"\n    :todo=\"todo\"\n/>\n"} />
 

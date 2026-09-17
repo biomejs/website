@@ -8,6 +8,7 @@ description: CSS documentation for noUnknownTypeSelector
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-type-selector/css/"}]} />
 
@@ -89,4 +90,5 @@ x-foo {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unknown_type_selector.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnknownTypeSelector)
+- <RulePlaygroundLink rule="noUnknownTypeSelector" category="lint" language="css" code={"unknown {}\n"} />
 

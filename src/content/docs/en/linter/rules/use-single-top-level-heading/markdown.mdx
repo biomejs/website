@@ -8,6 +8,7 @@ description: Markdown documentation for useSingleTopLevelHeading
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="markdown" languages={[{"id":"markdown","label":"Markdown","href":"/linter/rules/use-single-top-level-heading/markdown/"}]} />
 
@@ -129,4 +130,5 @@ Default: `1`.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/src/lint/nursery/use_single_top_level_heading.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/tests/specs/nursery/useSingleTopLevelHeading)
+- <RulePlaygroundLink rule="useSingleTopLevelHeading" category="lint" language="md" code={"Title\n=====\n\nAnother top-level heading\n=========================\n"} />
 

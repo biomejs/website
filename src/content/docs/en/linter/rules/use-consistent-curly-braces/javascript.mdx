@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useConsistentCur
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-consistent-curly-braces/javascript/"}]} />
 
@@ -80,4 +81,5 @@ This rule will check for and warn about unnecessary curly braces in both JSX pro
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_consistent_curly_braces.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useConsistentCurlyBraces)
+- <RulePlaygroundLink rule="useConsistentCurlyBraces" category="lint" language="jsx" code={"<Foo>{'Hello world'}</Foo>\n"} />
 

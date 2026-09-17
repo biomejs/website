@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useUniqueElement
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-unique-element-ids/javascript/"}]} />
 
@@ -126,4 +127,5 @@ a DOM element ID.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_unique_element_ids.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useUniqueElementIds)
+- <RulePlaygroundLink rule="useUniqueElementIds" category="lint" language="jsx" code={"<div id=\"foo\">bar</div>;\n"} />
 

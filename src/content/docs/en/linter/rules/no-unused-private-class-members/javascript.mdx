@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnusedPrivateC
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unused-private-class-members/javascript/"}]} />
 
@@ -120,4 +121,5 @@ In the following example `member` is not reported. It is considered as used.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_unused_private_class_members.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noUnusedPrivateClassMembers)
+- <RulePlaygroundLink rule="noUnusedPrivateClassMembers" category="lint" language="js" code={"class OnlyWrite {\n  #usedOnlyInWrite = 5;\n\n  method() {\n       this.#usedOnlyInWrite = 212;\n  }\n}\n"} />
 

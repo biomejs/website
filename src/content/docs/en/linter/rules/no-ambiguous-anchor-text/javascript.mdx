@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noAmbiguousAncho
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-ambiguous-anchor-text/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-ambiguous-anchor-text/javascript/"}]} />
 
@@ -99,4 +100,5 @@ const Invalid = () => <a>click this</a>;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/no_ambiguous_anchor_text.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noAmbiguousAnchorText)
+- <RulePlaygroundLink rule="noAmbiguousAnchorText" category="lint" language="jsx" code={"const Invalid = () => <a>learn more</a>;\n"} />
 

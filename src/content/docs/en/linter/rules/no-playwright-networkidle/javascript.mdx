@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noPlaywrightNetw
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-playwright-networkidle/javascript/"}]} />
 
@@ -77,4 +78,5 @@ await page.locator('.content').waitFor();
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_playwright_networkidle.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noPlaywrightNetworkidle)
+- <RulePlaygroundLink rule="noPlaywrightNetworkidle" category="lint" language="js" code={"await page.waitForLoadState('networkidle');\n"} />
 

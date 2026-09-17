@@ -8,6 +8,7 @@ description: GraphQL documentation for useSortedSelectionSet
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/assist/actions/use-sorted-selection-set/graphql/"}]} />
@@ -93,4 +94,5 @@ query {
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/assist/source/use_sorted_selection_set.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/source/useSortedSelectionSet)
+- <RulePlaygroundLink rule="useSortedSelectionSet" category="assist" language="graphql" code={"query {\n  id\n  ...bFragment\n  firstName: name\n  ... on Contact {\n    phoneNumber\n    email\n  }\n  age\n  ... on Address {\n    street\n    city\n  }\n  ...aFragment\n}\n"} />
 

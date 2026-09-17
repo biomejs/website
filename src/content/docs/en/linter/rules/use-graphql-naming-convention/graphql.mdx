@@ -8,6 +8,7 @@ description: GraphQL documentation for useGraphqlNamingConvention
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-graphql-naming-convention/graphql/"}]} />
 
@@ -65,4 +66,5 @@ enum MyEnum {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/style/use_graphql_naming_convention.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/style/useGraphqlNamingConvention)
+- <RulePlaygroundLink rule="useGraphqlNamingConvention" category="lint" language="graphql" code={"enum MyEnum {\n value\n}\n"} />
 

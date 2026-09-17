@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useHeadingConten
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-heading-content/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-heading-content/javascript/"}]} />
 
@@ -98,4 +99,5 @@ Enforce that heading elements (h1, h2, etc.) have content and that the content i
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/use_heading_content.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useHeadingContent)
+- <RulePlaygroundLink rule="useHeadingContent" category="lint" language="jsx" code={"<h1 />\n"} />
 

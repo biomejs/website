@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useQwikLoaderLoc
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-qwik-loader-location/javascript/"}]} />
 
@@ -98,4 +99,5 @@ export const useProducts = routeLoader$(async () => {});
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_qwik_loader_location.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useQwikLoaderLocation)
+- <RulePlaygroundLink rule="useQwikLoaderLocation" category="lint" language="jsx" code={"// src/components/product.jsx\nimport { routeLoader$ } from '@builder.io/qwik-city';\nexport const useProducts = routeLoader$(async () => {});\n"} />
 

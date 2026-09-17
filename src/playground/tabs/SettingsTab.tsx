@@ -6,6 +6,7 @@ import type {
 import type React from "react";
 import { type Dispatch, type SetStateAction, useId, useState } from "react";
 import EnumSelect from "@/playground/components/EnumSelect";
+import { ASSIST_ACTIONS } from "@/playground/generated/assistActions.ts";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
 	canDeletePlaygroundFile,
@@ -16,6 +17,7 @@ import {
 } from "@/playground/state.ts";
 import {
 	ArrowParentheses,
+	type AssistAction,
 	AttributePosition,
 	Expand,
 	IndentStyle,
@@ -72,6 +74,7 @@ export default function SettingsTab({
 			lintRules,
 			enabledLinting,
 			analyzerFixMode,
+			assistActions,
 			enabledAssist,
 			unsafeParameterDecoratorsEnabled,
 			allowComments,
@@ -163,6 +166,10 @@ export default function SettingsTab({
 		"analyzerFixMode",
 	);
 
+	const setAssistActions = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"assistActions",
+	);
 	const setEnabledAssist = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"enabledAssist",
@@ -321,6 +328,8 @@ export default function SettingsTab({
 				setRuleDomains={setRuleDomains}
 			/>
 			<AssistSettings
+				assistActions={assistActions}
+				setAssistActions={setAssistActions}
 				enabledAssist={enabledAssist}
 				setEnabledAssist={setEnabledAssist}
 			/>
@@ -1128,13 +1137,18 @@ function LinterSettings({
 }
 
 export function AssistSettings({
+	assistActions,
+	setAssistActions,
 	enabledAssist,
 	setEnabledAssist,
 }: {
+	assistActions: AssistAction;
+	setAssistActions: (value: AssistAction) => void;
 	enabledAssist: boolean;
 	setEnabledAssist: (value: boolean) => void;
 }) {
 	const assistEnabledId = useId();
+	const assistActionsId = useId();
 	return (
 		<>
 			<h2>Assist options</h2>
@@ -1148,6 +1162,26 @@ export function AssistSettings({
 						onChange={(e) => setEnabledAssist(e.target.checked)}
 					/>
 					<label htmlFor={assistEnabledId}>Assist enabled</label>
+				</div>
+				<div className="field-row">
+					<label htmlFor={assistActionsId}>Assist Actions</label>
+					<select
+						id={assistActionsId}
+						name="assist-actions"
+						disabled={!enabledAssist}
+						value={assistActions}
+						onChange={(e) => setAssistActions(e.target.value as AssistAction)}
+					>
+						{Object.entries(ASSIST_ACTIONS).map(([name, actions]) => (
+							<optgroup key={name} label={name}>
+								{Object.values(actions).map((action) => (
+									<option value={action} key={action}>
+										{action}
+									</option>
+								))}
+							</optgroup>
+						))}
+					</select>
 				</div>
 			</section>
 		</>

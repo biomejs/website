@@ -9,7 +9,7 @@ import init, {
 } from "@biomejs/wasm-web";
 import {
 	createBiomeConfiguration,
-	getOnlyLintRules,
+	getOnlyRules,
 } from "@/playground/configuration.ts";
 import {
 	type BiomeOutput,
@@ -112,7 +112,10 @@ self.addEventListener("message", async (e) => {
 			fullSettings = settings;
 
 			configuration = createBiomeConfiguration(settings);
-			only = getOnlyLintRules(settings.lintRules) as AnalyzerSelector[];
+			only = getOnlyRules(
+				settings.lintRules,
+				settings.assistActions,
+			) as AnalyzerSelector[];
 			updateWorkspaceSettings();
 			break;
 		}

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useVueDefineMacr
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-define-macros-order/javascript/"}]} />
 
@@ -142,4 +143,5 @@ can be listed here as well.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_vue_define_macros_order.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useVueDefineMacrosOrder)
+- <RulePlaygroundLink rule="useVueDefineMacrosOrder" category="lint" language="vue" code={"<script lang=\"ts\" setup>\nconst emit = defineEmits(['update'])\nconst props = defineProps<{ name: string }>()\n</script>\n"} />
 

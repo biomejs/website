@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noMisrefactoredS
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-misrefactored-shorthand-assign/javascript/"}]} />
 
@@ -82,4 +83,5 @@ a = a - b
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_misrefactored_shorthand_assign.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noMisrefactoredShorthandAssign)
+- <RulePlaygroundLink rule="noMisrefactoredShorthandAssign" category="lint" language="js" code={"a += a + b\n"} />
 

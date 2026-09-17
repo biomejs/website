@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useVueNextTickPr
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-next-tick-promise/javascript/"}]} />
 
@@ -76,4 +77,5 @@ await nextTick();
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_next_tick_promise.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueNextTickPromise)
+- <RulePlaygroundLink rule="useVueNextTickPromise" category="lint" language="vue" code={"<script>\nimport { nextTick } from \"vue\";\n\nnextTick(() => {\n  // ...\n});\n</script>\n"} />
 

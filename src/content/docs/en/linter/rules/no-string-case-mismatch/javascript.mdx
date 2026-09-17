@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noStringCaseMism
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-string-case-mismatch/javascript/"}]} />
 
@@ -69,4 +70,5 @@ for (let s = "abc"; s === "abc"; s = s.toUpperCase()) {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_string_case_mismatch.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noStringCaseMismatch)
+- <RulePlaygroundLink rule="noStringCaseMismatch" category="lint" language="js" code={"if (s.toUpperCase() === \"Abc\") {}\n"} />
 

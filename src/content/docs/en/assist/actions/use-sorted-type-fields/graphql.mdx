@@ -8,6 +8,7 @@ description: GraphQL documentation for useSortedTypeFields
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/assist/actions/use-sorted-type-fields/graphql/"}]} />
@@ -77,4 +78,5 @@ input CreateUserInput {
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/assist/source/use_sorted_type_fields.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/source/useSortedTypeFields)
+- <RulePlaygroundLink rule="useSortedTypeFields" category="assist" language="graphql" code={"type User {\n  name: String\n  age: Int\n  id: ID\n}\n"} />
 

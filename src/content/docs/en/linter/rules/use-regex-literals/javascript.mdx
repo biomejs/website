@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useRegexLiterals
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-regex-literals/javascript/"}]} />
 
@@ -72,4 +73,5 @@ new RegExp("abc", flags);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_regex_literals.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/useRegexLiterals)
+- <RulePlaygroundLink rule="useRegexLiterals" category="lint" language="js" code={"new RegExp(\"abc\", \"u\");\n"} />
 

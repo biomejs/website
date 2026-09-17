@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noRedundantUseSt
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-redundant-use-strict/javascript/"}]} />
 
@@ -124,4 +125,5 @@ function bar() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_redundant_use_strict.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noRedundantUseStrict)
+- <RulePlaygroundLink rule="noRedundantUseStrict" category="lint" language="cjs" code={"\"use strict\";\nfunction foo() {\n \t\"use strict\";\n}\n"} />
 

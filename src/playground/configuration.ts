@@ -1,7 +1,9 @@
-import type { Configuration, Rules } from "@biomejs/wasm-web";
+import type { Actions, Configuration, Rules } from "@biomejs/wasm-web";
+import { ASSIST_ACTIONS } from "@/playground/generated/assistActions.ts";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
 	ArrowParentheses,
+	type AssistAction,
 	AttributePosition,
 	Expand,
 	IndentStyle,
@@ -41,6 +43,7 @@ export function createBiomeConfiguration(
 		},
 		assist: {
 			enabled: settings.enabledAssist,
+			actions: createAssistActionsConfiguration(settings.assistActions),
 		},
 		javascript: {
 			formatter: {
@@ -124,8 +127,19 @@ export function stringifyBiomeConfiguration(
 	return `${JSON.stringify(createBiomeConfiguration(settings), null, 2)}\n`;
 }
 
-export function getOnlyLintRules(lintRule: LintRule): string[] {
-	return isLintPreset(lintRule) ? [] : [lintRule];
+export function getOnlyRules(
+	lintRule: LintRule,
+	assistAction: AssistAction,
+): string[] {
+	const selections = [lintRule, assistAction];
+	if (
+		selections.some(
+			(selection) => selection === "recommended" || selection === "all",
+		)
+	) {
+		return [];
+	}
+	return selections.filter((selection) => selection !== "none");
 }
 
 function createLintRulesConfiguration(lintRule: LintRule): Rules {
@@ -162,6 +176,16 @@ function createSingleLintRuleConfiguration(lintRule: LintRule): Rules {
 	return { preset: "recommended" };
 }
 
-function isLintPreset(lintRule: LintRule): boolean {
-	return Object.values(LINT_RULES.preset).some((preset) => preset === lintRule);
+function createAssistActionsConfiguration(assistAction: AssistAction): Actions {
+	switch (assistAction) {
+		case ASSIST_ACTIONS.preset.recommended:
+		case ASSIST_ACTIONS.preset.all:
+		case ASSIST_ACTIONS.preset.none:
+			return { preset: assistAction };
+		default:
+			return {
+				preset: "none",
+				source: { [assistAction]: "on" },
+			};
+	}
 }

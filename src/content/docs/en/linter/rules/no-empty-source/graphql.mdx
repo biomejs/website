@@ -8,6 +8,7 @@ description: GraphQL documentation for noEmptySource
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-empty-source/css/"},{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-empty-source/graphql/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-empty-source/javascript/"}]} />
 
@@ -110,4 +111,5 @@ Default `false`
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/suspicious/no_empty_source.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/suspicious/noEmptySource)
+- <RulePlaygroundLink rule="noEmptySource" category="lint" language="graphql" code={"\n"} />
 
