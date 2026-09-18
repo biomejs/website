@@ -1,3 +1,4 @@
+import { Plus, X } from "lucide-react";
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { useId, useState } from "react";
 import {
@@ -112,7 +113,8 @@ function FileTree({ state, setPlaygroundState }: Props) {
 		<div className="playground-files">
 			<div className="playground-files-actions">
 				<button type="button" onClick={() => setCreating(true)}>
-					+ New file
+					<Plus className="playground-icon" />
+					New file
 				</button>
 			</div>
 			{creating && (
@@ -240,7 +242,7 @@ function FileTreeItem({
 						setPlaygroundState((current) => deletePlaygroundFile(current, path))
 					}
 				>
-					×
+					<X className="playground-icon" />
 				</button>
 			)}
 		</div>
