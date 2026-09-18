@@ -2,6 +2,7 @@ import init, {
 	type AnalyzerSelector,
 	type Configuration,
 	DiagnosticPrinter,
+	type FixFileMode,
 	MemoryFileSystem,
 	type ProjectKey,
 	type RuleCategories,
@@ -25,11 +26,12 @@ let workspace: Workspace | null = null;
 let projectKey: ProjectKey | null = null;
 
 let configuration: undefined | Configuration;
-let fullSettings: undefined | PlaygroundSettings;
 let only: AnalyzerSelector[] = [];
 // Configuration that comes from a virtual file. It takes precedence over the settings
 let fileConfiguration: undefined | Configuration;
 let virtualPlugins: string[] = [];
+let shouldFormat = true;
+let fixMode: "none" | FixFileMode = "none";
 
 const originalConsole = {
 	log: console.log,
@@ -109,7 +111,8 @@ self.addEventListener("message", async (e) => {
 			}
 
 			const settings = e.data.settings as PlaygroundSettings;
-			fullSettings = settings;
+			shouldFormat = e.data.shouldFormat as boolean;
+			fixMode = e.data.fixMode as "none" | FixFileMode;
 
 			configuration = createBiomeConfiguration(settings);
 			only = getOnlyLintRules(settings.lintRules) as AnalyzerSelector[];
@@ -314,13 +317,13 @@ self.addEventListener("message", async (e) => {
 
 			const categories: RuleCategories = [];
 			const currentConfiguration = getCurrentConfiguration();
-			if (currentConfiguration?.formatter?.enabled) {
+			if (currentConfiguration?.formatter?.enabled !== false) {
 				categories.push("syntax");
 			}
-			if (currentConfiguration?.linter?.enabled) {
+			if (currentConfiguration?.linter?.enabled !== false) {
 				categories.push("lint");
 			}
-			if (currentConfiguration?.assist?.enabled) {
+			if (currentConfiguration?.assist?.enabled !== false) {
 				categories.push("action");
 			}
 
@@ -354,26 +357,34 @@ self.addEventListener("message", async (e) => {
 			}
 
 			let fixed = {
-				code: "",
+				code,
 			};
-			try {
-				fixed =
-					fileFeatures.featuresSupported.lint === "supported"
+			if (fixMode !== "none") {
+				const canFix =
+					(categories.includes("lint") &&
+						fileFeatures.featuresSupported.lint === "supported") ||
+					(categories.includes("action") &&
+						fileFeatures.featuresSupported.assist === "supported") ||
+					(shouldFormat &&
+						fileFeatures.featuresSupported.format === "supported");
+				try {
+					fixed = canFix
 						? workspace.fixFile({
 								projectKey,
 								path,
 								only: [],
 								skip: [],
 								ruleCategories: categories,
-								shouldFormat: false,
-								fixFileMode: fullSettings?.analyzerFixMode ?? "safeFixes",
+								shouldFormat,
+								fixFileMode: fixMode,
 							})
 						: { code: "Not supported" };
-			} catch (e) {
-				console.error(e);
-				fixed = {
-					code: "Can't apply fixes with errors",
-				};
+				} catch (e) {
+					console.error(e);
+					fixed = {
+						code: "Can't apply fixes with errors",
+					};
+				}
 			}
 
 			const biomeOutput: BiomeOutput = {
