@@ -13,6 +13,13 @@ import { svelte } from "@replit/codemirror-lang-svelte";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import { graphql } from "cm6-graphql";
 import * as codeMirrorLangBiomeAst from "codemirror-lang-rome-ast";
+import {
+	ChevronDown,
+	ChevronLeft,
+	ChevronRight,
+	ChevronUp,
+	X,
+} from "lucide-react";
 import type { ReactNode, RefObject } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import CodeMirror from "./CodeMirror.tsx";
@@ -330,12 +337,16 @@ export default function Playground({
 					onClick={() => setInternalsExpanded((expanded) => !expanded)}
 				>
 					Internals
-					{!internalsExpanded && openInternalsCount > 0 && (
+					{!internalsExpanded && openInternalsCount > 1 && (
 						<span className="playground-view-group-count">
 							{openInternalsCount}
 						</span>
 					)}
-					<span aria-hidden={true}>{internalsExpanded ? "‹" : "›"}</span>
+					{internalsExpanded ? (
+						<ChevronLeft className="playground-icon" />
+					) : (
+						<ChevronRight className="playground-icon" />
+					)}
 				</button>
 				{internalsExpanded && INTERNALS.map(viewButton)}
 			</div>
@@ -360,7 +371,7 @@ export default function Playground({
 					aria-label={`Close ${viewLabel(view)}`}
 					onClick={() => toggleView(view)}
 				>
-					×
+					<X className="playground-icon" />
 				</button>
 			</header>
 			<div className="playground-view-pane-body">{renderView(view)}</div>
@@ -462,7 +473,7 @@ export default function Playground({
 								aria-expanded={false}
 								onClick={toggleOutputCollapsed}
 							>
-								<span aria-hidden={true}>‹</span>
+								<ChevronLeft className="playground-icon" />
 							</button>
 						</section>
 					) : (
@@ -569,7 +580,7 @@ function OutputStack({
 						aria-expanded={true}
 						onClick={onCollapse}
 					>
-						<span aria-hidden={true}>›</span>
+						<ChevronRight className="playground-icon" />
 					</button>
 				)}
 			</div>
@@ -670,7 +681,11 @@ function OutputStack({
 						aria-expanded={!problemsCollapsed}
 						onClick={() => setProblemsCollapsed((collapsed) => !collapsed)}
 					>
-						<span aria-hidden={true}>{problemsCollapsed ? "⌃" : "⌄"}</span>
+						{problemsCollapsed ? (
+							<ChevronUp className="playground-icon" />
+						) : (
+							<ChevronDown className="playground-icon" />
+						)}
 					</button>
 				</div>
 				{!problemsCollapsed && (
@@ -798,7 +813,7 @@ function Drawer({
 				<header>
 					<span>{title}</span>
 					<button type="button" aria-label={`Close ${title}`} onClick={onClose}>
-						×
+						<X className="playground-icon" />
 					</button>
 				</header>
 				<div className="playground-drawer-body">{children}</div>

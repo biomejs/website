@@ -16,6 +16,14 @@
 	font: inherit;
 }
 
+/* lucide icons: size with the surrounding text instead of the fixed 24px. */
+.playground-icon {
+	flex-shrink: 0;
+	width: 1em;
+	height: 1em;
+	vertical-align: -0.125em;
+}
+
 /* The sidebar itself must not scroll: its resize handle is positioned just
  * outside its right edge and a scroll container would clip it (and put the
  * scrollbar over what remains). The content scrolls instead. */
@@ -52,6 +60,12 @@
 	display: flex;
 	gap: 5px;
 	padding: 0 8px 7px;
+}
+
+.playground-files-actions button {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
 }
 
 .playground-shell button {
@@ -123,6 +137,8 @@
 
 .playground-file-row .playground-file-rename,
 .playground-file-row .playground-file-delete {
+	display: inline-flex;
+	align-items: center;
 	margin-right: 4px;
 	padding: 0 5px;
 	border: 0;
@@ -398,6 +414,8 @@
 }
 
 .playground-problems-tabs .playground-problems-collapse {
+	display: inline-flex;
+	align-items: center;
 	margin-left: auto;
 	padding-inline: 10px;
 }
@@ -561,10 +579,13 @@
 
 .playground-view-pane-header button,
 .playground-drawer > header button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	border: 0;
 	border-radius: 0;
 	background: transparent;
-	font-size: 18px;
+	font-size: 16px;
 }
 
 .playground-view-pane-body {
@@ -688,10 +709,19 @@
 .playground-drawer .playground-view-pane-header button {
 	min-width: 44px;
 	min-height: 44px;
-	font-size: 22px;
+	font-size: 20px;
+}
+
+/* The right drawer stacks the view list over the open panes; the panes fill
+ * whatever height the list leaves so the drawer never shows bare background
+ * under a single pane. */
+.playground-drawer.right .playground-drawer-body {
+	display: flex;
+	flex-direction: column;
 }
 
 .playground-mobile-view-list {
+	flex: 0 0 auto;
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 5px;
@@ -711,14 +741,14 @@
 
 .playground-mobile-view-stack {
 	display: flex;
+	flex: 1 1 auto;
 	flex-direction: column;
 	min-height: 0;
 	overflow: auto;
 }
 
 .playground-mobile-view-stack .playground-view-pane {
-	flex: 0 0 auto;
-	height: max(320px, 55vh);
+	flex: 1 0 max(320px, 55vh);
 }
 
 @media (max-width: 768px) {
