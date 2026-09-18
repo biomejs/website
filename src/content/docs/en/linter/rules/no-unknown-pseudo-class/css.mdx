@@ -8,6 +8,7 @@ description: CSS documentation for noUnknownPseudoClass
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-pseudo-class/css/"}]} />
 
@@ -119,4 +120,5 @@ a:custom-pseudo-class {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unknown_pseudo_class.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnknownPseudoClass)
+- <RulePlaygroundLink rule="noUnknownPseudoClass" category="lint" language="css" code={"a:unknown {}\n"} />
 

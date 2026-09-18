@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useSimplifiedLog
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-simplified-logic-expression/javascript/"}]} />
 
@@ -86,4 +87,5 @@ const boolExpr6 = false;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_simplified_logic_expression.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/useSimplifiedLogicExpression)
+- <RulePlaygroundLink rule="useSimplifiedLogicExpression" category="lint" language="js" code={"const boolExp = true;\nconst r = true && boolExp;\n"} />
 

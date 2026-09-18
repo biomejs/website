@@ -8,6 +8,7 @@ description: JSON (and super languages) documentation for noJsonUnsafeValues
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/no-json-unsafe-values/json/"}]} />
 
@@ -129,4 +130,5 @@ These issues can lead to data corruption, silent failures, or inconsistent behav
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/nursery/no_json_unsafe_values.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/nursery/noJsonUnsafeValues)
+- <RulePlaygroundLink rule="noJsonUnsafeValues" category="lint" language="json" code={"{\n  \"invalid1\": 2e308\n}\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noAriaUnsupporte
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-aria-unsupported-elements/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-aria-unsupported-elements/javascript/"}]} />
 
@@ -69,4 +70,5 @@ Enforce that elements that do not support ARIA roles, states, and properties do 
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/no_aria_unsupported_elements.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noAriaUnsupportedElements)
+- <RulePlaygroundLink rule="noAriaUnsupportedElements" category="lint" language="jsx" code={"<meta charset=\"UTF-8\" role=\"meta\" />\n"} />
 

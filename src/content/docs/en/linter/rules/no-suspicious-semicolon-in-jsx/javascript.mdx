@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noSuspiciousSemi
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-suspicious-semicolon-in-jsx/javascript/"}]} />
 
@@ -78,4 +79,5 @@ const Component2 = () => {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_suspicious_semicolon_in_jsx.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noSuspiciousSemicolonInJsx)
+- <RulePlaygroundLink rule="noSuspiciousSemicolonInJsx" category="lint" language="jsx" code={"const Component = () => {\n  return (\n    <div>\n      <div />;\n    </div>\n );\n}\n"} />
 

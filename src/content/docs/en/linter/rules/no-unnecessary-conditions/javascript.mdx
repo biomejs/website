@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnnecessaryCon
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unnecessary-conditions/javascript/"}]} />
 
@@ -171,4 +172,5 @@ if (greeting) {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_unnecessary_conditions.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noUnnecessaryConditions)
+- <RulePlaygroundLink rule="noUnnecessaryConditions" category="lint" language="ts" code={"function head<T>(items: T[]) {\n    if (items) {\n        return items[0];\n    }\n}\n"} />
 

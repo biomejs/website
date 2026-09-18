@@ -8,6 +8,7 @@ description: CSS documentation for useLayeredStyles
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/use-layered-styles/css/"}]} />
 
@@ -145,4 +146,5 @@ Default: `true`
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/use_layered_styles.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/useLayeredStyles)
+- <RulePlaygroundLink rule="useLayeredStyles" category="lint" language="css" code={".my-style {\n  color: red;\n}\n"} />
 

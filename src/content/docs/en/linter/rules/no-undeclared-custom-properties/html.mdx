@@ -8,6 +8,7 @@ description: HTML documentation for noUndeclaredCustomProperties
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-undeclared-custom-properties/css/"},{"id":"html","label":"HTML","href":"/linter/rules/no-undeclared-custom-properties/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-undeclared-custom-properties/javascript/"}]} />
 
@@ -63,4 +64,5 @@ Reports custom properties used with `var()` that have no visible declaration.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_undeclared_custom_properties.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noUndeclaredCustomProperties)
+- <RulePlaygroundLink rule="noUndeclaredCustomProperties" category="lint" language="html" code={"<div style=\"color: var(--text-color)\"></div>\n"} />
 

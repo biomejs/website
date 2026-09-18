@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noAriaHiddenOnFo
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-aria-hidden-on-focusable/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-aria-hidden-on-focusable/javascript/"}]} />
 
@@ -84,4 +85,5 @@ This can lead to confusion or unexpected behavior for screen reader users.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/no_aria_hidden_on_focusable.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noAriaHiddenOnFocusable)
+- <RulePlaygroundLink rule="noAriaHiddenOnFocusable" category="lint" language="jsx" code={"<div aria-hidden=\"true\" tabIndex=\"0\" />\n"} />
 

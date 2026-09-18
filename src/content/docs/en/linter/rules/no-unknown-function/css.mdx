@@ -8,6 +8,7 @@ description: CSS documentation for noUnknownFunction
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-function/css/"}]} />
 
@@ -99,4 +100,5 @@ a { transform: custom-function(1); }
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unknown_function.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnknownFunction)
+- <RulePlaygroundLink rule="noUnknownFunction" category="lint" language="css" code={"a { transform: unknown(1); }\n"} />
 

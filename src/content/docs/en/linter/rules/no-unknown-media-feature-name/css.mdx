@@ -8,6 +8,7 @@ description: CSS documentation for noUnknownMediaFeatureName
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-media-feature-name/css/"}]} />
 
@@ -108,4 +109,5 @@ Data sources of known CSS media feature are:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unknown_media_feature_name.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnknownMediaFeatureName)
+- <RulePlaygroundLink rule="noUnknownMediaFeatureName" category="lint" language="css" code={"@media screen and (unknown > 320px) {}\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noDuplicateEnumV
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-duplicate-enum-values/javascript/"}]} />
 
@@ -86,4 +87,5 @@ enum E {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_duplicate_enum_values.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noDuplicateEnumValues)
+- <RulePlaygroundLink rule="noDuplicateEnumValues" category="lint" language="ts" code={"enum E {\n  A = 0,\n  B = 0,\n}\n"} />
 

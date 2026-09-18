@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noFallthroughSwi
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-fallthrough-switch-clause/javascript/"}]} />
 
@@ -84,4 +85,5 @@ switch (foo) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_fallthrough_switch_clause.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noFallthroughSwitchClause)
+- <RulePlaygroundLink rule="noFallthroughSwitchClause" category="lint" language="js" code={"switch (bar) {\n\tcase 0:\n\t\ta();\n\tcase 1:\n\t\tb();\n}\n"} />
 

@@ -8,6 +8,7 @@ description: HTML documentation for useVueValidVElse
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-valid-v-else/html/"}]} />
 
@@ -100,4 +101,5 @@ This rule reports v-else directives in the following cases:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/correctness/use_vue_valid_v_else.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/correctness/useVueValidVElse)
+- <RulePlaygroundLink rule="useVueValidVElse" category="lint" language="vue" code={"<div v-else:arg></div>\n"} />
 

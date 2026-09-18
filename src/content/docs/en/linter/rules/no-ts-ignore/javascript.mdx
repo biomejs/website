@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noTsIgnore
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-ts-ignore/javascript/"}]} />
 
@@ -68,4 +69,5 @@ let foo;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_ts_ignore.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noTsIgnore)
+- <RulePlaygroundLink rule="noTsIgnore" category="lint" language="ts" code={"// @ts-ignore\nlet foo;\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useFlatMap
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-flat-map/javascript/"}]} />
 
@@ -72,4 +73,5 @@ array.map(sentence => sentence.split(' ')).flat(2);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_flat_map.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/useFlatMap)
+- <RulePlaygroundLink rule="useFlatMap" category="lint" language="js" code={"const array = [\"split\", \"the text\", \"into words\"];\narray.map(sentence => sentence.split(' ')).flat();\n"} />
 

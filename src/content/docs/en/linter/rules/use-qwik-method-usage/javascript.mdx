@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useQwikMethodUsa
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-qwik-method-usage/javascript/"}]} />
 
@@ -77,4 +78,5 @@ export const useCounter = () => {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_qwik_method_usage.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useQwikMethodUsage)
+- <RulePlaygroundLink rule="useQwikMethodUsage" category="lint" language="js" code={"import { useSignal } from \"@builder.io/qwik\";\n\nexport const Counter = () => {\n  const count = useSignal(0);\n};\n"} />
 

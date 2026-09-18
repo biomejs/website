@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noEqualsToNull
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-equals-to-null/javascript/"}]} />
 
@@ -72,4 +73,5 @@ foo !== null;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_equals_to_null.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noEqualsToNull)
+- <RulePlaygroundLink rule="noEqualsToNull" category="lint" language="js" code={"foo == null;\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnusedVariable
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unused-variables/javascript/"}]} />
 
@@ -268,4 +269,5 @@ class UnusedClass {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_unused_variables.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noUnusedVariables)
+- <RulePlaygroundLink rule="noUnusedVariables" category="lint" language="js" code={"let a = 4;\na++;\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noInvalidBuiltin
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-invalid-builtin-instantiation/javascript/"}]} />
 
@@ -104,4 +105,5 @@ const map = new Map([
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_invalid_builtin_instantiation.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noInvalidBuiltinInstantiation)
+- <RulePlaygroundLink rule="noInvalidBuiltinInstantiation" category="lint" language="js" code={"const text = new BigInt(1);\n"} />
 

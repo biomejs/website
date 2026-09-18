@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useReactFunction
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-react-function-components/javascript/"}]} />
 
@@ -78,4 +79,5 @@ function Foo() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_react_function_components.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useReactFunctionComponents)
+- <RulePlaygroundLink rule="useReactFunctionComponents" category="lint" language="jsx" code={"class Foo extends React.Component {\n  render() {\n    return (\n      <div>This is a class component.</div>\n    );\n  }\n}\n"} />
 

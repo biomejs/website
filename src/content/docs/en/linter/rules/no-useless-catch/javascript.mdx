@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUselessCatch
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-catch/javascript/"}]} />
 
@@ -101,4 +102,5 @@ try {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_useless_catch.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noUselessCatch)
+- <RulePlaygroundLink rule="noUselessCatch" category="lint" language="js" code={"try {\n    doSomething();\n} catch(e) {\n    throw e;\n}\n"} />
 

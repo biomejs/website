@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noDistractingEle
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-distracting-elements/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-distracting-elements/javascript/"}]} />
 
@@ -73,4 +74,5 @@ By default, the following elements are visually distracting: `<marquee>` and `<b
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/no_distracting_elements.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noDistractingElements)
+- <RulePlaygroundLink rule="noDistractingElements" category="lint" language="jsx" code={"<marquee />\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noParametersOnly
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-parameters-only-used-in-recursion/javascript/"}]} />
 
@@ -123,4 +124,5 @@ function fn(n, threshold) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_parameters_only_used_in_recursion.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noParametersOnlyUsedInRecursion)
+- <RulePlaygroundLink rule="noParametersOnlyUsedInRecursion" category="lint" language="js" code={"function factorial(n, acc) {\n    if (n === 0) return 1;\n    return factorial(n - 1, acc);\n}\n"} />
 

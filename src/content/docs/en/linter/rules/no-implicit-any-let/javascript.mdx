@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noImplicitAnyLet
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-implicit-any-let/javascript/"}]} />
 
@@ -72,4 +73,5 @@ var b =10;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_implicit_any_let.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noImplicitAnyLet)
+- <RulePlaygroundLink rule="noImplicitAnyLet" category="lint" language="ts" code={"var a;\na = 2;\n"} />
 

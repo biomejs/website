@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noVueArrowFuncIn
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-arrow-func-in-watch/javascript/"}]} />
 
@@ -117,4 +118,5 @@ References:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_vue_arrow_func_in_watch.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noVueArrowFuncInWatch)
+- <RulePlaygroundLink rule="noVueArrowFuncInWatch" category="lint" language="vue" code={"<script>\nexport default {\n  watch: {\n    foo: (val, oldVal) => {\n      console.log('new: %s, old: %s', val, oldVal)\n    }\n  }\n}\n</script>\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noVueOptionsApi
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-options-api/javascript/"}]} />
 
@@ -154,4 +155,5 @@ onMounted(() => {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_vue_options_api.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noVueOptionsApi)
+- <RulePlaygroundLink rule="noVueOptionsApi" category="lint" language="vue" code={"<script>\nexport default {\n  data() {\n    return { count: 0 }\n  }\n}\n</script>\n"} />
 

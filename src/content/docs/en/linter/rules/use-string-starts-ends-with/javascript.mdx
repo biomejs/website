@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useStringStartsE
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-string-starts-ends-with/javascript/"}]} />
 
@@ -95,4 +96,5 @@ list[0] === "a";
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_string_starts_ends_with.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useStringStartsEndsWith)
+- <RulePlaygroundLink rule="useStringStartsEndsWith" category="lint" language="ts" code={"declare const text: string;\ntext[0] === \"a\";\n"} />
 

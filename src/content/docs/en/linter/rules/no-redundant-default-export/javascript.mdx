@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noRedundantDefau
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-redundant-default-export/javascript/"}]} />
 
@@ -61,4 +62,5 @@ export default 42;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_redundant_default_export.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noRedundantDefaultExport)
+- <RulePlaygroundLink rule="noRedundantDefaultExport" category="lint" language="js" code={"export const foo = 42;\nexport default foo;\n"} />
 

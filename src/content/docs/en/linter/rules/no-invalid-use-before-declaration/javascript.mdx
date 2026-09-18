@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noInvalidUseBefo
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-invalid-use-before-declaration/javascript/"}]} />
 
@@ -111,4 +112,5 @@ class C {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_invalid_use_before_declaration.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noInvalidUseBeforeDeclaration)
+- <RulePlaygroundLink rule="noInvalidUseBeforeDeclaration" category="lint" language="js" code={"function f() {\n    console.log(x);\n    let x;\n}\n"} />
 

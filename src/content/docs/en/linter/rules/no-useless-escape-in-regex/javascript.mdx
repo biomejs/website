@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUselessEscapeI
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-escape-in-regex/javascript/"}]} />
 
@@ -76,4 +77,5 @@ Hence, they may confuse a reader.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_useless_escape_in_regex.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noUselessEscapeInRegex)
+- <RulePlaygroundLink rule="noUselessEscapeInRegex" category="lint" language="js" code={"/\\a/;\n"} />
 

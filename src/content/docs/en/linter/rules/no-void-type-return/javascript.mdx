@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noVoidTypeReturn
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-void-type-return/javascript/"}]} />
 
@@ -123,4 +124,5 @@ function f(): void {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_void_type_return.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noVoidTypeReturn)
+- <RulePlaygroundLink rule="noVoidTypeReturn" category="lint" language="ts" code={"class A {\n    f(): void {\n        return undefined;\n    }\n}\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useImportsFirst
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-imports-first/javascript/"}]} />
 
@@ -80,4 +81,5 @@ import { foo } from "foo";
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_imports_first.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useImportsFirst)
+- <RulePlaygroundLink rule="useImportsFirst" category="lint" language="js" code={"import { foo } from \"foo\";\nconst bar = 1;\nimport { baz } from \"baz\";\n"} />
 

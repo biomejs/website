@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useValidAriaProp
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-valid-aria-props/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-valid-aria-props/javascript/"}]} />
 
@@ -63,4 +64,5 @@ Ensures that ARIA properties `aria-*` are all valid.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/use_valid_aria_props.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useValidAriaProps)
+- <RulePlaygroundLink rule="useValidAriaProps" category="lint" language="jsx" code={"<input className=\"\" aria-labell=\"\" />\n"} />
 

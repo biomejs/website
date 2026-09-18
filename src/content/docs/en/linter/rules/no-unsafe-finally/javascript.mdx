@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnsafeFinally
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unsafe-finally/javascript/"}]} />
 
@@ -170,4 +171,5 @@ let foo = function(a) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_unsafe_finally.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noUnsafeFinally)
+- <RulePlaygroundLink rule="noUnsafeFinally" category="lint" language="js" code={"(() => {\n    try {\n        return 1; // 1 is returned but suspended until finally block ends\n    } catch(err) {\n        return 2;\n    } finally {\n        return 3; // 3 is returned before 1, which we did not expect\n    }\n})();\n"} />
 

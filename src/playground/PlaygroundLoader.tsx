@@ -10,6 +10,7 @@ import LoadingScreen from "@/playground/components/LoadingScreen";
 import Playground from "@/playground/Playground";
 import {
 	type ArrowParentheses,
+	type AssistAction,
 	type AttributePosition,
 	defaultPlaygroundState,
 	type Expand,
@@ -527,6 +528,9 @@ function initState(
 				"enabledAssist",
 				defaultPlaygroundState.settings.enabledAssist,
 			),
+			assistActions:
+				(searchParams.get("assistActions") as AssistAction) ??
+				defaultPlaygroundState.settings.assistActions,
 			unsafeParameterDecoratorsEnabled: getBooleanParam(
 				searchParams,
 				"unsafeParameterDecoratorsEnabled",

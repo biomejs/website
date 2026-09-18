@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noSvelteUnnecess
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-svelte-unnecessary-state-wrap/javascript/"}]} />
 
@@ -172,4 +173,5 @@ const store = new MyReactiveStore();
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_svelte_unnecessary_state_wrap.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noSvelteUnnecessaryStateWrap)
+- <RulePlaygroundLink rule="noSvelteUnnecessaryStateWrap" category="lint" language="svelte" code={"<script>\nimport { SvelteMap } from \"svelte/reactivity\";\nconst map = $state(new SvelteMap());\n</script>\n"} />
 

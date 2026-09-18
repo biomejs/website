@@ -8,6 +8,7 @@ description: JSON (and super languages) documentation for useSortedPackageJson
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/assist/actions/use-sorted-package-json/json/"}]} />
@@ -278,4 +279,5 @@ Scripts for which the pre/post order is applied:
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/assist/source/use_sorted_package_json.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/source/useSortedPackageJson)
+- <RulePlaygroundLink rule="useSortedPackageJson" category="assist" language="json" code={"{\n  \"dependencies\": {\n    \"lodash\": \"^4.0.0\"\n  },\n  \"name\": \"my-package\",\n  \"version\": \"1.0.0\"\n}\n"} />
 

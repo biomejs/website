@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useSingleJsDocAs
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-single-js-doc-asterisk/javascript/"}]} />
 
@@ -99,4 +100,5 @@ Asterisks that are part of the comment content, such as bold or italic text, are
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_single_js_doc_asterisk.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useSingleJsDocAsterisk)
+- <RulePlaygroundLink rule="useSingleJsDocAsterisk" category="lint" language="js" code={"/**\n** Description\n*/\n"} />
 

@@ -8,6 +8,7 @@ description: GraphQL documentation for useGraphqlNamedOperations
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-graphql-named-operations/graphql/"}]} />
 
@@ -63,4 +64,5 @@ query Human {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/correctness/use_graphql_named_operations.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/correctness/useGraphqlNamedOperations)
+- <RulePlaygroundLink rule="useGraphqlNamedOperations" category="lint" language="graphql" code={"query {}\n"} />
 

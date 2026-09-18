@@ -8,6 +8,7 @@ description: HTML documentation for noNonScalableViewport
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-non-scalable-viewport/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-non-scalable-viewport/javascript/"}]} />
 
@@ -74,4 +75,5 @@ See [WCAG 1.4.4](https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html) a
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_non_scalable_viewport.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noNonScalableViewport)
+- <RulePlaygroundLink rule="noNonScalableViewport" category="lint" language="html" code={"<meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />\n"} />
 

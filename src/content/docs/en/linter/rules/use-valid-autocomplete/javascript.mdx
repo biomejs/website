@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useValidAutocomp
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-valid-autocomplete/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-valid-autocomplete/javascript/"}]} />
 
@@ -97,4 +98,5 @@ Using these predefined values, user agents and assistive technologies can presen
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/use_valid_autocomplete.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useValidAutocomplete)
+- <RulePlaygroundLink rule="useValidAutocomplete" category="lint" language="jsx" code={"<input type=\"text\" autocomplete=\"incorrect\" />\n"} />
 
