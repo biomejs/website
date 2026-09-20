@@ -207,9 +207,11 @@ test.describe("playground links", () => {
 				playground.getByLabel("Assist Actions", { exact: true }),
 			).toHaveValue(category === "assist" ? rule : "none");
 			if (fixed) {
-				await playground.getByRole("tab", { name: "Analyzer Fixes" }).click();
+				await playground
+					.getByRole("button", { name: "Safe", exact: true })
+					.click();
 				await expect(
-					playground.getByTestId("analyzer-fixes").getByRole("textbox"),
+					playground.getByTestId("biome-output").getByRole("textbox"),
 				).toContainText(fixed);
 			}
 		});
@@ -429,6 +431,11 @@ test.describe("playground layout", () => {
 				return JSON.parse(config ?? "{}");
 			})
 			.toEqual({
+				assist: {
+					actions: {
+						preset: "recommended",
+					},
+				},
 				formatter: {
 					formatWithErrors: true,
 					lineWidth: 120,
