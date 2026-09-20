@@ -7,6 +7,12 @@ interface Props {
 	direction: "top" | "right" | "left";
 	className: string;
 	minimumSize?: number;
+	/**
+	 * While collapsed the panel drops its stored size and hides the handle, so
+	 * the content alone decides how big it is. The ratio is kept for when it
+	 * expands again.
+	 */
+	collapsed?: boolean;
 	children: React.ReactNode;
 }
 
@@ -112,6 +118,7 @@ export default function Resizable({
 	direction,
 	className,
 	minimumSize = DEFAULT_MINIMUM_SIZE,
+	collapsed = false,
 	children,
 }: Props) {
 	const ratioStore = useMemo(() => createLocalStorage(`${name}-ratio`), [name]);
@@ -204,7 +211,8 @@ export default function Resizable({
 	}, [axis, minimumSize, ratio, storeRatio]);
 
 	const minimumProperty = axis === "width" ? "minWidth" : "minHeight";
-	const percentage = ratio === undefined ? undefined : `${ratio * 100}%`;
+	const percentage =
+		ratio === undefined || collapsed ? undefined : `${ratio * 100}%`;
 
 	return (
 		<div
@@ -221,50 +229,52 @@ export default function Resizable({
 			}}
 		>
 			{children}
-			<hr
-				className="playground-resize-handle"
-				tabIndex={0}
-				aria-label={`Resize ${name.replaceAll("-", " ")}`}
-				aria-orientation={direction === "top" ? "horizontal" : "vertical"}
-				aria-valuemin={minimumSize}
-				aria-valuemax={maximumSize && Math.round(maximumSize)}
-				aria-valuenow={Math.round(currentSize ?? minimumSize)}
-				onPointerDown={(event) => {
-					event.preventDefault();
-					event.currentTarget.setPointerCapture(event.pointerId);
-					setIsResizing(true);
-				}}
-				onPointerMove={(event) => {
-					const container = ref.current;
-					if (
-						!container ||
-						!event.currentTarget.hasPointerCapture(event.pointerId)
-					) {
-						return;
-					}
-					setSize(handler.calculateSize(container, event.nativeEvent));
-				}}
-				onPointerUp={(event) => {
-					event.currentTarget.releasePointerCapture(event.pointerId);
-					setIsResizing(false);
-				}}
-				onPointerCancel={() => setIsResizing(false)}
-				onDoubleClick={resetSize}
-				onContextMenu={(event) => {
-					event.preventDefault();
-					resetSize();
-				}}
-				onKeyDown={(event) => {
-					const delta = handler.keyboardDelta(event.key);
-					if (delta === 0) return;
-					event.preventDefault();
-					const container = ref.current;
-					const size = container
-						? getCurrentSize(container, axis)
-						: (currentSize ?? minimumSize);
-					setSize(size + delta);
-				}}
-			/>
+			{!collapsed && (
+				<hr
+					className="playground-resize-handle"
+					tabIndex={0}
+					aria-label={`Resize ${name.replaceAll("-", " ")}`}
+					aria-orientation={direction === "top" ? "horizontal" : "vertical"}
+					aria-valuemin={minimumSize}
+					aria-valuemax={maximumSize && Math.round(maximumSize)}
+					aria-valuenow={Math.round(currentSize ?? minimumSize)}
+					onPointerDown={(event) => {
+						event.preventDefault();
+						event.currentTarget.setPointerCapture(event.pointerId);
+						setIsResizing(true);
+					}}
+					onPointerMove={(event) => {
+						const container = ref.current;
+						if (
+							!container ||
+							!event.currentTarget.hasPointerCapture(event.pointerId)
+						) {
+							return;
+						}
+						setSize(handler.calculateSize(container, event.nativeEvent));
+					}}
+					onPointerUp={(event) => {
+						event.currentTarget.releasePointerCapture(event.pointerId);
+						setIsResizing(false);
+					}}
+					onPointerCancel={() => setIsResizing(false)}
+					onDoubleClick={resetSize}
+					onContextMenu={(event) => {
+						event.preventDefault();
+						resetSize();
+					}}
+					onKeyDown={(event) => {
+						const delta = handler.keyboardDelta(event.key);
+						if (delta === 0) return;
+						event.preventDefault();
+						const container = ref.current;
+						const size = container
+							? getCurrentSize(container, axis)
+							: (currentSize ?? minimumSize);
+						setSize(size + delta);
+					}}
+				/>
+			)}
 		</div>
 	);
 }

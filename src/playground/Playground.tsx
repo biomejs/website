@@ -640,6 +640,7 @@ function OutputStack({
 				direction="top"
 				className={`playground-problems${problemsCollapsed ? " collapsed" : ""}`}
 				minimumSize={problemsCollapsed ? 0 : 150}
+				collapsed={problemsCollapsed}
 			>
 				<div className="playground-problems-tabs" role="tablist">
 					<button

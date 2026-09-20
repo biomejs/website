@@ -553,6 +553,39 @@ test.describe("playground layout", () => {
 		);
 	});
 
+	test("collapses the problems panel after it was resized", async ({
+		page,
+	}) => {
+		await page.goto("/playground");
+		const problems = page.locator(".playground-problems");
+		const handle = page.getByLabel("Resize playground problems");
+		await handle.waitFor();
+		const before = await problems.boundingBox();
+		const grip = await handle.boundingBox();
+		const x = (grip?.x ?? 0) + (grip?.width ?? 0) / 2;
+		const y = (grip?.y ?? 0) + (grip?.height ?? 0) / 2;
+		await page.mouse.move(x, y);
+		await page.mouse.down();
+		await page.mouse.move(x, y - 150, { steps: 5 });
+		await page.mouse.up();
+		const resized = await problems.boundingBox();
+		expect(resized?.height).toBeGreaterThan((before?.height ?? 0) + 100);
+
+		await page.getByRole("button", { name: "Collapse problems panel" }).click();
+		const tabs = await page.locator(".playground-problems-tabs").boundingBox();
+		const collapsed = await problems.boundingBox();
+		expect(collapsed?.height).toBeLessThan((tabs?.height ?? 0) + 10);
+		await expect(handle).toHaveCount(0);
+
+		// Expanding brings the dragged size back.
+		await page.getByRole("button", { name: "Expand problems panel" }).click();
+		const expanded = await problems.boundingBox();
+		expect(expanded?.height).toBeCloseTo(resized?.height ?? 0, 0);
+		await page.evaluate(() =>
+			localStorage.removeItem("playground:playground-problems-ratio"),
+		);
+	});
+
 	test("shows syntax tabs and gives formatter IR space", async ({ page }) => {
 		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
 		await toggleView(page, "Syntax tree");
