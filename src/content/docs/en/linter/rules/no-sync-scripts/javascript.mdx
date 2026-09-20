@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noSyncScripts
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-sync-scripts/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-sync-scripts/javascript/"}]} />
 
@@ -80,4 +81,5 @@ const Valid = () => <Script src="https://third-party-script.js" />;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/performance/no_sync_scripts.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/performance/noSyncScripts)
+- <RulePlaygroundLink rule="noSyncScripts" category="lint" language="jsx" code={"const Invalid = () => <script src=\"https://third-party-script.js\" />;\n"} />
 

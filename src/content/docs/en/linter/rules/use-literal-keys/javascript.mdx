@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useLiteralKeys
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-literal-keys/javascript/"}]} />
 
@@ -82,4 +83,5 @@ a[d.c];
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_literal_keys.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/useLiteralKeys)
+- <RulePlaygroundLink rule="useLiteralKeys" category="lint" language="js" code={"a.b[\"c\"];\n"} />
 

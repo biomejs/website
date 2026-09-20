@@ -8,6 +8,7 @@ description: HTML documentation for noTailwindArbitraryValue
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-tailwind-arbitrary-value/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-tailwind-arbitrary-value/javascript/"}]} />
 
@@ -121,4 +122,5 @@ Default: `[]` (the `class` attribute is always checked).
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_tailwind_arbitrary_value.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noTailwindArbitraryValue)
+- <RulePlaygroundLink rule="noTailwindArbitraryValue" category="lint" language="html" code={"<div class=\"w-[400px]\"></div>\n"} />
 

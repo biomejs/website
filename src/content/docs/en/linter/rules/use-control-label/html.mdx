@@ -8,6 +8,7 @@ description: HTML documentation for useControlLabel
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-control-label/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-control-label/javascript/"}]} />
 
@@ -99,4 +100,5 @@ PascalCase variants like `<Button>` are assumed to be custom components and are 
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_control_label.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useControlLabel)
+- <RulePlaygroundLink rule="useControlLabel" category="lint" language="html" code={"<button></button>\n"} />
 

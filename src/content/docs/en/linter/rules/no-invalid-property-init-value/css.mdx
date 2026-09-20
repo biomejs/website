@@ -8,6 +8,7 @@ description: CSS documentation for noInvalidPropertyInitValue
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-invalid-property-init-value/css/"}]} />
 
@@ -116,4 +117,5 @@ Both `1rem` and `calc(1px + 2px)` use length values, so they follow their declar
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_invalid_property_init_value.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noInvalidPropertyInitValue)
+- <RulePlaygroundLink rule="noInvalidPropertyInitValue" category="lint" language="css" code={"@property --size {\n  syntax: \"<length>\";\n  inherits: false;\n  initial-value: red;\n}\n"} />
 

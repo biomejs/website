@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useSortedKeys
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"json","label":"JSON (and super languages)","href":"/assist/actions/use-sorted-keys/json/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/assist/actions/use-sorted-keys/javascript/"}]} />
@@ -224,4 +225,5 @@ const obj = {
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/assist/source/use_sorted_keys.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/source/useSortedKeys)
+- <RulePlaygroundLink rule="useSortedKeys" category="assist" language="js" code={"const obj = {\n  x: 1,\n  a: 2,\n};\n"} />
 

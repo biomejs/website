@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useExhaustiveSwi
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-exhaustive-switch-cases/javascript/"}]} />
 
@@ -173,4 +174,5 @@ switch (letter) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_exhaustive_switch_cases.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useExhaustiveSwitchCases)
+- <RulePlaygroundLink rule="useExhaustiveSwitchCases" category="lint" language="ts" code={"type Day =\n  | 'Monday'\n  | 'Tuesday'\n  | 'Wednesday'\n  | 'Thursday'\n  | 'Friday'\n  | 'Saturday'\n  | 'Sunday';\n\ndeclare const day: Day;\nlet result = 0;\n\nswitch (day) {\n  case 'Monday':\n    result = 1;\n    break;\n}\n"} />
 

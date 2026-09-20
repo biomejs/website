@@ -8,6 +8,7 @@ description: JSON (and super languages) documentation for useSortedKeys
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/assist/actions/use-sorted-keys/json/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/assist/actions/use-sorted-keys/javascript/"}]} />
@@ -176,4 +177,5 @@ followed by nested values (multi-line arrays and multi-line objects).
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/assist/source/use_sorted_keys.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/source/useSortedKeys)
+- <RulePlaygroundLink rule="useSortedKeys" category="assist" language="json" code={"{\n    \"vase\": \"fancy\",\n    \"nested\": {\n        \"omega\": \"bar\",\n        \"alpha\": \"foo\"\n    }\n}\n"} />
 

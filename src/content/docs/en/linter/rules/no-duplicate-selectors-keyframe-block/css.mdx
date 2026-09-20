@@ -8,6 +8,7 @@ description: CSS documentation for noDuplicateSelectorsKeyframeBlock
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-duplicate-selectors-keyframe-block/css/"}]} />
 
@@ -76,4 +77,5 @@ Disallow duplicate selectors within keyframe blocks.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_duplicate_selectors_keyframe_block.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noDuplicateSelectorsKeyframeBlock)
+- <RulePlaygroundLink rule="noDuplicateSelectorsKeyframeBlock" category="lint" language="css" code={"@keyframes foo { from {} from {} }\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useShorthandAssi
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-shorthand-assign/javascript/"}]} />
 
@@ -81,4 +82,5 @@ a *= 1;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_shorthand_assign.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useShorthandAssign)
+- <RulePlaygroundLink rule="useShorthandAssign" category="lint" language="js" code={"a = a + 1;\n"} />
 

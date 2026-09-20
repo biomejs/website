@@ -8,6 +8,7 @@ description: CSS documentation for useGenericFontNames
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/use-generic-font-names/css/"}]} />
 
@@ -94,4 +95,5 @@ a { font-family: var(--font); }
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/a11y/use_generic_font_names.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/a11y/useGenericFontNames)
+- <RulePlaygroundLink rule="useGenericFontNames" category="lint" language="css" code={"a { font-family: Arial; }\n"} />
 

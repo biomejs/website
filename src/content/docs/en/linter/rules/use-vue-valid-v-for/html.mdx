@@ -8,6 +8,7 @@ description: HTML documentation for useVueValidVFor
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-valid-v-for/html/"}]} />
 
@@ -104,4 +105,5 @@ Related rules:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_valid_v_for.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueValidVFor)
+- <RulePlaygroundLink rule="useVueValidVFor" category="lint" language="vue" code={"<div v-for:aaa=\"item in items\"></div>\n"} />
 

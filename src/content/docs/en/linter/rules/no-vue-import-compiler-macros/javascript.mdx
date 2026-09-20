@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noVueImportCompi
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-import-compiler-macros/javascript/"}]} />
 
@@ -71,4 +72,5 @@ defineProps({});
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_import_compiler_macros.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueImportCompilerMacros)
+- <RulePlaygroundLink rule="noVueImportCompilerMacros" category="lint" language="vue" code={"<script setup>\nimport { defineProps } from \"vue\";\ndefineProps({});\n</script>\n"} />
 

@@ -8,6 +8,7 @@ description: HTML documentation for noAutofocus
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-autofocus/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-autofocus/javascript/"}]} />
 
@@ -89,4 +90,5 @@ elements with a `popover` attribute, as these are modal contexts where autofocus
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/no_autofocus.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/noAutofocus)
+- <RulePlaygroundLink rule="noAutofocus" category="lint" language="html" code={"<input autofocus />\n"} />
 

@@ -8,6 +8,7 @@ description: JSON (and super languages) documentation for useConsistentObjectKey
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/use-consistent-object-keys/json/"}]} />
 
@@ -172,4 +173,5 @@ Default: `NFC`
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/nursery/use_consistent_object_keys.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/nursery/useConsistentObjectKeys)
+- <RulePlaygroundLink rule="useConsistentObjectKeys" category="lint" language="json" code={"{\n    \"caf\\u0065\\u0301\": \"espresso\"\n}\n"} />
 

@@ -1,0 +1,35 @@
+---
+import { Icon } from "@astrojs/starlight/components";
+import type { Language } from "@/playground/types.ts";
+import { encodeCode } from "@/playground/utils.ts";
+
+interface Props {
+	rule: string;
+	category: "lint" | "assist";
+	language: Language | "cjs";
+	code: string;
+}
+
+const { rule, category, language, code } = Astro.props;
+const query = new URLSearchParams({
+	lintRules: category === "lint" ? rule : "none",
+	assistActions: category === "assist" ? rule : "none",
+	language: language === "cjs" ? "js" : language,
+});
+if (language === "cjs") {
+	query.set("script", "true");
+}
+const hash = new URLSearchParams({
+	code: encodeCode(code),
+});
+---
+
+<a
+	class="inline-icon"
+	href={`/playground/?${query}#${hash}`}
+	target="_blank"
+	rel="noopener noreferrer"
+>
+	Try in the playground
+	<Icon name="external" />
+</a>

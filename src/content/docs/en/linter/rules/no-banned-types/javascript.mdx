@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noBannedTypes
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-banned-types/javascript/"}]} />
 
@@ -203,4 +204,5 @@ it simply requires they have _at least_ 0 properties.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_banned_types.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noBannedTypes)
+- <RulePlaygroundLink rule="noBannedTypes" category="lint" language="ts" code={"let foo: String = \"bar\";\n"} />
 

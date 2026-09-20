@@ -8,6 +8,7 @@ description: GraphQL documentation for noRootType
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-root-type/graphql/"}]} />
 
@@ -122,4 +123,5 @@ type Subscription {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/style/no_root_type.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/style/noRootType)
+- <RulePlaygroundLink rule="noRootType" category="lint" language="graphql" code={"type Mutation {\n  createUser(input: CreateUserInput!): User!\n}\n"} />
 

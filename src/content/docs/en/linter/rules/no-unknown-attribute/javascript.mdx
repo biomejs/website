@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnknownAttribu
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unknown-attribute/javascript/"}]} />
 
@@ -114,4 +115,5 @@ An array of property and attribute names to ignore during validation.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_unknown_attribute.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noUnknownAttribute)
+- <RulePlaygroundLink rule="noUnknownAttribute" category="lint" language="jsx" code={"<div allowTransparency=\"true\" />\n"} />
 

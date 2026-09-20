@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUselessEscapeI
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-useless-escape-in-string/css/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-escape-in-string/javascript/"}]} />
 
@@ -91,4 +92,5 @@ JSX strings are ignored:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_useless_escape_in_string.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noUselessEscapeInString)
+- <RulePlaygroundLink rule="noUselessEscapeInString" category="lint" language="js" code={"const s = \"\\a\";\n"} />
 

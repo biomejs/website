@@ -8,6 +8,7 @@ description: GraphQL documentation for useDeprecatedDate
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-deprecated-date/graphql/"}]} />
 
@@ -69,4 +70,5 @@ query {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/suspicious/use_deprecated_date.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/suspicious/useDeprecatedDate)
+- <RulePlaygroundLink rule="useDeprecatedDate" category="lint" language="graphql" code={"query {\n  member @deprecated(reason: \"Use `members` instead\") {\n    id\n  }\n}\n"} />
 

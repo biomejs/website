@@ -8,6 +8,7 @@ description: CSS documentation for noUnknownAtRules
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-at-rules/css/"}]} />
 
@@ -114,4 +115,5 @@ A list of unknown at-rule names to ignore (case-insensitive).
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_unknown_at_rules.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noUnknownAtRules)
+- <RulePlaygroundLink rule="noUnknownAtRules" category="lint" language="css" code={"@uNkNoWn {}\n"} />
 

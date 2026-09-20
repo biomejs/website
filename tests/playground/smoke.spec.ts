@@ -99,6 +99,122 @@ test.describe("playground should show formatter IR", () => {
 });
 
 test.describe("playground links", () => {
+	for (const { path, rule, category, language, code, fixed } of [
+		{
+			path: "linter/rules/no-console/javascript",
+			rule: "noConsole",
+			category: "lint",
+			language: "js",
+			code: "console.error('hello world')\n",
+		},
+		{
+			path: "linter/rules/no-misleading-character-class/javascript",
+			rule: "noMisleadingCharacterClass",
+			category: "lint",
+			language: "js",
+			code: "/^[A\u0301]$/u;\n",
+		},
+		{
+			path: "linter/rules/no-aria-hidden-on-focusable/javascript",
+			rule: "noAriaHiddenOnFocusable",
+			category: "lint",
+			language: "jsx",
+			code: '<div aria-hidden="true" tabIndex="0" />\n',
+		},
+		{
+			path: "linter/rules/no-duplicate-properties/css",
+			rule: "noDuplicateProperties",
+			category: "lint",
+			language: "css",
+			code: "a {\n  color: pink;\n  color: orange;\n}\n",
+		},
+		{
+			path: "assist/actions/use-sorted-keys/json",
+			rule: "useSortedKeys",
+			category: "assist",
+			language: "json",
+			code: '{\n    "vase": "fancy",\n    "nested": {\n        "omega": "bar",\n        "alpha": "foo"\n    }\n}\n',
+			fixed: /"alpha"[\s\S]*"omega"[\s\S]*"vase"/,
+		},
+		{
+			path: "assist/actions/use-sorted-attributes/html",
+			rule: "useSortedAttributes",
+			category: "assist",
+			language: "html",
+			code: '<input type="text" id="name" name="name" />\n',
+			fixed: /<input id="name" name="name" type="text"/,
+		},
+	]) {
+		test(`loads the first invalid example for ${rule}`, async ({ page }) => {
+			await page.goto(`/${path}/`);
+			const relatedLinks = page.locator(".sl-markdown-content > ul").last();
+			const link = relatedLinks.getByRole("link", {
+				name: "Try in the playground",
+			});
+			await expect(link).toHaveCount(1);
+
+			const url = new URL((await link.getAttribute("href"))!, page.url());
+			expect([...url.searchParams]).toEqual([
+				["lintRules", category === "lint" ? rule : "none"],
+				["assistActions", category === "assist" ? rule : "none"],
+				["language", language],
+			]);
+			expect([...new URLSearchParams(url.hash.slice(1))]).toEqual([
+				["code", encodeCode(code)],
+			]);
+
+			const popup = page.waitForEvent("popup");
+			await link.click();
+			const playground = await popup;
+			await expect(
+				playground.getByTestId("editor").locator(".cm-line"),
+			).toHaveText(code.split("\n"));
+			const diagnostics = playground.locator(".diagnostics-list li");
+			await expect(diagnostics).not.toHaveCount(0);
+			await expect(diagnostics.filter({ hasNotText: rule })).toHaveCount(0);
+			await expect(
+				playground.getByLabel("Lint Rules", { exact: true }),
+			).toHaveValue(category === "lint" ? rule : "none");
+			await expect(
+				playground.getByLabel("Assist Actions", { exact: true }),
+			).toHaveValue(category === "assist" ? rule : "none");
+			if (fixed) {
+				await playground.getByRole("tab", { name: "Analyzer Fixes" }).click();
+				await expect(
+					playground.getByTestId("analyzer-fixes").getByRole("textbox"),
+				).toContainText(fixed);
+			}
+		});
+	}
+
+	test("keeps lint rules and assist actions separate", async ({ page }) => {
+		await page.goto("/playground?lintRules=none&language=json#code=");
+		const lintRules = page.getByLabel("Lint Rules", { exact: true });
+		const assistActions = page.getByLabel("Assist Actions", { exact: true });
+		await expect(
+			lintRules.locator('option[value="organizeImports"]'),
+		).toHaveCount(0);
+		await expect(
+			assistActions.locator('option[value="noConsole"]'),
+		).toHaveCount(0);
+		await assistActions.selectOption("useSortedKeys");
+		await page
+			.getByTestId("editor")
+			.getByRole("textbox")
+			.fill('{"b": 1, "a": 2}');
+		await expect(page.locator(".diagnostics-list")).toContainText(
+			"assist/source/useSortedKeys",
+		);
+		await expect
+			.poll(() => new URL(page.url()).searchParams.get("assistActions"))
+			.toBe("useSortedKeys");
+		await page.reload();
+		await expect(assistActions).toHaveValue("useSortedKeys");
+		await expect(lintRules).toHaveValue("none");
+		await page.getByLabel("Assist enabled", { exact: true }).uncheck();
+		await expect(assistActions).toBeDisabled();
+	});
+
 	test("loads code from the hash", async ({ page }) => {
 		const code = "let hashValue = 1;";
 		await page.goto(`/playground#code=${encodeURIComponent(encodeCode(code))}`);

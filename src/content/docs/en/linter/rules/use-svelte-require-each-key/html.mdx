@@ -8,6 +8,7 @@ description: HTML documentation for useSvelteRequireEachKey
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-svelte-require-each-key/html/"}]} />
 
@@ -72,4 +73,5 @@ For more information, see the Svelte documentation on [keyed each blocks](https:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_svelte_require_each_key.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useSvelteRequireEachKey)
+- <RulePlaygroundLink rule="useSvelteRequireEachKey" category="lint" language="svelte" code={"{#each items as item}\n  <div>{item}</div>\n{/each}\n"} />
 

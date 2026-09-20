@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useReactCompiler
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-react-compiler/javascript/"}]} />
 
@@ -142,4 +143,5 @@ export function increment() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_react_compiler.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useReactCompiler)
+- <RulePlaygroundLink rule="useReactCompiler" category="lint" language="jsx" code={"import { useState } from \"react\";\n\nfunction Component(props) {\n    if (props.enabled) {\n        useState(0);\n    }\n\n    return <div />;\n}\n"} />
 

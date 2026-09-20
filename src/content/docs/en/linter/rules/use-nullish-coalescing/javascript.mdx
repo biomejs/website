@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useNullishCoales
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-nullish-coalescing/javascript/"}]} />
 
@@ -383,4 +384,5 @@ if (!a) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_nullish_coalescing.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useNullishCoalescing)
+- <RulePlaygroundLink rule="useNullishCoalescing" category="lint" language="ts" code={"declare const maybeString: string | null;\nconst value = maybeString || 'default';\n"} />
 

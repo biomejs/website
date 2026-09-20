@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noSelfAssign
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-self-assign/javascript/"}]} />
 
@@ -102,4 +103,5 @@ const a = a;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_self_assign.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noSelfAssign)
+- <RulePlaygroundLink rule="noSelfAssign" category="lint" language="js" code={"a = a;\n"} />
 

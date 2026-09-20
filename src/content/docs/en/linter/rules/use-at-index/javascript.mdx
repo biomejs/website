@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useAtIndex
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-at-index/javascript/"}]} />
 
@@ -113,4 +114,5 @@ array[array.length - 1] = foo;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_at_index.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useAtIndex)
+- <RulePlaygroundLink rule="useAtIndex" category="lint" language="js" code={"const foo = array[array.length - 1];\n"} />
 

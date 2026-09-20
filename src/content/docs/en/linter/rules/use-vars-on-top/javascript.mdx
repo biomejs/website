@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useVarsOnTop
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vars-on-top/javascript/"}]} />
 
@@ -82,4 +83,5 @@ Related:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vars_on_top.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVarsOnTop)
+- <RulePlaygroundLink rule="useVarsOnTop" category="lint" language="js" code={"function f() {\n    doSomething();\n    var value = 1;\n}\n"} />
 

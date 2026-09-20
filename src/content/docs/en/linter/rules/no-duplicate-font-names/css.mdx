@@ -8,6 +8,7 @@ description: CSS documentation for noDuplicateFontNames
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-duplicate-font-names/css/"}]} />
 
@@ -78,4 +79,5 @@ d { font: 1em SF Mono, Liberation Mono, sans-serif; }
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_duplicate_font_names.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noDuplicateFontNames)
+- <RulePlaygroundLink rule="noDuplicateFontNames" category="lint" language="css" code={"a { font-family: \"Lucida Grande\", 'Arial', sans-serif, sans-serif; }\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useConsistentMem
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-consistent-member-accessibility/javascript/"}]} />
 
@@ -437,4 +438,5 @@ It can be set to one of the following values:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_consistent_member_accessibility.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useConsistentMemberAccessibility)
+- <RulePlaygroundLink rule="useConsistentMemberAccessibility" category="lint" language="ts" code={"class Animal {\n  public constructor(breed, name) {\n    // ...\n  }\n}\n"} />
 

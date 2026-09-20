@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useThisInClassMe
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-this-in-class-methods/javascript/"}]} />
 
@@ -231,4 +232,5 @@ class ServiceImpl implements Service {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_this_in_class_methods.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useThisInClassMethods)
+- <RulePlaygroundLink rule="useThisInClassMethods" category="lint" language="js" code={"class A {\n    foo() {\n        console.log(\"Hello\");\n    }\n}\n"} />
 

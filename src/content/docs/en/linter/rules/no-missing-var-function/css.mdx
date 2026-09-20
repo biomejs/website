@@ -8,6 +8,7 @@ description: CSS documentation for noMissingVarFunction
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-missing-var-function/css/"}]} />
 
@@ -159,4 +160,5 @@ a {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_missing_var_function.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noMissingVarFunction)
+- <RulePlaygroundLink rule="noMissingVarFunction" category="lint" language="css" code={"a {\n  --foo: red;\n  color: --foo;\n}\n"} />
 

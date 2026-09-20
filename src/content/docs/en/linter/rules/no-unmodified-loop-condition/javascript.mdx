@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnmodifiedLoop
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unmodified-loop-condition/javascript/"}]} />
 
@@ -97,4 +98,5 @@ while (object.ready) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_unmodified_loop_condition.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUnmodifiedLoopCondition)
+- <RulePlaygroundLink rule="noUnmodifiedLoopCondition" category="lint" language="js" code={"let node = getNode();\nwhile (node) {\n    process(node);\n}\n"} />
 

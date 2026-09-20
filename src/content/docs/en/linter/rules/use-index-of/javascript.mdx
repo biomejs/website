@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useIndexOf
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-index-of/javascript/"}]} />
 
@@ -158,4 +159,5 @@ const index = foo.findLastIndex(x => y.x === 'foo');
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_index_of.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/useIndexOf)
+- <RulePlaygroundLink rule="useIndexOf" category="lint" language="js" code={"const index = foo.findIndex(x => x === 'foo');\n"} />
 

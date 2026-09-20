@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noSwitchDeclarat
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-switch-declarations/javascript/"}]} />
 
@@ -105,4 +106,5 @@ switch (foo) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_switch_declarations.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noSwitchDeclarations)
+- <RulePlaygroundLink rule="noSwitchDeclarations" category="lint" language="js" code={"switch (foo) {\n    case 0:\n        const x = 1;\n        break;\n    case 2:\n        x; // `x` can be used while it is not initialized\n        break;\n}\n"} />
 

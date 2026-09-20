@@ -8,6 +8,7 @@ description: HTML documentation for noDuplicateAttributes
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-duplicate-attributes/html/"}]} />
 
@@ -85,4 +86,5 @@ Dynamic arguments such as `:[foo]` or `v-bind:[foo]` are ignored.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/correctness/no_duplicate_attributes.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/correctness/noDuplicateAttributes)
+- <RulePlaygroundLink rule="noDuplicateAttributes" category="lint" language="html" code={"<div foo=\"a\" foo=\"b\"></div>\n"} />
 

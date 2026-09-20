@@ -8,6 +8,7 @@ description: HTML documentation for noPositiveTabindex
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-positive-tabindex/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-positive-tabindex/javascript/"}]} />
 
@@ -76,4 +77,5 @@ Avoid positive `tabindex` attribute values to synchronize the flow of the page w
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/no_positive_tabindex.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/noPositiveTabindex)
+- <RulePlaygroundLink rule="noPositiveTabindex" category="lint" language="html" code={"<div tabindex=\"1\"></div>\n"} />
 
