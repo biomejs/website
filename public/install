@@ -1,0 +1,262 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Installer experience and download progress inspired by OpenCode:
+# https://github.com/anomalyco/opencode/blob/dev/install
+
+readonly APP="biome"
+readonly INSTALL_DIR="${BIOME_INSTALL_DIR:-${XDG_BIN_HOME:-$HOME/.local/bin}}"
+readonly LATEST_VERSION_URL="https://biomejs.dev/api/versions/latest.txt"
+readonly RELEASES_URL="https://github.com/biomejs/biome/releases"
+
+readonly RED='\033[0;31m'
+readonly BLUE='\033[38;2;96;165;250m'
+readonly NC='\033[0m'
+
+requested_version="${BIOME_VERSION:-}"
+modify_path=true
+force=false
+
+usage() {
+	cat <<'EOF'
+Biome Installer
+
+Usage: install [options]
+
+Options:
+    -h, --help              Display this help message
+    -v, --version <version> Install a specific version
+    -f, --force             Force a fresh download and reinstallation
+        --no-modify-path    Skip adding Biome to PATH
+
+Environment variables:
+    BIOME_INSTALL_DIR       Set the installation directory
+    BIOME_VERSION           Set the version to install
+
+Examples:
+    curl -fsSL https://biomejs.dev/install | bash
+    curl -fsSL https://biomejs.dev/install | bash -s -- --version 2.5.9
+EOF
+}
+
+fail() {
+	printf "${RED}Error: %s${NC}\n" "$1" >&2
+	exit 1
+}
+
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+		-h | --help)
+			usage
+			exit 0
+			;;
+		-v | --version)
+			[[ $# -ge 2 ]] || fail "--version requires a version argument"
+			requested_version="$2"
+			shift 2
+			;;
+		-f | --force)
+			force=true
+			shift
+			;;
+		--no-modify-path)
+			modify_path=false
+			shift
+			;;
+		*)
+			fail "unknown option: $1"
+			;;
+	esac
+done
+
+command -v curl >/dev/null 2>&1 || fail "curl is required to install Biome"
+
+case "$(uname -s)" in
+	Darwin) os="darwin" ;;
+	Linux) os="linux" ;;
+	*) fail "unsupported operating system: $(uname -s)" ;;
+esac
+
+case "$(uname -m)" in
+	x86_64 | amd64) arch="x64" ;;
+	aarch64 | arm64) arch="arm64" ;;
+	*) fail "unsupported architecture: $(uname -m)" ;;
+esac
+
+libc=""
+if [[ "$os" == "linux" ]]; then
+	if [[ -f /etc/alpine-release ]] ||
+		(command -v ldd >/dev/null 2>&1 && ldd --version 2>&1 | grep -qi musl)
+	then
+		libc="-musl"
+	fi
+fi
+
+if [[ -z "$requested_version" ]]; then
+	requested_version="$(curl -fsSL "$LATEST_VERSION_URL")" ||
+		fail "failed to fetch the latest Biome version"
+fi
+
+version="${requested_version#v}"
+version="${version#@biomejs/biome@}"
+case "$version" in
+	"" | *[!0-9A-Za-z.-]*) fail "invalid version: $requested_version" ;;
+esac
+
+filename="biome-$os-$arch$libc"
+release_tag="@biomejs/biome@$version"
+download_url="$RELEASES_URL/download/$release_tag/$filename"
+
+if [[ "$force" == false && -x "$INSTALL_DIR/$APP" ]]; then
+	installed_version="$($INSTALL_DIR/$APP --version 2>/dev/null || true)"
+	installed_version="${installed_version#Version: }"
+	if [[ "$installed_version" == "$version" ]]; then
+		printf "\n${BLUE}Biome version ${NC}%s${BLUE} is already installed at ${NC}%s\n\n" \
+			"$version" "$INSTALL_DIR/$APP"
+		exit 0
+	fi
+fi
+
+mkdir -p "$INSTALL_DIR"
+tmp_dir="$(mktemp -d "$INSTALL_DIR/.biome-install.XXXXXX")"
+trap 'rm -rf "$tmp_dir"' EXIT HUP INT TERM
+
+unbuffered_sed() {
+	if printf '' | sed -u -e '' >/dev/null 2>&1; then
+		sed -nu "$@"
+	elif printf '' | sed -l -e '' >/dev/null 2>&1; then
+		sed -nl "$@"
+	else
+		local pad
+		pad="$(printf '\n%512s' '')"
+		sed -ne "s/$/\\${pad}/" "$@"
+	fi
+}
+
+print_progress() {
+	local bytes="$1"
+	local length="$2"
+	((length > 0)) || return 0
+
+	local width=40
+	local percent=$((bytes * 100 / length))
+	((percent > 100)) && percent=100
+	local filled_width=$((percent * width / 100))
+	local empty_width=$((width - filled_width))
+	local filled empty
+	printf -v filled '%*s' "$filled_width" ''
+	printf -v empty '%*s' "$empty_width" ''
+	filled=${filled// /#}
+	empty=${empty// /-}
+	printf "\r${BLUE}[%s%s] %3d%%${NC}" "$filled" "$empty" "$percent" >&4
+}
+
+download_with_progress() {
+	local url="$1"
+	local output="$2"
+	local trace_file="$tmp_dir/curl.trace"
+
+	exec 4>&2
+	mkfifo "$trace_file"
+	printf '\033[?25l' >&4
+
+	(
+		curl --fail --location --silent --trace-ascii "$trace_file" --output "$output" "$url"
+	) &
+	local curl_pid=$!
+
+	unbuffered_sed \
+		-e 'y/ACDEGHLNORTV/acdeghlnortv/' \
+		-e '/^0000: content-length:/p' \
+		-e '/^<= recv data/p' \
+		"$trace_file" |
+	{
+		local length=0
+		local bytes=0
+		local -a line
+		while IFS=' ' read -r -a line; do
+			((${#line[@]} >= 2)) || continue
+			if [[ "${line[0]} ${line[1]}" == "0000: content-length:" ]]; then
+				length="${line[2]//$'\r'/}"
+				bytes=0
+			elif [[ "${line[0]} ${line[1]}" == "<= recv" ]]; then
+				bytes=$((bytes + line[3]))
+				print_progress "$bytes" "$length"
+			fi
+		done
+	}
+
+	local status=0
+	wait "$curl_pid" || status=$?
+	printf '\033[?25h\n' >&4
+	exec 4>&-
+	return "$status"
+}
+
+printf "\n${BLUE}Installing ${NC}Biome ${BLUE}version: ${NC}%s\n" "$version"
+printf "${BLUE}Platform: ${NC}%s-%s%s\n\n" "$os" "$arch" "$libc"
+
+if [[ -t 2 ]]; then
+	download_with_progress "$download_url" "$tmp_dir/$APP" ||
+		fail "failed to download Biome $version; see $RELEASES_URL"
+else
+	curl --fail --location --progress-bar "$download_url" --output "$tmp_dir/$APP" ||
+		fail "failed to download Biome $version; see $RELEASES_URL"
+fi
+chmod 755 "$tmp_dir/$APP"
+mv "$tmp_dir/$APP" "$INSTALL_DIR/$APP"
+
+add_to_path() {
+	config_file="$1"
+	path_command="$2"
+
+	if grep -Fqx "$path_command" "$config_file" 2>/dev/null; then
+		return
+	fi
+
+	printf '\n# Biome\n%s\n' "$path_command" >> "$config_file"
+	printf "${BLUE}Added Biome to PATH in ${NC}%s\n" "$config_file"
+}
+
+if [[ "$modify_path" == true ]]; then
+	case "${SHELL:-}" in
+		*/fish)
+			config_file="${XDG_CONFIG_HOME:-$HOME/.config}/fish/config.fish"
+			path_command="fish_add_path $INSTALL_DIR"
+			;;
+		*/zsh)
+			config_file="${ZDOTDIR:-$HOME}/.zshrc"
+			path_command="export PATH=\"$INSTALL_DIR:\$PATH\""
+			;;
+		*)
+			config_file="$HOME/.bashrc"
+			path_command="export PATH=\"$INSTALL_DIR:\$PATH\""
+			;;
+	esac
+
+	case ":$PATH:" in
+		*":$INSTALL_DIR:"*) ;;
+		*)
+			if [[ -f "$config_file" && -w "$config_file" ]]; then
+				add_to_path "$config_file" "$path_command"
+			else
+				printf 'Add Biome to your PATH by adding this to your shell configuration:\n  %s\n' "$path_command"
+			fi
+			;;
+	esac
+fi
+
+if [[ "${GITHUB_ACTIONS:-}" == "true" && -n "${GITHUB_PATH:-}" ]]; then
+	printf '%s\n' "$INSTALL_DIR" >> "$GITHUB_PATH"
+fi
+
+printf "\n${BLUE}"
+cat <<'EOF'
+█▀▀█ ▀█▀ █▀▀█ █▄ ▄█ █▀▀
+█▀▀▄  █  █  █ █ █ █ █▀▀
+▀▀▀  ▀▀▀ ▀▀▀▀ ▀   ▀ ▀▀▀
+EOF
+printf "${NC}\n${BLUE}Biome %s installed successfully.${NC}\n" "$version"
+printf "${BLUE}Binary: ${NC}%s\n" "$INSTALL_DIR/$APP"
+printf "\nRun ${BLUE}biome --help${NC} to get started.\n\n"
+printf "\nLearn more at ${BLUE}https://biomejs.dev${NC}\n\n"

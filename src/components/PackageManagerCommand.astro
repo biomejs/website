@@ -7,6 +7,7 @@ interface Props {
 	yarn: string[];
 	bun: string[];
 	deno: string[];
+	standalone?: string;
 }
 
 const { npm, pnpm, yarn, bun, deno } = Astro.props;
@@ -44,4 +45,9 @@ let denoCommand = deno.reduce((acc, command) => {
 	<TabItem label="yarn" icon="seti:yarn">
 		<Code frame="none" showLineNumbers={false} code={yarnCommand} lang="bash" />
 	</TabItem>
+	{Astro.props.standalone && (
+			<TabItem label="standalone" icon="seti:shell">
+				<Code frame="none" showLineNumbers={false} code={Astro.props.standalone} lang="bash" />
+			</TabItem>
+		)}
 </Tabs>

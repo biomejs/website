@@ -313,6 +313,13 @@ export function GET() {
 					"required": ["eslintReactRsc"]
 				},
 				{
+					"description": "A subset of React naming convention rules from [eslint-react.xyz](https://eslint-react.xyz/)",
+					"type": "object",
+					"properties": { "eslintReactNamingConvention": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintReactNamingConvention"]
+				},
+				{
 					"description": "Rules from [Eslint Plugin Regexp](https://github.com/ota-meshi/eslint-plugin-regexp)",
 					"type": "object",
 					"properties": { "eslintRegexp": { "type": "string" } },

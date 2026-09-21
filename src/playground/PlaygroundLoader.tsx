@@ -1,8 +1,4 @@
-import type {
-	FixFileMode,
-	RuleDomain,
-	RuleDomainValue,
-} from "@biomejs/wasm-web";
+import type { FixFileMode, RuleDomainValue } from "@biomejs/wasm-web";
 import {
 	type Dispatch,
 	type SetStateAction,
@@ -30,6 +26,7 @@ import {
 	type PlaygroundState,
 	type QuoteProperties,
 	type QuoteStyle,
+	type RuleDomain,
 	type Semicolons,
 	type TrailingCommas,
 	type WhitespaceSensitivity,

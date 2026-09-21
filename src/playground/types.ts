@@ -330,3 +330,5 @@ export interface BiomeAstSyntacticData {
 	// `biome_xx_ast` `Display` string.
 	rangeMap: Map<RangeMapKey, RangeMapValue>;
 }
+
+export type RuleDomain = keyof RuleDomains;
