@@ -44,8 +44,8 @@ export const collections = {
 				// name of the npm package
 				id: z.string(),
 				metadata: z.object({
-					repository: z.string().max(255).optional(),
-					website: z.string().max(255).optional(),
+					repository: z.url().max(255).optional(),
+					website: z.url().max(255).optional(),
 					description: z.string().max(500),
 				}),
 			}),
