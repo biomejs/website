@@ -36,7 +36,7 @@
     "@astrojs/starlight": "0.42.0",
     "@biomejs/biome": "2.5.13",
     "@biomejs/version-utils": "0.4.0",
-    "@biomejs/wasm-web": "https://pkg.pr.new/@biomejs/wasm-web@af4365d",
+    "@biomejs/wasm-web": "https://pkg.pr.new/@biomejs/wasm-web@9bbff0c",
     "@codemirror/lang-css": "6.3.1",
     "@codemirror/lang-html": "6.4.12",
     "@codemirror/lang-javascript": "6.2.5",
