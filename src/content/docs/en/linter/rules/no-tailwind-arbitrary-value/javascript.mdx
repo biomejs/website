@@ -78,52 +78,10 @@ configuration.
 <div className="[&:nth-child(3)]:px-2" />;
 ```
 
-## Options
-
-By default, this rule checks the `class` and `className` JSX attributes.
-The `attributes` option adds more JSX attributes to check, and `functions`
-enables checking string arguments and tagged templates in matching utilities.
-
-```json title='biome.json'
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noTailwindArbitraryValue": {
-					"level": "on",
-					"options": {
-						"attributes": [
-							"classList"
-						],
-						"functions": [
-							"clsx"
-						]
-					}
-				}
-			}
-		}
-	}
-}
-
-```
-
-### attributes
-
-Additional JSX attribute names to check.
-
-Default: `[]` (the `class` and `className` attributes are always checked).
-
-### functions
-
-Function or tagged template names whose classes will be checked for arbitrary values.
-
-Default: `[]`.
-
-```jsx
-<div className={clsx("w-[400px]")} />;
-```
-
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:25 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value\">lint/nursery/noTailwindArbitraryValue</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Found an arbitrary value in a Tailwind CSS class.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div className=&#123;clsx(&quot;w-[400px]&quot;)&#125; /&gt;;<br />   <strong>   │ </strong>                        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Arbitrary values bypass Tailwind's theme configuration, defeating design-system consistency and making styles harder to refactor.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a named utility from your Tailwind configuration instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+The rule checks `class` and `className` JSX attributes, and strings passed to
+`clsx`, `tw`, `twMerge`, `twJoin`, `cva`, `tv`, `cn`, `cc`, `cnb`, and `ctl`.
+Tagged templates using these helpers, including members such as `tw.div`,
+are also checked.
 
 ## Related links
 

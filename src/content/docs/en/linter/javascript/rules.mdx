@@ -189,6 +189,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
+| [noAstroSetHtmlDirective](/linter/rules/no-astro-set-html-directive/javascript) | Disallow the use of Astro's `set:html` directive. |  |
 | [noBaseToString](/linter/rules/no-base-to-string/javascript) | Require stringification to avoid values that only use the default object representation. |  |
 | [noBunModules](/linter/rules/no-bun-modules/javascript) | Forbid the use of Bun builtin modules. |  |
 | [noComponentHookFactories](/linter/rules/no-component-hook-factories/javascript) | Disallows defining React components or custom hooks inside other functions. |  |
@@ -224,9 +225,11 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noReactNativeDeepImports](/linter/rules/no-react-native-deep-imports/javascript) | Disallow deep imports from the `react-native` package. |  |
 | [noReactNativeLiteralColors](/linter/rules/no-react-native-literal-colors/javascript) | Disallow color literals in React Native styles. |  |
 | [noReactNativeRawText](/linter/rules/no-react-native-raw-text/javascript) | Disallow raw text outside `<Text>` components in React Native. |  |
+| [noReactObjectTypeAsDefaultProp](/linter/rules/no-react-object-type-as-default-prop/javascript) | Disallow array, object, and function values as default props in React components. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noReactStringRefs](/linter/rules/no-react-string-refs/javascript) | Disallow string refs in React components. |  |
 | [noRestrictedDependencies](/linter/rules/no-restricted-dependencies/javascript) | Disallow dependencies that are known to have better alternatives. |  |
 | [noReturnInFinally](/linter/rules/no-return-in-finally/javascript) | Disallow return statements in `Promise.prototype.finally()` callbacks. |  |
+| [noSelfImport](/linter/rules/no-self-import/javascript) | Forbid a module from importing itself. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [noSvelteUnnecessaryStateWrap](/linter/rules/no-svelte-unnecessary-state-wrap/javascript) | Disallow unnecessary `$state` wrapping of reactive classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noTailwindArbitraryValue](/linter/rules/no-tailwind-arbitrary-value/javascript) | Disallow arbitrary values in Tailwind CSS utility classes. |  |
 | [noThisOutsideOfClass](/linter/rules/no-this-outside-of-class/javascript) | Disallow `this` outside of classes. |  |
@@ -264,6 +267,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useNamedCaptureGroup](/linter/rules/use-named-capture-group/javascript) | Enforce using named capture groups in regular expression. |  |
 | [useNullishCoalescing](/linter/rules/use-nullish-coalescing/javascript) | Enforce using the nullish coalescing operator (`??`) instead of logical or (`||`). | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [usePlaywrightValidDescribeCallback](/linter/rules/use-playwright-valid-describe-callback/javascript) | Enforce valid `describe()` callback. |  |
+| [usePromiseRejectErrors](/linter/rules/use-promise-reject-errors/javascript) | Require Error objects as Promise rejection reasons. | <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" size="1.2rem" /></span> |
 | [useQwikLoaderLocation](/linter/rules/use-qwik-loader-location/javascript) | Enforce that Qwik loader functions are declared in the correct location. |  |
 | [useReactAsyncServerFunction](/linter/rules/use-react-async-server-function/javascript) | Require functions with the "use server" directive to be async. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useReactCompiler](/linter/rules/use-react-compiler/javascript) | Validate files with React Compiler. |  |
