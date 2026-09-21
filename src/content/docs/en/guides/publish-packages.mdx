@@ -196,6 +196,28 @@ Publish configurations as npm packages by declaring them in a Biome manifest. To
      ```
 </Steps>
 
+ :::tip
+ We strongly suggest adding the `biome-plugin` keyword to your `package.json`, this will help discovering your package:
+
+ ```json title="package.json" ins={11-13} ins="biome-plugin"
+ {
+   "name": "@org/biome-configs",
+   "version": "1.0.0",
+   "files": [
+     "biome-manifest.json",
+     "configs"
+   ],
+   "exports": {
+     "biome": "./biome-manifest.json"
+   },
+   keywords: [
+     "biome-plugin"
+   ]
+ }
+ ```
+ :::
+
+
 ### Re-export configurations from another package
 
 You can re-export configurations from dependencies through your package.
