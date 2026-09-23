@@ -1,0 +1,127 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noTailwindRawColors (HTML)
+description: HTML documentation for noTailwindRawColors
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-tailwind-raw-colors/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-tailwind-raw-colors/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noTailwindRawColors`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`tailwind`](/linter/domains#tailwind)
+- Sources: 
+  - Inspired from [`shadcn/no-raw-colors`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/no-raw-colors.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindRawColors": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow Tailwind CSS utility classes that use raw palette colors.
+
+Palette colors such as `pink-500` and `slate-950` tie styles to specific
+colors instead of the role those colors play. Design system color names such as `primary`
+or `muted` let a design system change its palette without editing each component.
+This rule checks color utilities, including variants and opacity modifiers.
+It allows custom color names, `black`, `white`, `transparent`, `current`, and `inherit`.
+This rule does not check arbitrary values such as `bg-[#ff00aa]`.
+
+## Examples
+
+### Invalid
+
+```html
+<div class="bg-pink-500"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:13 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-raw-colors\">lint/nursery/noTailwindRawColors</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This Tailwind CSS class uses a raw palette color.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;bg-pink-500&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Raw palette colors couple components to specific colors, making design-system changes harder.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a color from your design system. Check your Tailwind config for the available colors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://github.com/biomejs/biome/issues/11342\">https://github.com/biomejs/biome/issues/11342</a></span><span style=\"color: lightgreen;\"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```html
+<div class="hover:text-red-500/80"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:19 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-raw-colors\">lint/nursery/noTailwindRawColors</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This Tailwind CSS class uses a raw palette color.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;hover:text-red-500/80&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Raw palette colors couple components to specific colors, making design-system changes harder.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a color from your design system. Check your Tailwind config for the available colors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://github.com/biomejs/biome/issues/11342\">https://github.com/biomejs/biome/issues/11342</a></span><span style=\"color: lightgreen;\"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```html
+<div class="bg-primary hover:text-muted-foreground"></div>
+```
+
+```html
+<div class="bg-white text-black border-transparent fill-current stroke-inherit"></div>
+```
+
+## Options
+
+### allowedColors
+
+Default: `[]`
+
+Exact palette colors to allow.
+Entries are case-sensitive color names, such as `slate-950` or `pink-500`,
+without utility prefixes, variants, or opacity modifiers.
+Allowing `pink-500` permits it in every color utility, including variants
+and opacity modifiers; it does not allow other pink shades.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindRawColors": {
+					"level": "on",
+					"options": {
+						"allowedColors": [
+							"pink-500"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```html
+<div class="bg-pink-500 hover:text-pink-500/80 border-black"></div>
+```
+
+## See Also
+
+- [noTailwindArbitraryValue](https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value/)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_tailwind_raw_colors.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noTailwindRawColors)
+- <RulePlaygroundLink rule="noTailwindRawColors" category="lint" language="html" code={"<div class=\"bg-pink-500\"></div>\n"} />
+
