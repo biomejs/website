@@ -251,6 +251,7 @@ export const LINT_RULES = {
     noSvelteLegacyConst: "noSvelteLegacyConst",
     noSvelteUnnecessaryStateWrap: "noSvelteUnnecessaryStateWrap",
     noTailwindArbitraryValue: "noTailwindArbitraryValue",
+    noTailwindRawColors: "noTailwindRawColors",
     noThisOutsideOfClass: "noThisOutsideOfClass",
     noTopLevelLiterals: "noTopLevelLiterals",
     noUndeclaredClasses: "noUndeclaredClasses",
