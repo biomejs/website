@@ -764,4 +764,37 @@ test.describe("playground layout", () => {
 			page.getByRole("button", { name: "GritQL search" }),
 		).toBeVisible();
 	});
+
+	test("switches between Biome and Prettier output on mobile", async ({
+		page,
+	}) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto(
+			`/playground?prettier=true#code=${encodeURIComponent(encodeCode("let a=5"))}`,
+		);
+		await expect(page.getByTestId("biome-output")).toBeVisible();
+		await expect(page.getByTestId("prettier-output")).toHaveCount(0);
+
+		await page.getByRole("tab", { name: "Prettier" }).click();
+		await expect(
+			page.getByTestId("prettier-output").getByRole("textbox"),
+		).toHaveText("let a = 5;");
+		await expect(page.getByTestId("biome-output")).toHaveCount(0);
+		await expect(page.getByRole("tab", { name: /Diagnostics/ })).toBeVisible();
+	});
+
+	test("lays out the problems panel below the output on mobile", async ({
+		page,
+	}) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto("/playground");
+		await expect(page.getByTestId("biome-output")).toBeVisible();
+		await expect(page.getByLabel("Resize playground problems")).toHaveCount(0);
+
+		const output = await page.locator(".playground-code-output").boundingBox();
+		const problems = await page.locator(".playground-problems").boundingBox();
+		if (!output || !problems) throw new Error("output not rendered");
+		expect(problems.y).toBeGreaterThanOrEqual(output.y + output.height - 1);
+		expect(problems.height).toBeGreaterThanOrEqual(400);
+	});
 });

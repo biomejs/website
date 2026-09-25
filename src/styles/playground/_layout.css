@@ -387,6 +387,24 @@
 	object-fit: contain;
 }
 
+/* Mobile: Biome and Prettier share one pane, switched by these tabs. */
+.playground-output-switcher {
+	padding: 0;
+}
+
+.playground-output-switcher button {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+}
+
+.playground-output-switcher [aria-selected="true"] {
+	box-shadow: inset 0 -2px 0 var(--sl-color-text-accent);
+}
+
 .playground-problems {
 	position: relative;
 	display: grid;
@@ -536,6 +554,8 @@
 	padding: 0;
 	border: 0;
 	outline-offset: -2px;
+	/* Otherwise a touch drag scrolls the page and cancels the resize. */
+	touch-action: none;
 }
 
 [data-resize-direction="right"] > .playground-resize-handle {
@@ -763,35 +783,18 @@
 		border-bottom: 1px solid var(--sl-color-gray-5);
 	}
 
+	/* The output and the problems panel flow down the page instead of sharing
+	 * a fixed height, so the problems panel isn't resizable here. */
 	.playground-shell.mobile .playground-output-stack {
-		height: max(520px, 65vh);
 		border-right: 0;
 	}
 
-	.playground-code-output.split {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		overflow: auto;
+	.playground-shell.mobile .playground-code-output {
+		flex: none;
+		height: max(420px, 55vh);
 	}
 
-	.playground-shell.mobile .playground-code-output > .playground-output-pane {
-		width: auto !important;
-		flex-basis: auto !important;
-	}
-
-	.playground-shell.mobile
-		.playground-code-output
-		> .playground-output-pane
-		> .playground-resize-handle {
-		display: none;
-	}
-
-	.playground-code-output.split .playground-output-pane {
-		min-height: 260px;
-	}
-
-	.playground-output-pane + .playground-output-pane {
-		border-left: 0;
-		border-top: 1px solid var(--sl-color-gray-5);
+	.playground-shell.mobile .playground-problems:not(.collapsed) {
+		min-height: max(400px, 60vh);
 	}
 }
