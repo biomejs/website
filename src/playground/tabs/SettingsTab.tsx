@@ -1,6 +1,7 @@
 import type { RuleDomains, RuleDomainValue } from "@biomejs/wasm-web";
 import { type Dispatch, type SetStateAction, useId, useState } from "react";
 import EnumSelect from "@/playground/components/EnumSelect";
+import RuleSelect from "@/playground/components/RuleSelect";
 import { ASSIST_ACTIONS } from "@/playground/generated/assistActions.ts";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
@@ -715,30 +716,14 @@ function LinterSettings({
 
 				<div className="field-row">
 					<label htmlFor={lintRulesId}>Lint Rules</label>
-					<select
+					<RuleSelect
 						id={lintRulesId}
 						aria-describedby="lint-rules-description"
-						name="lint-rules"
 						disabled={!enabledLinting}
+						groups={LINT_RULES}
 						value={lintRules}
-						onChange={(e) => setLintRules(e.target.value as LintRule)}
-					>
-						{Object.entries(LINT_RULES).map(([name, value]) =>
-							typeof value === "object" ? (
-								<optgroup key={name} label={name}>
-									{Object.values(value).map((value) => (
-										<option value={value} key={value}>
-											{value}
-										</option>
-									))}
-								</optgroup>
-							) : (
-								<option value={value} key={value}>
-									{value}
-								</option>
-							),
-						)}
-					</select>
+						onChangeValue={setLintRules}
+					/>
 				</div>
 				<h3>Domains</h3>
 				{domainConfigs.map(({ id, label }) => (
@@ -794,23 +779,14 @@ export function AssistSettings({
 				</div>
 				<div className="field-row">
 					<label htmlFor={assistActionsId}>Assist Actions</label>
-					<select
+					<RuleSelect
 						id={assistActionsId}
-						name="assist-actions"
 						disabled={!enabledAssist}
+						groups={ASSIST_ACTIONS}
 						value={assistActions}
-						onChange={(e) => setAssistActions(e.target.value as AssistAction)}
-					>
-						{Object.entries(ASSIST_ACTIONS).map(([name, actions]) => (
-							<optgroup key={name} label={name}>
-								{Object.values(actions).map((action) => (
-									<option value={action} key={action}>
-										{action}
-									</option>
-								))}
-							</optgroup>
-						))}
-					</select>
+						onChangeValue={setAssistActions}
+						searchLabel="Search actions"
+					/>
 				</div>
 			</section>
 		</>
