@@ -21,6 +21,7 @@ description: Comandos y argumentos disponibles en la CLI de Biome.
 - [`biome migrate`↴](#biome-migrate)
 - [`biome migrate prettier`↴](#biome-migrate-prettier)
 - [`biome migrate eslint`↴](#biome-migrate-eslint)
+- [`biome migrate stylelint`↴](#biome-migrate-stylelint)
 - [`biome search`↴](#biome-search)
 - [`biome explain`↴](#biome-explain)
 - [`biome clean`↴](#biome-clean)
@@ -952,6 +953,8 @@ Actualiza la configuración cuando se producen cambios de última hora.
   Intenta encontrar los archivos `.prettierrc`/`prettier.json` y `.prettierignore`, y mapear la configuración de Prettier en el archivo de configuración de Biome.
 - **`eslint`** &mdash;
   Intenta encontrar el archivo de configuración de ESLint en el directorio de trabajo y, como resultado, actualiza el archivo de configuración del bioma.
+- **`stylelint`** &mdash;
+  Intenta encontrar el archivo de configuración de Stylelint en el directorio de trabajo y, como resultado, actualiza el archivo de configuración del bioma.
 
 ## biome migrate prettier
 
@@ -974,6 +977,21 @@ Intenta encontrar el archivo de configuración de ESLint en el directorio de tra
 
 - **`    --include-inspired`** &mdash;
   Incluye reglas inspiradas en una regla eslint en la migración
+- **`    --include-nursery`** &mdash;
+  Incluye normas de guardería en la migración
+- **`-h`**, **`--help`** &mdash;
+  Imprime información de ayuda
+
+## biome migrate stylelint
+
+Intenta encontrar el archivo de configuración de Stylelint en el directorio de trabajo y, como resultado, actualiza el archivo de configuración del bioma.
+
+**Uso**: **`biome`** **`migrate`** **`stylelint`** \[**`--include-inspired`**\] \[**`--include-nursery`**\]
+
+**Opciones disponibles:**
+
+- **`    --include-inspired`** &mdash;
+  Incluye reglas inspiradas en una regla stylelint en la migración
 - **`    --include-nursery`** &mdash;
   Incluye normas de guardería en la migración
 - **`-h`**, **`--help`** &mdash;
