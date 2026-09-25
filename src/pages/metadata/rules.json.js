@@ -385,6 +385,15 @@ export function GET() {
             ],
             "docs": " Enforce style rules to be defined within a cascade layer.\n\n This rule reports style rules that are not contained within a cascade layer (`@layer`).\n Rules outside of a cascade layer (excluding `!important`) always take precedence over\n layered rules, making the cascade more difficult to predict and override.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n .my-style {\n   color: red;\n }\n ```\n\n ```css,expect_diagnostic\n @media (min-width: 600px) {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css,expect_diagnostic\n @import \"foo.css\";\n ```\n\n ### Valid\n\n ```css\n @layer {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css\n @layer base {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css\n @layer base {\n   @media (min-width: 600px) {\n     .my-style {\n       color: red;\n     }\n   }\n }\n ```\n\n ```css\n @import \"foo.css\" layer;\n ```\n\n ```css\n @import \"foo.css\" layer(base);\n ```\n\n ## Options\n\n ### `requireImportLayers`\n\n Whether `@import` rules must specify a cascade layer.\n\n When set to `false`, `@import` rules without a `layer` keyword are allowed.\n\n Default: `true`\n\n ```json,options\n {\n   \"options\": {\n     \"requireImportLayers\": false\n   }\n }\n ```\n\n ```css,use_options\n @import \"foo.css\";\n ```\n\n"
           },
+          "useLogicalProperties": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useLogicalProperties",
+            "link": "https://biomejs.dev/linter/rules/use-logical-properties/css",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Enforce logical properties over physical properties.\n\n Physical properties such as `width`, `height`, `top`, `left`, `margin-top`, `padding-left`,\n `border-top`, `border-left-color`, etc. are tied to writing direction. Logical properties such\n as `inline-size`, `block-size`, `inset-block-start`, `margin-block-start`,\n `padding-inline-end`, `border-block-start`, `border-inline-start-color`, etc. adapt more\n consistently across different writing modes.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {\n   width: 100%;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   top: 0;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   margin-left: 1rem;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   border-left: 1px solid;\n }\n ```\n\n ### Valid\n\n ```css\n p {\n   inline-size: 100%;\n   inset-block-start: 0;\n   margin-inline-start: 1rem;\n   border-inline-start: 1px solid;\n }\n ```\n\n ## Options\n\n ### `direction`\n\n The text direction used to map physical inline properties. It can be either `\"ltr\"` or\n `\"rtl\"`. Defaults to `\"ltr\"`.\n\n ```json,options\n {\n   \"options\": {\n     \"direction\": \"rtl\"\n   }\n }\n ```\n\n #### Invalid\n\n ```css,expect_diagnostic,use_options\n p {\n   margin-left: 1rem;\n }\n ```\n\n #### Valid\n\n ```css,use_options\n p {\n   margin-inline-end: 1rem;\n }\n ```\n\n"
+          },
           "useNamedLayer": {
             "deprecated": false,
             "version": "2.5.9",
@@ -4349,6 +4358,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow functions declared inside loops that capture unsafe outer variables.\n\n Functions created in loops can easily observe values from a later iteration instead of the\n iteration where they were created. This rule reports functions that capture outer bindings\n which may be reassigned while the loop continues.\n\n The rule ignores plain immediately invoked function expressions (IIFEs), but still reports\n async, generator, and self-referential IIFEs because they can escape the current iteration.\n\n ## Examples\n\n ### Invalid\n\n Using `var` for the iteration variable creates a single binding shared across all iterations, so it's unsafe to capture.\n\n ```js,expect_diagnostic\n for (var i = 0; i < 10; i++) {\n     handlers.push(() => i);\n }\n ```\n\n ```js,expect_diagnostic\n let value = 0;\n for (let i = 0; i < 10; i++) {\n     queue.push(function () {\n         return value;\n     });\n     value += 1;\n }\n ```\n\n ### Valid\n\n Using `let` or `const` for the iteration variable creates a fresh binding each iteration, so it's safe to capture.\n\n ```js\n for (let i = 0; i < 10; i++) {\n     handlers.push(() => i);\n }\n ```\n\n ```js\n for (var i = 0; i < 10; i++) {\n     const current = i;\n     queue.push(function() {\n         return current;\n     });\n }\n ```\n\n"
+          },
+          "noMeaninglessVoidOperator": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noMeaninglessVoidOperator",
+            "link": "https://biomejs.dev/linter/rules/no-meaningless-void-operator/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-meaningless-void-operator"
+                }
+              }
+            ],
+            "docs": " Disallow `void` when it does not discard a call's return value or a thenable.\n\n Using `void` communicates that a value is deliberately ignored. Applying it to\n a call that already returns `void` or `undefined` obscures that intent and can\n hide changes to the called API. Non-call operands are also reported, except\n for thenables and the common `void 0` idiom.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-call.ts\n declare function log(): void;\n void log();\n ```\n\n ```js,expect_diagnostic,file=invalid-value.js\n void 1;\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n declare function value(): number;\n void value();\n void Promise.resolve();\n void 0;\n ```\n"
           },
           "noNegationInEqualityCheck": {
             "deprecated": false,
@@ -10959,7 +10985,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 612
+    "numberOrRules": 614
   },
   "syntax": {
     "languages": {
