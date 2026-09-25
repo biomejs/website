@@ -1,0 +1,88 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noMeaninglessVoidOperator (JavaScript)
+description: JavaScript (and super languages) documentation for noMeaninglessVoidOperator
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-meaningless-void-operator/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noMeaninglessVoidOperator`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`types`](/linter/domains#types)
+- Sources: 
+  - Same as [`@typescript-eslint/no-meaningless-void-operator`](https://typescript-eslint.io/rules/no-meaningless-void-operator)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noMeaninglessVoidOperator": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `void` when it does not discard a call's return value or a thenable.
+
+Using `void` communicates that a value is deliberately ignored. Applying it to
+a call that already returns `void` or `undefined` obscures that intent and can
+hide changes to the called API. Non-call operands are also reported, except
+for thenables and the common `void 0` idiom.
+
+## Examples
+
+### Invalid
+
+```ts title='invalid-call.ts'
+declare function log(): void;
+void log();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-call.ts\">/invalid-call.ts</a>:2:1 <a href=\"https://biomejs.dev/linter/rules/no-meaningless-void-operator\">lint/nursery/noMeaninglessVoidOperator</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>void</strong></span><span style=\"color: lightgreen;\"> operator is unnecessary.</span><br />  <br />    <strong>1 │ </strong>declare function log(): void;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>void log();<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This call already returns void or undefined.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>void</strong></span><span style=\"color: lightgreen;\"> to explicitly discard a call's return value or a thenable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>void</strong></span><span style=\"color: lightgreen;\"> operator.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  declare function log(): void;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><strong>v</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\">;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><strong>(</strong></span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><strong>)</strong></span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```js title='invalid-value.js'
+void 1;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-value.js\">/invalid-value.js</a>:1:1 <a href=\"https://biomejs.dev/linter/rules/no-meaningless-void-operator\">lint/nursery/noMeaninglessVoidOperator</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>void</strong></span><span style=\"color: lightgreen;\"> operator is unnecessary.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>void 1;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This operand is neither a function call nor a thenable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>void</strong></span><span style=\"color: lightgreen;\"> to explicitly discard a call's return value or a thenable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>void</strong></span><span style=\"color: lightgreen;\"> operator.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><strong>v</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\">1</span><span style=\"color: Tomato;\">;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><strong>(</strong></span><span style=\"color: MediumSeaGreen;\">1</span><span style=\"color: MediumSeaGreen;\"><strong>)</strong></span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```ts title='valid.ts'
+declare function value(): number;
+void value();
+void Promise.resolve();
+void 0;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_meaningless_void_operator.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noMeaninglessVoidOperator)
+- <RulePlaygroundLink rule="noMeaninglessVoidOperator" category="lint" language="ts" code={"declare function log(): void;\nvoid log();\n"} />
+
