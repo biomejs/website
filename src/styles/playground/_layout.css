@@ -795,3 +795,123 @@
 		border-top: 1px solid var(--sl-color-gray-5);
 	}
 }
+
+/* Looks like the neighbouring selects; opens a popover with a search box. */
+.rule-select-trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 4px;
+	min-width: 0;
+	text-align: left;
+	cursor: pointer;
+}
+
+/* Match the native selects next to it, which inherit a normal weight and
+ * pad their text a little more. */
+.playground-sidebar .settings-tab .rule-select-trigger {
+	width: 120px;
+	height: 25px;
+	padding-left: 10px;
+	font-weight: 400;
+}
+
+.rule-select-value {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Rendered in the top layer; `RuleSelect` sets its position and size. */
+.rule-select-popover {
+	position: fixed;
+	inset: auto;
+	margin: 0;
+	padding: 0;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 6px;
+	background: var(--sl-color-bg);
+	color: var(--sl-color-text);
+	font-size: 0.75rem;
+	line-height: 1rem;
+	box-shadow: 0 6px 20px rgb(0 0 0 / 0.2);
+	overflow: hidden;
+}
+
+.rule-select-popover:popover-open {
+	display: flex;
+	flex-direction: column;
+}
+
+.rule-select-search {
+	flex: 0 0 auto;
+	margin: 6px;
+	padding: 4px 6px;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 4px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+}
+
+.rule-select-search:focus {
+	outline: 2px solid var(--sl-color-accent);
+	outline-offset: -1px;
+}
+
+.rule-select-list {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow-y: auto;
+	border-top: 1px solid var(--sl-color-gray-5);
+}
+
+.rule-select-group-label {
+	position: sticky;
+	top: 0;
+	padding: 3px 8px;
+	background: var(--sl-color-gray-6);
+	color: var(--sl-color-gray-2);
+	font-weight: 600;
+}
+
+.rule-select-option {
+	display: flex;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 3px 8px;
+	cursor: pointer;
+}
+
+.rule-select-option[aria-selected="true"] {
+	background: none;
+	font-weight: 600;
+}
+
+.rule-select-option.active {
+	background: var(--sl-color-gray-5);
+}
+
+.rule-select-name {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.rule-select-name mark {
+	background: none;
+	color: var(--sl-color-text-accent);
+	font-weight: 700;
+}
+
+.rule-select-group {
+	flex-shrink: 0;
+	color: var(--sl-color-gray-3);
+}
+
+.rule-select-empty {
+	padding: 6px 8px;
+	color: var(--sl-color-gray-3);
+}

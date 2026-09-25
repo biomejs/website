@@ -238,6 +238,7 @@
 /* Shared by the settings form and the per-file editor options so every
  * dropdown in the sidebar looks the same. */
 .settings-tab select,
+.settings-tab .rule-select-trigger,
 .playground-editor-options select {
 	background: rgba(0, 0, 0, 0.05);
 	border-radius: 6px;
