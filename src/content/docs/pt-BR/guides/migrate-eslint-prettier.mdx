@@ -12,6 +12,7 @@ Se você não quiser saber os detalhes, apenas execute os seguintes comandos:
 ```shell showLineNumbers=false
 biome migrate eslint --write
 biome migrate prettier --write
+biome migrate stylelint --write
 ```
 
 ## Migre do ESLint
@@ -199,4 +200,99 @@ O subcomando precisa do Node.js para carregar configurações JavaScript como `.
 `biome migrate prettier` não suporta configurações escritas em JSON5, TOML ou YAML.
 
 Como o Prettier leva em consideração os arquivos de ignorados do VCS,
+recomendamos que você habilite a [integração com VCS](/guides/integrate-in-vcs) do Biome.
+
+## Migre do Stylelint
+
+O Biome pode lintar e formatar arquivos CSS.
+Muitas regras do linter CSS do Biome são inspiradas ou idênticas às regras do [Stylelint](https://stylelint.io/).
+No entanto, o Biome tem sua própria convenção de nomenclatura para suas regras.
+O Biome usa `camelCaseRuleName` enquanto o Stylelint usa `kebab-case-rule-name`.
+Além disso, o Biome muitas vezes optou por usar nomes diferentes para transmitir melhor a intenção de suas regras.
+A fonte de uma regra pode ser encontrada na página que descreve a regra.
+Você também pode encontrar a regra equivalente do Biome a partir de uma regra do Stylelint usando a [página dedicada](/linter/rules-sources).
+
+Para facilitar a migração, o Biome fornece o subcomando `biome migrate stylelint`.
+Este subcomando lerá sua configuração do Stylelint e tentará portar suas configurações para o Biome.
+Ele suporta o campo `extends` e carrega tanto as configurações compartilhadas quanto as de plugins.
+O subcomando precisa do Node.js para carregar e resolver todos os plugins e `extends` configurados no arquivo de configuração do Stylelint.
+O subcomando também migra o campo `ignoreFiles`.
+
+Dada a seguinte configuração do Stylelint:
+
+```json title=".stylelintrc.json"
+{
+  "extends": ["stylelint-config-recommended"],
+  "ignoreFiles": ["dist/**"],
+  "rules": {
+    "block-no-empty": true,
+    "font-family-no-duplicate-names": true,
+    "keyframe-declaration-no-important": true
+  },
+  "overrides": [
+    {
+      "files": ["*.scss"],
+      "rules": {
+        "block-no-empty": null
+      }
+    }
+  ]
+}
+```
+
+E a seguinte configuração do Biome:
+
+```json title="biome.json"
+{
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true
+		}
+	}
+}
+```
+
+Execute o seguinte comando para migrar sua configuração do Stylelint para o Biome.
+
+<PackageManagerBiomeCommand command="migrate stylelint --write"/>
+
+O subcomando sobrescreve sua configuração inicial do Biome.
+Por exemplo, ele desativa `recommended`.
+Isso resulta na seguinte configuração do Biome:
+
+```json title="biome.json"
+{
+	"organizeImports": { "enabled": true },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": false,
+			"suspicious": {
+				"noDuplicateFontNames": "error",
+				"noEmptyBlock": "error",
+				"noImportantInKeyframe": "error"
+			}
+		}
+	},
+	"overrides": [
+		{
+			"include": ["*.scss"],
+			"linter": { "rules": { "suspicious": { "noEmptyBlock": "off" } } }
+		}
+	]
+}
+```
+
+Por enquanto, o `biome migrate stylelint` suporta apenas os formatos de configuração JSON (`.stylelintrc.json`) e JavaScript (`.stylelintrc.js`, `.stylelintrc.cjs`, `.stylelintrc.mjs`).
+Configurações escritas em YAML não são suportadas.
+
+Por padrão, o Biome não migra regras inspiradas.
+Você pode usar a flag da CLI `--include-inspired` para migrá-las.
+
+<PackageManagerBiomeCommand command="migrate stylelint --write --include-inspired"/>
+
+Note que é improvável que você obtenha exatamente o mesmo comportamento do Stylelint, porque o Biome optou por não implementar algumas opções de regras ou por se desviar ligeiramente da implementação original.
+
+Como o Stylelint leva em consideração os arquivos de ignorados do VCS,
 recomendamos que você habilite a [integração com VCS](/guides/integrate-in-vcs) do Biome.

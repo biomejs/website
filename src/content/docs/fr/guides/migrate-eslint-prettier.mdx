@@ -12,6 +12,7 @@ Si vous ne voulez pas en connaître les détails, exécutez simplement les comma
 ```shell showLineNumbers=false
 biome migrate eslint --write
 biome migrate prettier --write
+biome migrate stylelint --write
 ```
 
 ## Migrer depuis ESLint
@@ -198,4 +199,99 @@ La sous-commande a besoin de Node.js pour charger les configurations de JavaScri
 `biome migrate prettier` ne prend pas en charge la configuration écrite en JSON5, TOML ou YAML.
 
 Puisque Prettier prend en compte les fichiers ignore du VCS,
+nous vous recommandons d’activer [l’intégration au VCS](/fr/guides/integrate-in-vcs) de Biome.
+
+## Migrer depuis Stylelint
+
+Biome peut analyser et formater les fichiers CSS.
+De nombreuses règles du linter CSS de Biome sont identiques à celles de [Stylelint](https://stylelint.io/) ou s’en inspirent.
+Cependant, Biome a ses propres conventions de nommage pour ses règles.
+Biome utilise `camelCaseRuleName`, tandis que Stylelint utilise `kebab-case-rule-name`.
+En outre, Biome a souvent choisi d’utiliser des noms différents pour mieux traduire l’intention de ses règles.
+La source d’une règle peut être trouvée à la page décrivant cette règle.
+Vous pouvez également trouver l’équivalent en Biome d’une règle de Stylelint en utilisant la [page dédiée](/linter/rules-sources).
+
+Pour faciliter la migration, Biome fournit la sous-commande `biome migrate stylelint`.
+Cette sous-commande lira votre configuration de Stylelint et tentera de transférer ses réglages vers Biome.
+Elle prend en charge le champ `extends` et charge à la fois les configurations partagées et celles des plug-ins.
+La sous-commande a besoin de Node.js pour charger et résoudre tous les plug-ins et `extends` configurés dans le fichier de configuration de Stylelint.
+La sous-commande migre également le champ `ignoreFiles`.
+
+Étant donné la configuration de Stylelint suivante&nbsp;:
+
+```json title=".stylelintrc.json"
+{
+  "extends": ["stylelint-config-recommended"],
+  "ignoreFiles": ["dist/**"],
+  "rules": {
+    "block-no-empty": true,
+    "font-family-no-duplicate-names": true,
+    "keyframe-declaration-no-important": true
+  },
+  "overrides": [
+    {
+      "files": ["*.scss"],
+      "rules": {
+        "block-no-empty": null
+      }
+    }
+  ]
+}
+```
+
+Et la configuration de Biome suivante&nbsp;:
+
+```json title="biome.json"
+{
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true
+		}
+	}
+}
+```
+
+Exécutez la commande suivante pour migrer votre configuration de Stylelint vers Biome&nbsp;:
+
+<PackageManagerBiomeCommand command="migrate stylelint --write"/>
+
+La sous-commande écrase votre configuration de Biome initiale.
+Par exemple, elle désactive `recommended`,
+ce qui produit la configuration de Biome suivante&nbsp;:
+
+```json title="biome.json"
+{
+	"organizeImports": { "enabled": true },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": false,
+			"suspicious": {
+				"noDuplicateFontNames": "error",
+				"noEmptyBlock": "error",
+				"noImportantInKeyframe": "error"
+			}
+		}
+	},
+	"overrides": [
+		{
+			"include": ["*.scss"],
+			"linter": { "rules": { "suspicious": { "noEmptyBlock": "off" } } }
+		}
+	]
+}
+```
+
+Pour l’instant, `biome migrate stylelint` ne prend en charge que les formats de configuration JSON (`.stylelintrc.json`) et JavaScript (`.stylelintrc.js`, `.stylelintrc.cjs`, `.stylelintrc.mjs`).
+La configuration écrite en YAML n’est pas prise en charge.
+
+Par défaut, Biome ne migre pas les règles inspirées.
+Vous pouvez utiliser le drapeau en ligne de commande `--include-inspired` pour les migrer.
+
+<PackageManagerBiomeCommand command="migrate stylelint --write --include-inspired"/>
+
+Notez qu’il est probable que vous n’obteniez pas exactement le même comportement qu’avec Stylelint parce que Biome a choisi de ne pas implémenter certaines options des règles ou de dévier légèrement de l’implémentation originelle.
+
+Puisque Stylelint prend en compte les fichiers ignore du VCS,
 nous vous recommandons d’activer [l’intégration au VCS](/fr/guides/integrate-in-vcs) de Biome.
