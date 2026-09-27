@@ -42,12 +42,14 @@
 	}
 
 	select,
-	input[type="number"] {
+	input[type="number"],
+	.rule-select-trigger {
 		width: 120px;
 	}
 
 	select,
 	input[type="number"],
+	.rule-select-trigger,
 	.input-container {
 		margin-left: auto;
 	}

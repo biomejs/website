@@ -793,7 +793,7 @@
 	}
 }
 
-/* Looks like the neighbouring selects; opens a popover with a search box. */
+/* Looks like the neighbouring selects; opens a Base UI combobox. */
 .rule-select-trigger {
 	display: flex;
 	align-items: center;
@@ -806,8 +806,8 @@
 
 /* Match the native selects next to it, which inherit a normal weight and
  * pad their text a little more. */
-.playground-sidebar .settings-tab .rule-select-trigger {
-	width: 120px;
+.settings-tab .rule-select-trigger {
+	flex-shrink: 0;
 	height: 25px;
 	padding-left: 10px;
 	font-weight: 400;
@@ -820,12 +820,18 @@
 	white-space: nowrap;
 }
 
-/* Rendered in the top layer; `RuleSelect` sets its position and size. */
-.rule-select-popover {
-	position: fixed;
-	inset: auto;
-	margin: 0;
-	padding: 0;
+/* The popup and dialog are portalled out of the playground, so they set
+ * their own type size. */
+.rule-select-positioner {
+	z-index: 100;
+	outline: 0;
+}
+
+.rule-select-popup,
+.rule-select-dialog {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
 	border: 1px solid var(--sl-color-gray-5);
 	border-radius: 6px;
 	background: var(--sl-color-bg);
@@ -836,9 +842,54 @@
 	overflow: hidden;
 }
 
-.rule-select-popover:popover-open {
+.rule-select-popup {
+	width: 300px;
+	min-width: var(--anchor-width);
+	max-width: var(--available-width);
+	max-height: min(400px, var(--available-height));
+}
+
+.rule-select-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	background: rgb(0 0 0 / 0.4);
+}
+
+.rule-select-dialog {
+	position: fixed;
+	inset: 16px;
+	z-index: 101;
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
+.rule-select-dialog-header {
 	display: flex;
-	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 8px 0 12px;
+}
+
+/* Undo the playground's global `h2` panel heading style, including its
+ * `:root[data-theme="dark"] h2` variant, which comes later in the cascade. */
+:root .rule-select-dialog .rule-select-dialog-title {
+	margin: 0;
+	padding: 0;
+	background: none;
+	box-shadow: none;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.rule-select-dialog-close {
+	display: flex;
+	padding: 8px;
+	border: 0;
+	background: none;
+	color: inherit;
+	font-size: 1rem;
+	cursor: pointer;
 }
 
 .rule-select-search {
@@ -852,6 +903,13 @@
 	font: inherit;
 }
 
+.rule-select-dialog .rule-select-search {
+	margin: 8px 12px;
+	padding: 8px;
+	/* 16px stops iOS Safari from zooming in when the input is focused. */
+	font-size: 1rem;
+}
+
 .rule-select-search:focus {
 	outline: 2px solid var(--sl-color-accent);
 	outline-offset: -1px;
@@ -861,6 +919,7 @@
 	flex: 1 1 auto;
 	min-height: 0;
 	overflow-y: auto;
+	overscroll-behavior: contain;
 	border-top: 1px solid var(--sl-color-gray-5);
 }
 
@@ -879,14 +938,18 @@
 	gap: 8px;
 	padding: 3px 8px;
 	cursor: pointer;
+	outline: 0;
 }
 
-.rule-select-option[aria-selected="true"] {
-	background: none;
+.rule-select-dialog .rule-select-option {
+	padding: 8px 12px;
+}
+
+.rule-select-option[data-selected] {
 	font-weight: 600;
 }
 
-.rule-select-option.active {
+.rule-select-option[data-highlighted] {
 	background: var(--sl-color-gray-5);
 }
 
@@ -903,12 +966,24 @@
 	font-weight: 700;
 }
 
-.rule-select-group {
+.rule-select-option-group {
 	flex-shrink: 0;
 	color: var(--sl-color-gray-3);
 }
 
-.rule-select-empty {
+/* The accent and grey text don't have enough contrast against the highlight
+ * background, so the highlighted row uses the normal text colour and marks
+ * matches with an underline instead. */
+.rule-select-option[data-highlighted] mark,
+.rule-select-option[data-highlighted] .rule-select-option-group {
+	color: inherit;
+}
+
+.rule-select-option[data-highlighted] mark {
+	text-decoration: underline;
+}
+
+.rule-select-empty:not(:empty) {
 	padding: 6px 8px;
 	color: var(--sl-color-gray-3);
 }

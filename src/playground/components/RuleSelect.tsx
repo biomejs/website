@@ -1,357 +1,243 @@
-import { ChevronDown } from "lucide-react";
-import {
-	type KeyboardEvent,
-	type ReactNode,
-	useEffect,
-	useId,
-	useMemo,
-	useRef,
-	useState,
-} from "react";
+import { Combobox } from "@base-ui/react/combobox";
+import { Dialog } from "@base-ui/react/dialog";
+import { ChevronDown, X } from "lucide-react";
+import { type ReactNode, useId, useMemo, useRef, useState } from "react";
 import { fuzzyMatch } from "@/playground/fuzzy.ts";
-import { classnames } from "@/playground/utils";
+import { useWindowSize } from "@/playground/utils";
 
-interface Option<T extends string> {
-	group: string;
-	value: T;
-}
-
-interface Result<T extends string> extends Option<T> {
-	/** Matched character indices in `value`. Absent when not searching. */
-	indices?: number[];
+interface Group<T extends string> {
+	/** The group name, or an empty string for the ranked search results. */
+	value: string;
+	items: T[];
 }
 
 interface Props<T extends string> {
-	id?: string;
+	/** Visible label for the dropdown. */
+	label: string;
 	/** Rules grouped by name, in the shape of the generated `LINT_RULES`. */
 	groups: Record<string, Record<string, T>>;
 	value: T;
 	onChangeValue: (value: T) => void;
 	disabled?: boolean;
-	"aria-describedby"?: string;
 	/** Accessible name of the search box, also used as its placeholder. */
 	searchLabel?: string;
 }
 
-const POPOVER_WIDTH = 300;
-const POPOVER_GAP = 4;
-const VIEWPORT_MARGIN = 8;
-
 /**
- * A dropdown for picking one rule (or preset) from a grouped list. It opens a
- * popover with a search box that fuzzy filters the list.
+ * A dropdown for picking one rule (or preset) from a grouped list, with a
+ * search box that fuzzy filters it. On mobile the list opens in a dialog.
  */
 export default function RuleSelect<T extends string>({
-	id,
+	label,
 	groups,
 	value,
 	onChangeValue,
 	disabled,
-	"aria-describedby": ariaDescribedBy,
 	searchLabel = "Search rules",
 }: Props<T>) {
-	const popoverId = useId();
-	const listId = useId();
-	const triggerRef = useRef<HTMLButtonElement>(null);
-	const popoverRef = useRef<HTMLDivElement>(null);
+	const { width } = useWindowSize();
+	const mobile = width !== undefined && width <= 768;
+	const labelId = useId();
+	const valueId = useId();
 	const searchRef = useRef<HTMLInputElement>(null);
-	const listRef = useRef<HTMLDivElement>(null);
+	const dialogRef = useRef<HTMLDivElement>(null);
 	const [open, setOpen] = useState(false);
 	const [query, setQuery] = useState("");
-	const [activeIndex, setActiveIndex] = useState(0);
 
-	const options = useMemo(
+	const items: Group<T>[] = useMemo(
 		() =>
-			Object.entries(groups).flatMap(([group, rules]) =>
-				Object.values(rules).map((value) => ({ group, value })),
-			),
+			Object.entries(groups).map(([group, rules]) => ({
+				value: group,
+				items: Object.values(rules),
+			})),
 		[groups],
 	);
 
-	const results: Result<T>[] = useMemo(() => {
+	const groupOf = useMemo(
+		() =>
+			new Map(
+				items.flatMap((group) =>
+					group.items.map((rule) => [rule, group.value]),
+				),
+			),
+		[items],
+	);
+
+	// Base UI filters in place and keeps the groups; searching instead ranks
+	// every rule by how well it matches, in a single unlabelled group.
+	const { filteredItems, matches } = useMemo(() => {
 		const trimmed = query.trim();
 		if (trimmed === "") {
-			return options;
+			return { filteredItems: items, matches: undefined };
 		}
-		return options
-			.flatMap((option) => {
-				const match = fuzzyMatch(trimmed, option.value);
-				return match ? [{ ...option, ...match }] : [];
+		const ranked = items
+			.flatMap((group) => group.items)
+			.flatMap((rule) => {
+				const match = fuzzyMatch(trimmed, rule);
+				return match ? [{ rule, ...match }] : [];
 			})
 			.sort(
 				(a, b) =>
 					b.score - a.score ||
-					a.value.length - b.value.length ||
-					a.value.localeCompare(b.value),
+					a.rule.length - b.rule.length ||
+					a.rule.localeCompare(b.rule),
 			);
-	}, [options, query]);
-
-	const searching = query.trim() !== "";
-	const optionId = (index: number) => `${listId}-option-${index}`;
-
-	// The popover lives in the top layer, so place it next to the trigger by
-	// hand, flipping above it when there isn't room below.
-	useEffect(() => {
-		const popover = popoverRef.current;
-		const trigger = triggerRef.current;
-		if (!open || !popover || !trigger) {
-			return;
-		}
-		const place = () => {
-			const rect = trigger.getBoundingClientRect();
-			const width = Math.min(
-				POPOVER_WIDTH,
-				window.innerWidth - 2 * VIEWPORT_MARGIN,
-			);
-			const left = Math.min(
-				Math.max(VIEWPORT_MARGIN, rect.left),
-				window.innerWidth - width - VIEWPORT_MARGIN,
-			);
-			const below = window.innerHeight - rect.bottom - POPOVER_GAP;
-			const above = rect.top - POPOVER_GAP;
-			const flip = below < 240 && above > below;
-			popover.style.width = `${width}px`;
-			popover.style.left = `${left}px`;
-			popover.style.maxHeight = `${(flip ? above : below) - VIEWPORT_MARGIN}px`;
-			popover.style.top = flip ? "auto" : `${rect.bottom + POPOVER_GAP}px`;
-			popover.style.bottom = flip
-				? `${window.innerHeight - rect.top + POPOVER_GAP}px`
-				: "auto";
+		return {
+			filteredItems:
+				ranked.length > 0
+					? [{ value: "", items: ranked.map(({ rule }) => rule) }]
+					: [],
+			matches: new Map(ranked.map(({ rule, indices }) => [rule, indices])),
 		};
-		place();
-		window.addEventListener("resize", place);
-		window.addEventListener("scroll", place, true);
-		return () => {
-			window.removeEventListener("resize", place);
-			window.removeEventListener("scroll", place, true);
-		};
-	}, [open]);
+	}, [items, query]);
 
-	useEffect(() => {
-		if (open) {
-			document
-				.getElementById(`${listId}-option-${activeIndex}`)
-				?.scrollIntoView({ block: "nearest" });
+	const handleOpenChange = (nextOpen: boolean) => {
+		setOpen(nextOpen);
+		if (!nextOpen) {
+			setQuery("");
 		}
-	}, [open, listId, activeIndex]);
+	};
 
-	// Opening and light dismissal (clicking outside, Escape) are handled by the
-	// browser; keep React's state in sync with it.
-	useEffect(() => {
-		const popover = popoverRef.current;
-		if (!popover) {
-			return;
-		}
-		const handleToggle = (event: Event) => {
-			const opening = (event as ToggleEvent).newState === "open";
-			setOpen(opening);
-			if (opening) {
-				searchRef.current?.focus();
-			} else {
-				setQuery("");
+	const rootProps = {
+		items,
+		filteredItems,
+		value,
+		onValueChange: (next: T | null) => {
+			if (next !== null) {
+				onChangeValue(next);
 			}
-		};
-		popover.addEventListener("toggle", handleToggle);
-		return () => popover.removeEventListener("toggle", handleToggle);
-	}, []);
-
-	const show = (initialQuery = "") => {
-		setQuery(initialQuery);
-		setActiveIndex(
-			initialQuery === ""
-				? Math.max(
-						0,
-						options.findIndex((option) => option.value === value),
-					)
-				: 0,
-		);
-		popoverRef.current?.showPopover();
+			handleOpenChange(false);
+		},
+		inputValue: query,
+		onInputValueChange: setQuery,
+		open,
+		onOpenChange: handleOpenChange,
+		autoHighlight: true,
+		disabled,
 	};
 
-	const close = () => {
-		popoverRef.current?.hidePopover();
-		triggerRef.current?.focus();
-	};
-
-	const select = (option: Option<T> | undefined) => {
-		if (!option) {
-			return;
-		}
-		onChangeValue(option.value);
-		close();
-	};
-
-	const handleTriggerKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
-		if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-			e.preventDefault();
-			show();
-		} else if (
-			e.key.length === 1 &&
-			e.key !== " " &&
-			!e.ctrlKey &&
-			!e.metaKey &&
-			!e.altKey
-		) {
-			// Start typing on the closed dropdown to search straight away.
-			e.preventDefault();
-			show(e.key);
-		}
-	};
-
-	const handleSearchKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-		const last = results.length - 1;
-		switch (e.key) {
-			case "ArrowDown":
-			case "ArrowUp": {
-				e.preventDefault();
-				if (last < 0) {
-					return;
-				}
-				const step = e.key === "ArrowDown" ? 1 : -1;
-				setActiveIndex((index) => (index + step + last + 1) % (last + 1));
-				return;
-			}
-			case "PageDown":
-			case "PageUp": {
-				e.preventDefault();
-				const step = e.key === "PageDown" ? 10 : -10;
-				setActiveIndex((index) => Math.min(last, Math.max(0, index + step)));
-				return;
-			}
-			case "Enter":
-				e.preventDefault();
-				select(results[activeIndex]);
-				return;
-			case "Escape":
-				e.preventDefault();
-				close();
-				return;
-			case "Tab":
-				popoverRef.current?.hidePopover();
-				return;
-		}
-	};
-
-	const renderOption = (option: Result<T>, index: number) => (
-		// biome-ignore lint/a11y/useFocusableInteractive: Focus stays in the search box, which points at the active option with `aria-activedescendant`.
-		// biome-ignore lint/a11y/useKeyWithClickEvents: The search box handles the keyboard for the whole list.
-		<div
-			key={option.value}
-			id={optionId(index)}
-			role="option"
-			aria-selected={option.value === value}
-			className={classnames(
-				"rule-select-option",
-				index === activeIndex && "active",
-			)}
-			onMouseMove={() => setActiveIndex(index)}
-			onClick={() => select(option)}
-		>
-			<span className="rule-select-name">
-				{highlight(option.value, option.indices)}
-			</span>
-			{searching && <span className="rule-select-group">{option.group}</span>}
-		</div>
+	const search = (
+		<Combobox.Input
+			ref={searchRef}
+			className="rule-select-search"
+			placeholder={`${searchLabel}…`}
+			aria-label={searchLabel}
+		/>
 	);
 
-	return (
+	const list = (
 		<>
-			<button
-				ref={triggerRef}
-				id={id}
-				type="button"
-				className="rule-select-trigger"
-				popoverTarget={popoverId}
-				aria-haspopup="listbox"
-				aria-expanded={open}
-				aria-describedby={ariaDescribedBy}
-				disabled={disabled}
-				onKeyDown={handleTriggerKeyDown}
-				onClick={(e) => {
-					// Let `popoverTarget` close an open popover, but open it
-					// ourselves so the list starts at the current rule.
-					if (!open) {
-						e.preventDefault();
-						show();
-					}
-				}}
-			>
-				<span className="rule-select-value">{value}</span>
-				<ChevronDown
-					className="playground-icon"
-					strokeWidth={3}
-					aria-hidden="true"
-				/>
-			</button>
-			<div
-				ref={popoverRef}
-				id={popoverId}
-				popover="auto"
-				className="rule-select-popover"
-			>
-				<input
-					ref={searchRef}
-					type="text"
-					className="rule-select-search"
-					placeholder={`${searchLabel}…`}
-					aria-label={searchLabel}
-					role="combobox"
-					aria-autocomplete="list"
-					aria-expanded={open}
-					aria-controls={listId}
-					aria-activedescendant={
-						open && results.length > 0 ? optionId(activeIndex) : undefined
-					}
-					autoComplete="off"
-					spellCheck={false}
-					value={query}
-					onChange={(e) => {
-						setQuery(e.target.value);
-						setActiveIndex(0);
-						listRef.current?.scrollTo({ top: 0 });
-					}}
-					onKeyDown={handleSearchKeyDown}
-				/>
-				<div
-					ref={listRef}
-					id={listId}
-					role="listbox"
-					className="rule-select-list"
-					// Keep focus in the search box when clicking an option.
-					onMouseDown={(e) => e.preventDefault()}
-				>
-					{open && results.length === 0 && (
-						<div className="rule-select-empty">No matches</div>
-					)}
-					{open &&
-						(searching
-							? results.map(renderOption)
-							: renderGroups(results, renderOption))}
-				</div>
-			</div>
+			<Combobox.Empty className="rule-select-empty">No matches</Combobox.Empty>
+			<Combobox.List className="rule-select-list" aria-label={label}>
+				{(group: Group<T>) => (
+					<Combobox.Group key={group.value} items={group.items}>
+						{group.value && (
+							<Combobox.GroupLabel className="rule-select-group-label">
+								{group.value}
+							</Combobox.GroupLabel>
+						)}
+						<Combobox.Collection>
+							{(rule: T) => (
+								<Combobox.Item
+									key={rule}
+									value={rule}
+									className="rule-select-option"
+								>
+									<span className="rule-select-name">
+										{highlight(rule, matches?.get(rule))}
+									</span>
+									{matches && (
+										<span className="rule-select-option-group">
+											{groupOf.get(rule)}
+										</span>
+									)}
+								</Combobox.Item>
+							)}
+						</Combobox.Collection>
+					</Combobox.Group>
+				)}
+			</Combobox.List>
 		</>
 	);
-}
 
-function renderGroups<T extends string>(
-	options: Result<T>[],
-	renderOption: (option: Result<T>, index: number) => ReactNode,
-): ReactNode[] {
-	const groups = new Map<string, ReactNode[]>();
-	options.forEach((option, index) => {
-		const rendered = groups.get(option.group) ?? [];
-		rendered.push(renderOption(option, index));
-		groups.set(option.group, rendered);
-	});
-	return [...groups].map(([group, rendered]) => (
-		// biome-ignore lint/a11y/useSemanticElements: A `<fieldset>` isn't valid inside a listbox.
-		<div key={group} role="group" aria-label={group}>
-			<div className="rule-select-group-label" aria-hidden="true">
-				{group}
-			</div>
-			{rendered}
-		</div>
-	));
+	const triggerContents = (
+		<>
+			<span id={valueId} className="rule-select-value">
+				{value}
+			</span>
+			<ChevronDown
+				className="playground-icon"
+				strokeWidth={3}
+				aria-hidden="true"
+			/>
+		</>
+	);
+
+	if (mobile) {
+		return (
+			<>
+				<span id={labelId}>{label}</span>
+				<Dialog.Root open={open} onOpenChange={handleOpenChange}>
+					<Dialog.Trigger
+						className="rule-select-trigger"
+						disabled={disabled}
+						aria-labelledby={`${labelId} ${valueId}`}
+					>
+						{triggerContents}
+					</Dialog.Trigger>
+					<Dialog.Portal>
+						<Dialog.Backdrop className="rule-select-backdrop" />
+						<Dialog.Popup
+							ref={dialogRef}
+							className="rule-select-dialog"
+							// Start in the search box, except on touch, where focusing the
+							// dialog itself keeps the on-screen keyboard out of the way.
+							initialFocus={(openType) =>
+								openType === "touch" ? dialogRef.current : searchRef.current
+							}
+						>
+							<div className="rule-select-dialog-header">
+								<Dialog.Title className="rule-select-dialog-title">
+									{label}
+								</Dialog.Title>
+								<Dialog.Close
+									className="rule-select-dialog-close"
+									aria-label="Close"
+								>
+									<X className="playground-icon" aria-hidden="true" />
+								</Dialog.Close>
+							</div>
+							<Combobox.Root {...rootProps} inline>
+								{search}
+								{list}
+							</Combobox.Root>
+						</Dialog.Popup>
+					</Dialog.Portal>
+				</Dialog.Root>
+			</>
+		);
+	}
+
+	return (
+		<Combobox.Root {...rootProps}>
+			<Combobox.Label>{label}</Combobox.Label>
+			<Combobox.Trigger className="rule-select-trigger">
+				{triggerContents}
+			</Combobox.Trigger>
+			<Combobox.Portal>
+				<Combobox.Positioner
+					className="rule-select-positioner"
+					align="start"
+					sideOffset={4}
+				>
+					<Combobox.Popup className="rule-select-popup" aria-label={label}>
+						{search}
+						{list}
+					</Combobox.Popup>
+				</Combobox.Positioner>
+			</Combobox.Portal>
+		</Combobox.Root>
+	);
 }
 
 function highlight(text: string, indices: number[] | undefined): ReactNode {

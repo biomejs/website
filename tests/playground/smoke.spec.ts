@@ -284,10 +284,8 @@ test.describe("playground links", () => {
 			.poll(() => new URL(page.url()).searchParams.get("lintRules"))
 			.toBe("noConsole");
 
-		// Typing on the closed dropdown starts a search.
-		await lintRules.press("u");
-		await expect(search).toHaveValue("u");
-		await search.pressSequentially("nusedvar");
+		await lintRules.click();
+		await search.fill("unusedvar");
 		await options.filter({ hasText: /^noUnusedVariables/ }).click();
 		await expect(lintRules).toHaveText("noUnusedVariables");
 
@@ -300,6 +298,32 @@ test.describe("playground links", () => {
 		await lintRules.click();
 		await page.getByTestId("editor").click();
 		await expect(search).toBeHidden();
+	});
+
+	test("searches lint rules in a dialog on mobile", async ({ page }) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto("/playground?lintRules=none#code=");
+		await page.getByRole("button", { name: "Files & settings" }).click();
+		const lintRules = page.getByRole("button", { name: "Lint Rules none" });
+		await lintRules.click();
+
+		const dialog = page.getByRole("dialog", { name: "Lint Rules" });
+		await expect(dialog).toBeVisible();
+		const search = dialog.getByRole("combobox", { name: "Search rules" });
+		await expect(search).toBeFocused();
+		await search.fill("nconsl");
+		await dialog
+			.getByRole("option")
+			.filter({ hasText: /^noConsole/ })
+			.click();
+		await expect(dialog).toBeHidden();
+		await expect(
+			page.getByRole("button", { name: "Lint Rules noConsole" }),
+		).toBeVisible();
+
+		await page.getByRole("button", { name: "Lint Rules noConsole" }).click();
+		await dialog.getByRole("button", { name: "Close" }).click();
+		await expect(dialog).toBeHidden();
 	});
 
 	test("loads code from the hash", async ({ page }) => {

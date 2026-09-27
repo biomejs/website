@@ -698,7 +698,6 @@ function LinterSettings({
 
 	const domainValues: RuleDomainValue[] = ["all", "recommended", "none"];
 	const lintingEnabled = useId();
-	const lintRulesId = useId();
 	return (
 		<>
 			<h2>Linter options</h2>
@@ -715,10 +714,8 @@ function LinterSettings({
 				</div>
 
 				<div className="field-row">
-					<label htmlFor={lintRulesId}>Lint Rules</label>
 					<RuleSelect
-						id={lintRulesId}
-						aria-describedby="lint-rules-description"
+						label="Lint Rules"
 						disabled={!enabledLinting}
 						groups={LINT_RULES}
 						value={lintRules}
@@ -762,7 +759,6 @@ export function AssistSettings({
 	setEnabledAssist: (value: boolean) => void;
 }) {
 	const assistEnabledId = useId();
-	const assistActionsId = useId();
 	return (
 		<>
 			<h2>Assist options</h2>
@@ -778,9 +774,8 @@ export function AssistSettings({
 					<label htmlFor={assistEnabledId}>Assist enabled</label>
 				</div>
 				<div className="field-row">
-					<label htmlFor={assistActionsId}>Assist Actions</label>
 					<RuleSelect
-						id={assistActionsId}
+						label="Assist Actions"
 						disabled={!enabledAssist}
 						groups={ASSIST_ACTIONS}
 						value={assistActions}
