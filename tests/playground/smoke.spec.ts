@@ -58,6 +58,15 @@ test.describe("playground should format code", () => {
 		});
 	});
 
+	test("shows how Biome's output compares to Prettier", async ({ page }) => {
+		await page.goto(
+			`/playground?prettier=true#code=${encodeURIComponent(encodeCode("let a=5"))}`,
+		);
+		await expect(page.getByTestId("prettier-diff-hint")).toHaveText(
+			"Exact match",
+		);
+	});
+
 	test.describe("on typing", () => {
 		test("javascript", async ({ page }) => {
 			await page.goto("/playground");
@@ -763,5 +772,55 @@ test.describe("playground layout", () => {
 		await expect(
 			page.getByRole("button", { name: "GritQL search" }),
 		).toBeVisible();
+	});
+
+	test("stacks Biome and Prettier output on mobile", async ({ page }) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		const code = Array.from(
+			{ length: 60 },
+			(_, index) => `let a${index}=${index}`,
+		).join("\n");
+		await page.goto(
+			`/playground?prettier=true#code=${encodeURIComponent(encodeCode(code))}`,
+		);
+		const biome = page.getByTestId("biome-output");
+		const prettier = page.getByTestId("prettier-output");
+		await expect(prettier.getByRole("textbox")).toContainText("let a59 = 59;");
+		await expect(page.getByTestId("prettier-diff-hint")).toHaveText(
+			"Exact match",
+		);
+
+		const biomeBox = await biome.boundingBox();
+		const prettierBox = await prettier.boundingBox();
+		if (!biomeBox || !prettierBox) throw new Error("outputs not rendered");
+		expect(prettierBox.y).toBeGreaterThanOrEqual(
+			biomeBox.y + biomeBox.height - 1,
+		);
+
+		await biome.locator(".cm-scroller").evaluate((scroller) => {
+			scroller.scrollTop = 300;
+		});
+		await expect
+			.poll(() =>
+				prettier
+					.locator(".cm-scroller")
+					.evaluate((scroller) => scroller.scrollTop),
+			)
+			.toBe(300);
+	});
+
+	test("lays out the problems panel below the output on mobile", async ({
+		page,
+	}) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto("/playground");
+		await expect(page.getByTestId("biome-output")).toBeVisible();
+		await expect(page.getByLabel("Resize playground problems")).toHaveCount(0);
+
+		const output = await page.locator(".playground-code-output").boundingBox();
+		const problems = await page.locator(".playground-problems").boundingBox();
+		if (!output || !problems) throw new Error("output not rendered");
+		expect(problems.y).toBeGreaterThanOrEqual(output.y + output.height - 1);
+		expect(problems.height).toBeGreaterThanOrEqual(400);
 	});
 });

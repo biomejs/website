@@ -20,12 +20,13 @@ import {
 	ChevronUp,
 	X,
 } from "lucide-react";
-import type { ReactNode, RefObject } from "react";
+import type { ReactNode, RefObject, UIEvent } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import CodeMirror from "./CodeMirror.tsx";
 import { javascriptWithEmbeddedSnippets } from "./codemirror/javascriptWithEmbeddedSnippets.ts";
 import BiomeHeader from "./components/BiomeHeader.tsx";
 import PlaygroundSidebar from "./components/PlaygroundSidebar.tsx";
+import PrettierDiffHint from "./components/PrettierDiffHint.tsx";
 import PrettierHeader from "./components/PrettierHeader.tsx";
 import Resizable from "./components/Resizable.tsx";
 import ControlFlowTab from "./tabs/ControlFlowTab.tsx";
@@ -260,6 +261,7 @@ export default function Playground({
 
 	const renderOutput = (onCollapse?: () => void) => (
 		<OutputStack
+			mobile={mobile}
 			state={playgroundState}
 			setPlaygroundState={setPlaygroundState}
 			code={code}
@@ -488,6 +490,7 @@ export default function Playground({
 }
 
 function OutputStack({
+	mobile,
 	state,
 	setPlaygroundState,
 	code,
@@ -497,6 +500,11 @@ function OutputStack({
 	editorRef,
 	onCollapse,
 }: {
+	/**
+	 * Stack Biome and Prettier (scrolling together) instead of side by side, and
+	 * give the problems panel a fixed size instead of a resize handle.
+	 */
+	mobile: boolean;
 	state: Parameters<typeof PlaygroundSidebar>[0]["state"];
 	setPlaygroundState: Parameters<
 		typeof PlaygroundSidebar
@@ -510,12 +518,128 @@ function OutputStack({
 	onCollapse?: (() => void) | undefined;
 }) {
 	const [problemsCollapsed, setProblemsCollapsed] = useState(false);
+	// Editors whose scroll position was just set to follow the other pane, so
+	// their own scroll event doesn't echo back.
+	const followingScrollers = useRef(new Set<Element>());
+	const syncOutputScroll = (event: UIEvent<HTMLDivElement>) => {
+		const source = event.target;
+		if (!(source instanceof HTMLElement)) return;
+		if (!source.classList.contains("cm-scroller")) return;
+		if (followingScrollers.current.delete(source)) return;
+		for (const scroller of event.currentTarget.querySelectorAll(
+			".cm-scroller",
+		)) {
+			if (scroller === source) continue;
+			const { scrollTop, scrollLeft } = scroller;
+			scroller.scrollTop = source.scrollTop;
+			scroller.scrollLeft = source.scrollLeft;
+			if (
+				scroller.scrollTop !== scrollTop ||
+				scroller.scrollLeft !== scrollLeft
+			) {
+				followingScrollers.current.add(scroller);
+			}
+		}
+	};
+	const comparePrettier = state.comparePrettier && state.shouldFormat;
 	const outputCode =
 		state.fixMode === "none"
 			? state.shouldFormat
 				? biomeOutput.formatter.code
 				: code
 			: biomeOutput.analysis.fixed;
+	const biomeCode = (
+		<CodeMirror
+			value={outputCode}
+			extensions={extensions}
+			readOnly={true}
+			data-testid="biome-output"
+		/>
+	);
+	const diffHint = (
+		<PrettierDiffHint
+			prettier={prettierOutput}
+			biome={biomeOutput.formatter.code}
+		/>
+	);
+	const prettierCode = (
+		<CodeMirror
+			value={
+				prettierOutput.type === "SUCCESS"
+					? prettierOutput.code
+					: prettierOutput.stack
+			}
+			extensions={prettierOutput.type === "SUCCESS" ? extensions : []}
+			readOnly={true}
+			data-testid="prettier-output"
+		/>
+	);
+
+	const problemsClassName = `playground-problems${problemsCollapsed ? " collapsed" : ""}`;
+	const problemsContent = (
+		<>
+			<div className="playground-problems-tabs" role="tablist">
+				<button
+					type="button"
+					role="tab"
+					aria-selected={
+						state.problemsTab === PlaygroundProblemsTab.Diagnostics
+					}
+					onClick={() =>
+						setPlaygroundState((current) => ({
+							...current,
+							problemsTab: PlaygroundProblemsTab.Diagnostics,
+						}))
+					}
+				>
+					Diagnostics ({biomeOutput.diagnostics.list.length})
+				</button>
+				<button
+					type="button"
+					role="tab"
+					aria-selected={state.problemsTab === PlaygroundProblemsTab.Console}
+					onClick={() =>
+						setPlaygroundState((current) => ({
+							...current,
+							problemsTab: PlaygroundProblemsTab.Console,
+						}))
+					}
+				>
+					Console
+				</button>
+				<button
+					className="playground-problems-collapse"
+					type="button"
+					aria-label={
+						problemsCollapsed
+							? "Expand problems panel"
+							: "Collapse problems panel"
+					}
+					aria-expanded={!problemsCollapsed}
+					onClick={() => setProblemsCollapsed((collapsed) => !collapsed)}
+				>
+					{problemsCollapsed ? (
+						<ChevronUp className="playground-icon" />
+					) : (
+						<ChevronDown className="playground-icon" />
+					)}
+				</button>
+			</div>
+			{!problemsCollapsed && (
+				<div className="playground-problems-body">
+					{state.problemsTab === PlaygroundProblemsTab.Diagnostics ? (
+						<DiagnosticsListTab
+							editorRef={editorRef}
+							code={code}
+							diagnostics={biomeOutput.diagnostics.list}
+						/>
+					) : (
+						<DiagnosticsConsoleTab console={biomeOutput.diagnostics.console} />
+					)}
+				</div>
+			)}
+		</>
+	);
 
 	return (
 		<>
@@ -585,126 +709,72 @@ function OutputStack({
 				)}
 			</div>
 			<div
-				className={`playground-code-output${state.comparePrettier ? " split" : ""}`}
+				className={`playground-code-output${
+					state.comparePrettier ? (mobile ? " stacked" : " split") : ""
+				}`}
+				onScrollCapture={
+					comparePrettier && mobile ? syncOutputScroll : undefined
+				}
 			>
-				{state.comparePrettier && state.shouldFormat ? (
-					<Resizable
-						name="playground-biome-output"
-						direction="right"
-						className="playground-output-pane"
-						minimumSize={140}
-					>
-						<div className="playground-output-heading biome">
-							<BiomeHeader />
+				{comparePrettier && mobile ? (
+					<>
+						<div className="playground-output-pane">
+							<div className="playground-output-heading biome">
+								<BiomeHeader />
+								{diffHint}
+							</div>
+							{biomeCode}
 						</div>
-						<CodeMirror
-							value={outputCode}
-							extensions={extensions}
-							readOnly={true}
-							data-testid="biome-output"
-						/>
-					</Resizable>
+						<div className="playground-output-pane">
+							<div className="playground-output-heading prettier">
+								<PrettierHeader />
+							</div>
+							{prettierCode}
+						</div>
+					</>
+				) : comparePrettier ? (
+					<>
+						<Resizable
+							name="playground-biome-output"
+							direction="right"
+							className="playground-output-pane"
+							minimumSize={140}
+						>
+							<div className="playground-output-heading biome">
+								<BiomeHeader />
+								{diffHint}
+							</div>
+							{biomeCode}
+						</Resizable>
+						<div className="playground-output-pane">
+							<div className="playground-output-heading prettier">
+								<PrettierHeader />
+							</div>
+							{prettierCode}
+						</div>
+					</>
 				) : (
 					<div className="playground-output-pane">
 						<div className="playground-output-heading biome">
 							<BiomeHeader />
 						</div>
-						<CodeMirror
-							value={outputCode}
-							extensions={extensions}
-							readOnly={true}
-							data-testid="biome-output"
-						/>
-					</div>
-				)}
-				{state.comparePrettier && state.shouldFormat && (
-					<div className="playground-output-pane">
-						<div className="playground-output-heading prettier">
-							<PrettierHeader />
-						</div>
-						<CodeMirror
-							value={
-								prettierOutput.type === "SUCCESS"
-									? prettierOutput.code
-									: prettierOutput.stack
-							}
-							extensions={prettierOutput.type === "SUCCESS" ? extensions : []}
-							readOnly={true}
-							data-testid="prettier-output"
-						/>
+						{biomeCode}
 					</div>
 				)}
 			</div>
-			<Resizable
-				name="playground-problems"
-				direction="top"
-				className={`playground-problems${problemsCollapsed ? " collapsed" : ""}`}
-				minimumSize={problemsCollapsed ? 0 : 150}
-				collapsed={problemsCollapsed}
-			>
-				<div className="playground-problems-tabs" role="tablist">
-					<button
-						type="button"
-						role="tab"
-						aria-selected={
-							state.problemsTab === PlaygroundProblemsTab.Diagnostics
-						}
-						onClick={() =>
-							setPlaygroundState((current) => ({
-								...current,
-								problemsTab: PlaygroundProblemsTab.Diagnostics,
-							}))
-						}
-					>
-						Diagnostics ({biomeOutput.diagnostics.list.length})
-					</button>
-					<button
-						type="button"
-						role="tab"
-						aria-selected={state.problemsTab === PlaygroundProblemsTab.Console}
-						onClick={() =>
-							setPlaygroundState((current) => ({
-								...current,
-								problemsTab: PlaygroundProblemsTab.Console,
-							}))
-						}
-					>
-						Console
-					</button>
-					<button
-						className="playground-problems-collapse"
-						type="button"
-						aria-label={
-							problemsCollapsed
-								? "Expand problems panel"
-								: "Collapse problems panel"
-						}
-						aria-expanded={!problemsCollapsed}
-						onClick={() => setProblemsCollapsed((collapsed) => !collapsed)}
-					>
-						{problemsCollapsed ? (
-							<ChevronUp className="playground-icon" />
-						) : (
-							<ChevronDown className="playground-icon" />
-						)}
-					</button>
-				</div>
-				{!problemsCollapsed && (
-					<div className="playground-problems-body">
-						{state.problemsTab === PlaygroundProblemsTab.Diagnostics ? (
-							<DiagnosticsListTab
-								editorRef={editorRef}
-								code={code}
-								diagnostics={biomeOutput.diagnostics.list}
-							/>
-						) : (
-							<DiagnosticsConsoleTab
-								console={biomeOutput.diagnostics.console}
-							/>
-						)}
-					</div>
-				)}
-			</Resizable>
+			{mobile ? (
+				<section className={problemsClassName}>{problemsContent}</section>
+			) : (
+				<Resizable
+					name="playground-problems"
+					direction="top"
+					className={problemsClassName}
+					minimumSize={problemsCollapsed ? 0 : 150}
+					collapsed={problemsCollapsed}
+				>
+					{problemsContent}
+				</Resizable>
+			)}
 		</>
 	);
 }
