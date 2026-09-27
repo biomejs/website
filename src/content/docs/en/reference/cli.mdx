@@ -53,6 +53,7 @@ Run `biome --help` to list all available commands, or add `--help` after a comma
   * [`biome migrate`](#biome-migrate)
   * [`biome migrate prettier`](#biome-migrate-prettier)
   * [`biome migrate eslint`](#biome-migrate-eslint)
+  * [`biome migrate stylelint`](#biome-migrate-stylelint)
   * [`biome search`](#biome-search)
   * [`biome explain`](#biome-explain)
   * [`biome clean`](#biome-clean)
@@ -448,7 +449,7 @@ This command also accepts the relevant [shared flags](#shared-flags).
 
 ## `biome migrate`
 
-Previews configuration updates required by breaking changes. The `prettier` and `eslint` subcommands instead import settings from those tools.
+Previews configuration updates required by breaking changes. The `prettier`, `eslint`, and `stylelint` subcommands instead import settings from those tools.
 
 By default, this command displays the proposed changes without modifying files. Use `--write` to apply them.
 
@@ -477,6 +478,22 @@ The `eslint` subcommand accepts these additional flags:
 ###### `--include-inspired`
 
 Includes Biome rules inspired by ESLint rules in the migration.
+
+###### `--include-nursery`
+
+Includes nursery rules in the migration.
+
+#### `biome migrate stylelint`
+
+Imports an Stylelint configuration and ignore settings from the current working directory into the Biome configuration.
+
+The `stylelint` subcommand accepts these additional flags:
+
+##### Flags
+
+###### `--include-inspired`
+
+Includes Biome rules inspired by Stylelint rules in the migration.
 
 ###### `--include-nursery`
 
