@@ -20,10 +20,8 @@ import {
 	ChevronUp,
 	X,
 } from "lucide-react";
-import type { ReactNode, RefObject } from "react";
+import type { ReactNode, RefObject, UIEvent } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import biomeIcon from "@/assets/svg/logomark.svg";
-import prettierIcon from "@/assets/svg/prettier-icon-dark.svg";
 import CodeMirror from "./CodeMirror.tsx";
 import { javascriptWithEmbeddedSnippets } from "./codemirror/javascriptWithEmbeddedSnippets.ts";
 import BiomeHeader from "./components/BiomeHeader.tsx";
@@ -503,8 +501,8 @@ function OutputStack({
 	onCollapse,
 }: {
 	/**
-	 * Show Biome and Prettier one at a time behind tabs instead of side by side,
-	 * and give the problems panel a fixed size instead of a resize handle.
+	 * Stack Biome and Prettier (scrolling together) instead of side by side, and
+	 * give the problems panel a fixed size instead of a resize handle.
 	 */
 	mobile: boolean;
 	state: Parameters<typeof PlaygroundSidebar>[0]["state"];
@@ -520,9 +518,29 @@ function OutputStack({
 	onCollapse?: (() => void) | undefined;
 }) {
 	const [problemsCollapsed, setProblemsCollapsed] = useState(false);
-	const [mobileFormatter, setMobileFormatter] = useState<"biome" | "prettier">(
-		"biome",
-	);
+	// Editors whose scroll position was just set to follow the other pane, so
+	// their own scroll event doesn't echo back.
+	const followingScrollers = useRef(new Set<Element>());
+	const syncOutputScroll = (event: UIEvent<HTMLDivElement>) => {
+		const source = event.target;
+		if (!(source instanceof HTMLElement)) return;
+		if (!source.classList.contains("cm-scroller")) return;
+		if (followingScrollers.current.delete(source)) return;
+		for (const scroller of event.currentTarget.querySelectorAll(
+			".cm-scroller",
+		)) {
+			if (scroller === source) continue;
+			const { scrollTop, scrollLeft } = scroller;
+			scroller.scrollTop = source.scrollTop;
+			scroller.scrollLeft = source.scrollLeft;
+			if (
+				scroller.scrollTop !== scrollTop ||
+				scroller.scrollLeft !== scrollLeft
+			) {
+				followingScrollers.current.add(scroller);
+			}
+		}
+	};
 	const comparePrettier = state.comparePrettier && state.shouldFormat;
 	const outputCode =
 		state.fixMode === "none"
@@ -691,37 +709,29 @@ function OutputStack({
 				)}
 			</div>
 			<div
-				className={`playground-code-output${state.comparePrettier && !mobile ? " split" : ""}`}
+				className={`playground-code-output${
+					state.comparePrettier ? (mobile ? " stacked" : " split") : ""
+				}`}
+				onScrollCapture={
+					comparePrettier && mobile ? syncOutputScroll : undefined
+				}
 			>
 				{comparePrettier && mobile ? (
-					<div className="playground-output-pane">
-						<div
-							className="playground-output-heading playground-output-switcher"
-							role="tablist"
-							aria-label="Formatter output"
-						>
-							<button
-								type="button"
-								role="tab"
-								aria-selected={mobileFormatter === "biome"}
-								onClick={() => setMobileFormatter("biome")}
-							>
-								<img alt="" src={biomeIcon.src} />
-								Biome
-							</button>
-							<button
-								type="button"
-								role="tab"
-								aria-selected={mobileFormatter === "prettier"}
-								onClick={() => setMobileFormatter("prettier")}
-							>
-								<img alt="" src={prettierIcon.src} />
-								Prettier
-							</button>
-							{diffHint}
+					<>
+						<div className="playground-output-pane">
+							<div className="playground-output-heading biome">
+								<BiomeHeader />
+								{diffHint}
+							</div>
+							{biomeCode}
 						</div>
-						{mobileFormatter === "biome" ? biomeCode : prettierCode}
-					</div>
+						<div className="playground-output-pane">
+							<div className="playground-output-heading prettier">
+								<PrettierHeader />
+							</div>
+							{prettierCode}
+						</div>
+					</>
 				) : comparePrettier ? (
 					<>
 						<Resizable
@@ -732,13 +742,13 @@ function OutputStack({
 						>
 							<div className="playground-output-heading biome">
 								<BiomeHeader />
+								{diffHint}
 							</div>
 							{biomeCode}
 						</Resizable>
 						<div className="playground-output-pane">
 							<div className="playground-output-heading prettier">
 								<PrettierHeader />
-								{diffHint}
 							</div>
 							{prettierCode}
 						</div>

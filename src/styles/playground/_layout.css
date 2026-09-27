@@ -387,26 +387,16 @@
 	object-fit: contain;
 }
 
-/* Mobile: Biome and Prettier share one pane, switched by these tabs. */
-.playground-output-switcher {
-	padding: 0;
+/* Mobile: Biome above Prettier, half each. */
+.playground-code-output.stacked {
+	grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
 }
 
-.playground-output-switcher button {
-	display: flex;
-	align-items: center;
-	padding: 10px;
-	border: 0;
-	border-radius: 0;
-	background: transparent;
-}
-
-.playground-output-switcher [aria-selected="true"] {
-	box-shadow: inset 0 -2px 0 var(--sl-color-text-accent);
-}
-
-.playground-output-switcher .diff-hint {
-	padding-inline: 10px;
+.playground-code-output.stacked
+	> .playground-output-pane
+	+ .playground-output-pane {
+	border-left: 0;
+	border-top: 1px solid var(--sl-color-gray-5);
 }
 
 .playground-problems {

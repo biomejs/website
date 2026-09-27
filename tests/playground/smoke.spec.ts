@@ -774,25 +774,39 @@ test.describe("playground layout", () => {
 		).toBeVisible();
 	});
 
-	test("switches between Biome and Prettier output on mobile", async ({
-		page,
-	}) => {
+	test("stacks Biome and Prettier output on mobile", async ({ page }) => {
 		await page.setViewportSize({ width: 390, height: 844 });
+		const code = Array.from(
+			{ length: 60 },
+			(_, index) => `let a${index}=${index}`,
+		).join("\n");
 		await page.goto(
-			`/playground?prettier=true#code=${encodeURIComponent(encodeCode("let a=5"))}`,
+			`/playground?prettier=true#code=${encodeURIComponent(encodeCode(code))}`,
 		);
-		await expect(page.getByTestId("biome-output")).toBeVisible();
-		await expect(page.getByTestId("prettier-output")).toHaveCount(0);
-
-		await page.getByRole("tab", { name: "Prettier" }).click();
-		await expect(
-			page.getByTestId("prettier-output").getByRole("textbox"),
-		).toHaveText("let a = 5;");
-		await expect(page.getByTestId("biome-output")).toHaveCount(0);
+		const biome = page.getByTestId("biome-output");
+		const prettier = page.getByTestId("prettier-output");
+		await expect(prettier.getByRole("textbox")).toContainText("let a59 = 59;");
 		await expect(page.getByTestId("prettier-diff-hint")).toHaveText(
 			"Exact match",
 		);
-		await expect(page.getByRole("tab", { name: /Diagnostics/ })).toBeVisible();
+
+		const biomeBox = await biome.boundingBox();
+		const prettierBox = await prettier.boundingBox();
+		if (!biomeBox || !prettierBox) throw new Error("outputs not rendered");
+		expect(prettierBox.y).toBeGreaterThanOrEqual(
+			biomeBox.y + biomeBox.height - 1,
+		);
+
+		await biome.locator(".cm-scroller").evaluate((scroller) => {
+			scroller.scrollTop = 300;
+		});
+		await expect
+			.poll(() =>
+				prettier
+					.locator(".cm-scroller")
+					.evaluate((scroller) => scroller.scrollTop),
+			)
+			.toBe(300);
 	});
 
 	test("lays out the problems panel below the output on mobile", async ({
