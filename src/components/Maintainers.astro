@@ -1,6 +1,6 @@
 ---
-import GitHubAvatar from "@/components/GitHubAvatar.astro";
 import { getCollection } from "astro:content";
+import GitHubAvatar from "@/components/GitHubAvatar.astro";
 
 const maintainers = await getCollection("team", (entry) => {
 	return entry.data.type === "maintainer";
@@ -9,8 +9,8 @@ const maintainers = await getCollection("team", (entry) => {
 
 <ul class="credits-people-list maintainers">
 	{maintainers.map((entry) => (
-		<li>
-			<GitHubAvatar handle={entry.id} />
-		</li>
-	))}
+	<li>
+		<GitHubAvatar handle={entry.id} />
+	</li>
+))}
 </ul>
