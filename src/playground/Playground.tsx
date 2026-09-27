@@ -28,6 +28,7 @@ import CodeMirror from "./CodeMirror.tsx";
 import { javascriptWithEmbeddedSnippets } from "./codemirror/javascriptWithEmbeddedSnippets.ts";
 import BiomeHeader from "./components/BiomeHeader.tsx";
 import PlaygroundSidebar from "./components/PlaygroundSidebar.tsx";
+import PrettierDiffHint from "./components/PrettierDiffHint.tsx";
 import PrettierHeader from "./components/PrettierHeader.tsx";
 import Resizable from "./components/Resizable.tsx";
 import ControlFlowTab from "./tabs/ControlFlowTab.tsx";
@@ -537,6 +538,12 @@ function OutputStack({
 			data-testid="biome-output"
 		/>
 	);
+	const diffHint = (
+		<PrettierDiffHint
+			prettier={prettierOutput}
+			biome={biomeOutput.formatter.code}
+		/>
+	);
 	const prettierCode = (
 		<CodeMirror
 			value={
@@ -711,6 +718,7 @@ function OutputStack({
 								<img alt="" src={prettierIcon.src} />
 								Prettier
 							</button>
+							{diffHint}
 						</div>
 						{mobileFormatter === "biome" ? biomeCode : prettierCode}
 					</div>
@@ -730,6 +738,7 @@ function OutputStack({
 						<div className="playground-output-pane">
 							<div className="playground-output-heading prettier">
 								<PrettierHeader />
+								{diffHint}
 							</div>
 							{prettierCode}
 						</div>

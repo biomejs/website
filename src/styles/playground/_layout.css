@@ -405,6 +405,10 @@
 	box-shadow: inset 0 -2px 0 var(--sl-color-text-accent);
 }
 
+.playground-output-switcher .diff-hint {
+	padding-inline: 10px;
+}
+
 .playground-problems {
 	position: relative;
 	display: grid;

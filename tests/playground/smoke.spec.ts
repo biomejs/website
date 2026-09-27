@@ -58,6 +58,15 @@ test.describe("playground should format code", () => {
 		});
 	});
 
+	test("shows how Biome's output compares to Prettier", async ({ page }) => {
+		await page.goto(
+			`/playground?prettier=true#code=${encodeURIComponent(encodeCode("let a=5"))}`,
+		);
+		await expect(page.getByTestId("prettier-diff-hint")).toHaveText(
+			"Exact match",
+		);
+	});
+
 	test.describe("on typing", () => {
 		test("javascript", async ({ page }) => {
 			await page.goto("/playground");
@@ -780,6 +789,9 @@ test.describe("playground layout", () => {
 			page.getByTestId("prettier-output").getByRole("textbox"),
 		).toHaveText("let a = 5;");
 		await expect(page.getByTestId("biome-output")).toHaveCount(0);
+		await expect(page.getByTestId("prettier-diff-hint")).toHaveText(
+			"Exact match",
+		);
 		await expect(page.getByRole("tab", { name: /Diagnostics/ })).toBeVisible();
 	});
 
