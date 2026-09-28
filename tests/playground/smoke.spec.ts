@@ -211,10 +211,10 @@ test.describe("playground links", () => {
 			await expect(diagnostics.filter({ hasNotText: rule })).toHaveCount(0);
 			await expect(
 				playground.getByLabel("Lint Rules", { exact: true }),
-			).toHaveValue(category === "lint" ? rule : "none");
+			).toHaveText(category === "lint" ? rule : "none");
 			await expect(
 				playground.getByLabel("Assist Actions", { exact: true }),
-			).toHaveValue(category === "assist" ? rule : "none");
+			).toHaveText(category === "assist" ? rule : "none");
 			if (fixed) {
 				await playground
 					.getByRole("button", { name: "Safe", exact: true })
@@ -230,13 +230,25 @@ test.describe("playground links", () => {
 		await page.goto("/playground?lintRules=none&language=json#code=");
 		const lintRules = page.getByLabel("Lint Rules", { exact: true });
 		const assistActions = page.getByLabel("Assist Actions", { exact: true });
+		await lintRules.click();
+		const search = page.getByRole("combobox", { name: "Search rules" });
+		await search.fill("organizeImports");
 		await expect(
-			lintRules.locator('option[value="organizeImports"]'),
+			page
+				.getByRole("listbox")
+				.getByRole("option", { name: "organizeImports" }),
 		).toHaveCount(0);
+		await search.press("Escape");
+		await assistActions.click();
+		const actionSearch = page.getByRole("combobox", {
+			name: "Search actions",
+		});
+		await actionSearch.fill("noConsole");
 		await expect(
-			assistActions.locator('option[value="noConsole"]'),
+			page.getByRole("listbox").getByRole("option", { name: "noConsole" }),
 		).toHaveCount(0);
-		await assistActions.selectOption("useSortedKeys");
+		await actionSearch.fill("sortedkeys");
+		await actionSearch.press("Enter");
 		await page
 			.getByTestId("editor")
 			.getByRole("textbox")
@@ -248,10 +260,70 @@ test.describe("playground links", () => {
 			.poll(() => new URL(page.url()).searchParams.get("assistActions"))
 			.toBe("useSortedKeys");
 		await page.reload();
-		await expect(assistActions).toHaveValue("useSortedKeys");
-		await expect(lintRules).toHaveValue("none");
+		await expect(assistActions).toHaveText("useSortedKeys");
+		await expect(lintRules).toHaveText("none");
 		await page.getByLabel("Assist enabled", { exact: true }).uncheck();
 		await expect(assistActions).toBeDisabled();
+	});
+
+	test("searches lint rules from the dropdown", async ({ page }) => {
+		await page.goto("/playground?lintRules=none#code=");
+		const lintRules = page.getByLabel("Lint Rules", { exact: true });
+		const search = page.getByRole("combobox", { name: "Search rules" });
+		const options = page.getByRole("listbox").getByRole("option");
+
+		await lintRules.click();
+		await expect(search).toBeFocused();
+		await search.fill("nconsl");
+		await expect(options.first()).toHaveText(/^noConsole/);
+		await search.press("Enter");
+		await expect(search).toBeHidden();
+		await expect(lintRules).toHaveText("noConsole");
+		await expect(lintRules).toBeFocused();
+		await expect
+			.poll(() => new URL(page.url()).searchParams.get("lintRules"))
+			.toBe("noConsole");
+
+		await lintRules.click();
+		await search.fill("unusedvar");
+		await options.filter({ hasText: /^noUnusedVariables/ }).click();
+		await expect(lintRules).toHaveText("noUnusedVariables");
+
+		await lintRules.click();
+		await search.fill("debugger");
+		await search.press("Escape");
+		await expect(search).toBeHidden();
+		await expect(lintRules).toHaveText("noUnusedVariables");
+
+		await lintRules.click();
+		await page.getByTestId("editor").click();
+		await expect(search).toBeHidden();
+	});
+
+	test("searches lint rules in a dialog on mobile", async ({ page }) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto("/playground?lintRules=none#code=");
+		await page.getByRole("button", { name: "Files & settings" }).click();
+		const lintRules = page.getByRole("button", { name: "Lint Rules none" });
+		await lintRules.click();
+
+		const dialog = page.getByRole("dialog", { name: "Lint Rules" });
+		await expect(dialog).toBeVisible();
+		const search = dialog.getByRole("combobox", { name: "Search rules" });
+		await expect(search).toBeFocused();
+		await search.fill("nconsl");
+		await dialog
+			.getByRole("option")
+			.filter({ hasText: /^noConsole/ })
+			.click();
+		await expect(dialog).toBeHidden();
+		await expect(
+			page.getByRole("button", { name: "Lint Rules noConsole" }),
+		).toBeVisible();
+
+		await page.getByRole("button", { name: "Lint Rules noConsole" }).click();
+		await dialog.getByRole("button", { name: "Close" }).click();
+		await expect(dialog).toBeHidden();
 	});
 
 	test("loads code from the hash", async ({ page }) => {

@@ -792,3 +792,198 @@
 		min-height: max(400px, 60vh);
 	}
 }
+
+/* Looks like the neighbouring selects; opens a Base UI combobox. */
+.rule-select-trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 4px;
+	min-width: 0;
+	text-align: left;
+	cursor: pointer;
+}
+
+/* Match the native selects next to it, which inherit a normal weight and
+ * pad their text a little more. */
+.settings-tab .rule-select-trigger {
+	flex-shrink: 0;
+	height: 25px;
+	padding-left: 10px;
+	font-weight: 400;
+}
+
+.rule-select-value {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* The popup and dialog are portalled out of the playground, so they set
+ * their own type size. */
+.rule-select-positioner {
+	z-index: 100;
+	outline: 0;
+}
+
+.rule-select-popup,
+.rule-select-dialog {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 6px;
+	background: var(--sl-color-bg);
+	color: var(--sl-color-text);
+	font-size: 0.75rem;
+	line-height: 1rem;
+	box-shadow: 0 6px 20px rgb(0 0 0 / 0.2);
+	overflow: hidden;
+}
+
+.rule-select-popup {
+	width: 300px;
+	min-width: var(--anchor-width);
+	max-width: var(--available-width);
+	max-height: min(400px, var(--available-height));
+}
+
+.rule-select-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	background: rgb(0 0 0 / 0.4);
+}
+
+.rule-select-dialog {
+	position: fixed;
+	inset: 16px;
+	z-index: 101;
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
+.rule-select-dialog-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 8px 0 12px;
+}
+
+/* Undo the playground's global `h2` panel heading style, including its
+ * `:root[data-theme="dark"] h2` variant, which comes later in the cascade. */
+:root .rule-select-dialog .rule-select-dialog-title {
+	margin: 0;
+	padding: 0;
+	background: none;
+	box-shadow: none;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.rule-select-dialog-close {
+	display: flex;
+	padding: 8px;
+	border: 0;
+	background: none;
+	color: inherit;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+.rule-select-search {
+	flex: 0 0 auto;
+	margin: 6px;
+	padding: 4px 6px;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 4px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+}
+
+.rule-select-dialog .rule-select-search {
+	margin: 8px 12px;
+	padding: 8px;
+	/* 16px stops iOS Safari from zooming in when the input is focused. */
+	font-size: 1rem;
+}
+
+.rule-select-search:focus {
+	outline: 2px solid var(--sl-color-accent);
+	outline-offset: -1px;
+}
+
+.rule-select-list {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	border-top: 1px solid var(--sl-color-gray-5);
+}
+
+.rule-select-group-label {
+	position: sticky;
+	top: 0;
+	padding: 3px 8px;
+	background: var(--sl-color-gray-6);
+	color: var(--sl-color-gray-2);
+	font-weight: 600;
+}
+
+.rule-select-option {
+	display: flex;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 3px 8px;
+	cursor: pointer;
+	outline: 0;
+}
+
+.rule-select-dialog .rule-select-option {
+	padding: 8px 12px;
+}
+
+.rule-select-option[data-selected] {
+	font-weight: 600;
+}
+
+.rule-select-option[data-highlighted] {
+	background: var(--sl-color-gray-5);
+}
+
+.rule-select-name {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.rule-select-name mark {
+	background: none;
+	color: var(--sl-color-text-accent);
+	font-weight: 700;
+}
+
+.rule-select-option-group {
+	flex-shrink: 0;
+	color: var(--sl-color-gray-3);
+}
+
+/* The accent and grey text don't have enough contrast against the highlight
+ * background, so the highlighted row uses the normal text colour and marks
+ * matches with an underline instead. */
+.rule-select-option[data-highlighted] mark,
+.rule-select-option[data-highlighted] .rule-select-option-group {
+	color: inherit;
+}
+
+.rule-select-option[data-highlighted] mark {
+	text-decoration: underline;
+}
+
+.rule-select-empty:not(:empty) {
+	padding: 6px 8px;
+	color: var(--sl-color-gray-3);
+}
