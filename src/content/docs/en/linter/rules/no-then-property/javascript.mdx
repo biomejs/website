@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noThenProperty
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-then-property/javascript/"}]} />
 
@@ -124,4 +125,5 @@ const foo = bar.then;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_then_property.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noThenProperty)
+- <RulePlaygroundLink rule="noThenProperty" category="lint" language="js" code={"export {then};\n"} />
 

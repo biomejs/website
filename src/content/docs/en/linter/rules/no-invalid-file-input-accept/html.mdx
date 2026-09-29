@@ -8,6 +8,7 @@ description: HTML documentation for noInvalidFileInputAccept
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-invalid-file-input-accept/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-invalid-file-input-accept/javascript/"}]} />
 
@@ -65,4 +66,5 @@ Browsers ignore invalid entries, so the file picker may not filter files as inte
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_invalid_file_input_accept.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noInvalidFileInputAccept)
+- <RulePlaygroundLink rule="noInvalidFileInputAccept" category="lint" language="html" code={"<input type=\"file\" accept=\"image/jpg\">\n"} />
 

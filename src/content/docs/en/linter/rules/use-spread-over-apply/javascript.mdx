@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useSpreadOverApp
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-spread-over-apply/javascript/"}]} />
 
@@ -86,4 +87,5 @@ foo.apply(obj, [1, 2, 3]);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_spread_over_apply.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useSpreadOverApply)
+- <RulePlaygroundLink rule="useSpreadOverApply" category="lint" language="js" code={"foo.apply(null, args);\n"} />
 

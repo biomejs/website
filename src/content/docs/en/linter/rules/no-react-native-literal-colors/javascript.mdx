@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noReactNativeLit
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-react-native-literal-colors/javascript/"}]} />
 
@@ -99,4 +100,5 @@ const Hello = () => (
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_react_native_literal_colors.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noReactNativeLiteralColors)
+- <RulePlaygroundLink rule="noReactNativeLiteralColors" category="lint" language="jsx" code={"const Hello = () => <Text style={{ backgroundColor: '#FFFFFF' }}>hi</Text>;\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noRestrictedGlob
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-restricted-globals/javascript/"}]} />
 
@@ -96,4 +97,5 @@ creating a local variable.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_restricted_globals.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noRestrictedGlobals)
+- <RulePlaygroundLink rule="noRestrictedGlobals" category="lint" language="js" code={"console.log(event)\n"} />
 

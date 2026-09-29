@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noExtraNonNullAs
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-extra-non-null-assertion/javascript/"}]} />
 
@@ -85,4 +86,5 @@ function fn(key: string | null) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_extra_non_null_assertion.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noExtraNonNullAssertion)
+- <RulePlaygroundLink rule="noExtraNonNullAssertion" category="lint" language="ts" code={"const bar = foo!!.bar;\n"} />
 

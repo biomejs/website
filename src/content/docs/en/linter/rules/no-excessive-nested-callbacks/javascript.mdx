@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noExcessiveNeste
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-excessive-nested-callbacks/javascript/"}]} />
 
@@ -126,4 +127,5 @@ foo1(function () {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_excessive_nested_callbacks.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noExcessiveNestedCallbacks)
+- <RulePlaygroundLink rule="noExcessiveNestedCallbacks" category="lint" language="js" code={"foo1(function () {\n    foo2(function () {\n        foo3(function () {\n            foo4(function () {\n                foo5(function () {\n                    foo6(function () {});\n                });\n            });\n        });\n    });\n});\n"} />
 

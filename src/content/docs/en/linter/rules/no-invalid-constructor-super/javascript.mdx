@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noInvalidConstru
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-invalid-constructor-super/javascript/"}]} />
 
@@ -83,4 +84,5 @@ export class A {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_invalid_constructor_super.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noInvalidConstructorSuper)
+- <RulePlaygroundLink rule="noInvalidConstructorSuper" category="lint" language="js" code={"class A {\n    constructor() {\n        super();\n    }\n}\n"} />
 

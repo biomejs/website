@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useSemanticEleme
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-semantic-elements/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-semantic-elements/javascript/"}]} />
 
@@ -101,4 +102,5 @@ Semantic elements with a matching role are not flagged (see [noRedundantRoles](h
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/use_semantic_elements.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useSemanticElements)
+- <RulePlaygroundLink rule="useSemanticElements" category="lint" language="jsx" code={"<div role=\"checkbox\"></div>\n"} />
 

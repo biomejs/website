@@ -327,6 +327,13 @@ export function GET() {
 					"required": ["eslintRegexp"]
 				},
 				{
+					"description": "Rules from [@shadcn/lint](https://github.com/shadcn-ui/lint).",
+					"type": "object",
+					"properties": { "eslintShadcn": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintShadcn"]
+				},
+				{
 					"description": "Rules from [Eslint Plugin Solid](https://github.com/solidjs-community/eslint-plugin-solid)",
 					"type": "object",
 					"properties": { "eslintSolid": { "type": "string" } },

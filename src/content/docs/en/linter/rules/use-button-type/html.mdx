@@ -8,6 +8,7 @@ description: HTML documentation for useButtonType
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-button-type/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-button-type/javascript/"}]} />
 
@@ -68,4 +69,5 @@ Enforces the usage and validity of the attribute `type` for the element `button`
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/use_button_type.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/useButtonType)
+- <RulePlaygroundLink rule="useButtonType" category="lint" language="html" code={"<button>Do something</button>\n"} />
 

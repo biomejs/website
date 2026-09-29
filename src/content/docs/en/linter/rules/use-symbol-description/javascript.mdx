@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useSymbolDescrip
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-symbol-description/javascript/"}]} />
 
@@ -74,4 +75,5 @@ Symbol('description');
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_symbol_description.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useSymbolDescription)
+- <RulePlaygroundLink rule="useSymbolDescription" category="lint" language="js" code={"Symbol();\n"} />
 

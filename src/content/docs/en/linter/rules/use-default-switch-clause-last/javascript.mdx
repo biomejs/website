@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useDefaultSwitch
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-default-switch-clause-last/javascript/"}]} />
 
@@ -111,4 +112,5 @@ switch (foo) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/use_default_switch_clause_last.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/useDefaultSwitchClauseLast)
+- <RulePlaygroundLink rule="useDefaultSwitchClauseLast" category="lint" language="js" code={"switch (foo) {\n    default:\n        break;\n    case 0:\n        break;\n}\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useControlLabel
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-control-label/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-control-label/javascript/"}]} />
 
@@ -109,4 +110,5 @@ An icon button whose content renders nothing announceable:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_control_label.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useControlLabel)
+- <RulePlaygroundLink rule="useControlLabel" category="lint" language="jsx" code={"<button />;\n"} />
 

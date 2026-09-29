@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noJsxLiterals
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-jsx-literals/javascript/"}]} />
 
@@ -199,4 +200,5 @@ When enabled, the rule will ignore string literals used as prop values.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_jsx_literals.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noJsxLiterals)
+- <RulePlaygroundLink rule="noJsxLiterals" category="lint" language="jsx" code={"<div>Hello World</div>\n"} />
 

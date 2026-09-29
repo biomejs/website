@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useHtmlLang
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-html-lang/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-html-lang/javascript/"}]} />
 
@@ -100,4 +101,5 @@ Enforce that `html` element has `lang` attribute.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/use_html_lang.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useHtmlLang)
+- <RulePlaygroundLink rule="useHtmlLang" category="lint" language="jsx" code={"<html></html>\n"} />
 

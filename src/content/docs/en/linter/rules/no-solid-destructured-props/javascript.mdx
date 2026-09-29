@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noSolidDestructu
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-solid-destructured-props/javascript/"}]} />
 
@@ -79,4 +80,5 @@ let Component = (props) => <div a={props.a} />;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_solid_destructured_props.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noSolidDestructuredProps)
+- <RulePlaygroundLink rule="noSolidDestructuredProps" category="lint" language="jsx" code={"let Component = ({}) => <div />;\n"} />
 

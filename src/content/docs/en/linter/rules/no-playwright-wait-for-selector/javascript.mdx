@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noPlaywrightWait
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-playwright-wait-for-selector/javascript/"}]} />
 
@@ -82,4 +83,5 @@ await button.click();
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_playwright_wait_for_selector.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noPlaywrightWaitForSelector)
+- <RulePlaygroundLink rule="noPlaywrightWaitForSelector" category="lint" language="js" code={"await page.waitForSelector('.submit-button');\n"} />
 

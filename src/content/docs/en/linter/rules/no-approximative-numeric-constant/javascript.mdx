@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noApproximativeN
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-approximative-numeric-constant/javascript/"}]} />
 
@@ -73,4 +74,5 @@ let x = Math.LN10;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_approximative_numeric_constant.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noApproximativeNumericConstant)
+- <RulePlaygroundLink rule="noApproximativeNumericConstant" category="lint" language="js" code={"let x = 3.141;\n"} />
 

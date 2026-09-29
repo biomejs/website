@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUselessTypeCon
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-type-conversion/javascript/"}]} />
 
@@ -93,4 +94,5 @@ String(new String());
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_useless_type_conversion.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUselessTypeConversion)
+- <RulePlaygroundLink rule="noUselessTypeConversion" category="lint" language="ts" code={"const text: string = \"text\";\nString(text);\n"} />
 

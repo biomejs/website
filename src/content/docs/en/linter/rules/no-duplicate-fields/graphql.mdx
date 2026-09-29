@@ -8,6 +8,7 @@ description: GraphQL documentation for noDuplicateFields
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-duplicate-fields/graphql/"}]} />
 
@@ -97,4 +98,5 @@ query {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/suspicious/no_duplicate_fields.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/suspicious/noDuplicateFields)
+- <RulePlaygroundLink rule="noDuplicateFields" category="lint" language="graphql" code={"query {\n  users {\n    id\n    name\n    email\n    name\n  }\n}\n"} />
 

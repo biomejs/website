@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useReactAsyncSer
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-react-async-server-function/javascript/"}]} />
 
@@ -115,4 +116,5 @@ export async function serverFunction() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_react_async_server_function.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useReactAsyncServerFunction)
+- <RulePlaygroundLink rule="useReactAsyncServerFunction" category="lint" language="jsx" code={"<form\n  action={() => {\n    'use server';\n    // ...\n  }}\n>\n  // ...\n</form>\n"} />
 

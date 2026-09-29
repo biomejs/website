@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useTrimStartEnd
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-trim-start-end/javascript/"}]} />
 
@@ -78,4 +79,5 @@ const foo = bar.trimEnd();
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_trim_start_end.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useTrimStartEnd)
+- <RulePlaygroundLink rule="useTrimStartEnd" category="lint" language="js" code={"const foo = bar.trimLeft();\n"} />
 

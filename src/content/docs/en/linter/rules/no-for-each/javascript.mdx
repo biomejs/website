@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noForEach
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-for-each/javascript/"}]} />
 
@@ -143,4 +144,5 @@ Values with dots (e.g., "lib.\_") will not be accepted.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_for_each.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noForEach)
+- <RulePlaygroundLink rule="noForEach" category="lint" language="js" code={"els.forEach((el) => {\n  f(el);\n})\n"} />
 
