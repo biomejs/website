@@ -1769,6 +1769,15 @@ description: Description
 ---
 ```
 
+When `markdown.parser.frontmatter` is enabled, Biome will format and analyze (linting) the frontmatter as YAML.
+
+```diff title="file.md"
+---
+-file:   "Lorem ipsum"
++file: "Lorem ipsum"
+---
+```
+
 > Default: `false`.
 
 ### `markdown.parser.gfm`
