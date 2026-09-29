@@ -8,6 +8,7 @@ description: GraphQL documentation for useLoneAnonymousOperation
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-lone-anonymous-operation/graphql/"}]} />
 
@@ -73,4 +74,5 @@ query B {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/correctness/use_lone_anonymous_operation.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/correctness/useLoneAnonymousOperation)
+- <RulePlaygroundLink rule="useLoneAnonymousOperation" category="lint" language="graphql" code={"query {\n  fieldA\n}\n\nquery B {\n  fieldB\n}\n"} />
 

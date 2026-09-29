@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noInteractiveEle
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-interactive-element-to-noninteractive-role/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-interactive-element-to-noninteractive-role/javascript/"}]} />
 
@@ -79,4 +80,5 @@ Custom elements (a tag name containing a dash) may be given any role or none:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/no_interactive_element_to_noninteractive_role.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noInteractiveElementToNoninteractiveRole)
+- <RulePlaygroundLink rule="noInteractiveElementToNoninteractiveRole" category="lint" language="jsx" code={"<input role=\"img\" />;\n"} />
 

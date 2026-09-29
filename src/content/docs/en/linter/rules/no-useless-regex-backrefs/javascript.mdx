@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUselessRegexBa
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-regex-backrefs/javascript/"}]} />
 
@@ -130,4 +131,5 @@ A backreference that always matches an empty string is always successfully match
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_useless_regex_backrefs.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noUselessRegexBackrefs)
+- <RulePlaygroundLink rule="noUselessRegexBackrefs" category="lint" language="js" code={"/(a)|b\\1/;\n"} />
 

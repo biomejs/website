@@ -8,6 +8,7 @@ description: JSON (and super languages) documentation for noDuplicateObjectKeys
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/no-duplicate-object-keys/json/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-duplicate-object-keys/javascript/"}]} />
 
@@ -65,4 +66,5 @@ Disallow two keys with the same name inside objects.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/suspicious/no_duplicate_object_keys.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/suspicious/noDuplicateObjectKeys)
+- <RulePlaygroundLink rule="noDuplicateObjectKeys" category="lint" language="json" code={"{\n  \"title\": \"New title\",\n  \"title\": \"Second title\"\n}\n"} />
 

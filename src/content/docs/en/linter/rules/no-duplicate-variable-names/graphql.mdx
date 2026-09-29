@@ -8,6 +8,7 @@ description: GraphQL documentation for noDuplicateVariableNames
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-duplicate-variable-names/graphql/"}]} />
 
@@ -65,4 +66,5 @@ query ($x: Int, $y: Int) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/correctness/no_duplicate_variable_names.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/correctness/noDuplicateVariableNames)
+- <RulePlaygroundLink rule="noDuplicateVariableNames" category="lint" language="graphql" code={"query ($x: Int, $x: Int) {\n  field\n}\n"} />
 

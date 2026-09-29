@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noBeforeInteract
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-before-interactive-script-outside-document/javascript/"}]} />
 
@@ -96,4 +97,5 @@ export default function Document() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_before_interactive_script_outside_document.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noBeforeInteractiveScriptOutsideDocument)
+- <RulePlaygroundLink rule="noBeforeInteractiveScriptOutsideDocument" category="lint" language="jsx" code={"// pages/index.jsx\nimport Script from 'next/script'\n\nexport default function Index() {\n  return (\n    <div>\n      <Script\n        src=\"https://example.com/script.js\"\n        strategy=\"beforeInteractive\"\n      ></Script>\n    </div>\n  )\n}\n"} />
 

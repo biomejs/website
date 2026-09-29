@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noConfusingLabel
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-confusing-labels/javascript/"}]} />
 
@@ -133,4 +134,5 @@ DEV: assertSomeCondition();
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_confusing_labels.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noConfusingLabels)
+- <RulePlaygroundLink rule="noConfusingLabels" category="lint" language="js" code={"label: f();\n"} />
 

@@ -8,6 +8,7 @@ description: HTML documentation for noNoninteractiveTabindex
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-noninteractive-tabindex/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-noninteractive-tabindex/javascript/"}]} />
 
@@ -83,4 +84,5 @@ Keep the tab ring small, which is the order of elements when tabbing, for a more
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/no_noninteractive_tabindex.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/noNoninteractiveTabindex)
+- <RulePlaygroundLink rule="noNoninteractiveTabindex" category="lint" language="html" code={"<div tabindex=\"0\"></div>\n"} />
 

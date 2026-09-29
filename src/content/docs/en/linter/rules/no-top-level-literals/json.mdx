@@ -8,6 +8,7 @@ description: JSON (and super languages) documentation for noTopLevelLiterals
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/no-top-level-literals/json/"}]} />
 
@@ -100,4 +101,5 @@ null
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/nursery/no_top_level_literals.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/nursery/noTopLevelLiterals)
+- <RulePlaygroundLink rule="noTopLevelLiterals" category="lint" language="json" code={"\"just a string\"\n"} />
 

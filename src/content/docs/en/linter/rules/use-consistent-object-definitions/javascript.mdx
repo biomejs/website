@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useConsistentObj
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-consistent-object-definitions/javascript/"}]} />
 
@@ -174,4 +175,5 @@ The syntax to use:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_consistent_object_definitions.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useConsistentObjectDefinitions)
+- <RulePlaygroundLink rule="useConsistentObjectDefinitions" category="lint" language="js" code={"let foo = 1;\nlet invalid = {\n    foo: foo\n};\n"} />
 

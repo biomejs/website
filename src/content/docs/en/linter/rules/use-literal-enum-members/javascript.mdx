@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useLiteralEnumMe
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-literal-enum-members/javascript/"}]} />
 
@@ -97,4 +98,5 @@ enum FileAccess {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_literal_enum_members.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useLiteralEnumMembers)
+- <RulePlaygroundLink rule="useLiteralEnumMembers" category="lint" language="ts" code={"const x = 2;\nenum Computed {\n    A,\n    B = x,\n}\n"} />
 

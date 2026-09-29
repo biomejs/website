@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useRegexpExec
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-regexp-exec/javascript/"}]} />
 
@@ -72,4 +73,5 @@ RegExp#exec may also be slightly faster than String#match; this is the reason to
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_regexp_exec.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useRegexpExec)
+- <RulePlaygroundLink rule="useRegexpExec" category="lint" language="ts" code={"'something'.match(/thing/);\n"} />
 

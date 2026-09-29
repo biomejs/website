@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnusedPrivateC
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unused-private-class-members/javascript/"}]} />
 
@@ -18,7 +19,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
-  - Same as [`no-unused-private-class-members`](https://eslint.org/docs/latest/rules/no-unused-private-class-members)
+  - Inspired from [`no-unused-private-class-members`](https://eslint.org/docs/latest/rules/no-unused-private-class-members)
 
 ## How to configure
 ```json title="biome.json"
@@ -83,6 +84,21 @@ class UsedMember {
 }
 ```
 
+Compound assignments read the current value and therefore count as usage:
+
+```js
+class UsedMember {
+  #usedMember;
+
+  method() {
+    this.#usedMember ??= getValue();
+  }
+}
+```
+
+Unlike ESLint's rule, this rule considers a compound assignment to use the
+member even when the assignment's result is discarded.
+
 ## Caveats
 
 The rule currently considers that all TypeScript private members are used if it encounters a computed access.
@@ -105,4 +121,5 @@ In the following example `member` is not reported. It is considered as used.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_unused_private_class_members.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noUnusedPrivateClassMembers)
+- <RulePlaygroundLink rule="noUnusedPrivateClassMembers" category="lint" language="js" code={"class OnlyWrite {\n  #usedOnlyInWrite = 5;\n\n  method() {\n       this.#usedOnlyInWrite = 212;\n  }\n}\n"} />
 

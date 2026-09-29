@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useQwikClasslist
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-qwik-classlist/javascript/"}]} />
 
@@ -65,4 +66,5 @@ For more information, see: [Qwik documentation on class bindings](https://qwik.d
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_qwik_classlist.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useQwikClasslist)
+- <RulePlaygroundLink rule="useQwikClasslist" category="lint" language="jsx" code={"<div class={classnames({ active: true, disabled: false })} />\n"} />
 

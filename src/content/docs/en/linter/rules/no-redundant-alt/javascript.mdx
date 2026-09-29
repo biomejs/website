@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noRedundantAlt
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-redundant-alt/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-redundant-alt/javascript/"}]} />
 
@@ -78,4 +79,5 @@ hidden, then the rule will always succeed.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/no_redundant_alt.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noRedundantAlt)
+- <RulePlaygroundLink rule="noRedundantAlt" category="lint" language="jsx" code={"<img src=\"src\" alt=\"photo content\" />;\n"} />
 
