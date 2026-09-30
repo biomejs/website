@@ -13,3 +13,7 @@ overrides:
 packages:
   - "scripts"
   - "./"
+supportedArchitectures:
+  cpu:
+    - current
+    - wasm32
