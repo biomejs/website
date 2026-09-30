@@ -3,11 +3,9 @@ title: Language support
 description: Languages and features supported by Biome.
 ---
 
-Legend:
-- ✅: Supported
-- 🚫: Not in progress
-- ⌛️: In progress
-- 🟡: Experimental
+import LanguageSupportLegend from "@/components/LanguageSupportLegend.astro";
+
+Biome aims to support every major language used in web projects, and support for each one comes in stages. The table below shows where each language stands today.
 
 | Language                                                 | Parsing                                              | Formatting                                           | Linting                                                 | Plugin Support                                          |
 |----------------------------------------------------------|------------------------------------------------------|------------------------------------------------------|---------------------------------------------------------|---------------------------------------------------------|
@@ -17,17 +15,19 @@ Legend:
 | TSX                                                      | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
 | JSON                                                     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>        |
 | JSONC                                                    | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Supported" role="img">✅</span>       |
-| HTML*                                                     | <span aria-label="Supported" role="img">✅</span>    | <span aria-label="Experimental" role="img">🟡</span>  | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Not in Progress" role="img">🚫</span>  |
-| SVG                                                      | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Experimental" role="img">🟡</span>  | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Not in Progress" role="img">🚫</span>  |
-| [Vue](#html-super-languages-support)                     | <span aria-label="Experimental" role="img">🟡</span> | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Not in Progress" role="img">🚫</span>    |
-| [Svelte](#html-super-languages-support)                  | <span aria-label="Experimental" role="img">🟡</span> | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Not in Progress" role="img">🚫</span>    |
-| [Astro](#html-super-languages-support)                   | <span aria-label="Experimental" role="img">🟡</span> | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Not in Progress" role="img">🚫</span>    |
+| HTML*                                                     | <span aria-label="Supported" role="img">✅</span>    | <span aria-label="Experimental" role="img">🟡</span>  | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Not started" role="img">🚫</span>  |
+| SVG                                                      | <span aria-label="Supported" role="img">✅</span>     | <span aria-label="Experimental" role="img">🟡</span>  | <span aria-label="Supported" role="img">✅</span>        | <span aria-label="Not started" role="img">🚫</span>  |
+| [Vue](#html-super-languages-support)                     | <span aria-label="Experimental" role="img">🟡</span> | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Not started" role="img">🚫</span>    |
+| [Svelte](#html-super-languages-support)                  | <span aria-label="Experimental" role="img">🟡</span> | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Not started" role="img">🚫</span>    |
+| [Astro](#html-super-languages-support)                   | <span aria-label="Experimental" role="img">🟡</span> | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Experimental" role="img">🟡</span>    | <span aria-label="Not started" role="img">🚫</span>    |
 | CSS                                                      | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Supported" role="img">✅️</span>       | <span aria-label="Supported" role="img">✅️</span>       | <span aria-label="Supported" role="img">✅</span>        |
-| SCSS                                                     | <span aria-label="In Progress" role="img">⌛️</span>  | <span aria-label="In Progress" role="img">⌛️</span>  | <span aria-label="Not in Progress" role="img">🚫</span> | <span aria-label="Not in Progress" role="img">🚫</span> |
-| [YAML](https://github.com/biomejs/biome/issues/2365)     | <span aria-label="In Progress" role="img">⌛️</span>  | <span aria-label="In Progress" role="img">⌛️</span>  | <span aria-label="Not in Progress" role="img">🚫</span> | <span aria-label="Not in Progress" role="img">🚫</span> |
-| GraphQL                                                  | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Supported" role="img">✅️</span>       | <span aria-label="Not in Progress" role="img">🚫</span> |
-| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="In Progress" role="img">⌛️</span>  | <span aria-label="In Progress" role="img">⌛️</span>  | <span aria-label="Not in Progress" role="img">🚫</span> | <span aria-label="Not in Progress" role="img">🚫</span> |
-| GritQL                                                   | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Not in Progress" role="img">🚫</span> | <span aria-label="Not in Progress" role="img">🚫</span> |
+| SCSS                                                     | <span aria-label="In progress" role="img">⌛️</span>  | <span aria-label="In progress" role="img">⌛️</span>  | <span aria-label="Not started" role="img">🚫</span> | <span aria-label="Not started" role="img">🚫</span> |
+| [YAML](https://github.com/biomejs/biome/issues/2365)     | <span aria-label="In progress" role="img">⌛️</span>  | <span aria-label="In progress" role="img">⌛️</span>  | <span aria-label="Not started" role="img">🚫</span> | <span aria-label="Not started" role="img">🚫</span> |
+| GraphQL                                                  | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Supported" role="img">✅️</span>       | <span aria-label="Not started" role="img">🚫</span> |
+| [Markdown](https://github.com/biomejs/biome/issues/3718) | <span aria-label="In progress" role="img">⌛️</span>  | <span aria-label="In progress" role="img">⌛️</span>  | <span aria-label="Not started" role="img">🚫</span> | <span aria-label="Not started" role="img">🚫</span> |
+| GritQL                                                   | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Supported" role="img">✅️</span>    | <span aria-label="Not started" role="img">🚫</span> | <span aria-label="Not started" role="img">🚫</span> |
+
+<LanguageSupportLegend />
 
 *\* currently requires [explicit opt-in](/reference/configuration/#html)*
 

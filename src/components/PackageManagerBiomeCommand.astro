@@ -6,8 +6,6 @@ interface Props {
 }
 
 const { command } = Astro.props;
-const biomePackage = "@biomejs/biome";
-const biomeBin = "biome";
 ---
 
 <Tabs syncKey="command">
@@ -15,7 +13,7 @@ const biomeBin = "biome";
 		<Code
 			frame="none"
 			showLineNumbers={false}
-			code={`npx ${biomePackage} ${command}`}
+			code={`npx biome ${command}`}
 			lang="bash"
 		/>
 	</TabItem>
@@ -23,7 +21,7 @@ const biomeBin = "biome";
 		<Code
 			frame="none"
 			showLineNumbers={false}
-			code={`pnpx ${biomePackage} ${command}`}
+			code={`pnpm biome ${command}`}
 			lang="bash"
 		/>
 	</TabItem>
@@ -31,7 +29,7 @@ const biomeBin = "biome";
 		<Code
 			frame="none"
 			showLineNumbers={false}
-			code={`bunx --bun ${biomePackage} ${command}`}
+			code={`bunx biome ${command}`}
 			lang="bash"
 		/>
 	</TabItem>
@@ -39,7 +37,7 @@ const biomeBin = "biome";
 		<Code
 			frame="none"
 			showLineNumbers={false}
-			code={`deno run -A npm:${biomePackage} ${command}`}
+			code={`deno run -A npm:@biomejs/biome ${command}`}
 			lang="bash"
 		/>
 	</TabItem>
@@ -47,7 +45,7 @@ const biomeBin = "biome";
 		<Code
 			frame="none"
 			showLineNumbers={false}
-			code={`yarn exec ${biomeBin} -- ${command}`}
+			code={`yarn biome ${command}`}
 			lang="bash"
 		/>
 	</TabItem>

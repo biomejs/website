@@ -1,10 +1,9 @@
 ---
-title: Integrate Biome with your VCS
+title: Integrate with your VCS
 description: Learn how you can integrate Biome with VCS
 ---
 
-The VCS (Version Control System) integration is meant to take advantage of **additional** features that only a VCS can provide.
-At the moment, Biome only supports Git. The integration is **opt-in**.
+The VCS (Version Control System) integration is meant to take advantage of **additional** features that only a VCS can provide. At the moment, Biome only supports Git. The integration is **opt-in**.
 
 You have to enable `vcs.enabled` and set `vcs.clientKind` in the Biome configuration file:
 
@@ -19,7 +18,7 @@ You have to enable `vcs.enabled` and set `vcs.clientKind` in the Biome configura
 
 This configuration doesn't do **anything per se**. You need to opt-in the features you want.
 
-### Use the ignore file
+## Use the ignore file
 
 Enable `vcs.useIgnoreFile` to allow Biome to ignore all the files and directories listed in the project's VCS ignore files as well as `.ignore` files.
 
@@ -35,7 +34,7 @@ For Git repositories, Biome reads `.gitignore` files and Git's local exclude fil
 }
 ```
 
-### Process only changed files
+## Process only changed files
 
 This is a feature that is available only via CLI, and allows processing **only** the files that have **changed** from one revision to another.
 
@@ -70,7 +69,7 @@ Alternatively, you can use the option `--since` to specify an arbitrary branch. 
 biome check --changed --since=next
 ```
 
-### Process only staged files
+## Process only staged files
 
 Before committing your changes, you may want to check formatting and linting for files added to the index (also known as staged files) without running Biome on the entire project.
 To limit Biome to only processing files slated for committing, pass the `--staged` option to the command:

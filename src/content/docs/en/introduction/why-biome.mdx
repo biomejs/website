@@ -1,0 +1,72 @@
+---
+title: Why Biome?
+description: What makes Biome different, and whether it is the right choice for your project.
+---
+
+import LinterExample from "@/components/linter/example.md";
+import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
+
+**Biome is a toolchain for web projects, built to be fast and easy to set up.** It started in August 2023 as a [fork of Rome](/blog/announcing-biome), maintained by the same developers.
+
+Out of the box, you get:
+- **a Prettier-compatible formatter** that can format code even while it is malformed.
+- **a linter** with <NumberOfRules /> rules, both Biome's own and ports from ESLint and its most popular plugins.
+- **assist actions** that tidy your code by sorting imports, ordering object keys, removing duplicate CSS classes, and more.
+
+## Design principles
+
+Biome was built with clear design principles from the start. In fact, there are already tons of excellent formatters and linters for web projects, but Biome exists because using them together isn't great: different configuration files that overlap, several packages to keep track of, and slow feedback loops as your project grows.
+
+These are some of the pain points Biome seeks to solve as part of its design.
+
+### One package
+
+**Formatting, linting, and assist actions come in one package, share one configuration, and never contradict each other.**
+
+You only need to install one package: `@biomejs/biome`. No need for parser plugins to get support for TypeScript or JSX, no extra packages to make the formatter and linter compatible with each other, and no separate ignore file.
+
+Under the hood, Biome parses each file once and hands the same context to the formatter, linter, and assist actions. A lint fix never produces code that the formatter rewrites nor vice-versa, different from other tools that parse files separately.
+
+### Fast by default
+
+**Biome is fast enough to run on every save without you having to think about it.**
+
+Your time is precious and you should not lose it waiting for your code to be formatted and linted. Biome is written in Rust, which gives it predictable memory use, true parallelism, and no dependency on Node.js.
+
+On the [official benchmark](https://github.com/biomejs/benchmark#results), Biome formats about 25 times faster than Prettier and lints about 15 times faster than ESLint.
+
+### Zero configuration to start
+
+**Biome works out of the box. When you need to change something, you change one file.**
+
+After installing, run `biome check --write` to format, lint, and tidy your code. In your CI pipeline, run `biome ci` instead to check your code and fail the build if anything needs fixing.
+
+When you want more control, run `biome init` to create a `biome.json` file with formatter, linter, and assist options. The formatter follows the same [option philosophy](/formatter/option-philosophy) as Prettier: a small set of useful options, so teams do not spend their energy debating style. The linter is the opposite, with <NumberOfRules /> rules that you can enable or disable individually, by group, or by domain.
+
+### Informative and actionable
+
+**Biome does not only find problems in your code. It teaches you how to avoid them.**
+
+Every lint rule is built on three [pillars](/linter/#rule-pillars): it must explain the error, explain why it is a problem, and tell you what to do about it. That is why Biome's diagnostics show you the exact range in your code, explain the problem in plain language, and offer a fix when one exists:
+
+<LinterExample />
+
+The goal is not only to solve the issues for you, but to introduce you to the patterns behind them, so that over time you write code that needs fewer fixes in the first place.
+
+### Built for the editor
+
+**Biome was designed from the start to be used interactively, as you write.**
+
+Biome comes with a first-party [language server](/reference/language-server), so whichever editor you use gets the same diagnostics, formatting, and code actions as the CLI, with nothing to reimplement.
+
+Since it can format and lint code while you type, even while the code is still malformed, you get feedback as you write instead of after you finish. The team maintains [official extensions](/configuration/editors) for VS Code, IntelliJ, and Zed, and the community maintains [extensions for other editors](/configuration/editors#other-editors), so you are not constrained in your choice of editor.
+
+### Compatible with what you already use
+
+**Adopting Biome does not mean starting over.**
+
+Biome's formatter matches Prettier's output in 97% of cases, and the linter ports most rules from ESLint and its most popular plugins.
+
+If your project already uses either tool, run `biome migrate eslint` or `biome migrate prettier`. Each command reads the existing configuration and writes the equivalent `biome.json` for you.
+
+For a more detailed look at what changes when you switch, see [Comparison with other tools](/introduction/comparison-with-other-tools).
