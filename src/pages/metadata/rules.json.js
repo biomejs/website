@@ -387,7 +387,7 @@ export function GET() {
           },
           "useLogicalProperties": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "useLogicalProperties",
             "link": "https://biomejs.dev/linter/rules/use-logical-properties/css",
             "recommended": false,
@@ -1957,7 +1957,7 @@ export function GET() {
         "nursery": {
           "noAstroConflictingSetDirectives": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "noAstroConflictingSetDirectives",
             "link": "https://biomejs.dev/linter/rules/no-astro-conflicting-set-directives/html",
             "recommended": true,
@@ -2025,7 +2025,7 @@ export function GET() {
           },
           "noMisplacedListElements": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "noMisplacedListElements",
             "link": "https://biomejs.dev/linter/rules/no-misplaced-list-elements/html",
             "recommended": true,
@@ -2136,7 +2136,7 @@ export function GET() {
           },
           "noTailwindRawColors": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "noTailwindRawColors",
             "link": "https://biomejs.dev/linter/rules/no-tailwind-raw-colors/html",
             "recommended": false,
@@ -4395,7 +4395,7 @@ export function GET() {
           },
           "noMeaninglessVoidOperator": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "noMeaninglessVoidOperator",
             "link": "https://biomejs.dev/linter/rules/no-meaningless-void-operator/javascript",
             "recommended": false,
@@ -4633,7 +4633,7 @@ export function GET() {
           },
           "noReactObjectTypeAsDefaultProp": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "noReactObjectTypeAsDefaultProp",
             "link": "https://biomejs.dev/linter/rules/no-react-object-type-as-default-prop/javascript",
             "recommended": true,
@@ -4701,7 +4701,7 @@ export function GET() {
           },
           "noSelfImport": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "noSelfImport",
             "link": "https://biomejs.dev/linter/rules/no-self-import/javascript",
             "recommended": false,
@@ -4718,7 +4718,7 @@ export function GET() {
           },
           "noSvelteExportLet": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "noSvelteExportLet",
             "link": "https://biomejs.dev/linter/rules/no-svelte-export-let/javascript",
             "recommended": true,
@@ -5266,7 +5266,7 @@ export function GET() {
           },
           "usePromiseRejectErrors": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "usePromiseRejectErrors",
             "link": "https://biomejs.dev/linter/rules/use-promise-reject-errors/javascript",
             "recommended": false,
@@ -5404,7 +5404,7 @@ export function GET() {
           },
           "useStrictBooleanExpressions": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "useStrictBooleanExpressions",
             "link": "https://biomejs.dev/linter/rules/use-strict-boolean-expressions/javascript",
             "recommended": false,
@@ -5438,7 +5438,7 @@ export function GET() {
           },
           "useSvelteKitRuneImports": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "useSvelteKitRuneImports",
             "link": "https://biomejs.dev/linter/rules/use-svelte-kit-rune-imports/javascript",
             "recommended": true,
@@ -9581,7 +9581,7 @@ export function GET() {
         "nursery": {
           "noAstroConflictingSetDirectives": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "noAstroConflictingSetDirectives",
             "link": "https://biomejs.dev/linter/rules/no-astro-conflicting-set-directives/javascript",
             "recommended": true,
@@ -9707,7 +9707,7 @@ export function GET() {
           },
           "noMisplacedListElements": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "noMisplacedListElements",
             "link": "https://biomejs.dev/linter/rules/no-misplaced-list-elements/javascript",
             "recommended": true,
@@ -9792,7 +9792,7 @@ export function GET() {
           },
           "noTailwindRawColors": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.5.15",
             "name": "noTailwindRawColors",
             "link": "https://biomejs.dev/linter/rules/no-tailwind-raw-colors/javascript",
             "recommended": false,
