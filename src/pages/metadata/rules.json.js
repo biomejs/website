@@ -1955,6 +1955,23 @@ export function GET() {
           }
         },
         "nursery": {
+          "noAstroConflictingSetDirectives": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noAstroConflictingSetDirectives",
+            "link": "https://biomejs.dev/linter/rules/no-astro-conflicting-set-directives/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintAstro": "no-conflict-set-directives"
+                }
+              }
+            ],
+            "docs": " Disallow conflicting content sources on Astro elements.\n\n The `set:html` and `set:text` directives replace an element's child content.\n Combining either directive with another content source makes it unclear which\n content should be rendered.\n\n ## Examples\n\n ### Invalid\n\n ```astro,expect_diagnostic\n <div set:html={content}>Fallback content</div>\n ```\n\n ```astro,expect_diagnostic\n <div set:html={html} set:text={text}></div>\n ```\n\n ### Valid\n\n ```astro\n <div set:html={content}></div>\n <div>Fallback content</div>\n ```\n\n ## References\n\n - [Astro template directives](https://docs.astro.build/en/reference/directives-reference/#sethtml)\n"
+          },
           "noAstroSetHtmlDirective": {
             "deprecated": false,
             "version": "2.5.11",
@@ -2005,6 +2022,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow invalid `accept` values on file inputs.\n\n An `accept` value must contain comma-separated filename extensions, MIME types, or\n the wildcard MIME types `audio/*`, `image/*`, and `video/*`.\n Browsers ignore invalid entries, so the file picker may not filter files as intended.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"file\" accept=\"image/jpg\">\n ```\n\n ### Valid\n\n ```html\n <input type=\"file\" accept=\"image/jpeg, .jpg\">\n ```\n\n"
+          },
+          "noMisplacedListElements": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noMisplacedListElements",
+            "link": "https://biomejs.dev/linter/rules/no-misplaced-list-elements/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "require-li-container"
+                }
+              }
+            ],
+            "docs": " Require `<li>` elements with an HTML element parent to be children of `<ul>`, `<ol>`, or `<menu>`.\n\n List items need a list container to define their relationship to the other items.\n Placing a list item outside a list container produces invalid HTML.\n\n The parent is the element the item is rendered into. List items that aren't inside\n any element in the file are ignored, because the file may be rendered inside a list\n somewhere else, for example as a component. Items directly inside a `<template>` element are also\n ignored, because the template's content is inserted by a script, not rendered in place.\n Items whose parent is a component are also ignored,\n because the element a component renders is unknown.\n\n In Svelte, control blocks such as `{#if}` and `{#each}`, as well as `<svelte:boundary>`,\n `<svelte:fragment>`, and `<slot>`, are skipped when finding the parent, while items\n inside snippets, `<svelte:element>`, and other Svelte special elements are ignored.\n\n In Vue, `<template>` elements with a `v-if`, `v-else-if`, `v-else`, or `v-for`\n directive, `<transition>`, `<keep-alive>`, `<suspense>`, and `<slot>` are looked\n through to find the parent. Items directly inside the component's top-level\n `<template>`, and items inside `<component>`, `<transition-group>`, or `<teleport>`,\n are ignored.\n\n In Astro, fragments and `<slot>` are looked through to find the parent. Markup inside\n a `{...}` expression is checked separately from the markup around it, so an item in\n an expression is only compared with elements in the same expression. For example,\n `<div>{items.map((item) => <li>{item}</li>)}</div>` isn't reported, because the\n `<div>` is outside the expression.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div><li>Item</li></div>\n ```\n\n ```html,expect_diagnostic\n <ul><div><li>Item</li></div></ul>\n ```\n\n ```svelte,expect_diagnostic\n <div>\n     {#each items as item}\n         <li>{item}</li>\n     {/each}\n </div>\n ```\n\n ```astro,expect_diagnostic\n <div>\n     <>\n         <li>Item</li>\n     </>\n </div>\n ```\n\n ### Valid\n\n ```html\n <ul><li>Item</li></ul>\n <ol><li>Item</li></ol>\n <menu><li>Item</li></menu>\n ```\n\n ```vue\n <template>\n     <li>Item rendered in a list elsewhere</li>\n </template>\n ```\n\n ```svelte\n {#snippet item()}\n     <li>Item</li>\n {/snippet}\n ```\n\n ```astro\n <ul>\n     <>\n         <li>Item</li>\n     </>\n </ul>\n ```\n\n"
           },
           "noNonScalableViewport": {
             "deprecated": false,
@@ -4682,6 +4716,15 @@ export function GET() {
             ],
             "docs": " Forbid a module from importing itself.\n\n A module that imports itself is almost always the result of a mistake\n made while refactoring. It creates a circular dependency on the module\n itself, which can leave the imported value `undefined` during evaluation\n and cause some bundlers to emit a warning or fail.\n\n This rule reports both static `import` statements and dynamic imports\n such as `import()` and `require()` calls that resolve to the file they\n appear in.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foo.js\n import foo from \"./foo.js\";\n ```\n\n ```js,expect_diagnostic,file=bar.js\n const bar = require(\"./bar.js\");\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import bar from \"./bar.js\";\n ```\n"
           },
+          "noSvelteExportLet": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noSvelteExportLet",
+            "link": "https://biomejs.dev/linter/rules/no-svelte-export-let/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "docs": " Disallow declaring Svelte component props with `export let`.\n\n Svelte 5 declares component props with the `$props()` rune. Exporting a `let` or `var`\n binding from the instance `<script>` is the legacy way of declaring props: it opts the\n component into legacy mode, and it is a compile error in runes mode.\n\n Exports from a `<script module>` block are regular module exports, not props, so they\n are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n <script>\n export let name;\n </script>\n ```\n\n ```svelte,expect_diagnostic\n <script>\n let className;\n export { className as class };\n </script>\n ```\n\n ### Valid\n\n ```svelte\n <script>\n let { name, class: className } = $props();\n </script>\n ```\n\n ```svelte\n <script module>\n export let count = 0;\n </script>\n ```\n\n ### References\n\n - [Svelte `$props`](https://svelte.dev/docs/svelte/$props)\n - [Svelte 5 migration guide](https://svelte.dev/docs/svelte/v5-migration-guide#Let-exports-become-$props)\n"
+          },
           "noSvelteUnnecessaryStateWrap": {
             "deprecated": false,
             "version": "2.5.2",
@@ -5359,6 +5402,23 @@ export function GET() {
             "fixKind": "unsafe",
             "docs": " Enforce the sorting of CSS utility classes.\n\n This rule implements the same sorting algorithm as [Tailwind CSS](https://tailwindcss.com/blog/automatic-class-sorting-with-prettier#how-classes-are-sorted), but supports any utility class framework including [UnoCSS](https://unocss.dev/).\n\n It is analogous to [`prettier-plugin-tailwindcss`](https://github.com/tailwindlabs/prettier-plugin-tailwindcss).\n\n\n :::caution\n ## Important notes\n\n This rule is a work in progress, and is only partially implemented. Progress is being tracked in the following GitHub issue: https://github.com/biomejs/biome/issues/1274\n\n Currently, utility class sorting is **not part of the formatter**, and is implemented as a linter rule instead, with an automatic fix. The fix is, at this stage, classified as unsafe. This means that **it won't be applied automatically** as part of IDE actions such as \"fix on save\".\n\n We appreciate any feedback on this rule, and encourage you to try it out and report any issues you find.\n\n **Please read this entire documentation page before reporting an issue.**\n\n Notably, keep in mind that the following features are not supported yet:\n\n - Screen variant sorting (e.g. `md:`, `max-lg:`). Only static, dynamic and arbitrary variants are supported.\n - Custom utilities and variants (such as ones introduced by Tailwind CSS plugins). Only the default Tailwind CSS configuration is supported.\n - Options such as `prefix` and `separator`.\n\n Please don't report issues about these features.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div class=\"px-2 foo p-4 bar\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div class=\"hover:focus:m-2 foo hover:px-2 p-4\" />\n ```\n\n ## Options\n\n ### Code-related\n\n ```json,options\n {\n     \"options\": {\n         \"attributes\": [\"classList\"],\n         \"functions\": [\"clsx\", \"cva\", \"tw\", \"tw.*\"]\n     }\n }\n ```\n\n #### attributes\n\n Classes in the `class` and `className` JSX attributes are always sorted. Use this option to add more attributes that should be sorted.\n\n #### functions\n\n If specified, strings in the indicated functions will be sorted. This is useful when working with libraries like [`clsx`](https://github.com/lukeed/clsx) or [`cva`](https://cva.style/).\n\n ```js,expect_diagnostic,use_options\n clsx(\"px-2 foo p-4 bar\", {\n     \"some-css-class\": condition,\n });\n ```\n\n ```js,expect_diagnostic,use_options\n clsx(\"some-css-class\", {\n     \"block mx-4\": condition,\n });\n ```\n\n Tagged template literals are also supported, for example:\n\n ```js,use_options\n tw`px-2`;\n tw.div`px-2`;\n ```\n\n ```js,expect_diagnostic,use_options\n tw`px-2 foo p-4 bar`;\n ```\n\n ```js,expect_diagnostic,use_options\n tw.div`px-2 foo p-4 bar`;\n ```\n\n ### Sort-related\n\n :::caution\n At the moment, this rule does not support customizing the sort options. Instead, the default Tailwind CSS configuration is hard-coded.\n :::\n\n ## Differences with [Prettier](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)\n\n The main key difference is that Tailwind CSS and its Prettier plugin read and execute the `tailwind.config.js` JavaScript file, which Biome can't do. Instead, Biome implements a simpler version of the configuration. The trade-offs are explained below.\n\n ### Values are not known\n\n The rule has no knowledge of values such as colors, font sizes, or spacing values, which are normally defined in a configuration file like `tailwind.config.js`. Instead, the rule matches utilities that support values in a simpler way: if they start with a known utility prefix, such as `px-` or `text-`, they're considered valid.\n\n This has two implications:\n\n - **False positives:** classes can be wrongly recognized as utilities even though their values are incorrect.\n   For example, if there's a `px-` utility defined in the configuration, it will match all of the following classes:\n   `px-2`, `px-1337`, `px-[not-actually-valid]`, `px-literally-anything`.\n\n - **No distinction between different utilities that share the same prefix:** for example,\n   `text-red-500` and `text-lg` are both interpreted as the same type of utility by this rule,\n    even though the former refers to a color and the latter to a font size. This results in all\n    utilities that share the same prefix being sorted together, regardless of their actual values.\n\n ### Custom additions must be specified\n\n The built-in Tailwind CSS preset (enabled by default) contains the set of utilities and variants that are available with the default configuration. More utilities and variants can be added through Tailwind CSS plugins. In Biome, these need to be manually specified in the Biome configuration file in order to \"extend\" the preset.\n\n ### Presets can't be modified\n\n In Tailwind CSS, core plugins (which provide the default utilities and variants) can be disabled. In Biome, however, there is no way to disable parts of a preset: it's all or nothing. A work-around is to, instead of using a preset, manually specify all utilities and variants in the Biome configuration file.\n\n ### Whitespace is collapsed\n\n The Tailwind CSS Prettier plugin preserves all original whitespace. This rule, however, collapses all whitespace (including newlines) into single spaces.\n\n This is a deliberate decision. We're unsure about this behavior, and would appreciate feedback on it. If this is a problem for you, please share a detailed explanation of your use case in [the GitHub issue](https://github.com/biomejs/biome/issues/1274).\n\n"
           },
+          "useStrictBooleanExpressions": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useStrictBooleanExpressions",
+            "link": "https://biomejs.dev/linter/rules/use-strict-boolean-expressions/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "strict-boolean-expressions"
+                }
+              }
+            ],
+            "docs": " Require unambiguous boolean expressions in conditions.\n\n Truthiness checks on nullable primitives can confuse missing values with\n `false`, an empty string, zero, or `NaN`. Check for nullish values explicitly\n or convert the value with `Boolean()` when that distinction is intentional.\n\n This rule allows booleans, non-nullable strings and numbers, and nullable\n objects, functions, and symbols. Nullable `true`, nonempty string literal\n types, and nonzero number literal types are also allowed. Numbers include\n bigints, but nullable bigints are rejected.\n\n It checks conditions, logical negation, the operands of `&&` and `||`, and\n array predicate callbacks and truthiness assertion arguments. The last operand of a logical expression is\n checked only when its result is used as a condition.\n\n Types that cannot be inferred are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=nullable-number.ts\n function display(count: number | undefined) {\n     if (count) {}\n }\n ```\n\n ```ts,expect_diagnostic,file=nullable-boolean.ts\n function run(enabled?: boolean) {\n     if (enabled) {}\n }\n ```\n\n ```js,expect_diagnostic,file=object-condition.js\n if ({}) {}\n ```\n\n ### Valid\n\n ```ts\n function run(maybeCount: number | undefined, count: number, text: string, object: object | null, enabled?: boolean) {\n     if (maybeCount != null) {}\n     if (enabled === true) {}\n     if (text) {}\n     if (count) {}\n     if (object) {}\n }\n ```\n"
+          },
           "useStringStartsEndsWith": {
             "deprecated": false,
             "version": "2.4.12",
@@ -5375,6 +5435,15 @@ export function GET() {
               }
             ],
             "docs": " Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks.\n\n This rule detects common string comparisons such as indexing, `charAt`, `indexOf`, `lastIndexOf`,\n `slice`, `substring`, `match`, and anchored `RegExp#test` calls when they are being used to check\n whether a string starts or ends with another string.\n\n The rule uses type information and only reports when the receiver is known to be a string. Array\n indexing and other non-string receivers are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-index.ts\n declare const text: string;\n text[0] === \"a\";\n ```\n\n ```ts,expect_diagnostic,file=invalid-search.ts\n declare const text: string;\n text.indexOf(\"foo\") === 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid-regex.ts\n declare const text: string;\n /^foo/.test(text);\n ```\n\n ### Valid\n\n ```ts,file=valid-string.ts\n declare const text: string;\n text.startsWith(\"foo\");\n text.endsWith(\"bar\");\n ```\n\n ```ts,file=valid-array.ts\n declare const list: string[];\n list[0] === \"a\";\n ```\n"
+          },
+          "useSvelteKitRuneImports": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useSvelteKitRuneImports",
+            "link": "https://biomejs.dev/linter/rules/use-svelte-kit-rune-imports/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "docs": " Require importing SvelteKit's app state from `$app/state` instead of `$app/stores`.\n\n SvelteKit 2.12 deprecated `$app/stores` in favor of `$app/state`. The `$app/state` module\n exposes `page`, `navigating`, and `updated` as reactive objects built on Svelte 5 runes,\n so they can be read directly instead of through a store subscription.\n\n Switching modules also changes how the values are read. For example, `$page.url` becomes\n `page.url`, and `$updated` becomes `updated.current`. For this reason, the rule doesn't\n provide a code fix.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { page } from \"$app/stores\";\n ```\n\n ```svelte,expect_diagnostic\n <script>\n import { page } from \"$app/stores\";\n </script>\n\n <h1>{$page.url.pathname}</h1>\n ```\n\n ### Valid\n\n ```js\n import { page } from \"$app/state\";\n ```\n\n ```svelte\n <script>\n import { page } from \"$app/state\";\n </script>\n\n <h1>{page.url.pathname}</h1>\n ```\n\n"
           },
           "useTestHooksInOrder": {
             "deprecated": false,
@@ -9510,6 +9579,23 @@ export function GET() {
           }
         },
         "nursery": {
+          "noAstroConflictingSetDirectives": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noAstroConflictingSetDirectives",
+            "link": "https://biomejs.dev/linter/rules/no-astro-conflicting-set-directives/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintAstro": "no-conflict-set-directives"
+                }
+              }
+            ],
+            "docs": " Disallow conflicting content sources on Astro elements.\n\n The `set:html` and `set:text` directives replace an element's child content.\n Combining either directive with another content source makes it unclear which\n content should be rendered.\n\n ## Examples\n\n ### Invalid\n\n ```astro,ignore\n <div>{items.map((item) => <span set:html={item.html}>Fallback content</span>)}</div>\n ```\n\n ### Valid\n\n ```astro,ignore\n <div>{items.map((item) => <span set:html={item.html} />)}</div>\n ```\n\n ## References\n\n - [Astro template directives](https://docs.astro.build/en/reference/directives-reference/#sethtml)\n"
+          },
           "noAstroSetHtmlDirective": {
             "deprecated": false,
             "version": "2.5.11",
@@ -9618,6 +9704,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow JSX namespace syntax.\n\n React does not support XML namespaced tags such as `<ns:Component />`.\n Although the JSX specification permits namespaces, React does not implement\n them and using a namespaced element may cause a runtime error.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <ns:testcomponent />\n ```\n\n ```jsx,expect_diagnostic\n <svg:circle cx=\"50\" cy=\"50\" r=\"40\" />\n ```\n\n ### Valid\n\n ```jsx\n <testcomponent />\n ```\n\n ```jsx\n <object.TestComponent />\n ```\n\n"
+          },
+          "noMisplacedListElements": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noMisplacedListElements",
+            "link": "https://biomejs.dev/linter/rules/no-misplaced-list-elements/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "require-li-container"
+                }
+              }
+            ],
+            "docs": " Require `<li>` elements with an HTML element parent to be children of `<ul>`, `<ol>`, or `<menu>`.\n\n List items need a list container to define their relationship to the other items.\n Placing a list item outside a list container produces invalid HTML.\n\n The parent is the element the item is rendered into. Fragments, conditional and\n logical expressions, arrays, and callbacks passed to `map`, `flatMap`, or `Array.from`\n are looked through to find it.\n\n List items without an HTML element parent are ignored, including standalone items,\n items returned from components, items stored in variables, and component children.\n Their container may be supplied where they are rendered.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div><li>Item</li></div>\n ```\n\n ```jsx,expect_diagnostic\n <ul><div><li /></div></ul>\n ```\n\n ```jsx,expect_diagnostic\n <div>{items.map((item) => <li key={item}>{item}</li>)}</div>\n ```\n\n ### Valid\n\n ```jsx\n <>\n     <ul><li>Item</li></ul>\n     <ol><li>Item</li></ol>\n     <menu><li /></menu>\n </>\n ```\n\n ```jsx\n <ul>{items.map((item) => <li key={item}>{item}</li>)}</ul>\n ```\n\n ```jsx\n <li>Item rendered in a list elsewhere</li>\n ```\n\n ```jsx\n const item = <li>Item rendered in a list elsewhere</li>;\n ```\n\n ```jsx\n function Item() {\n     return <li>Item rendered in a list elsewhere</li>;\n }\n ```\n\n ```jsx\n <List><li>Component child</li></List>\n ```\n\n"
           },
           "noNonScalableViewport": {
             "deprecated": false,
@@ -10985,7 +11088,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 614
+    "numberOrRules": 621
   },
   "syntax": {
     "languages": {
