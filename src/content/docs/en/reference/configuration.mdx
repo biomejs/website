@@ -1640,10 +1640,16 @@ Enables or disables assist actions for HTML and languages that extend it.
 
 ## `markdown`
 
+**Type:** `{ parser?: object, formatter?: object, linter?: object }`
+
+Options applied to Markdown files.
 
 ### `markdown.parser.frontmatter`
 
-Enables the parsing of frontmatter in Markdown files. When enabled, the leading `---` is considered the opening fence of the frontmatter.
+**Type:** `boolean`<br />
+**Default:** `false`
+
+Enables frontmatter parsing in Markdown files. When enabled, a leading `---` opens the frontmatter block:
 
 ```md
 ---
@@ -1652,14 +1658,21 @@ description: Description
 ---
 ```
 
-> Default: `false`.
+Biome formats and lints the frontmatter as YAML:
+
+```diff title="file.md"
+---
+-file:   "Lorem ipsum"
++file: "Lorem ipsum"
+---
+```
 
 ### `markdown.parser.gfm`
 
-Enables the parsing of GitHub Flavored Markdown (GFM). When enabled, the following extensions are parsed:
-- task lists items
-- strikethrough inline markup
-- tables
+**Type:** `boolean`<br />
+**Default:** `true`
+
+Enables GitHub Flavored Markdown (GFM) syntax, which adds task list items, strikethrough, and tables:
 
 ```md
 - [ ] This is a disabled task
@@ -1672,76 +1685,136 @@ Enables the parsing of GitHub Flavored Markdown (GFM). When enabled, the followi
 | Lorem | Ipsum |
 ```
 
-> Default: `false`
-
 ### `markdown.formatter.enabled`
 
-Enables Biome's formatter for Markdown files.
+**Type:** `boolean`
 
-> Default: `true`
+Enables or disables the formatter for Markdown.
 
 ### `markdown.formatter.indentStyle`
 
-The style of the indentation for Markdown files. It can be `"tab"` or `"space"`.
+**Type:** `"tab" | "space"`
 
-> Default: `"tab"`
+Selects the indentation style:
+
+- `"tab"`: Uses tabs for indentation.
+- `"space"`: Uses spaces for indentation.
 
 ### `markdown.formatter.indentWidth`
 
-How big the indentation should be for Markdown files.
+**Type:** `integer`
 
-> Default: `2`
+Sets the indentation width, from `0` through `24`.
 
 ### `markdown.formatter.lineEnding`
 
-The type of line ending for HTML files.
-- `"lf"`, Line Feed only (`\n`), common on Linux and macOS as well as inside git repos;
-- `"crlf"`, Carriage Return + Line Feed characters (`\r\n`), common on Windows;
-- `"cr"`, Carriage Return character only (`\r`), used very rarely.
+**Type:** `"lf" | "crlf" | "cr" | "auto"`
 
-> Default: `"lf"`
+Selects the line-ending sequence:
+
+- `"lf"`: Line Feed (`\n`), commonly used on Linux and macOS.
+- `"crlf"`: Carriage Return followed by Line Feed (`\r\n`), commonly used on Windows.
+- `"cr"`: Carriage Return (`\r`), which is rarely used.
+- `"auto"`: Uses CRLF on Windows and LF on other platforms.
 
 ### `markdown.formatter.lineWidth`
 
-The amount of characters that can be written on a single line in Markdown files.
+**Type:** `integer`
 
-> Default: `80`
+Sets the preferred maximum line width, from `1` through `320`.
 
-### `html.formatter.proseWrap`
+### `markdown.formatter.proseWrap`
 
-Controls how paragraphs should be formatted. The option accepts the following values:
+**Type:** `"preserve" | "always" | "never"`<br />
+**Default:** `"preserve"`
 
-- `"preserve"`: Biome won't attempt to format any paragraph, and it will the newlines of the user. This is the **default** value.
-- `"always"`: Biome attempts to fit the paragraph in the configured `lineWidth`
-  Given the following paragraphs:
-  ```md title="file.md"
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Controls how Biome wraps paragraphs:
 
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  ```
-  If you configure the `lineWidth` to a value of `20`, Biome will format the paragraphs to that the words will fit the constraint:
+- `"preserve"`: Keeps the line breaks of each paragraph as written.
+- `"always"`: Wraps each paragraph to fit the configured `lineWidth`.
+- `"never"`: Joins each paragraph into a single line, regardless of the configured `lineWidth`.
 
-  ```md title="file.md"
-  Lorem ipsum dolor sit amet,
-  consectetur adipiscing elit.
+For example, given the following paragraph:
 
-  Lorem ipsum dolor sit amet,
-  consectetur adipiscing elit.
-  ```
-- `"never"`: Biome will format each paragraph to a single line, regardless of the configured `lineWidth`.
+```md title="file.md"
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+```
 
-  The following paragraph will format on a single line.
-  ```diff title="file.md"
-  -Lorem ipsum dolor sit amet,
-  -consectetur adipiscing elit.
-  +Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  ```
+With `"always"` and a `lineWidth` of `30`, Biome wraps the paragraph:
+
+```md title="file.md"
+Lorem ipsum dolor sit amet,
+consectetur adipiscing elit.
+```
+
+With `"never"`, Biome joins a wrapped paragraph into a single line:
+
+```diff title="file.md"
+-Lorem ipsum dolor sit amet,
+-consectetur adipiscing elit.
++Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+```
+
+### `markdown.formatter.trailingNewline`
+
+**Type:** `boolean`
+
+Controls whether formatted files end with a newline.
+
+:::caution[Keep trailing newlines enabled]
+Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
+:::
 
 ### `markdown.linter.enabled`
 
-Enables Biome's linter for Markdown files.
+**Type:** `boolean`
 
-> Default: `true`
+Enables or disables the linter for Markdown.
+
+## `yaml`
+
+**Type:** `{ formatter?: object }`
+
+Options applied to YAML files.
+
+### `yaml.formatter.enabled`
+
+**Type:** `boolean`
+
+Enables or disables the formatter for YAML.
+
+### `yaml.formatter.indentWidth`
+
+**Type:** `integer`
+
+Sets the indentation width, from `0` through `24`.
+
+### `yaml.formatter.lineEnding`
+
+**Type:** `"lf" | "crlf" | "cr" | "auto"`
+
+Selects the line-ending sequence:
+
+- `"lf"`: Line Feed (`\n`), commonly used on Linux and macOS.
+- `"crlf"`: Carriage Return followed by Line Feed (`\r\n`), commonly used on Windows.
+- `"cr"`: Carriage Return (`\r`), which is rarely used.
+- `"auto"`: Uses CRLF on Windows and LF on other platforms.
+
+### `yaml.formatter.lineWidth`
+
+**Type:** `integer`
+
+Sets the preferred maximum line width, from `1` through `320`.
+
+### `yaml.formatter.trailingNewline`
+
+**Type:** `boolean`
+
+Controls whether formatted files end with a newline.
+
+:::caution[Keep trailing newlines enabled]
+Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
+:::
 
 ## Glob syntax reference
 
