@@ -1,0 +1,147 @@
+---
+title: Install Biome
+description: Every way to install Biome, from a package manager to a standalone binary.
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { getLatestVersion } from "@biomejs/version-utils";
+import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+export const version = await getLatestVersion("stable");
+
+Biome is distributed as an npm package and as a standalone executable. Install it with your package manager if your project already has one, or use the standalone executable when you do not use Node.js or when Biome would be the only reason to have a `package.json`.
+
+## Package manager
+
+Install `@biomejs/biome` as a development dependency:
+
+<PackageManagerCommand
+  npm={["i -D -E @biomejs/biome"]}
+  pnpm={["add -D -E @biomejs/biome"]}
+  yarn={["add -D -E @biomejs/biome"]}
+  bun={["add -D -E @biomejs/biome"]}
+  deno={["add -D npm:@biomejs/biome"]}
+/>
+
+:::note[Version pinning]
+The `-E` flag pins the exact version in your `package.json`, so every contributor and your CI run the same version of Biome. See [why pinning matters](/internals/versioning#why-pinning-the-version-is-important).
+:::
+
+Once installed, run Biome through your package manager. For example, `biome check` runs the formatter, the linter, and assist actions on your project:
+
+<PackageManagerBiomeCommand command="check" />
+
+## Standalone executable
+
+The standalone executable does not need Node.js. Once installed, run it as `biome` directly.
+
+### Supported platforms
+
+Pick the binary that matches your operating system and architecture:
+
+| Platform     | `arm64`                      | `x64`              |
+| ------------ | ---------------------------- | ------------------ |
+| Windows      | `win32-arm64`                | `win32-x64`        |
+| macOS        | `darwin-arm64` (Apple silicon) | `darwin-x64`       |
+| Linux        | `linux-arm64`                | `linux-x64`        |
+| Linux (musl) | `linux-arm64-musl`           | `linux-x64-musl`   |
+
+:::note
+Use the Linux variant inside Windows Subsystem for Linux (WSL).
+:::
+
+### Homebrew
+
+Biome is available as a [Homebrew formula](https://formulae.brew.sh/formula/biome) for macOS and Linux:
+
+```shell
+brew install biome
+```
+
+### Winget
+
+Biome is available as a community-maintained package in the [Winget repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/b/biomejs/biome) for Windows:
+
+```shell
+winget install biomejs.biome
+```
+
+### Arch Linux
+
+Biome is available as a community-maintained package in the [Arch Linux Extra repository](https://archlinux.org/packages/extra/x86_64/biome):
+
+```shell
+pacman -S biome
+```
+
+The `extra` repository is enabled by default in `/etc/pacman.conf`. If it is disabled, uncomment these lines:
+
+```ini title="/etc/pacman.conf"
+[extra]
+Include = /etc/pacman.d/mirrorlist
+```
+
+### Docker
+
+Biome publishes [official Docker images](https://github.com/biomejs/docker/pkgs/container/biome) for the `amd64` and `arm64` architectures. Tags are available for every major, minor, and patch version:
+
+```text
+ghcr.io/biomejs/biome:{major}
+ghcr.io/biomejs/biome:{major}.{minor}
+ghcr.io/biomejs/biome:{major}.{minor}.{patch}
+```
+
+The image's working directory is `/code`. Mount your project there and pass any Biome command:
+
+```shell
+docker run -v $(pwd):/code ghcr.io/biomejs/biome check
+docker run -v $(pwd):/code ghcr.io/biomejs/biome check --write
+```
+
+### GitHub release
+
+Download the binary for your platform from the [latest release](https://github.com/biomejs/biome/releases) on GitHub and make it executable:
+
+<Code lang="shell" code={`
+# macOS (Apple silicon)
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-darwin-arm64 -o biome
+chmod +x biome
+
+# Linux (x64)
+curl -L https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-linux-x64 -o biome
+chmod +x biome
+
+# Windows (x64, PowerShell)
+Invoke-WebRequest -Uri "https://github.com/biomejs/biome/releases/download/@biomejs/biome@${version}/biome-win32-x64.exe" -OutFile "biome.exe"
+`} />
+
+Run it as `./biome`, or move it to a directory on your `PATH` to run it as `biome`.
+
+## Upgrade Biome
+
+If you installed Biome with a package manager, install the latest version with the same package manager, keeping the version pinned:
+
+<PackageManagerCommand
+  npm={["i -D -E @biomejs/biome@latest"]}
+  pnpm={["add -D -E @biomejs/biome@latest"]}
+  yarn={["add -D -E @biomejs/biome@latest"]}
+  bun={["add -D -E @biomejs/biome@latest"]}
+  deno={["add -D npm:@biomejs/biome@latest"]}
+/>
+
+If you installed the standalone executable, run the `upgrade` command to update to the latest stable version:
+
+```shell
+biome upgrade
+```
+
+Biome detects whether it was installed through Homebrew or as a plain binary and upgrades accordingly. If the detection is wrong, set the [`BIOME_DISTRIBUTION` environment variable](/reference/environment-variables#biome_distribution).
+
+:::note
+If you installed Biome through Winget or pacman, update it with that tool instead.
+:::
+
+After a major upgrade, run [`biome migrate`](/reference/cli#biome-migrate) to see the configuration changes the new version requires, then run it with `--write` to apply them:
+
+<PackageManagerBiomeCommand command="migrate --write" />
