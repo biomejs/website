@@ -680,6 +680,77 @@ Controls whether Biome loads formatter settings from an `.editorconfig` file. Bi
 
 Biome loads only one `.editorconfig`. Nested cascading configurations and the EditorConfig `root` property are not currently supported.
 
+## `tailwind`
+
+**Type:** `{ attributes?: string[], mergeFunctions?: string[], variantFunctions?: string[] }`
+
+Configures how Biome recognizes [Tailwind](https://tailwindcss.com) class strings. The Tailwind rules [`useTailwindShorthandClasses`](/linter/rules/use-tailwind-shorthand-classes/javascript), [`noTailwindArbitraryValue`](/linter/rules/no-tailwind-arbitrary-value/javascript), and [`noTailwindRawColors`](/linter/rules/no-tailwind-raw-colors/javascript) use these lists to find class strings in JavaScript and HTML files.
+
+```json title="biome.json"
+{
+  "tailwind": {
+    "attributes": ["class", "className", "tw"],
+    "mergeFunctions": ["clsx", "cn", "tw"],
+    "variantFunctions": ["cva", "tv", "sva"]
+  }
+}
+```
+
+:::note
+Setting `attributes`, `mergeFunctions`, or `variantFunctions` replaces that list's defaults instead of extending them. If you want to keep the defaults, list them along with your additions.
+:::
+
+### `tailwind.attributes`
+
+**Type:** `string[]`<br />
+**Default:** `["class", "className"]`
+
+Attribute names whose values contain Tailwind classes.
+
+HTML attribute names are matched case-insensitively.
+
+### `tailwind.mergeFunctions`
+
+**Type:** `string[]`<br />
+**Default:** `["clsx", "tw", "twMerge", "twJoin", "cn", "cc", "cnb", "ctl"]`
+
+Functions and tagged templates whose arguments contain Tailwind classes, such as [`clsx`](https://github.com/lukeed/clsx) and `cn`.
+
+String arguments are class strings, such as `clsx("px-2 py-2")`, and so are tagged template literals that use a listed name as the tag, such as `` tw`px-2 py-2` ``. In object arguments, the keys are class strings and the values aren't, as in `clsx({ "px-2": isActive })`.
+
+Member expressions rooted at a listed name are also recognized. For example, `tw` covers `` tw.div`...` ``, `tw.div("...")`, and `tw.div.foo("...")`.
+
+### `tailwind.variantFunctions`
+
+**Type:** `string[]`<br />
+**Default:** `["cva", "tv"]`
+
+Functions whose object arguments contain Tailwind classes as values, such as [`cva`](https://cva.style/) and [`tv`](https://www.tailwind-variants.org/).
+
+String arguments are class strings, such as the base classes in `cva("px-2 py-2", { ... })`. Object arguments are read as variant configurations, with the same schema for every listed function:
+
+- Classes are read from `base`, `slots`, `class`, `className`, and `variants`.
+- In each `compoundVariants` and `compoundSlots` entry, classes are read from `class` and `className`. The other keys of an entry, such as `size: "sm"`, are variant selectors and are ignored.
+- Other keys, such as `defaultVariants`, are ignored.
+- The keys of the configuration object are never classes.
+
+A nested object under one of these keys is read entry by entry. If an entry's value is a string, template literal, array, object, or conditional expression, the value contains the classes, as in a slot map like `{ icon: "px-2" }`. Otherwise, the key is the class, as in `{ "px-2": isActive }`.
+
+```js
+const button = cva("px-2 py-2", {
+  variants: {
+    size: {
+      sm: "text-sm",
+      lg: { "text-lg": isLarge },
+    },
+  },
+  compoundVariants: [{ size: "sm", class: "mr-2" }],
+  defaultVariants: { size: "sm" },
+});
+```
+
+In this example, Biome checks `"px-2 py-2"`, `"text-sm"`, `"text-lg"`, and `"mr-2"`. It ignores the `size` selector in `compoundVariants` and everything in `defaultVariants`.
+
 ## `overrides`
 
 **Type:** `{ includes?: string[], formatter?: object, linter?: object, assist?: object, files?: object, plugins?: (string | object)[], javascript?: object, json?: object, css?: object, graphql?: object, grit?: object, html?: object }[]`
