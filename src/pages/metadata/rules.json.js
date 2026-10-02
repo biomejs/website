@@ -1433,6 +1433,18 @@ export function GET() {
               {
                 "kind": "sameLogic",
                 "source": {
+                  "eslintSvelte": "button-has-type"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "html-button-has-type"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
                   "htmlEslint": "require-button-type"
                 }
               }
@@ -2115,6 +2127,14 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-svelte-legacy-const/html",
             "recommended": false,
             "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSvelte": "no-at-const-tags"
+                }
+              }
+            ],
             "docs": " Disallow legacy Svelte `{@const}` tags.\n\n Declaration tags provide the current syntax for deriving values in Svelte markup (available since Svelte 5.56).\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n {#each boxes as box}\n     {@const area = box.width * box.height}\n     <p>{area}</p>\n {/each}\n ```\n\n ### Valid\n\n ```svelte\n {#each boxes as box}\n     {const area = $derived(box.width * box.height)}\n     <p>{area}</p>\n {/each}\n ```\n\n ### References\n\n - [Svelte declaration tags](https://svelte.dev/docs/svelte/declaration-tags)\n"
           },
           "noTailwindArbitraryValue": {
@@ -3952,6 +3972,12 @@ export function GET() {
                 "source": {
                   "eslintUnusedImports": "no-unused-vars"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-unused-vars"
+                }
               }
             ],
             "docs": " Disallow unused variables.\n\n There is an exception to this rule: variables that start with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as a prefix of a variable is a very diffuse\n pattern among programmers, and Biome follows it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ```js,expect_diagnostic\n const { brand } = car;\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n\n By default, unused variables declared inside destructured objects are ignored\n if the destructuring pattern also contains a rest property.\n (See the [rule options](#options) if you want to enable these checks).\n ```js\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...rest } = car;\n console.log(rest);\n ```\n\n TypeScript namespaces that participate in declaration merging with an exported\n or referenced value of the same name are not flagged.\n ```ts\n const MyComponent = () => {};\n namespace MyComponent {\n     export type Props = { id: string };\n }\n export default MyComponent;\n ```\n\n In Astro files, a top-level interface or a type alias named `Props` is always ignored\n as it's implicitly read by the framework.\n ```astro\n ---\n interface Props {\n   name: string;\n   greeting?: string;\n }\n ---\n ```\n\n ## Options\n\n ### `ignoreRestSiblings`\n\n Whether to ignore unused variables declared inside destructured objects\n containing rest properties (such as `const { a, b, ...rest } = obj`.\n\n Default: `true`\n\n If this option is set to `false`, unused rest siblings either have to be renamed or removed.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreRestSiblings\": false\n   }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...other } = car;\n console.log(other);\n ```\n\n ```js,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand: _, ...other } = car;\n console.log(other);\n ```\n\n ### `ignore`\n\n An object that allows excluding matching identifiers from this rule.\n\n Each key may specify an array of identifiers to ignore which are case-sensitive matches.\n\n The special string `\"*\"` can serve two purposes:\n - As a **key** it refers to every kind of identifier.\n - As a **value** it may be used to match all identifiers in the respective group, effectively disabling this rule for that group.\n\n Allowed keys:\n\n - `\"*\"`: Applies to all identifiers\n - `\"class\"`: Applies to class names\n - `\"function\"`: Applies to function names\n - `\"interface\"`: Applies to interface names\n - `\"typeAlias\"`: Applies to type aliases\n - `\"typeParameter\"`: Applies to type parameters\n - `\"variable\"`: Applies to variable names\n\n Default: `{}` (no variables are excluded)\n\n For example, you can exclude all unused identifiers named `ignored` regardless of their kind,\n all unused classes named `IgnoredClass`, and all unused functions with the following\n configuration.\n\n A variable named `unusedVariable` is still flagged as unused, and so is a class named\n `UnusedClass` since they don't fall under the exceptions.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": {\n       \"*\": [\"ignored\"],\n       \"class\": [\"IgnoredClass\"],\n       \"function\": [\"*\"]\n     }\n   }\n }\n ```\n\n ```js,expect_diagnostic,ignore,use_options\n const ignored = 0;\n class IgnoredClass {}\n function ignoredFunction() {}\n\n const unusedVariable = 0;\n class UnusedClass {}\n ```\n\n"
@@ -5277,6 +5303,12 @@ export function GET() {
                 "source": {
                   "eslint": "prefer-promise-reject-errors"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "prefer-promise-reject-errors"
+                }
               }
             ],
             "docs": " Require Error objects as Promise rejection reasons.\n\n Error objects capture a stack trace that helps locate the cause of a rejection.\n Rejecting with a string or another non-Error value loses this information.\n\n This rule checks `Promise.reject()` and calls to the second parameter of a\n `new Promise()` executor. Values that could be errors, such as function calls\n and unknown variables, are allowed without inspecting their types.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Promise.reject(\"Request failed\");\n ```\n\n ```js,expect_diagnostic\n new Promise((resolve, reject) => reject(42));\n ```\n\n ```js,expect_diagnostic\n Promise.reject();\n ```\n\n ### Valid\n\n ```js\n Promise.reject(new Error(\"Request failed\"));\n new Promise((resolve, reject) => reject(new TypeError(\"Invalid value\")));\n Promise.reject(getError());\n ```\n"
@@ -6401,6 +6433,12 @@ export function GET() {
                 "source": {
                   "eslint": "object-shorthand"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "object-shorthand"
+                }
               }
             ],
             "docs": " Require the consistent declaration of object literals.\n\n ECMAScript 6 provides two ways to define an object literal: `{foo: foo}` and `{foo}`.\n The two styles are functionally equivalent.\n Using the same style consistently across your codebase makes it easier to quickly read and understand object definitions.\n\n ## Example\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"shorthand\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo: foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo,\n     bar() { return \"bar\"; },\n };\n ```\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo: foo,\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ## Options\n\n Use the options to specify the syntax of object literals to enforce.\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ### syntax\n\n The syntax to use:\n - `shorthand`: enforces the use of shorthand object property syntax when possible.\n - `explicit`: enforces the use of explicit object property syntax in every case.\n\n **Default:** `shorthand`\n\n"
@@ -7089,6 +7127,12 @@ export function GET() {
                 "source": {
                   "eslint": "no-console"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-console"
+                }
               }
             ],
             "docs": " Disallow the use of `console`.\n\n In a browser environment, it’s considered a best practice to log messages using `console`.\n Such messages are considered to be for debugging purposes and therefore not suitable to ship to the client.\n In general, calls using `console` should be stripped before being pushed to production.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n console.error('hello world')\n ```\n\n ## Options\n\n Use the options to explicitly allow a specific subset of `console` methods.\n\n ```json,options\n {\n   \"options\": {\n     \"allow\": [\"assert\", \"error\", \"info\", \"warn\"]\n   }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n console.error(\"error message\"); // Allowed\n console.warn(\"warning message\"); // Allowed\n console.info(\"info message\"); // Allowed\n console.log(\"log message\");\n console.assert(true, \"explanation\"); // Allowed\n ```\n"
@@ -7196,6 +7240,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslint": "eqeqeq"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "eqeqeq"
                 }
               }
             ],
@@ -7591,6 +7641,12 @@ export function GET() {
                 "source": {
                   "eslint": "no-irregular-whitespace"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-irregular-whitespace"
+                }
               }
             ],
             "docs": " Disallows the use of irregular whitespace characters.\n\n Invalid or irregular whitespace causes issues with various parsers and also makes code harder to debug.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let\u000bcount;\n ```\n\n ```js,expect_diagnostic\n let foo;\n ```\n\n ### Valid\n\n ```js\n const count = 1;\n ```\n\n ```js\n const foo = '\u000b';\n ```\n\n"
@@ -7909,6 +7965,12 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-catch-shadow"
+                }
+              },
               {
                 "kind": "sameLogic",
                 "source": {
