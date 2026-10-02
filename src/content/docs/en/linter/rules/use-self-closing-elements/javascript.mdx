@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useSelfClosingEl
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-self-closing-elements/javascript/"}]} />
 
@@ -116,4 +117,5 @@ In the following example, when the option is set to "true", it will not self clo
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_self_closing_elements.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useSelfClosingElements)
+- <RulePlaygroundLink rule="useSelfClosingElements" category="lint" language="jsx" code={"<div></div>\n"} />
 

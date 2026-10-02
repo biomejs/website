@@ -8,6 +8,7 @@ description: HTML documentation for useSortedAttributes
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/assist/actions/use-sorted-attributes/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/assist/actions/use-sorted-attributes/javascript/"}]} />
@@ -171,4 +172,5 @@ Default: `"natural"`
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/assist/source/use_sorted_attributes.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/source/useSortedAttributes)
+- <RulePlaygroundLink rule="useSortedAttributes" category="assist" language="html" code={"<input type=\"text\" id=\"name\" name=\"name\" />\n"} />
 

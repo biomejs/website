@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useArrowFunction
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-arrow-function/javascript/"}]} />
 
@@ -110,4 +111,5 @@ const z = function(this: A): number {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_arrow_function.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/useArrowFunction)
+- <RulePlaygroundLink rule="useArrowFunction" category="lint" language="js" code={"const z = function() {\n    return 0;\n}\n"} />
 

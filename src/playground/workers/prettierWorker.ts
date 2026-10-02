@@ -13,6 +13,7 @@ import pluginCss from "prettier/plugins/postcss.mjs";
 // @ts-expect-error
 import pluginYaml from "prettier/plugins/yaml.mjs";
 import * as prettier from "prettier/standalone";
+import * as pluginAstro from "prettier-plugin-astro";
 // @ts-expect-error
 import * as pluginSvelte from "prettier-plugin-svelte/browser";
 import {
@@ -31,6 +32,7 @@ import {
 	type TrailingCommas,
 } from "@/playground/types.ts";
 import {
+	isAstroFilename,
 	isCssFilename,
 	isGraphqlFilename,
 	isHtmlFilename,
@@ -184,6 +186,7 @@ async function formatWithPrettier(
 			filepath: options.filepath,
 			plugins: [
 				parserBabel,
+				pluginAstro,
 				pluginCss,
 				pluginEstree,
 				pluginGraphql,
@@ -277,6 +280,9 @@ function getPrettierParser(filename: string): string {
 	}
 	if (isSvelteFilename(filename)) {
 		return "svelte";
+	}
+	if (isAstroFilename(filename)) {
+		return "astro";
 	}
 	if (isMarkdownFilename(filename)) {
 		return "markdown";

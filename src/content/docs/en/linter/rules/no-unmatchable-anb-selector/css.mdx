@@ -8,6 +8,7 @@ description: CSS documentation for noUnmatchableAnbSelector
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unmatchable-anb-selector/css/"}]} />
 
@@ -94,4 +95,5 @@ a:nth-last-of-type(1 of a) {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unmatchable_anb_selector.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnmatchableAnbSelector)
+- <RulePlaygroundLink rule="noUnmatchableAnbSelector" category="lint" language="css" code={"a:nth-child(0) {}\n"} />
 

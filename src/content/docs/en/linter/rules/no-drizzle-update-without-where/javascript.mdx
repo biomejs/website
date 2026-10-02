@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noDrizzleUpdateW
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-drizzle-update-without-where/javascript/"}]} />
 
@@ -91,4 +92,5 @@ await db.update(users).set({ name: "John" }).where(eq(users.id, 1));
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_drizzle_update_without_where.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noDrizzleUpdateWithoutWhere)
+- <RulePlaygroundLink rule="noDrizzleUpdateWithoutWhere" category="lint" language="js" code={"await db.update(users).set({ name: \"John\" });\n"} />
 

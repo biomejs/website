@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useComponentExpo
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-component-export-only-modules/javascript/"}]} />
 
@@ -156,4 +157,5 @@ Example for [Remix](https://remix.run/docs/en/main/discussion/hot-module-replace
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_component_export_only_modules.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useComponentExportOnlyModules)
+- <RulePlaygroundLink rule="useComponentExportOnlyModules" category="lint" language="jsx" code={"export const foo = () => {};\nexport const Bar = () => <></>;\n"} />
 

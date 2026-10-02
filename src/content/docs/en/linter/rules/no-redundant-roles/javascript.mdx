@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noRedundantRoles
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-redundant-roles/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-redundant-roles/javascript/"}]} />
 
@@ -80,4 +81,5 @@ Enforce explicit `role` property is not the same as implicit/default role proper
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/no_redundant_roles.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noRedundantRoles)
+- <RulePlaygroundLink rule="noRedundantRoles" category="lint" language="jsx" code={"<article role='article'></article>\n"} />
 

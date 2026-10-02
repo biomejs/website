@@ -1,0 +1,91 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useSvelteKitRuneImports (JavaScript)
+description: JavaScript (and super languages) documentation for useSvelteKitRuneImports
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-svelte-kit-rune-imports/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.5.15`
+- Diagnostic Category: [`lint/nursery/useSvelteKitRuneImports`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`svelte`](/linter/domains#svelte)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useSvelteKitRuneImports": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require importing SvelteKit's app state from `$app/state` instead of `$app/stores`.
+
+SvelteKit 2.12 deprecated `$app/stores` in favor of `$app/state`. The `$app/state` module
+exposes `page`, `navigating`, and `updated` as reactive objects built on Svelte 5 runes,
+so they can be read directly instead of through a store subscription.
+
+Switching modules also changes how the values are read. For example, `$page.url` becomes
+`page.url`, and `$updated` becomes `updated.current`. For this reason, the rule doesn't
+provide a code fix.
+
+## Examples
+
+### Invalid
+
+```js
+import { page } from "$app/stores";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:22 <a href=\"https://biomejs.dev/linter/rules/use-svelte-kit-rune-imports\">lint/nursery/useSvelteKitRuneImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>$app/stores</strong></span><span style=\"color: Orange;\"> module is deprecated.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>import &#123; page &#125; from &quot;$app/stores&quot;;<br />   <strong>   │ </strong>                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">SvelteKit deprecated </span><span style=\"color: lightgreen;\"><strong>$app/stores</strong></span><span style=\"color: lightgreen;\"> in favor of </span><span style=\"color: lightgreen;\"><strong>$app/state</strong></span><span style=\"color: lightgreen;\">, which provides the same values as reactive objects built on runes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Import from </span><span style=\"color: lightgreen;\"><strong>$app/state</strong></span><span style=\"color: lightgreen;\"> instead, and read its values directly, for example </span><span style=\"color: lightgreen;\"><strong>page.url</strong></span><span style=\"color: lightgreen;\"> instead of </span><span style=\"color: lightgreen;\"><strong>$page.url</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```svelte
+<script>
+import { page } from "$app/stores";
+</script>
+
+<h1>{$page.url.pathname}</h1>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.svelte:2:22 <a href=\"https://biomejs.dev/linter/rules/use-svelte-kit-rune-imports\">lint/nursery/useSvelteKitRuneImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>$app/stores</strong></span><span style=\"color: Orange;\"> module is deprecated.</span><br />  <br />    <strong>1 │ </strong>&lt;script&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>import &#123; page &#125; from &quot;$app/stores&quot;;<br />   <strong>   │ </strong>                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/script&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">SvelteKit deprecated </span><span style=\"color: lightgreen;\"><strong>$app/stores</strong></span><span style=\"color: lightgreen;\"> in favor of </span><span style=\"color: lightgreen;\"><strong>$app/state</strong></span><span style=\"color: lightgreen;\">, which provides the same values as reactive objects built on runes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Import from </span><span style=\"color: lightgreen;\"><strong>$app/state</strong></span><span style=\"color: lightgreen;\"> instead, and read its values directly, for example </span><span style=\"color: lightgreen;\"><strong>page.url</strong></span><span style=\"color: lightgreen;\"> instead of </span><span style=\"color: lightgreen;\"><strong>$page.url</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+import { page } from "$app/state";
+```
+
+```svelte
+<script>
+import { page } from "$app/state";
+</script>
+
+<h1>{page.url.pathname}</h1>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_svelte_kit_rune_imports.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useSvelteKitRuneImports)
+- <RulePlaygroundLink rule="useSvelteKitRuneImports" category="lint" language="js" code={"import { page } from \"$app/stores\";\n"} />
+

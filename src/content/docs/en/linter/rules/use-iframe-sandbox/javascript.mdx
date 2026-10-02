@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useIframeSandbox
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-iframe-sandbox/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-iframe-sandbox/javascript/"}]} />
 
@@ -71,4 +72,5 @@ function MyComponent() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_iframe_sandbox.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useIframeSandbox)
+- <RulePlaygroundLink rule="useIframeSandbox" category="lint" language="jsx" code={"function MyComponent() {\n  return <iframe src=\"https://example.com\" />;\n}\n"} />
 

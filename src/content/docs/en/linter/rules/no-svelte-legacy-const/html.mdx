@@ -8,6 +8,7 @@ description: HTML documentation for noSvelteLegacyConst
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-svelte-legacy-const/html/"}]} />
 
@@ -72,4 +73,5 @@ Declaration tags provide the current syntax for deriving values in Svelte markup
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_svelte_legacy_const.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noSvelteLegacyConst)
+- <RulePlaygroundLink rule="noSvelteLegacyConst" category="lint" language="svelte" code={"{#each boxes as box}\n    {@const area = box.width * box.height}\n    <p>{area}</p>\n{/each}\n"} />
 

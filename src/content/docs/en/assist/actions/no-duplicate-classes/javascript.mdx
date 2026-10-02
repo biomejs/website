@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noDuplicateClass
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/assist/actions/no-duplicate-classes/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/assist/actions/no-duplicate-classes/javascript/"}]} />
@@ -67,4 +68,5 @@ Use the `functions` option to specify utility functions to check (e.g., `clsx`, 
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/assist/source/no_duplicate_classes.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/source/noDuplicateClasses)
+- <RulePlaygroundLink rule="noDuplicateClasses" category="assist" language="jsx" code={"<div class=\"flex flex\" />;\n"} />
 

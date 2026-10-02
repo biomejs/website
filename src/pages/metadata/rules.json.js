@@ -385,6 +385,15 @@ export function GET() {
             ],
             "docs": " Enforce style rules to be defined within a cascade layer.\n\n This rule reports style rules that are not contained within a cascade layer (`@layer`).\n Rules outside of a cascade layer (excluding `!important`) always take precedence over\n layered rules, making the cascade more difficult to predict and override.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n .my-style {\n   color: red;\n }\n ```\n\n ```css,expect_diagnostic\n @media (min-width: 600px) {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css,expect_diagnostic\n @import \"foo.css\";\n ```\n\n ### Valid\n\n ```css\n @layer {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css\n @layer base {\n   .my-style {\n     color: red;\n   }\n }\n ```\n\n ```css\n @layer base {\n   @media (min-width: 600px) {\n     .my-style {\n       color: red;\n     }\n   }\n }\n ```\n\n ```css\n @import \"foo.css\" layer;\n ```\n\n ```css\n @import \"foo.css\" layer(base);\n ```\n\n ## Options\n\n ### `requireImportLayers`\n\n Whether `@import` rules must specify a cascade layer.\n\n When set to `false`, `@import` rules without a `layer` keyword are allowed.\n\n Default: `true`\n\n ```json,options\n {\n   \"options\": {\n     \"requireImportLayers\": false\n   }\n }\n ```\n\n ```css,use_options\n @import \"foo.css\";\n ```\n\n"
           },
+          "useLogicalProperties": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "useLogicalProperties",
+            "link": "https://biomejs.dev/linter/rules/use-logical-properties/css",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Enforce logical properties over physical properties.\n\n Physical properties such as `width`, `height`, `top`, `left`, `margin-top`, `padding-left`,\n `border-top`, `border-left-color`, etc. are tied to writing direction. Logical properties such\n as `inline-size`, `block-size`, `inset-block-start`, `margin-block-start`,\n `padding-inline-end`, `border-block-start`, `border-inline-start-color`, etc. adapt more\n consistently across different writing modes.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {\n   width: 100%;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   top: 0;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   margin-left: 1rem;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   border-left: 1px solid;\n }\n ```\n\n ### Valid\n\n ```css\n p {\n   inline-size: 100%;\n   inset-block-start: 0;\n   margin-inline-start: 1rem;\n   border-inline-start: 1px solid;\n }\n ```\n\n ## Options\n\n ### `direction`\n\n The text direction used to map physical inline properties. It can be either `\"ltr\"` or\n `\"rtl\"`. Defaults to `\"ltr\"`.\n\n ```json,options\n {\n   \"options\": {\n     \"direction\": \"rtl\"\n   }\n }\n ```\n\n #### Invalid\n\n ```css,expect_diagnostic,use_options\n p {\n   margin-left: 1rem;\n }\n ```\n\n #### Valid\n\n ```css,use_options\n p {\n   margin-inline-end: 1rem;\n }\n ```\n\n"
+          },
           "useNamedLayer": {
             "deprecated": false,
             "version": "2.5.9",
@@ -1946,6 +1955,23 @@ export function GET() {
           }
         },
         "nursery": {
+          "noAstroConflictingSetDirectives": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "noAstroConflictingSetDirectives",
+            "link": "https://biomejs.dev/linter/rules/no-astro-conflicting-set-directives/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintAstro": "no-conflict-set-directives"
+                }
+              }
+            ],
+            "docs": " Disallow conflicting content sources on Astro elements.\n\n The `set:html` and `set:text` directives replace an element's child content.\n Combining either directive with another content source makes it unclear which\n content should be rendered.\n\n ## Examples\n\n ### Invalid\n\n ```astro,expect_diagnostic\n <div set:html={content}>Fallback content</div>\n ```\n\n ```astro,expect_diagnostic\n <div set:html={html} set:text={text}></div>\n ```\n\n ### Valid\n\n ```astro\n <div set:html={content}></div>\n <div>Fallback content</div>\n ```\n\n ## References\n\n - [Astro template directives](https://docs.astro.build/en/reference/directives-reference/#sethtml)\n"
+          },
           "noAstroSetHtmlDirective": {
             "deprecated": false,
             "version": "2.5.11",
@@ -1996,6 +2022,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow invalid `accept` values on file inputs.\n\n An `accept` value must contain comma-separated filename extensions, MIME types, or\n the wildcard MIME types `audio/*`, `image/*`, and `video/*`.\n Browsers ignore invalid entries, so the file picker may not filter files as intended.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"file\" accept=\"image/jpg\">\n ```\n\n ### Valid\n\n ```html\n <input type=\"file\" accept=\"image/jpeg, .jpg\">\n ```\n\n"
+          },
+          "noMisplacedListElements": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "noMisplacedListElements",
+            "link": "https://biomejs.dev/linter/rules/no-misplaced-list-elements/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "require-li-container"
+                }
+              }
+            ],
+            "docs": " Require `<li>` elements with an HTML element parent to be children of `<ul>`, `<ol>`, or `<menu>`.\n\n List items need a list container to define their relationship to the other items.\n Placing a list item outside a list container produces invalid HTML.\n\n The parent is the element the item is rendered into. List items that aren't inside\n any element in the file are ignored, because the file may be rendered inside a list\n somewhere else, for example as a component. Items directly inside a `<template>` element are also\n ignored, because the template's content is inserted by a script, not rendered in place.\n Items whose parent is a component are also ignored,\n because the element a component renders is unknown.\n\n In Svelte, control blocks such as `{#if}` and `{#each}`, as well as `<svelte:boundary>`,\n `<svelte:fragment>`, and `<slot>`, are skipped when finding the parent, while items\n inside snippets, `<svelte:element>`, and other Svelte special elements are ignored.\n\n In Vue, `<template>` elements with a `v-if`, `v-else-if`, `v-else`, or `v-for`\n directive, `<transition>`, `<keep-alive>`, `<suspense>`, and `<slot>` are looked\n through to find the parent. Items directly inside the component's top-level\n `<template>`, and items inside `<component>`, `<transition-group>`, or `<teleport>`,\n are ignored.\n\n In Astro, fragments and `<slot>` are looked through to find the parent. Markup inside\n a `{...}` expression is checked separately from the markup around it, so an item in\n an expression is only compared with elements in the same expression. For example,\n `<div>{items.map((item) => <li>{item}</li>)}</div>` isn't reported, because the\n `<div>` is outside the expression.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div><li>Item</li></div>\n ```\n\n ```html,expect_diagnostic\n <ul><div><li>Item</li></div></ul>\n ```\n\n ```svelte,expect_diagnostic\n <div>\n     {#each items as item}\n         <li>{item}</li>\n     {/each}\n </div>\n ```\n\n ```astro,expect_diagnostic\n <div>\n     <>\n         <li>Item</li>\n     </>\n </div>\n ```\n\n ### Valid\n\n ```html\n <ul><li>Item</li></ul>\n <ol><li>Item</li></ol>\n <menu><li>Item</li></menu>\n ```\n\n ```vue\n <template>\n     <li>Item rendered in a list elsewhere</li>\n </template>\n ```\n\n ```svelte\n {#snippet item()}\n     <li>Item</li>\n {/snippet}\n ```\n\n ```astro\n <ul>\n     <>\n         <li>Item</li>\n     </>\n </ul>\n ```\n\n"
           },
           "noNonScalableViewport": {
             "deprecated": false,
@@ -2089,7 +2132,24 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow arbitrary values in Tailwind CSS utility classes.\n\n Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties\n (e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports\n them so teams can keep styling constrained to named utilities from their Tailwind\n configuration.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"w-[400px]\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"text-[#555] bg-white\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"[color:red]\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"w-4 text-red-500 bg-white\"></div>\n ```\n\n ```html\n <div class=\"[&:nth-child(3)]:px-2\"></div>\n ```\n\n ## Options\n\n By default, this rule checks the `class` attribute. The `attributes`\n option adds more HTML attributes to check.\n\n ```json,options\n {\n     \"options\": {\n         \"attributes\": [\"classList\"]\n     }\n }\n ```\n\n ```html,use_options,expect_diagnostic\n <div classList=\"w-[400px]\"></div>\n ```\n\n ### attributes\n\n Additional HTML attribute names to check.\n\n Default: `[]` (the `class` attribute is always checked).\n\n"
+            "docs": " Disallow arbitrary values in Tailwind CSS utility classes.\n\n Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties\n (e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports\n them so teams can keep styling constrained to named utilities from their Tailwind\n configuration.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"w-[400px]\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"text-[#555] bg-white\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"[color:red]\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"w-4 text-red-500 bg-white\"></div>\n ```\n\n ```html\n <div class=\"[&:nth-child(3)]:px-2\"></div>\n ```\n\n"
+          },
+          "noTailwindRawColors": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "noTailwindRawColors",
+            "link": "https://biomejs.dev/linter/rules/no-tailwind-raw-colors/html",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintShadcn": "no-raw-colors"
+                }
+              }
+            ],
+            "docs": " Disallow Tailwind CSS utility classes that use raw palette colors.\n\n Palette colors such as `pink-500` and `slate-950` tie styles to specific\n colors instead of the role those colors play. Design system color names such as `primary`\n or `muted` let a design system change its palette without editing each component.\n This rule checks color utilities, including variants and opacity modifiers.\n It allows custom color names, `black`, `white`, `transparent`, `current`, and `inherit`.\n This rule does not check arbitrary values such as `bg-[#ff00aa]`.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"bg-pink-500\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"hover:text-red-500/80\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"bg-primary hover:text-muted-foreground\"></div>\n ```\n\n ```html\n <div class=\"bg-white text-black border-transparent fill-current stroke-inherit\"></div>\n ```\n\n ## Options\n\n ### allowedColors\n\n Default: `[]`\n\n Exact palette colors to allow.\n Entries are case-sensitive color names, such as `slate-950` or `pink-500`,\n without utility prefixes, variants, or opacity modifiers.\n Allowing `pink-500` permits it in every color utility, including variants\n and opacity modifiers; it does not allow other pink shades.\n\n ```json,options\n { \"options\": { \"allowedColors\": [\"pink-500\"] } }\n ```\n\n ```html,use_options\n <div class=\"bg-pink-500 hover:text-pink-500/80 border-black\"></div>\n ```\n\n ## See Also\n\n - [noTailwindArbitraryValue](https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value/)\n\n"
           },
           "noUndeclaredClasses": {
             "deprecated": false,
@@ -3229,7 +3289,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-simplified-logic-expression/javascript",
             "recommended": false,
             "fixKind": "safe",
-            "docs": " Discard redundant terms from logical expressions.\n\n The rule applies the [De Morgan's Law](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) rule to simplify logical expressions.\n This means that some simplified expressions that are fixed by the rule might seem less intuitive to read, but they are more efficient to evaluate.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const boolExp = true;\n const r = true && boolExp;\n ```\n\n ```js,expect_diagnostic\n const boolExp2 = true;\n const r2 = boolExp || true;\n ```\n\n ```js,expect_diagnostic\n const nonNullExp = 123;\n const r3 = null ?? nonNullExp;\n ```\n\n ```js,expect_diagnostic\n const boolExpr1 = true;\n const boolExpr2 = false;\n const r4 = !boolExpr1 || !boolExpr2;\n ```\n\n ### Valid\n ```js\n const boolExpr3 = true;\n const boolExpr4 = false;\n const r5 = !(boolExpr1 && boolExpr2);\n const boolExpr5 = true;\n const boolExpr6 = false;\n ```\n\n"
+            "docs": " Discard redundant terms from logical expressions.\n\n The rule applies the [De Morgan's Law](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) rule to simplify logical expressions.\n This means that some simplified expressions that are fixed by the rule might seem less intuitive to read, but they are more efficient to evaluate.\n\n `value || false` and `value && true` are only reported in a boolean context, such as an `if`\n condition or the operand of `!`, where only the truthiness of the result matters. Elsewhere,\n removing the literal changes the result when `value` is not a boolean.\n `value || true` and `value && false` are never reported, since the literal alone would skip\n evaluating `value`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const boolExp = true;\n const r = true && boolExp;\n ```\n\n ```js,expect_diagnostic\n const boolExp2 = true;\n const r2 = false || boolExp2;\n ```\n\n ```js,expect_diagnostic\n const boolExp3 = true;\n if (boolExp3 || false) {\n     doSomething();\n }\n ```\n\n ```js,expect_diagnostic\n const nonNullExp = 123;\n const r3 = null ?? nonNullExp;\n ```\n\n ```js,expect_diagnostic\n const boolExpr1 = true;\n const boolExpr2 = false;\n const r4 = !boolExpr1 || !boolExpr2;\n ```\n\n ### Valid\n ```js\n const boolExpr3 = true;\n const boolExpr4 = false;\n const r5 = !(boolExpr1 && boolExpr2);\n const boolExpr5 = true;\n const boolExpr6 = false;\n ```\n\n ```js\n const value = undefined;\n const r6 = value || false;\n ```\n\n"
           },
           "useWhile": {
             "deprecated": false,
@@ -3894,7 +3954,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow unused variables.\n\n There is an exception to this rule: variables that start with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as a prefix of a variable is a very diffuse\n pattern among programmers, and Biome follows it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ```js,expect_diagnostic\n const { brand } = car;\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n\n By default, unused variables declared inside destructured objects are ignored\n if the destructuring pattern also contains a rest property.\n (See the [rule options](#options) if you want to enable these checks).\n ```js\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...rest } = car;\n console.log(rest);\n ```\n\n TypeScript namespaces that participate in declaration merging with an exported\n or referenced value of the same name are not flagged.\n ```ts\n const MyComponent = () => {};\n namespace MyComponent {\n     export type Props = { id: string };\n }\n export default MyComponent;\n ```\n\n In Astro files, a top-level interface or a type alias named `Props` is always ignored\n as it's implicitly read by the framework.\n ```astro,ignore\n ---\n interface Props {\n   name: string;\n   greeting?: string;\n }\n\n const { name, greeting } = Astro.props;\n ---\n ```\n\n ## Options\n\n ### `ignoreRestSiblings`\n\n Whether to ignore unused variables declared inside destructured objects\n containing rest properties (such as `const { a, b, ...rest } = obj`.\n\n Default: `true`\n\n If this option is set to `false`, unused rest siblings either have to be renamed or removed.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreRestSiblings\": false\n   }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...other } = car;\n console.log(other);\n ```\n\n ```js,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand: _, ...other } = car;\n console.log(other);\n ```\n\n ### `ignore`\n\n An object that allows excluding matching identifiers from this rule.\n\n Each key may specify an array of identifiers to ignore which are case-sensitive matches.\n\n The special string `\"*\"` can serve two purposes:\n - As a **key** it refers to every kind of identifier.\n - As a **value** it may be used to match all identifiers in the respective group, effectively disabling this rule for that group.\n\n Allowed keys:\n\n - `\"*\"`: Applies to all identifiers\n - `\"class\"`: Applies to class names\n - `\"function\"`: Applies to function names\n - `\"interface\"`: Applies to interface names\n - `\"typeAlias\"`: Applies to type aliases\n - `\"typeParameter\"`: Applies to type parameters\n - `\"variable\"`: Applies to variable names\n\n Default: `{}` (no variables are excluded)\n\n For example, you can exclude all unused identifiers named `ignored` regardless of their kind,\n all unused classes named `IgnoredClass`, and all unused functions with the following\n configuration.\n\n A variable named `unusedVariable` is still flagged as unused, and so is a class named\n `UnusedClass` since they don't fall under the exceptions.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": {\n       \"*\": [\"ignored\"],\n       \"class\": [\"IgnoredClass\"],\n       \"function\": [\"*\"]\n     }\n   }\n }\n ```\n\n ```js,expect_diagnostic,ignore,use_options\n const ignored = 0;\n class IgnoredClass {}\n function ignoredFunction() {}\n\n const unusedVariable = 0;\n class UnusedClass {}\n ```\n\n"
+            "docs": " Disallow unused variables.\n\n There is an exception to this rule: variables that start with underscore, e.g. `let _something;`.\n\n The pattern of having an underscore as a prefix of a variable is a very diffuse\n pattern among programmers, and Biome follows it.\n\n This rule won't report unused imports.\n If you want to report unused imports,\n enable [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports/).\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let a = 4;\n a++;\n ```\n\n ```js,expect_diagnostic\n function foo() {}\n ```\n\n ```js,expect_diagnostic\n function foo() {\n     foo();\n }\n ```\n\n ```js,expect_diagnostic\n const foo = () => {\n     foo();\n };\n ```\n\n ```ts,expect_diagnostic\n export function f<T>() {}\n ```\n\n ```js,expect_diagnostic\n const { brand } = car;\n ```\n\n ### Valid\n\n ```js\n function foo(b) {\n     console.log(b)\n };\n foo();\n ```\n\n ```js\n export function foo(_unused) {}\n ```\n\n ```ts\n function used_overloaded(): number;\n function used_overloaded(s: string): string;\n function used_overloaded(s?: string) {\n     return s;\n }\n used_overloaded();\n ```\n\n By default, unused variables declared inside destructured objects are ignored\n if the destructuring pattern also contains a rest property.\n (See the [rule options](#options) if you want to enable these checks).\n ```js\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...rest } = car;\n console.log(rest);\n ```\n\n TypeScript namespaces that participate in declaration merging with an exported\n or referenced value of the same name are not flagged.\n ```ts\n const MyComponent = () => {};\n namespace MyComponent {\n     export type Props = { id: string };\n }\n export default MyComponent;\n ```\n\n In Astro files, a top-level interface or a type alias named `Props` is always ignored\n as it's implicitly read by the framework.\n ```astro\n ---\n interface Props {\n   name: string;\n   greeting?: string;\n }\n ---\n ```\n\n ## Options\n\n ### `ignoreRestSiblings`\n\n Whether to ignore unused variables declared inside destructured objects\n containing rest properties (such as `const { a, b, ...rest } = obj`.\n\n Default: `true`\n\n If this option is set to `false`, unused rest siblings either have to be renamed or removed.\n\n ```json,options\n {\n   \"options\": {\n     \"ignoreRestSiblings\": false\n   }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand, ...other } = car;\n console.log(other);\n ```\n\n ```js,use_options\n const car = { brand: \"Tesla\", year: 2019, countryCode: \"US\" };\n const { brand: _, ...other } = car;\n console.log(other);\n ```\n\n ### `ignore`\n\n An object that allows excluding matching identifiers from this rule.\n\n Each key may specify an array of identifiers to ignore which are case-sensitive matches.\n\n The special string `\"*\"` can serve two purposes:\n - As a **key** it refers to every kind of identifier.\n - As a **value** it may be used to match all identifiers in the respective group, effectively disabling this rule for that group.\n\n Allowed keys:\n\n - `\"*\"`: Applies to all identifiers\n - `\"class\"`: Applies to class names\n - `\"function\"`: Applies to function names\n - `\"interface\"`: Applies to interface names\n - `\"typeAlias\"`: Applies to type aliases\n - `\"typeParameter\"`: Applies to type parameters\n - `\"variable\"`: Applies to variable names\n\n Default: `{}` (no variables are excluded)\n\n For example, you can exclude all unused identifiers named `ignored` regardless of their kind,\n all unused classes named `IgnoredClass`, and all unused functions with the following\n configuration.\n\n A variable named `unusedVariable` is still flagged as unused, and so is a class named\n `UnusedClass` since they don't fall under the exceptions.\n\n ```json,options\n {\n   \"options\": {\n     \"ignore\": {\n       \"*\": [\"ignored\"],\n       \"class\": [\"IgnoredClass\"],\n       \"function\": [\"*\"]\n     }\n   }\n }\n ```\n\n ```js,expect_diagnostic,ignore,use_options\n const ignored = 0;\n class IgnoredClass {}\n function ignoredFunction() {}\n\n const unusedVariable = 0;\n class UnusedClass {}\n ```\n\n"
           },
           "noVueDataObjectDeclaration": {
             "deprecated": false,
@@ -4333,6 +4393,23 @@ export function GET() {
             ],
             "docs": " Disallow functions declared inside loops that capture unsafe outer variables.\n\n Functions created in loops can easily observe values from a later iteration instead of the\n iteration where they were created. This rule reports functions that capture outer bindings\n which may be reassigned while the loop continues.\n\n The rule ignores plain immediately invoked function expressions (IIFEs), but still reports\n async, generator, and self-referential IIFEs because they can escape the current iteration.\n\n ## Examples\n\n ### Invalid\n\n Using `var` for the iteration variable creates a single binding shared across all iterations, so it's unsafe to capture.\n\n ```js,expect_diagnostic\n for (var i = 0; i < 10; i++) {\n     handlers.push(() => i);\n }\n ```\n\n ```js,expect_diagnostic\n let value = 0;\n for (let i = 0; i < 10; i++) {\n     queue.push(function () {\n         return value;\n     });\n     value += 1;\n }\n ```\n\n ### Valid\n\n Using `let` or `const` for the iteration variable creates a fresh binding each iteration, so it's safe to capture.\n\n ```js\n for (let i = 0; i < 10; i++) {\n     handlers.push(() => i);\n }\n ```\n\n ```js\n for (var i = 0; i < 10; i++) {\n     const current = i;\n     queue.push(function() {\n         return current;\n     });\n }\n ```\n\n"
           },
+          "noMeaninglessVoidOperator": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "noMeaninglessVoidOperator",
+            "link": "https://biomejs.dev/linter/rules/no-meaningless-void-operator/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-meaningless-void-operator"
+                }
+              }
+            ],
+            "docs": " Disallow `void` when it does not discard a call's return value or a thenable.\n\n Using `void` communicates that a value is deliberately ignored. Applying it to\n a call that already returns `void` or `undefined` obscures that intent and can\n hide changes to the called API. Non-call operands are also reported, except\n for thenables and the common `void 0` idiom.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-call.ts\n declare function log(): void;\n void log();\n ```\n\n ```js,expect_diagnostic,file=invalid-value.js\n void 1;\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n declare function value(): number;\n void value();\n void Promise.resolve();\n void 0;\n ```\n"
+          },
           "noNegationInEqualityCheck": {
             "deprecated": false,
             "version": "2.5.5",
@@ -4554,6 +4631,23 @@ export function GET() {
             ],
             "docs": " Disallow color literals in React Native styles.\n\n Hard-coding colors inside styles makes it harder to keep them consistent\n across components and to swap the palette when the design system evolves.\n Extracting colors into named constants or a shared theme module produces\n more maintainable code.\n\n This rule reports properties whose name contains `color` (case-insensitive)\n and whose value is a string literal, when they appear inside a\n `StyleSheet.create` call or inside a JSX attribute whose name contains\n `style` (case-insensitive). A ternary expression is also reported when\n either branch is a string literal.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Hello = () => <Text style={{ backgroundColor: '#FFFFFF' }}>hi</Text>;\n ```\n\n ```jsx,expect_diagnostic\n const styles = StyleSheet.create({\n     text: { color: 'red' }\n });\n ```\n\n ```jsx,expect_diagnostic\n const Hello = (flag) => (\n     <Text style={{ backgroundColor: flag ? '#fff' : '#000' }}>hi</Text>\n );\n ```\n\n ### Valid\n\n ```jsx\n const red = '#f00';\n const styles = StyleSheet.create({\n     text: { color: red }\n });\n ```\n\n ```jsx\n const Hello = () => (\n     <Text style={{ backgroundColor: theme.background }}>hi</Text>\n );\n ```\n\n"
           },
+          "noReactObjectTypeAsDefaultProp": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "noReactObjectTypeAsDefaultProp",
+            "link": "https://biomejs.dev/linter/rules/no-react-object-type-as-default-prop/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "no-object-type-as-default-prop"
+                }
+              }
+            ],
+            "docs": " Disallow array, object, and function values as default props in React components.\n\n In React, a default prop value like `{ items = [] }` is created every\n time the component renders. Arrays, objects, and functions are new values\n each time, even when they look the same. React then thinks the prop changed,\n so it may re-render the component more than needed, or re-run hooks like\n `useEffect` that depends on the prop.\n\n Numbers, strings, and other primitives are fine, because they stay the same\n among renders.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function Component({ items = [] }) {\n     return items;\n }\n ```\n\n ```js,expect_diagnostic\n const Component = ({ config = {} }) => config;\n ```\n\n ### Valid\n\n ```js\n const EMPTY_ITEMS = [];\n\n function Component({ items = EMPTY_ITEMS }) {\n     return items;\n }\n ```\n\n ```js\n function Component({ count = 0, label = \"default\" }) {\n     return count;\n }\n ```\n\n"
+          },
           "noReactStringRefs": {
             "deprecated": false,
             "version": "2.4.14",
@@ -4604,6 +4698,32 @@ export function GET() {
               }
             ],
             "docs": " Disallow return statements in `Promise.prototype.finally()` callbacks.\n\n Returning a value from a `Promise.prototype.finally()` callback is ignored, which can be confusing.\n Returned promises and thenables are awaited, and their rejection rejects\n the resulting promise.\n\n Returns inside nested blocks, including conditional branches and loops,\n are also disallowed. Returns inside nested functions are ignored by the rule.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Promise.resolve(1).finally(() => { return 2 });\n ```\n\n ```js,expect_diagnostic\n myPromise.finally(() => { return 2 });\n ```\n\n ```js,expect_diagnostic\n myPromise.finally(() => {\n     if (condition) {\n         return 2;\n     }\n });\n ```\n\n ### Valid\n\n ```js\n Promise.resolve(1).finally(() => { console.log(2) });\n myPromise.finally(() => {});\n\n myPromise.finally(function () {\n     function nested() {\n         return 2;\n     }\n     console.log(nested());\n });\n ```\n\n ## References\n\n - MDN: [`Promise.prototype.finally` documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally)\n\n"
+          },
+          "noSelfImport": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "noSelfImport",
+            "link": "https://biomejs.dev/linter/rules/no-self-import/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintImport": "no-self-import"
+                }
+              }
+            ],
+            "docs": " Forbid a module from importing itself.\n\n A module that imports itself is almost always the result of a mistake\n made while refactoring. It creates a circular dependency on the module\n itself, which can leave the imported value `undefined` during evaluation\n and cause some bundlers to emit a warning or fail.\n\n This rule reports both static `import` statements and dynamic imports\n such as `import()` and `require()` calls that resolve to the file they\n appear in.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foo.js\n import foo from \"./foo.js\";\n ```\n\n ```js,expect_diagnostic,file=bar.js\n const bar = require(\"./bar.js\");\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import bar from \"./bar.js\";\n ```\n"
+          },
+          "noSvelteExportLet": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "noSvelteExportLet",
+            "link": "https://biomejs.dev/linter/rules/no-svelte-export-let/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "docs": " Disallow declaring Svelte component props with `export let`.\n\n Svelte 5 declares component props with the `$props()` rune. Exporting a `let` or `var`\n binding from the instance `<script>` is the legacy way of declaring props: it opts the\n component into legacy mode, and it is a compile error in runes mode.\n\n Exports from a `<script module>` block are regular module exports, not props, so they\n are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n <script>\n export let name;\n </script>\n ```\n\n ```svelte,expect_diagnostic\n <script>\n let className;\n export { className as class };\n </script>\n ```\n\n ### Valid\n\n ```svelte\n <script>\n let { name, class: className } = $props();\n </script>\n ```\n\n ```svelte\n <script module>\n export let count = 0;\n </script>\n ```\n\n ### References\n\n - [Svelte `$props`](https://svelte.dev/docs/svelte/$props)\n - [Svelte 5 migration guide](https://svelte.dev/docs/svelte/v5-migration-guide#Let-exports-become-$props)\n"
           },
           "noSvelteUnnecessaryStateWrap": {
             "deprecated": false,
@@ -5144,6 +5264,23 @@ export function GET() {
             ],
             "docs": " Enforce valid `describe()` callback.\n\n Using an improper `describe()` callback function can lead to unexpected test errors.\n This rule validates that describe callbacks are proper synchronous functions without parameters.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test.describe('suite', async () => {\n     test('one', async ({ page }) => {});\n });\n ```\n\n ```js,expect_diagnostic\n test.describe('suite', (done) => {\n     test('one', async ({ page }) => {});\n });\n ```\n\n ### Valid\n\n ```js\n test.describe('suite', () => {\n     test('one', async ({ page }) => {});\n     test('two', async ({ page }) => {});\n });\n ```\n\n ```js\n describe('suite', function() {\n     test('one', async ({ page }) => {});\n });\n ```\n\n"
           },
+          "usePromiseRejectErrors": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "usePromiseRejectErrors",
+            "link": "https://biomejs.dev/linter/rules/use-promise-reject-errors/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "prefer-promise-reject-errors"
+                }
+              }
+            ],
+            "docs": " Require Error objects as Promise rejection reasons.\n\n Error objects capture a stack trace that helps locate the cause of a rejection.\n Rejecting with a string or another non-Error value loses this information.\n\n This rule checks `Promise.reject()` and calls to the second parameter of a\n `new Promise()` executor. Values that could be errors, such as function calls\n and unknown variables, are allowed without inspecting their types.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Promise.reject(\"Request failed\");\n ```\n\n ```js,expect_diagnostic\n new Promise((resolve, reject) => reject(42));\n ```\n\n ```js,expect_diagnostic\n Promise.reject();\n ```\n\n ### Valid\n\n ```js\n Promise.reject(new Error(\"Request failed\"));\n new Promise((resolve, reject) => reject(new TypeError(\"Invalid value\")));\n Promise.reject(getError());\n ```\n"
+          },
           "useQwikLoaderLocation": {
             "deprecated": false,
             "version": "2.4.11",
@@ -5197,7 +5334,7 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-react-compiler/javascript",
             "recommended": false,
             "fixKind": "none",
-            "docs": " Validate files with React Compiler.\n\n This rule runs React Compiler in lint mode and reports the actionable\n diagnostics it emits. React Compiler validates whether components and\n hooks can be safely compiled.\n\n This rule only runs when the nearest `package.json` declares React 19 or\n newer. Projects using React 18 or earlier, or projects without a React\n dependency in `package.json`, are skipped.\n\n ## Examples\n\n ### Invalid\n\n ```json,file=package.json\n {\n     \"dependencies\": {\n         \"react\": \"^19.0.0\"\n     }\n }\n ```\n\n ```jsx,expect_diagnostic,file=Component.jsx\n import { useState } from \"react\";\n\n function Component(props) {\n     if (props.enabled) {\n         useState(0);\n     }\n\n     return <div />;\n }\n ```\n\n ### Valid\n\n ```jsx\n function Component(props) {\n     return <div>{props.value}</div>;\n }\n ```\n\n ## Options\n\n ### `compilationMode`\n\n Controls which functions React Compiler analyzes. Accepted values are:\n\n - `\"infer\"` (default): analyzes functions that follow React conventions —\n   components (capitalized functions that create JSX or call hooks) and\n   hooks (functions whose name starts with `use`). Files that don't define\n   any such function are skipped entirely.\n - `\"annotation\"`: analyzes only functions annotated with a `\"use memo\"`\n   directive.\n - `\"all\"`: analyzes every function. This can report React-specific\n   diagnostics in non-React code, such as utility functions that update\n   module-level state.\n\n ```json,options\n {\n     \"options\": {\n         \"compilationMode\": \"all\"\n     }\n }\n ```\n\n With `\"compilationMode\": \"all\"`, violations are reported even in\n functions that don't follow React naming conventions:\n\n ```json,file=package.json\n {\n     \"dependencies\": {\n         \"react\": \"^19.0.0\"\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic,file=counter.js\n let counter = 0;\n\n export function increment() {\n     counter = counter + 1;\n     return counter;\n }\n ```\n"
+            "docs": " Validate files with React Compiler.\n\n This rule runs React Compiler in lint mode and reports the actionable\n diagnostics it emits. React Compiler validates whether components and\n hooks can be safely compiled.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic,file=Component.jsx\n import { useState } from \"react\";\n\n function Component(props) {\n     if (props.enabled) {\n         useState(0);\n     }\n\n     return <div />;\n }\n ```\n\n ### Valid\n\n ```jsx\n function Component(props) {\n     return <div>{props.value}</div>;\n }\n ```\n\n ## Options\n\n ### `compilationMode`\n\n Controls which functions React Compiler analyzes. Accepted values are:\n\n - `\"infer\"` (default): analyzes functions that follow React conventions —\n   components (capitalized functions that create JSX or call hooks) and\n   hooks (functions whose name starts with `use`). Files that don't define\n   any such function are skipped entirely.\n - `\"annotation\"`: analyzes only functions annotated with a `\"use memo\"`\n   directive.\n - `\"all\"`: analyzes every function. This can report React-specific\n   diagnostics in non-React code, such as utility functions that update\n   module-level state.\n\n ```json,options\n {\n     \"options\": {\n         \"compilationMode\": \"all\"\n     }\n }\n ```\n\n With `\"compilationMode\": \"all\"`, violations are reported even in\n functions that don't follow React naming conventions:\n\n ```js,use_options,expect_diagnostic,file=counter.js\n let counter = 0;\n\n export function increment() {\n     counter = counter + 1;\n     return counter;\n }\n ```\n"
           },
           "useReactNativePlatformComponents": {
             "deprecated": false,
@@ -5265,6 +5402,23 @@ export function GET() {
             "fixKind": "unsafe",
             "docs": " Enforce the sorting of CSS utility classes.\n\n This rule implements the same sorting algorithm as [Tailwind CSS](https://tailwindcss.com/blog/automatic-class-sorting-with-prettier#how-classes-are-sorted), but supports any utility class framework including [UnoCSS](https://unocss.dev/).\n\n It is analogous to [`prettier-plugin-tailwindcss`](https://github.com/tailwindlabs/prettier-plugin-tailwindcss).\n\n\n :::caution\n ## Important notes\n\n This rule is a work in progress, and is only partially implemented. Progress is being tracked in the following GitHub issue: https://github.com/biomejs/biome/issues/1274\n\n Currently, utility class sorting is **not part of the formatter**, and is implemented as a linter rule instead, with an automatic fix. The fix is, at this stage, classified as unsafe. This means that **it won't be applied automatically** as part of IDE actions such as \"fix on save\".\n\n We appreciate any feedback on this rule, and encourage you to try it out and report any issues you find.\n\n **Please read this entire documentation page before reporting an issue.**\n\n Notably, keep in mind that the following features are not supported yet:\n\n - Screen variant sorting (e.g. `md:`, `max-lg:`). Only static, dynamic and arbitrary variants are supported.\n - Custom utilities and variants (such as ones introduced by Tailwind CSS plugins). Only the default Tailwind CSS configuration is supported.\n - Options such as `prefix` and `separator`.\n\n Please don't report issues about these features.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div class=\"px-2 foo p-4 bar\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div class=\"hover:focus:m-2 foo hover:px-2 p-4\" />\n ```\n\n ## Options\n\n ### Code-related\n\n ```json,options\n {\n     \"options\": {\n         \"attributes\": [\"classList\"],\n         \"functions\": [\"clsx\", \"cva\", \"tw\", \"tw.*\"]\n     }\n }\n ```\n\n #### attributes\n\n Classes in the `class` and `className` JSX attributes are always sorted. Use this option to add more attributes that should be sorted.\n\n #### functions\n\n If specified, strings in the indicated functions will be sorted. This is useful when working with libraries like [`clsx`](https://github.com/lukeed/clsx) or [`cva`](https://cva.style/).\n\n ```js,expect_diagnostic,use_options\n clsx(\"px-2 foo p-4 bar\", {\n     \"some-css-class\": condition,\n });\n ```\n\n ```js,expect_diagnostic,use_options\n clsx(\"some-css-class\", {\n     \"block mx-4\": condition,\n });\n ```\n\n Tagged template literals are also supported, for example:\n\n ```js,use_options\n tw`px-2`;\n tw.div`px-2`;\n ```\n\n ```js,expect_diagnostic,use_options\n tw`px-2 foo p-4 bar`;\n ```\n\n ```js,expect_diagnostic,use_options\n tw.div`px-2 foo p-4 bar`;\n ```\n\n ### Sort-related\n\n :::caution\n At the moment, this rule does not support customizing the sort options. Instead, the default Tailwind CSS configuration is hard-coded.\n :::\n\n ## Differences with [Prettier](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)\n\n The main key difference is that Tailwind CSS and its Prettier plugin read and execute the `tailwind.config.js` JavaScript file, which Biome can't do. Instead, Biome implements a simpler version of the configuration. The trade-offs are explained below.\n\n ### Values are not known\n\n The rule has no knowledge of values such as colors, font sizes, or spacing values, which are normally defined in a configuration file like `tailwind.config.js`. Instead, the rule matches utilities that support values in a simpler way: if they start with a known utility prefix, such as `px-` or `text-`, they're considered valid.\n\n This has two implications:\n\n - **False positives:** classes can be wrongly recognized as utilities even though their values are incorrect.\n   For example, if there's a `px-` utility defined in the configuration, it will match all of the following classes:\n   `px-2`, `px-1337`, `px-[not-actually-valid]`, `px-literally-anything`.\n\n - **No distinction between different utilities that share the same prefix:** for example,\n   `text-red-500` and `text-lg` are both interpreted as the same type of utility by this rule,\n    even though the former refers to a color and the latter to a font size. This results in all\n    utilities that share the same prefix being sorted together, regardless of their actual values.\n\n ### Custom additions must be specified\n\n The built-in Tailwind CSS preset (enabled by default) contains the set of utilities and variants that are available with the default configuration. More utilities and variants can be added through Tailwind CSS plugins. In Biome, these need to be manually specified in the Biome configuration file in order to \"extend\" the preset.\n\n ### Presets can't be modified\n\n In Tailwind CSS, core plugins (which provide the default utilities and variants) can be disabled. In Biome, however, there is no way to disable parts of a preset: it's all or nothing. A work-around is to, instead of using a preset, manually specify all utilities and variants in the Biome configuration file.\n\n ### Whitespace is collapsed\n\n The Tailwind CSS Prettier plugin preserves all original whitespace. This rule, however, collapses all whitespace (including newlines) into single spaces.\n\n This is a deliberate decision. We're unsure about this behavior, and would appreciate feedback on it. If this is a problem for you, please share a detailed explanation of your use case in [the GitHub issue](https://github.com/biomejs/biome/issues/1274).\n\n"
           },
+          "useStrictBooleanExpressions": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "useStrictBooleanExpressions",
+            "link": "https://biomejs.dev/linter/rules/use-strict-boolean-expressions/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "strict-boolean-expressions"
+                }
+              }
+            ],
+            "docs": " Require unambiguous boolean expressions in conditions.\n\n Truthiness checks on nullable primitives can confuse missing values with\n `false`, an empty string, zero, or `NaN`. Check for nullish values explicitly\n or convert the value with `Boolean()` when that distinction is intentional.\n\n This rule allows booleans, non-nullable strings and numbers, and nullable\n objects, functions, and symbols. Nullable `true`, nonempty string literal\n types, and nonzero number literal types are also allowed. Numbers include\n bigints, but nullable bigints are rejected.\n\n It checks conditions, logical negation, the operands of `&&` and `||`, and\n array predicate callbacks and truthiness assertion arguments. The last operand of a logical expression is\n checked only when its result is used as a condition.\n\n Types that cannot be inferred are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=nullable-number.ts\n function display(count: number | undefined) {\n     if (count) {}\n }\n ```\n\n ```ts,expect_diagnostic,file=nullable-boolean.ts\n function run(enabled?: boolean) {\n     if (enabled) {}\n }\n ```\n\n ```js,expect_diagnostic,file=object-condition.js\n if ({}) {}\n ```\n\n ### Valid\n\n ```ts\n function run(maybeCount: number | undefined, count: number, text: string, object: object | null, enabled?: boolean) {\n     if (maybeCount != null) {}\n     if (enabled === true) {}\n     if (text) {}\n     if (count) {}\n     if (object) {}\n }\n ```\n"
+          },
           "useStringStartsEndsWith": {
             "deprecated": false,
             "version": "2.4.12",
@@ -5281,6 +5435,15 @@ export function GET() {
               }
             ],
             "docs": " Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks.\n\n This rule detects common string comparisons such as indexing, `charAt`, `indexOf`, `lastIndexOf`,\n `slice`, `substring`, `match`, and anchored `RegExp#test` calls when they are being used to check\n whether a string starts or ends with another string.\n\n The rule uses type information and only reports when the receiver is known to be a string. Array\n indexing and other non-string receivers are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-index.ts\n declare const text: string;\n text[0] === \"a\";\n ```\n\n ```ts,expect_diagnostic,file=invalid-search.ts\n declare const text: string;\n text.indexOf(\"foo\") === 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid-regex.ts\n declare const text: string;\n /^foo/.test(text);\n ```\n\n ### Valid\n\n ```ts,file=valid-string.ts\n declare const text: string;\n text.startsWith(\"foo\");\n text.endsWith(\"bar\");\n ```\n\n ```ts,file=valid-array.ts\n declare const list: string[];\n list[0] === \"a\";\n ```\n"
+          },
+          "useSvelteKitRuneImports": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "useSvelteKitRuneImports",
+            "link": "https://biomejs.dev/linter/rules/use-svelte-kit-rune-imports/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "docs": " Require importing SvelteKit's app state from `$app/state` instead of `$app/stores`.\n\n SvelteKit 2.12 deprecated `$app/stores` in favor of `$app/state`. The `$app/state` module\n exposes `page`, `navigating`, and `updated` as reactive objects built on Svelte 5 runes,\n so they can be read directly instead of through a store subscription.\n\n Switching modules also changes how the values are read. For example, `$page.url` becomes\n `page.url`, and `$updated` becomes `updated.current`. For this reason, the rule doesn't\n provide a code fix.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { page } from \"$app/stores\";\n ```\n\n ```svelte,expect_diagnostic\n <script>\n import { page } from \"$app/stores\";\n </script>\n\n <h1>{$page.url.pathname}</h1>\n ```\n\n ### Valid\n\n ```js\n import { page } from \"$app/state\";\n ```\n\n ```svelte\n <script>\n import { page } from \"$app/state\";\n </script>\n\n <h1>{page.url.pathname}</h1>\n ```\n\n"
           },
           "useTestHooksInOrder": {
             "deprecated": false,
@@ -8709,7 +8872,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce that all elements that require alternative text have meaningful information to relay back to the end user.\n\n This is a critical component of accessibility for screen reader users in order for them to understand the content's purpose on the page.\n This rule checks for alternative text on the following elements: `<img>`, `<area>`, `<input type=\"image\">`, and `<object>`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <img src=\"image.png\" />\n ```\n\n ```jsx,expect_diagnostic\n <input type=\"image\" src=\"image.png\" />\n ```\n\n ### Valid\n\n ```jsx\n <img src=\"image.png\" alt=\"image alt\" />\n ```\n\n ```jsx\n <input type=\"image\" src=\"image.png\" alt=\"alt text\" />\n ```\n\n ```jsx\n <input type=\"image\" src=\"image.png\" aria-label=\"alt text\" />\n ```\n\n ```jsx\n <input type=\"image\" src=\"image.png\" aria-labelledby=\"someId\" />\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.1.1](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html)\n\n"
+            "docs": " Enforce that all elements that require alternative text have meaningful information to relay back to the end user.\n\n This is a critical component of accessibility for screen reader users in order for them to understand the content's purpose on the page.\n This rule checks for alternative text on the following elements: `<img>`, `<area>`, `<input type=\"image\">`, and `<object>`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <img src=\"image.png\" />\n ```\n\n ```jsx,expect_diagnostic\n <input type=\"image\" src=\"image.png\" />\n ```\n\n ```astro,expect_diagnostic\n {show && <img src=\"image.png\" />}\n ```\n\n ### Valid\n\n ```jsx\n <img src=\"image.png\" alt=\"image alt\" />\n ```\n\n ```astro\n {show && <img src=\"image.png\" alt=\"image alt\" />}\n ```\n\n ```jsx\n <input type=\"image\" src=\"image.png\" alt=\"alt text\" />\n ```\n\n ```jsx\n <input type=\"image\" src=\"image.png\" aria-label=\"alt text\" />\n ```\n\n ```jsx\n <input type=\"image\" src=\"image.png\" aria-labelledby=\"someId\" />\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.1.1](https://www.w3.org/WAI/WCAG21/Understanding/non-text-content.html)\n\n"
           },
           "useAnchorContent": {
             "deprecated": false,
@@ -9416,6 +9579,40 @@ export function GET() {
           }
         },
         "nursery": {
+          "noAstroConflictingSetDirectives": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "noAstroConflictingSetDirectives",
+            "link": "https://biomejs.dev/linter/rules/no-astro-conflicting-set-directives/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintAstro": "no-conflict-set-directives"
+                }
+              }
+            ],
+            "docs": " Disallow conflicting content sources on Astro elements.\n\n The `set:html` and `set:text` directives replace an element's child content.\n Combining either directive with another content source makes it unclear which\n content should be rendered.\n\n ## Examples\n\n ### Invalid\n\n ```astro,ignore\n <div>{items.map((item) => <span set:html={item.html}>Fallback content</span>)}</div>\n ```\n\n ### Valid\n\n ```astro,ignore\n <div>{items.map((item) => <span set:html={item.html} />)}</div>\n ```\n\n ## References\n\n - [Astro template directives](https://docs.astro.build/en/reference/directives-reference/#sethtml)\n"
+          },
+          "noAstroSetHtmlDirective": {
+            "deprecated": false,
+            "version": "2.5.11",
+            "name": "noAstroSetHtmlDirective",
+            "link": "https://biomejs.dev/linter/rules/no-astro-set-html-directive/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintAstro": "no-set-html-directive"
+                }
+              }
+            ],
+            "docs": " Disallow the use of Astro's `set:html` directive.\n\n `set:html` renders HTML without escaping it. Using `set:html` can introduce cross-site scripting vulnerabilities.\n When raw HTML is required, sanitize the value before passing it to `set:html`, then suppress the diagnostic with an explanation.\n\n ## Examples\n\n ### Invalid\n\n ```astro,expect_diagnostic,ignore\n {show && <span set:html={content} />}\n ```\n\n ### Valid\n\n ```astro,ignore\n {show && <span>{content}</span>}\n ```\n\n ## References\n\n - [Astro `set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml)\n - [OWASP HTML sanitization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#html-sanitization)\n"
+          },
           "noComponentHookFactories": {
             "deprecated": false,
             "version": "2.4.12",
@@ -9508,6 +9705,23 @@ export function GET() {
             ],
             "docs": " Disallow JSX namespace syntax.\n\n React does not support XML namespaced tags such as `<ns:Component />`.\n Although the JSX specification permits namespaces, React does not implement\n them and using a namespaced element may cause a runtime error.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <ns:testcomponent />\n ```\n\n ```jsx,expect_diagnostic\n <svg:circle cx=\"50\" cy=\"50\" r=\"40\" />\n ```\n\n ### Valid\n\n ```jsx\n <testcomponent />\n ```\n\n ```jsx\n <object.TestComponent />\n ```\n\n"
           },
+          "noMisplacedListElements": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "noMisplacedListElements",
+            "link": "https://biomejs.dev/linter/rules/no-misplaced-list-elements/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "require-li-container"
+                }
+              }
+            ],
+            "docs": " Require `<li>` elements with an HTML element parent to be children of `<ul>`, `<ol>`, or `<menu>`.\n\n List items need a list container to define their relationship to the other items.\n Placing a list item outside a list container produces invalid HTML.\n\n The parent is the element the item is rendered into. Fragments, conditional and\n logical expressions, arrays, and callbacks passed to `map`, `flatMap`, or `Array.from`\n are looked through to find it.\n\n List items without an HTML element parent are ignored, including standalone items,\n items returned from components, items stored in variables, and component children.\n Their container may be supplied where they are rendered.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div><li>Item</li></div>\n ```\n\n ```jsx,expect_diagnostic\n <ul><div><li /></div></ul>\n ```\n\n ```jsx,expect_diagnostic\n <div>{items.map((item) => <li key={item}>{item}</li>)}</div>\n ```\n\n ### Valid\n\n ```jsx\n <>\n     <ul><li>Item</li></ul>\n     <ol><li>Item</li></ol>\n     <menu><li /></menu>\n </>\n ```\n\n ```jsx\n <ul>{items.map((item) => <li key={item}>{item}</li>)}</ul>\n ```\n\n ```jsx\n <li>Item rendered in a list elsewhere</li>\n ```\n\n ```jsx\n const item = <li>Item rendered in a list elsewhere</li>;\n ```\n\n ```jsx\n function Item() {\n     return <li>Item rendered in a list elsewhere</li>;\n }\n ```\n\n ```jsx\n <List><li>Component child</li></List>\n ```\n\n"
+          },
           "noNonScalableViewport": {
             "deprecated": false,
             "version": "2.5.7",
@@ -9574,7 +9788,24 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow arbitrary values in Tailwind CSS utility classes.\n\n Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties\n (e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports\n them so teams can keep styling constrained to named utilities from their Tailwind\n configuration.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"w-[400px]\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"text-[#555] bg-white\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"[color:red]\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"w-4 text-red-500 bg-white\" />;\n ```\n\n ```jsx\n <div className=\"[&:nth-child(3)]:px-2\" />;\n ```\n\n ## Options\n\n By default, this rule checks the `class` and `className` JSX attributes.\n The `attributes` option adds more JSX attributes to check, and `functions`\n enables checking string arguments and tagged templates in matching utilities.\n\n ```json,options\n {\n     \"options\": {\n         \"attributes\": [\"classList\"],\n         \"functions\": [\"clsx\"]\n     }\n }\n ```\n\n ### attributes\n\n Additional JSX attribute names to check.\n\n Default: `[]` (the `class` and `className` attributes are always checked).\n\n ### functions\n\n Function or tagged template names whose classes will be checked for arbitrary values.\n\n Default: `[]`.\n\n ```jsx,use_options,expect_diagnostic\n <div className={clsx(\"w-[400px]\")} />;\n ```\n\n"
+            "docs": " Disallow arbitrary values in Tailwind CSS utility classes.\n\n Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties\n (e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports\n them so teams can keep styling constrained to named utilities from their Tailwind\n configuration.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"w-[400px]\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"text-[#555] bg-white\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"[color:red]\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"w-4 text-red-500 bg-white\" />;\n ```\n\n ```jsx\n <div className=\"[&:nth-child(3)]:px-2\" />;\n ```\n\n The rule checks `class` and `className` JSX attributes, and strings passed to\n `clsx`, `tw`, `twMerge`, `twJoin`, `cva`, `tv`, `cn`, `cc`, `cnb`, and `ctl`.\n Tagged templates using these helpers, including members such as `tw.div`,\n are also checked.\n\n"
+          },
+          "noTailwindRawColors": {
+            "deprecated": false,
+            "version": "2.5.15",
+            "name": "noTailwindRawColors",
+            "link": "https://biomejs.dev/linter/rules/no-tailwind-raw-colors/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintShadcn": "no-raw-colors"
+                }
+              }
+            ],
+            "docs": " Disallow Tailwind CSS utility classes that use raw palette colors.\n\n Palette colors such as `pink-500` and `slate-950` tie styles to specific\n colors instead of the role those colors play. Design system color names such as `primary`\n or `muted` let a design system change its palette without editing each component.\n This rule checks color utilities, including variants and opacity modifiers.\n It allows custom color names, `black`, `white`, `transparent`, `current`, and `inherit`.\n This rule does not check arbitrary values such as `bg-[#ff00aa]`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"bg-pink-500\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"hover:text-red-500/80\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"bg-primary hover:text-muted-foreground\" />;\n ```\n\n ```jsx\n <div className=\"bg-white text-black border-transparent fill-current stroke-inherit\" />;\n ```\n\n ## Supported class strings\n\n The rule checks `class` and `className` JSX attributes and string arguments\n to `clsx`, `tw`, `twMerge`, `twJoin`, `cva`, `tv`, `cn`, `cc`, `cnb`, and `ctl`.\n Tagged templates using these names, including members such as `tw.div`,\n are also checked. Static template chunks and class expressions in JSX,\n Svelte, Vue, and Astro attributes are checked. Dynamically constructed\n class names are not resolved.\n The rule does not read your Tailwind configuration; redefining a default\n palette name does not exempt it.\n\n ## Options\n\n ### allowedColors\n\n Default: `[]`\n\n Exact palette colors to allow.\n Entries are case-sensitive color names, such as `slate-950` or `pink-500`,\n without utility prefixes, variants, or opacity modifiers.\n Allowing `pink-500` permits it in every color utility, including variants\n and opacity modifiers; it does not allow other pink shades.\n\n ```json,options\n { \"options\": { \"allowedColors\": [\"pink-500\"] } }\n ```\n\n ```jsx,use_options\n <div className=\"bg-pink-500 hover:text-pink-500/80 border-black\" />;\n ```\n\n ## See Also\n\n - [noTailwindArbitraryValue](https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value/)\n\n"
           },
           "useControlLabel": {
             "deprecated": false,
@@ -10857,7 +11088,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 606
+    "numberOrRules": 621
   },
   "syntax": {
     "languages": {

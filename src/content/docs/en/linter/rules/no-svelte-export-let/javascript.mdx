@@ -1,0 +1,96 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noSvelteExportLet (JavaScript)
+description: JavaScript (and super languages) documentation for noSvelteExportLet
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-svelte-export-let/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.5.15`
+- Diagnostic Category: [`lint/nursery/noSvelteExportLet`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`svelte`](/linter/domains#svelte)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSvelteExportLet": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow declaring Svelte component props with `export let`.
+
+Svelte 5 declares component props with the `$props()` rune. Exporting a `let` or `var`
+binding from the instance `<script>` is the legacy way of declaring props: it opts the
+component into legacy mode, and it is a compile error in runes mode.
+
+Exports from a `<script module>` block are regular module exports, not props, so they
+are ignored.
+
+## Examples
+
+### Invalid
+
+```svelte
+<script>
+export let name;
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.svelte:2:1 <a href=\"https://biomejs.dev/linter/rules/no-svelte-export-let\">lint/nursery/noSvelteExportLet</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Declaring component props with </span><span style=\"color: lightgreen;\"><strong>export let</strong></span><span style=\"color: lightgreen;\"> is legacy Svelte syntax.</span><br />  <br />    <strong>1 │ </strong>&lt;script&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>export let name;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/script&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Svelte 5 declares props with the </span><span style=\"color: lightgreen;\"><strong>$props()</strong></span><span style=\"color: lightgreen;\"> rune. Declaring props with </span><span style=\"color: lightgreen;\"><strong>export</strong></span><span style=\"color: lightgreen;\"> makes the component run in legacy mode, and is a compile error in runes mode.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Destructure the props from </span><span style=\"color: lightgreen;\"><strong>$props()</strong></span><span style=\"color: lightgreen;\"> instead, for example: </span><span style=\"color: lightgreen;\"><strong>let &#123; name &#125; = $props();</strong></span><span style=\"color: lightgreen;\">. See the </span><span style=\"color: lightgreen;\"><a href=\"https://svelte.dev/docs/svelte/v5-migration-guide#Let-exports-become-$props\">Svelte 5 migration guide</a></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```svelte
+<script>
+let className;
+export { className as class };
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.svelte:3:10 <a href=\"https://biomejs.dev/linter/rules/no-svelte-export-let\">lint/nursery/noSvelteExportLet</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Exporting </span><span style=\"color: lightgreen;\"><strong>className</strong></span><span style=\"color: lightgreen;\"> declares a component prop with legacy Svelte syntax.</span><br />  <br />    <strong>1 │ </strong>&lt;script&gt;<br />    <strong>2 │ </strong>let className;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>export &#123; className as class &#125;;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&lt;/script&gt;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Svelte 5 declares props with the </span><span style=\"color: lightgreen;\"><strong>$props()</strong></span><span style=\"color: lightgreen;\"> rune. Declaring props with </span><span style=\"color: lightgreen;\"><strong>export</strong></span><span style=\"color: lightgreen;\"> makes the component run in legacy mode, and is a compile error in runes mode.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Destructure the props from </span><span style=\"color: lightgreen;\"><strong>$props()</strong></span><span style=\"color: lightgreen;\"> instead, for example: </span><span style=\"color: lightgreen;\"><strong>let &#123; name &#125; = $props();</strong></span><span style=\"color: lightgreen;\">. See the </span><span style=\"color: lightgreen;\"><a href=\"https://svelte.dev/docs/svelte/v5-migration-guide#Let-exports-become-$props\">Svelte 5 migration guide</a></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```svelte
+<script>
+let { name, class: className } = $props();
+</script>
+```
+
+```svelte
+<script module>
+export let count = 0;
+</script>
+```
+
+### References
+
+- [Svelte `$props`](https://svelte.dev/docs/svelte/$props)
+- [Svelte 5 migration guide](https://svelte.dev/docs/svelte/v5-migration-guide#Let-exports-become-$props)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_svelte_export_let.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noSvelteExportLet)
+- <RulePlaygroundLink rule="noSvelteExportLet" category="lint" language="svelte" code={"<script>\nexport let name;\n</script>\n"} />
+

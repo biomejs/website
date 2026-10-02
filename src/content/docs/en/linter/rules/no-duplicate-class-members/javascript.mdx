@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noDuplicateClass
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-duplicate-class-members/javascript/"}]} />
 
@@ -125,4 +126,5 @@ class Foo {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_duplicate_class_members.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noDuplicateClassMembers)
+- <RulePlaygroundLink rule="noDuplicateClassMembers" category="lint" language="js" code={"class Foo {\n  bar() { }\n  bar() { }\n}\n"} />
 

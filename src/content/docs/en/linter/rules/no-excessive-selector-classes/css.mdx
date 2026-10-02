@@ -8,6 +8,7 @@ description: CSS documentation for noExcessiveSelectorClasses
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-excessive-selector-classes/css/"}]} />
 
@@ -158,4 +159,5 @@ class selectors:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_excessive_selector_classes.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noExcessiveSelectorClasses)
+- <RulePlaygroundLink rule="noExcessiveSelectorClasses" category="lint" language="css" code={".foo .bar {}\n"} />
 

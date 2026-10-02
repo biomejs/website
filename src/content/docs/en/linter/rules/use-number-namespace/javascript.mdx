@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useNumberNamespa
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-number-namespace/javascript/"}]} />
 
@@ -104,4 +105,5 @@ Number.NEGATIVE_INFINITY; // false
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_number_namespace.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useNumberNamespace)
+- <RulePlaygroundLink rule="useNumberNamespace" category="lint" language="js" code={"parseInt(\"1\"); // true\n"} />
 

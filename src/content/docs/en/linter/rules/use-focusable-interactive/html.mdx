@@ -8,6 +8,7 @@ description: HTML documentation for useFocusableInteractive
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-focusable-interactive/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-focusable-interactive/javascript/"}]} />
 
@@ -75,4 +76,5 @@ instead.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/use_focusable_interactive.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/useFocusableInteractive)
+- <RulePlaygroundLink rule="useFocusableInteractive" category="lint" language="html" code={"<div role=\"button\"></div>\n"} />
 

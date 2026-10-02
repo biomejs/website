@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUselessStringC
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-string-concat/javascript/"}]} />
 
@@ -111,4 +112,5 @@ const alsoMultiline = 'foo'
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_useless_string_concat.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noUselessStringConcat)
+- <RulePlaygroundLink rule="noUselessStringConcat" category="lint" language="js" code={"const a = \"a\" + \"b\";\n"} />
 

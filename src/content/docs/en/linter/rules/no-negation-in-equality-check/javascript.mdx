@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noNegationInEqua
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-negation-in-equality-check/javascript/"}]} />
 
@@ -76,4 +77,5 @@ if (!(foo === bar)) {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_negation_in_equality_check.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noNegationInEqualityCheck)
+- <RulePlaygroundLink rule="noNegationInEqualityCheck" category="lint" language="js" code={"if (!foo === bar) {}\n"} />
 

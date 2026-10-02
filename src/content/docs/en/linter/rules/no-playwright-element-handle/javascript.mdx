@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noPlaywrightElem
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-playwright-element-handle/javascript/"}]} />
 
@@ -89,4 +90,5 @@ await page.getByRole('button', { name: 'Submit' }).click();
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_playwright_element_handle.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noPlaywrightElementHandle)
+- <RulePlaygroundLink rule="noPlaywrightElementHandle" category="lint" language="js" code={"const button = await page.$('button');\n"} />
 

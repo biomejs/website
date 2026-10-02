@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useGoogleFontDis
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-google-font-display/javascript/"}]} />
 
@@ -92,4 +93,5 @@ In cases where swapping to the custom font after it has loaded is important, con
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/use_google_font_display.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/useGoogleFontDisplay)
+- <RulePlaygroundLink rule="useGoogleFontDisplay" category="lint" language="jsx" code={"<link href=\"https://fonts.googleapis.com/css2?family=Krona+One\" />\n"} />
 

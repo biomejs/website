@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useExhaustiveDep
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-exhaustive-dependencies/javascript/"}]} />
 
@@ -497,4 +498,5 @@ function noArrayYesProblem() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_exhaustive_dependencies.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useExhaustiveDependencies)
+- <RulePlaygroundLink rule="useExhaustiveDependencies" category="lint" language="js" code={"import { useEffect } from \"react\";\n\nfunction component() {\n  let a = 1;\n  useEffect(() => {\n    console.log(a);\n  }, []);\n}\n"} />
 

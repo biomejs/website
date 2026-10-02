@@ -8,6 +8,7 @@ description: HTML documentation for noVueVOnNumberValues
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-v-on-number-values/html/"}]} />
 
@@ -75,4 +76,5 @@ Vue 3 no longer supports using key code numbers as event modifiers.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_v_on_number_values.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueVOnNumberValues)
+- <RulePlaygroundLink rule="noVueVOnNumberValues" category="lint" language="vue" code={"<input v-on:keyup.13=\"submit\" />\n"} />
 

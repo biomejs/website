@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noCatchAssign
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-catch-assign/javascript/"}]} />
 
@@ -72,4 +73,5 @@ try {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_catch_assign.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noCatchAssign)
+- <RulePlaygroundLink rule="noCatchAssign" category="lint" language="js" code={"try {\n\n} catch (e) {\n  e;\n  e = 10;\n}\n"} />
 

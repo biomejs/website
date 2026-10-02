@@ -8,6 +8,7 @@ description: CSS documentation for noInvalidGridAreas
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-invalid-grid-areas/css/"}]} />
 
@@ -88,4 +89,5 @@ a { grid-template-areas: "a a a"
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_invalid_grid_areas.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noInvalidGridAreas)
+- <RulePlaygroundLink rule="noInvalidGridAreas" category="lint" language="css" code={"a { grid-template-areas: \"a a\"\n                         \"b b b\"; }\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noPlaywrightForc
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-playwright-force-option/javascript/"}]} />
 
@@ -86,4 +87,5 @@ await page.locator('input').fill('text');
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_playwright_force_option.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noPlaywrightForceOption)
+- <RulePlaygroundLink rule="noPlaywrightForceOption" category="lint" language="js" code={"await page.locator('button').click({ force: true });\n"} />
 
