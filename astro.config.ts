@@ -2,7 +2,7 @@ import { unified } from "@astrojs/markdown-remark";
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
-import lunaria from "@lunariajs/starlight";
+import type { AstroIntegration } from "astro";
 import { defineConfig, fontProviders } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
@@ -10,7 +10,7 @@ import starlightChangelogs, {
 	makeChangelogsSidebarLinks,
 } from "starlight-changelogs";
 import starlightLinksValidator from "starlight-links-validator";
-import { searchForWorkspaceRoot } from "vite";
+import { type Plugin, searchForWorkspaceRoot } from "vite";
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with {
 	type: "json",
 };
@@ -18,6 +18,26 @@ import { version as prettierVersion } from "./node_modules/prettier/package.json
 	type: "json",
 };
 import redirects from "./redirects.js";
+
+/**
+ * `@astrojs/compiler-binding` only ships a native Node entry point, but
+ * `prettier-plugin-astro` imports it through `@astrojs/compiler-rs`. In the
+ * browser (the playground's Prettier worker), use the WASM build instead.
+ */
+function astroCompilerWasm(): Plugin {
+	return {
+		name: "astro-compiler-wasm",
+		enforce: "pre",
+		applyToEnvironment: (environment) => environment.name === "client",
+		resolveId(source) {
+			if (source === "@astrojs/compiler-binding") {
+				// Resolved from the project root, where it's a direct dependency
+				return this.resolve("@astrojs/compiler-binding-wasm32-wasi");
+			}
+			return null;
+		},
+	};
+}
 
 const plugins = [
 	starlightBlog({
@@ -90,12 +110,22 @@ const plugins = [
 	starlightChangelogs(),
 ];
 
-if (process.env?.E2E !== "true") {
-	plugins.push(
-		lunaria({
-			route: "i18n-dashboard",
-		}),
-	);
+/**
+ * Renders the Lunaria i18n dashboard at `/i18n-dashboard`.
+ * See `lunaria.config.ts` and `src/components/LunariaDashboard.astro`.
+ */
+function lunariaDashboard(): AstroIntegration {
+	return {
+		name: "lunaria-dashboard",
+		hooks: {
+			"astro:config:setup": ({ injectRoute }) => {
+				injectRoute({
+					pattern: "/i18n-dashboard",
+					entrypoint: "./src/components/LunariaDashboard.astro",
+				});
+			},
+		},
+	};
 }
 
 // https://astro.build/config
@@ -1076,6 +1106,7 @@ export default defineConfig({
 				PageSidebar: "./src/components/starlight/PageSidebar.astro",
 			},
 		}),
+		...(process.env?.E2E !== "true" ? [lunariaDashboard()] : []),
 	],
 
 	adapter: netlify({
@@ -1113,10 +1144,18 @@ export default defineConfig({
 	},
 
 	vite: {
-		plugins: [],
+		plugins: [astroCompilerWasm()],
 
 		worker: {
 			format: "es",
+			plugins: () => [astroCompilerWasm()],
+		},
+
+		optimizeDeps: {
+			// Pre-bundling would bypass `astroCompilerWasm` and break the
+			// relative URL to the compiler's `.wasm` file
+			exclude: ["prettier-plugin-astro"],
+			include: ["prettier-plugin-astro > sass-formatter"],
 		},
 
 		server: {

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noIrregularWhite
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-irregular-whitespace/css/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-irregular-whitespace/javascript/"}]} />
 
@@ -19,6 +20,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
   - Same as [`no-irregular-whitespace`](https://eslint.org/docs/latest/rules/no-irregular-whitespace)
+  - Same as [`vue/no-irregular-whitespace`](https://eslint.vuejs.org/rules/no-irregular-whitespace)
 
 ## How to configure
 ```json title="biome.json"
@@ -71,4 +73,5 @@ const foo = '';
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_irregular_whitespace.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noIrregularWhitespace)
+- <RulePlaygroundLink rule="noIrregularWhitespace" category="lint" language="js" code={"let\u000bcount;\n"} />
 

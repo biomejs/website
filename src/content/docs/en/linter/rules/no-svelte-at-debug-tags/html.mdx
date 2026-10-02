@@ -8,6 +8,7 @@ description: HTML documentation for noSvelteAtDebugTags
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-svelte-at-debug-tags/html/"}]} />
 
@@ -71,4 +72,5 @@ should be removed once you are done debugging, as it should not remain in produc
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_svelte_at_debug_tags.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noSvelteAtDebugTags)
+- <RulePlaygroundLink rule="noSvelteAtDebugTags" category="lint" language="svelte" code={"{@debug user}\n"} />
 

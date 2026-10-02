@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useVueBaseImport
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-base-import/javascript/"}]} />
 
@@ -72,4 +73,5 @@ import { internalOnly } from "@vue/reactivity";
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_base_import.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueBaseImport)
+- <RulePlaygroundLink rule="useVueBaseImport" category="lint" language="js" code={"import { computed } from \"@vue/reactivity\";\n"} />
 

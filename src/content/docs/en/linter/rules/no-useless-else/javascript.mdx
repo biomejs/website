@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUselessElse
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-else/javascript/"}]} />
 
@@ -118,4 +119,5 @@ function f(x) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_useless_else.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noUselessElse)
+- <RulePlaygroundLink rule="noUselessElse" category="lint" language="js" code={"while (x > 0) {\n    if (f(x)) {\n        break;\n    } else {\n        x++\n    }\n}\n"} />
 

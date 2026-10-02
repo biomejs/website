@@ -7,6 +7,8 @@ const head = Astro.locals.starlightRoute.head.filter(
 );
 ---
 
-{head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+{head.map(({ tag: Tag, attrs, content }) => (
+	<Tag {...attrs} set:html={content} />
+))}
 <Font cssVariable="--font-geist" />
 <Font cssVariable="--font-jetbrains-mono" />

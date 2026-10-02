@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noConstEnum
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-const-enum/javascript/"}]} />
 
@@ -68,4 +69,5 @@ enum Status {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_const_enum.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noConstEnum)
+- <RulePlaygroundLink rule="noConstEnum" category="lint" language="ts" code={"const enum Status {\n  Open,\n  Close,\n}\n"} />
 

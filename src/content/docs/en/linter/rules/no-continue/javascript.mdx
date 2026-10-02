@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noContinue
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-continue/javascript/"}]} />
 
@@ -79,4 +80,5 @@ for(i = 0; i < 10; i++) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_continue.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noContinue)
+- <RulePlaygroundLink rule="noContinue" category="lint" language="js" code={"let sum = 0,\n    i;\n\nfor(i = 0; i < 10; i++) {\n    if(i >= 5) {\n        continue;\n    }\n\n    sum += i;\n}\n"} />
 

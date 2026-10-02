@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnusedVariable
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unused-variables/javascript/"}]} />
 
@@ -21,6 +22,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
   - Same as [`no-unused-vars`](https://eslint.org/docs/latest/rules/no-unused-vars)
   - Same as [`@typescript-eslint/no-unused-vars`](https://typescript-eslint.io/rules/no-unused-vars)
   - Same as [`unused-imports/no-unused-vars`](https://github.com/sweepline/eslint-plugin-unused-imports/blob/master/docs/rules/no-unused-vars.md)
+  - Same as [`vue/no-unused-vars`](https://eslint.vuejs.org/rules/no-unused-vars)
 
 ## How to configure
 ```json title="biome.json"
@@ -144,8 +146,6 @@ interface Props {
   name: string;
   greeting?: string;
 }
-
-const { name, greeting } = Astro.props;
 ---
 ```
 
@@ -268,4 +268,5 @@ class UnusedClass {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_unused_variables.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noUnusedVariables)
+- <RulePlaygroundLink rule="noUnusedVariables" category="lint" language="js" code={"let a = 4;\na++;\n"} />
 

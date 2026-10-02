@@ -8,6 +8,7 @@ description: CSS documentation for noInvalidDirectionInLinearGradient
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-invalid-direction-in-linear-gradient/css/"}]} />
 
@@ -76,4 +77,5 @@ A common mistake (matching outdated non-standard syntax) is to use just a side-o
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_invalid_direction_in_linear_gradient.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noInvalidDirectionInLinearGradient)
+- <RulePlaygroundLink rule="noInvalidDirectionInLinearGradient" category="lint" language="css" code={".foo { background: linear-gradient(top, #fff, #000); }\n"} />
 

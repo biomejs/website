@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noAccumulatingSp
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-accumulating-spread/javascript/"}]} />
 
@@ -96,4 +97,5 @@ a.reduce((acc, val) => {return Object.assign(acc, val);}, []);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/performance/no_accumulating_spread.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/performance/noAccumulatingSpread)
+- <RulePlaygroundLink rule="noAccumulatingSpread" category="lint" language="js" code={"var a = ['a', 'b', 'c'];\na.reduce((acc, val) => [...acc, val], []);\n"} />
 

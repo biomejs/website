@@ -8,6 +8,7 @@ description: HTML documentation for useButtonType
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-button-type/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-button-type/javascript/"}]} />
 
@@ -21,6 +22,8 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
   - Inspired from [`react/button-has-type`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/button-has-type.md)
   - Inspired from [`react-dom/no-missing-button-type`](https://eslint-react.xyz/docs/rules/dom-no-missing-button-type)
   - Inspired from [`@eslint-react/dom-no-missing-button-type`](https://eslint-react.xyz/docs/rules/dom-no-missing-button-type)
+  - Same as [`svelte/button-has-type`](https://sveltejs.github.io/eslint-plugin-svelte/rules/button-has-type/)
+  - Same as [`vue/html-button-has-type`](https://eslint.vuejs.org/rules/html-button-has-type)
   - Same as [`@html-eslint/require-button-type`](https://html-eslint.org/docs/rules/require-button-type)
 
 ## How to configure
@@ -68,4 +71,5 @@ Enforces the usage and validity of the attribute `type` for the element `button`
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/use_button_type.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/useButtonType)
+- <RulePlaygroundLink rule="useButtonType" category="lint" language="html" code={"<button>Do something</button>\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noComponentHookF
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-component-hook-factories/javascript/"}]} />
 
@@ -108,4 +109,5 @@ function withAuth(WrappedComponent) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_component_hook_factories.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noComponentHookFactories)
+- <RulePlaygroundLink rule="noComponentHookFactories" category="lint" language="jsx" code={"function makeComponent(label) {\n  function MyComponent() {\n    return <div>{label}</div>;\n  }\n  return MyComponent;\n}\n"} />
 

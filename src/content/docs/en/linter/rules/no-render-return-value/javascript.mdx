@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noRenderReturnVa
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-render-return-value/javascript/"}]} />
 
@@ -66,4 +67,5 @@ ReactDOM.render(<div />, document.body);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_render_return_value.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noRenderReturnValue)
+- <RulePlaygroundLink rule="noRenderReturnValue" category="lint" language="jsx" code={"const foo = ReactDOM.render(<div />, document.body);\n"} />
 

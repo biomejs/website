@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUselessContinu
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-continue/javascript/"}]} />
 
@@ -119,4 +120,5 @@ loop: while (1) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_useless_continue.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noUselessContinue)
+- <RulePlaygroundLink rule="noUselessContinue" category="lint" language="js" code={"loop: for (let i = 0; i < 5; i++) {\n  continue loop;\n}\n"} />
 

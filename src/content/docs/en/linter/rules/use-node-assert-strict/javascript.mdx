@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useNodeAssertStr
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-node-assert-strict/javascript/"}]} />
 
@@ -58,4 +59,5 @@ import * as assert from "node:assert/strict"
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_node_assert_strict.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useNodeAssertStrict)
+- <RulePlaygroundLink rule="useNodeAssertStrict" category="lint" language="js" code={"import * as assert from \"node:assert\"\n"} />
 

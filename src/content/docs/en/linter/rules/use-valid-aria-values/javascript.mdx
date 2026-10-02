@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useValidAriaValu
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-valid-aria-values/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-valid-aria-values/javascript/"}]} />
 
@@ -89,4 +90,5 @@ Enforce that ARIA state and property values are valid.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/use_valid_aria_values.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useValidAriaValues)
+- <RulePlaygroundLink rule="useValidAriaValues" category="lint" language="jsx" code={"<span role=\"checkbox\" aria-checked=\"test\">some text</span>\n"} />
 

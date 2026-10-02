@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useConsistentFun
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-consistent-function-style/javascript/"}]} />
 
@@ -202,4 +203,5 @@ const farewell = () => "Goodbye";
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_consistent_function_style.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useConsistentFunctionStyle)
+- <RulePlaygroundLink rule="useConsistentFunctionStyle" category="lint" language="js" code={"function greet() {\n    return \"Hello\";\n}\n"} />
 

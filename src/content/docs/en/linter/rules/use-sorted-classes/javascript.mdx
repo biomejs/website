@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useSortedClasses
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-sorted-classes/javascript/"}]} />
 
@@ -198,4 +199,5 @@ This is a deliberate decision. We're unsure about this behavior, and would appre
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_sorted_classes.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useSortedClasses)
+- <RulePlaygroundLink rule="useSortedClasses" category="lint" language="jsx" code={"<div class=\"px-2 foo p-4 bar\" />;\n"} />
 

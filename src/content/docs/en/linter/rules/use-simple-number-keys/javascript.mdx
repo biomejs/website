@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useSimpleNumberK
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-simple-number-keys/javascript/"}]} />
 
@@ -83,4 +84,5 @@ Disallow number literal object member names which are not base 10 or use undersc
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_simple_number_keys.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/useSimpleNumberKeys)
+- <RulePlaygroundLink rule="useSimpleNumberKeys" category="lint" language="js" code={"({ 0x1: 1 });\n"} />
 

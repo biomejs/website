@@ -8,6 +8,7 @@ description: HTML documentation for noSyncScripts
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-sync-scripts/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-sync-scripts/javascript/"}]} />
 
@@ -63,4 +64,5 @@ A synchronous script can impact your webpage performance, read more on how to [E
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/performance/no_sync_scripts.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/performance/noSyncScripts)
+- <RulePlaygroundLink rule="noSyncScripts" category="lint" language="html" code={"<script src=\"\"></script>\n"} />
 

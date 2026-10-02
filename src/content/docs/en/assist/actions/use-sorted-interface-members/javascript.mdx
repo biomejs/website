@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useSortedInterfa
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/assist/actions/use-sorted-interface-members/javascript/"}]} />
@@ -97,4 +98,5 @@ interface MixedMembers {
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/assist/source/use_sorted_interface_members.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/source/useSortedInterfaceMembers)
+- <RulePlaygroundLink rule="useSortedInterfaceMembers" category="assist" language="ts" code={"interface MixedMembers {\n  z: string;\n  a: number;\n  (): void;  // Call signature\n  y: boolean;\n  new (): MixedMembers;  // Construct signature\n  b: string;\n  [key: string]: any;  // Index signature\n}\n"} />
 

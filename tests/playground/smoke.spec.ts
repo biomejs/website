@@ -1,15 +1,30 @@
 // Smoke tests for the playground to ensure that the basic functionality works.
 
-import { expect, test } from "@playwright/test";
+import { expect, type Page, test } from "@playwright/test";
 
 function encodeCode(code: string): string {
 	return Buffer.from(code, "utf16le").toString("base64");
 }
 
+/** Toggles a view from the toolbar, expanding the "Internals" group first if needed. */
+async function toggleView(
+	page: Page,
+	name: string,
+	options: { additive?: boolean } = {},
+) {
+	const button = page.getByRole("button", { name, exact: true });
+	if (!(await button.isVisible())) {
+		await page.getByRole("button", { name: "Internals" }).click();
+	}
+	await button.click(options.additive ? { modifiers: ["Shift"] } : {});
+}
+
 test.describe("playground should format code", () => {
 	test.describe("on navigation", () => {
 		test("javascript", async ({ page }) => {
-			await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
+			await page.goto(
+				"/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D&prettier=true",
+			);
 			await expect(
 				page.getByTestId("biome-output").getByRole("textbox"),
 			).toContainText("let a = 5;");
@@ -20,7 +35,7 @@ test.describe("playground should format code", () => {
 
 		test("css", async ({ page }) => {
 			await page.goto(
-				"/playground?files.main.css=ZABpAHYAIAB7AGMAbwBsAG8AcgA6ACAAYgBsAHUAZQA7AH0A",
+				"/playground?files.main.css=ZABpAHYAIAB7AGMAbwBsAG8AcgA6ACAAYgBsAHUAZQA7AH0A&prettier=true",
 			);
 			await expect(
 				page.getByTestId("biome-output").getByRole("textbox"),
@@ -32,7 +47,7 @@ test.describe("playground should format code", () => {
 
 		test("html", async ({ page }) => {
 			await page.goto(
-				"/playground?files.main.html=PABkAGkAdgA%2BADwALwBkAGkAdgA%2BAA%3D%3D",
+				"/playground?files.main.html=PABkAGkAdgA%2BADwALwBkAGkAdgA%2BAA%3D%3D&prettier=true",
 			);
 			await expect(
 				page.getByTestId("biome-output").getByRole("textbox"),
@@ -43,9 +58,19 @@ test.describe("playground should format code", () => {
 		});
 	});
 
+	test("shows how Biome's output compares to Prettier", async ({ page }) => {
+		await page.goto(
+			`/playground?prettier=true#code=${encodeURIComponent(encodeCode("let a=5"))}`,
+		);
+		await expect(page.getByTestId("prettier-diff-hint")).toHaveText(
+			"Exact match",
+		);
+	});
+
 	test.describe("on typing", () => {
 		test("javascript", async ({ page }) => {
 			await page.goto("/playground");
+			await page.getByLabel("Compare Prettier").check();
 			await page.getByTestId("editor").getByRole("textbox").fill("let a = 5;");
 			await expect(
 				page.getByTestId("biome-output").getByRole("textbox"),
@@ -62,7 +87,11 @@ test.describe("playground should show formatter IR", () => {
 
 	test("javascript", async ({ page }) => {
 		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
-		await page.getByRole("tab", { name: "Formatter IR" }).click();
+		await toggleView(page, "Formatter IR");
+		await page
+			.locator(".playground-view-pane")
+			.getByLabel("Compare Prettier")
+			.check();
 		await expect(
 			page.getByTestId("biome-ir-output").getByRole("textbox"),
 		).toContainText("let");
@@ -75,7 +104,11 @@ test.describe("playground should show formatter IR", () => {
 		await page.goto(
 			"/playground?files.main.css=ZABpAHYAIAB7AGMAbwBsAG8AcgA6ACAAYgBsAHUAZQA7AH0A",
 		);
-		await page.getByRole("tab", { name: "Formatter IR" }).click();
+		await toggleView(page, "Formatter IR");
+		await page
+			.locator(".playground-view-pane")
+			.getByLabel("Compare Prettier")
+			.check();
 		await expect(
 			page.getByTestId("biome-ir-output").getByRole("textbox"),
 		).toContainText("div");
@@ -88,7 +121,11 @@ test.describe("playground should show formatter IR", () => {
 		await page.goto(
 			"/playground?files.main.html=PABkAGkAdgA%2BADwALwBkAGkAdgA%2BAA%3D%3D",
 		);
-		await page.getByRole("tab", { name: "Formatter IR" }).click();
+		await toggleView(page, "Formatter IR");
+		await page
+			.locator(".playground-view-pane")
+			.getByLabel("Compare Prettier")
+			.check();
 		await expect(
 			page.getByTestId("biome-ir-output").getByRole("textbox"),
 		).toContainText("div");
@@ -99,6 +136,196 @@ test.describe("playground should show formatter IR", () => {
 });
 
 test.describe("playground links", () => {
+	for (const { path, rule, category, language, code, fixed } of [
+		{
+			path: "linter/rules/no-console/javascript",
+			rule: "noConsole",
+			category: "lint",
+			language: "js",
+			code: "console.error('hello world')\n",
+		},
+		{
+			path: "linter/rules/no-misleading-character-class/javascript",
+			rule: "noMisleadingCharacterClass",
+			category: "lint",
+			language: "js",
+			code: "/^[A\u0301]$/u;\n",
+		},
+		{
+			path: "linter/rules/no-aria-hidden-on-focusable/javascript",
+			rule: "noAriaHiddenOnFocusable",
+			category: "lint",
+			language: "jsx",
+			code: '<div aria-hidden="true" tabIndex="0" />\n',
+		},
+		{
+			path: "linter/rules/no-duplicate-properties/css",
+			rule: "noDuplicateProperties",
+			category: "lint",
+			language: "css",
+			code: "a {\n  color: pink;\n  color: orange;\n}\n",
+		},
+		{
+			path: "assist/actions/use-sorted-keys/json",
+			rule: "useSortedKeys",
+			category: "assist",
+			language: "json",
+			code: '{\n    "vase": "fancy",\n    "nested": {\n        "omega": "bar",\n        "alpha": "foo"\n    }\n}\n',
+			fixed: /"alpha"[\s\S]*"omega"[\s\S]*"vase"/,
+		},
+		{
+			path: "assist/actions/use-sorted-attributes/html",
+			rule: "useSortedAttributes",
+			category: "assist",
+			language: "html",
+			code: '<input type="text" id="name" name="name" />\n',
+			fixed: /<input id="name" name="name" type="text"/,
+		},
+	]) {
+		test(`loads the first invalid example for ${rule}`, async ({ page }) => {
+			await page.goto(`/${path}/`);
+			const relatedLinks = page.locator(".sl-markdown-content > ul").last();
+			const link = relatedLinks.getByRole("link", {
+				name: "Try in the playground",
+			});
+			await expect(link).toHaveCount(1);
+
+			const url = new URL((await link.getAttribute("href"))!, page.url());
+			expect([...url.searchParams]).toEqual([
+				["lintRules", category === "lint" ? rule : "none"],
+				["assistActions", category === "assist" ? rule : "none"],
+				["language", language],
+			]);
+			expect([...new URLSearchParams(url.hash.slice(1))]).toEqual([
+				["code", encodeCode(code)],
+			]);
+
+			const popup = page.waitForEvent("popup");
+			await link.click();
+			const playground = await popup;
+			await expect(
+				playground.getByTestId("editor").locator(".cm-line"),
+			).toHaveText(code.split("\n"));
+			const diagnostics = playground.locator(".diagnostics-list li");
+			await expect(diagnostics).not.toHaveCount(0);
+			await expect(diagnostics.filter({ hasNotText: rule })).toHaveCount(0);
+			await expect(
+				playground.getByLabel("Lint Rules", { exact: true }),
+			).toHaveText(category === "lint" ? rule : "none");
+			await expect(
+				playground.getByLabel("Assist Actions", { exact: true }),
+			).toHaveText(category === "assist" ? rule : "none");
+			if (fixed) {
+				await playground
+					.getByRole("button", { name: "Safe", exact: true })
+					.click();
+				await expect(
+					playground.getByTestId("biome-output").getByRole("textbox"),
+				).toContainText(fixed);
+			}
+		});
+	}
+
+	test("keeps lint rules and assist actions separate", async ({ page }) => {
+		await page.goto("/playground?lintRules=none&language=json#code=");
+		const lintRules = page.getByLabel("Lint Rules", { exact: true });
+		const assistActions = page.getByLabel("Assist Actions", { exact: true });
+		await lintRules.click();
+		const search = page.getByRole("combobox", { name: "Search rules" });
+		await search.fill("organizeImports");
+		await expect(
+			page
+				.getByRole("listbox")
+				.getByRole("option", { name: "organizeImports" }),
+		).toHaveCount(0);
+		await search.press("Escape");
+		await assistActions.click();
+		const actionSearch = page.getByRole("combobox", {
+			name: "Search actions",
+		});
+		await actionSearch.fill("noConsole");
+		await expect(
+			page.getByRole("listbox").getByRole("option", { name: "noConsole" }),
+		).toHaveCount(0);
+		await actionSearch.fill("sortedkeys");
+		await actionSearch.press("Enter");
+		await page
+			.getByTestId("editor")
+			.getByRole("textbox")
+			.fill('{"b": 1, "a": 2}');
+		await expect(page.locator(".diagnostics-list")).toContainText(
+			"assist/source/useSortedKeys",
+		);
+		await expect
+			.poll(() => new URL(page.url()).searchParams.get("assistActions"))
+			.toBe("useSortedKeys");
+		await page.reload();
+		await expect(assistActions).toHaveText("useSortedKeys");
+		await expect(lintRules).toHaveText("none");
+		await page.getByLabel("Assist enabled", { exact: true }).uncheck();
+		await expect(assistActions).toBeDisabled();
+	});
+
+	test("searches lint rules from the dropdown", async ({ page }) => {
+		await page.goto("/playground?lintRules=none#code=");
+		const lintRules = page.getByLabel("Lint Rules", { exact: true });
+		const search = page.getByRole("combobox", { name: "Search rules" });
+		const options = page.getByRole("listbox").getByRole("option");
+
+		await lintRules.click();
+		await expect(search).toBeFocused();
+		await search.fill("nconsl");
+		await expect(options.first()).toHaveText(/^noConsole/);
+		await search.press("Enter");
+		await expect(search).toBeHidden();
+		await expect(lintRules).toHaveText("noConsole");
+		await expect(lintRules).toBeFocused();
+		await expect
+			.poll(() => new URL(page.url()).searchParams.get("lintRules"))
+			.toBe("noConsole");
+
+		await lintRules.click();
+		await search.fill("unusedvar");
+		await options.filter({ hasText: /^noUnusedVariables/ }).click();
+		await expect(lintRules).toHaveText("noUnusedVariables");
+
+		await lintRules.click();
+		await search.fill("debugger");
+		await search.press("Escape");
+		await expect(search).toBeHidden();
+		await expect(lintRules).toHaveText("noUnusedVariables");
+
+		await lintRules.click();
+		await page.getByTestId("editor").click();
+		await expect(search).toBeHidden();
+	});
+
+	test("searches lint rules in a dialog on mobile", async ({ page }) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto("/playground?lintRules=none#code=");
+		await page.getByRole("button", { name: "Files & settings" }).click();
+		const lintRules = page.getByRole("button", { name: "Lint Rules none" });
+		await lintRules.click();
+
+		const dialog = page.getByRole("dialog", { name: "Lint Rules" });
+		await expect(dialog).toBeVisible();
+		const search = dialog.getByRole("combobox", { name: "Search rules" });
+		await expect(search).toBeFocused();
+		await search.fill("nconsl");
+		await dialog
+			.getByRole("option")
+			.filter({ hasText: /^noConsole/ })
+			.click();
+		await expect(dialog).toBeHidden();
+		await expect(
+			page.getByRole("button", { name: "Lint Rules noConsole" }),
+		).toBeVisible();
+
+		await page.getByRole("button", { name: "Lint Rules noConsole" }).click();
+		await dialog.getByRole("button", { name: "Close" }).click();
+		await expect(dialog).toBeHidden();
+	});
+
 	test("loads code from the hash", async ({ page }) => {
 		const code = "let hashValue = 1;";
 		await page.goto(`/playground#code=${encodeURIComponent(encodeCode(code))}`);
@@ -150,7 +377,7 @@ test.describe("playground links", () => {
 		await page.goto(`/playground#${hash}`);
 
 		await expect(
-			page.locator(".files-list li").filter({ hasText: "src/component.ts" }),
+			page.getByRole("button", { name: "component.ts", exact: true }),
 		).toBeVisible();
 		await expect(page.getByTestId("editor").getByRole("textbox")).toContainText(
 			code,
@@ -158,6 +385,55 @@ test.describe("playground links", () => {
 		await expect(
 			page.getByTestId("biome-output").getByRole("textbox"),
 		).toContainText(code);
+	});
+
+	test("sorts directories and files at every level", async ({ page }) => {
+		const hash = new URLSearchParams({
+			"files.zeta.ts": encodeCode(""),
+			"files.z-dir/zeta.ts": encodeCode(""),
+			"files.z-dir/alpha.ts": encodeCode(""),
+			"files.alpha.ts": encodeCode(""),
+			"files.a-dir/main.ts": encodeCode(""),
+		});
+		await page.goto(`/playground#${hash}`);
+
+		await expect(
+			page
+				.locator(".playground-file-tree")
+				.locator("summary, .playground-file-open"),
+		).toHaveText([
+			"a-dir",
+			"main.ts",
+			"z-dir",
+			"alpha.ts",
+			"zeta.ts",
+			"alpha.ts",
+			"zeta.ts",
+		]);
+	});
+
+	test("renames a file without losing its contents", async ({ page }) => {
+		const code = "export const renamed = true;";
+		const hash = new URLSearchParams({
+			"files.main.ts": encodeCode(code),
+			"files.other.ts": encodeCode("export {};"),
+		});
+		await page.goto(`/playground#${hash}`);
+
+		await page.getByRole("button", { name: "Rename main.ts" }).click();
+		const filename = page.getByRole("textbox", { name: "Rename main.ts" });
+		await expect(filename).toHaveValue("main.ts");
+		await filename.fill("src/renamed.ts");
+		await filename.press("Enter");
+
+		await expect(
+			page.getByRole("button", { name: "renamed.ts", exact: true }),
+		).toBeVisible();
+		await expect(page.getByTestId("editor").getByRole("textbox")).toContainText(
+			code,
+		);
+		await expect(page).toHaveURL(/files\.src%2Frenamed\.ts=/);
+		await expect(page).not.toHaveURL(/files\.main\.ts=/);
 	});
 
 	test("applies a virtual biome.json to source files", async ({ page }) => {
@@ -174,5 +450,449 @@ test.describe("playground links", () => {
 		await expect(
 			page.getByTestId("biome-output").getByRole("textbox"),
 		).toContainText("const value = 'test';");
+	});
+});
+
+test.describe("playground layout", () => {
+	test("composes formatting and fixes independently", async ({ page }) => {
+		await page.goto(
+			`/playground?prettier=true#code=${encodeURIComponent(encodeCode("let a=5"))}`,
+		);
+		const output = page.getByTestId("biome-output").getByRole("textbox");
+		const comparePrettier = page.getByLabel("Compare Prettier");
+		await expect(output).toContainText("let a = 5;");
+		await expect(comparePrettier).toBeChecked();
+
+		await page.getByLabel("Format", { exact: true }).uncheck();
+		await expect(output).toContainText("let a=5");
+		await expect(page).toHaveURL(/format=false/);
+		await expect(comparePrettier).toBeDisabled();
+		await expect(comparePrettier).toBeChecked();
+		await expect(comparePrettier).toHaveCSS("opacity", "0.45");
+
+		await page.getByLabel("Format", { exact: true }).check();
+		await expect(comparePrettier).toBeEnabled();
+		await expect(comparePrettier).toBeChecked();
+		await expect(page.getByTestId("prettier-output")).toBeVisible();
+
+		await page.getByRole("button", { name: "Safe", exact: true }).click();
+		await expect(output).toContainText("const a = 5;");
+		await expect(page).toHaveURL(/fix=safeFixes/);
+	});
+
+	test("formats with fixes selected when the linter is disabled", async ({
+		page,
+	}) => {
+		await page.goto(
+			`/playground?enabledLinting=false&fix=safeFixes#code=${encodeURIComponent(encodeCode("let a=5"))}`,
+		);
+
+		await expect(
+			page.getByTestId("biome-output").getByRole("textbox"),
+		).toContainText("let a = 5;");
+	});
+
+	test("ejects settings into a root config", async ({ page }) => {
+		await page.goto("/playground");
+		await expect(page.getByLabel("Language", { exact: true })).toBeEnabled();
+		await page.getByTestId("editor").getByRole("textbox").fill("let a=5");
+		await page
+			.getByRole("button", { name: "Set line width to 120 characters" })
+			.click();
+		await page.getByRole("button", { name: "Edit Config as JSON" }).click();
+
+		await expect(
+			page.getByText("Settings are defined by biome.json"),
+		).toBeVisible();
+		const editor = page.getByTestId("editor").getByRole("textbox");
+		await expect(editor).toContainText('"formatWithErrors"');
+		await expect
+			.poll(async () => {
+				const config = await editor.textContent();
+				return JSON.parse(config ?? "{}");
+			})
+			.toEqual({
+				assist: {
+					actions: {
+						preset: "recommended",
+					},
+				},
+				formatter: {
+					formatWithErrors: true,
+					lineWidth: 120,
+				},
+				linter: {
+					rules: {
+						nursery: {
+							preset: "none",
+						},
+					},
+				},
+				javascript: {
+					parser: {
+						unsafeParameterDecoratorsEnabled: true,
+					},
+					experimentalEmbeddedSnippetsEnabled: true,
+				},
+				css: {
+					parser: {
+						allowWrongLineComments: true,
+						tailwindDirectives: true,
+					},
+				},
+				json: {
+					parser: {
+						allowComments: true,
+					},
+				},
+				html: {
+					formatter: {
+						enabled: true,
+					},
+					experimentalFullSupportEnabled: true,
+				},
+				markdown: {
+					formatter: {
+						enabled: true,
+					},
+				},
+				yaml: {
+					formatter: {
+						enabled: true,
+					},
+				},
+			});
+		await expect(page.getByLabel("Language", { exact: true })).toBeDisabled();
+
+		await page.reload();
+		await page.getByRole("button", { name: "main.tsx", exact: true }).click();
+		await page.getByRole("button", { name: "Safe", exact: true }).click();
+		await page.getByLabel("Format", { exact: true }).uncheck();
+		await expect(
+			page.getByTestId("biome-output").getByRole("textbox"),
+		).toContainText("let a=5");
+
+		await page.getByRole("button", { name: "Go back", exact: true }).click();
+		await expect(
+			page.getByRole("button", { name: "Edit Config as JSON" }),
+		).toBeVisible();
+	});
+
+	test("keeps output visible while opening internal views", async ({
+		page,
+	}) => {
+		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
+		await toggleView(page, "Syntax tree");
+		await expect(page.getByTestId("biome-output")).toBeVisible();
+		await expect(page).toHaveURL(/view=syntax/);
+		// A plain click switches tools; shift-click opens alongside, in open order.
+		await toggleView(page, "Control flow");
+		await expect(page).toHaveURL(/view=control-flow/);
+		await expect(page.locator(".playground-view-pane")).toHaveCount(1);
+		await toggleView(page, "Syntax tree");
+		await toggleView(page, "Semantic model", { additive: true });
+		await expect(page).toHaveURL(/view=syntax%2Csemantic-model/);
+		await expect(page.locator(".playground-view-pane")).toHaveCount(2);
+		await expect(page.getByTestId("biome-output")).toBeVisible();
+		const editor = await page.locator(".playground-editor").boundingBox();
+		const stack = await page.locator(".playground-view-stack").boundingBox();
+		const output = await page.locator(".playground-output-stack").boundingBox();
+		expect(stack?.x).toBeGreaterThanOrEqual(
+			(editor?.x ?? 0) + (editor?.width ?? 0) - 1,
+		);
+		expect(output?.x).toBeGreaterThanOrEqual(
+			(stack?.x ?? 0) + (stack?.width ?? 0) - 1,
+		);
+
+		await page.getByRole("button", { name: "Close Syntax tree" }).click();
+		await expect(page).toHaveURL(/view=semantic-model/);
+		await expect(page.locator(".playground-view-pane")).toHaveCount(1);
+		// Plain-clicking the only open tool closes it.
+		await toggleView(page, "Semantic model");
+		await expect(page.locator(".playground-view-stack")).toHaveCount(0);
+		await expect(page).not.toHaveURL(/view=/);
+		await toggleView(page, "Syntax tree");
+		await toggleView(page, "Semantic model", { additive: true });
+		await page.getByRole("button", { name: "Close all" }).click();
+		await expect(page.locator(".playground-view-stack")).toHaveCount(0);
+	});
+
+	test("collapses the output panel", async ({ page }) => {
+		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
+		const editorBefore = await page.locator(".playground-editor").boundingBox();
+		await page.getByRole("button", { name: "Collapse output" }).click();
+		await expect(page.getByTestId("biome-output")).toHaveCount(0);
+		const collapsed = await page
+			.locator(".playground-output-stack.collapsed")
+			.boundingBox();
+		expect(collapsed?.width).toBeLessThan(50);
+		const editorAfter = await page.locator(".playground-editor").boundingBox();
+		expect(editorAfter?.width).toBeGreaterThan(editorBefore?.width ?? 0);
+
+		// Persists across reloads.
+		await page.reload();
+		await expect(
+			page.getByRole("button", { name: "Expand output" }),
+		).toBeVisible();
+		await page.getByRole("button", { name: "Expand output" }).click();
+		await expect(page.getByTestId("biome-output")).toBeVisible();
+		await page.evaluate(() =>
+			localStorage.removeItem("playground:output-collapsed"),
+		);
+	});
+
+	test("collapses the problems panel after it was resized", async ({
+		page,
+	}) => {
+		await page.goto("/playground");
+		const problems = page.locator(".playground-problems");
+		const handle = page.getByLabel("Resize playground problems");
+		await handle.waitFor();
+		const before = await problems.boundingBox();
+		const grip = await handle.boundingBox();
+		const x = (grip?.x ?? 0) + (grip?.width ?? 0) / 2;
+		const y = (grip?.y ?? 0) + (grip?.height ?? 0) / 2;
+		await page.mouse.move(x, y);
+		await page.mouse.down();
+		await page.mouse.move(x, y - 150, { steps: 5 });
+		await page.mouse.up();
+		const resized = await problems.boundingBox();
+		expect(resized?.height).toBeGreaterThan((before?.height ?? 0) + 100);
+
+		await page.getByRole("button", { name: "Collapse problems panel" }).click();
+		const tabs = await page.locator(".playground-problems-tabs").boundingBox();
+		const collapsed = await problems.boundingBox();
+		expect(collapsed?.height).toBeLessThan((tabs?.height ?? 0) + 10);
+		await expect(handle).toHaveCount(0);
+
+		// Expanding brings the dragged size back.
+		await page.getByRole("button", { name: "Expand problems panel" }).click();
+		const expanded = await problems.boundingBox();
+		expect(expanded?.height).toBeCloseTo(resized?.height ?? 0, 0);
+		await page.evaluate(() =>
+			localStorage.removeItem("playground:playground-problems-ratio"),
+		);
+	});
+
+	test("shows syntax tabs and gives formatter IR space", async ({ page }) => {
+		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
+		await toggleView(page, "Syntax tree");
+		await expect(page.getByRole("tab", { name: "AST" })).toHaveAttribute(
+			"aria-selected",
+			"true",
+		);
+		await expect(page.getByTestId("ast-output")).toBeVisible();
+		await page.getByRole("tab", { name: "CST" }).click();
+		await expect(page.getByTestId("cst-output")).toBeVisible();
+		await expect(page.getByTestId("ast-output")).not.toBeAttached();
+
+		await toggleView(page, "Formatter IR");
+		await expect
+			.poll(() =>
+				page
+					.locator(".playground-view-pane-body [data-testid='biome-ir-output']")
+					.first()
+					.evaluate((element) => element.getBoundingClientRect().height),
+			)
+			.toBeGreaterThan(0);
+	});
+
+	test("constrains resizable panels to usable bounds", async ({ page }) => {
+		const resizeKeys = [
+			"playground-sidebar",
+			"playground-editor",
+			"playground-view-stack",
+			"playground-biome-output",
+			"playground-problems",
+		];
+		const loadWithSizes = async (sizes: Record<string, number>) => {
+			await page.goto("/playground");
+			await page.evaluate(
+				({ resizeKeys, sizes }) => {
+					for (const key of resizeKeys) {
+						localStorage.removeItem(`playground:${key}-ratio`);
+					}
+					for (const [key, size] of Object.entries(sizes)) {
+						localStorage.setItem(`playground:${key}-ratio`, String(size));
+					}
+				},
+				{ resizeKeys, sizes },
+			);
+			await page.goto("/playground?prettier=true");
+			await page.getByRole("button", { name: "Internals" }).click();
+			await page
+				.getByRole("button", { name: "Formatter IR" })
+				.evaluate((button) => (button as HTMLButtonElement).click());
+			await page.locator(".playground-view-stack").waitFor();
+		};
+
+		await loadWithSizes(
+			Object.fromEntries(resizeKeys.map((key) => [key, 0.001])),
+		);
+		for (const [label, minimum] of [
+			["playground sidebar", 220],
+			["playground editor", 100],
+			["playground view stack", 140],
+			["playground biome output", 140],
+			["playground problems", 150],
+		] as const) {
+			await expect
+				.poll(async () => {
+					const handle = page.getByLabel(`Resize ${label}`);
+					const box = await handle.locator("..").boundingBox();
+					return label === "playground problems" ? box?.height : box?.width;
+				})
+				.toBeGreaterThanOrEqual(minimum);
+		}
+
+		await page.setViewportSize({ width: 769, height: 800 });
+		await loadWithSizes(
+			Object.fromEntries(resizeKeys.map((key) => [key, 0.001])),
+		);
+		const narrowShell = await page.locator(".playground-shell").boundingBox();
+		const narrowStack = await page
+			.locator(".playground-view-stack")
+			.boundingBox();
+		const narrowOutput = await page
+			.locator(".playground-output-stack")
+			.boundingBox();
+		expect(narrowStack?.width).toBeGreaterThanOrEqual(140);
+		expect(
+			(narrowOutput?.x ?? 0) + (narrowOutput?.width ?? 0),
+		).toBeLessThanOrEqual(
+			(narrowShell?.x ?? 0) + (narrowShell?.width ?? 0) + 1,
+		);
+		await page.setViewportSize({ width: 1280, height: 800 });
+
+		for (const key of resizeKeys) {
+			await loadWithSizes({ [key]: 5 });
+			const shell = await page.locator(".playground-shell").boundingBox();
+			const sidebar = await page.locator(".playground-sidebar").boundingBox();
+			const editor = await page.locator(".playground-editor").boundingBox();
+			const stack = await page.locator(".playground-view-stack").boundingBox();
+			const output = await page
+				.locator(".playground-output-stack")
+				.boundingBox();
+			expect(shell && sidebar && editor && stack && output).toBeTruthy();
+			expect(sidebar?.x).toBeGreaterThanOrEqual(shell?.x ?? 0);
+			expect(editor?.x).toBeGreaterThanOrEqual(
+				(sidebar?.x ?? 0) + (sidebar?.width ?? 0) - 1,
+			);
+			expect(stack?.x).toBeGreaterThanOrEqual(
+				(editor?.x ?? 0) + (editor?.width ?? 0) - 1,
+			);
+			expect(output?.x).toBeGreaterThanOrEqual(
+				(stack?.x ?? 0) + (stack?.width ?? 0) - 1,
+			);
+			expect((output?.x ?? 0) + (output?.width ?? 0)).toBeLessThanOrEqual(
+				(shell?.x ?? 0) + (shell?.width ?? 0) + 1,
+			);
+			const outputStack = page.locator(".playground-output-stack");
+			const biomePane = await outputStack
+				.locator(".playground-output-pane")
+				.first()
+				.boundingBox();
+			const prettierPane = await outputStack
+				.locator(".playground-output-pane")
+				.nth(1)
+				.boundingBox();
+			const codeOutput = await outputStack
+				.locator(".playground-code-output")
+				.boundingBox();
+			const problems = await page.locator(".playground-problems").boundingBox();
+			expect((biomePane?.x ?? 0) + (biomePane?.width ?? 0)).toBeLessThanOrEqual(
+				(codeOutput?.x ?? 0) + (codeOutput?.width ?? 0),
+			);
+			expect(prettierPane?.width).toBeGreaterThanOrEqual(140);
+			expect(codeOutput?.height).toBeGreaterThanOrEqual(120);
+			expect((problems?.y ?? 0) + (problems?.height ?? 0)).toBeLessThanOrEqual(
+				(output?.y ?? 0) + (output?.height ?? 0) + 1,
+			);
+		}
+
+		const gritCode = encodeURIComponent(
+			encodeCode('console.log("a");\nconsole.log("b");'),
+		);
+		for (const size of [0.001, 5]) {
+			await page.goto("/playground");
+			await page.evaluate((size) => {
+				localStorage.setItem("playground:gritql-matches-ratio", String(size));
+			}, size);
+			await page.goto(`/playground#code=${gritCode}`);
+			await page.getByRole("button", { name: "GritQL search" }).click();
+			await page
+				.locator(".gritql-panel .cm-content")
+				.fill("`console.log($message)`");
+			const handle = page.getByLabel("Resize gritql matches");
+			await handle.waitFor();
+			const matchList = await handle.locator("..").boundingBox();
+			const gritPanel = await page.locator(".gritql-panel").boundingBox();
+			expect(matchList?.height).toBeGreaterThanOrEqual(100);
+			expect(
+				(matchList?.y ?? 0) + (matchList?.height ?? 0),
+			).toBeLessThanOrEqual((gritPanel?.y ?? 0) + (gritPanel?.height ?? 0));
+		}
+	});
+
+	test("moves navigation into mobile drawers", async ({ page }) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto("/playground");
+		await expect(
+			page.getByRole("button", { name: "Files & settings" }),
+		).toBeVisible();
+		await page.getByRole("button", { name: "Internals" }).click();
+		await expect(
+			page.getByRole("button", { name: "GritQL search" }),
+		).toBeVisible();
+	});
+
+	test("stacks Biome and Prettier output on mobile", async ({ page }) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		const code = Array.from(
+			{ length: 60 },
+			(_, index) => `let a${index}=${index}`,
+		).join("\n");
+		await page.goto(
+			`/playground?prettier=true#code=${encodeURIComponent(encodeCode(code))}`,
+		);
+		const biome = page.getByTestId("biome-output");
+		const prettier = page.getByTestId("prettier-output");
+		await expect(prettier.getByRole("textbox")).toContainText("let a59 = 59;");
+		await expect(page.getByTestId("prettier-diff-hint")).toHaveText(
+			"Exact match",
+		);
+
+		const biomeBox = await biome.boundingBox();
+		const prettierBox = await prettier.boundingBox();
+		if (!biomeBox || !prettierBox) throw new Error("outputs not rendered");
+		expect(prettierBox.y).toBeGreaterThanOrEqual(
+			biomeBox.y + biomeBox.height - 1,
+		);
+
+		await biome.locator(".cm-scroller").evaluate((scroller) => {
+			scroller.scrollTop = 300;
+		});
+		await expect
+			.poll(() =>
+				prettier
+					.locator(".cm-scroller")
+					.evaluate((scroller) => scroller.scrollTop),
+			)
+			.toBe(300);
+	});
+
+	test("lays out the problems panel below the output on mobile", async ({
+		page,
+	}) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		await page.goto("/playground");
+		await expect(page.getByTestId("biome-output")).toBeVisible();
+		await expect(page.getByLabel("Resize playground problems")).toHaveCount(0);
+
+		const output = await page.locator(".playground-code-output").boundingBox();
+		const problems = await page.locator(".playground-problems").boundingBox();
+		if (!output || !problems) throw new Error("output not rendered");
+		expect(problems.y).toBeGreaterThanOrEqual(output.y + output.height - 1);
+		expect(problems.height).toBeGreaterThanOrEqual(400);
 	});
 });

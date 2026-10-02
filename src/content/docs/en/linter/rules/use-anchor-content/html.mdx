@@ -8,6 +8,7 @@ description: HTML documentation for useAnchorContent
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-anchor-content/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-anchor-content/javascript/"}]} />
 
@@ -109,4 +110,5 @@ PascalCase variants like `<A>` are assumed to be custom components and are ignor
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/use_anchor_content.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/useAnchorContent)
+- <RulePlaygroundLink rule="useAnchorContent" category="lint" language="html" code={"<a></a>\n"} />
 
