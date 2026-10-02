@@ -368,7 +368,23 @@ export default defineConfig({
 								ru: "Расследование медленной работы",
 							},
 						},
+						{
+							label: "Publish packages",
+							link: "/guides/publish-packages",
+							badge: {
+								text: "new",
+								variant: "success",
+							},
+						},
 					],
+				},
+				{
+					label: "Community plugins",
+					link: "/community-plugins",
+					badge: {
+						text: "new",
+						variant: "success",
+					},
 				},
 				{
 					label: "Formatter",
