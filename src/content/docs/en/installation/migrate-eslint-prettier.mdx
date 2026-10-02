@@ -3,7 +3,11 @@ title: Migrate from ESLint and Prettier
 description: Convert your ESLint and Prettier configuration into a Biome configuration with one command each.
 ---
 
+import { Code } from "@astrojs/starlight/components";
+import { getLatestVersion } from "@biomejs/version-utils";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+export const version = await getLatestVersion("stable");
 
 Biome can automatically migrate your existing ESLint and Prettier configuration files to the equivalent `biome.json` file. Run one or both commands according to your project:
 
@@ -46,9 +50,8 @@ Run the following command to migrate it:
 
 The command produces the following `biome.json`:
 
-```json title="biome.json"
-{
-	"$schema": "https://biomejs.dev/schemas/2.5.13/schema.json",
+<Code title="biome.json" lang="json" code={`{
+	"$schema": "https://biomejs.dev/schemas/${version}/schema.json",
 	"vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
 	"files": { "ignoreUnknown": false },
 	"formatter": { "enabled": true, "indentStyle": "tab" },
@@ -73,8 +76,7 @@ The command produces the following `biome.json`:
 		"enabled": true,
 		"actions": { "source": { "organizeImports": "on" } }
 	}
-}
-```
+}`} />
 
 The command replaces the linter settings in your existing `biome.json`. It sets the rule preset to `none` and enables only the rules it migrated. Review the result before relying on it.
 
@@ -142,9 +144,8 @@ Run the following command to migrate it:
 
 The command produces the following `biome.json`:
 
-```json title="biome.json"
-{
-	"$schema": "https://biomejs.dev/schemas/2.5.13/schema.json",
+<Code title="biome.json" lang="json" code={`{
+	"$schema": "https://biomejs.dev/schemas/${version}/schema.json",
 	"vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
 	"files": { "ignoreUnknown": false },
 	"formatter": {
@@ -185,8 +186,7 @@ The command produces the following `biome.json`:
 		"enabled": true,
 		"actions": { "source": { "organizeImports": "on" } }
 	}
-}
-```
+}`} />
 
 ## After migrating
 
