@@ -257,8 +257,8 @@ export default defineConfig({
 							link: "/installation/install-biome",
 						},
 						{
-							label: "Migrate from ESLint & Prettier",
-							link: "/installation/migrate-eslint-prettier",
+							label: "Migrate from other tooling",
+							link: "/installation/migrate-from-other-tooling",
 							translations: {
 								es: "Migrar de ESLint & Prettier",
 								fr: "Migrer depuis ESLint & Prettier",

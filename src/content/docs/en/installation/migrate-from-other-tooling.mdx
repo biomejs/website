@@ -1,6 +1,6 @@
 ---
-title: Migrate from ESLint and Prettier
-description: Convert your ESLint and Prettier configuration into a Biome configuration with one command each.
+title: Migrate from other tooling
+description: Convert your ESLint, Prettier, and Stylelint configuration into a Biome configuration with one command each.
 ---
 
 import { Code } from "@astrojs/starlight/components";
@@ -9,7 +9,7 @@ import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.
 
 export const version = await getLatestVersion("stable");
 
-Biome can automatically migrate your existing ESLint and Prettier configuration files to the equivalent `biome.json` file. Run one or more commands according to your project:
+Biome can automatically migrate your existing ESLint, Prettier, and Stylelint configuration files to the equivalent `biome.json` file. Run one or more commands according to your project:
 
 ```shell
 biome migrate eslint --write
@@ -191,39 +191,31 @@ The command produces the following `biome.json`:
 
 ## Migrate from Stylelint
 
-Biome can lint and format CSS files.
-Many of Biome's CSS linter rules are inspired by or identical to the [Stylelint](https://stylelint.io/) rules.
-However, Biome has its own naming convention for its rules.
-Biome uses `camelCaseRuleName` while Stylelint uses `kebab-case-rule-name`.
-Moreover, Biome has often chosen to use different names to better convey the intent of its rules.
-The source of a rule can be found on the page describing the rule.
-You can also find the equivalent Biome rule from a Stylelint rule using the [dedicated page](/linter/rules-sources).
-
 To ease the migration, Biome provides the `biome migrate stylelint` subcommand.
 This subcommand will read your Stylelint configuration and attempt to port its settings to Biome.
 It supports the `extends` field and loads both shared and plugin configurations.
 The subcommand needs Node.js to load and resolve all the plugins and `extends` configured in the Stylelint configuration file.
-The subcommand also migrates the `ignoreFiles` field.
+The subcommand also migrates the `ignoreFiles` field and `.stylelintignore`.
 
 Given the following Stylelint configuration:
 
 ```json title=".stylelintrc.json"
 {
-  "extends": ["stylelint-config-recommended"],
-  "ignoreFiles": ["dist/**"],
-  "rules": {
-    "block-no-empty": true,
-    "font-family-no-duplicate-names": true,
-    "keyframe-declaration-no-important": true
-  },
-  "overrides": [
-    {
-      "files": ["*.scss"],
-      "rules": {
-        "block-no-empty": null
-      }
-    }
-  ]
+	"extends": ["stylelint-config-recommended"],
+	"ignoreFiles": ["dist/**"],
+	"rules": {
+		"block-no-empty": true,
+		"font-family-no-duplicate-names": true,
+		"keyframe-declaration-no-important": true
+	},
+	"overrides": [
+		{
+			"files": ["*.scss"],
+			"rules": {
+				"block-no-empty": null
+			}
+		}
+	]
 }
 ```
 
@@ -266,12 +258,12 @@ This results in the following Biome configuration:
 		{
 			"include": ["*.scss"],
 			"linter": {
-        "rules": {
-          "suspicious": {
-            "noEmptyBlock": "off"
-          }
-        }
-      }
+				"rules": {
+					"suspicious": {
+						"noEmptyBlock": "off"
+					}
+				}
+			}
 		}
 	]
 }
@@ -287,11 +279,8 @@ You can use the CLI flag `--include-inspired` to migrate them.
 
 Note that you are unlikely to get exactly the same behavior as Stylelint because Biome has chosen not to implement some rule options or to deviate slightly from the original implementation.
 
-Since Stylelint takes VCS ignore files into account,
-we recommend that you enable Biome's [VCS integration](/guides/integrate-in-vcs).
-
 ## After migrating
 
-ESLint and Prettier skip the files in your `.gitignore` by default. Biome does so only when its VCS integration is enabled, so [enable it](/configuration/integrate-with-vcs) to keep the same set of files ignored.
+ESLint, Prettier, and Stylelint skip the files in your `.gitignore` by default. Biome does so only when its VCS integration is enabled, so [enable it](/configuration/integrate-with-vcs) to keep the same set of files ignored.
 
-Once you are satisfied with the result, remove ESLint, Prettier, and their plugins from your dependencies, and replace their [editor extensions](/configuration/editors) with Biome's.
+Once you are satisfied with the result, remove ESLint, Prettier, Stylelint, and their plugins from your dependencies, and replace their [editor extensions](/configuration/editors) with Biome's.
