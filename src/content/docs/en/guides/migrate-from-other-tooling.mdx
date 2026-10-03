@@ -1,28 +1,37 @@
 ---
-title: Migrate from ESLint and Prettier
-description: Learn how you can ease your migration from ESLint and Prettier
+title: Migrate from other tooling
+description: Learn how you can ease your migration from ESLint, Prettier & Stylelint
 ---
 
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 
-Biome provides dedicated commands to ease the migration from ESLint and Prettier.
+Biome provides dedicated commands to ease the migration from ESLint, Prettier & Stylelint.
 
 If you don't want to know the details, just run the following commands:
 
 ```shell showLineNumbers=false
 biome migrate eslint --write
 biome migrate prettier --write
+biome migrate stylelint --write
 ```
 
-## Migrate from ESLint
-
-Many Biome linter rules are inspired by or identical to the ESLint rules or the rules of an ESLint plugin.
-We handle some ESLint plugins such as [TypeScript ESLint](https://typescript-eslint.io/), [ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y), [ESLint React](https://github.com/jsx-eslint/eslint-plugin-react), and [ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn).
+Many Biome linter rules are inspired by or identical to the rules of ESLint or Stylelint.
+We also handle some ESLint plugins such as [TypeScript ESLint](https://typescript-eslint.io/), [ESLint JSX A11y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y), [ESLint React](https://github.com/jsx-eslint/eslint-plugin-react), and [ESLint Unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn).
 However, Biome has its own naming convention for its rules.
-Biome uses `camelCaseRuleName` while ESLint uses `kebab-case-rule-name`.
+Biome uses `camelCaseRuleName` while ESLint and Stylelint use `kebab-case-rule-name`.
 Moreover, Biome has often chosen to use different names to better convey the intent of its rules.
 The source of a rule can be found on the page describing the rule.
-You can also find the equivalent Biome rule from an ESLint rule using the [dedicated page](/linter/rules-sources).
+You can also find the equivalent Biome rule from an ESLint or Stylelint rule using the [dedicated page](/linter/rules-sources).
+
+By default, Biome doesn't migrate inspired rules.
+You can use the CLI flag `--include-inspired` to migrate them.
+
+<PackageManagerBiomeCommand command="migrate eslint --write --include-inspired"/>
+<PackageManagerBiomeCommand command="migrate stylelint --write --include-inspired"/>
+
+Note that you are unlikely to get exactly the same behavior as ESLint or Stylelint because Biome has chosen not to implement some rule options or to deviate slightly from the original implementation.
+
+## Migrate from ESLint
 
 To ease the migration, Biome provides the `biome migrate eslint` subcommand.
 This subcommand will read your ESLint configuration and attempt to port its settings to Biome.
@@ -114,13 +123,6 @@ This results in the following Biome configuration:
 ```
 
 For now, `biome migrate eslint` doesn't support configuration written in YAML.
-
-By default, Biome doesn't migrate inspired rules.
-You can use the CLI flag `--include-inspired` to migrate them.
-
-<PackageManagerBiomeCommand command="migrate eslint --write --include-inspired"/>
-
-Note that you are unlikely to get exactly the same behavior as ESLint because Biome has chosen not to implement some rule options or to deviate slightly from the original implementation.
 
 Since ESLint takes VCS ignore files into account,
 we recommend that you enable Biome's [VCS integration](/guides/integrate-in-vcs).
@@ -228,3 +230,88 @@ The subcommand needs Node.js to load JavaScript configurations such as `.prettie
 
 Since Prettier takes VCS ignore files into account,
 we recommend that you enable Biome's [VCS integration](/guides/integrate-in-vcs).
+
+## Migrate from Stylelint
+
+To ease the migration, Biome provides the `biome migrate stylelint` subcommand.
+This subcommand will read your Stylelint configuration and attempt to port its settings to Biome.
+It supports the `extends` field and loads both shared and plugin configurations.
+The subcommand needs Node.js to load and resolve all the plugins and `extends` configured in the Stylelint configuration file.
+The subcommand also migrates the `ignoreFiles` field and `.stylelintignore`.
+
+Given the following Stylelint configuration:
+
+```json title=".stylelintrc.json"
+{
+	"extends": ["stylelint-config-recommended"],
+	"ignoreFiles": ["dist/**"],
+	"rules": {
+		"block-no-empty": true,
+		"font-family-no-duplicate-names": true,
+		"keyframe-declaration-no-important": true
+	},
+	"overrides": [
+		{
+			"files": ["*.scss"],
+			"rules": {
+				"block-no-empty": null
+			}
+		}
+	]
+}
+```
+
+And the following Biome configuration:
+
+```json title="biome.json"
+{
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true
+		}
+	}
+}
+```
+
+Run the following command to migrate your Stylelint configuration to Biome.
+
+<PackageManagerBiomeCommand command="migrate stylelint --write"/>
+
+The subcommand overwrites your initial Biome configuration.
+For example, it disables `recommended`.
+This results in the following Biome configuration:
+
+```json title="biome.json"
+{
+	"organizeImports": { "enabled": true },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": false,
+			"suspicious": {
+				"noDuplicateFontNames": "error",
+				"noEmptyBlock": "error",
+				"noImportantInKeyframe": "error"
+			}
+		}
+	},
+	"overrides": [
+		{
+			"include": ["*.scss"],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noEmptyBlock": "off"
+					}
+				}
+			}
+		}
+	]
+}
+```
+
+For now, `biome migrate stylelint` only supports the JSON (`.stylelintrc.json`) and JavaScript (`.stylelintrc.js`, `.stylelintrc.cjs`, `.stylelintrc.mjs`) configuration formats.
+Configuration written in YAML is not supported.
+
+Since Stylelint takes VCS ignore files into account, we recommend to enable Biome's [VCS integration](/guides/integrate-in-vcs).

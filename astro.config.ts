@@ -135,6 +135,7 @@ export default defineConfig({
 	compressHTML: true,
 	redirects: {
 		...redirects,
+		"/guides/migrate-eslint-prettier": "/guides/migrate-from-other-tooling",
 		"/reference/reporters": "/reference/cli/#reporter-flags",
 		"/pt-br/reference/reporters": "/pt-br/reference/cli/#reporter-flags",
 		"/uk/reference/reporters": "/uk/reference/cli/#reporter-flags",
@@ -325,8 +326,8 @@ export default defineConfig({
 							},
 						},
 						{
-							label: "Migrate from ESLint & Prettier",
-							link: "/guides/migrate-eslint-prettier",
+							label: "Migrate from other tooling",
+							link: "/guides/migrate-from-other-tooling",
 							translations: {
 								es: "Migrar de ESLint & Prettier",
 								fr: "Migrer depuis ESLint & Prettier",
