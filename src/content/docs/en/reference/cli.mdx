@@ -625,7 +625,7 @@ Writes the associated reporter's output to `PATH`. Without `--reporter`, it writ
 biome ci --reporter=junit --reporter-file=report.xml
 ```
 
-Repeat `--reporter` to produce multiple outputs. This example prints the default output to the terminal and writes an RDJSON report to a file:
+Repeat `--reporter` to produce multiple file outputs (you can only have one terminal output). This example prints the default output to the terminal and writes an RDJSON report to a file:
 
 ```shell
 biome ci --reporter=default --reporter=rdjson --reporter-file=report.json
