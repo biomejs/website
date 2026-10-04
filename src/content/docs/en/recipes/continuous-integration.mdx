@@ -44,7 +44,7 @@ jobs:
         with:
           version: latest
       - name: Run Biome
-        run: biome ci .
+        run: biome ci --reporter=github .
 ```
 
 If your Biome configuration has external dependencies (e.g., extends a config from a package), you'll need to setup Node.js and install dependencies using your preferred package manager before running Biome:
