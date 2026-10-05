@@ -43,6 +43,9 @@ In JSX, most DOM properties and attributes should be camelCased to be consistent
 This can be a possible source of error if you are used to writing plain HTML.
 Only `data-*` and `aria-*` attributes are allowed to use hyphens and lowercase letters in JSX.
 
+Transition event handlers (`onTransitionCancel`, `onTransitionRun`, `onTransitionStart`, and their capture variants)
+require a React dependency range in `package.json` that allows React 19 or later.
+
 Fullscreen event handlers (`onFullscreenChange`, `onFullscreenError`, and their capture variants),
 `credentialless`, and `maskType` require a React dependency range in `package.json` that allows React 19.3 or later.
 Without that dependency, these properties are reported as unknown.
@@ -73,23 +76,13 @@ Without that dependency, these properties are reported as unknown.
 ### Valid
 
 ```jsx
-<div className="foo" />
-```
-
-```jsx
-<div onClick={() => {}} />
-```
-
-```jsx
-<div htmlFor="bar" />
-```
-
-```jsx
-<div data-foo="bar" />
-```
-
-```jsx
-<div aria-label="Close" />
+<>
+    <div className="foo" />
+    <div onClick={() => {}} />
+    <div htmlFor="bar" />
+    <div data-foo="bar" />
+    <div aria-label="Close" />
+</>
 ```
 
 ## Options

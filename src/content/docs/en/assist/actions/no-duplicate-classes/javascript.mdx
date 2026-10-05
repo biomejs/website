@@ -35,12 +35,13 @@ import EditorAction from "@/components/EditorAction.astro";
 
 ```
 ## Description
-Remove duplicate CSS classes.
+Remove repeated CSS class names.
 
-Detects and removes duplicate CSS classes in JSX `class` and `className` attributes,
-as well as in utility function calls like `clsx`, `cn`, `cva`, etc.
-
-Duplicate classes are redundant and can indicate copy-paste errors or merge conflicts.
+The action checks JSX `class` and `className` attributes by default. It can also check
+additional attributes, function calls, and tagged templates configured by name. A tagged
+template is a template literal with a function name immediately before its opening backtick.
+Duplicate class names are redundant and often indicate a copy-and-paste mistake or merge
+conflict.
 
 ## Examples
 
@@ -58,8 +59,66 @@ Duplicate classes are redundant and can indicate copy-paste errors or merge conf
 
 ## Options
 
-Use the `attributes` option to specify additional JSX attributes to check.
-Use the `functions` option to specify utility functions to check (e.g., `clsx`, `cn`, `cva`).
+### `attributes`
+
+Adds JSX attributes to check alongside `class` and `className`. Defaults to an empty list.
+
+```json title='biome.json'
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"noDuplicateClasses": {
+					"level": "on",
+					"options": {
+						"attributes": [
+							"tw"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```jsx
+<div tw="flex flex" />
+```
+
+<Fragment set:html={"<pre class=\"language-diff\"><code class=\"language-diff\">code-block.jsx ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Source action diff:</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style=\"opacity: 0.8;\">·</span>tw=&quot;flex<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">x</span>&quot;<span style=\"opacity: 0.8;\">·</span>/&gt;<br />  <strong>    │ </strong>             <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>    <br /></code></pre>"} />
+
+### `functions`
+
+Lists utility functions or tagged templates whose strings contain CSS classes. Defaults to
+an empty list.
+
+```json title='biome.json'
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"noDuplicateClasses": {
+					"level": "on",
+					"options": {
+						"functions": [
+							"clsx"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+const className = clsx("p-4 p-4");
+```
+
+<Fragment set:html={"<pre class=\"language-diff\"><code class=\"language-diff\">code-block.js ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Source action diff:</span><br />  <br />  <strong>  1 │ </strong>const<span style=\"opacity: 0.8;\">·</span>className<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>clsx(&quot;p-4<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">4</span>&quot;);<br />  <strong>    │ </strong>                           <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>   <br /></code></pre>"} />
 
 ## Related links
 

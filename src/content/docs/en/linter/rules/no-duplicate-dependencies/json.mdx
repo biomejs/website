@@ -36,16 +36,17 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 ```
 ## Description
-Prevent the listing of duplicate dependencies.
-The rule supports the following dependency groups: "bundledDependencies", "bundleDependencies", "dependencies", "devDependencies", "overrides", "optionalDependencies", and "peerDependencies".
+Disallow duplicate dependencies in `package.json`.
 
-Dependencies are not allowed to be listed twice under the same dependency group.
+A package must not appear twice in the same dependency group. The rule checks
+`dependencies`, `devDependencies`, `optionalDependencies`, `peerDependencies`, `overrides`,
+`bundledDependencies`, and `bundleDependencies`.
 
 ## Examples
 
 ### Invalid
 
-```json
+```json title='package.json'
 {
     "dependencies": {
         "foo": "1.0.0",
@@ -54,15 +55,19 @@ Dependencies are not allowed to be listed twice under the same dependency group.
 }
 ```
 
-```json
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///package.json\">/package.json</a>:4:9 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-dependencies\">lint/suspicious/noDuplicateDependencies</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The dependency </span><span style=\"color: Orange;\"><strong>&quot;foo&quot;</strong></span><span style=\"color: Orange;\"> is listed twice under </span><span style=\"color: Orange;\"><strong>dependencies</strong></span><span style=\"color: Orange;\">.</span><br />  <br />    <strong>2 │ </strong>    &quot;dependencies&quot;: &#123;<br />    <strong>3 │ </strong>        &quot;foo&quot;: &quot;1.0.0&quot;,<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>        &quot;foo&quot;: &quot;2.0.0&quot;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>    &#125;<br />    <strong>6 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The dependency is also specified here.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />    <strong>2 │ </strong>    &quot;dependencies&quot;: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        &quot;foo&quot;: &quot;1.0.0&quot;,<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>        &quot;foo&quot;: &quot;2.0.0&quot;<br />    <strong>5 │ </strong>    &#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This can lead to package manager issues and confusion for other developers. To resolve this, remove one of the listings.</span><br />  <br /></code></pre>"} />
+
+```json title='package.json'
 {
     "bundleDependencies": ["foo", "foo"]
 }
 ```
 
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///package.json\">/package.json</a>:2:35 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-dependencies\">lint/suspicious/noDuplicateDependencies</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The dependency </span><span style=\"color: Orange;\"><strong>&quot;foo&quot;</strong></span><span style=\"color: Orange;\"> is listed twice under </span><span style=\"color: Orange;\"><strong>bundleDependencies</strong></span><span style=\"color: Orange;\">.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    &quot;bundleDependencies&quot;: [&quot;foo&quot;, &quot;foo&quot;]<br />   <strong>   │ </strong>                                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The dependency is also specified here.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    &quot;bundleDependencies&quot;: [&quot;foo&quot;, &quot;foo&quot;]<br />   <strong>   │ </strong>                           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This can lead to package manager issues and confusion for other developers. To resolve this, remove one of the listings.</span><br />  <br /></code></pre>"} />
+
 ### Valid
 
-```json
+```json title='package.json'
 {
     "dependencies": {
         "foo": "2.0.0"
@@ -70,25 +75,27 @@ Dependencies are not allowed to be listed twice under the same dependency group.
 }
 ```
 
-```json
+```json title='package.json'
 {
     "bundleDependencies": ["foo"]
 }
 ```
 
-Some dependency group dependencies are checked against other dependency groups;
+The rule also prevents these conflicts between groups:
 
-- Dependencies listed in "dependencies" cannot be listed under "devDependencies", "optionalDependencies" or "peerDependencies".
-- Dependencies listed in "optionalDependencies" cannot be listed under "peerDependencies" (and vice versa).
+- a package in `dependencies` cannot also appear in `devDependencies`,
+`optionalDependencies`, or `peerDependencies`;
+- a package cannot appear in both `optionalDependencies` and `peerDependencies`.
 
-Dependencies listed in "devDependencies" are allowed to be listed in "optionalDependencies" or "peerDependencies".
-And dependencies listed in "overrides" & "bundleDependencies" are not checked against other dependency groups.
+A package in `devDependencies` may also appear in `optionalDependencies` or
+`peerDependencies`. The `overrides`, `bundledDependencies`, and `bundleDependencies` groups
+are not compared with other groups.
 
-## Examples
+## Cross-group examples
 
 ### Invalid
 
-```json
+```json title='package.json'
 {
     "dependencies": {
         "foo": "1.0.0"
@@ -99,9 +106,11 @@ And dependencies listed in "overrides" & "bundleDependencies" are not checked ag
 }
 ```
 
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///package.json\">/package.json</a>:6:9 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-dependencies\">lint/suspicious/noDuplicateDependencies</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The dependency </span><span style=\"color: Orange;\"><strong>&quot;foo&quot;</strong></span><span style=\"color: Orange;\"> is also listed under </span><span style=\"color: Orange;\"><strong>devDependencies</strong></span><span style=\"color: Orange;\">.</span><br />  <br />    <strong>4 │ </strong>    &#125;,<br />    <strong>5 │ </strong>    &quot;devDependencies&quot;: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>        &quot;foo&quot;: &quot;1.0.0&quot;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>    &#125;<br />    <strong>8 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The dependency is also specified here.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />    <strong>2 │ </strong>    &quot;dependencies&quot;: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        &quot;foo&quot;: &quot;1.0.0&quot;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    &#125;,<br />    <strong>5 │ </strong>    &quot;devDependencies&quot;: &#123;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This can lead to package manager issues and confusion for other developers. To resolve this, remove one of the listings.</span><br />  <br /></code></pre>"} />
+
 ### Valid
 
-```json
+```json title='package.json'
 {
     "dependencies": {
         "foo": "1.0.0"
@@ -116,4 +125,5 @@ And dependencies listed in "overrides" & "bundleDependencies" are not checked ag
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/suspicious/no_duplicate_dependencies.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/suspicious/noDuplicateDependencies)
+- <RulePlaygroundLink rule="noDuplicateDependencies" category="lint" language="json" code={"{\n    \"dependencies\": {\n        \"foo\": \"1.0.0\",\n        \"foo\": \"2.0.0\"\n    }\n}\n"} />
 

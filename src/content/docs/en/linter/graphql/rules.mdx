@@ -21,12 +21,12 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
-| [noDuplicateArgumentNames](/linter/rules/no-duplicate-argument-names/graphql) | Require all argument names for fields & directives to be unique. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
-| [noDuplicateEnumValueNames](/linter/rules/no-duplicate-enum-value-names/graphql) | Require all enum value names to be unique. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noDuplicateArgumentNames](/linter/rules/no-duplicate-argument-names/graphql) | Require unique argument names for fields and directives. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noDuplicateEnumValueNames](/linter/rules/no-duplicate-enum-value-names/graphql) | Disallow duplicate names in GraphQL enums. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noDuplicateInputFieldNames](/linter/rules/no-duplicate-input-field-names/graphql) | Require fields within an input object to be unique. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noDuplicateVariableNames](/linter/rules/no-duplicate-variable-names/graphql) | Require all variable definitions to be unique. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
-| [useGraphqlNamedOperations](/linter/rules/use-graphql-named-operations/graphql) | Enforce specifying the name of GraphQL operations. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useLoneAnonymousOperation](/linter/rules/use-lone-anonymous-operation/graphql) | Disallow anonymous operations when more than one operation specified in document. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useGraphqlNamedOperations](/linter/rules/use-graphql-named-operations/graphql) | Require a name for every explicit GraphQL operation definition. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useLoneAnonymousOperation](/linter/rules/use-lone-anonymous-operation/graphql) | Disallow an anonymous operation in a document with other operations. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 
 ## `nursery`
 
@@ -39,21 +39,21 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | Rule name | Description | Properties |
 | --- | --- | --- |
 | [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file/graphql) | Restrict the number of lines in a file. |  |
-| [noRootType](/linter/rules/no-root-type/graphql) | Disallow the usage of specified root types |  |
-| [useConsistentGraphqlDescriptions](/linter/rules/use-consistent-graphql-descriptions/graphql) | Require all descriptions to follow the same style (either block or inline) to  maintain consistency and improve readability across the schema. |  |
-| [useDeprecatedReason](/linter/rules/use-deprecated-reason/graphql) | Require specifying the reason argument when using `@deprecated` directive | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
-| [useGraphqlNamingConvention](/linter/rules/use-graphql-naming-convention/graphql) | Validates that all enum values are capitalized. |  |
-| [useInputName](/linter/rules/use-input-name/graphql) | Require mutation argument to be always called "input" |  |
-| [useLoneExecutableDefinition](/linter/rules/use-lone-executable-definition/graphql) | Require queries, mutations, subscriptions or fragments each to be located in separate files. |  |
+| [noRootType](/linter/rules/no-root-type/graphql) | Disallow configured GraphQL root operation types. |  |
+| [useConsistentGraphqlDescriptions](/linter/rules/use-consistent-graphql-descriptions/graphql) | Require one description style throughout a GraphQL schema. |  |
+| [useDeprecatedReason](/linter/rules/use-deprecated-reason/graphql) | Require a reason when using the `@deprecated` directive. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [useGraphqlNamingConvention](/linter/rules/use-graphql-naming-convention/graphql) | Require uppercase names for GraphQL enum values. |  |
+| [useInputName](/linter/rules/use-input-name/graphql) | Require mutation arguments to be named `input`. |  |
+| [useLoneExecutableDefinition](/linter/rules/use-lone-executable-definition/graphql) | Require one executable GraphQL definition per file. |  |
 
 ## `suspicious`
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
-| [noDuplicateFields](/linter/rules/no-duplicate-fields/graphql) | No duplicated fields in GraphQL operations. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
-| [noDuplicateGraphqlOperationName](/linter/rules/no-duplicate-graphql-operation-name/graphql) | Enforce unique operation names across a GraphQL document. |  |
+| [noDuplicateFields](/linter/rules/no-duplicate-fields/graphql) | Disallow duplicate names inside GraphQL operations. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noDuplicateGraphqlOperationName](/linter/rules/no-duplicate-graphql-operation-name/graphql) | Require unique operation names within a GraphQL document. |  |
 | [noEmptySource](/linter/rules/no-empty-source/graphql) | Disallow empty sources. |  |
-| [useDeprecatedDate](/linter/rules/use-deprecated-date/graphql) | Require the `@deprecated` directive to specify a deletion date. |  |
+| [useDeprecatedDate](/linter/rules/use-deprecated-date/graphql) | Require a valid deletion date on the `@deprecated` directive. |  |
 ## Recommended rules 
 - [noDuplicateArgumentNames](/linter/rules/no-duplicate-argument-names/graphql) (Severity: [error](/reference/diagnostics#error))
 - [noDuplicateEnumValueNames](/linter/rules/no-duplicate-enum-value-names/graphql) (Severity: [error](/reference/diagnostics#error))

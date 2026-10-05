@@ -39,7 +39,12 @@ This rule belongs to the project domain. This means that its activation will act
 
 ```
 ## Description
-Reports custom properties used with `var()` that have no visible declaration.
+Disallow undeclared CSS custom properties in inline styles.
+
+A custom property has a name beginning with `--` and is read with `var(--name)`. The rule
+checks static `style` attributes and looks for a matching declaration on the same element, an
+ancestor element, or a stylesheet available to the file. An unresolved name usually means
+the declaration is missing or misspelled.
 
 ## Examples
 
