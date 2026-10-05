@@ -331,23 +331,7 @@ export default defineConfig({
 								ru: "Применение Biome в крупных проектах",
 							},
 						},
-						{
-							label: "Publish packages",
-							link: "/guides/publish-packages",
-							badge: {
-								text: "new",
-								variant: "success",
-							},
-						},
 					],
-				},
-				{
-					label: "Community plugins",
-					link: "/community-plugins",
-					badge: {
-						text: "new",
-						variant: "success",
-					},
 				},
 				{
 					label: "Formatter",
@@ -466,6 +450,14 @@ export default defineConfig({
 										"zh-CN": "插件系统",
 										pl: "Wtyczki",
 										ru: "Плагины",
+									},
+								},
+								{
+									label: "Community plugins",
+									link: "/community-plugins",
+									badge: {
+										text: "new",
+										variant: "success",
 									},
 								},
 								{
@@ -888,6 +880,14 @@ export default defineConfig({
 								"zh-CN": "调查 Biome 中的性能问题",
 								pl: "Badanie problemów z wydajnością",
 								ru: "Расследование медленной работы",
+							},
+						},
+						{
+							label: "Publish packages",
+							link: "/guides/publish-packages",
+							badge: {
+								text: "new",
+								variant: "success",
 							},
 						},
 					],
