@@ -1,0 +1,195 @@
+---
+title: Migrate from ESLint and Prettier
+description: Convert your ESLint and Prettier configuration into a Biome configuration with one command each.
+---
+
+import { Code } from "@astrojs/starlight/components";
+import { getLatestVersion } from "@biomejs/version-utils";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+
+export const version = await getLatestVersion("stable");
+
+Biome can automatically migrate your existing ESLint and Prettier configuration files to the equivalent `biome.json` file. Run one or both commands according to your project:
+
+```shell
+biome migrate eslint --write
+biome migrate prettier --write
+```
+
+To understand what changes when you switch tools, see [Comparison with other tools](/introduction/comparison-with-other-tools).
+
+## Migrate from ESLint
+
+`biome migrate eslint` ports the rules, globals, overrides, and ignore patterns from your ESLint configuration. It reads both legacy and flat configuration files, follows `extends`, loads shared and plugin configurations, and migrates `.eslintignore`.
+
+Given the following ESLint configuration:
+
+```json title=".eslintrc.json"
+{
+  "globals": {
+    "Global1": "readonly"
+  },
+  "rules": {
+    "eqeqeq": "error",
+    "no-var": "error"
+  },
+  "overrides": [
+    {
+      "files": ["tests/**"],
+      "rules": {
+        "eqeqeq": "off"
+      }
+    }
+  ]
+}
+```
+
+Run the following command to migrate it:
+
+<PackageManagerBiomeCommand command="migrate eslint --write" />
+
+The command produces the following `biome.json`:
+
+<Code title="biome.json" lang="json" code={`{
+	"$schema": "https://biomejs.dev/schemas/${version}/schema.json",
+	"vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
+	"files": { "ignoreUnknown": false },
+	"formatter": { "enabled": true, "indentStyle": "tab" },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"preset": "none",
+			"suspicious": { "noDoubleEquals": "error", "noVar": "error" }
+		}
+	},
+	"javascript": {
+		"formatter": { "quoteStyle": "double" },
+		"globals": ["Global1"]
+	},
+	"overrides": [
+		{
+			"includes": ["tests/**"],
+			"linter": { "rules": { "suspicious": { "noDoubleEquals": "off" } } }
+		}
+	],
+	"assist": {
+		"enabled": true,
+		"actions": { "source": { "organizeImports": "on" } }
+	}
+}`} />
+
+The command replaces the linter settings in your existing `biome.json`. It sets the rule preset to `none` and enables only the rules it migrated. Review the result before relying on it.
+
+### Inspired rules
+
+Each Biome rule is either identical to its ESLint source or only inspired by it, as listed on the [Rule sources](/linter/rules-sources) page. By default, the command migrates identical rules only. Pass the `--include-inspired` flag to migrate inspired rules as well:
+
+<PackageManagerBiomeCommand command="migrate eslint --write --include-inspired" />
+
+Even with inspired rules, the result does not behave exactly like ESLint, because some rule options are not implemented and some rules deliberately differ. See [Rules and compatibility](/introduction/comparison-with-other-tools#rules-and-compatibility) for the differences.
+
+### Cyclic references
+
+Some plugins and shared configurations export objects with cyclic references, which Biome cannot load. If the migration fails with such an error, comment out the plugins and shared configurations, run the migration, then restore them one at a time to find the one responsible:
+
+```js title="eslint.config.js" del={8,9,12,13} ins={10,11,14,15}
+import { defineConfig } from 'eslint';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import react from '@eslint-react/eslint-plugin';
+import stylistic from '@stylistic/eslint-plugin';
+import tsEslint from 'typescript-eslint';
+
+export default defineConfig([
+  react.configs.recommended,
+  jsxA11y.flatConfigs.recommended,
+  // react.configs.recommended,
+  // jsxA11y.flatConfigs.recommended,
+  {
+    plugins: {
+      '@stylistic': stylistic,
+      '@typescript-eslint': tsEslint.plugin,
+      // '@stylistic': stylistic,
+      // '@typescript-eslint': tsEslint.plugin,
+    },
+  }
+]);
+```
+
+Once the migration is done, configure the rules from those plugins by hand in `biome.json`.
+
+## Migrate from Prettier
+
+`biome migrate prettier` ports the options from your Prettier configuration and the patterns from `.prettierignore`.
+
+Biome's formatter defaults differ from Prettier's, so the command writes every option explicitly to keep your current output. See [Output and compatibility](/introduction/comparison-with-other-tools#output-and-compatibility) for the differences that remain.
+
+Given the following Prettier configuration:
+
+```json title=".prettierrc.json"
+{
+	"useTabs": false,
+	"singleQuote": true,
+	"overrides": [
+		{
+			"files": ["*.json"],
+			"options": { "tabWidth": 2 }
+		}
+	]
+}
+```
+
+Run the following command to migrate it:
+
+<PackageManagerBiomeCommand command="migrate prettier --write" />
+
+The command produces the following `biome.json`:
+
+<Code title="biome.json" lang="json" code={`{
+	"$schema": "https://biomejs.dev/schemas/${version}/schema.json",
+	"vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
+	"files": { "ignoreUnknown": false },
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": false,
+		"indentStyle": "space",
+		"indentWidth": 2,
+		"lineEnding": "lf",
+		"lineWidth": 80,
+		"attributePosition": "auto",
+		"bracketSameLine": false,
+		"bracketSpacing": true,
+		"expand": "auto",
+		"useEditorconfig": true
+	},
+	"linter": { "enabled": true, "rules": { "preset": "recommended" } },
+	"javascript": {
+		"formatter": {
+			"jsxQuoteStyle": "double",
+			"quoteProperties": "asNeeded",
+			"trailingCommas": "all",
+			"semicolons": "asNeeded",
+			"arrowParentheses": "always",
+			"bracketSameLine": false,
+			"quoteStyle": "single",
+			"attributePosition": "auto",
+			"bracketSpacing": true
+		}
+	},
+	"html": {
+		"formatter": {
+			"indentScriptAndStyle": false,
+			"selfCloseVoidElements": "always"
+		}
+	},
+	"overrides": [{ "includes": ["*.json"], "formatter": { "indentWidth": 2 } }],
+	"assist": {
+		"enabled": true,
+		"actions": { "source": { "organizeImports": "on" } }
+	}
+}`} />
+
+## After migrating
+
+ESLint and Prettier skip the files in your `.gitignore` by default. Biome does so only when its VCS integration is enabled, so [enable it](/configuration/integrate-with-vcs) to keep the same set of files ignored.
+
+Once you are satisfied with the result, remove ESLint, Prettier, and their plugins from your dependencies, and replace their [editor extensions](/configuration/editors) with Biome's.

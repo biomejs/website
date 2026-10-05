@@ -1,0 +1,110 @@
+---
+title: Set up your editor
+description: Install a Biome extension to get diagnostics, formatting, and fixes directly in your editor.
+---
+
+Biome comes with a language server, so editor extensions give you the same diagnostics, formatting, and assist actions as the CLI while you type or save your code.
+
+The Biome team maintains the extensions for VS Code, Zed, and IntelliJ. Helix connects to Biome's language server directly, and extensions for [other editors](#other-editors) are maintained by the community.
+
+:::tip
+If you are migrating from ESLint and Prettier, disable or uninstall their extensions. Two formatters running on save will fight over the same file.
+:::
+
+## VS Code
+
+[VS Code](https://code.visualstudio.com/) is a popular code editor for web developers, built by Microsoft. Its engine also powers other editors such as VSCodium and Cursor.
+
+Install the [Biome extension](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) from the Visual Studio Marketplace, or from the [Open VSX registry](https://open-vsx.org/extension/biomejs/biome) for VSCodium, Cursor, and other derivatives.
+
+To make Biome the default formatter, open a [supported file](/introduction/language-support) and:
+
+1. Open the Command Palette (View or <kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>).
+2. Select **Format Document With...**
+3. Select **Configure Default Formatter**.
+4. Select **Biome**.
+
+See the [VS Code extension reference](/reference/vscode) to enable features such as format and fix on save, and for troubleshooting guidance.
+
+## Zed
+
+[Zed](https://zed.dev/) is a code editor built for speed and collaboration.
+
+To install the Biome extension:
+
+1. Open the Command Palette (View or <kbd>Ctrl</kbd>/<kbd title="Cmd">⌘</kbd>+<kbd title="Shift">⇧</kbd>+<kbd>P</kbd>).
+2. Select **zed: extensions**.
+3. Search for **Biome**.
+4. Select **Install**.
+
+See the [Zed extension reference](/reference/zed) for more information about how to enable features such as format and fix on save.
+
+## IntelliJ
+
+[IntelliJ IDEA](https://www.jetbrains.com/idea/) is an IDE built by JetBrains. It shares its platform with other JetBrains IDEs such as WebStorm, and the Biome plugin works in all of them.
+
+Install the [Biome plugin](https://plugins.jetbrains.com/plugin/22761-biome) from the JetBrains Marketplace, or install it from your IDE:
+
+1. Go to **Settings**.
+2. Select **Plugins** from the menu on the left.
+3. Select the **Marketplace** tab.
+4. Search for **Biome** and select **Install**.
+5. Restart the IDE to activate the plugin.
+
+To install the plugin from disk instead:
+
+1. Download the plugin `.zip` from the **Versions** tab of the plugin page.
+2. Open the IDE settings, then select **Plugins**.
+3. Select the settings button, then **Install Plugin from Disk...**
+
+## Helix
+
+[Helix](https://helix-editor.com/) does not need an extension. It connects to Biome through the `biome lsp-proxy` command, which acts as a language server over standard input and output.
+
+To use Biome in every project, set it as a language server in your `languages.toml` file:
+
+```toml title="languages.toml"
+[language-server.biome]
+command = "biome"
+args = ["lsp-proxy"]
+
+# Inline configuration is also supported
+# https://biomejs.dev/blog/biome-v2-4/#editor-inline-configuration
+[language-server.biome.config.biome.inlineConfig]
+linter.rules.suspicious.noConsole = "off"
+
+[[language]]
+name = "javascript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+```
+
+To make Helix apply project-specific settings, add Biome's configuration files to the `roots` field. Helix then detects the project root from the presence of those files:
+
+```toml title="languages.toml"
+[language-server.biome]
+command = "biome"
+args = ["lsp-proxy"]
+
+[[language]]
+name = "typescript"
+roots = ["biome.json", "biome.jsonc", "package.json"]
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+```
+
+To use Biome with another language, such as JSON or CSS, add a `[[language]]` block for it. See the [languages supported by Biome](/introduction/language-support) and the [language identifiers](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocumentItem) defined by the Language Server Protocol.
+
+## Other editors
+
+These extensions are maintained by the community:
+
+- **[Vim](https://www.vim.org/)**: [ALE](https://github.com/dense-analysis/ale) supports Biome. Follow its installation instructions.
+- **[Neovim](https://neovim.io/)**: install [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig/) and follow the [Biome instructions](https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md#biome). [ALE](https://github.com/dense-analysis/ale) also supports Biome, and [coc-biome](https://github.com/fannheyward/coc-biome) is available for [coc.nvim](https://github.com/neoclide/coc.nvim).
+- **[Sublime Text](https://www.sublimetext.com/)**: follow the [LSP-biome](https://github.com/sublimelsp/LSP-biome) installation instructions.
+- **[Emacs](https://www.gnu.org/software/emacs/)**: install [lsp-mode](https://github.com/emacs-lsp/lsp-mode), then follow the [lsp-biome](https://github.com/cxa/lsp-biome) installation instructions.
+- **[Nova](https://nova.app)**: install the [Biome extension](https://extensions.panic.com/extensions/besya/besya.biome/) and follow its instructions.
+
+:::note
+Is there an extension for an editor that is not listed here? Open a pull request to add it to the list.
+:::
