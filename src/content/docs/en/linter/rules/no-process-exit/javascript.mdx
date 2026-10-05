@@ -1,0 +1,94 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noProcessExit (JavaScript)
+description: JavaScript (and super languages) documentation for noProcessExit
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-process-exit/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noProcessExit`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`no-process-exit`](https://eslint.org/docs/latest/rules/no-process-exit)
+  - Same as [`n/no-process-exit`](https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-process-exit.md)
+  - Inspired from [`unicorn/no-process-exit`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-process-exit.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noProcessExit": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the use of `process.exit()`.
+
+In Node.js, `process.exit()` stops the program right away.
+Work that is still in progress, such as writing a file, sending a network request, or waiting on a timer, never finishes.
+The program may also stop without printing why, which makes the problem hard to find.
+
+Throw an error instead.
+An error that nothing catches also stops the program, and Node.js prints its message and where it happened.
+To choose the exit code (the number the program reports when it ends, where `0` means success),
+set `process.exitCode` and let the program finish on its own.
+
+## Examples
+
+### Invalid
+
+```js
+if (somethingBadHappened) {
+    console.error("Something bad happened!");
+    process.exit(1);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:5 <a href=\"https://biomejs.dev/linter/rules/no-process-exit\">lint/nursery/noProcessExit</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Don't use </span><span style=\"color: Orange;\"><strong>process.exit()</strong></span><span style=\"color: Orange;\">.</span><br />  <br />    <strong>1 │ </strong>if (somethingBadHappened) &#123;<br />    <strong>2 │ </strong>    console.error(&quot;Something bad happened!&quot;);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    process.exit(1);<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">It stops the program right away, before work in progress finishes and without saying why it stopped.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Throw an error instead, or set </span><span style=\"color: lightgreen;\"><strong>process.exitCode</strong></span><span style=\"color: lightgreen;\"> to choose the exit code.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+if (somethingBadHappened) {
+    throw new Error("Something bad happened!");
+}
+
+if (somethingElseHappened) {
+    console.error("Something else happened!");
+    process.exitCode = 1;
+}
+```
+
+## See Also
+
+- If you want to require importing `process` from `node:process` instead of using the global, see [`noProcessGlobal`](https://biomejs.dev/linter/rules/no-process-global/).
+- If you want to disallow reading `process.env`, see [`noProcessEnv`](https://biomejs.dev/linter/rules/no-process-env/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_process_exit.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noProcessExit)
+- <RulePlaygroundLink rule="noProcessExit" category="lint" language="js" code={"if (somethingBadHappened) {\n    console.error(\"Something bad happened!\");\n    process.exit(1);\n}\n"} />
+

@@ -1,0 +1,97 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noSvelteInspect (JavaScript)
+description: JavaScript (and super languages) documentation for noSvelteInspect
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-svelte-inspect/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noSvelteInspect`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`svelte`](/linter/domains#svelte)
+- Sources: 
+  - Same as [`svelte/no-inspect`](https://sveltejs.github.io/eslint-plugin-svelte/rules/no-inspect/)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSvelteInspect": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the use of the `$inspect` rune.
+
+`$inspect` is a debugging aid: it logs values to the console every time they change.
+It only works during development and becomes a no-op in production builds, so calls
+to it are usually leftovers from a debugging session that clutter the console and
+the code.
+
+The rule reports every use of `$inspect`, including `$inspect(...).with(...)` and
+`$inspect.trace()`.
+
+## Examples
+
+### Invalid
+
+```svelte
+<script>
+let count = $state(0);
+$inspect(count);
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.svelte:3:1 <a href=\"https://biomejs.dev/linter/rules/no-svelte-inspect\">lint/nursery/noSvelteInspect</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Unexpected use of the </span><span style=\"color: Orange;\"><strong>$inspect</strong></span><span style=\"color: Orange;\"> rune.</span><br />  <br />    <strong>1 │ </strong>&lt;script&gt;<br />    <strong>2 │ </strong>let count = $state(0);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>$inspect(count);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&lt;/script&gt;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>$inspect</strong></span><span style=\"color: lightgreen;\"> is a debugging aid that logs values to the console during development, and is usually left over from a debugging session.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>$inspect</strong></span><span style=\"color: lightgreen;\"> call once you're done debugging.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```svelte
+<script>
+$effect(() => {
+    $inspect.trace();
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.svelte:3:5 <a href=\"https://biomejs.dev/linter/rules/no-svelte-inspect\">lint/nursery/noSvelteInspect</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Unexpected use of the </span><span style=\"color: Orange;\"><strong>$inspect</strong></span><span style=\"color: Orange;\"> rune.</span><br />  <br />    <strong>1 │ </strong>&lt;script&gt;<br />    <strong>2 │ </strong>$effect(() =&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    $inspect.trace();<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;);<br />    <strong>5 │ </strong>&lt;/script&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>$inspect</strong></span><span style=\"color: lightgreen;\"> is a debugging aid that logs values to the console during development, and is usually left over from a debugging session.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>$inspect</strong></span><span style=\"color: lightgreen;\"> call once you're done debugging.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```svelte
+<script>
+let count = $state(0);
+</script>
+```
+
+### References
+
+- [Svelte `$inspect`](https://svelte.dev/docs/svelte/$inspect)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_svelte_inspect.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noSvelteInspect)
+- <RulePlaygroundLink rule="noSvelteInspect" category="lint" language="svelte" code={"<script>\nlet count = $state(0);\n$inspect(count);\n</script>\n"} />
+
