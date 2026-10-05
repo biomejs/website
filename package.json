@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
-    "@astrojs/compiler-binding-wasm32-wasi": "0.4.1",
+    "@astrojs/compiler-binding-wasm32-wasi": "0.5.1",
     "@astrojs/markdown-remark": "7.3.1",
     "@astrojs/mdx": "8.0.2",
     "@astrojs/netlify": "8.2.6",
