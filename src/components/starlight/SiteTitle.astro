@@ -27,15 +27,15 @@ function pathsMatch(pathA: string, pathB: string): boolean {
 
 	<div class="menu-items">
 		{menuItems.map((menuItem) => (
-	<a
-		href={menuItem.href}
-		aria-current={
-			pathsMatch(encodeURI(menuItem.href), Astro.url.pathname) && "page"
-		}
-	>
-		<span>{menuItem.name}</span>
-	</a>
-))}
+			<a
+				href={menuItem.href}
+				aria-current={
+					pathsMatch(encodeURI(menuItem.href), Astro.url.pathname) && "page"
+				}
+			>
+				<span>{menuItem.name}</span>
+			</a>
+		))}
 	</div>
 </div>
 

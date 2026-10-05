@@ -14,17 +14,17 @@ const description = Astro.locals.t("users.featured.description");
 	<p>{description}</p>
 	<div class="featured-users-grid">
 		{featuredUsers.map((user) => (
-	<div class="featured-user-card">
-		<Image
-			src={user.data.logo}
-			alt={`${user.data.id} logo`}
-			width={64}
-			height={64}
-			loading="lazy"
-		/>
-		<span class="user-name">{user.data.id}</span>
-	</div>
-))}
+			<div class="featured-user-card">
+				<Image
+					src={user.data.logo}
+					alt={`${user.data.id} logo`}
+					width={64}
+					height={64}
+					loading="lazy"
+				/>
+				<span class="user-name">{user.data.id}</span>
+			</div>
+		))}
 	</div>
 	<LinkButton href="/users" style="margin: 0">
 		View all users

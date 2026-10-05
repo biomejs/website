@@ -248,11 +248,7 @@ export function getOnlyRules(
 function createLintRulesConfiguration(lintRule: LintRule): Rules {
 	switch (lintRule) {
 		case LINT_RULES.preset.recommended:
-			return {
-				nursery: {
-					preset: "none",
-				},
-			};
+			return { preset: "recommended" };
 		case LINT_RULES.preset.all:
 			return { preset: "all" };
 		case LINT_RULES.preset.none:
