@@ -1,0 +1,58 @@
+---
+title: Quick start
+description: Install Biome and run your first check in a couple of minutes.
+---
+
+import { Steps } from "@astrojs/starlight/components";
+import DefaultConfiguration from "@/components/generated/DefaultConfiguration.mdx";
+import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
+import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
+
+Go from a project without Biome to your first `biome check` in three steps. You need a project with a `package.json` and a package manager such as npm, pnpm, Yarn, Bun, or Deno.
+
+If you do not use Node.js, or you want to see every installation method, go to the [Install Biome](/installation/install-biome) page instead.
+
+<Steps>
+
+1. **Install Biome** as a development dependency of your project:
+
+   <PackageManagerCommand
+     npm={["i -D -E @biomejs/biome"]}
+     pnpm={["add -D -E @biomejs/biome"]}
+     yarn={["add -D -E @biomejs/biome"]}
+     bun={["add -D -E @biomejs/biome"]}
+     deno={["add -D npm:@biomejs/biome"]}
+   />
+
+   :::note[Version pinning]
+   The `-E` flag pins the exact version in your `package.json`, so every contributor and your CI run the same version of Biome. See [why pinning matters](/internals/versioning#why-pinning-the-version-is-important).
+   :::
+
+2. **Create a configuration file**. Biome works without one, but a `biome.json` lets you share settings with your team and your code editor:
+
+   <PackageManagerBiomeCommand command="init" />
+
+   The generated file enables the formatter, the linter, and assist actions with their recommended settings, and references the JSON Schema so your editor can complete and document every option:
+
+   <DefaultConfiguration />
+
+3. **Check your project**. Run the formatter, the linter, and assist actions in one pass:
+
+   <PackageManagerBiomeCommand command="check" />
+
+   Biome lists every file that is not formatted and every diagnostic it found. To apply formatting, safe lint fixes, and assist actions, add `--write` to the command:
+
+   <PackageManagerBiomeCommand command="check --write" />
+
+   Any diagnostics that remain either have no fix or have a fix that is unsafe to apply automatically, so they need your attention.
+
+</Steps>
+
+Success! You're now ready to use Biome. 🥳
+
+## Next steps
+
+- [Set up your editor](/configuration/editors) to see diagnostics as you type and format on save.
+- [Configure Biome](/configuration/configure-biome) to change formatter options, enable or disable rules, and choose which files Biome processes.
+- [Integrate with your VCS](/configuration/integrate-with-vcs) to reuse your `.gitignore` and check only changed files.
+- [Add Biome to your CI pipeline](/recipes/continuous-integration) to ensure your code is checked before merging.

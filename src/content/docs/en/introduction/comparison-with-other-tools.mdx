@@ -1,0 +1,104 @@
+---
+title: Comparison with other tools
+description: How Biome compares with Prettier, ESLint, and Oxc.
+---
+
+import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
+
+Biome can replace both your formatter and your linter. See how it compares with Prettier, ESLint, and Oxc in compatibility, performance, and language support.
+
+## Biome vs Prettier
+
+[Prettier](https://prettier.io/) is the most widely used formatter for the web, and Biome's formatter is built to work as a drop-in replacement for it.
+
+### Output and compatibility
+
+Biome's formatter matches Prettier's output in 97% of cases. It won the [Prettier challenge](/blog/biome-wins-prettier-challenge/), launched by Christopher Chedeau, one of Prettier's creators.
+
+Some output differences exist, and they are intentional. You can find them on the [Differences with Prettier](/formatter/differences-with-prettier) page.
+
+Biome's default options also differ from Prettier's. For example, Biome indents with tabs while Prettier uses spaces.
+
+:::tip[Migrate quickly]
+Run `biome migrate prettier` in your project to convert your Prettier configuration file into a `biome.json` configuration file. See [Migrate from ESLint and Prettier](/installation/migrate-eslint-prettier) for details.
+:::
+
+### Performance
+
+According to our [official benchmark](https://github.com/biomejs/benchmark#results), Biome formats about 25 times faster than Prettier.
+
+The performance difference is especially noticeable where formatting speed gets in your way: formatting on save, pre-commit hooks, and CI jobs that check the whole repository.
+
+### Language support
+
+Prettier and Biome support a different set of languages out of the box. Prettier has more stable support for HTML and for HTML super languages such as Vue and Angular, and it has a large ecosystem of community plugins.
+
+For more in-depth information about language support, refer to [Prettier's documentation](https://prettier.io/docs/) and [Biome's language support](/introduction/language-support) page.
+
+## Biome vs ESLint
+
+[ESLint](https://eslint.org/) is the standard linter for JavaScript, with a decade of rules and plugins behind it. Biome's linter takes a lot from it, but is not built to be a drop-in replacement.
+
+### Rules and compatibility
+
+Biome ships <NumberOfRules /> rules, most of them ported from ESLint and its popular plugins, such as `eslint-plugin-react`, `eslint-plugin-jsx-a11y`, `eslint-plugin-import`, and `eslint-plugin-unicorn`. You can find the origin of each Biome rule on the [Rule sources](/linter/rules-sources) page.
+
+Biome's lint rules are carefully curated by the team and follow a set of [rule pillars](/linter#rule-pillars) to improve the user experience. That means some rules have different names from their ESLint counterparts, support fewer options, or behave slightly differently, in favor of a more consistent experience across languages.
+
+Rule names use `camelCase` rather than ESLint's `kebab-case`, and Biome often chooses a different name to make a rule's intent clearer. For example, ESLint's `eqeqeq` is Biome's `noDoubleEquals`.
+
+:::tip[Migrate quickly]
+Run `biome migrate eslint` in your project to convert your ESLint configuration into a `biome.json` configuration file. See [Migrate from ESLint and Prettier](/installation/migrate-eslint-prettier) for details.
+:::
+
+### Performance
+
+According to our [official benchmark](https://github.com/biomejs/benchmark#results), Biome lints about 15 times faster than ESLint.
+
+The performance difference is especially noticeable where linting speed gets in your way: diagnostics that keep up with you as you type, and CI jobs that lint the whole repository.
+
+### Configuration and plugins
+
+In a typical ESLint setup, you wire together a parser, the TypeScript plugin, framework and library plugins, and `eslint-config-prettier` for Prettier compatibility.
+
+Biome only needs `@biomejs/biome` and, optionally, a `biome.json` configuration file for finer control.
+
+ESLint has an ecosystem of JavaScript plugins that Biome cannot run. Biome's plugins are written in [GritQL](/linter/plugins), a pattern language that matches code and reports a diagnostic.
+
+### Type-aware linting
+
+ESLint needs `typescript-eslint` and the TypeScript compiler for type-aware linting. Biome comes with its own set of [type-aware rules](/linter/domains#types) that do not depend on the `typescript` package.
+
+Type-aware rules were added to Biome in the [v2 release](/blog/biome-v2/). The rule count is considerably smaller than `typescript-eslint`'s, but coverage is growing.
+
+## Biome vs Oxc
+
+[Oxc](https://oxc.rs/) is a collection of JavaScript tools written in Rust: a parser, a linter (`oxlint`), a formatter (`oxfmt`), a transformer, and a minifier. It was inspired by Rome, the same project Biome forked from, so both share the goal of fast, native tooling for the web.
+
+### Scope and compatibility
+
+Oxc takes a different approach from Biome: each of its tools is a drop-in replacement for an existing one, with its own configuration file.
+
+Oxlint uses the same rule names and options as ESLint, and its alpha plugin API is compatible with ESLint's, so most existing ESLint plugins work out of the box. Oxfmt matches Prettier's output and passes Prettier's JavaScript and TypeScript conformance tests.
+
+Biome's tools all come in the same package and share the same configuration file. Its formatter is Prettier-compatible and its linter ports most ESLint rules, but Biome is more opinionated: it changes some rules and formatting options in favor of a more integrated experience across the toolchain.
+
+### Performance and architecture
+
+Both projects are fast. In [Oxc's official benchmark](https://oxc.rs/docs/guide/benchmarks.html), Oxc's parser is 5 times faster than Biome's and Oxfmt is 3 times faster than Biome's formatter. Both projects are many times faster than Prettier and ESLint.
+
+Part of the difference comes from a design choice. Biome's parser produces a [concrete syntax tree](/internals/architecture/#parser-and-cst) and is built to be [resilient and recoverable](/internals/architecture/#resilient-and-recoverable-parser), which costs some speed but lets Biome format and lint your code while it is still malformed, so you get feedback as you type.
+
+### Language support
+
+Oxlint is scoped as a linter for JavaScript and TypeScript only, while Biome also includes support for linting CSS, JSON, GraphQL, and HTML.
+
+Oxfmt and Biome support a different set of languages out of the box. Oxfmt supports more languages overall, because it bundles Prettier for the languages it has not implemented natively yet. Biome implements every language it supports natively.
+
+For more in-depth information about language support, refer to [Oxfmt's language support](https://oxc.rs/docs/guide/usage/formatter/language-support.html) and [Biome's language support](/introduction/language-support) pages.
+
+### Type-aware linting
+
+Oxlint adds type-aware linting through the `oxlint-tsgolint` package. It is built on top of `typescript-go` and includes most of `typescript-eslint`'s type-aware rules.
+
+Biome infers types itself and does not need TypeScript installed. Its type-aware rule count is considerably smaller than Oxlint's, but coverage is growing.
