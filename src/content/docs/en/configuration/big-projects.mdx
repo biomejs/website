@@ -1,0 +1,233 @@
+---
+title: Use Biome in big projects
+description: A small guide how to set Biome in big projects
+---
+
+import {FileTree, Steps} from '@astrojs/starlight/components';
+
+Biome can provide some tools that can help you to use it properly in big
+projects, such as monorepo or workspaces that contain multiple projects.
+
+## Use multiple configuration files
+
+When you use Biome's features - either with the CLI or LSP - the tool looks for
+the nearest configuration file using the current working directory.
+
+If Biome doesn't find the configuration file there, it **starts traversing
+upwards** the directories of the file system, until it finds one.
+
+You can leverage this feature to apply different settings based on the
+project/folder.
+
+Let's suppose we have a project that contains a backend app and a frontend
+app.
+
+<FileTree>
+  - app
+    - backend
+      - biome.json
+      - package.json
+    - frontend
+      - biome.json
+      - legacy-app
+        - package.json
+      - new-app
+        - package.json
+</FileTree>
+
+This means that when you run Biome inside `app/backend`, Biome will use the
+configuration file `app/backend/biome.json`. And when you run from
+`app/frontend/legacy-app` or `app/frontend/new-app`, Biome will use the
+configuration file `app/frontend/biome.json`.
+
+## Monorepo
+
+Monorepos are particular repositories where multiple packages are stored and
+maintained in one big repository. Each package can contain its own
+configuration.
+
+Since v2, Biome supports monorepos out of the box, and you'll need to set up the
+project in the following way.
+
+<Steps>
+1. Create a `biome.json` file at the root of the monorepo. We will use the
+    recommended rules, and customise the formatter options:
+
+    ```json title="biome.json"
+    {
+        "linter": {
+            "enabled": true,
+            "rules": {
+                "recommended": true
+            }
+        },
+        "formatter": {
+            "lineWidth": 120,
+            "indentStyle": "space",
+            "indentWidth": 6
+        }
+    }
+    ```
+    This file is called the **root configuration** and it sets the base options
+    inside the project. However, nested configurations can decide to adhere to
+    these options or not. Let's see how.
+
+2. Create nested configuration files, one in each package where it is needed.
+    These nested configuration files must have the field `"root"` set to
+    `false`. Also, we want these packages to follow the formatting standards
+    set up in the root configuration. In order to so, we will use a **new
+    microsyntax** available in Biome v2, which is `"extends": "//"`. This syntax
+    tells Biome to extend from the **root configuration**, regardless of where
+    the nested configuration is.
+
+    Let's create two configuration files, one inside `packages/logger` and one
+    inside `packages/generate`. In the former we will disable `noConsole`, and
+    in `packages/generate` we will disable the formatter because those are files
+    that are code-generated:
+
+    ```json title="packages/logger/biome.json"
+    {
+        "root": false,
+        "extends": "//",
+        "linter": {
+            "rules": {
+                "suspicious": {
+                    "noConsole": "off"
+                }
+            }
+        }
+    }
+    ```
+
+    ```json title="packages/generate/biome.json"
+    {
+        "root": false,
+        "extends": "//",
+        "formatter": {
+            "enabled": false
+        }
+    }
+    ```
+    For convenience, when you use the microsyntax `extends: "//"`, you can
+    **omit** `"root": false`, because it is already implied that this
+    configuration isn't a root configuration:
+
+    ```diff title="packages/generate/biome.json"
+    {
+    -   "root": false,
+        "extends": "//",
+        "formatter": {
+          "enabled": false
+        }
+    }
+    ```
+3. Now, let's suppose we have a new package in `packages/analytics` that is
+    maintained by a different team. This team follows entirely different coding
+    standards, so they _don't_ want to inherit options from the root
+    configuration. For them, they just need to omit `"extends": "//"` from the
+    configuration file, and change the formatting options:
+    ```json title="packages/analytics/biome.json"
+    {
+        "root": false,
+        "formatter": {
+            "lineWidth": 100,
+        }
+    }
+
+    ```
+4. Now that everything is set up, you have a few options. You can run `biome`
+    commands from the root of the project, or from the single packages. Biome
+    will respect all settings!
+</Steps>
+
+:::tip
+Sometimes, Biome may find a nested configuration file that doesn't have a
+correct `"root": false` setting. This can happen if you have another project
+that uses Biome in a vendored folder or Git submodule, for instance. In such a
+case, we suggest ignoring the nested project entirely using
+[the `files.includes` field](/reference/configuration/#filesincludes).
+:::
+
+## Other ways to share a configuration file
+
+As we saw above, the `extends` field allows you to split your configuration
+across multiple files. This way, you can share common settings across different
+projects or folders. The `"extends": "//"` syntax is a convenient shortcut when
+you want nested configurations to extend from the root configuration, but
+sometimes you may want to use an even more customised setup.
+
+Apart from `"//"`, the `extends` setting accept array values as well. In this
+case, every value in the array must be a path to another config to extend.
+
+For example, here is how you might set up your configuration to extend a
+`common.json` configuration file:
+
+```json title="biome.json"
+{
+  "extends": ["./common.json"]
+}
+```
+
+The entries defined in `extends` are resolved from the path where the
+`biome.json` file is defined. They are processed in the order they are listed,
+with settings in later files overriding earlier ones.
+
+Files that you `extend` from cannot `extend` other files in turn.
+
+Relative paths in a shared configuration are resolved from the directory containing the configuration that extends it, not from the directory containing the shared file. Plugin paths follow the same rule by default.
+
+To load a plugin that ships with a shared configuration, see [Resolve plugins from shared configurations](/linter/plugins#resolve-plugins-from-shared-configurations).
+
+For example, let's assume a project that contains two directories `backend/` and
+`frontend/`, each having their own `biome.json` that both extend a `common.json`
+configuration in the root folder:
+
+<FileTree>
+- backend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- frontend/
+  - src/
+    - ...
+  - test/
+    - ...
+  - biome.json
+- common.json
+</FileTree>
+
+```json title="common.json"
+{
+  "files": {
+    "includes": ["src/**/*.js", "test/**/*.js"],
+  },
+  "linter": {
+    "includes": ["**", "!test"]
+  }
+}
+```
+
+```json title="frontend/biome.json"
+{
+  "extends": ["../common.json"]
+}
+```
+
+* When running Biome from the `frontend/` folder, it will be configured to
+  format and lint all JavaScript files in the `frontend/src/` and
+  `frontend/test/` folders, and only format the files in the `frontend/src/`
+  folder. This works because the paths specified in `common.json` are
+  interpreted from the `frontend/` folder, because that's where the `biome.json`
+  file resides.
+* Assuming `backend/biome.json` looks the same as `frontend/biome.json`, it will
+  have the same behaviour, except the paths will be interpreted from the
+  `backend/` folder.
+
+Note that in this setup, both `frontend/biome.json` and `backend/biome.json` are
+considered root configurations. You won't be able to run Biome from the root of
+the repository, unless you use the `--config-path` CLI option and point it at
+one of the configurations.
+
+If you need to share your configuration file across multiple projects, you can do so by [publishing it as npm package](/guides/publish-packages).

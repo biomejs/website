@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUselessFragmen
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-fragments/javascript/"}]} />
 
@@ -36,7 +37,12 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow unnecessary fragments
+Disallow unnecessary JSX fragments.
+
+A fragment groups JSX children without adding an HTML element. An empty fragment or a
+fragment around a single child usually adds nesting without changing the rendered output.
+In Astro templates, fragments with properties are allowed, for example
+`<Fragment slot="name">`.
 
 ## Examples
 
@@ -63,7 +69,8 @@ Disallow unnecessary fragments
 
 <Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:18 <a href=\"https://biomejs.dev/linter/rules/no-useless-fragments\">lint/complexity/noUselessFragments</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This fragment is unnecessary.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;Component prop=&#123;&lt;&gt;&lt;div /&gt;&lt;/&gt;&#125; /&gt;<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A fragment is redundant if it contains only one child, or if it is the child of a html element, and is not a keyed </span><span style=\"color: lightgreen;\"><a href=\"https://legacy.reactjs.org/docs/fragments.html#keyed-fragments\">fragment</a></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the Fragment</span><br />  <br />  <strong>  1 │ </strong>&lt;Component<span style=\"opacity: 0.8;\">·</span>prop=&#123;&lt;<span style=\"color: Tomato;\">&gt;</span><span style=\"color: Tomato;\">&lt;</span>div<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">/</span><span style=\"color: Tomato;\">&gt;</span><span style=\"color: Tomato;\">&lt;</span>/&gt;&#125;<span style=\"opacity: 0.8;\">·</span>/&gt;<br />  <strong>    │ </strong>                  <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>    <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>      <br /></code></pre>"} />
 
-The rule doesn't emit a code fix if the a fragment inside an attribute doesn't have any value:
+Biome cannot safely fix an empty fragment used as an attribute value, because removing the
+fragment would leave the attribute without a value:
 
 ```jsx
 <Component prop={<>{}</>} />
@@ -103,4 +110,5 @@ foo
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_useless_fragments.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noUselessFragments)
+- <RulePlaygroundLink rule="noUselessFragments" category="lint" language="jsx" code={"<>\n    <>foo</>\n    <SomeComponent />\n</>\n"} />
 

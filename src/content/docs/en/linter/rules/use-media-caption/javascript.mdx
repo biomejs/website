@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useMediaCaption
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-media-caption/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-media-caption/javascript/"}]} />
 
@@ -19,6 +20,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
 - Sources: 
   - Same as [`jsx-a11y/media-has-caption`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/media-has-caption.md)
+  - Same as [`astro/jsx-a11y/media-has-caption`](https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/media-has-caption)
 
 ## How to configure
 ```json title="biome.json"
@@ -71,4 +73,5 @@ Enforces that `audio` and `video` elements must have a `track` for captions.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/use_media_caption.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useMediaCaption)
+- <RulePlaygroundLink rule="useMediaCaption" category="lint" language="jsx" code={"\t<video />\n"} />
 

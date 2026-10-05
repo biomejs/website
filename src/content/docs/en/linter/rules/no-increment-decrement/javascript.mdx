@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noIncrementDecre
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-increment-decrement/javascript/"}]} />
 
@@ -192,4 +193,5 @@ for (let i = 0, j = l; i < l; i++, j--) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_increment_decrement.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noIncrementDecrement)
+- <RulePlaygroundLink rule="noIncrementDecrement" category="lint" language="js" code={"let i = 10;\nlet j = 20;\n\ni ++\nj\n// i = 11, j = 20\n"} />
 

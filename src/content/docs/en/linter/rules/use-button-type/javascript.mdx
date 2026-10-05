@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useButtonType
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-button-type/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-button-type/javascript/"}]} />
 
@@ -39,6 +40,30 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 ## Description
 Enforces the usage of the attribute `type` for the element `button`
 
+A `button` element without a [`type` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#type)
+behaves as `type="submit"`.
+Inside a `form`, clicking it submits the form, which often reloads the page.
+That is rarely the intent of a button that opens a menu, toggles a panel, or runs a click handler.
+
+This is easy to miss in component-based code, because a `button` rendered by one component
+can end up inside a `form` rendered by another.
+An explicit `type` makes the button behave the same wherever it's rendered.
+
+The HTML specification defines three values for `type`:
+
+- `button`: the button has no default behavior. Use it for buttons handled by JavaScript.
+- `submit`: the button submits its form.
+- `reset`: the button resets the controls of its form to their initial values.
+
+Browsers treat any other value the same as a missing `type`, so the rule reports invalid values too.
+
+The rule ignores `type` values that aren't string literals, such as `type={buttonType}`,
+because their value can't be known statically.
+
+A JSX `button` with spread attributes, such as `<button {...props}>`, doesn't need a `type` attribute,
+because the spread may provide it.
+If the element also has an explicit `type` attribute, the rule still checks its value.
+
 ## Examples
 
 ### Invalid
@@ -55,6 +80,23 @@ Enforces the usage of the attribute `type` for the element `button`
 
 <Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:14 <a href=\"https://biomejs.dev/linter/rules/use-button-type\">lint/a11y/useButtonType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Provide a valid </span><span style=\"color: Tomato;\"><strong>type</strong></span><span style=\"color: Tomato;\"> prop for the </span><span style=\"color: Tomato;\"><strong>button</strong></span><span style=\"color: Tomato;\"> element.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;button type=&quot;incorrectType&quot;&gt;Do something&lt;/button&gt;<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The default </span><span style=\"color: lightgreen;\"><strong>type</strong></span><span style=\"color: lightgreen;\"> of a button is </span><span style=\"color: lightgreen;\"><strong>submit</strong></span><span style=\"color: lightgreen;\">, which causes the submission of a form when placed inside a &#96;form&#96; element. This is likely not the behaviour that you want inside a React application.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Allowed button types are: </span><span style=\"color: lightgreen;\"><strong>submit</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>button</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>reset</strong></span><br />  <br /></code></pre>"} />
 
+Clicking this button submits the form instead of clearing it:
+
+```jsx
+<form onSubmit={search}>
+    <input name="query" />
+    <button>Clear</button>
+</form>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:3:5 <a href=\"https://biomejs.dev/linter/rules/use-button-type\">lint/a11y/useButtonType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Provide an explicit </span><span style=\"color: Tomato;\"><strong>type</strong></span><span style=\"color: Tomato;\"> prop for the </span><span style=\"color: Tomato;\"><strong>button</strong></span><span style=\"color: Tomato;\"> element.</span><br />  <br />    <strong>1 │ </strong>&lt;form onSubmit=&#123;search&#125;&gt;<br />    <strong>2 │ </strong>    &lt;input name=&quot;query&quot; /&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;button&gt;Clear&lt;/button&gt;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&lt;/form&gt;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The default </span><span style=\"color: lightgreen;\"><strong>type</strong></span><span style=\"color: lightgreen;\"> of a button is </span><span style=\"color: lightgreen;\"><strong>submit</strong></span><span style=\"color: lightgreen;\">, which causes the submission of a form when placed inside a &#96;form&#96; element. This is likely not the behaviour that you want inside a React application.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Allowed button types are: </span><span style=\"color: lightgreen;\"><strong>submit</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>button</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>reset</strong></span><br />  <br /></code></pre>"} />
+
+```jsx
+<button {...props} type="incorrectType">Do something</button>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:25 <a href=\"https://biomejs.dev/linter/rules/use-button-type\">lint/a11y/useButtonType</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Provide a valid </span><span style=\"color: Tomato;\"><strong>type</strong></span><span style=\"color: Tomato;\"> prop for the </span><span style=\"color: Tomato;\"><strong>button</strong></span><span style=\"color: Tomato;\"> element.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;button &#123;...props&#125; type=&quot;incorrectType&quot;&gt;Do something&lt;/button&gt;<br />   <strong>   │ </strong>                        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The default </span><span style=\"color: lightgreen;\"><strong>type</strong></span><span style=\"color: lightgreen;\"> of a button is </span><span style=\"color: lightgreen;\"><strong>submit</strong></span><span style=\"color: lightgreen;\">, which causes the submission of a form when placed inside a &#96;form&#96; element. This is likely not the behaviour that you want inside a React application.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Allowed button types are: </span><span style=\"color: lightgreen;\"><strong>submit</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>button</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>reset</strong></span><br />  <br /></code></pre>"} />
+
 ```js
 React.createElement('button');
 ```
@@ -67,7 +109,16 @@ React.createElement('button');
 <>
     <button type="button">Do something</button>
     <button type={buttonType}>Do something</button>
+    <button {...props}>Do something</button>
 </>
+```
+
+```jsx
+<form onSubmit={search}>
+    <input name="query" />
+    <button type="reset">Clear</button>
+    <button type="submit">Search</button>
+</form>
 ```
 
 ## Related links
@@ -77,4 +128,5 @@ React.createElement('button');
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/use_button_type.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useButtonType)
+- <RulePlaygroundLink rule="useButtonType" category="lint" language="jsx" code={"<button>Do something</button>\n"} />
 

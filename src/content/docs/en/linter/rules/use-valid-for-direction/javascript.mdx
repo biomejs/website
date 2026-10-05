@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useValidForDirec
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-valid-for-direction/javascript/"}]} />
 
@@ -80,4 +81,5 @@ for (var i = 0; i < 10; i++) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_valid_for_direction.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useValidForDirection)
+- <RulePlaygroundLink rule="useValidForDirection" category="lint" language="js" code={"for (var i = 0; i < 10; i--) {\n}\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useConsistentBui
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-consistent-builtin-instantiation/javascript/"}]} />
 
@@ -100,4 +101,5 @@ const now = new Date();
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_consistent_builtin_instantiation.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useConsistentBuiltinInstantiation)
+- <RulePlaygroundLink rule="useConsistentBuiltinInstantiation" category="lint" language="js" code={"const text = new String(10);\n"} />
 

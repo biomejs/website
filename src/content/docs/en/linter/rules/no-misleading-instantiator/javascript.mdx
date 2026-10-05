@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noMisleadingInst
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-misleading-instantiator/javascript/"}]} />
 
@@ -85,4 +86,5 @@ interface I {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_misleading_instantiator.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noMisleadingInstantiator)
+- <RulePlaygroundLink rule="noMisleadingInstantiator" category="lint" language="ts" code={"interface I {\n  new (): I;\n  constructor(): void;\n}\n"} />
 

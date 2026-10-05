@@ -1,0 +1,8 @@
+---
+import { createLunaria, generateDashboard } from "@lunariajs/core";
+
+const lunaria = await createLunaria();
+const status = await lunaria.getFullStatus();
+---
+
+<Fragment set:html={generateDashboard(lunaria.config, status)} />

@@ -8,6 +8,7 @@ description: CSS documentation for noUnknownPseudoClass
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-pseudo-class/css/"}]} />
 
@@ -34,11 +35,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow unknown pseudo-class selectors.
+Disallow unrecognized pseudo-class selectors.
 
-For details on known pseudo-class, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)
-
-This rule ignores vendor-prefixed pseudo-class selectors.
+A pseudo-class begins with `:` and selects an element in a particular state or position, as
+in `:hover` or `:first-child`. Vendor-prefixed pseudo-classes are allowed. See
+[MDN's pseudo-class reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes).
 
 ## Examples
 
@@ -84,7 +85,8 @@ input:-moz-placeholder {}
 
 ### `ignore`
 
-A list of unknown pseudo-class names to ignore (case-insensitive).
+Lists additional pseudo-class names to allow, without regard to letter case. Defaults to an
+empty list.
 
 ```json title='biome.json'
 {
@@ -119,4 +121,5 @@ a:custom-pseudo-class {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unknown_pseudo_class.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnknownPseudoClass)
+- <RulePlaygroundLink rule="noUnknownPseudoClass" category="lint" language="css" code={"a:unknown {}\n"} />
 

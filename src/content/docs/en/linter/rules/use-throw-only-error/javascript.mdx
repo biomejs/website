@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useThrowOnlyErro
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-throw-only-error/javascript/"}]} />
 
@@ -92,4 +93,5 @@ This will be improved in the future once Biome supports type inference.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_throw_only_error.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useThrowOnlyError)
+- <RulePlaygroundLink rule="useThrowOnlyError" category="lint" language="js" code={"throw undefined;\n"} />
 

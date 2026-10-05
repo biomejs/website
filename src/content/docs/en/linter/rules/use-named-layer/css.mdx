@@ -8,6 +8,7 @@ description: CSS documentation for useNamedLayer
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/use-named-layer/css/"}]} />
 
@@ -88,4 +89,5 @@ ordered explicitly through a `@layer` statement.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/use_named_layer.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/useNamedLayer)
+- <RulePlaygroundLink rule="useNamedLayer" category="lint" language="css" code={"@layer {\n  a {\n    color: red;\n  }\n}\n"} />
 

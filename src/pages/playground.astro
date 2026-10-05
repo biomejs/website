@@ -6,12 +6,12 @@ import "@/styles/playground/index.css";
 
 <StarlightPage
 	frontmatter={{
-    title: "Playground",
-    description: "Biome's interactive playground",
-    template: "splash",
-    editUrl: false,
-    localized: false,
-  }}
+		title: "Playground",
+		description: "Biome's interactive playground",
+		template: "splash",
+		editUrl: false,
+		localized: false,
+	}}
 >
 	<div id="root" class="not-content">
 		<PlaygroundLoader client:only="react" />
@@ -21,6 +21,7 @@ import "@/styles/playground/index.css";
 <style>
 :global(div.content-panel) {
 	padding: 0;
+	border-top: 0;
 }
 :global(.content-panel:nth-of-type(1)) {
 	display: none;

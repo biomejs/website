@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useUniqueElement
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-unique-element-ids/javascript/"}]} />
 
@@ -33,12 +34,15 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Prevent the usage of static string literal `id` attribute on elements.
+Disallow static `id` values on elements outside SVG contexts.
 
-In React, hardcoding IDs is discouraged because IDs have to be unique in the DOM.
-You should use [`useId`](https://react.dev/reference/react/useId) to generate unique IDs for accessibility purposes.
+IDs must be unique in the rendered page. A component with a hard-coded ID can create
+duplicate IDs when it is rendered more than once, which can break links between labels and
+controls or other accessibility features. Use React's
+[`useId`](https://react.dev/reference/react/useId) to generate stable, unique IDs.
 
-Please keep in mind this rule doesn't check whether ids are actually unique or not, and does check whether static literal id isn't passed to the elements or not. So you're encouraged to check by yourself if the ids are actually unique.
+This rule reports static literal IDs. It does not compare IDs across elements or verify that
+dynamically generated IDs are unique.
 
 ## Examples
 
@@ -68,9 +72,20 @@ const id = useId();
 React.createElement("div", { id });
 ```
 
+Static IDs are allowed in SVG contexts:
+
+```jsx
+<svg>
+    <defs>
+        <pattern id="dots" width="10" height="10" />
+    </defs>
+    <rect fill="url(#dots)" width="100%" height="100%" />
+</svg>
+```
+
 ## Options
 
-The following option is available
+The following option is available.
 
 ### `excludedComponents`
 
@@ -115,4 +130,5 @@ a DOM element ID.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_unique_element_ids.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useUniqueElementIds)
+- <RulePlaygroundLink rule="useUniqueElementIds" category="lint" language="jsx" code={"<div id=\"foo\">bar</div>;\n"} />
 

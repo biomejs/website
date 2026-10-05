@@ -8,6 +8,7 @@ description: CSS documentation for noShorthandPropertyOverrides
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-shorthand-property-overrides/css/"}]} />
 
@@ -34,9 +35,13 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow shorthand properties that override related longhand properties.
+Disallow shorthand properties that override earlier, more specific properties.
 
-For details on shorthand properties, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties).
+A shorthand property sets several related properties at once. For example, `padding` sets
+all four sides, including `padding-left`. Writing `padding` after `padding-left` resets the
+earlier left-side value. Put the shorthand first or use only the specific properties.
+
+See [MDN's shorthand property guide](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties).
 
 ## Examples
 
@@ -80,4 +85,5 @@ body { font-size: var(--font-size); }
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_shorthand_property_overrides.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noShorthandPropertyOverrides)
+- <RulePlaygroundLink rule="noShorthandPropertyOverrides" category="lint" language="css" code={"a { padding-left: 10px; padding: 20px; }\n"} />
 

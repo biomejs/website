@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnusedImports
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unused-imports/javascript/"}]} />
 
@@ -118,4 +119,5 @@ import type {} from '@mui/lab/themeAugmentation';
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_unused_imports.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noUnusedImports)
+- <RulePlaygroundLink rule="noUnusedImports" category="lint" language="js" code={"import A from 'mod';\n"} />
 

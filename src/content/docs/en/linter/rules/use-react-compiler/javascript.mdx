@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useReactCompiler
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-react-compiler/javascript/"}]} />
 
@@ -41,21 +42,9 @@ This rule runs React Compiler in lint mode and reports the actionable
 diagnostics it emits. React Compiler validates whether components and
 hooks can be safely compiled.
 
-This rule only runs when the nearest `package.json` declares React 19 or
-newer. Projects using React 18 or earlier, or projects without a React
-dependency in `package.json`, are skipped.
-
 ## Examples
 
 ### Invalid
-
-```json title='package.json'
-{
-    "dependencies": {
-        "react": "^19.0.0"
-    }
-}
-```
 
 ```jsx title='Component.jsx'
 import { useState } from "react";
@@ -116,14 +105,6 @@ module-level state.
 With `"compilationMode": "all"`, violations are reported even in
 functions that don't follow React naming conventions:
 
-```json title='package.json'
-{
-    "dependencies": {
-        "react": "^19.0.0"
-    }
-}
-```
-
 ```js title='counter.js'
 let counter = 0;
 
@@ -142,4 +123,5 @@ export function increment() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_react_compiler.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useReactCompiler)
+- <RulePlaygroundLink rule="useReactCompiler" category="lint" language="jsx" code={"import { useState } from \"react\";\n\nfunction Component(props) {\n    if (props.enabled) {\n        useState(0);\n    }\n\n    return <div />;\n}\n"} />
 

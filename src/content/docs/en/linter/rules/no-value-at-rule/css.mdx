@@ -8,6 +8,7 @@ description: CSS documentation for noValueAtRule
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-value-at-rule/css/"}]} />
 
@@ -31,9 +32,10 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow use of `@value` rule in CSS modules.
+Disallow the `@value` rule in CSS Modules.
 
-Use of CSS variables is recommended instead of `@value` rule.
+`@value` is a CSS Modules extension rather than standard CSS. Prefer native custom
+properties, which use a `--name` declaration and are read with `var(--name)`.
 
 ## Examples
 
@@ -49,7 +51,7 @@ Use of CSS variables is recommended instead of `@value` rule.
 
 ```css title='example.module.css'
 :root {
-  --red: #FF0000
+  --red: #FF0000;
 }
 
 p {
@@ -64,4 +66,5 @@ p {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/style/no_value_at_rule.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/style/noValueAtRule)
+- <RulePlaygroundLink rule="noValueAtRule" category="lint" language="css" code={"@value red: #FF0000;\n"} />
 

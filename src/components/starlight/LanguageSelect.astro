@@ -5,17 +5,21 @@ import Select from "@astrojs/starlight/components/Select.astro";
 const { localized } = Astro.locals.starlightRoute.entry.data;
 ---
 
-{localized && <Default><slot /></Default>}
+{localized && (
+	<Default>
+		<slot />
+	</Default>
+)}
 <version-select>
 	<Select
 		icon="biome"
 		label="Version"
 		width="fit-content"
 		options={[
-            { label: "v1.x", value: "v1", selected: false },
-            { label: "v2.x", value: "v2", selected: true },
-            { label: "next", value: "next", selected: false },
-        ]}
+			{ label: "v1.x", value: "v1", selected: false },
+			{ label: "v2.x", value: "v2", selected: true },
+			{ label: "next", value: "next", selected: false },
+		]}
 	/>
 </version-select>
 

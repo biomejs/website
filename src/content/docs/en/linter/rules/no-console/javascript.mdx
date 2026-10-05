@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noConsole
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-console/javascript/"}]} />
 
@@ -19,6 +20,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
   - Same as [`no-console`](https://eslint.org/docs/latest/rules/no-console)
+  - Same as [`vue/no-console`](https://eslint.vuejs.org/rules/no-console)
 
 ## How to configure
 ```json title="biome.json"
@@ -94,4 +96,5 @@ console.assert(true, "explanation"); // Allowed
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_console.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noConsole)
+- <RulePlaygroundLink rule="noConsole" category="lint" language="js" code={"console.error('hello world')\n"} />
 

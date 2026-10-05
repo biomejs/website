@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noShoutyConstant
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-shouty-constants/javascript/"}]} />
 
@@ -31,7 +32,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow the use of constants which its value is the upper-case version of its name.
+Disallow constants whose string value is the same as their uppercase name.
+
+A declaration such as `const FOO = "FOO"` adds an unnecessary name without providing
+additional meaning. Use the string directly instead. The rule ignores exported constants
+and constants referenced more than once.
 
 ## Examples
 
@@ -69,4 +74,5 @@ function f(FOO = "FOO") {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_shouty_constants.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noShoutyConstants)
+- <RulePlaygroundLink rule="noShoutyConstants" category="lint" language="js" code={"const FOO = \"FOO\";\nconsole.log(FOO);\n"} />
 

@@ -8,6 +8,7 @@ description: HTML documentation for noNoninteractiveTabindex
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-noninteractive-tabindex/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-noninteractive-tabindex/javascript/"}]} />
 
@@ -34,11 +35,14 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Enforce that `tabindex` is not assigned to non-interactive HTML elements.
+Require a negative integer `tabindex` on non-interactive elements.
 
-When using the tab key to navigate a webpage, limit it to interactive elements.
-You don't need to add tabindex to items in an unordered list as assistive technology can navigate through the HTML.
-Keep the tab ring small, which is the order of elements when tabbing, for a more efficient and accessible browsing experience.
+Pressing Tab moves keyboard focus through interactive controls. Adding a non-interactive
+element to that order creates a keyboard stop with no expected action and can confuse users.
+Assistive technologies can navigate structural content without adding it to the tab order.
+
+For a static value, only a negative integer is accepted. Zero, positive integers, empty
+values, and other text are reported. Dynamic values are not evaluated.
 
 ## Examples
 
@@ -83,4 +87,5 @@ Keep the tab ring small, which is the order of elements when tabbing, for a more
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/no_noninteractive_tabindex.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/noNoninteractiveTabindex)
+- <RulePlaygroundLink rule="noNoninteractiveTabindex" category="lint" language="html" code={"<div tabindex=\"0\"></div>\n"} />
 

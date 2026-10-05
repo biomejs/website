@@ -8,6 +8,7 @@ description: CSS documentation for noUnknownMediaFeatureName
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-media-feature-name/css/"}]} />
 
@@ -34,17 +35,15 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow unknown media feature names.
+Disallow unrecognized feature names in media queries.
 
-This rule considers media feature names defined in the CSS Specifications, up to and including Editor's Drafts, to be known.
-This rule also checks vendor-prefixed media feature names.
+Media features describe conditions such as viewport width, display resolution, or user
+preferences. The rule recognizes names from CSS specifications, including editor drafts,
+and validates vendor-prefixed names.
 
-Data sources of known CSS media feature are:
-
-- MDN reference on [CSS media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media)
-- W3C reference on [Media Queries Level 3](https://www.w3.org/TR/mediaqueries-3/)
-- W3C reference on [Media Queries Level 4](https://www.w3.org/TR/mediaqueries-4/)
-- W3C reference on [Media Queries Level 5](https://www.w3.org/TR/mediaqueries-5/)
+See [MDN's media-query reference](https://developer.mozilla.org/en-US/docs/Web/CSS/@media)
+and the W3C specifications for [Media Queries Level 4](https://www.w3.org/TR/mediaqueries-4/)
+and [Level 5](https://www.w3.org/TR/mediaqueries-5/).
 
 ## Examples
 
@@ -108,4 +107,5 @@ Data sources of known CSS media feature are:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unknown_media_feature_name.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnknownMediaFeatureName)
+- <RulePlaygroundLink rule="noUnknownMediaFeatureName" category="lint" language="css" code={"@media screen and (unknown > 320px) {}\n"} />
 

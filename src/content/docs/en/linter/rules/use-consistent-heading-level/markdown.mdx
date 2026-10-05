@@ -8,6 +8,7 @@ description: Markdown documentation for useConsistentHeadingLevel
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="markdown" languages={[{"id":"markdown","label":"Markdown","href":"/linter/rules/use-consistent-heading-level/markdown/"}]} />
 
@@ -70,4 +71,5 @@ This rule catches cases where a heading skips one or more levels.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/src/lint/nursery/use_consistent_heading_level.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/tests/specs/nursery/useConsistentHeadingLevel)
+- <RulePlaygroundLink rule="useConsistentHeadingLevel" category="lint" language="md" code={"# Header 1\n\n### Header 3\n"} />
 

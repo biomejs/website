@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnwantedPolyfi
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unwanted-polyfillio/javascript/"}]} />
 
@@ -79,4 +80,5 @@ export function MyApp({ Component, pageProps }) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/performance/no_unwanted_polyfillio.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/performance/noUnwantedPolyfillio)
+- <RulePlaygroundLink rule="noUnwantedPolyfillio" category="lint" language="jsx" code={"<script src='https://polyfill.io/v3/polyfill.min.js?features=AbortController,Object.fromEntries'></script>\n"} />
 

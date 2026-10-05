@@ -18,6 +18,11 @@
       "matchManagers": ["cargo"],
       "matchDepNames": ["biome_*"],
       "enabled": false
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchDepNames": ["@codemirror/*"],
+      "postUpdateOptions": ["pnpmDedupe"]
     }
   ]
 }

@@ -8,6 +8,7 @@ description: CSS documentation for noUnknownPseudoElement
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-pseudo-element/css/"}]} />
 
@@ -34,11 +35,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow unknown pseudo-element selectors.
+Disallow unrecognized pseudo-element selectors.
 
-For details on known CSS pseudo-elements, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#list_of_pseudo-elements).
-
-This rule ignores vendor-prefixed pseudo-element selectors.
+A pseudo-element selects a specific part of an element, such as `::before` or `::selection`.
+Vendor-prefixed pseudo-elements are allowed. See
+[MDN's pseudo-element reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#list_of_pseudo-elements).
 
 ## Examples
 
@@ -84,7 +85,8 @@ input::-moz-placeholder {}
 
 ### `ignore`
 
-A list of unknown pseudo-element names to ignore (case-insensitive).
+Lists additional pseudo-element names to allow, without regard to letter case. Defaults to
+an empty list.
 
 ```json title='biome.json'
 {
@@ -119,4 +121,5 @@ A list of unknown pseudo-element names to ignore (case-insensitive).
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unknown_pseudo_element.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnknownPseudoElement)
+- <RulePlaygroundLink rule="noUnknownPseudoElement" category="lint" language="css" code={"a::pseudo {}\n"} />
 

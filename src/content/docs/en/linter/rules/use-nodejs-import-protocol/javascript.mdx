@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useNodejsImportP
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-nodejs-import-protocol/javascript/"}]} />
 
@@ -20,6 +21,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - Sources: 
   - Same as [`unicorn/prefer-node-protocol`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-node-protocol.md)
   - Same as [`import/enforce-node-protocol-usage`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/enforce-node-protocol-usage.md)
+  - Same as [`n/prefer-node-protocol`](https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/prefer-node-protocol.md)
 
 ## How to configure
 ```json title="biome.json"
@@ -86,4 +88,5 @@ import path from 'node:path';
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_nodejs_import_protocol.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useNodejsImportProtocol)
+- <RulePlaygroundLink rule="useNodejsImportProtocol" category="lint" language="js" code={"import fs from 'fs';\n"} />
 

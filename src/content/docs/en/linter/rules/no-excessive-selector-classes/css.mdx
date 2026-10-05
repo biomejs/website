@@ -8,6 +8,7 @@ description: CSS documentation for noExcessiveSelectorClasses
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-excessive-selector-classes/css/"}]} />
 
@@ -46,14 +47,14 @@ Each selector in a selector list is evaluated separately.
 For example, `.foo, .bar.baz` is treated as two selectors, and only `.bar.baz`
 contributes two class selectors.
 
-Nested selectors are checked as written instead of being resolved against their parent selector.
-For example, in `.foo { &.bar {} }`, the nested selector `&.bar` contributes one class selector.
+Nested selectors are checked as written instead of being combined with their parent. For
+example, in `.foo { &.bar {} }`, the nested selector `&.bar` contributes one class.
 
 ## Examples
 
 ### Invalid
 
-The following example will show a diagnostic when `maxClasses` is set to `1`:
+This example reports a diagnostic when `maxClasses` is `1`:
 
 ```json title='biome.json'
 {
@@ -158,4 +159,5 @@ class selectors:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_excessive_selector_classes.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noExcessiveSelectorClasses)
+- <RulePlaygroundLink rule="noExcessiveSelectorClasses" category="lint" language="css" code={".foo .bar {}\n"} />
 

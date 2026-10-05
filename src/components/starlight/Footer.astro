@@ -9,7 +9,11 @@ const isPlayground = /^\/playground(?:\/|$)/.test(Astro.url.pathname);
 	<slot />
 </Default>
 
-{!isPlayground && <div class="footer-sponsor print:hidden"><SiteSponsor placement="footer" /></div>}
+{!isPlayground && (
+	<div class="footer-sponsor print:hidden">
+		<SiteSponsor placement="footer" />
+	</div>
+)}
 
 <div class="copyright">
 	<p>Copyright (c) 2023-present Biome Developers and Contributors.</p>

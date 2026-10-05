@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useMathMinMax
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-math-min-max/javascript/"}]} />
 
@@ -79,4 +80,5 @@ foo ? foo : bar;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_math_min_max.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useMathMinMax)
+- <RulePlaygroundLink rule="useMathMinMax" category="lint" language="js" code={"height > 50 ? 50 : height;\n"} />
 

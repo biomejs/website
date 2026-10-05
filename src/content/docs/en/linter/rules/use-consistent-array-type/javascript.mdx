@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useConsistentArr
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-consistent-array-type/javascript/"}]} />
 
@@ -111,4 +112,5 @@ Default: `shorthand`
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_consistent_array_type.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useConsistentArrayType)
+- <RulePlaygroundLink rule="useConsistentArrayType" category="lint" language="ts" code={"let invalid: Array<foo>;\n"} />
 

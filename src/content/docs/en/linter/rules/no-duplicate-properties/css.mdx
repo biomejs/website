@@ -8,6 +8,7 @@ description: CSS documentation for noDuplicateProperties
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-duplicate-properties/css/"}]} />
 
@@ -67,4 +68,5 @@ a {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_duplicate_properties.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noDuplicateProperties)
+- <RulePlaygroundLink rule="noDuplicateProperties" category="lint" language="css" code={"a {\n  color: pink;\n  color: orange;\n}\n"} />
 

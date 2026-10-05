@@ -8,6 +8,7 @@ description: Markdown documentation for useTopLevelHeading
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="markdown" languages={[{"id":"markdown","label":"Markdown","href":"/linter/rules/use-top-level-heading/markdown/"}]} />
 
@@ -88,4 +89,5 @@ title: Example
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/src/lint/nursery/use_top_level_heading.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_markdown_analyze/tests/specs/nursery/useTopLevelHeading)
+- <RulePlaygroundLink rule="useTopLevelHeading" category="lint" language="md" code={"Some text\n\n# Heading\n"} />
 

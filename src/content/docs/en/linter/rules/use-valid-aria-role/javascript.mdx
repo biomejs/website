@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useValidAriaRole
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-valid-aria-role/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-valid-aria-role/javascript/"}]} />
 
@@ -20,6 +21,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - Sources: 
   - Same as [`jsx-a11y/aria-role`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/aria-role.md)
   - Inspired from [`@html-eslint/no-invalid-role`](https://html-eslint.org/docs/rules/no-invalid-role)
+  - Same as [`astro/jsx-a11y/aria-role`](https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/aria-role)
 
 ## How to configure
 ```json title="biome.json"
@@ -148,4 +150,5 @@ Use this option to ignore non-DOM elements, such as components
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/use_valid_aria_role.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useValidAriaRole)
+- <RulePlaygroundLink rule="useValidAriaRole" category="lint" language="jsx" code={"<div role=\"datepicker\"></div>\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUselessReturn
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-return/javascript/"}]} />
 
@@ -97,6 +98,44 @@ function foo() {
 }
 ```
 
+## Caveats
+
+Removing a trailing `return;` can make TypeScript report error TS7030 ("Not all code paths return a value").
+This happens when the same function returns a value on another path and the
+[`noImplicitReturns`](https://www.typescriptlang.org/tsconfig/#noImplicitReturns) compiler option is enabled.
+In the following example, the rule reports the `return;`, but removing it breaks the type check when that option is enabled:
+
+```ts
+function foo(flag: boolean) {
+    if (flag) {
+        return 1;
+    }
+    return;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:5:5 <a href=\"https://biomejs.dev/linter/rules/no-useless-return\">lint/complexity/noUselessReturn</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> statement is unnecessary.</span><br />  <br />    <strong>3 │ </strong>        return 1;<br />    <strong>4 │ </strong>    &#125;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>    return;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>&#125;<br />    <strong>7 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Removing this statement does not change the control flow of the function.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the unnecessary </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> statement.</span><br />  <br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>          return 1;<br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>      &#125;<br />    <strong>5</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>;</strong></span><br />    <strong>6</strong> <strong>5</strong><strong> │ </strong>  &#125;<br />    <strong>7</strong> <strong>6</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+The same applies to JavaScript files that are checked with `checkJs`.
+Biome doesn't read the `noImplicitReturns` option from `tsconfig.json`, so the rule can't tell whether it is enabled.
+
+If the `return;` is intentional, you can suppress this specific diagnostic with an
+[inline suppression](https://biomejs.dev/analyzer/suppressions/#inline-suppressions):
+
+```ts
+function foo(flag: boolean) {
+    if (flag) {
+        return 1;
+    }
+    // biome-ignore lint/complexity/noUselessReturn: required by noImplicitReturns
+    return;
+}
+```
+
+Alternatively, you can [disable this rule's fix](https://biomejs.dev/linter/#configure-the-code-fix)
+by setting its `fix` option to `"none"`.
+This disables the fix for every `return;` reported by the rule, not only those affected by `noImplicitReturns`.
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
@@ -104,4 +143,5 @@ function foo() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_useless_return.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noUselessReturn)
+- <RulePlaygroundLink rule="noUselessReturn" category="lint" language="js" code={"function foo() {\n    return;\n}\n"} />
 

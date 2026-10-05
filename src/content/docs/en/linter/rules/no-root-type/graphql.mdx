@@ -8,6 +8,7 @@ description: GraphQL documentation for noRootType
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-root-type/graphql/"}]} />
 
@@ -34,9 +35,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow the usage of specified root types
+Disallow configured GraphQL root operation types.
 
-Prevent the usage of certain root types (e.g. `mutation` and/or `subscription`)
+A schema uses the `Query`, `Mutation`, and `Subscription` root types as entry points. This
+rule can forbid root types that a project does not support. It does nothing until at least
+one type is listed in the `disallow` option.
 
 ## Examples
 
@@ -82,10 +85,7 @@ type Query {
 
 ### `disallow`
 
-This required option lists all disallowed root types (e.g. `mutation` and/or `subscription`).
-The values of the list are case-insensitive.
-
-Default `[]`
+Lists root types to disallow, without regard to letter case. Defaults to an empty list.
 
 ```json title='biome.json'
 {
@@ -122,4 +122,5 @@ type Subscription {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/style/no_root_type.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/style/noRootType)
+- <RulePlaygroundLink rule="noRootType" category="lint" language="graphql" code={"type Mutation {\n  createUser(input: CreateUserInput!): User!\n}\n"} />
 

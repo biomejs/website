@@ -2,7 +2,7 @@ import { unified } from "@astrojs/markdown-remark";
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
-import lunaria from "@lunariajs/starlight";
+import type { AstroIntegration } from "astro";
 import { defineConfig, fontProviders } from "astro/config";
 import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
@@ -10,7 +10,8 @@ import starlightChangelogs, {
 	makeChangelogsSidebarLinks,
 } from "starlight-changelogs";
 import starlightLinksValidator from "starlight-links-validator";
-import { searchForWorkspaceRoot } from "vite";
+import { type Plugin, searchForWorkspaceRoot } from "vite";
+import manualRedirects from "./manual-redirects.ts";
 import { version as biomeVersion } from "./node_modules/@biomejs/wasm-web/package.json" with {
 	type: "json",
 };
@@ -18,6 +19,26 @@ import { version as prettierVersion } from "./node_modules/prettier/package.json
 	type: "json",
 };
 import redirects from "./redirects.js";
+
+/**
+ * `@astrojs/compiler-binding` only ships a native Node entry point, but
+ * `prettier-plugin-astro` imports it through `@astrojs/compiler-rs`. In the
+ * browser (the playground's Prettier worker), use the WASM build instead.
+ */
+function astroCompilerWasm(): Plugin {
+	return {
+		name: "astro-compiler-wasm",
+		enforce: "pre",
+		applyToEnvironment: (environment) => environment.name === "client",
+		resolveId(source) {
+			if (source === "@astrojs/compiler-binding") {
+				// Resolved from the project root, where it's a direct dependency
+				return this.resolve("@astrojs/compiler-binding-wasm32-wasi");
+			}
+			return null;
+		},
+	};
+}
 
 const plugins = [
 	starlightBlog({
@@ -90,12 +111,22 @@ const plugins = [
 	starlightChangelogs(),
 ];
 
-if (process.env?.E2E !== "true") {
-	plugins.push(
-		lunaria({
-			route: "i18n-dashboard",
-		}),
-	);
+/**
+ * Renders the Lunaria i18n dashboard at `/i18n-dashboard`.
+ * See `lunaria.config.ts` and `src/components/LunariaDashboard.astro`.
+ */
+function lunariaDashboard(): AstroIntegration {
+	return {
+		name: "lunaria-dashboard",
+		hooks: {
+			"astro:config:setup": ({ injectRoute }) => {
+				injectRoute({
+					pattern: "/i18n-dashboard",
+					entrypoint: "./src/components/LunariaDashboard.astro",
+				});
+			},
+		},
+	};
 }
 
 // https://astro.build/config
@@ -125,42 +156,7 @@ export default defineConfig({
 	compressHTML: true,
 	redirects: {
 		...redirects,
-		"/reference/reporters": "/reference/cli/#reporter-flags",
-		"/pt-br/reference/reporters": "/pt-br/reference/cli/#reporter-flags",
-		"/uk/reference/reporters": "/uk/reference/cli/#reporter-flags",
-		"/ru/reference/reporters": "/ru/reference/cli/#reporter-flags",
-		"/blog/annoucing-biome": "/blog/announcing-biome",
-		"/guides/editors/create-a-extension": "/guides/editors/create-an-extension",
-		"/internals/credits": "/internals/people-and-credits",
-		"/guides/editors/first-party-extensions": "/editors/first-party-extensions",
-		"/guides/editors/third-party-extensions": "/editors/third-party-extensions",
-		"/guides/editors/create-an-extension": "/editors/create-an-extension",
-		"/es/guides/editors/first-party-extensions":
-			"/es/editors/first-party-extensions",
-		"/es/guides/editors/third-party-extensions":
-			"/es/editors/third-party-extensions",
-		"/es/guides/editors/create-an-extension": "/es/editors/create-an-extension",
-		"/fr/guides/editors/first-party-extensions":
-			"/fr/editors/first-party-extensions",
-		"/fr/guides/editors/third-party-extensions":
-			"/fr/editors/third-party-extensions",
-		"/fr/guides/editors/create-an-extension": "/fr/editors/create-an-extension",
-		"/ja/guides/editors/first-party-extensions":
-			"/ja/editors/first-party-extensions",
-		"/ja/guides/editors/third-party-extensions":
-			"/ja/editors/third-party-extensions",
-		"/ja/guides/editors/create-an-extension": "/ja/editors/create-an-extension",
-		"/pl/guides/editors/first-party-extensions":
-			"/pl/editors/first-party-extensions",
-		"/pl/guides/editors/third-party-extensions":
-			"/pl/editors/third-party-extensions",
-		"/pl/guides/editors/create-an-extension": "/pl/editors/create-an-extension",
-		"/zh-cn/guides/editors/first-party-extensions":
-			"/zh-cn/editors/first-party-extensions",
-		"/zh-cn/guides/editors/third-party-extensions":
-			"/zh-cn/editors/third-party-extensions",
-		"/zh-cn/guides/editors/create-an-extension":
-			"/zh-cn/editors/create-an-extension",
+		...manualRedirects,
 	},
 	integrations: [
 		react(),
@@ -223,100 +219,46 @@ export default defineConfig({
 			},
 			sidebar: [
 				{
-					label: "Guides",
-					translations: {
-						es: "Guías",
-						ja: "ガイド",
-						"zh-CN": "使用指南",
-						pl: "Przewodniki",
-						"pt-BR": "Guias",
-						ru: "Гайды",
-						uk: "Гайди",
-					},
+					label: "Introduction",
 					items: [
 						{
-							label: "Getting Started",
-							link: "/guides/getting-started",
-							translations: {
-								es: "Primeros pasos",
-								fr: "Démarrage",
-								ja: "はじめる",
-								"zh-CN": "入门",
-								pl: "Wprowadzenie",
-								"pt-BR": "Primeiros passos",
-								uk: "Початок роботи",
-								ru: "Начало работы",
-							},
+							label: "Why Biome?",
+							link: "/introduction/why-biome",
 						},
 						{
-							label: "Manual installation",
-							link: "/guides/manual-installation",
-							translations: {
-								es: "Instalación manual",
-								fr: "Installation manuelle",
-								ja: "手動インストール",
-								"zh-CN": "手动安装",
-								pl: "Instalacja ręczna",
-								"pt-BR": "Instalação manual",
-								uk: "Ручна установка",
-								ru: "Ручная установка",
-							},
+							label: "Comparison with other tools",
+							link: "/introduction/comparison-with-other-tools",
 						},
 						{
-							label: "Configure Biome",
-							link: "/guides/configure-biome",
+							label: "Language support",
+							link: "/introduction/language-support",
 							translations: {
-								es: "Configurar Biome",
-								fr: "Configurer Biome",
-								ja: "Biome の設定",
-								"zh-CN": "配置 Biome",
-								pl: "Konfiguracja Biome",
-								"pt-BR": "Configurar o Biome",
-								uk: "Налаштування Biome",
-								ru: "Настройка Biome",
+								es: "Soporte de lenguas",
+								fr: "Langages pris en charge",
+								ja: "言語サポート",
+								"zh-CN": "语言支持",
+								pl: "Obsługa języków",
+								"pt-BR": "Suporte de linguagens",
+								uk: "Підтримка мов",
+								ru: "Поддержка языков",
 							},
 						},
+					],
+				},
+				{
+					label: "Installation",
+					items: [
 						{
-							label: "Use Biome in big projects",
-							link: "/guides/big-projects",
-							translations: {
-								es: "Usar Biome en proyectos grandes",
-								fr: "Utiliser Biome dans de gros projets",
-								ja: "大規模プロジェクトでのBiomeの使用方法",
-								"zh-CN": "大型项目中使用 Biome",
-								pl: "Używanie Biome w dużych projektach",
-								"pt-BR": "Usando o Biome em projetos grandes",
-								uk: "Використання Biome в великих проектах",
-								ru: "Применение Biome в крупных проектах",
-							},
+							label: "Quick start",
+							link: "/installation/quick-start",
 						},
 						{
-							label: "Upgrade to Biome v2",
-							link: "/guides/upgrade-to-biome-v2",
-							translations: {
-								ja: "Biome v2へのアップグレード",
-								"zh-CN": "升级到 Biome v2",
-								pl: "Aktualizacja do Biome v2",
-								ru: "Обновление до Biome v2",
-							},
-						},
-						{
-							label: "Integrate Biome with your VCS",
-							link: "/guides/integrate-in-vcs",
-							translations: {
-								es: "Integrar Biome con tu VCS",
-								fr: "Intégrer Biome à votre VCS",
-								ja: "Biome をあなたの VCS と統合する",
-								"zh-CN": "与版本控制系统集成",
-								pl: "Integracja Biome z Twoim VCS",
-								"pt-BR": "Integre o Biome com seu VCS",
-								uk: "Інтеграція Biome з вашою VCS",
-								ru: "Интеграция Biome с вашей VCS",
-							},
+							label: "Install Biome",
+							link: "/installation/install-biome",
 						},
 						{
 							label: "Migrate from ESLint & Prettier",
-							link: "/guides/migrate-eslint-prettier",
+							link: "/installation/migrate-eslint-prettier",
 							translations: {
 								es: "Migrar de ESLint & Prettier",
 								fr: "Migrer depuis ESLint & Prettier",
@@ -329,13 +271,64 @@ export default defineConfig({
 							},
 						},
 						{
-							label: "Investigate slowness",
-							link: "/guides/investigate-slowness",
+							label: "Upgrade to Biome v2",
+							link: "/installation/upgrade-to-biome-v2",
 							translations: {
-								ja: "パフォーマンスの問題を調査する",
-								"zh-CN": "调查 Biome 中的性能问题",
-								pl: "Badanie problemów z wydajnością",
-								ru: "Расследование медленной работы",
+								ja: "Biome v2へのアップグレード",
+								"zh-CN": "升级到 Biome v2",
+								pl: "Aktualizacja do Biome v2",
+								ru: "Обновление до Biome v2",
+							},
+						},
+					],
+				},
+				{
+					label: "Configuration",
+					items: [
+						{
+							label: "Configure Biome",
+							link: "/configuration/configure-biome",
+							translations: {
+								es: "Configurar Biome",
+								fr: "Configurer Biome",
+								ja: "Biome の設定",
+								"zh-CN": "配置 Biome",
+								pl: "Konfiguracja Biome",
+								"pt-BR": "Configurar o Biome",
+								uk: "Налаштування Biome",
+								ru: "Настройка Biome",
+							},
+						},
+						{
+							label: "Set up your editor",
+							link: "/configuration/editors",
+						},
+						{
+							label: "Integrate with your VCS",
+							link: "/configuration/integrate-with-vcs",
+							translations: {
+								es: "Integrar Biome con tu VCS",
+								fr: "Intégrer Biome à votre VCS",
+								ja: "Biome をあなたの VCS と統合する",
+								"zh-CN": "与版本控制系统集成",
+								pl: "Integracja Biome z Twoim VCS",
+								"pt-BR": "Integre o Biome com seu VCS",
+								uk: "Інтеграція Biome з вашою VCS",
+								ru: "Интеграция Biome с вашей VCS",
+							},
+						},
+						{
+							label: "Use Biome in big projects",
+							link: "/configuration/big-projects",
+							translations: {
+								es: "Usar Biome en proyectos grandes",
+								fr: "Utiliser Biome dans de gros projets",
+								ja: "大規模プロジェクトでのBiomeの使用方法",
+								"zh-CN": "大型项目中使用 Biome",
+								pl: "Używanie Biome w dużych projektach",
+								"pt-BR": "Usando o Biome em projetos grandes",
+								uk: "Використання Biome в великих проектах",
+								ru: "Применение Biome в крупных проектах",
 							},
 						},
 						{
@@ -465,6 +458,14 @@ export default defineConfig({
 										"zh-CN": "插件系统",
 										pl: "Wtyczki",
 										ru: "Плагины",
+									},
+								},
+								{
+									label: "Community plugins",
+									link: "/community-plugins",
+									badge: {
+										text: "new",
+										variant: "success",
 									},
 								},
 								{
@@ -718,51 +719,6 @@ export default defineConfig({
 					],
 				},
 				{
-					label: "Biome Language Server",
-					translations: {
-						es: "Biome Language Server",
-						fr: "Biome Language Server",
-						ja: "Biome Language Server",
-						"zh-CN": "Biome Language Server",
-						pl: "Biome Language Server",
-						"pt-BR": "Biome Language Server",
-						uk: "Biome Language Server",
-						ru: "Biome Language Server",
-					},
-					items: [
-						{
-							label: "Introduction",
-							link: "/editors/introduction",
-						},
-						{
-							label: "First-party extensions",
-							link: "/editors/first-party-extensions",
-							translations: {
-								es: "Extensiones de primera mano",
-								fr: "Extensions officielles",
-								ja: "Biome 公式拡張機能",
-								"zh-CN": "官方扩展",
-								pl: "Oficjalne rozszerzenia",
-								uk: "Офіційні розширення",
-								ru: "Официальные расширения",
-							},
-						},
-						{
-							label: "Third-party extensions",
-							link: "/editors/third-party-extensions",
-							translations: {
-								es: "Extensiones de terceros",
-								fr: "Extensions tierces",
-								ja: "サードパーティの拡張機能",
-								"zh-CN": "第三方扩展",
-								pl: "Rozszerzenia stron trzecich",
-								uk: "Розширення сторонніх розробників",
-								ru: "Сторонние расширения",
-							},
-						},
-					],
-				},
-				{
 					label: "Reference",
 					translations: {
 						es: "Referencia",
@@ -845,6 +801,10 @@ export default defineConfig({
 							},
 						},
 						{
+							label: "Language server",
+							link: "/reference/language-server",
+						},
+						{
 							label: "GritQL",
 							link: "/reference/gritql",
 						},
@@ -920,6 +880,24 @@ export default defineConfig({
 							label: "GritQL Plugin Recipes",
 							link: "/recipes/gritql-plugins",
 						},
+						{
+							label: "Investigate slowness",
+							link: "/guides/investigate-slowness",
+							translations: {
+								ja: "パフォーマンスの問題を調査する",
+								"zh-CN": "调查 Biome 中的性能问题",
+								pl: "Badanie problemów z wydajnością",
+								ru: "Расследование медленной работы",
+							},
+						},
+						{
+							label: "Publish packages",
+							link: "/guides/publish-packages",
+							badge: {
+								text: "new",
+								variant: "success",
+							},
+						},
 					],
 				},
 				{
@@ -947,20 +925,6 @@ export default defineConfig({
 								"pt-BR": "Filosofia",
 								uk: "Філософія",
 								ru: "Философия",
-							},
-						},
-						{
-							label: "Language support",
-							link: "/internals/language-support",
-							translations: {
-								es: "Soporte de lenguas",
-								fr: "Langages pris en charge",
-								ja: "言語サポート",
-								"zh-CN": "语言支持",
-								pl: "Obsługa języków",
-								"pt-BR": "Suporte de linguagens",
-								uk: "Підтримка мов",
-								ru: "Поддержка языков",
 							},
 						},
 						{
@@ -1084,6 +1048,7 @@ export default defineConfig({
 				PageSidebar: "./src/components/starlight/PageSidebar.astro",
 			},
 		}),
+		...(process.env?.E2E !== "true" ? [lunariaDashboard()] : []),
 	],
 
 	adapter: netlify({
@@ -1121,10 +1086,18 @@ export default defineConfig({
 	},
 
 	vite: {
-		plugins: [],
+		plugins: [astroCompilerWasm()],
 
 		worker: {
 			format: "es",
+			plugins: () => [astroCompilerWasm()],
+		},
+
+		optimizeDeps: {
+			// Pre-bundling would bypass `astroCompilerWasm` and break the
+			// relative URL to the compiler's `.wasm` file
+			exclude: ["prettier-plugin-astro"],
+			include: ["prettier-plugin-astro > sass-formatter"],
 		},
 
 		server: {

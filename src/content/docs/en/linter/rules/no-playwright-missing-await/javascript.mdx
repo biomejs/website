@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noPlaywrightMiss
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-playwright-missing-await/javascript/"}]} />
 
@@ -91,4 +92,5 @@ test('example', async ({ page }) => {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_playwright_missing_await.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noPlaywrightMissingAwait)
+- <RulePlaygroundLink rule="noPlaywrightMissingAwait" category="lint" language="js" code={"test('example', async ({ page }) => {\n    expect(page.getByRole('button')).toBeVisible();\n});\n"} />
 

@@ -8,6 +8,7 @@ description: GraphQL documentation for useDeprecatedReason
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-deprecated-reason/graphql/"}]} />
 
@@ -34,10 +35,10 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Require specifying the reason argument when using `@deprecated` directive
+Require a reason when using the `@deprecated` directive.
 
-This rule checks the parameter of `@deprecated` directive for the use of reason argument,
-suggesting user to add it in case the argument is missing.
+A deprecation reason tells schema users why a field or value should no longer be used and
+what they should use instead. Add the `reason` argument whenever `@deprecated` appears.
 
 ## Examples
 
@@ -66,4 +67,5 @@ query {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/style/use_deprecated_reason.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/style/useDeprecatedReason)
+- <RulePlaygroundLink rule="useDeprecatedReason" category="lint" language="graphql" code={"query {\n  member @deprecated\n}\n"} />
 

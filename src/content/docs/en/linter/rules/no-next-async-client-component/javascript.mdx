@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noNextAsyncClien
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-next-async-client-component/javascript/"}]} />
 
@@ -82,4 +83,5 @@ export default async function ServerComponent() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_next_async_client_component.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noNextAsyncClientComponent)
+- <RulePlaygroundLink rule="noNextAsyncClientComponent" category="lint" language="jsx" code={"\"use client\";\n\nexport default async function MyComponent() {\n  return <div>Hello</div>;\n}\n"} />
 

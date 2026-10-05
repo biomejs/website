@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noDangerouslySet
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-dangerously-set-inner-html/javascript/"}]} />
 
@@ -38,7 +39,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Prevent the usage of dangerous JSX props
+Disallow React's `dangerouslySetInnerHTML` property.
+
+This property inserts HTML directly and bypasses React's normal escaping. If the HTML
+contains untrusted data, attackers can inject code through a cross-site scripting (XSS)
+vulnerability. Prefer rendering content as JSX children.
 
 ## Examples
 
@@ -46,20 +51,28 @@ Prevent the usage of dangerous JSX props
 
 ```jsx
 function createMarkup() {
-    return { __html: 'child' }
+    return { __html: "child" };
 }
-<div dangerouslySetInnerHTML={createMarkup()}></div>
+<div dangerouslySetInnerHTML={createMarkup()} />;
 ```
 
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:4:6 <a href=\"https://biomejs.dev/linter/rules/no-dangerously-set-inner-html\">lint/security/noDangerouslySetInnerHtml</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Avoid passing content using the </span><span style=\"color: Tomato;\"><strong>dangerouslySetInnerHTML</strong></span><span style=\"color: Tomato;\"> prop.</span><br />  <br />    <strong>2 │ </strong>    return &#123; &#95;&#95;html: 'child' &#125;<br />    <strong>3 │ </strong>&#125;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>&lt;div dangerouslySetInnerHTML=&#123;createMarkup()&#125;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Setting content using code can expose users to cross-site scripting (XSS) attacks</span><br />  <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:4:6 <a href=\"https://biomejs.dev/linter/rules/no-dangerously-set-inner-html\">lint/security/noDangerouslySetInnerHtml</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Avoid passing content using the </span><span style=\"color: Tomato;\"><strong>dangerouslySetInnerHTML</strong></span><span style=\"color: Tomato;\"> prop.</span><br />  <br />    <strong>2 │ </strong>    return &#123; &#95;&#95;html: &quot;child&quot; &#125;;<br />    <strong>3 │ </strong>&#125;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>&lt;div dangerouslySetInnerHTML=&#123;createMarkup()&#125; /&gt;;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Setting content using code can expose users to cross-site scripting (XSS) attacks</span><br />  <br /></code></pre>"} />
 
 ```js
-React.createElement('div', {
-    dangerouslySetInnerHTML: { __html: 'child' }
+React.createElement("div", {
+    dangerouslySetInnerHTML: { __html: "child" },
 });
 ```
 
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:5 <a href=\"https://biomejs.dev/linter/rules/no-dangerously-set-inner-html\">lint/security/noDangerouslySetInnerHtml</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Avoid passing content using the </span><span style=\"color: Tomato;\"><strong>dangerouslySetInnerHTML</strong></span><span style=\"color: Tomato;\"> prop.</span><br />  <br />    <strong>1 │ </strong>React.createElement('div', &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    dangerouslySetInnerHTML: &#123; &#95;&#95;html: 'child' &#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;);<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Setting content using code can expose users to cross-site scripting (XSS) attacks</span><br />  <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:5 <a href=\"https://biomejs.dev/linter/rules/no-dangerously-set-inner-html\">lint/security/noDangerouslySetInnerHtml</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Avoid passing content using the </span><span style=\"color: Tomato;\"><strong>dangerouslySetInnerHTML</strong></span><span style=\"color: Tomato;\"> prop.</span><br />  <br />    <strong>1 │ </strong>React.createElement(&quot;div&quot;, &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    dangerouslySetInnerHTML: &#123; &#95;&#95;html: &quot;child&quot; &#125;,<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;);<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Setting content using code can expose users to cross-site scripting (XSS) attacks</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```jsx
+function Message({ text }) {
+    return <div>{text}</div>;
+}
+```
 
 ## Related links
 
@@ -68,4 +81,5 @@ React.createElement('div', {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/security/no_dangerously_set_inner_html.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/security/noDangerouslySetInnerHtml)
+- <RulePlaygroundLink rule="noDangerouslySetInnerHtml" category="lint" language="jsx" code={"function createMarkup() {\n    return { __html: \"child\" };\n}\n<div dangerouslySetInnerHTML={createMarkup()} />;\n"} />
 

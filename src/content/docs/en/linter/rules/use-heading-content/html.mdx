@@ -8,6 +8,7 @@ description: HTML documentation for useHeadingContent
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-heading-content/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-heading-content/javascript/"}]} />
 
@@ -85,6 +86,18 @@ PascalCase variants are assumed to be custom components and are ignored.
 <h1><span aria-hidden="true">hidden</span> visible content</h1>
 ```
 
+Directives that render the heading text are treated as content: `set:html`
+and `set:text` in Astro files, `v-html` and `v-text` in Vue files. Headings
+that use them are not reported.
+
+```astro
+<h1 set:html={heading} />
+```
+
+```vue
+<template><h1 v-text="heading"></h1></template>
+```
+
 ## Accessibility guidelines
 
 - [WCAG 2.4.6](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html)
@@ -96,4 +109,5 @@ PascalCase variants are assumed to be custom components and are ignored.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/use_heading_content.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/useHeadingContent)
+- <RulePlaygroundLink rule="useHeadingContent" category="lint" language="html" code={"<h1></h1>\n"} />
 

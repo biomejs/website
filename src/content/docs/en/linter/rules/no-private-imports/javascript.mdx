@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noPrivateImports
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-private-imports/javascript/"}]} />
 
@@ -166,4 +167,5 @@ import { subPrivateVariable } from "../index.js";
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_private_imports.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noPrivateImports)
+- <RulePlaygroundLink rule="noPrivateImports" category="lint" language="js" code={"// Attempt to import package private variable from `sub/foo.js` from\n// outside its `sub` module:\nimport { fooPackageVariable } from \"./sub/foo.js\";\n\n/**\n * @private For test purposes only!\n */\nexport function getTestStuff() {}\n"} />
 

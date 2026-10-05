@@ -8,6 +8,7 @@ description: GraphQL documentation for useSortedSelectionSet
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/assist/actions/use-sorted-selection-set/graphql/"}]} />
@@ -34,13 +35,14 @@ import EditorAction from "@/components/EditorAction.astro";
 
 ```
 ## Description
-Sort GraphQL selection sets.
+Sort selections inside GraphQL operations and fragments.
 
-This rule orders fields first, fragment spreads next, and inline fragments last.
-Within each category, identifiers are sorted alphabetically.
+The action places fields first, named fragment spreads such as `...UserFields` next, and
+inline fragments such as `... on User` last. Within each group, names use natural order,
+which compares numbers by value.
 
-For fields, aliases are used as the sort key when present.
-This keeps selections deterministic and easier to scan in reviews.
+An aliased field is sorted by its alias. For example, `firstName: name` is sorted under
+`firstName`, which is the name returned in the response.
 
 ## Examples
 
@@ -93,4 +95,5 @@ query {
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/assist/source/use_sorted_selection_set.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/source/useSortedSelectionSet)
+- <RulePlaygroundLink rule="useSortedSelectionSet" category="assist" language="graphql" code={"query {\n  id\n  ...bFragment\n  firstName: name\n  ... on Contact {\n    phoneNumber\n    email\n  }\n  age\n  ... on Address {\n    street\n    city\n  }\n  ...aFragment\n}\n"} />
 

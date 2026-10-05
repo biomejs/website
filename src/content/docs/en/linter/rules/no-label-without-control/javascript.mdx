@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noLabelWithoutCo
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-label-without-control/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-label-without-control/javascript/"}]} />
 
@@ -19,6 +20,8 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
 - Sources: 
   - Same as [`jsx-a11y/label-has-associated-control`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-associated-control.md)
+  - Same as [`astro/jsx-a11y/label-has-associated-control`](https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/label-has-associated-control)
+  - Inspired from [`jsx-a11y/label-has-for`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-for.md)
 
 ## How to configure
 ```json title="biome.json"
@@ -143,4 +146,5 @@ Both options `inputComponents` and `labelComponents` don't have support for name
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/no_label_without_control.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noLabelWithoutControl)
+- <RulePlaygroundLink rule="noLabelWithoutControl" category="lint" language="jsx" code={"<label for=\"js_id\" />;\n"} />
 

@@ -8,6 +8,7 @@ description: GraphQL documentation for useSortedTypeFields
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/assist/actions/use-sorted-type-fields/graphql/"}]} />
@@ -34,11 +35,11 @@ import EditorAction from "@/components/EditorAction.astro";
 
 ```
 ## Description
-Sort fields in GraphQL type definitions alphabetically.
+Sort fields in GraphQL type definitions by name.
 
-This rule ensures that fields within `type`, `interface`, and `input`
-definitions are sorted alphabetically. For GraphQL identifiers (`[A-Za-z0-9_]`),
-the sort order matches JavaScript's `localeCompare()`, including case handling.
+The action sorts fields inside `type`, `interface`, and `input` definitions. Underscores
+come first, followed by digits and then letters. Letter case is ignored first; when names
+otherwise match, lowercase letters come before uppercase letters.
 
 ## Examples
 
@@ -77,4 +78,5 @@ input CreateUserInput {
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/assist/source/use_sorted_type_fields.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/source/useSortedTypeFields)
+- <RulePlaygroundLink rule="useSortedTypeFields" category="assist" language="graphql" code={"type User {\n  name: String\n  age: Int\n  id: ID\n}\n"} />
 

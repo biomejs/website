@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noDynamicNamespa
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-dynamic-namespace-import-access/javascript/"}]} />
 
@@ -91,4 +92,5 @@ knownMessagesMap[dynamicKey]
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/performance/no_dynamic_namespace_import_access.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/performance/noDynamicNamespaceImportAccess)
+- <RulePlaygroundLink rule="noDynamicNamespaceImportAccess" category="lint" language="js" code={"import * as foo from \"foo\"\nfoo[\"bar\"]\n"} />
 

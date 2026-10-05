@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noSvgWithoutTitl
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-svg-without-title/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-svg-without-title/javascript/"}]} />
 
@@ -145,4 +146,5 @@ To make svg accessible, the following methods are available:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/no_svg_without_title.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noSvgWithoutTitle)
+- <RulePlaygroundLink rule="noSvgWithoutTitle" category="lint" language="jsx" code={"<svg>foo</svg>\n"} />
 

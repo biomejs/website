@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noTemplateCurlyI
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-template-curly-in-string/javascript/"}]} />
 
@@ -79,4 +80,5 @@ const a = templateFunction`Hello ${name}`;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_template_curly_in_string.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noTemplateCurlyInString)
+- <RulePlaygroundLink rule="noTemplateCurlyInString" category="lint" language="js" code={"const a = \"Hello ${name}!\";\n"} />
 

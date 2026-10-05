@@ -8,6 +8,7 @@ description: GraphQL documentation for useConsistentGraphqlDescriptions
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-consistent-graphql-descriptions/graphql/"}]} />
 
@@ -34,7 +35,10 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Require all descriptions to follow the same style (either block or inline) to  maintain consistency and improve readability across the schema.
+Require one description style throughout a GraphQL schema.
+
+GraphQL supports triple-quoted block descriptions and one-line descriptions in double
+quotes. Using one style consistently makes schema documentation easier to scan.
 
 ## Examples
 
@@ -66,12 +70,12 @@ enum EnumValue {
 
 ### `style`
 
-This option will specify the description style.
+Selects the required description style:
 
-- `"block"`: Requires triple-quoted block descriptions (`"""..."""`)
-- `"inline"`: Requires single-quoted inline descriptions (`"..."`)
+- `"block"` requires triple-quoted descriptions (`"""..."""`);
+- `"inline"` requires one-line descriptions in double quotes (`"..."`).
 
-Default `"block"`
+Defaults to `"block"`.
 
 ```json title='biome.json'
 {
@@ -109,4 +113,5 @@ enum EnumValue {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/style/use_consistent_graphql_descriptions.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/style/useConsistentGraphqlDescriptions)
+- <RulePlaygroundLink rule="useConsistentGraphqlDescriptions" category="lint" language="graphql" code={"enum EnumValue {\n  \"this is a description\"\n  DEFAULT\n}\n"} />
 

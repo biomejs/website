@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noTernary
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-ternary/javascript/"}]} />
 
@@ -68,4 +69,5 @@ if (isBar) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_ternary.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noTernary)
+- <RulePlaygroundLink rule="noTernary" category="lint" language="js" code={"const foo = isBar ? baz : qux;\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noForIn
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-for-in/javascript/"}]} />
 
@@ -89,4 +90,5 @@ for (const [i, value] of array.entries()) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_for_in.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noForIn)
+- <RulePlaygroundLink rule="noForIn" category="lint" language="js" code={"for (const i in array) {\n  console.log(i, array[i]);\n}\n"} />
 

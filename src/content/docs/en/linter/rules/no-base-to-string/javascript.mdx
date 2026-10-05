@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noBaseToString
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-base-to-string/javascript/"}]} />
 
@@ -96,4 +97,5 @@ class CustomToString {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_base_to_string.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noBaseToString)
+- <RulePlaygroundLink rule="noBaseToString" category="lint" language="ts" code={"const value: {} = {};\nString(value);\n"} />
 

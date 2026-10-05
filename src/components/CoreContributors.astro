@@ -1,30 +1,16 @@
 ---
+import { getCollection } from "astro:content";
 import GitHubAvatar from "@/components/GitHubAvatar.astro";
+
+const maintainers = await getCollection("team", (entry) => {
+	return entry.data.type === "core";
+});
 ---
 
 <ul class="credits-people-list core-contributors">
-	<li>
-		<GitHubAvatar handle="arendjr" />
-	</li>
-	<li>
-		<GitHubAvatar handle="ematipico" />
-	</li>
-	<li>
-		<GitHubAvatar handle="conaclos" />
-	</li>
-	<li>
-		<GitHubAvatar handle="dyc3" />
-	</li>
-	<li>
-		<GitHubAvatar handle="denbezrukov" />
-	</li>
-	<li>
-		<GitHubAvatar handle="unvalley" />
-	</li>
-	<li>
-		<GitHubAvatar handle="siketyan" />
-	</li>
-	<li>
-		<GitHubAvatar handle="nhedger" />
-	</li>
+	{maintainers.map((entry) => (
+		<li>
+			<GitHubAvatar handle={entry.id} />
+		</li>
+	))}
 </ul>

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noExtraBooleanCa
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-extra-boolean-cast/javascript/"}]} />
 
@@ -89,4 +90,5 @@ Boolean(!x);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_extra_boolean_cast.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noExtraBooleanCast)
+- <RulePlaygroundLink rule="noExtraBooleanCast" category="lint" language="js" code={"if (!Boolean(foo)) {\n}\n"} />
 

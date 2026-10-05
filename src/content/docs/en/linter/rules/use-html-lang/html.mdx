@@ -8,6 +8,7 @@ description: HTML documentation for useHtmlLang
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-html-lang/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-html-lang/javascript/"}]} />
 
@@ -35,7 +36,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Enforce that `html` element has `lang` attribute.
+Require a `lang` attribute on the `<html>` element.
+
+The language tag helps screen readers choose the correct pronunciation rules when the user
+has not selected a default language. A static HTML value must be non-empty. Vue bindings are
+accepted without evaluating the value they produce at runtime.
 
 ## Examples
 
@@ -70,4 +75,5 @@ Enforce that `html` element has `lang` attribute.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/use_html_lang.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/useHtmlLang)
+- <RulePlaygroundLink rule="useHtmlLang" category="lint" language="html" code={"<html></html>\n"} />
 

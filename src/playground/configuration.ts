@@ -1,7 +1,9 @@
-import type { Configuration, Rules } from "@biomejs/wasm-web";
+import type { Actions, Configuration, Rules } from "@biomejs/wasm-web";
+import { ASSIST_ACTIONS } from "@/playground/generated/assistActions.ts";
 import { LINT_RULES } from "@/playground/generated/lintRules.ts";
 import {
 	ArrowParentheses,
+	type AssistAction,
 	AttributePosition,
 	Expand,
 	IndentStyle,
@@ -12,6 +14,68 @@ import {
 	QuoteStyle,
 	Semicolons,
 } from "@/playground/types.ts";
+
+const BIOME_DEFAULT_CONFIGURATION = {
+	formatter: {
+		enabled: true,
+		formatWithErrors: false,
+		lineWidth: 80,
+		indentStyle: "tab",
+		indentWidth: 2,
+		attributePosition: "auto",
+		expand: "auto",
+	},
+	linter: {
+		enabled: true,
+		domains: {},
+		rules: {},
+	},
+	assist: {
+		enabled: true,
+	},
+	javascript: {
+		formatter: {
+			quoteStyle: "double",
+			jsxQuoteStyle: "double",
+			quoteProperties: "asNeeded",
+			trailingCommas: "all",
+			semicolons: "always",
+			arrowParentheses: "always",
+			operatorLinebreak: "after",
+			bracketSpacing: true,
+			bracketSameLine: false,
+			attributePosition: "auto",
+		},
+		parser: {
+			unsafeParameterDecoratorsEnabled: false,
+		},
+		experimentalEmbeddedSnippetsEnabled: false,
+	},
+	css: {
+		formatter: {
+			quoteStyle: "double",
+		},
+		parser: {
+			allowWrongLineComments: false,
+			cssModules: false,
+			tailwindDirectives: false,
+		},
+	},
+	json: {
+		formatter: {},
+		parser: {
+			allowComments: false,
+		},
+	},
+	html: {
+		formatter: {
+			enabled: false,
+			indentScriptAndStyle: false,
+			whitespaceSensitivity: "css",
+		},
+		experimentalFullSupportEnabled: false,
+	},
+} satisfies Configuration;
 
 export function createBiomeConfiguration(
 	settings: PlaygroundSettings,
@@ -41,6 +105,7 @@ export function createBiomeConfiguration(
 		},
 		assist: {
 			enabled: settings.enabledAssist,
+			actions: createAssistActionsConfiguration(settings.assistActions),
 		},
 		javascript: {
 			formatter: {
@@ -121,21 +186,69 @@ export function createBiomeConfiguration(
 export function stringifyBiomeConfiguration(
 	settings: PlaygroundSettings,
 ): string {
-	return `${JSON.stringify(createBiomeConfiguration(settings), null, 2)}\n`;
+	const configuration = omitDefaultValues(
+		createBiomeConfiguration(settings),
+		BIOME_DEFAULT_CONFIGURATION,
+	);
+	return `${JSON.stringify(configuration ?? {}, null, 2)}\n`;
 }
 
-export function getOnlyLintRules(lintRule: LintRule): string[] {
-	return isLintPreset(lintRule) ? [] : [lintRule];
+function omitDefaultValues(value: unknown, defaultValue: unknown): unknown {
+	if (Object.is(value, defaultValue)) {
+		return undefined;
+	}
+
+	if (Array.isArray(value)) {
+		if (
+			Array.isArray(defaultValue) &&
+			value.length === defaultValue.length &&
+			value.every(
+				(item, index) =>
+					omitDefaultValues(item, defaultValue[index]) === undefined,
+			)
+		) {
+			return undefined;
+		}
+		return value;
+	}
+
+	if (isRecord(value) && isRecord(defaultValue)) {
+		const result: Record<string, unknown> = {};
+		for (const [key, item] of Object.entries(value)) {
+			const difference = omitDefaultValues(item, defaultValue[key]);
+			if (difference !== undefined) {
+				result[key] = difference;
+			}
+		}
+		return Object.keys(result).length === 0 ? undefined : result;
+	}
+
+	return value;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+export function getOnlyRules(
+	lintRule: LintRule,
+	assistAction: AssistAction,
+): string[] {
+	const selections = [lintRule, assistAction];
+	if (
+		selections.some(
+			(selection) => selection === "recommended" || selection === "all",
+		)
+	) {
+		return [];
+	}
+	return selections.filter((selection) => selection !== "none");
 }
 
 function createLintRulesConfiguration(lintRule: LintRule): Rules {
 	switch (lintRule) {
 		case LINT_RULES.preset.recommended:
-			return {
-				nursery: {
-					preset: "none",
-				},
-			};
+			return { preset: "recommended" };
 		case LINT_RULES.preset.all:
 			return { preset: "all" };
 		case LINT_RULES.preset.none:
@@ -162,6 +275,16 @@ function createSingleLintRuleConfiguration(lintRule: LintRule): Rules {
 	return { preset: "recommended" };
 }
 
-function isLintPreset(lintRule: LintRule): boolean {
-	return Object.values(LINT_RULES.preset).some((preset) => preset === lintRule);
+function createAssistActionsConfiguration(assistAction: AssistAction): Actions {
+	switch (assistAction) {
+		case ASSIST_ACTIONS.preset.recommended:
+		case ASSIST_ACTIONS.preset.all:
+		case ASSIST_ACTIONS.preset.none:
+			return { preset: assistAction };
+		default:
+			return {
+				preset: "none",
+				source: { [assistAction]: "on" },
+			};
+	}
 }

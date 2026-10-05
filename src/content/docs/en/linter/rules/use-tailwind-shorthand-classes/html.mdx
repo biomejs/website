@@ -8,6 +8,7 @@ description: HTML documentation for useTailwindShorthandClasses
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-tailwind-shorthand-classes/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-tailwind-shorthand-classes/javascript/"}]} />
 
@@ -62,7 +63,7 @@ prevent drift where one side gets updated but the matching side does not.
 
 ## Known limitations
 
-This rule currently doesn't check bare strings inside framework-specific class collections,
+This rule doesn't check bare strings inside framework-specific class collections,
 such as array or object entries in Vue, Svelte, or Astro class bindings:
 
 ```svelte
@@ -76,8 +77,8 @@ It also doesn't check untagged template chunks inside framework class attributes
 <div class={`border-x border-y ${extra}`}></div>
 ```
 
-In Astro, bare strings inside `class:list` arrays are currently not checked unless they are passed
-to a recognized helper function such as `clsx`.
+In Astro, bare strings inside `class:list` arrays are not checked unless they are passed to a
+recognized helper function such as `clsx`.
 
 ## Related links
 
@@ -86,4 +87,5 @@ to a recognized helper function such as `clsx`.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_tailwind_shorthand_classes.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useTailwindShorthandClasses)
+- <RulePlaygroundLink rule="useTailwindShorthandClasses" category="lint" language="html" code={"<div class=\"w-4 h-4\"></div>\n"} />
 

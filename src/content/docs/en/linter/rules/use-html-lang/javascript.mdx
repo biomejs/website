@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useHtmlLang
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-html-lang/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-html-lang/javascript/"}]} />
 
@@ -20,6 +21,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - Sources: 
   - Same as [`jsx-a11y/html-has-lang`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/html-has-lang.md)
   - Inspired from [`@html-eslint/require-lang`](https://html-eslint.org/docs/rules/require-lang)
+  - Same as [`astro/jsx-a11y/html-has-lang`](https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/html-has-lang)
 
 ## How to configure
 ```json title="biome.json"
@@ -100,4 +102,5 @@ Enforce that `html` element has `lang` attribute.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/use_html_lang.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/useHtmlLang)
+- <RulePlaygroundLink rule="useHtmlLang" category="lint" language="jsx" code={"<html></html>\n"} />
 

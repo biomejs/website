@@ -8,6 +8,7 @@ description: CSS documentation for noImportantInKeyframe
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-important-in-keyframe/css/"}]} />
 
@@ -34,9 +35,10 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow invalid `!important` within keyframe declarations
+Disallow `!important` in `@keyframes` declarations.
 
-Using `!important` within keyframes declarations is completely ignored in some browsers.
+CSS ignores declarations marked with `!important` inside a keyframe, so the declaration has
+no effect. Remove `!important` and let the animation control the property value.
 
 ## Examples
 
@@ -75,4 +77,5 @@ Using `!important` within keyframes declarations is completely ignored in some b
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_important_in_keyframe.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noImportantInKeyframe)
+- <RulePlaygroundLink rule="noImportantInKeyframe" category="lint" language="css" code={"@keyframes foo {\n    from {\n      opacity: 0;\n    }\n    to {\n      opacity: 1 !important;\n    }\n}\n"} />
 

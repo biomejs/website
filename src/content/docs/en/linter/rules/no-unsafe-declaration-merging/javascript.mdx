@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnsafeDeclarat
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unsafe-declaration-merging/javascript/"}]} />
 
@@ -79,4 +80,5 @@ enum Baz {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_unsafe_declaration_merging.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noUnsafeDeclarationMerging)
+- <RulePlaygroundLink rule="noUnsafeDeclarationMerging" category="lint" language="ts" code={"interface Foo {\n    f(): void\n}\n\nclass Foo {}\n\nconst foo = new Foo();\nfoo.f(); // Runtime Error: Cannot read properties of undefined.\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnsafeNegation
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unsafe-negation/javascript/"}]} />
 
@@ -70,4 +71,5 @@ delete 1 in [1,2];
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_unsafe_negation.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noUnsafeNegation)
+- <RulePlaygroundLink rule="noUnsafeNegation" category="lint" language="js" code={"!1 in [1,2];\n"} />
 

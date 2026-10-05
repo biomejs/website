@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noSwitchDeclarat
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-switch-declarations/javascript/"}]} />
 
@@ -34,12 +35,13 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow lexical declarations in `switch` clauses.
+Disallow declarations directly inside `switch` clauses.
 
-Lexical declarations in `switch` clauses are accessible in the entire `switch`.
-However, it only gets initialized when it is assigned, which will only happen if the `switch` clause where it is defined is reached.
+A `let`, `const`, function, or class declared in one clause is visible throughout the
+entire `switch`, but it is initialized only when the clause containing it runs. Another
+clause can therefore access the declaration before initialization and cause a runtime error.
 
-To ensure that the lexical declarations only apply to the current `switch` clause wrap your declarations in a block.
+Wrap each clause in a block to limit the declaration to that clause.
 
 ## Examples
 
@@ -105,4 +107,5 @@ switch (foo) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_switch_declarations.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noSwitchDeclarations)
+- <RulePlaygroundLink rule="noSwitchDeclarations" category="lint" language="js" code={"switch (foo) {\n    case 0:\n        const x = 1;\n        break;\n    case 2:\n        x; // `x` can be used while it is not initialized\n        break;\n}\n"} />
 

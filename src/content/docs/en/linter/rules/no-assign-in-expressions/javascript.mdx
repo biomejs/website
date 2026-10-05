@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noAssignInExpres
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-assign-in-expressions/javascript/"}]} />
 
@@ -86,4 +87,5 @@ const f = b => a += b;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_assign_in_expressions.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noAssignInExpressions)
+- <RulePlaygroundLink rule="noAssignInExpressions" category="lint" language="ts" code={"let a, b;\na = (b = 1) + 1;\n"} />
 

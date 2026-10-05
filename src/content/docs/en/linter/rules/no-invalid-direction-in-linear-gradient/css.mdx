@@ -8,6 +8,7 @@ description: CSS documentation for noInvalidDirectionInLinearGradient
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-invalid-direction-in-linear-gradient/css/"}]} />
 
@@ -34,14 +35,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow non-standard direction values for linear gradient functions.
+Disallow non-standard directions in linear gradients.
 
-A valid and standard direction value is one of the following:
-
-- an angle
-- to plus a side-or-corner (`to top`, `to bottom`, `to left`, `to right`; `to top right`, `to right top`, `to bottom left`, etc.)
-
-A common mistake (matching outdated non-standard syntax) is to use just a side-or-corner without the preceding to.
+A gradient direction must be either an angle with a unit, such as `45deg`, or a side or
+corner preceded by `to`, such as `to top` or `to bottom right`. Writing only `top` or a
+unitless number uses invalid or outdated syntax.
 
 ## Examples
 
@@ -76,4 +74,5 @@ A common mistake (matching outdated non-standard syntax) is to use just a side-o
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_invalid_direction_in_linear_gradient.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noInvalidDirectionInLinearGradient)
+- <RulePlaygroundLink rule="noInvalidDirectionInLinearGradient" category="lint" language="css" code={".foo { background: linear-gradient(top, #fff, #000); }\n"} />
 

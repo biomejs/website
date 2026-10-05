@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useTopLevelRegex
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-top-level-regex/javascript/"}]} />
 
@@ -75,4 +76,5 @@ function foo(str) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/performance/use_top_level_regex.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/performance/useTopLevelRegex)
+- <RulePlaygroundLink rule="useTopLevelRegex" category="lint" language="js" code={"function foo(someString) {\n    return /[a-Z]*/.test(someString)\n}\n"} />
 

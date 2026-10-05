@@ -8,6 +8,7 @@ description: CSS documentation for noInvalidPositionAtImportRule
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-invalid-position-at-import-rule/css/"}]} />
 
@@ -35,9 +36,10 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow the use of `@import` at-rules in invalid positions.
+Disallow `@import` after other rules.
 
-Any `@import` rules must precede all other valid at-rules and style rules in a stylesheet (ignoring `@charset` and `@layer`), or else the `@import` rule is invalid.
+An `@import` must appear before style rules and most at-rules. Only `@charset` and `@layer`
+may appear before it. Browsers ignore an `@import` placed later in the stylesheet.
 
 ## Examples
 
@@ -64,4 +66,5 @@ a {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_invalid_position_at_import_rule.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noInvalidPositionAtImportRule)
+- <RulePlaygroundLink rule="noInvalidPositionAtImportRule" category="lint" language="css" code={"a {}\n@import 'foo.css';\n"} />
 

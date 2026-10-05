@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noNonNullAsserti
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-non-null-assertion/javascript/"}]} />
 
@@ -79,4 +80,5 @@ const includesBaz = foo.property?.includes('baz') ?? false;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_non_null_assertion.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noNonNullAssertion)
+- <RulePlaygroundLink rule="noNonNullAssertion" category="lint" language="ts" code={"interface Example {\n  property?: string;\n}\ndeclare const foo: Example;\nconst includesBaz = foo.property!.includes('baz');\n"} />
 

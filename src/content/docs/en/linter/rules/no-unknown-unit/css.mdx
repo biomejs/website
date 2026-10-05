@@ -8,6 +8,7 @@ description: CSS documentation for noUnknownUnit
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-unit/css/"}]} />
 
@@ -34,9 +35,10 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow unknown CSS units.
+Disallow unrecognized CSS units.
 
-For details on known CSS units, see the [MDN web docs](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units#lengths).
+A unit follows a number and describes its measurement, as in `10px`, `2rem`, or `500ms`.
+See [MDN's value and unit guide](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units#lengths).
 
 ## Examples
 
@@ -91,4 +93,5 @@ a {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unknown_unit.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnknownUnit)
+- <RulePlaygroundLink rule="noUnknownUnit" category="lint" language="css" code={"a {\n  width: 10pixels;\n}\n"} />
 

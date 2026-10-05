@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useForOf
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-for-of/javascript/"}]} />
 
@@ -20,6 +21,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - Sources: 
   - Same as [`@typescript-eslint/prefer-for-of`](https://typescript-eslint.io/rules/prefer-for-of)
   - Same as [`unicorn/no-for-loop`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-for-loop.md)
+  - Same as [`@mysticatea/prefer-for-of`](https://github.com/mysticatea/eslint-plugin/blob/master/docs/rules/prefer-for-of.md)
 
 ## How to configure
 ```json title="biome.json"
@@ -93,4 +95,5 @@ for (; i < array.length; i++) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_for_of.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useForOf)
+- <RulePlaygroundLink rule="useForOf" category="lint" language="js" code={"for (let i = 0; i < array.length; i++) {\n  console.log(array[i]);\n}\n"} />
 

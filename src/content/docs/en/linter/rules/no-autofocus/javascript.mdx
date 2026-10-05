@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noAutofocus
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-autofocus/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-autofocus/javascript/"}]} />
 
@@ -19,6 +20,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - The default severity of this rule is [**error**](/reference/diagnostics#error).
 - Sources: 
   - Same as [`jsx-a11y/no-autofocus`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-autofocus.md)
+  - Same as [`astro/jsx-a11y/no-autofocus`](https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-autofocus)
 
 ## How to configure
 ```json title="biome.json"
@@ -110,4 +112,5 @@ interact with immediately upon opening a modal dialog or popover.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/no_autofocus.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noAutofocus)
+- <RulePlaygroundLink rule="noAutofocus" category="lint" language="jsx" code={"<input autoFocus />\n"} />
 

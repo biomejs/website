@@ -1,0 +1,115 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noMisplacedListElements (JavaScript)
+description: JavaScript (and super languages) documentation for noMisplacedListElements
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-misplaced-list-elements/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-misplaced-list-elements/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.5.15`
+- Diagnostic Category: [`lint/nursery/noMisplacedListElements`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Inspired from [`@html-eslint/require-li-container`](https://html-eslint.org/docs/rules/require-li-container)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noMisplacedListElements": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require `<li>` elements with an HTML element parent to be children of `<ul>`, `<ol>`, or `<menu>`.
+
+List items need a list container to define their relationship to the other items.
+Placing a list item outside a list container produces invalid HTML.
+
+The parent is the element the item is rendered into. Fragments, conditional and
+logical expressions, arrays, and callbacks passed to `map`, `flatMap`, or `Array.from`
+are looked through to find it.
+
+List items without an HTML element parent are ignored, including standalone items,
+items returned from components, items stored in variables, and component children.
+Their container may be supplied where they are rendered.
+
+## Examples
+
+### Invalid
+
+```jsx
+<div><li>Item</li></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:6 <a href=\"https://biomejs.dev/linter/rules/no-misplaced-list-elements\">lint/nursery/noMisplacedListElements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>&lt;li&gt;</strong></span><span style=\"color: Tomato;\"> element is outside a list container.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">List items need a list container to form a valid HTML list.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Make this element a direct child of </span><span style=\"color: lightgreen;\"><strong>&lt;ul&gt;</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>&lt;ol&gt;</strong></span><span style=\"color: lightgreen;\">, or </span><span style=\"color: lightgreen;\"><strong>&lt;menu&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```jsx
+<ul><div><li /></div></ul>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:10 <a href=\"https://biomejs.dev/linter/rules/no-misplaced-list-elements\">lint/nursery/noMisplacedListElements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>&lt;li&gt;</strong></span><span style=\"color: Tomato;\"> element is outside a list container.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;ul&gt;&lt;div&gt;&lt;li /&gt;&lt;/div&gt;&lt;/ul&gt;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">List items need a list container to form a valid HTML list.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Make this element a direct child of </span><span style=\"color: lightgreen;\"><strong>&lt;ul&gt;</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>&lt;ol&gt;</strong></span><span style=\"color: lightgreen;\">, or </span><span style=\"color: lightgreen;\"><strong>&lt;menu&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```jsx
+<div>{items.map((item) => <li key={item}>{item}</li>)}</div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:27 <a href=\"https://biomejs.dev/linter/rules/no-misplaced-list-elements\">lint/nursery/noMisplacedListElements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>&lt;li&gt;</strong></span><span style=\"color: Tomato;\"> element is outside a list container.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div&gt;&#123;items.map((item) =&gt; &lt;li key=&#123;item&#125;&gt;&#123;item&#125;&lt;/li&gt;)&#125;&lt;/div&gt;<br />   <strong>   │ </strong>                          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">List items need a list container to form a valid HTML list.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Make this element a direct child of </span><span style=\"color: lightgreen;\"><strong>&lt;ul&gt;</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>&lt;ol&gt;</strong></span><span style=\"color: lightgreen;\">, or </span><span style=\"color: lightgreen;\"><strong>&lt;menu&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```jsx
+<>
+    <ul><li>Item</li></ul>
+    <ol><li>Item</li></ol>
+    <menu><li /></menu>
+</>
+```
+
+```jsx
+<ul>{items.map((item) => <li key={item}>{item}</li>)}</ul>
+```
+
+```jsx
+<li>Item rendered in a list elsewhere</li>
+```
+
+```jsx
+const item = <li>Item rendered in a list elsewhere</li>;
+```
+
+```jsx
+function Item() {
+    return <li>Item rendered in a list elsewhere</li>;
+}
+```
+
+```jsx
+<List><li>Component child</li></List>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_misplaced_list_elements.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noMisplacedListElements)
+- <RulePlaygroundLink rule="noMisplacedListElements" category="lint" language="jsx" code={"<div><li>Item</li></div>\n"} />
+

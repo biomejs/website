@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noWith
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-with/javascript/"}]} />
 
@@ -60,4 +61,5 @@ function f() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_with.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noWith)
+- <RulePlaygroundLink rule="noWith" category="lint" language="cjs" code={"function f() {\n  with (point) {\n    r = Math.sqrt(x * x + y * y); // is r a member of point?\n  }\n}\n"} />
 

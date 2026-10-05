@@ -8,6 +8,7 @@ description: JSON (and super languages) documentation for noBiomeFirstException
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/no-biome-first-exception/json/"}]} />
 
@@ -31,18 +32,18 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Prevents the misuse of glob patterns inside the `files.includes` field.
+Disallow ineffective ordering in `files.includes` patterns.
 
-## Leading of negated patterns
+A pattern beginning with `!` excludes matching paths. If an exclusion is first, no earlier
+pattern has included files for it to remove, so Biome matches no files. Start with an
+inclusion pattern, then add exclusions.
 
-If the first pattern of `files.includes` starts with the leading `!`, Biome won't have any file to crawl. Generally,
-it is a good practice to declare the files/folders to include first, and then the files/folder to ignore.
+See the [file exclusion guide](https://biomejs.dev/guides/configure-biome/#exclude-files-via-configuration)
+for more examples.
 
-Check the [official documentation](https://biomejs.dev/guides/configure-biome/#exclude-files-via-configuration) for more examples.
+## Examples
 
-### Examples
-
-#### Invalid
+### Invalid
 
 ```json
 {
@@ -52,7 +53,7 @@ Check the [official documentation](https://biomejs.dev/guides/configure-biome/#e
 }
 ```
 
-#### Valid
+### Valid
 
 ```json
 {
@@ -62,12 +63,13 @@ Check the [official documentation](https://biomejs.dev/guides/configure-biome/#e
 }
 ```
 
-## Leading with catch-all `**`
+## Extended configurations
 
-If the user configuration file extends from other sources (other configuration files or libraries), and those files contain the catch-all glob `**` in `files.includes`,
-the rule will trigger a violation if also the user configuration file has a `**`.
+The catch-all pattern `**` includes every path. When an extended configuration already
+starts with `**`, repeating that pattern at the start of the local configuration is
+redundant. Keep the inherited catch-all and add only the local exclusions.
 
-#### Invalid
+### Invalid
 
 ```jsonc
 // biome.json
@@ -84,6 +86,18 @@ the rule will trigger a violation if also the user configuration file has a `**`
 {
     "files": {
         "includes": ["**", "!**/dist"]
+    }
+}
+```
+
+### Valid
+
+```jsonc
+// biome.json
+{
+    "extends": ["./base.json"],
+    "files": {
+        "includes": ["!**/test"]
     }
 }
 ```

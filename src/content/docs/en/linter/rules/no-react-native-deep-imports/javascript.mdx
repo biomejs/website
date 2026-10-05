@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noReactNativeDee
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-react-native-deep-imports/javascript/"}]} />
 
@@ -89,4 +90,5 @@ const { Platform } = require("react-native");
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_react_native_deep_imports.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noReactNativeDeepImports)
+- <RulePlaygroundLink rule="noReactNativeDeepImports" category="lint" language="js" code={"import View from \"react-native/Libraries/Components/View/View\";\n"} />
 

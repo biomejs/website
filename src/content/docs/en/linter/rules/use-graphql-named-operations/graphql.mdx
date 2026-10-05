@@ -8,6 +8,7 @@ description: GraphQL documentation for useGraphqlNamedOperations
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-graphql-named-operations/graphql/"}]} />
 
@@ -34,9 +35,13 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Enforce specifying the name of GraphQL operations.
+Require a name for every explicit GraphQL operation definition.
 
-This is useful because most GraphQL client libraries use the operation name for caching purposes.
+Operation names help clients identify requests in logs, debugging tools, and caches. A name
+also distinguishes the operation from others in the same document.
+
+The shorthand query form `{ field }` has no operation-definition node and is not checked by
+this rule.
 
 ## Examples
 
@@ -63,4 +68,5 @@ query Human {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/correctness/use_graphql_named_operations.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/correctness/useGraphqlNamedOperations)
+- <RulePlaygroundLink rule="useGraphqlNamedOperations" category="lint" language="graphql" code={"query {}\n"} />
 

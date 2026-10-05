@@ -8,6 +8,7 @@ description: CSS documentation for noInvalidGridAreas
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-invalid-grid-areas/css/"}]} />
 
@@ -35,14 +36,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallows invalid named grid areas in CSS Grid Layouts.
+Disallow invalid named areas in CSS grid templates.
 
-For a named grid area to be valid, all strings must define:
-
-- the same number of cell tokens
-- at least one cell token
-
-And all named grid areas that spans multiple grid cells must form a single filled-in rectangle.
+Each quoted row in `grid-template-areas` contains space-separated cells. Every row must
+contain the same number of cells and must not be empty. When an area name appears in more
+than one cell, those cells must form one filled rectangle.
 
 ## Examples
 
@@ -88,4 +86,5 @@ a { grid-template-areas: "a a a"
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_invalid_grid_areas.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noInvalidGridAreas)
+- <RulePlaygroundLink rule="noInvalidGridAreas" category="lint" language="css" code={"a { grid-template-areas: \"a a\"\n                         \"b b b\"; }\n"} />
 

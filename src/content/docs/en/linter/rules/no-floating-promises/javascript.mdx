@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noFloatingPromis
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-floating-promises/javascript/"}]} />
 
@@ -206,4 +207,5 @@ async function testCallingReturnsPromise(props: Props) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_floating_promises.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noFloatingPromises)
+- <RulePlaygroundLink rule="noFloatingPromises" category="lint" language="ts" code={"async function returnsPromise(): Promise<string> {\n  return 'value';\n}\nreturnsPromise().then(() => {});\n"} />
 

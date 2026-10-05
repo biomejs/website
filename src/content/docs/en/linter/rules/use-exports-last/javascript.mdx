@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useExportsLast
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-exports-last/javascript/"}]} />
 
@@ -68,4 +69,5 @@ export { a };
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_exports_last.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useExportsLast)
+- <RulePlaygroundLink rule="useExportsLast" category="lint" language="js" code={"export const a = 1;\nconst b = 2;\n"} />
 

@@ -8,6 +8,7 @@ description: GraphQL documentation for noDuplicateEnumValueNames
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-duplicate-enum-value-names/graphql/"}]} />
 
@@ -34,10 +35,10 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Require all enum value names to be unique.
+Disallow duplicate names in GraphQL enums.
 
-A GraphQL enum type is only valid if all its values are uniquely named.
-The enum value names are case insensitive, meaning `TEST` & `Test` are seen as the same enum value name.
+This rule compares enum values without regard to letter case, so `TEST` and `Test` are
+treated as the same name.
 
 ## Examples
 
@@ -78,4 +79,5 @@ enum A {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/correctness/no_duplicate_enum_value_names.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/correctness/noDuplicateEnumValueNames)
+- <RulePlaygroundLink rule="noDuplicateEnumValueNames" category="lint" language="graphql" code={"enum A {\n  TEST\n  OTHER\n  TEST\n}\n"} />
 

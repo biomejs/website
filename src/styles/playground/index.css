@@ -9,6 +9,7 @@
 @import "_tabs";
 @import "_settings";
 @import "_gritql";
+@import "_layout";
 
 html,
 body {

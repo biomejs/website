@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noSkippedTests
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-skipped-tests/javascript/"}]} />
 
@@ -90,4 +91,5 @@ test("test", () => {});
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_skipped_tests.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noSkippedTests)
+- <RulePlaygroundLink rule="noSkippedTests" category="lint" language="js" code={"describe.skip(\"test\", () => {});\n"} />
 

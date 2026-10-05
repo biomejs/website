@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noConstAssign
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-const-assign/javascript/"}]} />
 
@@ -86,4 +87,5 @@ b = 20;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_const_assign.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noConstAssign)
+- <RulePlaygroundLink rule="noConstAssign" category="lint" language="js" code={"const a = 1;\na = 4;\n"} />
 

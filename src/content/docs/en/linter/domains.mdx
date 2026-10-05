@@ -49,6 +49,9 @@ Enabled when the following dependencies are declared:
 
 ### Astro rules
 Rules that belong to the domain:
+- [noAstroConflictingSetDirectives](/linter/rules/no-astro-conflicting-set-directives/javascript) [(nursery)](/linter/#nursery)
+- [noAstroSetHtmlDirective](/linter/rules/no-astro-set-html-directive/javascript) [(nursery)](/linter/#nursery)
+- [noAstroConflictingSetDirectives](/linter/rules/no-astro-conflicting-set-directives/html) [(nursery)](/linter/#nursery)
 - [noAstroSetHtmlDirective](/linter/rules/no-astro-set-html-directive/html) [(nursery)](/linter/#nursery)
 - [useAstroClientOnlyDirectiveValue](/linter/rules/use-astro-client-only-directive-value/html) [(nursery)](/linter/#nursery)
 ## Drizzle
@@ -246,6 +249,7 @@ Rules that belong to the domain:
 - [noUnresolvedImports](/linter/rules/no-unresolved-imports/javascript)
 - [useImportExtensions](/linter/rules/use-import-extensions/javascript)
 - [useJsonImportAttributes](/linter/rules/use-json-import-attributes/javascript)
+- [noSelfImport](/linter/rules/no-self-import/javascript) [(nursery)](/linter/#nursery)
 - [noUndeclaredClasses](/linter/rules/no-undeclared-classes/javascript) [(nursery)](/linter/#nursery)
 - [noUndeclaredCustomProperties](/linter/rules/no-undeclared-custom-properties/javascript) [(nursery)](/linter/#nursery)
 - [noDeprecatedImports](/linter/rules/no-deprecated-imports/javascript)
@@ -353,6 +357,7 @@ Rules that belong to the domain:
 - [noComponentHookFactories](/linter/rules/no-component-hook-factories/javascript) [(nursery)](/linter/#nursery)
 - [noJsxLeakedDollar](/linter/rules/no-jsx-leaked-dollar/javascript) [(nursery)](/linter/#nursery)
 - [noJsxNamespace](/linter/rules/no-jsx-namespace/javascript) [(nursery)](/linter/#nursery)
+- [noReactObjectTypeAsDefaultProp](/linter/rules/no-react-object-type-as-default-prop/javascript) [(nursery)](/linter/#nursery)
 - [noReactStringRefs](/linter/rules/no-react-string-refs/javascript) [(nursery)](/linter/#nursery)
 - [useReactAsyncServerFunction](/linter/rules/use-react-async-server-function/javascript) [(nursery)](/linter/#nursery)
 - [useReactCompiler](/linter/rules/use-react-compiler/javascript) [(nursery)](/linter/#nursery)
@@ -502,7 +507,12 @@ Enabled when the following dependencies are declared:
 
 ### Svelte rules
 Rules that belong to the domain:
+- [noSvelteExportLet](/linter/rules/no-svelte-export-let/javascript) [(nursery)](/linter/#nursery)
+- [noSvelteInspect](/linter/rules/no-svelte-inspect/javascript) [(nursery)](/linter/#nursery)
 - [noSvelteUnnecessaryStateWrap](/linter/rules/no-svelte-unnecessary-state-wrap/javascript) [(nursery)](/linter/#nursery)
+- [useSvelteKitRuneImports](/linter/rules/use-svelte-kit-rune-imports/javascript) [(nursery)](/linter/#nursery)
+- [noSvelteAtDebugTags](/linter/rules/no-svelte-at-debug-tags/html) [(nursery)](/linter/#nursery)
+- [noSvelteAtHtmlTags](/linter/rules/no-svelte-at-html-tags/html) [(nursery)](/linter/#nursery)
 - [noSvelteLegacyConst](/linter/rules/no-svelte-legacy-const/html) [(nursery)](/linter/#nursery)
 - [useSvelteRequireEachKey](/linter/rules/use-svelte-require-each-key/html) [(nursery)](/linter/#nursery)
 ## Tailwind
@@ -549,8 +559,10 @@ Enabled when the following dependencies are declared:
 ### Tailwind rules
 Rules that belong to the domain:
 - [noTailwindArbitraryValue](/linter/rules/no-tailwind-arbitrary-value/javascript) [(nursery)](/linter/#nursery)
+- [noTailwindRawColors](/linter/rules/no-tailwind-raw-colors/javascript) [(nursery)](/linter/#nursery)
 - [useTailwindShorthandClasses](/linter/rules/use-tailwind-shorthand-classes/javascript) [(nursery)](/linter/#nursery)
 - [noTailwindArbitraryValue](/linter/rules/no-tailwind-arbitrary-value/html) [(nursery)](/linter/#nursery)
+- [noTailwindRawColors](/linter/rules/no-tailwind-raw-colors/html) [(nursery)](/linter/#nursery)
 - [useTailwindShorthandClasses](/linter/rules/use-tailwind-shorthand-classes/html) [(nursery)](/linter/#nursery)
 ## Test
 Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs.
@@ -626,6 +638,7 @@ Rules that belong to the domain:
 - [useExpect](/linter/rules/use-expect/javascript) [(nursery)](/linter/#nursery)
 - [useTestHooksInOrder](/linter/rules/use-test-hooks-in-order/javascript) [(nursery)](/linter/#nursery)
 - [useTestHooksOnTop](/linter/rules/use-test-hooks-on-top/javascript) [(nursery)](/linter/#nursery)
+- [useValidTestTitle](/linter/rules/use-valid-test-title/javascript) [(nursery)](/linter/#nursery)
 - [noDuplicateTestHooks](/linter/rules/no-duplicate-test-hooks/javascript) (recommended)
 - [noExportsInTest](/linter/rules/no-exports-in-test/javascript) (recommended)
 - [noFocusedTests](/linter/rules/no-focused-tests/javascript) (recommended)
@@ -708,6 +721,7 @@ Rules that belong to the domain:
 - [useArrayFind](/linter/rules/use-array-find/javascript)
 - [noBaseToString](/linter/rules/no-base-to-string/javascript) [(nursery)](/linter/#nursery)
 - [noFloatingPromises](/linter/rules/no-floating-promises/javascript) [(nursery)](/linter/#nursery)
+- [noMeaninglessVoidOperator](/linter/rules/no-meaningless-void-operator/javascript) [(nursery)](/linter/#nursery)
 - [noMisleadingReturnType](/linter/rules/no-misleading-return-type/javascript) [(nursery)](/linter/#nursery)
 - [noMisusedPromises](/linter/rules/no-misused-promises/javascript) [(nursery)](/linter/#nursery)
 - [noUnsafePlusOperands](/linter/rules/no-unsafe-plus-operands/javascript) [(nursery)](/linter/#nursery)
@@ -718,6 +732,7 @@ Rules that belong to the domain:
 - [useIncludes](/linter/rules/use-includes/javascript) [(nursery)](/linter/#nursery)
 - [useNullishCoalescing](/linter/rules/use-nullish-coalescing/javascript) [(nursery)](/linter/#nursery)
 - [useRegexpExec](/linter/rules/use-regexp-exec/javascript) [(nursery)](/linter/#nursery)
+- [useStrictBooleanExpressions](/linter/rules/use-strict-boolean-expressions/javascript) [(nursery)](/linter/#nursery)
 - [useStringStartsEndsWith](/linter/rules/use-string-starts-ends-with/javascript) [(nursery)](/linter/#nursery)
 - [useConsistentEnumValueType](/linter/rules/use-consistent-enum-value-type/javascript)
 - [noUnnecessaryConditions](/linter/rules/no-unnecessary-conditions/javascript)
@@ -766,6 +781,7 @@ Rules that belong to the domain:
 - [noVueReservedKeys](/linter/rules/no-vue-reserved-keys/javascript) (recommended)
 - [noVueReservedProps](/linter/rules/no-vue-reserved-props/javascript) (recommended)
 - [noVueSetupPropsReactivityLoss](/linter/rules/no-vue-setup-props-reactivity-loss/javascript)
+- [noVueBooleanDefault](/linter/rules/no-vue-boolean-default/javascript) [(nursery)](/linter/#nursery)
 - [noVueDeprecatedScopedSlots](/linter/rules/no-vue-deprecated-scoped-slots/javascript) [(nursery)](/linter/#nursery)
 - [noVueImportCompilerMacros](/linter/rules/no-vue-import-compiler-macros/javascript) [(nursery)](/linter/#nursery)
 - [noVueRefAsOperand](/linter/rules/no-vue-ref-as-operand/javascript) [(nursery)](/linter/#nursery)
@@ -789,6 +805,7 @@ Rules that belong to the domain:
 - [useVueValidVOnce](/linter/rules/use-vue-valid-v-once/html) (recommended)
 - [useVueValidVPre](/linter/rules/use-vue-valid-v-pre/html) (recommended)
 - [useVueValidVText](/linter/rules/use-vue-valid-v-text/html) (recommended)
+- [noVueUndeclaredDirectives](/linter/rules/no-vue-undeclared-directives/html) [(nursery)](/linter/#nursery)
 - [noVueVOnNumberValues](/linter/rules/no-vue-v-on-number-values/html) [(nursery)](/linter/#nursery)
 - [useScopedStyles](/linter/rules/use-scoped-styles/html) [(nursery)](/linter/#nursery)
 - [useVueValidVFor](/linter/rules/use-vue-valid-v-for/html) [(nursery)](/linter/#nursery)

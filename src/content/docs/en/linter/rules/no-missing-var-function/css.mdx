@@ -8,6 +8,7 @@ description: CSS documentation for noMissingVarFunction
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-missing-var-function/css/"}]} />
 
@@ -34,13 +35,16 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow missing var function for css variables.
+Require `var()` when using a declared CSS custom property.
 
-This rule has the following limitations:
+Custom property names begin with `--`, but their values must be read with `var(--name)`.
+Writing the name directly does not substitute the custom property's value.
 
-- It only reports custom properties that are defined and accessible within the same source.
-- It does not check properties that can contain author-defined identifiers.
-- It ignores the following properties:
+The rule has the following limits:
+
+- It reports only custom properties that are declared and visible in the same source.
+- It skips properties where a name beginning with `--` can be an ordinary value.
+- It skips the following properties:
   - `animation`
   - `animation-name`
   - `container-name`
@@ -123,6 +127,9 @@ p {
 }
 ```
 
+An undeclared name is not reported because the rule cannot determine whether it was meant
+to refer to a custom property:
+
 ```css
 p {
   color: --foo;
@@ -159,4 +166,5 @@ a {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_missing_var_function.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noMissingVarFunction)
+- <RulePlaygroundLink rule="noMissingVarFunction" category="lint" language="css" code={"a {\n  --foo: red;\n  color: --foo;\n}\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useShorthandFunc
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-shorthand-function-type/javascript/"}]} />
 
@@ -108,4 +109,5 @@ type Intersection = ((data: string) => number) & ((id: number) => string);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_shorthand_function_type.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useShorthandFunctionType)
+- <RulePlaygroundLink rule="useShorthandFunctionType" category="lint" language="ts" code={"interface Example {\n  (): string;\n}\n"} />
 

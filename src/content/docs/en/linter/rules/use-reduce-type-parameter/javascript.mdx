@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useReduceTypePar
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-reduce-type-parameter/javascript/"}]} />
 
@@ -87,4 +88,5 @@ arr.reduce((sum, n) => sum + n, 0);
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_reduce_type_parameter.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useReduceTypeParameter)
+- <RulePlaygroundLink rule="useReduceTypeParameter" category="lint" language="ts" code={"const arr: number[] = [1, 2, 3];\narr.reduce((sum, num) => sum.concat(num * 2), [] as number[]);\n"} />
 

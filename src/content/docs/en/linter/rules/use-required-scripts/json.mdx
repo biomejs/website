@@ -8,6 +8,7 @@ description: JSON (and super languages) documentation for useRequiredScripts
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/use-required-scripts/json/"}]} />
 
@@ -31,12 +32,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Enforce the presence of required scripts in package.json.
+Require configured scripts in `package.json`.
 
-This rule ensures that specified scripts are defined in the `scripts` section of a `package.json` file.
-It's particularly useful in monorepo environments where consistency across workspaces is important.
-
-Without required scripts configured, this rule doesn't do anything.
+A repository can contain several packages that share commands such as `test` or `build`.
+Tools run from the repository's top-level directory may expect every package to provide the
+same script names. The rule does nothing when `requiredScripts` is empty.
 
 ## Examples
 
@@ -63,7 +63,7 @@ Without required scripts configured, this rule doesn't do anything.
 
 ```
 
-```json
+```json title='package.json'
 {
     "scripts": {
         "test": "vitest"
@@ -71,9 +71,11 @@ Without required scripts configured, this rule doesn't do anything.
 }
 ```
 
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///package.json\">/package.json</a>:2:5 <a href=\"https://biomejs.dev/linter/rules/use-required-scripts\">lint/suspicious/useRequiredScripts</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The required script </span><span style=\"color: Orange;\"><strong>build</strong></span><span style=\"color: Orange;\"> is missing from package.json.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    &quot;scripts&quot;: &#123;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        &quot;test&quot;: &quot;vitest&quot;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    &#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Consistent scripts across packages ensure that each can be run reliably from the root of our project. Add the missing script to your package.json.</span><br />  <br /></code></pre>"} />
+
 ### Valid
 
-```json
+```json title='package.json'
 {
     "scripts": {
         "test": "vitest",
@@ -86,8 +88,8 @@ Without required scripts configured, this rule doesn't do anything.
 
 ### `requiredScripts`
 
-An array of script names that must be present in the `scripts` section of `package.json`.
-Default: `[]` (no scripts required)
+Lists script names that must appear in the `scripts` object. Defaults to an empty list, which
+disables the rule.
 
 ## Related links
 
@@ -96,4 +98,5 @@ Default: `[]` (no scripts required)
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/suspicious/use_required_scripts.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/suspicious/useRequiredScripts)
+- <RulePlaygroundLink rule="useRequiredScripts" category="lint" language="json" code={"{\n    \"scripts\": {\n        \"test\": \"vitest\"\n    }\n}\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noConditionalExp
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-conditional-expect/javascript/"}]} />
 
@@ -108,4 +109,5 @@ test("skip based on condition", async ({ page }) => {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_conditional_expect.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noConditionalExpect)
+- <RulePlaygroundLink rule="noConditionalExpect" category="lint" language="js" code={"test(\"conditional expect\", async ({ page }) => {\n    if (someCondition) {\n        await expect(page).toHaveTitle(\"Title\");\n    }\n});\n"} />
 

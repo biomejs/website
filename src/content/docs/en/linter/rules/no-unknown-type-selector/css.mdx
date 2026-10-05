@@ -8,6 +8,7 @@ description: CSS documentation for noUnknownTypeSelector
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-unknown-type-selector/css/"}]} />
 
@@ -34,17 +35,16 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow unknown type selectors.
+Disallow unrecognized element names in type selectors.
 
-This rule considers tags defined in the HTML, SVG, and MathML specifications to be known.
-For details on known CSS type selectors, see the following links
+A type selector targets elements by tag name, as in `button {}`. Names from the HTML, SVG,
+and MathML specifications are recognized. Valid custom-element names such as `x-button` are
+also allowed.
 
-- https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors
-- https://developer.mozilla.org/ja/docs/Web/HTML/Element
-- https://developer.mozilla.org/ja/docs/Web/SVG/Element
-- https://developer.mozilla.org/ja/docs/Web/MathML/Element
-
-This rule allows custom elements.
+See the [MDN type-selector reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors)
+and the element references for [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML/Element),
+[SVG](https://developer.mozilla.org/en-US/docs/Web/SVG/Element), and
+[MathML](https://developer.mozilla.org/en-US/docs/Web/MathML/Element).
 
 ## Examples
 
@@ -89,4 +89,5 @@ x-foo {}
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/correctness/no_unknown_type_selector.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/correctness/noUnknownTypeSelector)
+- <RulePlaygroundLink rule="noUnknownTypeSelector" category="lint" language="css" code={"unknown {}\n"} />
 

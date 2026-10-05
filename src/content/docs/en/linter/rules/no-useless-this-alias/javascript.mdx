@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUselessThisAli
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-this-alias/javascript/"}]} />
 
@@ -34,10 +35,10 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow useless `this` aliasing.
+Disallow aliases for `this` when `this` can be used directly.
 
-Arrow functions inherits `this` from their enclosing scope;
-this makes `this` aliasing useless in this situation.
+Arrow functions use `this` from their surrounding scope. In that situation, assigning
+`this` to another variable adds an unnecessary name without changing which value is used.
 
 ## Examples
 
@@ -77,4 +78,5 @@ class A {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_useless_this_alias.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noUselessThisAlias)
+- <RulePlaygroundLink rule="noUselessThisAlias" category="lint" language="js" code={"class A {\n    method() {\n        const self = this;\n        return () => {\n            return self;\n        }\n    }\n}\n"} />
 

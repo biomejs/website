@@ -8,6 +8,7 @@ description: HTML documentation for useVueValidVText
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-valid-v-text/html/"}]} />
 
@@ -79,4 +80,5 @@ This rule reports `v-text` directives in the following cases:
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/correctness/use_vue_valid_v_text.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/correctness/useVueValidVText)
+- <RulePlaygroundLink rule="useVueValidVText" category="lint" language="vue" code={"<div v-text />\n"} />
 

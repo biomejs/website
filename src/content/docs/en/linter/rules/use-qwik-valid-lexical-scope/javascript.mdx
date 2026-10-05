@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useQwikValidLexi
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-qwik-valid-lexical-scope/javascript/"}]} />
 
@@ -70,4 +71,5 @@ const handleClick = $(() => {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/use_qwik_valid_lexical_scope.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/useQwikValidLexicalScope)
+- <RulePlaygroundLink rule="useQwikValidLexicalScope" category="lint" language="js" code={"// Arrow function assigned without wrapping it in $(...)\nconst handleClick = () => {\n  console.log(\"clicked\");\n};\n"} />
 

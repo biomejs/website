@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noPrecisionLoss
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-precision-loss/javascript/"}]} />
 
@@ -21,6 +22,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
   - Same as [`no-loss-of-precision`](https://eslint.org/docs/latest/rules/no-loss-of-precision)
   - Same as [`@typescript-eslint/no-loss-of-precision`](https://typescript-eslint.io/rules/no-loss-of-precision)
   - Same as [`lossy_float_literal`](https://rust-lang.github.io/rust-clippy/master/#lossy_float_literal)
+  - Same as [`vue/no-loss-of-precision`](https://eslint.vuejs.org/rules/no-loss-of-precision)
 
 ## How to configure
 ```json title="biome.json"
@@ -85,4 +87,5 @@ const x = 9007_1992547409_91
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_precision_loss.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noPrecisionLoss)
+- <RulePlaygroundLink rule="noPrecisionLoss" category="lint" language="js" code={"const x = 9007199254740993\n"} />
 

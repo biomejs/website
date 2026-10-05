@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noArrayIndexKey
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-array-index-key/javascript/"}]} />
 
@@ -106,4 +107,5 @@ something.forEach((item) => {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_array_index_key.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noArrayIndexKey)
+- <RulePlaygroundLink rule="noArrayIndexKey" category="lint" language="jsx" code={"something.forEach((Element, index) => {\n    <Component key={index} >foo</Component>\n});\n"} />
 

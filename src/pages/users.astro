@@ -11,15 +11,15 @@ const description = Astro.locals.t("users.description");
 
 <StarlightPage
 	frontmatter={{
-	title,
-	description,
-	template: "splash",
-	editUrl: false,
-	hero: {
-		tagline: description,
-		title
-	}
-}}
+		title,
+		description,
+		template: "splash",
+		editUrl: false,
+		hero: {
+			tagline: description,
+			title,
+		},
+	}}
 >
 	<div class="users-page">
 		<section class="users-section">

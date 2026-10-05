@@ -97,20 +97,18 @@ When `includes` is set, the plugin only runs on files that match at least one
 positive pattern and are not excluded by a negated pattern. Patterns follow the
 [glob syntax reference](/reference/configuration/#glob-syntax-reference).
 
-## Resolving Plugins from Shared Configurations
+## Resolve plugins from shared configurations
 
-By default, plugin paths from shared configurations are resolved from the
-consuming project. To load a plugin that ships with the shared configuration,
-resolve it from the shared configuration file instead:
+By default, Biome resolves plugin paths in a shared configuration from the directory containing the configuration that extends it. To load a plugin that ships with the shared configuration, set `resolutionKind` to `"config"`:
 
 ```json title="biome.shared.jsonc"
 {
-    "plugins": [
-        {
-            "path": "./plugins/no-object-assign.grit",
-            "resolutionKind": "config"
-        }
-    ]
+  "plugins": [
+    {
+      "path": "./plugins/no-object-assign.grit",
+      "resolutionKind": "config"
+    }
+  ]
 }
 ```
 
@@ -118,13 +116,13 @@ Then extend the shared configuration:
 
 ```json title="biome.json"
 {
-    "extends": ["./biome.shared.jsonc"]
+  "extends": ["./biome.shared.jsonc"]
 }
 ```
 
-The plugin path is resolved relative to `biome.shared.jsonc`, while `includes` still match files in the consuming project.
+Biome resolves the plugin path from the directory containing `biome.shared.jsonc`, while `includes` globs are still resolved from the directory containing the extending configuration.
 
-See [`plugins.<ITEM>.resolutionKind`](/reference/configuration/#pluginsitemresolutionkind) for the full option reference.
+See [`plugins.<ITEM>.resolutionKind`](/reference/configuration#pluginsitemresolutionkind) for the full option reference.
 
 ## Target Languages
 

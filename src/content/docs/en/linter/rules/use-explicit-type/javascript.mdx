@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useExplicitType
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-explicit-type/javascript/"}]} />
 
@@ -356,4 +357,5 @@ class App {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_explicit_type.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useExplicitType)
+- <RulePlaygroundLink rule="useExplicitType" category="lint" language="ts" code={"// Should indicate that no value is returned (void)\nfunction test() {\n  return;\n}\n"} />
 

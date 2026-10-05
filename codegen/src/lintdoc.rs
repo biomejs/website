@@ -753,6 +753,10 @@ fn write_language_rule_pages(
             content,
             r#"import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";"#
         )?;
+        writeln!(
+            content,
+            r#"import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";"#
+        )?;
         if rule_category == RuleCategory::Action {
             writeln!(
                 content,
@@ -1018,7 +1022,8 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<Vec<u8>> {
     }
 
     write_how_to_configure(group, rule_name, &mut content, &rule_category)?;
-    write_documentation(group, meta, meta.docs, &mut content, rule_category)?;
+    let playground_example =
+        write_documentation(group, meta, meta.docs, &mut content, rule_category)?;
     let crate_link = rule_crate_name(meta.language);
     let source_code_url = rule_source_code_url(meta.language, group, rule_name, rule_category);
     let test_cases_file_path = format!("{crate_link}/tests/specs/{group}/{rule_name}");
@@ -1042,6 +1047,14 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<Vec<u8>> {
             content,
             "- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/{test_cases_file_path})"
         )?;
+        if let Some((test, code)) = playground_example {
+            writeln!(
+                content,
+                "- <RulePlaygroundLink rule=\"{rule_name}\" category=\"{category}\" language=\"{}\" code={{{}}} />",
+                test.tag,
+                serde_json::to_string(&code)?,
+            )?;
+        }
     }
 
     Ok(content)
@@ -1233,7 +1246,7 @@ fn write_documentation(
     docs: &'static str,
     content: &mut Vec<u8>,
     category: RuleCategory,
-) -> Result<()> {
+) -> Result<Option<(CodeBlock, String)>> {
     writeln!(content, "## Description")?;
 
     let parser = Parser::new(docs);
@@ -1252,6 +1265,7 @@ fn write_documentation(
     // Tracks the content of the current code block if it's using a
     // language supported for analysis
     let mut language = None;
+    let mut playground_example = None;
     let mut list_order = None;
     let mut list_indentation = 0;
 
@@ -1267,7 +1281,7 @@ fn write_documentation(
 
                 // Erase the lintdoc-specific attributes in the output by
                 // re-generating the language ID from the source type
-                write!(content, "```{}", &test.tag)?;
+                write!(content, "```{}", test.tag)?;
                 if test.options != OptionsParsingMode::NoOptions {
                     write!(content, " title='biome.json'")?;
                 } else if let Some(file_path) = test.explicit_file_path() {
@@ -1377,6 +1391,13 @@ fn write_documentation(
 
                     if test.expect_diagnostic || test.expect_diff {
                         writeln!(content)?;
+                    }
+
+                    if (test.expect_diagnostic || test.expect_diff)
+                        && test.options == OptionsParsingMode::NoOptions
+                        && playground_example.is_none()
+                    {
+                        playground_example = Some((test, block));
                     }
                 } else {
                     writeln!(content, "```")?;
@@ -1554,7 +1575,7 @@ fn write_documentation(
         }
     }
 
-    Ok(())
+    Ok(playground_example)
 }
 
 /// Parse and analyze the provided code block, and asserts that it emits

@@ -51,7 +51,7 @@ Also, feel free to involve any person that could help you and us with the transl
 We use [Lunaria](https://lunaria.dev/) to track the pages that aren't translated, and the ones that aren't updated anymore. Refer to the following [dashboard](https://biomejs.dev/i18n-dashboard/).
 
 When **adding** a new locale that doesn't exist in the dashboard, send a PR to update the locales of
-`astro.config.mjs` and `lunaria.config.json`.
+`astro.config.ts` and `lunaria.config.ts`.
 
 When sending a PR for a new page:
 

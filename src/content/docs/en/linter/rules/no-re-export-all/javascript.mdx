@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noReExportAll
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-re-export-all/javascript/"}]} />
 
@@ -74,4 +75,5 @@ export type * as bar from "bar";
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/performance/no_re_export_all.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/performance/noReExportAll)
+- <RulePlaygroundLink rule="noReExportAll" category="lint" language="js" code={"export * from \"foo\";\n"} />
 

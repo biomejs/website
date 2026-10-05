@@ -8,6 +8,7 @@ description: CSS documentation for noIrregularWhitespace
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-irregular-whitespace/css/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-irregular-whitespace/javascript/"}]} />
 
@@ -34,9 +35,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallows the use of irregular whitespace characters.
+Disallow whitespace characters that CSS does not treat as normal spaces.
 
-Using irregular whitespace would lead to the failure of selecting the correct target.
+Some Unicode and control characters look like spaces but can change how a selector is
+parsed. The invalid example contains a vertical tab between the class selectors, so it does
+not behave like a normal descendant separator.
 
 ## Examples
 
@@ -65,4 +68,5 @@ Using irregular whitespace would lead to the failure of selecting the correct ta
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_irregular_whitespace.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noIrregularWhitespace)
+- <RulePlaygroundLink rule="noIrregularWhitespace" category="lint" language="css" code={".firstClass\u000b.secondClass {\n  color: red;\n}\n"} />
 

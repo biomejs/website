@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noExcessiveLines
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-excessive-lines-per-file/css/"},{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-excessive-lines-per-file/graphql/"},{"id":"html","label":"HTML","href":"/linter/rules/no-excessive-lines-per-file/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-excessive-lines-per-file/javascript/"}]} />
 
@@ -195,4 +196,5 @@ const c = 3;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/no_excessive_lines_per_file.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/noExcessiveLinesPerFile)
+- <RulePlaygroundLink rule="noExcessiveLinesPerFile" category="lint" language="js" code={"const a = 1;\nconst b = 2;\nconst c = 3;\n"} />
 

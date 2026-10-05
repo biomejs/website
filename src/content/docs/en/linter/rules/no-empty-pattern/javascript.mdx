@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noEmptyPattern
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-empty-pattern/javascript/"}]} />
 
@@ -34,7 +35,10 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallows empty destructuring patterns.
+Disallow empty object and array destructuring patterns.
+
+Destructuring extracts values into new variables. An empty pattern extracts nothing and
+creates no variables, which is usually a mistake.
 
 ## Examples
 
@@ -60,7 +64,7 @@ function foo({}) {}
 
 ### Valid
 
-The following cases are valid because they create new bindings.
+The following patterns are valid because they create at least one variable.
 
 ```js
 var {a = {}} = foo;
@@ -78,4 +82,5 @@ var [a] = foo;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_empty_pattern.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noEmptyPattern)
+- <RulePlaygroundLink rule="noEmptyPattern" category="lint" language="js" code={"var {} = foo;\n"} />
 

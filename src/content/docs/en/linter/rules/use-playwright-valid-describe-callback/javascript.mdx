@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for usePlaywrightVal
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-playwright-valid-describe-callback/javascript/"}]} />
 
@@ -85,4 +86,5 @@ describe('suite', function() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_playwright_valid_describe_callback.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/usePlaywrightValidDescribeCallback)
+- <RulePlaygroundLink rule="usePlaywrightValidDescribeCallback" category="lint" language="js" code={"test.describe('suite', async () => {\n    test('one', async ({ page }) => {});\n});\n"} />
 

@@ -8,6 +8,7 @@ description: CSS documentation for noEmptyBlock
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-empty-block/css/"}]} />
 
@@ -35,9 +36,10 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow CSS empty blocks.
+Disallow empty CSS blocks.
 
-By default, it will allow empty blocks with comments inside.
+An empty block has no effect and is often left behind after a refactor. A block containing a
+comment is allowed because the comment may document an intentional placeholder.
 
 ## Examples
 
@@ -84,4 +86,5 @@ p { /* foo */ }
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/suspicious/no_empty_block.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/suspicious/noEmptyBlock)
+- <RulePlaygroundLink rule="noEmptyBlock" category="lint" language="css" code={"p {}\n"} />
 

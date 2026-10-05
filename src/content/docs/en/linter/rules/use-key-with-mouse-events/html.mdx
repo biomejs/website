@@ -8,6 +8,7 @@ description: HTML documentation for useKeyWithMouseEvents
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-key-with-mouse-events/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-key-with-mouse-events/javascript/"}]} />
 
@@ -34,10 +35,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Enforce that `onmouseover` is accompanied by `onfocus` and `onmouseout` by `onblur`.
+Require keyboard equivalents for mouse hover events.
 
-Coding for the keyboard is important for users with physical disabilities who cannot use a mouse,
-AT compatibility, and screen reader users.
+Keyboard users cannot trigger `onmouseover` or `onmouseout`. Pair `onmouseover` with
+`onfocus`, and pair `onmouseout` with `onblur`, so the same behavior is available when focus
+moves with the keyboard or other assistive technology.
 
 :::note
 In `.html` files, attribute names are matched case-insensitively.
@@ -87,4 +89,5 @@ are assumed to be custom components and are ignored.
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/a11y/use_key_with_mouse_events.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/a11y/useKeyWithMouseEvents)
+- <RulePlaygroundLink rule="useKeyWithMouseEvents" category="lint" language="html" code={"<div onmouseover=\"handleMouseOver()\"></div>\n"} />
 

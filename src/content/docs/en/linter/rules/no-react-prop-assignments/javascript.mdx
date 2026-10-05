@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noReactPropAssig
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-react-prop-assignments/javascript/"}]} />
 
@@ -72,4 +73,5 @@ const Foo = function({bar}) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_react_prop_assignments.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noReactPropAssignments)
+- <RulePlaygroundLink rule="noReactPropAssignments" category="lint" language="jsx" code={"function Foo(props) {\n\tprops.bar = \"Hello \" + props.bar;\n\n\treturn <div>{props.bar}</div>\n}\n"} />
 

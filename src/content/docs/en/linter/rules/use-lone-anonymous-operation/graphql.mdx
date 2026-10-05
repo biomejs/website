@@ -8,6 +8,7 @@ description: GraphQL documentation for useLoneAnonymousOperation
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-lone-anonymous-operation/graphql/"}]} />
 
@@ -34,9 +35,10 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow anonymous operations when more than one operation specified in document.
+Disallow an anonymous operation in a document with other operations.
 
-A GraphQL document that contains an anonymous operation (the query short-hand) is only valid if it contains only that one operation definition.
+GraphQL allows the shorthand `{ field }` without an operation name only when it is the sole
+operation in the document. Name every operation when the document contains more than one.
 
 ## Examples
 
@@ -73,4 +75,5 @@ query B {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/lint/correctness/use_lone_anonymous_operation.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/correctness/useLoneAnonymousOperation)
+- <RulePlaygroundLink rule="useLoneAnonymousOperation" category="lint" language="graphql" code={"query {\n  fieldA\n}\n\nquery B {\n  fieldB\n}\n"} />
 

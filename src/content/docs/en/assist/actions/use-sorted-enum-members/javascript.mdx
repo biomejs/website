@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useSortedEnumMem
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 import EditorAction from "@/components/EditorAction.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"graphql","label":"GraphQL","href":"/assist/actions/use-sorted-enum-members/graphql/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/assist/actions/use-sorted-enum-members/javascript/"}]} />
@@ -35,16 +36,14 @@ import EditorAction from "@/components/EditorAction.astro";
 
 ```
 ## Description
-Sort the members of an enum in natural order.
+Sort the members of a string-valued TypeScript enum.
 
-Enforce a consistent natural sort order for TypeScript enum members with string initializers.
+The action uses [natural order](https://en.wikipedia.org/wiki/Natural_sort_order): uppercase
+letters come before lowercase letters (`A` before `a`), and numbers are compared by value
+(`item9` before `item10`). This keeps enum declarations predictable and easy to scan.
 
-This rule sorts members in string enums so declarations stay predictable and easier to scan.
-Members that cannot be compared, such as computed names, are left in place and split the enum into sortable groups.
-
-Members are sorted in a [Natural order](https://en.wikipedia.org/wiki/Natural_sort_order),
-meaning that uppercase letters come before lowercase letters (e.g. `A` < `a` < `B` < `b`)
-and numbers are compared to their numerical value (e.g. `9` < `10`).
+A member with a computed name cannot be compared reliably. The action leaves that member in
+place and sorts the comparable members on each side independently.
 
 ## Examples
 
@@ -81,4 +80,5 @@ enum Status {
 - [Rule options](/assist/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/assist/source/use_sorted_enum_members.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/source/useSortedEnumMembers)
+- <RulePlaygroundLink rule="useSortedEnumMembers" category="assist" language="ts" code={"enum Status {\n\tInProgress = 'In Progress',\n\tCompleted = 'Completed',\n\tOnHold = 'On Hold',\n\tCancelled = 'Cancelled',\n\tNotStarted = 'Not Started',\n}\n"} />
 

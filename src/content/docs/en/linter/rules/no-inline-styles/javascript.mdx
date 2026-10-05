@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noInlineStyles
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-inline-styles/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-inline-styles/javascript/"}]} />
 
@@ -19,6 +20,10 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - Diagnostic Category: [`lint/nursery/noInlineStyles`](/reference/diagnostics#diagnostic-category)
 - This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`react-native/no-inline-styles`](https://github.com/Intellicode/eslint-plugin-react-native/blob/master/docs/rules/no-inline-styles.md)
+  - Same as [`shadcn/no-inline-styles`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/no-inline-styles.md)
+
 ## How to configure
 ```json title="biome.json"
 {
@@ -78,4 +83,5 @@ React.createElement("div", { className: "container" });
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_inline_styles.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noInlineStyles)
+- <RulePlaygroundLink rule="noInlineStyles" category="lint" language="jsx" code={"<div style={{ color: \"red\" }}>Error</div>\n"} />
 

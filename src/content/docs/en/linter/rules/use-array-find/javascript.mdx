@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useArrayFind
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-array-find/javascript/"}]} />
 
@@ -74,4 +75,5 @@ Because the `.find()` only needs to execute the callback until it finds a match,
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/use_array_find.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/useArrayFind)
+- <RulePlaygroundLink rule="useArrayFind" category="lint" language="ts" code={"[1, 2, 3].filter(x => x > 1)[0];\n"} />
 

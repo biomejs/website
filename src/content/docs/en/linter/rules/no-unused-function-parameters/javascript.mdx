@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noUnusedFunction
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unused-function-parameters/javascript/"}]} />
 
@@ -33,8 +34,8 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 ## Description
 Disallow unused function parameters.
 
-There is an exception to this rule:
-parameters that starts with underscore, e.g. `function foo(_a, _b) {}`.
+Parameters whose names start with an underscore are ignored. The underscore communicates
+that the parameter is intentionally unused, for example `function foo(_a, _b) {}`.
 
 ## Examples
 
@@ -72,6 +73,10 @@ function foo(myVar) {
 ```
 
 ```js
+function foo(_myVar) {}
+```
+
+```js
 function withObjectSpread({ a, ...rest }) {
        return rest;
 }
@@ -79,16 +84,17 @@ function withObjectSpread({ a, ...rest }) {
 
 ## Options
 
-The rule has the following options
+The rule has the following option.
 
 ### `ignoreRestSiblings`
 
 **Since `v2.1.0`**
 
-Whether to ignore unused variables from an object destructuring with a spread.
-Example: `a` and `b` in `function({ a, b, ...rest }) { return rest;}` should be ignored by this rule when set to false.
-
+Ignores unused names taken from an object parameter when the same parameter also collects
+the remaining properties, as in `function({ a, ...rest }) { return rest; }`.
 Defaults to `true`.
+
+Set this option to `false` to report those unused properties.
 
 ```json title='biome.json'
 {
@@ -123,4 +129,5 @@ function withObjectSpread({ b, ...rest }) {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_unused_function_parameters.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noUnusedFunctionParameters)
+- <RulePlaygroundLink rule="noUnusedFunctionParameters" category="lint" language="js" code={"function foo(myVar) {\n    console.log('foo');\n}\n"} />
 

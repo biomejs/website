@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noProcessGlobal
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-process-global/javascript/"}]} />
 
@@ -71,4 +72,5 @@ const bar = foo.process;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/correctness/no_process_global.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/correctness/noProcessGlobal)
+- <RulePlaygroundLink rule="noProcessGlobal" category="lint" language="js" code={"const foo = process.env.FOO;\n"} />
 

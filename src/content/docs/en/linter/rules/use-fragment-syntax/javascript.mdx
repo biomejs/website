@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useFragmentSynta
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-fragment-syntax/javascript/"}]} />
 
@@ -61,4 +62,5 @@ The shorthand fragment syntax saves keystrokes and is only inapplicable when key
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_fragment_syntax.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useFragmentSyntax)
+- <RulePlaygroundLink rule="useFragmentSyntax" category="lint" language="jsx" code={"<Fragment>child</Fragment>\n"} />
 

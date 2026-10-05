@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noImportAssign
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-import-assign/javascript/"}]} />
 
@@ -34,7 +35,11 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 
 ```
 ## Description
-Disallow assigning to imported bindings
+Disallow assigning a new value to an imported variable.
+
+An import is a read-only reference to a value exported by another module. Reassigning the
+imported name does not update that module and causes an error. Copy the value to a local
+variable when it needs to change.
 
 ## Examples
 
@@ -96,6 +101,14 @@ e = 1;
 
 <Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:1 <a href=\"https://biomejs.dev/linter/rules/no-import-assign\">lint/suspicious/noImportAssign</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The imported variable </span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"> is read-only</span><br />  <br />    <strong>1 │ </strong>import &#42; as e from &quot;y&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>e = 1;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The variable is imported here</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>import &#42; as e from &quot;y&quot;;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>e = 1;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a local variable instead of reassigning an import.</span><br />  <br /></code></pre>"} />
 
+### Valid
+
+```js
+import value from "y";
+let localValue = value;
+localValue = 1;
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)
@@ -103,4 +116,5 @@ e = 1;
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/no_import_assign.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/noImportAssign)
+- <RulePlaygroundLink rule="noImportAssign" category="lint" language="js" code={"import x from \"y\";\nx = 1;\n"} />
 

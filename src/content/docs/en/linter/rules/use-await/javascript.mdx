@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for useAwait
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-await/javascript/"}]} />
 
@@ -92,4 +93,5 @@ async function consumeResource() {
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/suspicious/use_await.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/suspicious/useAwait)
+- <RulePlaygroundLink rule="useAwait" category="lint" language="js" code={"async function fetchData() {\n// Missing `await` for the promise returned by `fetch`\n  return fetch('/data');\n}\n"} />
 

@@ -8,6 +8,7 @@ description: JavaScript (and super languages) documentation for noNoninteractive
 localized: false
 ---
 import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-noninteractive-element-interactions/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-noninteractive-element-interactions/javascript/"}]} />
 
@@ -19,6 +20,7 @@ import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
 - Sources: 
   - Same as [`jsx-a11y/no-noninteractive-element-interactions`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-noninteractive-element-interactions.md)
+  - Same as [`astro/jsx-a11y/no-noninteractive-element-interactions`](https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/no-noninteractive-element-interactions)
 
 ## How to configure
 ```json title="biome.json"
@@ -104,4 +106,5 @@ A Non-interactive element does not support event handlers(mouse and key handlers
 - [Rule options](/linter/#rule-options)
 - [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/a11y/no_noninteractive_element_interactions.rs)
 - [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/a11y/noNoninteractiveElementInteractions)
+- <RulePlaygroundLink rule="noNoninteractiveElementInteractions" category="lint" language="jsx" code={"<div onClick={() => {}}>button</div>\n"} />
 
