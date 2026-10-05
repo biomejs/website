@@ -32,9 +32,10 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 ```
 ## Description
-Disallow use of `@value` rule in CSS modules.
+Disallow the `@value` rule in CSS Modules.
 
-Use of CSS variables is recommended instead of `@value` rule.
+`@value` is a CSS Modules extension rather than standard CSS. Prefer native custom
+properties, which use a `--name` declaration and are read with `var(--name)`.
 
 ## Examples
 
@@ -50,7 +51,7 @@ Use of CSS variables is recommended instead of `@value` rule.
 
 ```css title='example.module.css'
 :root {
-  --red: #FF0000
+  --red: #FF0000;
 }
 
 p {

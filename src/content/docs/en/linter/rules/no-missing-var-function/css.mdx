@@ -35,13 +35,16 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 ```
 ## Description
-Disallow missing var function for css variables.
+Require `var()` when using a declared CSS custom property.
 
-This rule has the following limitations:
+Custom property names begin with `--`, but their values must be read with `var(--name)`.
+Writing the name directly does not substitute the custom property's value.
 
-- It only reports custom properties that are defined and accessible within the same source.
-- It does not check properties that can contain author-defined identifiers.
-- It ignores the following properties:
+The rule has the following limits:
+
+- It reports only custom properties that are declared and visible in the same source.
+- It skips properties where a name beginning with `--` can be an ordinary value.
+- It skips the following properties:
   - `animation`
   - `animation-name`
   - `container-name`
@@ -123,6 +126,9 @@ p {
   color: var(--foo);
 }
 ```
+
+An undeclared name is not reported because the rule cannot determine whether it was meant
+to refer to a custom property:
 
 ```css
 p {

@@ -21,6 +21,7 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 - Sources: 
   - Same as [`jsx-a11y/tabindex-no-positive`](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/tabindex-no-positive.md)
   - Inspired from [`@html-eslint/no-positive-tabindex`](https://html-eslint.org/docs/rules/no-positive-tabindex)
+  - Same as [`astro/jsx-a11y/tabindex-no-positive`](https://ota-meshi.github.io/eslint-plugin-astro/rules/jsx-a11y/tabindex-no-positive)
 
 ## How to configure
 ```json title="biome.json"
@@ -36,9 +37,12 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 ```
 ## Description
-Prevent the usage of positive integers on `tabIndex` property
+Disallow positive values for the `tabIndex` property.
 
-Avoid positive `tabIndex` property values to synchronize the flow of the page with keyboard tab order.
+Keyboard focus determines which element receives keyboard input. A positive `tabIndex`
+overrides the page's natural focus order and can make keyboard navigation unpredictable.
+Use `0` to include an element in the natural order, or `-1` to exclude it from keyboard
+navigation while keeping it focusable through code.
 
 ## Accessibility guidelines
 
