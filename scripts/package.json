@@ -1,6 +1,6 @@
 {
   "type": "module",
   "devDependencies": {
-    "@biomejs/wasm-nodejs": "2.5.14"
+    "@biomejs/wasm-nodejs": "2.5.15"
   }
 }

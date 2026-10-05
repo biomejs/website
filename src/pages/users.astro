@@ -11,35 +11,35 @@ const description = Astro.locals.t("users.description");
 
 <StarlightPage
 	frontmatter={{
-	title,
-	description,
-	template: "splash",
-	editUrl: false,
-	hero: {
-		tagline: description,
 		title,
-	},
-}}
+		description,
+		template: "splash",
+		editUrl: false,
+		hero: {
+			tagline: description,
+			title,
+		},
+	}}
 >
 	<div class="users-page">
 		<section class="users-section">
 			<div class="users-grid">
 				{allUsers.map((user) => (
-	<div class="user-card">
-		<div class="user-logo">
-			<Image
-				src={user.data.logo}
-				alt={`${user.data.id} logo`}
-				width={64}
-				height={64}
-				loading="lazy"
-			/>
-		</div>
-		<div class="user-info">
-			<h3 class="user-name">{user.data.id}</h3>
-		</div>
-	</div>
-))}
+					<div class="user-card">
+						<div class="user-logo">
+							<Image
+								src={user.data.logo}
+								alt={`${user.data.id} logo`}
+								width={64}
+								height={64}
+								loading="lazy"
+							/>
+						</div>
+						<div class="user-info">
+							<h3 class="user-name">{user.data.id}</h3>
+						</div>
+					</div>
+				))}
 			</div>
 		</section>
 	</div>

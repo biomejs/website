@@ -9,8 +9,8 @@ const maintainers = await getCollection("team", (entry) => {
 
 <ul class="credits-people-list core-contributors">
 	{maintainers.map((entry) => (
-	<li>
-		<GitHubAvatar handle={entry.id} />
-	</li>
-))}
+		<li>
+			<GitHubAvatar handle={entry.id} />
+		</li>
+	))}
 </ul>
