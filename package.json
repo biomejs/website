@@ -53,7 +53,7 @@
     "@codemirror/state": "6.7.6",
     "@codemirror/view": "6.43.13",
     "@expressive-code/plugin-line-numbers": "0.44.2",
-    "@lezer/common": "1.5.2",
+    "@lezer/common": "1.5.3",
     "@lunariajs/core": "0.2.0",
     "@playwright/test": "1.63.0",
     "@replit/codemirror-lang-svelte": "6.0.0",
