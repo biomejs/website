@@ -3,6 +3,12 @@ title: Linter Plugins
 description: An overview of how to use Biome's Linter Plugins
 ---
 
+Biome supports plugins in two forms:
+- GritQL, a powerful DSL to build small and expressive rules.
+- JavaScript, which allows you to tap into Biome's infrastructure, such as CST, Semantic model, and more.
+
+## GritQL plugins
+
 Biome Linter supports [GritQL](/reference/gritql/) plugins. Plugins can match
 specific code patterns, report customized diagnostics, and suggest fixable
 rewrites.
@@ -71,7 +77,7 @@ Rewrite behavior:
 - With `--write --unsafe`, Biome also applies unsafe plugin rewrites.
 - If `fix_kind` is omitted, the rewrite is treated as unsafe by default.
 
-## Restricting Plugins to Specific Files
+### Restricting Plugins to Specific Files
 
 By default, a plugin runs on every file Biome processes. However, you can use the `includes` option to restrict files and folders where the plugin can or can't run.
 
@@ -149,7 +155,7 @@ language css;
 
 Biome currently supports JavaScript, CSS, and JSON target languages.
 
-## Plugin API
+### Plugin API
 
 In addition to Grit's
 [built-in functions](https://docs.grit.io/language/functions#built-in-functions),
@@ -169,3 +175,5 @@ Supports four arguments:
 - `fix_kind`: Safety of an associated rewrite fix (`safe` or `unsafe`). This is
   only relevant when the pattern also uses the rewrite operator (`=>`). By
   default, fixes are treated as unsafe.
+
+## JavaScript plugins

@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "id": "test",
+    "metadata": {
+      "description": "test"
+    }
+  }
+]
