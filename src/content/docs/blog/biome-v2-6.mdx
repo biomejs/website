@@ -8,6 +8,7 @@ excerpt: |
   resolved plugins, and overrides.
 authors:
   - ema
+  - netail
   - team
 date: 2026-10-15
 cover:
@@ -18,6 +19,7 @@ socialImage: "@/assets/social-logo.png"
 featured: true
 ---
 import { Picture } from "astro:assets";
+import { Code } from "@astrojs/starlight/components";
 import deckMd from "../../../assets/blog/biome-v2-6/hero-markdown.png";
 import deckJs from "../../../assets/blog/biome-v2-6/hero-javascript.png";
 import deckYaml from "../../../assets/blog/biome-v2-6/hero-yaml.png";
@@ -148,6 +150,74 @@ Under the hood, Biome plugins use a JavaScript runtime built in Rust called [`bo
 ### `biome inspect file`
 
 ## Migrate from Stylelint
+
+With this update, we added a migration path from Stylelint.
+Biome can now automatically migrate your existing Stylelint configuration using the following subcommand:
+
+```shell
+biome migrate stylelint --write
+```
+
+This command will read your Stylelint configuration and attempt to port their settings to Biome.
+Porting rules, overrides and ignore patterns from both the `ignoreFiles` key in the configuration & the `.stylelintignore` file.
+
+Given the following Stylelint configuration:
+
+```json title=".stylelintrc.json"
+{
+	"ignoreFiles": ["dist/**"],
+	"rules": {
+		"block-no-empty": true,
+		"font-family-no-duplicate-names": true,
+		"keyframe-declaration-no-important": true
+	},
+	"overrides": [
+		{
+			"files": ["*.scss"],
+			"rules": {
+				"block-no-empty": null
+			}
+		}
+	]
+}
+```
+
+Running `biome migrate stylelint --write` will produce the following `biome.json`:
+
+<Code title="biome.json" lang="json" code={`{
+    "$schema": "https://biomejs.dev/schemas/2.6.0/schema.json",
+    "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
+    "files": { "ignoreUnknown": false },
+    "formatter": { "enabled": true, "indentStyle": "tab" },
+    "linter": {
+      "enabled": true,
+      "rules": {
+        "preset": "none",
+        "suspicious": {
+          "noDuplicateFontNames": "error",
+          "noEmptyBlock": "error",
+          "noImportantInKeyframe": "error"
+        }
+      },
+      "includes": ["**", "!dist/**"]
+    },
+    "javascript": { "formatter": { "quoteStyle": "double" } },
+    "overrides": [
+      {
+        "includes": ["*.scss"],
+        "linter": { "rules": { "suspicious": { "noEmptyBlock": "off" } } }
+      }
+    ],
+    "assist": {
+      "enabled": true,
+      "actions": { "source": { "organizeImports": "on" } }
+    }
+}`} />
+
+The command needs Node.js to load and follows `extends` and plugin configurations.
+For now, `biome migrate stylelint` only supports Stylelint configurations written in JSON or JavaScript. YAML configurations are not supported yet.
+
+By default, the command migrates identical rules only. Pass the `--include-inspired` flag to migrate inspired rules as well.
 
 ## Linter and assist improvements
 
