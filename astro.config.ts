@@ -574,15 +574,22 @@ export default defineConfig({
 										ru: "Источники правил HTML",
 									},
 								},
-								// TODO: uncomment when we officially ship markdown lint rules
-								// {
-								// 	label: "Markdown Rules",
-								// 	link: "/linter/markdown/rules",
-								// },
-								// {
-								// 	label: "Markdown Rules sources",
-								// 	link: "/linter/markdown/sources",
-								// },
+								{
+									label: "Markdown Rules",
+									link: "/linter/markdown/rules",
+								},
+								{
+									label: "Markdown Rules sources",
+									link: "/linter/markdown/sources",
+								},
+								{
+									label: "YAML Rules",
+									link: "/linter/yaml/rules",
+								},
+								{
+									label: "YAML Rules sources",
+									link: "/linter/yaml/sources",
+								},
 							],
 							translations: {
 								"zh-CN": "检查器",

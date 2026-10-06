@@ -1,0 +1,124 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>YAML highlighted in a fan of language cards</title>
+  <desc>The Biome mascot Cookie looks at five playing cards. The YAML card is highlighted and raised.</desc>
+
+  <defs>
+    <pattern id="dots" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.5" fill="#F6F6F9" fill-opacity="0.14"/>
+    </pattern>
+    <filter id="card-shadow" x="-35%" y="-30%" width="170%" height="180%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <filter id="selected-card-glow" x="-35%" y="-35%" width="170%" height="190%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="9" flood-color="#CB171E" flood-opacity="0.9"/>
+    </filter>
+    <filter id="mascot-shadow" x="-30%" y="-30%" width="170%" height="180%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="16" stdDeviation="13" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Biome brand background -->
+  <rect width="1200" height="630" fill="#151515"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <circle cx="1085" cy="105" r="315" fill="#60A5FA" fill-opacity="0.08"/>
+  <circle cx="105" cy="620" r="300" fill="#60A5FA" fill-opacity="0.06"/>
+  <path d="M-35 525C181 430 310 575 514 492C711 412 834 371 1236 443" stroke="#60A5FA" stroke-opacity="0.18" stroke-width="3"/>
+  <path d="M-30 551C183 456 318 599 521 517C715 438 865 394 1235 467" stroke="#60A5FA" stroke-opacity="0.09" stroke-width="2"/>
+
+  <!-- Small celebratory marks -->
+  <g fill="#60A5FA">
+    <path d="M91 97H103V109H91V97Z" transform="rotate(45 97 103)"/>
+    <path d="M818 88H830V100H818V88Z" transform="rotate(45 824 94)"/>
+    <circle cx="65" cy="145" r="5"/>
+    <circle cx="851" cy="143" r="4"/>
+  </g>
+  <g stroke="#F6F6F9" stroke-linecap="round" stroke-opacity="0.72">
+    <path d="M748 69V91M737 80H759" stroke-width="5"/>
+    <path d="M1100 183V201M1091 192H1109" stroke-width="4"/>
+  </g>
+
+  <!-- Ground shadows -->
+  <ellipse cx="1029" cy="584" rx="171" ry="22" fill="#000000" fill-opacity="0.42"/>
+  <ellipse cx="477" cy="526" rx="389" ry="31" fill="#000000" fill-opacity="0.2"/>
+
+  <!-- Cookie, Biome's basic mascot, reproduced from the official resource -->
+  <g transform="translate(875 300) scale(4.7)" filter="url(#mascot-shadow)">
+    <path d="M34.4551 0.600005L19.2599 26.9419C25.0288 25.1609 31.2356 24.8948 37.2533 26.3116L42.3926 27.5227L37.5655 48.0259L32.4187 46.8148C26.0935 45.3253 20.0162 48.65 17.4497 53.9514L12.692 51.6519C16.3194 44.1528 24.873 39.6098 33.6333 41.673L36.0394 31.4545C27.4053 29.4225 18.3072 31.4517 11.3536 36.9605C4.4006 42.468 0.341325 50.8613 0.344743 59.7317L68.6114 59.7063L34.4551 0.600005Z" fill="#60A5FA"/>
+    <ellipse cx="19.5" cy="17" rx="7.5" ry="11" fill="#D9D9D9"/>
+    <path d="M21 17C21 19.7614 19.433 22 17.5 22C15.567 22 14 19.7614 14 17C14 14.2386 15.567 12 17.5 12C19.433 12 21 14.2386 21 17Z" fill="#000000"/>
+    <circle cx="16.5" cy="15.5" r="0.5" fill="#D9D9D9"/>
+    <ellipse cx="46.5" cy="18" rx="7.5" ry="11" fill="#D9D9D9"/>
+    <path d="M48 17C48 19.7614 46.433 22 44.5 22C42.567 22 41 19.7614 41 17C41 14.2386 42.567 12 44.5 12C46.433 12 48 14.2386 48 17Z" fill="#000000"/>
+    <circle cx="42.5" cy="16.5" r="0.5" fill="#D9D9D9"/>
+  </g>
+
+  <!-- Five cards for the five requested technologies. Icons use the official Simple Icons paths. -->
+  <g filter="url(#card-shadow)" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <!-- Markdown -->
+    <g transform="translate(65 177) rotate(-15 94 220)" opacity="0.58">
+      <rect width="188" height="278" rx="20" fill="#F6F6F9" stroke="#60A5FA" stroke-width="4"/>
+      <rect x="10" y="10" width="168" height="258" rx="13" stroke="#151515" stroke-opacity="0.12" stroke-width="2"/>
+      <text x="22" y="38" fill="#151515" fill-opacity="0.55" font-size="17" font-weight="750">.md</text>
+      <g transform="translate(50 69) scale(3.66)" fill="#151515">
+        <path d="M22.27 19.385H1.73A1.73 1.73 0 010 17.655V6.345a1.73 1.73 0 011.73-1.73h20.54A1.73 1.73 0 0124 6.345v11.308a1.73 1.73 0 01-1.73 1.731zM5.769 15.923v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.46v7.847zM21.232 12h-2.309V8.077h-2.307V12h-2.308l3.461 4.039z"/>
+      </g>
+      <text x="94" y="238" text-anchor="middle" fill="#151515" font-size="20" font-weight="800">Markdown</text>
+      <circle cx="29" cy="247" r="5" fill="#151515"/>
+      <circle cx="159" cy="31" r="5" fill="#151515"/>
+    </g>
+
+    <!-- Sass -->
+    <g transform="translate(207 130) rotate(-8 94 220)" opacity="0.58">
+      <rect width="188" height="278" rx="20" fill="#F6F6F9" stroke="#60A5FA" stroke-width="4"/>
+      <rect x="10" y="10" width="168" height="258" rx="13" stroke="#151515" stroke-opacity="0.12" stroke-width="2"/>
+      <text x="22" y="38" fill="#CC6699" fill-opacity="0.72" font-size="17" font-weight="750">.scss</text>
+      <g transform="translate(51 63) scale(3.58)" fill="#CC6699">
+        <path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zM9.615 15.998c.175.645.156 1.248-.024 1.792l-.065.18c-.024.061-.052.12-.078.176-.14.29-.326.56-.555.81-.698.759-1.672 1.047-2.09.805-.45-.262-.226-1.335.584-2.19.871-.918 2.12-1.509 2.12-1.509v-.003l.108-.061zm9.911-10.861c-.542-2.133-4.077-2.834-7.422-1.645-1.989.707-4.144 1.818-5.693 3.267C4.568 8.48 4.275 9.98 4.396 10.607c.427 2.211 3.457 3.657 4.703 4.73v.006c-.367.18-3.056 1.529-3.686 2.925-.675 1.47.105 2.521.615 2.655 1.575.436 3.195-.36 4.065-1.649.84-1.261.766-2.881.404-3.676.496-.135 1.08-.195 1.83-.104 2.101.24 2.521 1.56 2.43 2.1-.09.539-.523.854-.674.944-.15.091-.195.12-.181.181.015.09.091.09.21.075.165-.03 1.096-.45 1.141-1.471.045-1.29-1.186-2.729-3.375-2.7-.9.016-1.471.091-1.875.256-.03-.045-.061-.075-.105-.105-1.35-1.455-3.855-2.475-3.75-4.41.03-.705.285-2.564 4.8-4.814 3.705-1.846 6.661-1.335 7.171-.21.733 1.604-1.576 4.59-5.431 5.024-1.47.165-2.235-.404-2.431-.615-.209-.225-.239-.24-.314-.194-.12.06-.045.255 0 .375.12.3.585.825 1.396 1.095.704.225 2.43.359 4.5-.45 2.324-.899 4.139-3.405 3.614-5.505l.073.067z"/>
+      </g>
+      <text x="94" y="238" text-anchor="middle" fill="#151515" font-size="20" font-weight="800">Sass</text>
+      <circle cx="29" cy="247" r="5" fill="#CC6699"/>
+      <circle cx="159" cy="31" r="5" fill="#CC6699"/>
+    </g>
+
+    <!-- Tailwind CSS -->
+    <g transform="translate(493 130) rotate(8 94 220)" opacity="0.58">
+      <rect width="188" height="278" rx="20" fill="#F6F6F9" stroke="#60A5FA" stroke-width="4"/>
+      <rect x="10" y="10" width="168" height="258" rx="13" stroke="#151515" stroke-opacity="0.12" stroke-width="2"/>
+      <text x="22" y="38" fill="#06B6D4" fill-opacity="0.78" font-size="17" font-weight="750">.css</text>
+      <g transform="translate(48 72) scale(3.83)" fill="#06B6D4">
+        <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zM6.001 12c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"/>
+      </g>
+      <text x="94" y="238" text-anchor="middle" fill="#151515" font-size="20" font-weight="800">Tailwind</text>
+      <circle cx="29" cy="247" r="5" fill="#06B6D4"/>
+      <circle cx="159" cy="31" r="5" fill="#06B6D4"/>
+    </g>
+
+    <!-- JavaScript -->
+    <g transform="translate(635 177) rotate(15 94 220)" opacity="0.58">
+      <rect width="188" height="278" rx="20" fill="#F6F6F9" stroke="#60A5FA" stroke-width="4"/>
+      <rect x="10" y="10" width="168" height="258" rx="13" stroke="#151515" stroke-opacity="0.12" stroke-width="2"/>
+      <text x="22" y="38" fill="#151515" fill-opacity="0.55" font-size="17" font-weight="750">.js</text>
+      <rect x="48" y="59" width="92" height="92" fill="#151515"/>
+      <g transform="translate(48 59) scale(3.833333)" fill="#F7DF1E">
+        <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/>
+      </g>
+      <text x="94" y="238" text-anchor="middle" fill="#151515" font-size="20" font-weight="800">JavaScript</text>
+      <circle cx="29" cy="247" r="5" fill="#F7DF1E" stroke="#151515" stroke-width="2"/>
+      <circle cx="159" cy="31" r="5" fill="#F7DF1E" stroke="#151515" stroke-width="2"/>
+    </g>
+    <!-- YAML -->
+    <g transform="translate(350 86) rotate(-1 94 220)" filter="url(#selected-card-glow)">
+      <rect width="188" height="278" rx="20" fill="#F6F6F9" stroke="#CB171E" stroke-width="7"/>
+      <rect x="10" y="10" width="168" height="258" rx="13" stroke="#151515" stroke-opacity="0.12" stroke-width="2"/>
+      <text x="22" y="38" fill="#CB171E" fill-opacity="0.72" font-size="17" font-weight="750">.yaml</text>
+      <g transform="translate(51 61) scale(3.58)" fill="#CB171E">
+        <path d="m0 .97 4.111 6.453v4.09h2.638v-4.09L11.053.969H8.214L5.58 5.125 2.965.969Zm12.093.024-4.47 10.544h2.114l.97-2.345h4.775l.804 2.345h2.26L14.255.994Zm1.133 2.225 1.463 3.87h-3.096zm3.06 9.475v10.29H24v-2.199h-5.454v-8.091zm-12.175.002v10.335h2.217v-7.129l2.32 4.792h1.746l2.4-4.96v7.295h2.127V12.696h-2.904L9.44 17.37l-2.455-4.674Z"/>
+      </g>
+      <text x="94" y="238" text-anchor="middle" fill="#151515" font-size="20" font-weight="800">YAML</text>
+      <circle cx="29" cy="247" r="5" fill="#CB171E"/>
+      <circle cx="159" cy="31" r="5" fill="#CB171E"/>
+    </g>
+
+  </g>
+
+</svg>
