@@ -46,8 +46,13 @@ let denoCommand = deno.reduce((acc, command) => {
 		<Code frame="none" showLineNumbers={false} code={yarnCommand} lang="bash" />
 	</TabItem>
 	{Astro.props.standalone && (
-			<TabItem label="standalone" icon="seti:shell">
-				<Code frame="none" showLineNumbers={false} code={Astro.props.standalone} lang="bash" />
-			</TabItem>
-		)}
+		<TabItem label="standalone" icon="seti:shell">
+			<Code
+				frame="none"
+				showLineNumbers={false}
+				code={Astro.props.standalone}
+				lang="bash"
+			/>
+		</TabItem>
+	)}
 </Tabs>

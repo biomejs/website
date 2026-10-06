@@ -30,11 +30,11 @@ const statuses = (Object.keys(icons) as StatusId[]).map((id) => ({
 
 <ul class="language-support-legend not-content" aria-label={title}>
 	{statuses.map(({ icon, label }) => (
-			<li>
-				<span aria-hidden="true">{icon}</span>
-				<span class="label">{label}</span>
-			</li>
-		))}
+		<li>
+			<span aria-hidden="true">{icon}</span>
+			<span class="label">{label}</span>
+		</li>
+	))}
 </ul>
 
 <style>
