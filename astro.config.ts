@@ -77,6 +77,11 @@ const plugins = [
 				picture: "https://avatars.githubusercontent.com/u/649677?s=25&v=4",
 				url: "https://bsky.app/profile/hedger.ch",
 			},
+			netail: {
+				name: "Maikel van Dort",
+				picture: "https://avatars.githubusercontent.com/u/11695769?s=25&v=4",
+				url: "https://bsky.app/profile/netail.dev",
+			},
 			team: {
 				name: "Biome Core Team, Biome Maintainers",
 				picture: "/img/logo-avatar.png",
