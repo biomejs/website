@@ -1,5 +1,5 @@
 ---
-title: Migrate from other tooling
+title: Migrate from other tools
 description: Convert your ESLint, Prettier, and Stylelint configuration into a Biome configuration with one command each.
 ---
 
@@ -191,17 +191,13 @@ The command produces the following `biome.json`:
 
 ## Migrate from Stylelint
 
-To ease the migration, Biome provides the `biome migrate stylelint` subcommand.
-This subcommand will read your Stylelint configuration and attempt to port its settings to Biome.
-It supports the `extends` field and loads both shared and plugin configurations.
-The subcommand needs Node.js to load and resolve all the plugins and `extends` configured in the Stylelint configuration file.
-The subcommand also migrates the `ignoreFiles` field and `.stylelintignore`.
+`biome migrate stylelint` ports the rules, overrides, and ignore patterns from your Stylelint configuration.
+It follows `extends`, loads shared and plugin configurations, and migrates the `ignoreFiles` field and `.stylelintignore`.
 
 Given the following Stylelint configuration:
 
 ```json title=".stylelintrc.json"
 {
-	"extends": ["stylelint-config-recommended"],
 	"ignoreFiles": ["dist/**"],
 	"rules": {
 		"block-no-empty": true,
@@ -219,65 +215,57 @@ Given the following Stylelint configuration:
 }
 ```
 
-And the following Biome configuration:
-
-```json title="biome.json"
-{
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true
-		}
-	}
-}
-```
-
-Run the following command to migrate your Stylelint configuration to Biome.
+Run the following command to migrate it:
 
 <PackageManagerBiomeCommand command="migrate stylelint --write"/>
 
-The subcommand overwrites your initial Biome configuration.
-For example, it disables `recommended`.
-This results in the following Biome configuration:
+The command produces the following `biome.json`:
 
-```json title="biome.json"
-{
-	"organizeImports": { "enabled": true },
+<Code title="biome.json" lang="json" code={`{
+	"$schema": "https://biomejs.dev/schemas/${version}/schema.json",
+	"vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
+	"files": { "ignoreUnknown": false },
+	"formatter": { "enabled": true, "indentStyle": "tab" },
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": false,
+			"preset": "none",
 			"suspicious": {
 				"noDuplicateFontNames": "error",
 				"noEmptyBlock": "error",
 				"noImportantInKeyframe": "error"
 			}
-		}
+		},
+		"includes": ["**", "!dist/**"]
 	},
+	"javascript": { "formatter": { "quoteStyle": "double" } },
 	"overrides": [
 		{
-			"include": ["*.scss"],
-			"linter": {
-				"rules": {
-					"suspicious": {
-						"noEmptyBlock": "off"
-					}
-				}
-			}
+			"includes": ["*.scss"],
+			"linter": { "rules": { "suspicious": { "noEmptyBlock": "off" } } }
 		}
-	]
-}
-```
+	],
+	"assist": {
+		"enabled": true,
+		"actions": { "source": { "organizeImports": "on" } }
+	}
+}`} />
 
-For now, `biome migrate stylelint` only supports the JSON (`.stylelintrc.json`) and JavaScript (`.stylelintrc.js`, `.stylelintrc.cjs`, `.stylelintrc.mjs`) configuration formats.
-Configuration written in YAML is not supported.
+The command merges the migrated settings into your existing `biome.json`, so rules migrated earlier with `biome migrate eslint` are kept.
+It sets the rule preset to `none`, so only the rules enabled explicitly run.
+Review the result before relying on it.
 
-By default, Biome doesn't migrate inspired rules.
-You can use the CLI flag `--include-inspired` to migrate them.
+:::note
+Biome currently supports Stylelint configurations written in JSON or JavaScript. YAML configurations are not supported.
+:::
 
-<PackageManagerBiomeCommand command="migrate stylelint --write --include-inspired"/>
+### Inspired rules
 
-Note that you are unlikely to get exactly the same behavior as Stylelint because Biome has chosen not to implement some rule options or to deviate slightly from the original implementation.
+Each Biome CSS rule is either identical to its Stylelint source or only inspired by it, as listed on the [CSS rule sources](/linter/css/sources) page. By default, the command migrates identical rules only. Pass the `--include-inspired` flag to migrate inspired rules as well:
+
+<PackageManagerBiomeCommand command="migrate stylelint --write --include-inspired" />
+
+Even with inspired rules, the result does not behave exactly like Stylelint, because some rule options are not implemented and some rules deliberately differ.
 
 ## After migrating
 
