@@ -14,25 +14,47 @@ const plugins = await getCollection("plugins");
 		</tr>
 	</thead>
 	<tbody>
-		{plugins.map(plugin =>
-		<tr>
-			<td>
-				<code>{plugin.data.id}</code>
-			</td>
-			<td>
-				<p>{plugin.data.metadata.description}</p>
-			</td>
-			<td style="width: 170px">
-				<ul>
-					{plugin.data.metadata.website ? <li class="inline-icon"><a href={plugin.data.metadata.website} target="_blank" rel="noopener">Website
-						<Icon name="external"/>
-					</a></li> : ""}
-					{plugin.data.metadata.repository ? <li class="inline-icon"><a href={plugin.data.metadata.repository} target="_blank" rel="noopener">Repository
-						<Icon name="external"/>
-					</a></li> : ""}
-				</ul>
-			</td>
-		</tr>
-	)}
+		{plugins.map((plugin) => (
+			<tr>
+				<td>
+					<code>{plugin.data.id}</code>
+				</td>
+				<td>
+					<p>{plugin.data.metadata.description}</p>
+				</td>
+				<td style="width: 170px">
+					<ul>
+						{plugin.data.metadata.website ? (
+							<li class="inline-icon">
+								<a
+									href={plugin.data.metadata.website}
+									target="_blank"
+									rel="noopener"
+								>
+									Website
+									<Icon name="external" />
+								</a>
+							</li>
+						) : (
+							""
+						)}
+						{plugin.data.metadata.repository ? (
+							<li class="inline-icon">
+								<a
+									href={plugin.data.metadata.repository}
+									target="_blank"
+									rel="noopener"
+								>
+									Repository
+									<Icon name="external" />
+								</a>
+							</li>
+						) : (
+							""
+						)}
+					</ul>
+				</td>
+			</tr>
+		))}
 	</tbody>
 </table>
