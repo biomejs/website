@@ -12,14 +12,12 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-excessive-nested-callbacks/javascript/"}]} />
 
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.4.14`
-- Diagnostic Category: [`lint/nursery/noExcessiveNestedCallbacks`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/complexity/noExcessiveNestedCallbacks`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
 - This rule doesn't have a fix.
-- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
 - Sources: 
   - Same as [`max-nested-callbacks`](https://eslint.org/docs/latest/rules/max-nested-callbacks)
 
@@ -28,7 +26,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"complexity": {
 				"noExcessiveNestedCallbacks": "error"
 			}
 		}
@@ -60,7 +58,7 @@ foo1(function () {
 });
 ```
 
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:6:26 <a href=\"https://biomejs.dev/linter/rules/no-excessive-nested-callbacks\">lint/nursery/noExcessiveNestedCallbacks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This callback is nested too deeply.</span><br />  <br />    <strong>4 │ </strong>            foo4(function () &#123;<br />    <strong>5 │ </strong>                foo5(function () &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>                    foo6(function () &#123;&#125;);<br />   <strong>   │ </strong>                         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>                &#125;);<br />    <strong>8 │ </strong>            &#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Callbacks nested 6 levels deep are harder to read and maintain. The configured maximum is 5.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Extract some callbacks into named functions to reduce nesting.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:6:26 <a href=\"https://biomejs.dev/linter/rules/no-excessive-nested-callbacks\">lint/complexity/noExcessiveNestedCallbacks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This callback is nested too deeply.</span><br />  <br />    <strong>4 │ </strong>            foo4(function () &#123;<br />    <strong>5 │ </strong>                foo5(function () &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>                    foo6(function () &#123;&#125;);<br />   <strong>   │ </strong>                         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>                &#125;);<br />    <strong>8 │ </strong>            &#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Callbacks nested 6 levels deep are harder to read and maintain. The configured maximum is 5.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Extract some callbacks into named functions to reduce nesting.</span><br />  <br /></code></pre>"} />
 
 ### Valid
 
@@ -82,7 +80,7 @@ The maximum callback nesting depth allowed (default: 5).
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"complexity": {
 				"noExcessiveNestedCallbacks": {
 					"level": "on",
 					"options": {
@@ -108,7 +106,7 @@ foo1(function () {
 });
 ```
 
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:18 <a href=\"https://biomejs.dev/linter/rules/no-excessive-nested-callbacks\">lint/nursery/noExcessiveNestedCallbacks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This callback is nested too deeply.</span><br />  <br />    <strong>2 │ </strong>    foo2(function () &#123;<br />    <strong>3 │ </strong>        foo3(function () &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>            foo4(function () &#123;&#125;);<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>        &#125;);<br />    <strong>6 │ </strong>    &#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Callbacks nested 4 levels deep are harder to read and maintain. The configured maximum is 3.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Extract some callbacks into named functions to reduce nesting.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:18 <a href=\"https://biomejs.dev/linter/rules/no-excessive-nested-callbacks\">lint/complexity/noExcessiveNestedCallbacks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This callback is nested too deeply.</span><br />  <br />    <strong>2 │ </strong>    foo2(function () &#123;<br />    <strong>3 │ </strong>        foo3(function () &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>            foo4(function () &#123;&#125;);<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>        &#125;);<br />    <strong>6 │ </strong>    &#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Callbacks nested 4 levels deep are harder to read and maintain. The configured maximum is 3.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Extract some callbacks into named functions to reduce nesting.</span><br />  <br /></code></pre>"} />
 
 #### Valid
 
@@ -125,7 +123,7 @@ foo1(function () {
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_excessive_nested_callbacks.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noExcessiveNestedCallbacks)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/complexity/no_excessive_nested_callbacks.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/complexity/noExcessiveNestedCallbacks)
 - <RulePlaygroundLink rule="noExcessiveNestedCallbacks" category="lint" language="js" code={"foo1(function () {\n    foo2(function () {\n        foo3(function () {\n            foo4(function () {\n                foo5(function () {\n                    foo6(function () {});\n                });\n            });\n        });\n    });\n});\n"} />
 

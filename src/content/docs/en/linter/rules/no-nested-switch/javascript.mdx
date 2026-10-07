@@ -1,0 +1,119 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noNestedSwitch (JavaScript)
+description: JavaScript (and super languages) documentation for noNestedSwitch
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-nested-switch/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noNestedSwitch`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`sonarjs/no-nested-switch`](https://github.com/SonarSource/eslint-plugin-sonarjs/blob/HEAD/docs/rules/no-nested-switch.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noNestedSwitch": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `switch` statements inside other `switch` statements.
+
+A `switch` statement inside another `switch` statement is hard to read,
+because it is easy to mix up which `case` belongs to which `switch`.
+Move the inner `switch` into a separate function, written outside the
+outer `switch`, instead.
+
+A `switch` statement inside a function is still reported when that
+function is written inside another `switch` statement.
+
+## Examples
+
+### Invalid
+
+```js
+function foo(n, m) {
+    switch (n) {
+        case 0:
+            switch (m) {
+                case 1:
+                    break;
+            }
+            break;
+        default:
+            break;
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:13 <a href=\"https://biomejs.dev/linter/rules/no-nested-switch\">lint/nursery/noNestedSwitch</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statement is inside another </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statement.</span><br />  <br />    <strong>2 │ </strong>    switch (n) &#123;<br />    <strong>3 │ </strong>        case 0:<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>            switch (m) &#123;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>                case 1:<br />    <strong>6 │ </strong>                    break;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The outer </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statement starts here.</span><br />  <br />    <strong>1 │ </strong>function foo(n, m) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    switch (n) &#123;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>        case 0:<br />    <strong>4 │ </strong>            switch (m) &#123;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Nested </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statements are hard to read, because it is easy to mix up which </span><span style=\"color: lightgreen;\"><strong>case</strong></span><span style=\"color: lightgreen;\"> belongs to which </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the inner </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statement into a separate function written outside the outer </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statement.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+switch (n) {
+    case 0: {
+        const handle = (m) => {
+            switch (m) {
+                case 1:
+                    break;
+            }
+        };
+        handle(n);
+        break;
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:13 <a href=\"https://biomejs.dev/linter/rules/no-nested-switch\">lint/nursery/noNestedSwitch</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statement is inside another </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statement.</span><br />  <br />    <strong>2 │ </strong>    case 0: &#123;<br />    <strong>3 │ </strong>        const handle = (m) =&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>            switch (m) &#123;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>                case 1:<br />    <strong>6 │ </strong>                    break;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The outer </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statement starts here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>switch (n) &#123;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    case 0: &#123;<br />    <strong>3 │ </strong>        const handle = (m) =&gt; &#123;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Nested </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statements are hard to read, because it is easy to mix up which </span><span style=\"color: lightgreen;\"><strong>case</strong></span><span style=\"color: lightgreen;\"> belongs to which </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the inner </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statement into a separate function written outside the outer </span><span style=\"color: lightgreen;\"><strong>switch</strong></span><span style=\"color: lightgreen;\"> statement.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+function foo(n, m) {
+    switch (n) {
+        case 0:
+            bar(m);
+            break;
+        default:
+            break;
+    }
+}
+
+function bar(m) {
+    switch (m) {
+        case 1:
+            break;
+    }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_nested_switch.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noNestedSwitch)
+- <RulePlaygroundLink rule="noNestedSwitch" category="lint" language="js" code={"function foo(n, m) {\n    switch (n) {\n        case 0:\n            switch (m) {\n                case 1:\n                    break;\n            }\n            break;\n        default:\n            break;\n    }\n}\n"} />
+

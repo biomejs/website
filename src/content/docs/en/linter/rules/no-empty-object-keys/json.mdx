@@ -12,14 +12,12 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/no-empty-object-keys/json/"}]} />
 
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.4.7`
-- Diagnostic Category: [`lint/nursery/noEmptyObjectKeys`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noEmptyObjectKeys`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
 - This rule doesn't have a fix.
-- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - Sources: 
   - Same as [`json/no-empty-keys`](https://github.com/eslint/json/blob/main/docs/rules/no-empty-keys.md)
 
@@ -28,7 +26,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noEmptyObjectKeys": "error"
 			}
 		}
@@ -53,7 +51,7 @@ because they are usually accidental. Use a short, meaningful name instead.
 }
 ```
 
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.json:2:3 <a href=\"https://biomejs.dev/linter/rules/no-empty-object-keys\">lint/nursery/noEmptyObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected empty object key.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &quot;&quot;: &quot;value&quot;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty keys often cause confusion and may cause issues with parsers or processors. Either remove this property or provide a meaningful key name.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.json:2:3 <a href=\"https://biomejs.dev/linter/rules/no-empty-object-keys\">lint/suspicious/noEmptyObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Unexpected empty object key.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &quot;&quot;: &quot;value&quot;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty keys often cause confusion and may cause issues with parsers or processors. Either remove this property or provide a meaningful key name.</span><br />  <br /></code></pre>"} />
 
 ```json
 {
@@ -62,7 +60,7 @@ because they are usually accidental. Use a short, meaningful name instead.
 }
 ```
 
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.json:3:3 <a href=\"https://biomejs.dev/linter/rules/no-empty-object-keys\">lint/nursery/noEmptyObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected empty object key.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />    <strong>2 │ </strong>  &quot;validKey&quot;: &quot;value&quot;,<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  &quot;&quot;: &quot;another value&quot;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty keys often cause confusion and may cause issues with parsers or processors. Either remove this property or provide a meaningful key name.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.json:3:3 <a href=\"https://biomejs.dev/linter/rules/no-empty-object-keys\">lint/suspicious/noEmptyObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Unexpected empty object key.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />    <strong>2 │ </strong>  &quot;validKey&quot;: &quot;value&quot;,<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  &quot;&quot;: &quot;another value&quot;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty keys often cause confusion and may cause issues with parsers or processors. Either remove this property or provide a meaningful key name.</span><br />  <br /></code></pre>"} />
 
 ```json
 {
@@ -70,7 +68,7 @@ because they are usually accidental. Use a short, meaningful name instead.
 }
 ```
 
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.json:2:3 <a href=\"https://biomejs.dev/linter/rules/no-empty-object-keys\">lint/nursery/noEmptyObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected empty object key.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &quot; &quot;: &quot;space as key&quot;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty keys often cause confusion and may cause issues with parsers or processors. Either remove this property or provide a meaningful key name.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.json:2:3 <a href=\"https://biomejs.dev/linter/rules/no-empty-object-keys\">lint/suspicious/noEmptyObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Unexpected empty object key.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &quot; &quot;: &quot;space as key&quot;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty keys often cause confusion and may cause issues with parsers or processors. Either remove this property or provide a meaningful key name.</span><br />  <br /></code></pre>"} />
 
 ```json
 {
@@ -78,7 +76,7 @@ because they are usually accidental. Use a short, meaningful name instead.
 }
 ```
 
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.json:2:3 <a href=\"https://biomejs.dev/linter/rules/no-empty-object-keys\">lint/nursery/noEmptyObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected empty object key.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &quot;&#92;t&quot;: &quot;tab as key&quot;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty keys often cause confusion and may cause issues with parsers or processors. Either remove this property or provide a meaningful key name.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.json:2:3 <a href=\"https://biomejs.dev/linter/rules/no-empty-object-keys\">lint/suspicious/noEmptyObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Unexpected empty object key.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &quot;&#92;t&quot;: &quot;tab as key&quot;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty keys often cause confusion and may cause issues with parsers or processors. Either remove this property or provide a meaningful key name.</span><br />  <br /></code></pre>"} />
 
 ```json
 {
@@ -86,7 +84,7 @@ because they are usually accidental. Use a short, meaningful name instead.
 }
 ```
 
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.json:2:3 <a href=\"https://biomejs.dev/linter/rules/no-empty-object-keys\">lint/nursery/noEmptyObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected empty object key.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &quot;&#92;n&quot;: &quot;newline as key&quot;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty keys often cause confusion and may cause issues with parsers or processors. Either remove this property or provide a meaningful key name.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.json:2:3 <a href=\"https://biomejs.dev/linter/rules/no-empty-object-keys\">lint/suspicious/noEmptyObjectKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Unexpected empty object key.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &quot;&#92;n&quot;: &quot;newline as key&quot;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty keys often cause confusion and may cause issues with parsers or processors. Either remove this property or provide a meaningful key name.</span><br />  <br /></code></pre>"} />
 
 ### Valid
 
@@ -101,7 +99,7 @@ because they are usually accidental. Use a short, meaningful name instead.
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/nursery/no_empty_object_keys.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/nursery/noEmptyObjectKeys)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/suspicious/no_empty_object_keys.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/suspicious/noEmptyObjectKeys)
 - <RulePlaygroundLink rule="noEmptyObjectKeys" category="lint" language="json" code={"{\n  \"\": \"value\"\n}\n"} />
 

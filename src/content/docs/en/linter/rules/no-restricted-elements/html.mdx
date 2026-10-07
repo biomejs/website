@@ -1,0 +1,117 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noRestrictedElements (HTML)
+description: HTML documentation for noRestrictedElements
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-restricted-elements/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-restricted-elements/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+## Summary
+- Diagnostic Category: [`lint/correctness/noRestrictedElements`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`vue/no-restricted-html-elements`](https://eslint.vuejs.org/rules/no-restricted-html-elements)
+  - Inspired from [`svelte/no-restricted-html-elements`](https://sveltejs.github.io/eslint-plugin-svelte/rules/no-restricted-html-elements/)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noRestrictedElements": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the use of configured elements.
+
+This rule disallows the use of configured elements in HTML, Vue, Svelte, and Astro files.
+Without elements configured, this rule doesn't do anything.
+
+This rule is useful when a project wants to enforce a component or a different
+element instead of certain HTML elements. For example, a project might restrict
+`<a>` in favor of a router link component that handles client-side navigation.
+
+Native HTML, SVG, and MathML element names are matched case-insensitively, so
+restricting `marquee` also reports `<MARQUEE>`.
+Component names, such as `<RouterLink>` in Vue, Svelte, and Astro files, are matched exactly.
+
+## Options
+
+### `elements`
+
+A map of element names to the message to show when the element is used.
+Defaults to no restricted elements.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noRestrictedElements": {
+					"level": "on",
+					"options": {
+						"elements": {
+							"marquee": "Use CSS animations instead.",
+							"RouterLink": "Use NuxtLink instead."
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+## Examples
+
+### Invalid
+
+```html
+<marquee>Breaking news</marquee>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:2 <a href=\"https://biomejs.dev/linter/rules/no-restricted-elements\">lint/correctness/noRestrictedElements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>marquee</strong></span><span style=\"color: lightgreen;\"> element is restricted in this project.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;marquee&gt;Breaking news&lt;/marquee&gt;<br />   <strong>   │ </strong> <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use CSS animations instead.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+    <RouterLink to="/">Home</RouterLink>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:6 <a href=\"https://biomejs.dev/linter/rules/no-restricted-elements\">lint/correctness/noRestrictedElements</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>RouterLink</strong></span><span style=\"color: lightgreen;\"> element is restricted in this project.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    &lt;RouterLink to=&quot;/&quot;&gt;Home&lt;/RouterLink&gt;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use NuxtLink instead.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+    <p>Breaking news</p>
+    <NuxtLink to="/">Home</NuxtLink>
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/correctness/no_restricted_elements.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/correctness/noRestrictedElements)
+- <RulePlaygroundLink rule="noRestrictedElements" category="lint" language="html" code={"<marquee>Breaking news</marquee>\n"} />
+
