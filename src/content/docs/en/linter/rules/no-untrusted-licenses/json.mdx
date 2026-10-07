@@ -12,15 +12,13 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/no-untrusted-licenses/json/"}]} />
 
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 :::note
 This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
 :::
 ## Summary
 - Rule available since: `v2.4.9`
-- Diagnostic Category: [`lint/nursery/noUntrustedLicenses`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/suspicious/noUntrustedLicenses`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
 - This rule doesn't have a fix.
 - The default severity of this rule is [**warning**](/reference/diagnostics#warning).
 - This rule belongs to the following domains:
@@ -30,7 +28,7 @@ This rule belongs to the project domain. This means that its activation will act
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noUntrustedLicenses": "error"
 			}
 		}
@@ -115,7 +113,7 @@ Default: `[]`
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noUntrustedLicenses": {
 					"level": "on",
 					"options": {
@@ -146,7 +144,7 @@ Default: `[]`
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noUntrustedLicenses": {
 					"level": "on",
 					"options": {
@@ -175,7 +173,7 @@ Default: `false`
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noUntrustedLicenses": {
 					"level": "on",
 					"options": {
@@ -201,7 +199,7 @@ Default: `false`
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noUntrustedLicenses": {
 					"level": "on",
 					"options": {
@@ -227,7 +225,7 @@ Default: `false`
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"suspicious": {
 				"noUntrustedLicenses": {
 					"level": "on",
 					"options": {
@@ -246,6 +244,6 @@ Default: `false`
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/nursery/no_untrusted_licenses.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/nursery/noUntrustedLicenses)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/suspicious/no_untrusted_licenses.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/suspicious/noUntrustedLicenses)
 

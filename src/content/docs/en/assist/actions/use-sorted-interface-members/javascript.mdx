@@ -88,6 +88,51 @@ interface MixedMembers {
 }
 ```
 
+## Options
+
+### `partitionByNewLine`
+
+When enabled, members separated by a blank line are kept in their own
+section and sorted only within that section. This preserves logical
+groupings that the author intentionally introduced with empty lines.
+
+>Default: `false`
+
+
+```json title='biome.json'
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"useSortedInterfaceMembers": {
+					"level": "on",
+					"options": {
+						"partitionByNewLine": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+With the option enabled, the following interface is considered sorted
+because each section is sorted on its own:
+
+```ts
+interface User {
+  id: string;
+
+  createdAt: Date;
+  updatedAt: Date;
+
+  email: string;
+  name: string;
+  passwordHash: string;
+}
+```
+
 ## Related links
 
 - [Disable a rule](/assist/#disable-a-rule)
