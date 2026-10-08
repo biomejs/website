@@ -9,6 +9,7 @@ excerpt: |
 authors:
   - ema
   - netail
+  - dyc3
   - team
 date: 2026-10-15
 cover:
@@ -193,21 +194,117 @@ Thank you <Contributor handle="soconnor-seeq" /> for contributing this feature.
 
 ## Better Tailwind CSS integration
 
-<Picture src={deckTw} formats={['avif', 'webp']} alt="Biome mascot with a deck of card. The Tailwind card is highlighted" />
+<Picture src={deckTw} formats={['avif', 'webp']} alt="Biome mascot with a deck of cards. The Tailwind card is highlighted" />
 
-{/* TODO @dyc3 write about it more */}
+Biome 2.6 brings Tailwind-aware linting and class sorting closer to the way developers like to use Tailwind in their projects.
 
-### Top-level Tailwind class detection
+In patches leading up to this release, we've improved our Tailwind parser and expanded Tailwind class detection across HTML, Vue, Svelte, and Astro, and introduced new rules like [`useTailwindShorthandClasses`](https://biomejs.dev/linter/rules/use-tailwind-shorthand-classes/) and [`noTailwindRawColors`](https://biomejs.dev/linter/rules/no-tailwind-raw-colors/). After lots of testing and fixing many bugs, we're finally ready to really close the gap on our native Tailwind support. 
 
-
+We've revamped class sorting and added new rules inspired by [`@shadcn/lint`](https://github.com/shadcn-ui/lint) designed to make agents produce high quality, idiomatic Tailwind styles. We're excited for you to try them out and to listen to your feedback.
 
 ### Tailwind CSS v4-aware sorting and stylesheet configuration
 
+You've been waiting for this one for a long time, and it's long overdue. We're excited to finally ship Tailwind class sorting, one of our oldest and most requested features (460 👍 reactions)! The nursery rule [`useTailwindSortedClasses`](https://biomejs.dev/linter/rules/use-tailwind-sorted-classes/) (formerly `useSortedClasses`), has been updated to the sorting semantics of Tailwind v4.
+
+:::caution[Sorting behavior changed]
+Previously, the rule sorted classes based on Tailwind v3 semantics. The rule has been overhauled to align with Tailwind v4, and the sorting behavior is now significantly different than it was before.
+:::
+
+Tailwind v4 introduced "design systems", where you define your application's appearance as variables in CSS, and those automatically become available as Tailwind classes. Biome is now able to read this configuration stylesheet and it takes your design system into account when sorting classes.
+
+```jsonc title="biome.jsonc"
+{
+  "tailwind": {
+    "stylesheet": "app/global.css"
+  }
+}
+```
+
+Thanks to <Contributor handle="johncarmack1984" /> for the help with the sorting implementation, and <Avatar handle="dyc3" /> for working on the Tailwind parser!
+
+### `noTailwindRawColors`
+
+Your design system probably defines a small set of colors to use, and where to use them. How many times have you told your agent something like "make the danger button red", and it does something silly like this:
+
+```jsx
+<button class="bg-red-500">Danger</button>
+```
+
+You might even have a skill that tells the agent not to do that, but maybe it decided not to read it. Frustrating, right? You wanted it to use the `--color-danger` you have defined in your config.
+
+In case you missed its debut in 2.5.15, [`noTailwindRawColors`](https://biomejs.dev/linter/rules/no-tailwind-raw-colors/), inspired by [`no-raw-colors`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/no-raw-colors.md), reports classes that use Tailwind's built-in palette, like `red-500` or `slate-950`, and points the agent back to the colors your design system defines:
+
+```jsx
+<button class="bg-danger">Danger</button>
+```
+
+The rule checks every color utility, including variants and opacity modifiers like `hover:text-red-500/80`. `black`, `white`, `transparent`, `current` and `inherit` are always allowed, and if you really need a specific palette color, you can add it to the rule's `allowedColors` option.
+
 ### `noTailwindRestyledComponents`
+
+Many of you have your own component library to keep your application's visual style consistent. Not just the colors, but the whitespace, borders, font size, and animations are all the little things that make your user experience consistent and beautiful. That consistency falls apart the moment someone passes utility classes that override how a component looks. Agents do this a lot: when a button needs to look different, they reach for `className` instead of the variant prop that already exists.
+
+```jsx
+// The Button's own styles are silently overridden
+<Button className="bg-red-500 text-white rounded-none" />;
+
+// Use the variant the design system provides instead
+<Button variant="danger" />;
+```
+
+The new nursery rule [`noTailwindRestyledComponents`](https://biomejs.dev/linter/rules/no-tailwind-restyled-components/), inspired by [`no-restyle`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/no-restyle.md), reports utilities that change a component's color, typography, spacing, shape, effects, or motion. Layout utilities like margins, sizing, and positioning are still allowed, so `<Button className="mt-4 w-full" />` is fine.
+
+If some of your components are meant to be restyled, you can allow specific categories or classes per component:
+
+```json title="biome.json"
+{
+  "linter": {
+    "rules": {
+      "nursery": {
+        "noTailwindRestyledComponents": {
+          "level": "error",
+          "options": {
+            "allow": [
+              { "components": ["Card"], "categories": ["spacing"] },
+              { "components": ["Button"], "classes": ["hover:shadow-lg"] }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ### `useTailwindStaticClassStrings`
 
-### Attribute selectors in arbitrary variants
+Tailwind relies on string matching in order to detect tailwind classes. It scans your source code for the exact class strings, and only emits CSS for the matches. Without proper guidance, agents have a tendency to dynamically construct tailwind class strings. This causes styles to silently go missing, because the complete class name never appears in your code:
+
+```jsx
+// Tailwind can't see the class!
+<div className={`bg-${color}`} />;
+```
+
+The new nursery rule [`useTailwindStaticClassStrings`](https://biomejs.dev/linter/rules/use-tailwind-static-class-strings/), inspired by [`require-static-classes`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/require-static-classes.md), flags template interpolation and string concatenation in class strings, including inside merge functions like `clsx` and `cn`. Instead, write out complete class names and choose between them:
+
+```jsx
+<div className={active ? "bg-red-500" : "bg-blue-500"} />;
+<div className={clsx(active && "bg-red-500", "text-white")} />;
+```
+
+### Tailwind class detection
+
+All Tailwind rules will detect class strings in the exact same way, across JSX, TSX, HTML, Vue, Svelte and Astro files. The default settings should work out of the box for the majority of users, but you can configure how Biome detects class strings with the new `tailwind` top-level configuration:
+
+```jsonc title="biome.jsonc"
+{
+  "tailwind": {
+    "mergeFunctions": ["clsx", "cn", "twMerge"],
+    "variantFunctions": ["cva", "tv"],
+    "attributes": ["class", "className"]
+  }
+}
+```
 
 ## The new `biome inspect` command
 
