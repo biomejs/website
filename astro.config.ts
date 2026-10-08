@@ -458,6 +458,7 @@ export default defineConfig({
 								{
 									label: "Plugins",
 									link: "/linter/plugins",
+									badge: "updated",
 									translations: {
 										ja: "プラグイン",
 										"zh-CN": "插件系统",

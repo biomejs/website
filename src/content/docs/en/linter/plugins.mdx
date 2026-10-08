@@ -3,9 +3,28 @@ title: Linter Plugins
 description: An overview of how to use Biome's Linter Plugins
 ---
 
-Biome supports plugins in two forms:
+Biome supports two forms of plugins:
 - GritQL, a powerful DSL to build small and expressive rules.
 - JavaScript, which allows you to tap into Biome's infrastructure, such as CST, Semantic model, and more.
+
+## Decide the plugin format
+
+It's important you understand how the two plugins formats work, so that you can take an informative decision on how
+they will impact your work, your users, and Biome itself.
+
+GritQL:
+- For Biome to enable plugins for a language, GritQL must support it, as well as Biome.
+- It's a DSL, you have you learn how it works. A DSL plugin can be more expressive, and require way less code to write, depending on the use case.
+- Plugins run on every file, regardless of weather the content of the file matches the query.
+- Plugins use a different pipeline of Biome Rust lint rules, and they don't have access to information such as semantic model, file kind, etc.
+- The memory usage is minimal and can be controlled by Biome.
+
+JavaScript:
+- They can support the same languages that Biome Rust supports.
+- They are very verbose, so writing a rule for a small thing could take 10x more lines of code compared to GritQL.
+- They have access to more information, such as the file being analyzed, semantic model, CST navigation, and more.
+- It's way easier writing a plugin that can negatively impact the performance of downstream users.
+- The memory used by the plugins can't be controlled by Biome.
 
 ## GritQL plugins
 
@@ -177,3 +196,8 @@ Supports four arguments:
   default, fixes are treated as unsafe.
 
 ## JavaScript plugins
+
+:::caution
+JavaScript plugins are in **Developer Preview** stage. Breaking changes might occur in patches, and
+things might be missing. Please refer to [the GitHub issue](https://github.com/biomejs/biome/issues/11420) to engage with us.
+:::
