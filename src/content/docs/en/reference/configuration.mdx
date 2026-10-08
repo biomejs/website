@@ -682,9 +682,9 @@ Biome loads only one `.editorconfig`. Nested cascading configurations and the Ed
 
 ## `tailwind`
 
-**Type:** `{ attributes?: string[], mergeFunctions?: string[], variantFunctions?: string[] }`
+**Type:** `{ attributes?: string[], mergeFunctions?: string[], variantFunctions?: string[], stylesheet?: string }`
 
-[Tailwind](https://tailwindcss.com) styles elements with short class names, such as `px-2` for horizontal padding. Biome's [Tailwind rules](/linter/domains/#tailwind) need to know where your code writes these classes. These options tell them which attributes and functions to check, in JavaScript and HTML files.
+Configures where Biome's [Tailwind rules](/linter/domains/#tailwind) look for [Tailwind CSS](https://tailwindcss.com) classes in JavaScript and HTML files, and which stylesheet defines the project's Tailwind CSS configuration.
 
 ```json title="biome.json"
 {
@@ -696,8 +696,8 @@ Biome loads only one `.editorconfig`. Nested cascading configurations and the Ed
 }
 ```
 
-:::note
-Setting a list replaces its defaults. It doesn't add to them. To keep the defaults, include them in your list.
+:::note[Lists replace their defaults]
+Setting `attributes`, `mergeFunctions`, or `variantFunctions` replaces that option's default values. To add a new name while keeping the defaults, list the default names as well.
 :::
 
 ### `tailwind.attributes`
@@ -705,16 +705,16 @@ Setting a list replaces its defaults. It doesn't add to them. To keep the defaul
 **Type:** `string[]`<br />
 **Default:** `["class", "className"]`
 
-Attributes whose values are Tailwind classes, such as `class` in `<div class="px-2 py-2">`.
+A list of attribute names whose values contain Tailwind CSS classes, such as `class` in HTML and `className` in JSX.
 
-In HTML, attribute names match regardless of case.
+In HTML, attribute names are matched case-insensitively.
 
 ### `tailwind.mergeFunctions`
 
 **Type:** `string[]`<br />
 **Default:** `["clsx", "tw", "twMerge", "twJoin", "cn", "cc", "cnb", "ctl"]`
 
-Functions that combine Tailwind classes, such as [`clsx`](https://github.com/lukeed/clsx) and `cn`.
+A list of function names that combine Tailwind CSS classes, such as [`clsx`](https://github.com/lukeed/clsx) and `cn`.
 
 Biome checks every string passed to these functions, like both strings in `cn("px-2", "py-2")` or the text in `` tw`px-2` ``. When an object is passed, Biome checks its keys: in `cn({ "px-2": isActive })`, it checks `"px-2"`.
 
@@ -725,7 +725,7 @@ Properties of these functions are checked too, so listing `tw` also covers `` tw
 **Type:** `string[]`<br />
 **Default:** `["cva", "tv"]`
 
-Functions that describe a component's styles with an object, such as [`cva`](https://cva.style/) and [`tv`](https://www.tailwind-variants.org/).
+A list of function names that describe a component's styles with an object, such as [`cva`](https://cva.style/) and [`tv`](https://www.tailwind-variants.org/).
 
 Biome checks every string passed directly to these functions. In an object passed to them, Biome checks the classes under these properties:
 
@@ -744,6 +744,39 @@ cva("rounded", {
   defaultVariants: { size: "small" },
 });
 ```
+
+### `tailwind.stylesheet`
+
+**Type:** `string`
+
+Sets the CSS file that defines the project's Tailwind CSS configuration, such as `"./src/app.css"`. A relative value is resolved from the directory containing the current configuration file.
+
+```json title="biome.json"
+{
+  "tailwind": {
+    "stylesheet": "./src/app.css"
+  }
+}
+```
+
+Biome reads the `@theme`, `@utility`, and `@custom-variant` rules in this file and in local files it imports with `@import`, so Tailwind rules can recognize custom theme values, utilities, and variants.
+
+```css title="src/app.css"
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #3b82f6;
+  --breakpoint-3xl: 120rem;
+}
+
+@utility btn-primary {
+  background-color: var(--color-brand);
+}
+
+@custom-variant theme-dark (&:where(.dark, .dark *));
+```
+
+Setting this option also enables [`css.parser.tailwindDirectives`](#cssparsertailwinddirectives) unless that option is set explicitly. If omitted, Tailwind rules recognize only Tailwind CSS's default configuration.
 
 ## `overrides`
 
@@ -1317,6 +1350,8 @@ When this option is unset, Biome enables this syntax automatically for files who
 **Default:** `false`
 
 Enables parsing Tailwind CSS 4.0 directives and functions, including `@theme`, `@utility`, `@variant`, `@source`, and `@apply`.
+
+When this option is unset, Biome enables it automatically if [`tailwind.stylesheet`](#tailwindstylesheet) is set.
 
 ### `css.formatter.enabled`
 
