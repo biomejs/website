@@ -198,7 +198,7 @@ Thank you <Contributor handle="soconnor-seeq" /> for contributing this feature.
 
 Biome 2.6 brings Tailwind-aware linting and class sorting closer to the way developers like to use Tailwind in their projects.
 
-In patches leading up to this release, we've improved our Tailwind parser and expanded Tailwind class detection across HTML, Vue, Svelte, and Astro, and introduced new rules like [`useTailwindShorthandClasses`](https://biomejs.dev/linter/rules/use-tailwind-shorthand-classes/) and [`noTailwindRawColors`](https://biomejs.dev/linter/rules/no-tailwind-raw-colors/). After lots of testing and fixing many bugs, we're finally ready to really close the gap on our native Tailwind support. 
+In patches leading up to this release, we've improved our Tailwind parser and expanded Tailwind class detection across HTML, Vue, Svelte, and Astro, and introduced new rules like [`useTailwindShorthandClasses`](https://biomejs.dev/linter/rules/use-tailwind-shorthand-classes/) and [`noTailwindRawColors`](https://biomejs.dev/linter/rules/no-tailwind-raw-colors/). After lots of testing and fixing many bugs, we're finally ready to really close the gap on our native Tailwind support.
 
 We've revamped class sorting and added new rules inspired by [`@shadcn/lint`](https://github.com/shadcn-ui/lint) designed to make agents produce high quality, idiomatic Tailwind styles. We're excited for you to try them out and to listen to your feedback.
 
@@ -353,7 +353,6 @@ If you need to evaluate `overrides`, you must provide a `--path` to a file.
 biome inspect config --path ./src/components
 ```
 
-
 You can also inspect portions of the configuration file, or fields, using the dot-notation style. To inspect arrays, you must provide a number. Here's a few examples:
 
 ```shell
@@ -365,9 +364,47 @@ biome inspect config plugins.1 # inspect the first item in the "plugins" array
 
 ### `biome inspect plugins`
 
+This command resolves all the plugins loaded by your project, and list all the rules that are enabled in your configuration file. This is useful if you use multiple plugins and you enable rules via presets, so it provides you with e clear list of all rules.
+
+The command also shows if rules were improved from a local source (your project) or an external source (an npm package). Here's an example of the output:
+
+```txt
+configuration ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The configuration enables 4 plugin rules for src/app.test.ts.
+
+  @acme/accessibility
+
+  - noAutofocus (listed directly, presets/recommended)
+  - noPositiveTabindex (presets/recommended)
+  - noRedundantRoles (presets/recommended)
+
+  @acme/javascript
+
+  - noAlert (presets/recommended, presets/strict)
+
+  @acme/security
+
+  - noDocumentWrite (presets/recommended)
+  - noDynamicRequire (presets/recommended)
+
+  @acme/testing
+
+  - expectExpect (listed directly, presets/recommended, presets/strict)
+  - noConditionalExpect (presets/recommended, presets/strict)
+```
+
 ### `biome inspect file`
 
+This command shows debugging information for a file, such as CST, typed CST, formatter IR, Semantic Mode (if available), given a certain file. We think this command might come in handy if you write a plugin, and you need to look at the shape of the CST without looking at the playground. The command must accept a path to a file:
+
+```shell
+biome inspect file path/to/file.ts
+```
+
 ### Recursive configuration inheritance
+
+Biome v2.6 now allows you to extend configuration files and plugins from many ancestors. We still have an hardcoded limit in place of ten levels of depth to avoid possible overflows or cycles. This means that external packages can use `extends` from external packages, and so on. The end user just need to consume the file configuration file, or plugin.
 
 ## Migrate from Stylelint
 
