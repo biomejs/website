@@ -200,7 +200,7 @@ Biome 2.6 brings Tailwind-aware linting and class sorting closer to the way deve
 
 In patches leading up to this release, we've improved our Tailwind parser and expanded Tailwind class detection across HTML, Vue, Svelte, and Astro, and introduced new rules like [`useTailwindShorthandClasses`](https://biomejs.dev/linter/rules/use-tailwind-shorthand-classes/) and [`noTailwindRawColors`](https://biomejs.dev/linter/rules/no-tailwind-raw-colors/). After lots of testing and fixing many bugs, we're finally ready to really close the gap on our native Tailwind support.
 
-We've revamped class sorting and added new rules inspired by [`@shadcn/lint`](https://github.com/shadcn-ui/lint) designed to make agents produce high quality, idiomatic Tailwind styles. We're excited for you to try them out and to listen to your feedback.
+We've revamped class sorting and added new rules inspired by [`@shadcn/lint`](https://github.com/shadcn-ui/lint) designed to make agents produce high quality, idiomatic Tailwind styles. We're excited for you to try them out and to listen to your feedback as we continue iterating on them.
 
 ### Tailwind CSS v4-aware sorting and stylesheet configuration
 
@@ -232,29 +232,29 @@ Your design system probably defines a small set of colors to use, and where to u
 
 You might even have a skill that tells the agent not to do that, but maybe it decided not to read it. Frustrating, right? You wanted it to use the `--color-danger` you have defined in your config.
 
-In case you missed its debut in 2.5.15, [`noTailwindRawColors`](https://biomejs.dev/linter/rules/no-tailwind-raw-colors/), inspired by [`no-raw-colors`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/no-raw-colors.md), reports classes that use Tailwind's built-in palette, like `red-500` or `slate-950`, and points the agent back to the colors your design system defines:
+In case you missed its debut in 2.5.15, [`noTailwindRawColors`](https://biomejs.dev/linter/rules/no-tailwind-raw-colors/) inspired by [`no-raw-colors`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/no-raw-colors.md), flags these cases, and points you or your agent to your design system's existing colors.
 
 ```jsx
 <button class="bg-danger">Danger</button>
 ```
 
-The rule checks every color utility, including variants and opacity modifiers like `hover:text-red-500/80`. `black`, `white`, `transparent`, `current` and `inherit` are always allowed, and if you really need a specific palette color, you can add it to the rule's `allowedColors` option.
-
 ### `noTailwindRestyledComponents`
 
-Many of you have your own component library to keep your application's visual style consistent. Not just the colors, but the whitespace, borders, font size, and animations are all the little things that make your user experience consistent and beautiful. That consistency falls apart the moment someone passes utility classes that override how a component looks. Agents do this a lot: when a button needs to look different, they reach for `className` instead of the variant prop that already exists.
+Many of you have your own component library to keep your application's visual style consistent. Not just the colors, but the whitespace, borders, font size, and animations are all the little things that make your user experience consistent and beautiful. That consistency crumbles when your agent forces new styles on your components.
 
 ```jsx
-// The Button's own styles are silently overridden
+// The Button's styles are overridden
 <Button className="bg-red-500 text-white rounded-none" />;
+```
 
+The new nursery rule [`noTailwindRestyledComponents`](https://biomejs.dev/linter/rules/no-tailwind-restyled-components/), inspired by [`no-restyle`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/no-restyle.md), reports utilities that change a component's color, typography, spacing, shape, effects, or motion.
+
+```jsx
 // Use the variant the design system provides instead
 <Button variant="danger" />;
 ```
 
-The new nursery rule [`noTailwindRestyledComponents`](https://biomejs.dev/linter/rules/no-tailwind-restyled-components/), inspired by [`no-restyle`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/no-restyle.md), reports utilities that change a component's color, typography, spacing, shape, effects, or motion. Layout utilities like margins, sizing, and positioning are still allowed, so `<Button className="mt-4 w-full" />` is fine.
-
-If some of your components are meant to be restyled, you can allow specific categories or classes per component:
+You can also add exceptions, which can help with adopting this rule:
 
 ```json title="biome.json"
 {
@@ -278,14 +278,14 @@ If some of your components are meant to be restyled, you can allow specific cate
 
 ### `useTailwindStaticClassStrings`
 
-Tailwind relies on string matching in order to detect tailwind classes. It scans your source code for the exact class strings, and only emits CSS for the matches. Without proper guidance, agents have a tendency to dynamically construct tailwind class strings. This causes styles to silently go missing, because the complete class name never appears in your code:
+Tailwind relies on string matching in order to detect tailwind classes. It scans your source code for the exact class strings, and only emits CSS for the matches. Without proper guidance, agents have a tendency to dynamically construct tailwind class strings. This causes the styles to be missing from your build output.
 
 ```jsx
 // Tailwind can't see the class!
 <div className={`bg-${color}`} />;
 ```
 
-The new nursery rule [`useTailwindStaticClassStrings`](https://biomejs.dev/linter/rules/use-tailwind-static-class-strings/), inspired by [`require-static-classes`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/require-static-classes.md), flags template interpolation and string concatenation in class strings, including inside merge functions like `clsx` and `cn`. Instead, write out complete class names and choose between them:
+The new nursery rule [`useTailwindStaticClassStrings`](https://biomejs.dev/linter/rules/use-tailwind-static-class-strings/), inspired by [`require-static-classes`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/require-static-classes.md), flags dyanmically built strings used to build class strings. It encourages using merge functions like `clsx` and `cn` instead.
 
 ```jsx
 <div className={active ? "bg-red-500" : "bg-blue-500"} />;
