@@ -82,6 +82,7 @@ export const collections = {
 				"users.featured.description": z.string().optional(),
 				"users.title": z.string().optional(),
 				"users.description": z.string().optional(),
+				"home.video.label": z.string().optional(),
 			}),
 		}),
 	}),
