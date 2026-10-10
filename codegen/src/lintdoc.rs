@@ -40,6 +40,7 @@ use biome_ruledoc_utils::{
     parse_rule_options,
 };
 use biome_string_case::Case;
+use biome_yaml_syntax::YamlLanguage;
 use pulldown_cmark::{CodeBlockKind, Event, HeadingLevel, LinkType, Parser, Tag, TagEnd};
 use std::collections::{HashMap, HashSet};
 use std::error::Error;
@@ -89,6 +90,7 @@ enum SupportedLanguages {
     Json,
     Html,
     Markdown,
+    Yaml,
 }
 
 impl SupportedLanguages {
@@ -101,6 +103,7 @@ impl SupportedLanguages {
             SupportedLanguages::Json => biome_json_analyze::visit_registry(&mut visitor),
             SupportedLanguages::Html => biome_html_analyze::visit_registry(&mut visitor),
             SupportedLanguages::Markdown => biome_markdown_analyze::visit_registry(&mut visitor),
+            SupportedLanguages::Yaml => biome_yaml_analyze::visit_registry(&mut visitor),
         };
         visitor
     }
@@ -113,6 +116,7 @@ impl SupportedLanguages {
             SupportedLanguages::Json => root.join("json"),
             SupportedLanguages::Html => root.join("html"),
             SupportedLanguages::Markdown => root.join("markdown"),
+            SupportedLanguages::Yaml => root.join("yaml"),
         }
     }
 
@@ -124,6 +128,7 @@ impl SupportedLanguages {
             SupportedLanguages::Json => "JSON",
             SupportedLanguages::Html => "HTML",
             SupportedLanguages::Markdown => "Markdown",
+            SupportedLanguages::Yaml => "YAML",
         }
     }
 
@@ -135,6 +140,7 @@ impl SupportedLanguages {
             SupportedLanguages::Json => "json",
             SupportedLanguages::Html => "html",
             SupportedLanguages::Markdown => "markdown",
+            SupportedLanguages::Yaml => "yaml",
         }
     }
 }
@@ -276,6 +282,21 @@ impl RegistryVisitor<MarkdownLanguage> for RulesVisitor {
     }
 }
 
+impl RegistryVisitor<YamlLanguage> for RulesVisitor {
+    fn record_category<C: GroupCategory<Language = YamlLanguage>>(&mut self) {
+        if matches!(C::CATEGORY, RuleCategory::Lint | RuleCategory::Action) {
+            C::record_groups(self);
+        }
+    }
+
+    fn record_rule<R>(&mut self)
+    where
+        R: Rule<Query: Queryable<Language = YamlLanguage, Output: Clone>> + 'static,
+    {
+        self.push_rule::<R, <R::Query as Queryable>::Language>()
+    }
+}
+
 pub fn generate_rule_docs() -> Result<()> {
     let linter_root = project_root().join("src/content/docs/en/linter");
     let actions_root = project_root().join("src/content/docs/en/assist");
@@ -285,6 +306,7 @@ pub fn generate_rule_docs() -> Result<()> {
     generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Graphql)?;
     generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Html)?;
     generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Markdown)?;
+    generate_language_rule_docs(&linter_root, &actions_root, SupportedLanguages::Yaml)?;
 
     generate_domains()?;
     generate_number_of_rules_and_actions()?;
@@ -300,6 +322,7 @@ fn generate_number_of_rules_and_actions() -> Result<()> {
     biome_graphql_analyze::visit_registry(&mut visitor);
     biome_html_analyze::visit_registry(&mut visitor);
     biome_markdown_analyze::visit_registry(&mut visitor);
+    biome_yaml_analyze::visit_registry(&mut visitor);
 
     let RulesVisitor { actions, lints } = visitor;
     let number_of_rules = lints.number_of_rules.len();
@@ -1088,6 +1111,7 @@ fn rule_crate_name(language: &str) -> &str {
         "json" | "jsonc" => "biome_json_analyze",
         "graphql" => "biome_graphql_analyze",
         "md" => "biome_markdown_analyze",
+        "yml" | "yaml" => "biome_yaml_analyze",
         _ => unimplemented!("Language not implemented {language}"),
     }
 }
@@ -1633,6 +1657,7 @@ pub(crate) fn to_website_language(language: &str) -> &'static str {
         "graphql" => "graphql",
         "html" => "html",
         "md" => "markdown",
+        "yml" | "yaml" => "yaml",
         _ => {
             panic!("Language {language} isn't supported.")
         }
@@ -1647,6 +1672,7 @@ fn to_language_title(language: &str) -> &'static str {
         "graphql" => "GraphQL",
         "html" => "HTML",
         "md" => "Markdown",
+        "yml" | "yaml" => "YAML",
         _ => {
             panic!("Language {language} isn't supported.")
         }
@@ -1661,6 +1687,7 @@ fn to_language_selector_label(language: &str) -> &'static str {
         "graphql" => "GraphQL",
         "html" => "HTML",
         "md" => "Markdown",
+        "yml" | "yaml" => "YAML",
         _ => {
             panic!("Language {language} isn't supported.")
         }

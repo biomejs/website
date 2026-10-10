@@ -77,6 +77,11 @@ const plugins = [
 				picture: "https://avatars.githubusercontent.com/u/649677?s=25&v=4",
 				url: "https://bsky.app/profile/hedger.ch",
 			},
+			netail: {
+				name: "Maikel van Dort",
+				picture: "https://avatars.githubusercontent.com/u/11695769?s=25&v=4",
+				url: "https://bsky.app/profile/netail.dev",
+			},
 			team: {
 				name: "Biome Core Team, Biome Maintainers",
 				picture: "/img/logo-avatar.png",
@@ -453,6 +458,7 @@ export default defineConfig({
 								{
 									label: "Plugins",
 									link: "/linter/plugins",
+									badge: "updated",
 									translations: {
 										ja: "プラグイン",
 										"zh-CN": "插件系统",
@@ -574,15 +580,22 @@ export default defineConfig({
 										ru: "Источники правил HTML",
 									},
 								},
-								// TODO: uncomment when we officially ship markdown lint rules
-								// {
-								// 	label: "Markdown Rules",
-								// 	link: "/linter/markdown/rules",
-								// },
-								// {
-								// 	label: "Markdown Rules sources",
-								// 	link: "/linter/markdown/sources",
-								// },
+								{
+									label: "Markdown Rules",
+									link: "/linter/markdown/rules",
+								},
+								{
+									label: "Markdown Rules sources",
+									link: "/linter/markdown/sources",
+								},
+								{
+									label: "YAML Rules",
+									link: "/linter/yaml/rules",
+								},
+								{
+									label: "YAML Rules sources",
+									link: "/linter/yaml/sources",
+								},
 							],
 							translations: {
 								"zh-CN": "检查器",
