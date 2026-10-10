@@ -6,5 +6,8 @@
   "users.featured.description": "Join thousands of developers and companies using Biome in production",
   "users.title": "Who uses Biome",
   "users.description": "Biome is used by thousands of organizations around the world",
-  "home.video.label": "Biome in 90 seconds: what it is, what it does, and how it works"
+  "home.video.label": "Biome in 90 seconds: what it is, what it does, and how it works",
+  "home.video.play": "Play video",
+  "home.video.pause": "Pause video",
+  "home.video.fullscreen": "Full screen"
 }
