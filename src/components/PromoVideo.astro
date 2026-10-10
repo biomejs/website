@@ -5,38 +5,287 @@ import posterImage from "@/assets/biome-promo-poster.jpg";
 
 const poster = await getImage({ src: posterImage, format: "webp" });
 const label = Astro.locals.t("home.video.label");
+const playLabel = Astro.locals.t("home.video.play");
+const pauseLabel = Astro.locals.t("home.video.pause");
+const fullscreenLabel = Astro.locals.t("home.video.fullscreen");
 ---
 
-<div class="promo-video">
-	<video
-		controls
-		muted
-		playsinline
-		preload="none"
-		poster={poster.src}
-		width="1920"
-		height="1080"
-		aria-label={label}
-		title={label}
-	>
-		<source src={video} type="video/mp4">
-	</video>
-</div>
+<promo-video class="not-content">
+	<div class="frame">
+		<video
+			muted
+			playsinline
+			preload="none"
+			poster={poster.src}
+			width="1920"
+			height="1080"
+			aria-label={label}
+		>
+			<source src={video} type="video/mp4">
+		</video>
+		<button
+			type="button"
+			class="play"
+			aria-label={playLabel}
+			data-play-label={playLabel}
+			data-pause-label={pauseLabel}
+		>
+			<span class="play-icon">
+				<svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true">
+					<path
+						d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"
+					/>
+				</svg>
+				<svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true">
+					<rect x="6" y="5" width="4" height="14" rx="1" />
+					<rect x="14" y="5" width="4" height="14" rx="1" />
+				</svg>
+			</span>
+		</button>
+		<button
+			type="button"
+			class="fullscreen"
+			aria-label={fullscreenLabel}
+			aria-pressed="false"
+		>
+			<svg class="icon-enter" viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" />
+			</svg>
+			<svg class="icon-exit" viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5" />
+			</svg>
+		</button>
+	</div>
+</promo-video>
 
-<style>
-.promo-video {
-	max-width: 1100px;
-	margin: 3rem auto 0;
+<script>
+type WebKitVideo = HTMLVideoElement & { webkitEnterFullscreen?: () => void };
+
+class PromoVideo extends HTMLElement {
+	constructor() {
+		super();
+
+		const video = this.querySelector<WebKitVideo>("video");
+		const play = this.querySelector<HTMLButtonElement>(".play");
+		const fullscreen = this.querySelector<HTMLButtonElement>(".fullscreen");
+
+		if (!video || !play || !fullscreen) return;
+
+		const sync = () => {
+			this.toggleAttribute("data-playing", !video.paused);
+			play.setAttribute(
+				"aria-label",
+				(video.paused ? play.dataset.playLabel : play.dataset.pauseLabel) ?? "",
+			);
+		};
+
+		video.addEventListener("play", sync);
+		video.addEventListener("pause", sync);
+		video.addEventListener("ended", sync);
+
+		play.addEventListener("click", () => {
+			if (video.paused) {
+				// Re-sync if playback fails or a pause interrupts it before it starts
+				video.play().catch(sync);
+			} else {
+				video.pause();
+			}
+		});
+
+		// iPhone Safari can't put arbitrary elements in fullscreen, only the video in its native player
+		if (!document.fullscreenEnabled && !video.webkitEnterFullscreen) {
+			fullscreen.hidden = true;
+		}
+
+		fullscreen.addEventListener("click", () => {
+			if (document.fullscreenElement) {
+				document.exitFullscreen();
+			} else if (document.fullscreenEnabled) {
+				this.requestFullscreen();
+			} else {
+				video.webkitEnterFullscreen?.();
+			}
+		});
+
+		document.addEventListener("fullscreenchange", () => {
+			fullscreen.setAttribute(
+				"aria-pressed",
+				String(document.fullscreenElement === this),
+			);
+		});
+	}
 }
 
-.promo-video video {
+customElements.define("promo-video", PromoVideo);
+</script>
+
+<style>
+promo-video {
 	display: block;
-	width: 100%;
-	height: auto;
-	aspect-ratio: 16 / 9;
+	max-width: 1100px;
+	margin: 3rem auto 0;
+	overflow: hidden;
 	border: 1px solid var(--sl-color-gray-5);
 	border-radius: 12px;
 	background-color: #151515;
 	box-shadow: 0 24px 60px rgb(0 0 0 / 0.35);
+}
+
+.frame {
+	position: relative;
+}
+
+promo-video video {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
+}
+
+promo-video:fullscreen {
+	display: grid;
+	place-items: center;
+	max-width: none;
+	margin: 0;
+	border: 0;
+	border-radius: 0;
+	background-color: #000;
+}
+
+/* Letterbox the frame so the buttons stay on the video whatever the screen's aspect ratio */
+promo-video:fullscreen .frame {
+	width: min(100vw, 100vh * 16 / 9);
+}
+
+button {
+	padding: 0;
+	border: 0;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
+
+button:focus-visible {
+	outline: none;
+}
+
+svg {
+	display: block;
+	width: 100%;
+	height: 100%;
+	fill: currentColor;
+}
+
+/* The whole video surface toggles playback; the visible button sits in the poster's empty bottom band */
+.play {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	padding-bottom: 4%;
+	background: none;
+}
+
+.play-icon {
+	display: grid;
+	place-items: center;
+	width: clamp(36px, 6%, 72px);
+	aspect-ratio: 1;
+	border-radius: 50%;
+	color: #151515;
+	background-color: #60a5fa;
+	box-shadow: 0 8px 24px rgb(0 0 0 / 0.4);
+	transition:
+		opacity 0.2s,
+		scale 0.2s;
+}
+
+.play-icon svg {
+	width: 46%;
+	height: 46%;
+}
+
+promo-video[data-playing] .play-icon {
+	opacity: 0;
+	scale: 0.9;
+}
+
+.play:focus-visible .play-icon {
+	outline: 3px solid #fff;
+	outline-offset: 3px;
+}
+
+promo-video:not([data-playing]) .play:hover .play-icon {
+	scale: 1.08;
+}
+
+promo-video[data-playing] .play:focus-visible .play-icon {
+	opacity: 1;
+	scale: 1;
+}
+
+.icon-pause,
+promo-video[data-playing] .icon-play {
+	display: none;
+}
+
+promo-video[data-playing] .icon-pause {
+	display: block;
+}
+
+.fullscreen {
+	position: absolute;
+	right: clamp(8px, 1.1%, 12px);
+	bottom: clamp(8px, 2%, 12px);
+	display: grid;
+	place-items: center;
+	width: clamp(32px, 3.6%, 40px);
+	aspect-ratio: 1;
+	border-radius: 8px;
+	color: #fff;
+	background-color: rgb(0 0 0 / 0.55);
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.fullscreen svg {
+	width: 55%;
+	height: 55%;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.fullscreen:hover {
+	background-color: rgb(0 0 0 / 0.75);
+}
+
+.fullscreen:focus-visible {
+	outline: 2px solid #fff;
+	outline-offset: 2px;
+}
+
+promo-video:not([data-playing]) .fullscreen,
+promo-video:hover .fullscreen,
+.fullscreen:focus-visible {
+	opacity: 1;
+}
+
+@media (hover: none) {
+	.fullscreen {
+		opacity: 1;
+	}
+}
+
+.icon-exit,
+.fullscreen[aria-pressed="true"] .icon-enter {
+	display: none;
+}
+
+.fullscreen[aria-pressed="true"] .icon-exit {
+	display: block;
 }
 </style>
