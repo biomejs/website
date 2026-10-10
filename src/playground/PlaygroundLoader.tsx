@@ -27,6 +27,7 @@ import {
 	type PlaygroundSettings,
 	type PlaygroundState,
 	PlaygroundView,
+	type ProseWrap,
 	type QuoteProperties,
 	type QuoteStyle,
 	type RuleDomain,
@@ -542,6 +543,9 @@ function initState(
 			whitespaceSensitivity:
 				(searchParams.get("whitespaceSensitivity") as WhitespaceSensitivity) ??
 				defaultPlaygroundState.settings.whitespaceSensitivity,
+			proseWrap:
+				(searchParams.get("proseWrap") as ProseWrap) ??
+				defaultPlaygroundState.settings.proseWrap,
 			indentScriptAndStyle: getBooleanParam(
 				searchParams,
 				"indentScriptAndStyle",

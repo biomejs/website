@@ -26,6 +26,7 @@ import {
 	type PlaygroundSettings,
 	type PrettierOptions,
 	type PrettierOutput,
+	type ProseWrap,
 	type QuoteProperties,
 	QuoteStyle,
 	Semicolons,
@@ -115,6 +116,7 @@ self.addEventListener("message", async (e) => {
 				experimentalEmbeddedSnippetsEnabled,
 				indentScriptAndStyle,
 				whitespaceSensitivity,
+				proseWrap,
 			} = settings;
 			const code = e.data.code as string;
 			const filename = e.data.filename as string;
@@ -139,6 +141,7 @@ self.addEventListener("message", async (e) => {
 				embeddedLanguageFormatting: experimentalEmbeddedSnippetsEnabled,
 				vueIndentScriptAndStyle: indentScriptAndStyle,
 				whitespaceSensitivity,
+				proseWrap,
 			});
 
 			self.postMessage({
@@ -176,6 +179,7 @@ async function formatWithPrettier(
 		embeddedLanguageFormatting: boolean;
 		vueIndentScriptAndStyle: boolean;
 		whitespaceSensitivity: WhitespaceSensitivity;
+		proseWrap: ProseWrap;
 	},
 ): Promise<PrettierOutput> {
 	try {
@@ -219,6 +223,10 @@ async function formatWithPrettier(
 			vueIndentScriptAndStyle: options.vueIndentScriptAndStyle,
 			svelteIndentScriptAndStyle: options.vueIndentScriptAndStyle,
 			htmlWhitespaceSensitivity: options.whitespaceSensitivity,
+			// Biome only wraps prose in Markdown, while Prettier would also apply it to YAML.
+			proseWrap: isMarkdownFilename(options.filepath)
+				? options.proseWrap
+				: "preserve",
 		};
 
 		// @ts-expect-error

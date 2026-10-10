@@ -58,6 +58,37 @@ test.describe("playground should format code", () => {
 		});
 	});
 
+	test("wraps markdown prose", async ({ page }) => {
+		const hash = new URLSearchParams({
+			"files.main.md": encodeCode("one\ntwo\n"),
+		});
+		await page.goto(`/playground?prettier=true#${hash}`);
+		const biomeOutput = page.getByTestId("biome-output").getByRole("textbox");
+		const prettierOutput = page
+			.getByTestId("prettier-output")
+			.getByRole("textbox");
+		// The last line is the empty one after the trailing newline.
+		await expect(biomeOutput.locator(".cm-line")).toHaveText([
+			"one",
+			"two",
+			"",
+		]);
+		await expect(prettierOutput.locator(".cm-line")).toHaveText([
+			"one",
+			"two",
+			"",
+		]);
+
+		await page.getByLabel("Prose Wrap").selectOption("never");
+
+		await expect(page).toHaveURL(/proseWrap=never/);
+		await expect(biomeOutput.locator(".cm-line")).toHaveText(["one two", ""]);
+		await expect(prettierOutput.locator(".cm-line")).toHaveText([
+			"one two",
+			"",
+		]);
+	});
+
 	test("shows how Biome's output compares to Prettier", async ({ page }) => {
 		await page.goto(
 			`/playground?prettier=true#code=${encodeURIComponent(encodeCode("let a=5"))}`,

@@ -116,6 +116,13 @@ export const WhitespaceSensitivity = {
 export type WhitespaceSensitivity =
 	(typeof WhitespaceSensitivity)[keyof typeof WhitespaceSensitivity];
 
+export const ProseWrap = {
+	Preserve: "preserve",
+	Always: "always",
+	Never: "never",
+} as const;
+export type ProseWrap = (typeof ProseWrap)[keyof typeof ProseWrap];
+
 export type PrettierOutput =
 	| {
 			type: "SUCCESS";
@@ -244,6 +251,7 @@ export interface PlaygroundSettings {
 	ruleDomains: RuleDomains;
 	indentScriptAndStyle: boolean;
 	whitespaceSensitivity: WhitespaceSensitivity;
+	proseWrap: ProseWrap;
 	experimentalEmbeddedSnippetsEnabled: boolean;
 	experimentalFullSupportEnabled: boolean;
 	cssModules: boolean;
@@ -315,6 +323,7 @@ export const defaultPlaygroundState: PlaygroundState = {
 		ruleDomains: {},
 		indentScriptAndStyle: false,
 		whitespaceSensitivity: WhitespaceSensitivity.Css,
+		proseWrap: ProseWrap.Preserve,
 		experimentalEmbeddedSnippetsEnabled: true,
 		experimentalFullSupportEnabled: true,
 		cssModules: false,

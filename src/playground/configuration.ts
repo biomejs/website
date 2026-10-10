@@ -75,6 +75,11 @@ const BIOME_DEFAULT_CONFIGURATION = {
 		},
 		experimentalFullSupportEnabled: false,
 	},
+	markdown: {
+		formatter: {
+			proseWrap: "preserve",
+		},
+	},
 } satisfies Configuration;
 
 export function createBiomeConfiguration(
@@ -170,6 +175,7 @@ export function createBiomeConfiguration(
 		markdown: {
 			formatter: {
 				enabled: true,
+				proseWrap: settings.proseWrap,
 			},
 		},
 		yaml: {
