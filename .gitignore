@@ -10,4 +10,3 @@ target/
 /playwright/.cache/
 .claude/settings.local.json
 .opencode/plans
-.DS_Store
