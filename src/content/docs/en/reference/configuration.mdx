@@ -71,7 +71,7 @@ To extend configurations using relative paths or installed package specifiers, u
 
 Biome merges configurations from left to right. For options that accept a single value, later configurations take precedence. For options that accept a list, Biome combines their entries. The current file is applied last.
 
-See the [Use Biome in big projects](/guides/big-projects#monorepo) guide for monorepo setup and shared configuration examples.
+For monorepo setup and shared configuration examples, see [Use Biome in big projects](/guides/big-projects#monorepo). To publish a configuration as an npm package, see [Publish packages](/guides/publish-packages).
 
 ## `root`
 
@@ -84,9 +84,9 @@ Biome implicitly treats `root` as `false` when a nested configuration uses `"ext
 
 ## `plugins`
 
-**Type:** `(string | { path: string, includes?: string[] })[]`
+**Type:** `(string | { path: string, includes?: string[], resolutionKind?: "project" | "config" })[]`
 
-A list of [GritQL plugins](/linter/plugins/) to load. Each entry is either a plugin path or an object containing a path and optional file filters:
+A list of [GritQL plugins](/linter/plugins/) to load. Each entry is either a plugin path or an object containing a path and optional settings:
 
 ```json title="biome.json"
 {
@@ -113,6 +113,31 @@ Path to the plugin's `.grit` file or a directory containing `biome-manifest.json
 A list of [glob patterns](#glob-syntax-reference) selecting the files on which the plugin runs.
 
 If omitted, the plugin runs on every file eligible for linting. An empty list (`[]`) selects no files.
+
+### `plugins.<ITEM>.resolutionKind`
+
+**Type:** `"project" | "config"`<br />
+**Default:** `"project"`
+
+Controls where Biome resolves a relative plugin `path` from:
+
+- `"project"`: Resolves the path from the directory containing the configuration file or, in a shared configuration, from the directory containing the configuration that extends it.
+- `"config"`: Resolves the path from the directory containing the configuration file that declares the plugin.
+
+Set this option to `"config"` when a shared configuration loaded through [`extends`](#extends) ships its own plugins:
+
+```json title="biome.shared.jsonc"
+{
+  "plugins": [
+    {
+      "path": "./plugins/no-object-assign.grit",
+      "resolutionKind": "config"
+    }
+  ]
+}
+```
+
+This option does not change how `includes` globs are resolved.
 
 ## `files`
 
@@ -654,6 +679,104 @@ Setting this option to `false` is strongly discouraged. Files without a final ne
 Controls whether Biome loads formatter settings from an `.editorconfig` file. Biome currently reads `indent_style`, `indent_size`, `end_of_line`, and `insert_final_newline`. Settings in `biome.json` or `biome.jsonc` take precedence.
 
 Biome loads only one `.editorconfig`. Nested cascading configurations and the EditorConfig `root` property are not currently supported.
+
+## `tailwind`
+
+**Type:** `{ attributes?: string[], mergeFunctions?: string[], variantFunctions?: string[], stylesheet?: string }`
+
+Configures where Biome's [Tailwind rules](/linter/domains/#tailwind) look for [Tailwind CSS](https://tailwindcss.com) classes in JavaScript and HTML files, and which stylesheet defines the project's Tailwind CSS configuration.
+
+```json title="biome.json"
+{
+  "tailwind": {
+    "attributes": ["class", "className", "tw"],
+    "mergeFunctions": ["clsx", "cn", "tw"],
+    "variantFunctions": ["cva"]
+  }
+}
+```
+
+:::note[Lists replace their defaults]
+Setting `attributes`, `mergeFunctions`, or `variantFunctions` replaces that option's default values. To add a new name while keeping the defaults, list the default names as well.
+:::
+
+### `tailwind.attributes`
+
+**Type:** `string[]`<br />
+**Default:** `["class", "className"]`
+
+A list of attribute names whose values contain Tailwind CSS classes, such as `class` in HTML and `className` in JSX.
+
+In HTML, attribute names are matched case-insensitively.
+
+### `tailwind.mergeFunctions`
+
+**Type:** `string[]`<br />
+**Default:** `["clsx", "tw", "twMerge", "twJoin", "cn", "cc", "cnb", "ctl"]`
+
+A list of function names that combine Tailwind CSS classes, such as [`clsx`](https://github.com/lukeed/clsx) and `cn`.
+
+Biome checks every string passed to these functions, like both strings in `cn("px-2", "py-2")` or the text in `` tw`px-2` ``. When an object is passed, Biome checks its keys: in `cn({ "px-2": isActive })`, it checks `"px-2"`.
+
+Properties of these functions are checked too, so listing `tw` also covers `` tw.div`px-2` `` and `tw.div("px-2")`.
+
+### `tailwind.variantFunctions`
+
+**Type:** `string[]`<br />
+**Default:** `["cva", "tv"]`
+
+A list of function names that describe a component's styles with an object, such as [`cva`](https://cva.style/) and [`tv`](https://www.tailwind-variants.org/).
+
+Biome checks every string passed directly to these functions. In an object passed to them, Biome checks the classes under these properties:
+
+- `base`, `class`, and `className`: classes that always apply.
+- `variants`: classes for each version of the component, such as each button size.
+- `slots`: classes for each part of the component, such as its icon.
+- `compoundVariants` and `compoundSlots`: only the `class` and `className` of each entry.
+
+Other properties, such as `defaultVariants`, hold names rather than classes, so Biome skips them. For example, Biome checks `"rounded"`, `"px-2"`, and `"px-4"` here, but not `"small"`:
+
+```js
+cva("rounded", {
+  variants: {
+    size: { small: "px-2", large: "px-4" },
+  },
+  defaultVariants: { size: "small" },
+});
+```
+
+### `tailwind.stylesheet`
+
+**Type:** `string`
+
+Sets the CSS file that defines the project's Tailwind CSS configuration, such as `"./src/app.css"`. A relative value is resolved from the directory containing the current configuration file.
+
+```json title="biome.json"
+{
+  "tailwind": {
+    "stylesheet": "./src/app.css"
+  }
+}
+```
+
+Biome reads the `@theme`, `@utility`, and `@custom-variant` rules in this file and in local files it imports with `@import`, so Tailwind rules can recognize custom theme values, utilities, and variants.
+
+```css title="src/app.css"
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #3b82f6;
+  --breakpoint-3xl: 120rem;
+}
+
+@utility btn-primary {
+  background-color: var(--color-brand);
+}
+
+@custom-variant theme-dark (&:where(.dark, .dark *));
+```
+
+Setting this option also enables [`css.parser.tailwindDirectives`](#cssparsertailwinddirectives) unless that option is set explicitly. If omitted, Tailwind rules recognize only Tailwind CSS's default configuration.
 
 ## `overrides`
 
@@ -1228,6 +1351,8 @@ When this option is unset, Biome enables this syntax automatically for files who
 
 Enables parsing Tailwind CSS 4.0 directives and functions, including `@theme`, `@utility`, `@variant`, `@source`, and `@apply`.
 
+When this option is unset, Biome enables it automatically if [`tailwind.stylesheet`](#tailwindstylesheet) is set.
+
 ### `css.formatter.enabled`
 
 **Type:** `boolean`
@@ -1612,6 +1737,184 @@ Enables or disables the linter for HTML and languages that extend it.
 **Type:** `boolean`
 
 Enables or disables assist actions for HTML and languages that extend it.
+
+## `markdown`
+
+**Type:** `{ parser?: object, formatter?: object, linter?: object }`
+
+Options applied to Markdown files.
+
+### `markdown.parser.frontmatter`
+
+**Type:** `boolean`<br />
+**Default:** `false`
+
+Enables frontmatter parsing in Markdown files. When enabled, a leading `---` opens the frontmatter block:
+
+```md
+---
+title: Blog post
+description: Description
+---
+```
+
+Biome formats and lints the frontmatter as YAML:
+
+```diff title="file.md"
+---
+-file:   "Lorem ipsum"
++file: "Lorem ipsum"
+---
+```
+
+### `markdown.parser.gfm`
+
+**Type:** `boolean`<br />
+**Default:** `true`
+
+Enables GitHub Flavored Markdown (GFM) syntax, which adds task list items, strikethrough, and tables:
+
+```md
+- [ ] This is a disabled task
+- [x] This is an enabled task
+
+~~strikethrough~~
+
+| Foo   | Bar   |
+|-------|-------|
+| Lorem | Ipsum |
+```
+
+### `markdown.formatter.enabled`
+
+**Type:** `boolean`
+
+Enables or disables the formatter for Markdown.
+
+### `markdown.formatter.indentStyle`
+
+**Type:** `"tab" | "space"`
+
+Selects the indentation style:
+
+- `"tab"`: Uses tabs for indentation.
+- `"space"`: Uses spaces for indentation.
+
+### `markdown.formatter.indentWidth`
+
+**Type:** `integer`
+
+Sets the indentation width, from `0` through `24`.
+
+### `markdown.formatter.lineEnding`
+
+**Type:** `"lf" | "crlf" | "cr" | "auto"`
+
+Selects the line-ending sequence:
+
+- `"lf"`: Line Feed (`\n`), commonly used on Linux and macOS.
+- `"crlf"`: Carriage Return followed by Line Feed (`\r\n`), commonly used on Windows.
+- `"cr"`: Carriage Return (`\r`), which is rarely used.
+- `"auto"`: Uses CRLF on Windows and LF on other platforms.
+
+### `markdown.formatter.lineWidth`
+
+**Type:** `integer`
+
+Sets the preferred maximum line width, from `1` through `320`.
+
+### `markdown.formatter.proseWrap`
+
+**Type:** `"preserve" | "always" | "never"`<br />
+**Default:** `"preserve"`
+
+Controls how Biome wraps paragraphs:
+
+- `"preserve"`: Keeps the line breaks of each paragraph as written.
+- `"always"`: Wraps each paragraph to fit the configured `lineWidth`.
+- `"never"`: Joins each paragraph into a single line, regardless of the configured `lineWidth`.
+
+For example, given the following paragraph:
+
+```md title="file.md"
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+```
+
+With `"always"` and a `lineWidth` of `30`, Biome wraps the paragraph:
+
+```md title="file.md"
+Lorem ipsum dolor sit amet,
+consectetur adipiscing elit.
+```
+
+With `"never"`, Biome joins a wrapped paragraph into a single line:
+
+```diff title="file.md"
+-Lorem ipsum dolor sit amet,
+-consectetur adipiscing elit.
++Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+```
+
+### `markdown.formatter.trailingNewline`
+
+**Type:** `boolean`
+
+Controls whether formatted files end with a newline.
+
+:::caution[Keep trailing newlines enabled]
+Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
+:::
+
+### `markdown.linter.enabled`
+
+**Type:** `boolean`
+
+Enables or disables the linter for Markdown.
+
+## `yaml`
+
+**Type:** `{ formatter?: object }`
+
+Options applied to YAML files.
+
+### `yaml.formatter.enabled`
+
+**Type:** `boolean`
+
+Enables or disables the formatter for YAML.
+
+### `yaml.formatter.indentWidth`
+
+**Type:** `integer`
+
+Sets the indentation width, from `0` through `24`.
+
+### `yaml.formatter.lineEnding`
+
+**Type:** `"lf" | "crlf" | "cr" | "auto"`
+
+Selects the line-ending sequence:
+
+- `"lf"`: Line Feed (`\n`), commonly used on Linux and macOS.
+- `"crlf"`: Carriage Return followed by Line Feed (`\r\n`), commonly used on Windows.
+- `"cr"`: Carriage Return (`\r`), which is rarely used.
+- `"auto"`: Uses CRLF on Windows and LF on other platforms.
+
+### `yaml.formatter.lineWidth`
+
+**Type:** `integer`
+
+Sets the preferred maximum line width, from `1` through `320`.
+
+### `yaml.formatter.trailingNewline`
+
+**Type:** `boolean`
+
+Controls whether formatted files end with a newline.
+
+:::caution[Keep trailing newlines enabled]
+Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
+:::
 
 ## Glob syntax reference
 

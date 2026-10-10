@@ -3,7 +3,7 @@ title: Install Biome
 description: Every way to install Biome, from a package manager to a standalone binary.
 ---
 
-import { Code } from "@astrojs/starlight/components";
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
 import { getLatestVersion } from "@biomejs/version-utils";
 import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
@@ -50,6 +50,51 @@ Pick the binary that matches your operating system and architecture:
 :::note
 Use the Linux variant inside Windows Subsystem for Linux (WSL).
 :::
+
+### Install script
+
+The installer downloads the latest stable binary and adds it to your `PATH`. It installs to `${XDG_BIN_HOME:-$HOME/.local/bin}` on macOS and Linux, and to `%LOCALAPPDATA%\Biome\bin` on Windows:
+
+<Tabs syncKey="install-script">
+  <TabItem label="bash">
+    ```shell
+    curl -fsSL https://biomejs.dev/install | bash
+    ```
+  </TabItem>
+  <TabItem label="PowerShell">
+    ```powershell
+    irm https://biomejs.dev/install.ps1 | iex
+    ```
+  </TabItem>
+</Tabs>
+
+:::tip
+You might need to restart your shell after installation before you can run `biome`.
+:::
+
+To install a specific version, pass it to the installer:
+
+<Tabs syncKey="install-script">
+  <TabItem label="bash">
+    ```shell
+    curl -fsSL https://biomejs.dev/install | bash -s -- --version 2.5.9
+    ```
+  </TabItem>
+  <TabItem label="PowerShell">
+    ```powershell
+    $env:BIOME_VERSION = "2.5.9"
+    irm https://biomejs.dev/install.ps1 | iex
+    ```
+  </TabItem>
+</Tabs>
+
+The installer also accepts these options:
+
+| Goal | bash | PowerShell |
+| --- | --- | --- |
+| Override the installation directory | `BIOME_INSTALL_DIR` environment variable | `BIOME_INSTALL_DIR` environment variable |
+| Leave your shell configuration or `PATH` unchanged | `--no-modify-path` | `-NoModifyPath` |
+| Reinstall a version that is already installed | `--force` | `-Force` |
 
 ### Homebrew
 

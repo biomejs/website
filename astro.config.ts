@@ -257,8 +257,8 @@ export default defineConfig({
 							link: "/installation/install-biome",
 						},
 						{
-							label: "Migrate from ESLint & Prettier",
-							link: "/installation/migrate-eslint-prettier",
+							label: "Migrate from other tools",
+							link: "/installation/migrate-from-other-tools",
 							translations: {
 								es: "Migrar de ESLint & Prettier",
 								fr: "Migrer depuis ESLint & Prettier",
@@ -329,6 +329,14 @@ export default defineConfig({
 								"pt-BR": "Usando o Biome em projetos grandes",
 								uk: "Використання Biome в великих проектах",
 								ru: "Применение Biome в крупных проектах",
+							},
+						},
+						{
+							label: "Publish packages",
+							link: "/guides/publish-packages",
+							badge: {
+								text: "new",
+								variant: "success",
 							},
 						},
 					],
@@ -450,6 +458,14 @@ export default defineConfig({
 										"zh-CN": "插件系统",
 										pl: "Wtyczki",
 										ru: "Плагины",
+									},
+								},
+								{
+									label: "Community plugins",
+									link: "/community-plugins",
+									badge: {
+										text: "new",
+										variant: "success",
 									},
 								},
 								{
@@ -872,6 +888,14 @@ export default defineConfig({
 								"zh-CN": "调查 Biome 中的性能问题",
 								pl: "Badanie problemów z wydajnością",
 								ru: "Расследование медленной работы",
+							},
+						},
+						{
+							label: "Publish packages",
+							link: "/guides/publish-packages",
+							badge: {
+								text: "new",
+								variant: "success",
 							},
 						},
 					],

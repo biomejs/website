@@ -108,6 +108,74 @@ but it gets quickly more interesting when add other operators in the mix:
 }
 ```
 
+## Matching Source Ranges
+
+Use the `range()` pattern to filter syntax nodes by their position in the source
+file. For example, this query matches calls contained entirely on line 2:
+
+```grit
+range(start_line=2, end_line=2) as $call where {
+    $call <: call_expression()
+}
+```
+
+Given this source, it matches only `second()`:
+
+```js {2}
+first();
+second();
+third();
+```
+
+`range()` accepts four optional named arguments:
+
+| Argument | Constraint |
+| --- | --- |
+| `start_line` | The node must start on or after this line. |
+| `start_column` | If the node starts on `start_line`, it must start at or after this column. Requires `start_line`. |
+| `end_line` | The node must end on or before this line. |
+| `end_column` | If the node ends on `end_line`, its end position must be at or before this column. Requires `end_line`. |
+
+Arguments must be unsigned integer literals from `0` to `4294967295`.
+Source lines and columns start at **1**. Columns count Unicode scalar values,
+so `é` counts as one column, and a tab also counts as one column.
+
+Omitting `start_line` leaves the start unbounded; omitting `end_line` leaves the
+end unbounded. An omitted column imposes no column restriction on its boundary
+line. For example, `range(start_line=2)` matches nodes starting on line 2 or
+later, and `range(end_line=2)` matches nodes ending on line 2 or earlier.
+`range()` with no arguments matches any binding that has a source position.
+
+The entire node must fit within the range, including every line of a multiline
+node. Leading and trailing whitespace and comments attached to the node do not
+count toward its range. The node's end position is immediately after its last
+character, and it may equal the specified end bound.
+
+For example, add column limits to select one call from a line with multiple calls:
+
+```grit
+call_expression() as $call where {
+    $call <: range(start_line=2, start_column=3, end_line=2, end_column=11)
+}
+```
+
+```js {2}
+first();
+  second(); third();
+fourth(
+  fifth()
+);
+```
+
+This matches only `second()`, which starts at column 3 and ends at column 11,
+just after `)`. The semicolon is outside the call expression. Setting
+`end_column=10` would exclude the call because its end position exceeds the limit.
+Column limits apply only on their respective boundary lines.
+
+You can use `range()` as a condition in searches and plugin patterns, including
+patterns with rewrites. It filters existing syntax matches; it does not extract
+arbitrary source lines or make comments independently matchable.
+
 ## Matching Biome Syntax Nodes
 
 For more precise queries, you can match against Biome's internal syntax nodes directly. Each node is identified by a unique `PascalCase` name.
