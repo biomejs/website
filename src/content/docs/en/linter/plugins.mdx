@@ -3,6 +3,31 @@ title: Linter Plugins
 description: An overview of how to use Biome's Linter Plugins
 ---
 
+Biome supports two forms of plugins:
+- GritQL, a powerful DSL to build small and expressive rules.
+- JavaScript, which allows you to tap into Biome's infrastructure, such as CST, semantic model, and more.
+
+## Decide the plugin format
+
+It's important you understand how the two plugin formats work so that you can make an informed decision on how
+they will impact your work, your users, and Biome itself.
+
+GritQL:
+- For Biome to enable plugins for a language, both GritQL and Biome must support it.
+- It's a DSL; you have to learn how it works. A DSL plugin can be more expressive and require way less code to write, depending on the use case.
+- Plugins run on every file, regardless of whether the content of the file matches the query.
+- Plugins use a different pipeline from the one used by Biome's Rust lint rules, and they don't have access to information such as the semantic model, file kind, etc.
+- The memory usage is minimal and can be controlled by Biome.
+
+JavaScript:
+- They can support the same languages that Biome's Rust lint rules support.
+- They are very verbose, so writing a rule for a small thing could take 10x more lines of code compared to GritQL.
+- They have access to more information, such as the file being analyzed, the semantic model, CST navigation, and more.
+- It's way easier to write a plugin that can negatively impact the performance of downstream users.
+- The memory used by the plugins can't be controlled by Biome.
+
+## GritQL plugins
+
 Biome Linter supports [GritQL](/reference/gritql/) plugins. Plugins can match
 specific code patterns, report customized diagnostics, and suggest fixable
 rewrites.
@@ -19,7 +44,7 @@ Here is an example of a plugin that reports on all usages of `Object.assign()`:
 }
 ```
 
-You can put a GritQL snippet in a file anywhere in your project, but be mindful
+You can put a GritQL snippet in a file anywhere in your project, but make sure
 you use the `.grit` extension. Then, you can simply enable it as a plugin with
 the following configuration:
 
@@ -71,12 +96,12 @@ Rewrite behavior:
 - With `--write --unsafe`, Biome also applies unsafe plugin rewrites.
 - If `fix_kind` is omitted, the rewrite is treated as unsafe by default.
 
-## Restricting Plugins to Specific Files
+### Restricting Plugins to Specific Files
 
 By default, a plugin runs on every file Biome processes. However, you can use the `includes` option to restrict files and folders where the plugin can or can't run.
 
 In the following example, the first plugin only runs on files inside
-`src/components/`. The second plugin runs on all files that have the extension `.ts` under `src/` folder, except for files that end with `.test.ts` in the `src/` folder:
+`src/components/`. The second plugin runs on all files that have the extension `.ts` under the `src/` folder, except for files that end with `.test.ts` in the `src/` folder:
 
 ```json title="biome.json"
 {
@@ -97,7 +122,7 @@ When `includes` is set, the plugin only runs on files that match at least one
 positive pattern and are not excluded by a negated pattern. Patterns follow the
 [glob syntax reference](/reference/configuration/#glob-syntax-reference).
 
-## Resolve plugins from shared configurations
+### Resolve plugins from shared configurations
 
 By default, Biome resolves plugin paths in a shared configuration from the directory containing the configuration that extends it. To load a plugin that ships with the shared configuration, set `resolutionKind` to `"config"`:
 
@@ -149,7 +174,7 @@ language css;
 
 Biome currently supports JavaScript, CSS, and JSON target languages.
 
-## Plugin API
+### Plugin API
 
 In addition to Grit's
 [built-in functions](https://docs.grit.io/language/functions#built-in-functions),
@@ -169,3 +194,349 @@ Supports four arguments:
 - `fix_kind`: Safety of an associated rewrite fix (`safe` or `unsafe`). This is
   only relevant when the pattern also uses the rewrite operator (`=>`). By
   default, fixes are treated as unsafe.
+
+
+## JavaScript plugins
+
+:::caution
+JavaScript plugins are in the **Developer Preview** stage. Breaking changes might occur in patches, and
+things might be missing. Please refer to [the GitHub issue](https://github.com/biomejs/biome/issues/11420) to engage with us.
+:::
+
+Biome accepts `.js` and `.ts` as file extensions. If you decide to use TypeScript to write a plugin, we strongly recommend installing the `@biomejs/runtime` package, which provides the relevant types.
+
+The plugin must export a function called `defineRule` that accepts an object. The object must have two fields:
+- `query`: which CST nodes to query.
+- `run`: the core logic of the lint rule. If the rule detects a violation, use the function `registerDiagnostic` to return the node to highlight, the severity of the diagnostic, and a message.
+
+```ts title="plugin.ts"
+import { defineRule, ast, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+export const noAssign = defineRule({
+    query: ast("JS_CALL_EXPRESSION"),
+    run(node, ctx) {
+      registerDiagnostic(node, "error", "Can't assign anything.")
+    }
+})
+```
+
+### Query APIs
+
+You use `query` to tell the plugin which nodes to inspect. In order to know which nodes to inspect, you have two options: use the command [`biome inspect file`](/reference/cli#biome-inspect-file) or the playground.
+
+Each node has a name assigned by the Biome grammar, usually in all caps. For example, the name associated with the [`debugger` statement](https://biomejs.dev/playground/?lintRules=all&view=syntax&ruleDomains.project=all#code=ZABlAGIAdQBnAGcAZQByAA%3D%3D) is `JS_DEBUGGER_STATEMENT`, so you can import its interface called `JsDebuggerStatement` and use the `kind` field:
+
+```ts title="plugin.ts" ins='JsDebuggerStatement' ins='.kind'
+import { defineRule, ast, JsDebuggerStatement } from "@biomejs/runtime/plugin"
+
+export const noAssign = defineRule({
+    query: ast(JsDebuggerStatement.kind),
+})
+```
+
+#### `ast` query
+
+**Type**: `string | string[]`
+
+It accepts one name or a list of nodes to query.
+
+```ts title="plugin.ts" ins='ast'
+import { defineRule, ast, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+export const noAssign = defineRule({
+    query: ast(["JS_CALL_EXPRESSION", "JS_DEBUGGER"]),
+    run(node, ctx) {
+      registerDiagnostic(node, "error", "Can't assign anything.")
+    }
+})
+```
+
+#### `semantic` query
+
+**Type**: `string | string[]`
+
+It accepts one name or a list of nodes to query. Via `semantic`, it's possible to inspect the **semantic model** of the current file, accessible via [`ctx.model`](#ctxmodel).
+
+
+```ts title="plugin.ts" ins='semantic' ins='ctx.model()'
+import { defineRule, semantic, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+export const noAssign = defineRule({
+    query: semantic(["JS_CALL_EXPRESSION", "JS_DEBUGGER"]),
+    run(node, ctx) {
+      let model = ctx.model();
+      registerDiagnostic(node, "error", "Can't assign anything.")
+    }
+})
+```
+
+### Run APIs
+
+The `run` function accepts two arguments:
+- The first argument is the node that matched the query. We call it `node`.
+- The second argument is of type `RuleContext`, which contains useful information. We call it `ctx`.
+
+#### `ctx.filePath`
+
+**Type**: `string`
+
+The absolute path of the file being linted.
+
+#### `ctx.sourceType`
+
+**Type**: `JsFileSource`
+
+Provides useful information regarding the current file, such as whether the file is ESM or CJS, whether the node is inside an embedded file, and more.
+
+#### `ctx.model`
+
+**Type**: `SemanticModel`
+
+Bindings and references in the original analyzed source.
+
+#### `SemanticModel.binding`
+
+**Type**: `(reference: AnyJsIdentifierReference) => Binding | undefined`
+
+Resolves an identifier use to the binding it refers to, respecting shadowing. Returns `undefined` for configured globals and unresolved references.
+
+#### `SemanticModel.asBinding`
+
+**Type**: `(node: AnyJsIdentifierBinding) => Binding | undefined`
+
+Looks up the binding introduced by a declaration's identifier node. Returns `undefined` when the model does not track that declaration.
+
+#### `SemanticModel.allBindings`
+
+**Type**: `() => readonly Binding[]`
+
+Returns all tracked bindings in the source, including nested scopes. Declarations with the same spelling can introduce separate bindings.
+
+#### `SemanticModel.allExportedBindings`
+
+**Type**: `() => readonly Binding[]`
+
+Returns the bindings marked as exported by the model, with each binding appearing once even if it has multiple export sites. Order is unspecified. Re-exports that introduce no local binding are not included.
+
+#### `SemanticModel.hasExports`
+
+**Type**: `() => boolean`
+
+Returns whether the model tracks at least one exported binding. This is not a check for export syntax: an empty export, a re-export without a local binding, or an exported literal can leave this value `false`.
+
+#### `SemanticModel.scopes`
+
+**Type**: `() => readonly Scope[]`
+
+Returns all scopes in this source, including the global scope and nested scopes.
+
+#### `SemanticModel.globalScope`
+
+**Type**: `() => Scope`
+
+Returns the outermost scope of this source, including for an empty file. This scope has no parent. It is distinct from the configured global names returned by `allGlobalReferences()`.
+
+#### `SemanticModel.scope`
+
+**Type**: `(node: AnyJsAstNode) => Scope | undefined`
+
+Returns the most specific scope containing the node's trimmed source range. Returns `undefined` for an empty node. Use `globalScope()` to obtain a scope for an empty file.
+
+#### `SemanticModel.scopeHoistedTo`
+
+**Type**: `(node: AnyJsAstNode) => Scope | undefined`
+
+Returns the scope a declaration's identifier was hoisted to, if the model records one. This can differ from the scope containing its source text.
+
+#### `SemanticModel.allGlobalReferences`
+
+**Type**: `() => readonly GlobalReference[]`
+
+Returns references resolved to globals configured in the supplied model. Locally shadowed names resolve to local bindings instead.
+
+#### `SemanticModel.allUnresolvedReferences`
+
+**Type**: `() => readonly UnresolvedReference[]`
+
+Returns references that resolve to neither a local binding nor a global configured in the supplied model.
+
+#### `SemanticModel.isGlobalReference`
+
+**Type**: `(reference: AnyJsIdentifierReference) => boolean`
+
+Returns whether an identifier use resolves to a configured global. Returns `false` for local bindings and unresolved references.
+
+#### `SemanticModel.isUnresolvedReference`
+
+**Type**: `(reference: AnyJsIdentifierReference) => boolean`
+
+Returns whether an identifier use has no local binding or configured global. A reference to a declaration later in the source can still resolve.
+
+#### `SemanticModel.isImported`
+
+**Type**: `(node: AnyJsIdentifierBinding | AnyJsIdentifierReference) => boolean`
+
+Returns whether a declaration is imported, or a reference resolves to an imported declaration. Returns `false` when a reference has no local binding.
+
+#### `SemanticModel.isExported`
+
+**Type**: `(node: AnyJsIdentifierBinding | AnyJsIdentifierReference) => boolean`
+
+Returns whether a declaration is exported, or a reference resolves to an exported declaration. Returns `false` when a reference has no local binding.
+
+#### `Binding.syntax`
+
+**Type**: `() => AnyJsIdentifierBinding`
+
+Returns the identifier node introducing this binding, rather than the enclosing declaration statement. The node can be used in diagnostics and fixes.
+
+#### `Binding.declarationKind`
+
+**Type**: `() => "class" | "enum" | "function" | "generic" | "hoistedValue" | "import" | "importType" | "interface" | "module" | "namespace" | "type" | "unknown" | "using" | "value"`
+
+Returns the model's declaration classification, such as `"function"`, `"importType"`, or `"hoistedValue"`. This describes how the binding was declared, rather than the syntax kind of its identifier node.
+
+#### `Binding.exports`
+
+**Type**: `() => readonly (AnyJsIdentifierBinding | AnyJsIdentifierReference)[]`
+
+Returns the identifier nodes at this binding's tracked export sites. A directly exported declaration yields its identifier binding; an export specifier yields the local identifier reference, not
+its exported alias. Returns an empty array for a binding with no tracked export sites.
+
+#### `Binding.exportRanges`
+
+**Type**: `() => readonly { readonly start: number; readonly end: number }[]`
+
+Returns the model's source ranges for this binding's export sites. Offsets count UTF-8 bytes, with an inclusive start and exclusive end; they are not JavaScript string indices. Returns an empty array when no export sites are tracked.
+
+#### `Binding.scope`
+
+**Type**: `() => Scope`
+
+Returns the scope containing the declaration's identifier in the source. For hoisted declarations, use `context.model.scopeHoistedTo(binding.syntax())` to inspect the destination scope instead.
+
+#### `Binding.allReferences`
+
+**Type**: `() => readonly Reference[]`
+
+Returns all references that resolve to this binding, including reads and writes. References to a different binding with the same spelling are excluded.
+
+#### `Binding.allReads`
+
+**Type**: `() => readonly Reference[]`
+
+Returns references classified as reads by the semantic model.
+
+#### `Binding.allWrites`
+
+**Type**: `() => readonly Reference[]`
+
+Returns references classified as writes by the semantic model.
+
+#### `Binding.isImported`
+
+**Type**: `() => boolean`
+
+Returns whether this binding has an import declaration kind in the model.
+
+#### `Binding.isExported`
+
+**Type**: `() => boolean`
+
+Returns whether this binding is exported from the source.
+
+#### `Reference.syntax`
+
+**Type**: `() => AnyJsIdentifierReference`
+
+Returns the identifier node at the reference site. The node can be used in diagnostics and fixes.
+
+#### `Reference.binding`
+
+**Type**: `() => Binding | undefined`
+
+Returns the binding this reference resolves to.
+
+#### `Reference.scope`
+
+**Type**: `() => Scope`
+
+Returns the scope containing this identifier use, which can differ from the scope containing its declaration.
+
+#### `Reference.isRead`
+
+**Type**: `() => boolean`
+
+Returns whether the model classifies this reference as a read.
+
+#### `Reference.isWrite`
+
+**Type**: `() => boolean`
+
+Returns whether the model classifies this reference as a write.
+
+#### `Scope.syntax`
+
+**Type**: `() => AnyJsAstNode`
+
+Returns the syntax node associated with this scope, such as a module, function, or block. The node can be used in diagnostics and fixes.
+
+#### `Scope.isGlobalScope`
+
+**Type**: `() => boolean`
+
+Returns whether this is the source's outermost scope.
+
+#### `Scope.parent`
+
+**Type**: `() => Scope | undefined`
+
+Returns the immediately enclosing scope, or `undefined` for the global scope.
+
+#### `Scope.children`
+
+**Type**: `() => readonly Scope[]`
+
+Returns this scope's immediate child scopes, without their descendants.
+
+#### `Scope.ancestors`
+
+**Type**: `() => readonly Scope[]`
+
+Returns this scope followed by its parents, ending with the global scope. The first entry is the current scope itself.
+
+#### `Scope.bindings`
+
+**Type**: `() => readonly Binding[]`
+
+Returns bindings declared in or hoisted to this scope. Bindings belonging to parent or child scopes are excluded.
+
+#### `Scope.getBinding`
+
+**Type**: `(name: string) => Binding | undefined`
+
+Looks up a binding in this scope only; parent scopes are not searched. Returns `undefined` when the name is absent. Unicode escapes are decoded. When a TypeScript name has both type and value bindings, the value binding is preferred, falling back to the type binding if no value exists.
+
+#### `GlobalReference.syntax`
+
+**Type**: `() => AnyJsIdentifierReference`
+
+Returns the identifier node that uses the configured global.
+
+#### `GlobalReference.isRead`
+
+**Type**: `() => boolean`
+
+Returns whether the model classifies this global reference as a read.
+
+#### `GlobalReference.isWrite`
+
+**Type**: `() => boolean`
+
+Returns whether the model classifies this global reference as a write.
+
+#### `UnresolvedReference.syntax`
+
+**Type**: `() => AnyJsIdentifierReference`
+
+Returns the identifier node whose name could not be resolved.
