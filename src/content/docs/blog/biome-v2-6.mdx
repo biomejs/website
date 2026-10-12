@@ -601,7 +601,23 @@ irm https://biomejs.dev/install.ps1 | iex`
 
 ## New architecture
 
+Among other things, Biome has gone through a very substantial rewrite over its own architecture.
 
+The main problem to solve was responsiveness in the editors. Even though Biome is written in Rust, and it's superfast, working with an editor has a completely different mindset compared to the CLI. In an editor, while you type, you need to provide a lot of information and a snappy DX, such as providing errors as the user types.
+
+This problem has surfaced multiple times with users that had large files and experienced delays in seeing the diagnostics while typing. Not only that, but many of the internal operations done by Biome were also repeated, not cached. For example, the Node.js resolver, the type inference, internal settings, and so on. This would result in a huge slowdown and a pure DX.
+
+That's where [`salsa`](https://github.com/salsa-rs/salsa) comes to play. `salsa` is framework for on-demand, incrementalized computation. Salsa is currently maintained by the [Astral](https://astral.sh/) team, and it currently powers the type inference system of [`ty`](https://github.com/astral-sh/ty).
+
+Let's take as an example how the semantic model is computed using `salsa`. When the semantic model of a JavaScript file is requested second time, and it hasn't changed in the last operations, we get the semantic model from the database. We avoid recomputing the same information every time.
+
+In the last few months, we've taken different parts of Biome, and we've moved them onto `salsa`. In fact, now we have completely rewritten our type inference engine. Before Biome would have scanned the whole project and built all the types in one go before you could have even used it. This means that Biome would have built types for files that maybe didn't need to be analyzed. This is clearly more work, and work that doesn't have to be done until the request arrives. With Salsa now, the inference is done on demand. So when you run your lint rule `noMisusedPromises`, we first inspect a candidate expression, and then we try to infer and normalize the types from that expression. If by chance a rule attempts to inspect the same expression asking for the same type, we get the memoized value. So we don't do the same work twice.
+
+The rewrite has been challenging. Salsa has a completely different model that doesn't fit how Biome used to work. Biome has the concept of a workspace server which is thread-friendly, which means that it can be sent across different threads and it can be modified by those threads. On the other hand, `salsa` has a completely different model where snapshots of its own database are sent across different threads and writing operations can be done only when those threads are gone out of scope.
+
+Secondly, Biome must offer the same DX, both the CLI and the LSP. However, both clients work in a different way, architecturally speaking. For example, this CLI is a one-shot operation, while the LSP is a long-running process where different requests can come from different clients and different times of the life cycle of the process. The CLI is stateless, while the LSP is stateful, and it must keep track of information between two operations.
+
+After weeks of whiteboards and retries, we eventually found the perfect architecture for the new Biome. The CLI has become slightly faster and less noisy, it doesn't have to recompute the settings every single time. The LSP has become snappier, faster, uses less memory, and is able to take advantage of the cancellation engine given by `salsa`.
 
 ## CLI and project improvements
 
