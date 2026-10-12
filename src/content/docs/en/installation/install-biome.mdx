@@ -12,9 +12,9 @@ export const version = await getLatestVersion("stable");
 
 Biome is distributed as an npm package and as a standalone executable. Install it with your package manager if your project already has one, or use the standalone executable when you do not use Node.js or when Biome would be the only reason to have a `package.json`.
 
-## Package manager
+## Install Biome
 
-Install `@biomejs/biome` as a development dependency:
+Install `@biomejs/biome` as a development dependency with a package manager, or use the standalone installer:
 
 <PackageManagerCommand
   npm={["i -D -E @biomejs/biome"]}
@@ -22,10 +22,12 @@ Install `@biomejs/biome` as a development dependency:
   yarn={["add -D -E @biomejs/biome"]}
   bun={["add -D -E @biomejs/biome"]}
   deno={["add -D npm:@biomejs/biome"]}
+  standalone={"curl -fsSL https://biomejs.dev/install | bash"}
+  standaloneWindows={"irm https://biomejs.dev/install.ps1 | iex"}
 />
 
 :::note[Version pinning]
-The `-E` flag pins the exact version in your `package.json`, so every contributor and your CI run the same version of Biome. See [why pinning matters](/internals/versioning#why-pinning-the-version-is-important).
+When using a package manager, the `-E` flag pins the exact version in your `package.json`, so every contributor and your CI run the same version of Biome. See [why pinning matters](/internals/versioning#why-pinning-the-version-is-important).
 :::
 
 Once installed, run Biome through your package manager. For example, `biome check` runs the formatter, the linter, and assist actions on your project:
@@ -165,7 +167,7 @@ Run it as `./biome`, or move it to a directory on your `PATH` to run it as `biom
 
 ## Upgrade Biome
 
-If you installed Biome with a package manager, install the latest version with the same package manager, keeping the version pinned:
+Upgrade Biome using the same installation method:
 
 <PackageManagerCommand
   npm={["i -D -E @biomejs/biome@latest"]}
@@ -173,15 +175,10 @@ If you installed Biome with a package manager, install the latest version with t
   yarn={["add -D -E @biomejs/biome@latest"]}
   bun={["add -D -E @biomejs/biome@latest"]}
   deno={["add -D npm:@biomejs/biome@latest"]}
+  standalone={"biome upgrade"}
 />
 
-If you installed the standalone executable, run the `upgrade` command to update to the latest stable version:
-
-```shell
-biome upgrade
-```
-
-Biome detects whether it was installed through Homebrew or as a plain binary and upgrades accordingly. If the detection is wrong, set the [`BIOME_DISTRIBUTION` environment variable](/reference/environment-variables#biome_distribution).
+When you run `biome upgrade`, Biome detects whether it was installed through Homebrew or as a plain binary and upgrades accordingly. If the detection is wrong, set the [`BIOME_DISTRIBUTION` environment variable](/reference/environment-variables#biome_distribution).
 
 :::note
 If you installed Biome through Winget or pacman, update it with that tool instead.

@@ -16,13 +16,15 @@ Jeśli masz projekt korzystający z Biome v1 i chcesz zaktualizować go do v2, t
     <ol>
         <li>
 
-            Użyj swojego menedżera pakietów, aby zainstalować wersję `2.0.6` Biome:
+            Zainstaluj Biome w wersji `2.0.6` za pomocą menedżera pakietów lub samodzielnego instalatora:
             <PackageManagerCommand
                 npm={["install --save-dev --save-exact @biomejs/biome@2.0.6"]}
                 pnpm={["add --save-dev --save-exact @biomejs/biome@2.0.6"]}
                 yarn={["add --dev --exact @biomejs/biome@2.0.6"]}
                 bun={["add --dev --exact @biomejs/biome@2.0.6"]}
-                deno={["add --dev npm:@biomejs/biome@2.0.6"]} />
+                deno={["add --dev npm:@biomejs/biome@2.0.6"]}
+                standalone={"curl -fsSL https://biomejs.dev/install | bash -s -- --version 2.0.6"}
+                standaloneWindows={'$env:BIOME_VERSION = "2.0.6"; irm https://biomejs.dev/install.ps1 | iex'} />
         </li>
         <li>
             Uruchom polecenie `migrate`, aby zaktualizować konfigurację:

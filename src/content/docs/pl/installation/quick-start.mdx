@@ -20,6 +20,8 @@ również dostępny jako [samodzielny plik wykonywalny], który nie wymaga Node.
   yarn={["add -D -E @biomejs/biome"]}
   bun={["add -D -E @biomejs/biome"]}
   deno={["add -D npm:@biomejs/biome"]}
+  standalone={"curl -fsSL https://biomejs.dev/install | bash"}
+  standaloneWindows={"irm https://biomejs.dev/install.ps1 | iex"}
 />
 
 :::note[Przypinanie wersji]
@@ -152,6 +154,27 @@ yarn exec biome check --write
 
 # Formatuj, lintuj i organizuj importy określonych plików
 yarn exec biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="standalone" icon="seti:shell">
+		<Code frame="none" showLineNumbers={false} code={`
+# Formatuj wszystkie pliki
+biome format --write
+
+# Formatuj określone pliki
+biome format --write <files>
+
+# Lintuj pliki i zastosuj bezpieczne poprawki do wszystkich plików
+biome lint --write
+
+# Lintuj pliki i zastosuj bezpieczne poprawki do określonych plików
+biome lint --write <files>
+
+# Formatuj, lintuj i organizuj importy wszystkich plików
+biome check --write
+
+# Formatuj, lintuj i organizuj importy określonych plików
+biome check --write <files>
     `} lang="bash"  />
 	</TabItem>
 </Tabs>

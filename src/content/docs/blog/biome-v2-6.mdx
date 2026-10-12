@@ -471,7 +471,7 @@ Running `biome migrate stylelint --write` will produce the following `biome.json
     }
 }`} />
 
-The command needs Node.js to load and follows `extends` and plugin configurations.
+The command needs Node.js to resolve the `stylelint` configuration file with its plugins.
 For now, `biome migrate stylelint` only supports Stylelint configurations written in JSON or JavaScript. YAML configurations are not supported yet.
 
 By default, the command migrates identical rules only. Pass the `--include-inspired` flag to migrate inspired rules as well.
@@ -567,27 +567,25 @@ Promoted the following rules to the `style` group with information severity:
 - [`useDomQuerySelector`](https://biomejs.dev/linter/rules/use-dom-query-selector/)
 - [`noTopLevelLiterals`](https://biomejs.dev/linter/rules/no-top-level-literals/)
 
-### New options for rules and assists
+## Standalone installation
 
-#### `ignoreElements` for `noRedundantRoles`
+You can now install Biome on any platform using our newly standalone installer:
 
-#### `sortFirst` for `useSortedAttributes`
+```shell
+# Linux or macOS
+curl -fsSL https://biomejs.dev/install | bash
 
-#### `partitionByNewLine` for `useSortedInterfaceMembers`
+# Windows PowerShell
+irm https://biomejs.dev/install.ps1 | iex`
+```
 
-### Logical CSS values in `useLogicalProperties`
+## New architecture
 
-## Extended language support
 
-### Google Apps Script files
-
-### `.htm` files
 
 ## CLI and project improvements
 
 ### Git-aware `biome init`
-
-### More complete ESLint migration
 
 ### Resolved file configuration in `biome rage`
 
