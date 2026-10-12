@@ -238,6 +238,26 @@ In case you missed its debut in 2.5.15, [`noTailwindRawColors`](https://biomejs.
 <button class="bg-danger">Danger</button>
 ```
 
+Now, in 2.6.0, it will actively suggest existing colors in your design system, if any are close.
+
+```
+src/App.jsx:1:37 lint/nursery/noTailwindRawColors ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × This Tailwind CSS class uses a raw palette color.
+
+  > 1 │ export const pink = <div className="bg-pink-500" />;
+      │                                     ^^^^^^^^^^^
+    2 │ export const gray = <div className="hover:text-slate-100/80" />;
+    3 │
+
+  i Raw palette colors couple components to specific colors, making design-system changes harder.
+
+  i Use a color from your design system. These classes are the closest matches:
+
+  - bg-brand
+  - bg-danger
+```
+
 ### `noTailwindRestyledComponents`
 
 Many of you have your own component library to keep your application's visual style consistent. Not just the colors, but the whitespace, borders, font size, and animations are all the little things that make your user experience consistent and beautiful. That consistency crumbles when your agent forces new styles on your components.
