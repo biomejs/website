@@ -1,0 +1,113 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noTailwindLegacyUtilities (HTML)
+description: HTML documentation for noTailwindLegacyUtilities
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-tailwind-legacy-utilities/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-tailwind-legacy-utilities/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noTailwindLegacyUtilities`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`tailwind`](/linter/domains#tailwind)
+- Sources: 
+  - Inspired from [`better-tailwindcss/no-deprecated-classes`](https://github.com/schoero/eslint-plugin-better-tailwindcss/blob/main/docs/rules/no-deprecated-classes.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindLegacyUtilities": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow Tailwind CSS utility classes that Tailwind CSS only keeps for backward compatibility.
+
+Tailwind CSS renamed several utilities, but still accepts some of the old names
+so that existing projects keep working.
+This rule reports those old names and suggests the current ones.
+It checks the following classes, including their variants and negative values:
+
+| Legacy class | Replacement |
+| --- | --- |
+| `bg-gradient-to-*` | `bg-linear-to-*` |
+| `bg-left-top`, `bg-right-top`, `bg-left-bottom`, `bg-right-bottom` | `bg-top-left`, `bg-top-right`, `bg-bottom-left`, `bg-bottom-right` |
+| `object-left-top`, `object-right-top`, `object-left-bottom`, `object-right-bottom` | `object-top-left`, `object-top-right`, `object-bottom-left`, `object-bottom-right` |
+| `max-w-screen-*` | `max-w-(--breakpoint-*)` |
+| `overflow-ellipsis` | `text-ellipsis` |
+| `decoration-slice`, `decoration-clone` | `box-decoration-slice`, `box-decoration-clone` |
+| `flex-grow`, `flex-grow-*` | `grow`, `grow-*` |
+| `flex-shrink`, `flex-shrink-*` | `shrink`, `shrink-*` |
+| `order-none` | `order-0` |
+| `break-words` | `wrap-break-word` |
+| `start-*` | `inset-s-*` |
+| `end-*` | `inset-e-*` |
+
+Some replacements were added after Tailwind CSS v4.0:
+`bg-top-left`, `object-top-left`, and `wrap-break-word` in v4.1,
+and `inset-s-*` and `inset-e-*` in v4.2.
+When the `tailwindcss` version range in the closest `package.json` allows a version
+that doesn't have the replacement yet, this rule doesn't report the legacy class.
+For example, `"tailwindcss": "^4.1.0"` can install v4.1, so `start-4` isn't reported.
+
+This rule doesn't read your Tailwind CSS theme. It only reports `start-*` and `end-*` classes
+whose values work without a theme, such as `start-4`, `start-1/2`, `start-px`, or `start-[3px]`,
+and `max-w-screen-*` classes that use a default breakpoint (`sm`, `md`, `lg`, `xl`, or `2xl`).
+This way, custom classes such as `start-date` aren't reported.
+
+## Examples
+
+### Invalid
+
+```html
+<div class="flex-grow"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:13 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-legacy-utilities\">lint/nursery/noTailwindLegacyUtilities</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The Tailwind CSS class </span><span style=\"color: Orange;\"><strong>flex-grow</strong></span><span style=\"color: Orange;\"> is a legacy name.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;flex-grow&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Tailwind CSS renamed this utility and only keeps the old name for backward compatibility.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>grow</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use the current class name.</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style=\"opacity: 0.8;\">·</span>class=&quot;<span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">x</span><span style=\"color: Tomato;\">-</span>grow&quot;&gt;&lt;/div&gt;<br />  <strong>    │ </strong>            <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>            <br /></code></pre>"} />
+
+```html
+<div class="hover:bg-gradient-to-r"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:19 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-legacy-utilities\">lint/nursery/noTailwindLegacyUtilities</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The Tailwind CSS class </span><span style=\"color: Orange;\"><strong>bg-gradient-to-r</strong></span><span style=\"color: Orange;\"> is a legacy name.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;hover:bg-gradient-to-r&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Tailwind CSS renamed this utility and only keeps the old name for backward compatibility.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>bg-linear-to-r</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use the current class name.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">h</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\">b</span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\"><strong>g</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>a</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">&gt;</span><span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">/</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">&gt;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">h</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\">b</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">-</span><span style=\"color: MediumSeaGreen;\"><strong>l</strong></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>a</strong></span><span style=\"color: MediumSeaGreen;\"><strong>r</strong></span><span style=\"color: MediumSeaGreen;\">-</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">-</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">&gt;</span><span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">/</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">&gt;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```html
+<div class="grow hover:bg-linear-to-r text-ellipsis inset-s-4"></div>
+```
+
+## Recognized class strings
+
+This rule checks the attributes and functions recognized by the top-level
+[`tailwind` configuration](https://biomejs.dev/reference/configuration/#tailwind).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_tailwind_legacy_utilities.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noTailwindLegacyUtilities)
+- <RulePlaygroundLink rule="noTailwindLegacyUtilities" category="lint" language="html" code={"<div class=\"flex-grow\"></div>\n"} />
+
