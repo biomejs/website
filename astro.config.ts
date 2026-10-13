@@ -721,6 +721,22 @@ export default defineConfig({
 										ru: "Источники действий HTML",
 									},
 								},
+								{
+									label: "Markdown Actions",
+									link: "/assist/markdown/actions",
+								},
+								{
+									label: "Markdown Actions sources",
+									link: "/assist/markdown/sources",
+								},
+								{
+									label: "YAML Actions",
+									link: "/assist/yaml/actions",
+								},
+								{
+									label: "YAML Actions sources",
+									link: "/assist/yaml/sources",
+								},
 							],
 							translations: {
 								ja: "アシスト",
