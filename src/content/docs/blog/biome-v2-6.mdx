@@ -26,6 +26,8 @@ import deckJs from "../../../assets/blog/biome-v2-6/hero-javascript.png";
 import deckYaml from "../../../assets/blog/biome-v2-6/hero-yaml.png";
 import deckScss from "../../../assets/blog/biome-v2-6/hero-sass.png";
 import deckTw from "../../../assets/blog/biome-v2-6/hero-tailwind.png";
+import ArchitectureBeforeAfter from "../../../assets/blog/biome-v2-6/architecture-before-after.svg";
+import SalsaEditRecompute from "../../../assets/blog/biome-v2-6/salsa-edit-recompute.svg";
 import Contributor from "@/components/Contributor.astro"
 import Avatar from "@/components/Avatar.astro"
 
@@ -424,7 +426,7 @@ biome inspect file path/to/file.ts
 
 ### Recursive configuration inheritance
 
-Biome v2.6 now allows you to extend configuration files and plugins from many ancestors. We still have an hardcoded limit in place of ten levels of depth to avoid possible overflows or cycles. This means that external packages can use `extends` from external packages, and so on. The end user just need to consume the file configuration file, or plugin.
+Biome v2.6 now allows you to extend configuration files and plugins from many ancestors. We still have an hardcoded limit in place of ten levels of depth to avoid possible overflows or cycles. This means that external packages can use `extends` from external packages, and so on. The end user just need to consume the final configuration file, or plugin.
 
 ## Migrate from Stylelint
 
@@ -496,9 +498,7 @@ For now, `biome migrate stylelint` only supports Stylelint configurations writte
 
 By default, the command migrates identical rules only. Pass the `--include-inspired` flag to migrate inspired rules as well.
 
-## Linter and assist improvements
-
-### Promoted rules
+## Promoted rules
 
 Promoted 59 nursery rules to stable groups.
 
@@ -601,32 +601,79 @@ irm https://biomejs.dev/install.ps1 | iex`
 
 ## New architecture
 
-Among other things, Biome has gone through a very substantial rewrite over its own architecture.
+Among other things, Biome has undergone a very substantial rewrite of its architecture.
 
-The main problem to solve was responsiveness in the editors. Even though Biome is written in Rust, and it's superfast, working with an editor has a completely different mindset compared to the CLI. In an editor, while you type, you need to provide a lot of information and a snappy DX, such as providing errors as the user types.
+### Engineers solving problems
 
-This problem has surfaced multiple times with users that had large files and experienced delays in seeing the diagnostics while typing. Not only that, but many of the internal operations done by Biome were also repeated, not cached. For example, the Node.js resolver, the type inference, internal settings, and so on. This would result in a huge slowdown and a pure DX.
+The main problem to solve was responsiveness in editors. Even though Biome is written in Rust and is superfast, working with an editor requires a completely different mindset from working with the CLI. In an editor, you need to provide a lot of information and a snappy DX as the user types, such as by reporting errors immediately.
 
-That's where [`salsa`](https://github.com/salsa-rs/salsa) comes to play. `salsa` is framework for on-demand, incrementalized computation. Salsa is currently maintained by the [Astral](https://astral.sh/) team, and it currently powers the type inference system of [`ty`](https://github.com/astral-sh/ty).
+This problem has surfaced multiple times for users with large files who have experienced delays in seeing diagnostics while typing. Not only that, but many of Biome's internal operations were also repeated rather than cached, including the Node.js resolver, type inference, internal settings, and so on. This would result in a slowdown and a poor DX.
 
-Let's take as an example how the semantic model is computed using `salsa`. When the semantic model of a JavaScript file is requested second time, and it hasn't changed in the last operations, we get the semantic model from the database. We avoid recomputing the same information every time.
+### Presenting `salsa`
 
-In the last few months, we've taken different parts of Biome, and we've moved them onto `salsa`. In fact, now we have completely rewritten our type inference engine. Before Biome would have scanned the whole project and built all the types in one go before you could have even used it. This means that Biome would have built types for files that maybe didn't need to be analyzed. This is clearly more work, and work that doesn't have to be done until the request arrives. With Salsa now, the inference is done on demand. So when you run your lint rule `noMisusedPromises`, we first inspect a candidate expression, and then we try to infer and normalize the types from that expression. If by chance a rule attempts to inspect the same expression asking for the same type, we get the memoized value. So we don't do the same work twice.
+That's where [`salsa`](https://github.com/salsa-rs/salsa) comes into play. `salsa` is a framework for on-demand, incrementalized computation. Salsa is currently maintained by some members the [Astral](https://astral.sh/) team, and it currently powers the type inference system of [`ty`](https://github.com/astral-sh/ty).
 
-The rewrite has been challenging. Salsa has a completely different model that doesn't fit how Biome used to work. Biome has the concept of a workspace server which is thread-friendly, which means that it can be sent across different threads and it can be modified by those threads. On the other hand, `salsa` has a completely different model where snapshots of its own database are sent across different threads and writing operations can be done only when those threads are gone out of scope.
+Let's use the computation of the semantic model with `salsa` as an example. When the semantic model of a JavaScript file is requested a second time and it hasn't changed since the last operation, we get the semantic model from the `salsa` database. We avoid recomputing the same information every time.
 
-Secondly, Biome must offer the same DX, both the CLI and the LSP. However, both clients work in a different way, architecturally speaking. For example, this CLI is a one-shot operation, while the LSP is a long-running process where different requests can come from different clients and different times of the life cycle of the process. The CLI is stateless, while the LSP is stateful, and it must keep track of information between two operations.
+`salsa` also provides a cancellation system that allows in-flight operations to be cancelled. Think of it as an advanced [debounce](https://developer.mozilla.org/en-US/docs/Glossary/Debounce). This is a very useful feature in editors. As you type, the LSP-based client (your editor) sends requests to the language server (Biome) with every keystroke, such as requests for diagnostics and code actions. Ordinarily, you wouldn't see any problems with files of ~2k LoC, but at a larger scale, even the fastest language server would start having problems. With `salsa`'s cancellation system, we are guaranteed that an in-flight reading operation is cancelled if a writing operation changes the source code and that the latest operation is always executed.
 
-After weeks of whiteboards and retries, we eventually found the perfect architecture for the new Biome. The CLI has become slightly faster and less noisy, it doesn't have to recompute the settings every single time. The LSP has become snappier, faster, uses less memory, and is able to take advantage of the cancellation engine given by `salsa`.
+### Towards the new architecture
 
-## CLI and project improvements
+The rewrite has been challenging. `salsa` has a completely different model that didn't fit with how Biome used to work. Biome has the concept of a thread-friendly workspace server, which means that it can be sent across different threads and modified by them. On the other hand, `salsa` uses a model in which snapshots of its database are sent across different threads, and write operations can be performed only when those threads have gone out of scope.
 
-### Git-aware `biome init`
+Secondly, Biome must offer the same DX in both the CLI and the LSP. However, the two clients work differently from an architectural perspective. For example, the CLI is a one-shot operation, while the LSP is a long-running process in which different requests can come from different clients at different times in the process's life cycle. The CLI is stateless, while the LSP is stateful and must keep track of information between operations.
 
-### Resolved file configuration in `biome rage`
+After weeks of whiteboards and retries, we eventually found the perfect architecture for the new Biome. The CLI has become slightly faster and less noisy; it doesn't have to recompute the settings every single time. The LSP is now snappier and faster, uses less memory, and can take advantage of the cancellation engine provided by `salsa`.
 
-## Android and Termux npm support
+<figure>
+  <div style={{ overflowX: "auto" }}>
+    <ArchitectureBeforeAfter style={{ width: "100%", height: "auto", minWidth: "640px" }} />
+  </div>
+  <figcaption>In the previous architecture, Biome would have recomputed semantic model, control flow, types at every lint request. Now all this information gets memorized and cached for every single file.</figcaption>
+</figure>
 
-## JavaScript API subpath exports
+### A new inference engine
 
-### `spanInBytesToSpanInCodeUnits`
+We have now **completely rewritten our type inference engine**.
+
+Previously, Biome scanned the whole project and built all the types in one go before you could even use it. This meant that Biome built types for files that might not have needed to be analyzed. This was clearly more work—work that didn't need to be done until a request arrived.
+
+Now, with `salsa`, inference - specifically operations such as normalization, substitution, or transformation - is done on demand. When you run the `noMisusedPromises` lint rule, we first inspect a candidate expression and then try to infer and normalize the types from that expression. If a rule happens to inspect the same expression and request the same type, we get the memoized value, so we don't do the same work twice.
+
+The memoization strategy can work at the type level too. For example, let's start with the premise that the engine wants to the memoize the return type of a function. Two functions that return `Foo` and `Bar`, respectively, the first time Biome needs to infer their types, it does so for both functions. If you edit `Foo` to `Lorem`, the next time Biome attempts to infer the types of those two functions, _only the first function is inferred_, while the type of the second function is retrieved from the `salsa` database because it hasn't changed.
+
+<figure>
+  <div style={{ overflowX: "auto" }}>
+    <SalsaEditRecompute style={{ width: "100%", height: "auto", minWidth: "640px" }} />
+  </div>
+  <figcaption>Editing `value` in `source.ts` re-runs only the queries that depend on it. If the type of `value` hadn't changed, `salsa` would stop there, and the type of `result` in `index.ts` would be reused too.</figcaption>
+</figure>
+
+## I like where this is going, how can I help?
+
+I want to remind you that Biome is a project led by volunteers who like programming, open-source, and embrace the Biome philosophy, so any help is welcome.
+
+### Translations
+
+If you are familiar with Biome and would like to contribute to its outreach, you can assist us by translating the website into your native language. In this [dashboard](/i18n-dashboard/), you can check the supported languages and whether they are up-to-date.
+
+### Chat with us
+
+Join our [Discord server](/chat), and engage with the community. Chatting with the community and being part of the community is a form of contribution.
+
+### Code contributions
+
+If you like the technical aspects of the project, and you want to make your way into the Rust language, or practice your knowledge around parsers, compilers, analysers, etc., Biome is the project for you!
+
+There are numerous aspects to explore; I assure you that you won't get bored. Here is a small list of the things you can start with:
+
+- Create new lint rules! We have so many rules that we haven't implemented yet (ESLint, ESLint plugins, Next.js, Solid, etc.). We have a very [extensive technical guide](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md).
+- Help us build [Biome's parsers](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md) for languages such as [YAML](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser), [HTML](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser), and [Markdown](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser).
+One interesting fact about Biome parsers is that they are recoverable parsers ([error-resilient](/internals/architecture/#parser-and-cst)), which emit a [CST](https://en.wikipedia.org/wiki/Parse_tree) instead of a classic AST.
+- Implement new capabilities in our [LSP (Language Server Protocol)](https://github.com/biomejs/biome/tree/main/crates/biome_lsp), or add new features in one of our editor extensions: [VS Code](https://github.com/biomejs/biome-vscode), [Zed](https://github.com/biomejs/biome-zed), and [JetBrains IntelliJ](https://github.com/biomejs/biome-intellij).
+
+### Financial help
+
+If you believe in the future of the project, you can also help with a financial contribution via [Open Collective](https://opencollective.com/biome) or [GitHub Sponsors](https://github.com/sponsors/biomejs).
+
+Additionally, the project provides an [enterprise support program](/enterprise) where you as a company can employ one of the core contributors to work on a specific aspect of the Biome toolchain.
