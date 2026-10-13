@@ -925,3 +925,35 @@ test.describe("playground layout", () => {
 		expect(problems.height).toBeGreaterThanOrEqual(400);
 	});
 });
+
+test.describe("playground GritQL search", () => {
+	test("searches in the language picked from the dropdown", async ({
+		page,
+	}) => {
+		const cases = [
+			{
+				file: "main.js",
+				code: 'console.log("a");\nconsole.log("b");',
+				language: "JavaScript",
+				query: "`console.log($message)`",
+				matches: "2",
+			},
+			{
+				file: "main.css",
+				code: ".a:is(.b, .c) { color: red; }",
+				language: "CSS",
+				query: "CssPseudoClassSelector()",
+				matches: "1",
+			},
+		];
+		for (const { file, code, language, query, matches } of cases) {
+			await page.goto(
+				`/playground?files.${file}=${encodeURIComponent(encodeCode(code))}`,
+			);
+			await toggleView(page, "GritQL search");
+			await page.locator(".gritql-select").selectOption({ label: language });
+			await page.locator(".gritql-panel .cm-content").fill(query);
+			await expect(page.locator(".gritql-match-count")).toHaveText(matches);
+		}
+	});
+});
