@@ -554,9 +554,7 @@ test.describe("playground layout", () => {
 				},
 				linter: {
 					rules: {
-						nursery: {
-							preset: "none",
-						},
+						preset: "recommended",
 					},
 				},
 				javascript: {
@@ -601,7 +599,7 @@ test.describe("playground layout", () => {
 		await page.getByLabel("Format", { exact: true }).uncheck();
 		await expect(
 			page.getByTestId("biome-output").getByRole("textbox"),
-		).toContainText("let a=5");
+		).toContainText("const a=5");
 
 		await page.getByRole("button", { name: "Go back", exact: true }).click();
 		await expect(
@@ -849,7 +847,7 @@ test.describe("playground layout", () => {
 			await page.evaluate((size) => {
 				localStorage.setItem("playground:gritql-matches-ratio", String(size));
 			}, size);
-			await page.goto(`/playground#code=${gritCode}`);
+			await page.goto(`/playground?code=${gritCode}`);
 			await page.getByRole("button", { name: "GritQL search" }).click();
 			await page
 				.locator(".gritql-panel .cm-content")
