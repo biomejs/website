@@ -1027,12 +1027,13 @@ export default defineConfig({
 		...(process.env?.E2E !== "true" ? [lunariaDashboard()] : []),
 	],
 
-	adapter:
-		process.env?.E2E !== "true"
-			? netlify({
+	...(process.env?.E2E !== "true"
+		? {
+				adapter: netlify({
 					imageCDN: false,
-				})
-			: undefined,
+				}),
+			}
+		: {}),
 
 	build: {
 		format: "directory",
