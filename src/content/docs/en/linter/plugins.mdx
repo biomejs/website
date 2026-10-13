@@ -205,7 +205,7 @@ things might be missing. Please refer to [the GitHub issue](https://github.com/b
 
 Biome accepts `.js` and `.ts` as file extensions. If you decide to use TypeScript to write a plugin, we strongly recommend installing the `@biomejs/runtime` package, which provides the relevant types.
 
-The plugin must export a function called `defineRule` that accepts an object. The object must have two fields:
+The plugin must export an object composed by the `defineRule` function. The object must have two fields:
 - `query`: which CST nodes to query.
 - `run`: the core logic of the lint rule. If the rule detects a violation, use the function `registerDiagnostic` to return the node to highlight, the severity of the diagnostic, and a message.
 
@@ -244,7 +244,7 @@ It accepts one name or a list of nodes to query.
 import { defineRule, ast, registerDiagnostic } from "@biomejs/runtime/plugin"
 
 export const noAssign = defineRule({
-    query: ast(["JS_CALL_EXPRESSION", "JS_DEBUGGER"]),
+    query: ast("JS_CALL_EXPRESSION", "JS_DEBUGGER"),
     run(node, ctx) {
       registerDiagnostic(node, "error", "Can't assign anything.")
     }
@@ -262,7 +262,7 @@ It accepts one name or a list of nodes to query. Via `semantic`, it's possible t
 import { defineRule, semantic, registerDiagnostic } from "@biomejs/runtime/plugin"
 
 export const noAssign = defineRule({
-    query: semantic(["JS_CALL_EXPRESSION", "JS_DEBUGGER"]),
+    query: semantic("JS_CALL_EXPRESSION", "JS_DEBUGGER"),
     run(node, ctx) {
       let model = ctx.model();
       registerDiagnostic(node, "error", "Can't assign anything.")
