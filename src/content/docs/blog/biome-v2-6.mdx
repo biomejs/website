@@ -649,6 +649,44 @@ The memoization strategy can work at the type level too. For example, let's star
   <figcaption>Editing `value` in `source.ts` re-runs only the queries that depend on it. If the type of `value` hadn't changed, `salsa` would stop there, and the type of `result` in `index.ts` would be reused too.</figcaption>
 </figure>
 
+### A predictable inference engine
+
+As mentioned before, all the types were inferred and normalized after the scanning phase. Additionally, we didn't have in place a proper system to track the normalization. As a result, we had a lot of issues tracking down what parts of the engine were slower than the others.
+
+With the rewrite, we also introduced a predictable way to measure the different parts of the inference engine. Biome v2.6, ships a new CLI argument `--profile-type-inference` that you can pass to the `lint` or `check` commands. Here's an example of the output:
+
+```text
+profiler ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i Type inference profile (Biome <version>)
+
+  src/index.ts
+
+    Requests (top 5 of 12 groups; 28 source records; 46 executions)
+      1. Promise classification <- nursery/noFloatingPromises
+      ...
+
+    Queries (top 8 of 25 groups; 61 source records; 94 executions)
+      1. Promises / infer_expression_is_promise
+      ...
+
+    Whole-module inference (top 1 of 1 group; 1 source record; 1 execution)
+      1. Import depth limit
+      ...
+
+  68 files omitted.
+
+  ℹ To show all the information, use the --verbose option. The output might be very verbose, so it's advised to analyze a single file.
+
+  $ biome lint --profile-type-inference --verbose ./path/to/file.ts
+```
+
+This will help us maintainers and end-users both during the triaging phase of bugs in the inference engine.
+
+## More changes
+
+This blog post highlights the changes that we deem more exciting to you all, however there many changes that await you, such as git-aware `init` command, new lint rule options, and more. Consult the detailed [changelog](/internal/changelog/version/2-6-0/) to discover all changes.
+
 ## I like where this is going, how can I help?
 
 I want to remind you that Biome is a project led by volunteers who like programming, open-source, and embrace the Biome philosophy, so any help is welcome.
