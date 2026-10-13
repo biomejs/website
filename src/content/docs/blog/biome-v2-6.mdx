@@ -115,6 +115,8 @@ There are some particular characteristics about Biome plugins worth mentioning:
 - Biome is a error-resilient parser, which means that is able to format and lint a program with syntax errors. The recovery mechanism from syntax error depends on the parser, and then the parser recovers, Biome uses "bogus" nodes to decorate the invalid code. While navigating the CST nodes, you'll have access to these bogus nodes. You can decide to ignore them, or attempt to visit them. This is a complete different model from other plugin systems such as ESLint, Prettier, Stylelint, oxlint, etc. so we encourage you to take your time, and get familiar with this new model.
 - JavaScript plugins tap directly from our Rust infrastructure, which means they have access to a lot of information such as semantic model, control flow graph, file name, package manifest, module graph, type inference, and more. However, for this release, we intentionally decided to expose a subset of services. We see a lot of potential, however this is also uncharged ground for us too, so we need your [feedback](https://github.com/biomejs/biome/issues/11420) to build a good foundation.
 
+Potentially, you would be able to **write lint rules that use Biome's module graph and type-inference engine**.
+
 Under the hood, Biome plugins use a JavaScript runtime built in Rust called [`boa`](https://boajs.dev/). Boa is a very promising and upcoming project. The team are the authors of [`temporal_rs`](https://boajs.dev/blog/2025/09/24/temporal-release), the engine that powers the new [`Temporal`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal) APIs of V8 and Node.js.
 
 Refer to the [relative guide](/linter/plugins#javascript-plugins) to learn about how they work, and the APIs at your disposal.
@@ -706,8 +708,6 @@ If you like the technical aspects of the project, and you want to make your way 
 There are numerous aspects to explore; I assure you that you won't get bored. Here is a small list of the things you can start with:
 
 - Create new lint rules! We have so many rules that we haven't implemented yet (ESLint, ESLint plugins, Next.js, Solid, etc.). We have a very [extensive technical guide](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md).
-- Help us build [Biome's parsers](https://github.com/biomejs/biome/blob/main/crates/biome_parser/CONTRIBUTING.md) for languages such as [YAML](https://github.com/biomejs/biome/tree/main/crates/biome_yaml_parser), [HTML](https://github.com/biomejs/biome/tree/main/crates/biome_html_parser), and [Markdown](https://github.com/biomejs/biome/tree/main/crates/biome_markdown_parser).
-One interesting fact about Biome parsers is that they are recoverable parsers ([error-resilient](/internals/architecture/#parser-and-cst)), which emit a [CST](https://en.wikipedia.org/wiki/Parse_tree) instead of a classic AST.
 - Implement new capabilities in our [LSP (Language Server Protocol)](https://github.com/biomejs/biome/tree/main/crates/biome_lsp), or add new features in one of our editor extensions: [VS Code](https://github.com/biomejs/biome-vscode), [Zed](https://github.com/biomejs/biome-zed), and [JetBrains IntelliJ](https://github.com/biomejs/biome-intellij).
 
 ### Financial help
