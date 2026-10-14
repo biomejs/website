@@ -1039,13 +1039,15 @@ Controls parentheses around arrow-function parameters:
 
 ### `javascript.formatter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the formatter for JavaScript and languages that extend it.
 
 ### `javascript.formatter.indentStyle`
 
-**Type:** `"tab" | "space"`
+**Type:** `"tab" | "space"`<br />
+**Default:** `"tab"`
 
 Selects the indentation style:
 
@@ -1054,13 +1056,15 @@ Selects the indentation style:
 
 ### `javascript.formatter.indentWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `2`
 
 Sets the indentation width, from `0` through `24`.
 
 ### `javascript.formatter.lineEnding`
 
-**Type:** `"lf" | "crlf" | "cr" | "auto"`
+**Type:** `"lf" | "crlf" | "cr" | "auto"`<br />
+**Default:** `"lf"`
 
 Selects the line-ending sequence:
 
@@ -1071,13 +1075,15 @@ Selects the line-ending sequence:
 
 ### `javascript.formatter.lineWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `80`
 
 Sets the preferred maximum line width, from `1` through `320`.
 
 ### `javascript.formatter.bracketSameLine`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `false`
 
 Controls the placement of the closing bracket for multiline JSX opening tags.
 
@@ -1087,7 +1093,8 @@ Self-closing JSX elements are unaffected.
 
 ### `javascript.formatter.bracketSpacing`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Controls spaces inside the braces of single-line object literals.
 
@@ -1095,7 +1102,8 @@ Biome formats `{value: 1}` when disabled and `{ value: 1 }` when enabled.
 
 ### `javascript.formatter.delimiterSpacing`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `false`
 
 Controls spaces immediately inside supported JavaScript and TypeScript delimiters when their content fits on one line.
 
@@ -1105,7 +1113,8 @@ It also controls spacing after logical NOT operators. In a chain of logical NOT 
 
 ### `javascript.formatter.attributePosition`
 
-**Type:** `"auto" | "multiline"`
+**Type:** `"auto" | "multiline"`<br />
+**Default:** `"auto"`
 
 Controls attribute placement in JSX elements:
 
@@ -1114,7 +1123,8 @@ Controls attribute placement in JSX elements:
 
 ### `javascript.formatter.expand`
 
-**Type:** `"auto" | "always" | "never"`
+**Type:** `"auto" | "always" | "never"`<br />
+**Default:** `"auto"`
 
 Controls whether arrays and objects are formatted on one line or multiple lines:
 
@@ -1134,7 +1144,8 @@ Controls operator placement when a binary or logical expression wraps:
 
 ### `javascript.formatter.trailingNewline`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Controls whether formatted files end with a newline.
 
@@ -1181,13 +1192,15 @@ If the workspace file is missing, unreadable, or invalid, Biome behaves as thoug
 
 ### `javascript.linter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the linter for JavaScript and languages that extend it.
 
 ### `javascript.assist.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables assist actions for JavaScript and languages that extend it.
 
@@ -1209,6 +1222,7 @@ Options applied to JSON, JSONC, and recognized JSON-based configuration files.
 ### `json.parser.allowComments`
 
 **Type:** `boolean`
+**Default:** `false`
 
 Controls whether comments are allowed in files parsed as JSON.
 
@@ -1217,6 +1231,7 @@ When unset, Biome follows the file type's default behavior. An explicit value ov
 ### `json.parser.allowTrailingCommas`
 
 **Type:** `boolean`
+**Default:** `false`
 
 Controls whether trailing commas are allowed in files parsed as JSON.
 
@@ -1224,13 +1239,15 @@ When unset, Biome follows the file type's default behavior. An explicit value ov
 
 ### `json.formatter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the formatter for JSON and languages that extend it.
 
 ### `json.formatter.indentStyle`
 
-**Type:** `"tab" | "space"`
+**Type:** `"tab" | "space"`<br />
+**Default:** `"tab"`
 
 Selects the indentation style:
 
@@ -1239,13 +1256,15 @@ Selects the indentation style:
 
 ### `json.formatter.indentWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `2`
 
 Sets the indentation width, from `0` through `24`.
 
 ### `json.formatter.lineEnding`
 
-**Type:** `"lf" | "crlf" | "cr" | "auto"`
+**Type:** `"lf" | "crlf" | "cr" | "auto"`<br />
+**Default:** `"lf"`
 
 Selects the line-ending sequence:
 
@@ -1256,7 +1275,8 @@ Selects the line-ending sequence:
 
 ### `json.formatter.lineWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `80`
 
 Sets the preferred maximum line width, from `1` through `320`.
 
@@ -1274,7 +1294,8 @@ Use `"all"` only for JSON variants that allow trailing commas, and ensure `json.
 
 ### `json.formatter.bracketSpacing`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Controls spaces inside the braces of single-line JSON objects.
 
@@ -1282,7 +1303,8 @@ Biome formats `{"name": "Biome"}` when disabled and `{ "name": "Biome" }` when e
 
 ### `json.formatter.delimiterSpacing`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `false`
 
 Controls spaces immediately inside JSON square brackets when an array fits on one line.
 
@@ -1290,7 +1312,8 @@ Biome formats `[1, 2, 3]` when disabled and `[ 1, 2, 3 ]` when enabled. Empty ar
 
 ### `json.formatter.expand`
 
-**Type:** `"auto" | "always" | "never"`
+**Type:** `"auto" | "always" | "never"`<br />
+**Default:** `"auto"`
 
 Controls whether arrays and objects are formatted on one line or multiple lines:
 
@@ -1302,7 +1325,8 @@ When formatting `package.json`, Biome uses `"always"` unless expansion is config
 
 ### `json.formatter.trailingNewline`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Controls whether formatted files end with a newline.
 
@@ -1312,13 +1336,15 @@ Setting this option to `false` is strongly discouraged. Files without a final ne
 
 ### `json.linter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the linter for JSON and languages that extend it.
 
 ### `json.assist.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables assist actions for JSON and languages that extend it.
 
@@ -1355,13 +1381,15 @@ When this option is unset, Biome enables it automatically if [`tailwind.styleshe
 
 ### `css.formatter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the formatter for CSS and languages that extend it.
 
 ### `css.formatter.indentStyle`
 
-**Type:** `"tab" | "space"`
+**Type:** `"tab" | "space"`<br />
+**Default:** `"tab"`
 
 Selects the indentation style:
 
@@ -1370,13 +1398,15 @@ Selects the indentation style:
 
 ### `css.formatter.indentWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `2`
 
 Sets the indentation width, from `0` through `24`.
 
 ### `css.formatter.lineEnding`
 
-**Type:** `"lf" | "crlf" | "cr" | "auto"`
+**Type:** `"lf" | "crlf" | "cr" | "auto"`<br />
+**Default:** `"lf"`
 
 Selects the line-ending sequence:
 
@@ -1387,7 +1417,8 @@ Selects the line-ending sequence:
 
 ### `css.formatter.lineWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `80`
 
 Sets the preferred maximum line width, from `1` through `320`.
 
@@ -1407,7 +1438,8 @@ Quotes in `@charset` rules are currently preserved.
 
 ### `css.formatter.delimiterSpacing`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `false`
 
 Controls spaces immediately inside CSS parentheses and square brackets when their content fits on one line.
 
@@ -1415,7 +1447,8 @@ When enabled, `rgb(0, 0, 0)` becomes `rgb( 0, 0, 0 )` and `[data-attr]` becomes 
 
 ### `css.formatter.trailingNewline`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Controls whether formatted files end with a newline.
 
@@ -1431,13 +1464,15 @@ Reserved for future CSS analyzer support. This option currently has no effect.
 
 ### `css.linter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the linter for CSS.
 
 ### `css.assist.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables assist actions for CSS.
 
@@ -1449,13 +1484,15 @@ Options applied to GraphQL files.
 
 ### `graphql.formatter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the formatter for GraphQL.
 
 ### `graphql.formatter.indentStyle`
 
-**Type:** `"tab" | "space"`
+**Type:** `"tab" | "space"`<br />
+**Default:** `"tab"`
 
 Selects the indentation style:
 
@@ -1464,13 +1501,15 @@ Selects the indentation style:
 
 ### `graphql.formatter.indentWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `2`
 
 Sets the indentation width, from `0` through `24`.
 
 ### `graphql.formatter.lineEnding`
 
-**Type:** `"lf" | "crlf" | "cr" | "auto"`
+**Type:** `"lf" | "crlf" | "cr" | "auto"`<br />
+**Default:** `"lf"`
 
 Selects the line-ending sequence:
 
@@ -1481,19 +1520,22 @@ Selects the line-ending sequence:
 
 ### `graphql.formatter.lineWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `80`
 
 Sets the preferred maximum line width, from `1` through `320`.
 
 ### `graphql.formatter.quoteStyle`
 
-**Type:** `"single" | "double"`
+**Type:** `"single" | "double"`<br />
+**Default:** `"double"`
 
 Reserved for future formatter support. The current formatter preserves standard double-quoted GraphQL strings regardless of this setting.
 
 ### `graphql.formatter.bracketSpacing`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Controls spaces inside the braces of single-line GraphQL object values.
 
@@ -1501,7 +1543,8 @@ Biome formats `{name: "Biome"}` when disabled and `{ name: "Biome" }` when enabl
 
 ### `graphql.formatter.trailingNewline`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Controls whether formatted files end with a newline.
 
@@ -1511,7 +1554,8 @@ Setting this option to `false` is strongly discouraged. Files without a final ne
 
 ### `graphql.linter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the linter for GraphQL.
 
@@ -1530,13 +1574,15 @@ Options applied to GritQL files.
 
 ### `grit.formatter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the formatter for GritQL.
 
 ### `grit.formatter.indentStyle`
 
-**Type:** `"tab" | "space"`
+**Type:** `"tab" | "space"`<br />
+**Default:** `"tab"`
 
 Selects the indentation style:
 
@@ -1545,13 +1591,15 @@ Selects the indentation style:
 
 ### `grit.formatter.indentWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `2`
 
 Sets the indentation width, from `0` through `24`.
 
 ### `grit.formatter.lineEnding`
 
-**Type:** `"lf" | "crlf" | "cr" | "auto"`
+**Type:** `"lf" | "crlf" | "cr" | "auto"`<br />
+**Default:** `"lf"`
 
 Selects the line-ending sequence:
 
@@ -1562,13 +1610,15 @@ Selects the line-ending sequence:
 
 ### `grit.formatter.lineWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `80`
 
 Sets the preferred maximum line width, from `1` through `320`.
 
 ### `grit.formatter.trailingNewline`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Controls whether formatted files end with a newline.
 
@@ -1578,13 +1628,15 @@ Setting this option to `false` is strongly discouraged. Files without a final ne
 
 ### `grit.linter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the linter for GritQL.
 
 ### `grit.assist.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables assist actions for GritQL.
 
@@ -1636,7 +1688,8 @@ Enables or disables the formatter for HTML and languages that extend it. Formatt
 
 ### `html.formatter.indentStyle`
 
-**Type:** `"tab" | "space"`
+**Type:** `"tab" | "space"`<br />
+**Default:** `"tab"`
 
 Selects the indentation style:
 
@@ -1645,13 +1698,15 @@ Selects the indentation style:
 
 ### `html.formatter.indentWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `2`
 
 Sets the indentation width, from `0` through `24`.
 
 ### `html.formatter.lineEnding`
 
-**Type:** `"lf" | "crlf" | "cr" | "auto"`
+**Type:** `"lf" | "crlf" | "cr" | "auto"`<br />
+**Default:** `"lf"`
 
 Selects the line-ending sequence:
 
@@ -1662,13 +1717,15 @@ Selects the line-ending sequence:
 
 ### `html.formatter.lineWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `80`
 
 Sets the preferred maximum line width, from `1` through `320`.
 
 ### `html.formatter.attributePosition`
 
-**Type:** `"auto" | "multiline"`
+**Type:** `"auto" | "multiline"`<br />
+**Default:** `"auto"`
 
 Controls attribute placement in HTML elements:
 
@@ -1677,7 +1734,8 @@ Controls attribute placement in HTML elements:
 
 ### `html.formatter.bracketSameLine`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `false`
 
 Controls the placement of the closing bracket for multiline HTML opening tags.
 
@@ -1728,13 +1786,15 @@ Setting this option to `false` is strongly discouraged. Files without a final ne
 
 ### `html.linter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the linter for HTML and languages that extend it.
 
 ### `html.assist.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables assist actions for HTML and languages that extend it.
 
@@ -1785,15 +1845,57 @@ Enables GitHub Flavored Markdown (GFM) syntax, which adds task list items, strik
 | Lorem | Ipsum |
 ```
 
+### `markdown.parser.cjkFriendlyEmphasis`
+
+**Type:** `boolean`<br />
+**Default:** `false`
+
+Recognizes bold, italic, and strikethrough markers placed directly next to Chinese, Japanese, or Korean text.
+
+Standard Markdown doesn't treat `**テスト。**テスト` as bold text, because the closing `**`
+is between a punctuation mark and a letter with no space around it. Languages that don't
+put spaces between words run into this often. When enabled, Biome follows the
+[CommonMark CJK-friendly amendments](https://github.com/tats-u/markdown-cjk-friendly/blob/main/specification.md)
+and treats such text as bold or italic. The option applies to `*`, `_`, and `~~` markers.
+After a variation selector (an invisible character that picks a glyph style for the
+character before it), Biome classifies a marker by the character before the selector.
+
+The option can also change markers that aren't next to Chinese, Japanese, or Korean text,
+because a marker that can now open or close formatting can take another marker's partner
+in the same paragraph, heading, or table cell. For example, standard Markdown shows
+`**テスト。**テスト a**` with `テスト a` in bold. With the option enabled, `テスト。` is bold
+and the last `**` is shown as written.
+
+The formatter and the linter both use this reading of the document. Enable the option only
+when the tool that renders your Markdown also supports these amendments. Otherwise, Biome
+treats as bold some text that your renderer shows with literal `**`, and formatting can
+change what your renderer shows. For example, the option makes `__` after a variation
+selector a bold marker, and the formatter rewrites it as `**`, which standard Markdown
+shows as bold even where it showed the original `__` as written.
+
 ### `markdown.formatter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the formatter for Markdown.
 
+### `markdown.formatter.formatEmbeds`
+
+**Type:** `boolean`<br />
+**Default:** `true`
+
+Formats the code inside fenced code blocks, frontmatter, and HTML blocks with the formatter
+of the code's language. Defaults to `true`.
+
+A block with a syntax error is formatted verbatim, and Biome still formats the rest of the file.
+
+ When this option is `false`, Biome keeps every block as written.
+
 ### `markdown.formatter.indentStyle`
 
-**Type:** `"tab" | "space"`
+**Type:** `"tab" | "space"`<br />
+**Default:** `"tab"`
 
 Selects the indentation style:
 
@@ -1802,13 +1904,15 @@ Selects the indentation style:
 
 ### `markdown.formatter.indentWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `2`
 
 Sets the indentation width, from `0` through `24`.
 
 ### `markdown.formatter.lineEnding`
 
-**Type:** `"lf" | "crlf" | "cr" | "auto"`
+**Type:** `"lf" | "crlf" | "cr" | "auto"`<br />
+**Default:** `"lf"`
 
 Selects the line-ending sequence:
 
@@ -1819,7 +1923,8 @@ Selects the line-ending sequence:
 
 ### `markdown.formatter.lineWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `80`
 
 Sets the preferred maximum line width, from `1` through `320`.
 
@@ -1857,7 +1962,8 @@ With `"never"`, Biome joins a wrapped paragraph into a single line:
 
 ### `markdown.formatter.trailingNewline`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Controls whether formatted files end with a newline.
 
@@ -1867,9 +1973,17 @@ Setting this option to `false` is strongly discouraged. Files without a final ne
 
 ### `markdown.linter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the linter for Markdown.
+
+### `markdown.analyzeEmbeds`
+
+**Type:** `boolean`<br />
+**Default:** `false`
+
+Runs the linter and assist actions on the code inside fenced code blocks, frontmatter, and HTML blocks, with the rules and actions of the code's language.
 
 ## `yaml`
 
@@ -1879,19 +1993,22 @@ Options applied to YAML files.
 
 ### `yaml.formatter.enabled`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Enables or disables the formatter for YAML.
 
 ### `yaml.formatter.indentWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `2`
 
 Sets the indentation width, from `0` through `24`.
 
 ### `yaml.formatter.lineEnding`
 
-**Type:** `"lf" | "crlf" | "cr" | "auto"`
+**Type:** `"lf" | "crlf" | "cr" | "auto"`<br />
+**Default:** `"lf"`
 
 Selects the line-ending sequence:
 
@@ -1902,13 +2019,15 @@ Selects the line-ending sequence:
 
 ### `yaml.formatter.lineWidth`
 
-**Type:** `integer`
+**Type:** `integer`<br />
+**Default:** `80`
 
 Sets the preferred maximum line width, from `1` through `320`.
 
 ### `yaml.formatter.trailingNewline`
 
-**Type:** `boolean`
+**Type:** `boolean`<br />
+**Default:** `true`
 
 Controls whether formatted files end with a newline.
 
