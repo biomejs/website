@@ -25,7 +25,7 @@ by one of the following:
   our [FAQ entry](/linter/#why-is-biome-linter-so-slow-compared-to-v1) on this
   topic. See if disabling them makes a difference.
   * If disabling them does help, but you want to find out what specifically made
-    it so slow, a first step can be to add `**/node_modules` to 
+    it so slow, a first step can be to add `**/node_modules` to
     [`files.includes`](https://biomejs.dev/reference/configuration/#filesincludes)
     with the `!!` syntax.
     Did that help? Great! But you probably don't want to keep it like this,
@@ -36,6 +36,18 @@ by one of the following:
 
 If none of the above helped, or if they did help, but you want to dig deeper, we
 can use tracing to see if there is a specific file that might be the culprit...
+
+## Profiling
+
+Since v2.6, Biome ships with a new CLI flag named `--profile-type-inference`.
+Add this flag to the `lint` or `check` command, and Biome will start tracing all its internal operations while running
+type-aware lint rules.
+
+The output is grouped by file, and you'll be able to see the most expensive operations per file. Not all operations are
+reported.
+
+You can add the flag `--verbose`, which will return a list of all operations that Biome executes during the inference.
+This output is very noisy and long, so we suggest profiling a single file at the time.
 
 ## Tracing
 
