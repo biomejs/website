@@ -52,9 +52,9 @@ export default function GritQLSearchTab({
 					value={searchLanguage}
 					onChange={(e) => onLanguageChange(e.target.value as SearchLanguage)}
 				>
-					<option value="JavaScript">JavaScript</option>
-					<option value="CSS">CSS</option>
-					<option value="JSON">JSON</option>
+					<option value="js">JavaScript</option>
+					<option value="css">CSS</option>
+					<option value="json">JSON</option>
 				</select>
 				{gritQueryResults.error ? (
 					<span className="gritql-error">Error: {gritQueryResults.error}</span>

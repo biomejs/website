@@ -273,7 +273,7 @@ self.addEventListener("message", async (e) => {
 				try {
 					const parseResult = workspace.parsePattern({
 						pattern: String(gritQuery),
-						defaultLanguage: defaultLanguage || "JavaScript",
+						defaultLanguage: defaultLanguage || "js",
 					});
 					patternId = String(parseResult.patternId);
 				} catch (e) {
