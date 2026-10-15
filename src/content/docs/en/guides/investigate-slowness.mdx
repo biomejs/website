@@ -39,9 +39,11 @@ can profile type inference or use tracing to see if there is a specific file tha
 
 ## Profiling
 
-Since v2.6, Biome ships with a new CLI flag named `--profile-type-inference`.
-Add this flag to the `lint` or `check` command, and Biome will start tracing all its internal operations while running
-type-aware lint rules.
+Since Biome v2.6, the `lint` and `check` commands accept a `--profile-type-inference` flag. It reports how long Biome spends on type inference while running [type-aware rules](/linter/domains/#types):
+
+```sh showLineNumbers=false
+biome lint --profile-type-inference
+```
 
 The output is grouped by file, and you'll be able to see the most expensive operations per file. Not all operations are
 reported.
