@@ -45,11 +45,14 @@ Since Biome v2.6, the `lint` and `check` commands accept a `--profile-type-infer
 biome lint --profile-type-inference
 ```
 
-The output is grouped by file, and you'll be able to see the most expensive operations per file. Not all operations are
-reported.
+The report is grouped by file and lists only the most expensive operations in each one.
 
-You can add the flag `--verbose`, which will return a list of all operations that Biome executes during the inference.
-This output is very noisy and long, so we suggest profiling a single file at the time.
+To see every operation Biome records, also pass `--verbose`. This output is long
+and noisy, so we suggest profiling one file at a time:
+
+```sh showLineNumbers=false
+biome lint --profile-type-inference --verbose src/slow-file.ts
+```
 
 ## Tracing
 
