@@ -199,8 +199,7 @@ Supports four arguments:
 ## JavaScript plugins
 
 :::caution
-JavaScript plugins are in the **Developer Preview** stage. Breaking changes might occur in patches, and
-things might be missing. Please refer to [the GitHub issue](https://github.com/biomejs/biome/issues/11420) to engage with us.
+JavaScript plugins are in the **Developer Preview** stage. Breaking changes can happen in patch releases, and some features are missing. Share your feedback in the [JavaScript plugins tracking issue](https://github.com/biomejs/biome/issues/11420).
 :::
 
 Biome accepts `.js` and `.ts` as file extensions. If you decide to use TypeScript to write a plugin, we strongly recommend installing the `@biomejs/runtime` package, which provides the relevant types.
@@ -286,7 +285,7 @@ The absolute path of the file being linted.
 
 **Type**: `JsFileSource`
 
-Provides useful information regarding the current file, such as whether the file is ESM or CJS, whether the node is inside an embedded file, and more.
+Information about how the file was parsed, such as whether it's JavaScript or TypeScript, whether it's a module or a script, and whether the code is embedded in another file, such as an Astro, Vue, or Svelte component.
 
 #### `ctx.model`
 
@@ -310,7 +309,7 @@ Looks up the binding introduced by a declaration's identifier node. Returns `und
 
 **Type**: `() => readonly Binding[]`
 
-Returns all tracked bindings in the source, including nested scopes. Declarations with the same spelling can introduce separate bindings.
+Returns all tracked bindings in the source, including nested scopes. Declarations with the same name can introduce separate bindings.
 
 #### `SemanticModel.allExportedBindings`
 
@@ -334,7 +333,7 @@ Returns all scopes in this source, including the global scope and nested scopes.
 
 **Type**: `() => Scope`
 
-Returns the outermost scope of this source, including for an empty file. This scope has no parent. It is distinct from the configured global names returned by `allGlobalReferences()`.
+Returns the outermost scope of this source, including for an empty file. This scope has no parent. It is unrelated to the global references returned by `allGlobalReferences()`.
 
 #### `SemanticModel.scope`
 
@@ -413,13 +412,13 @@ Returns the model's source ranges for this binding's export sites. Offsets count
 
 **Type**: `() => Scope`
 
-Returns the scope containing the declaration's identifier in the source. For hoisted declarations, use `context.model.scopeHoistedTo(binding.syntax())` to inspect the destination scope instead.
+Returns the scope containing the declaration's identifier in the source. For hoisted declarations, use `ctx.model.scopeHoistedTo(binding.syntax())` to inspect the destination scope instead.
 
 #### `Binding.allReferences`
 
 **Type**: `() => readonly Reference[]`
 
-Returns all references that resolve to this binding, including reads and writes. References to a different binding with the same spelling are excluded.
+Returns all references that resolve to this binding, including reads and writes. References to a different binding with the same name are excluded.
 
 #### `Binding.allReads`
 
@@ -437,7 +436,7 @@ Returns references classified as writes by the semantic model.
 
 **Type**: `() => boolean`
 
-Returns whether this binding has an import declaration kind in the model.
+Returns whether this binding was declared by an import.
 
 #### `Binding.isExported`
 
@@ -503,7 +502,7 @@ Returns this scope's immediate child scopes, without their descendants.
 
 **Type**: `() => readonly Scope[]`
 
-Returns this scope followed by its parents, ending with the global scope. The first entry is the current scope itself.
+Returns this scope followed by its enclosing scopes, ending with the global scope.
 
 #### `Scope.bindings`
 
