@@ -157,6 +157,7 @@ Here's what a `biome-manifest.json` file could look like. It exposes:
 
 Users can then consume the configurations, rules, and presets in their `biome.json`. Assuming your package is called `@org/biome-plugin`, the following example enables `configs/strict` and `presets/strict`:
 
+```json title="biome.json"
 {
   "extends": ["@org/biome-plugin/configs/strict"],
   "plugins": ["@org/biome-plugin/presets/strict"]
