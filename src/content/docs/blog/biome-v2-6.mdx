@@ -56,7 +56,7 @@ const foo = "bar";
 
 <Picture src={deckScss} formats={['avif', 'webp']} alt="Biome mascot with a deck of cards. The SCSS card is highlighted" />
 
-SCSS support has been completely written by <Avatar handle="denbezrukov" />, who contributed tirelessly, achieving more than ~90% compatibility against the official test suite. Most of the uncovered cases belong to legacy features, so we're more than confident you won't see many bugs in modern projects.
+SCSS support was written entirely by <Avatar handle="denbezrukov" />, who worked tirelessly to reach more than 90% compatibility with the official test suite. Most of the remaining cases involve legacy features, so we're confident you won't run into many bugs in modern projects.
 
 Formatting works out of the box, and the existing CSS lint rules already work on SCSS files. Some rules can't yet catch cases that involve SCSS constructs such as loops and mixins, because they depend on infrastructure we haven't built yet. Refer to the documentation of each rule to learn about its current limitations.
 
@@ -68,9 +68,9 @@ We'll add more capabilities in the coming months.
 
 The Biome project owes <Avatar handle="l0ngvh" /> a lot. They implemented the GraphQL parser, and now their YAML parser is ready!
 
-YAML support ships with 100% conformance coverage against the official testing suite. The formatter that has 100% formatting compatibility against Prettier, courtesy of the amazing work of  <Avatar handle="dyc3" />.
+The YAML parser ships with 100% conformance coverage against the official test suite, and the formatter has 100% compatibility with Prettier, courtesy of the amazing work of <Avatar handle="dyc3" />.
 
-YAML linter ships with one single rule for now. We plan to ship more nursery rules in the upcoming patches. We also plan to create dedicated lint rules for GitHub workflows, mostly aimed to security.
+The YAML linter ships with a single rule for now. We plan to add more nursery rules in upcoming patches, as well as dedicated rules for GitHub workflows, mostly focused on security.
 
 ## Plugin enhancements
 
@@ -123,11 +123,11 @@ Refer to the [relative guide](/linter/plugins#javascript-plugins) to learn about
 
 ### Plugin distribution
 
-You can now distribute configuration files, GritQL plugins and JavaScript plugins altogether using a npm package. At the root of you package create a `biome-manifest.json` file, and use it share opinionated configuration files, GritQL plugins, JavaScript plugins and rule presets.
+You can now distribute configuration files, GritQL plugins, and JavaScript plugins together in a single npm package. Create a `biome-manifest.json` file at the root of your package, and use it to share opinionated configuration files, GritQL plugins, JavaScript plugins, and rule presets.
 
-Additionally, the new system allows you to distribute plugins as packages and import them from packages.
+A package can also import other Biome packages and distribute them under its own umbrella, a technique usually called aliasing.
 
-Here's an example of how `biome-manifest.json` could look like. The example exposes the following:
+Here's what a `biome-manifest.json` file could look like. It exposes:
 - Via `configs`, two configuration files, one called `strict` and one called `recommended`.
 - Via `plugins`, two lint rules, one called `useCompanyLogger` implemented in JavaScript, one called `noLegacyLibrary` implemented in GritQL.
 - Via `plugins`, two presets, one called `recommended`, which enabled the rule `useCompanyLogger`, and one called `strict` which enables the rules `useCompanyLogger` and `noLegacyLibrary`
