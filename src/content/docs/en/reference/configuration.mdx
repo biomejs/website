@@ -86,14 +86,19 @@ Biome implicitly treats `root` as `false` when a nested configuration uses `"ext
 
 **Type:** `(string | { path: string, includes?: string[], resolutionKind?: "project" | "config" })[]`
 
-A list of [GritQL plugins](/linter/plugins/) to load. Each entry is either a plugin path or an object containing a path and optional settings:
+A list of [GritQL plugins](/linter/plugins/#gritql-plugins) and [JavaScript/TypeScript](/linter/plugins#javascript-plugins) plugins to load. Each entry is either a plugin path or an object containing a path and optional settings:
 
 ```json title="biome.json"
 {
   "plugins": [
     "./general-plugin.grit",
+    "./general-plugin.ts",
     {
       "path": "./react-plugin.grit",
+      "includes": ["**/src/components/**", "!**/src/components/generated/**"]
+    },
+    {
+      "path": "./react-plugin.js",
       "includes": ["**/src/components/**", "!**/src/components/generated/**"]
     }
   ]
@@ -973,13 +978,6 @@ Options applied to JavaScript, TypeScript, JSX, TSX, and supported languages tha
 
 Enables parsing decorators on class parameters, such as `method(@Decorator() value)`. This syntax belongs to an old experimental proposal and may change, so enable it only when existing code requires it.
 
-### `javascript.parser.gritMetavariables`
-
-**Type:** `boolean`<br />
-**Default:** `false`
-
-Enables parsing Grit metavariables in JavaScript and TypeScript syntax.
-
 ### `javascript.parser.jsxEverywhere`
 
 **Type:** `boolean`<br />
@@ -1695,7 +1693,7 @@ Biome automatically recognizes `.vue` files. Use this option only when `.html` f
 ### `html.formatter.enabled`
 
 **Type:** `boolean`<br />
-**Default:** `false`
+**Default:** `true`
 
 Enables or disables the formatter for HTML and languages that extend it. Formatting complete HTML, Vue, Svelte, and Astro files requires `html.experimentalFullSupportEnabled` to be `true`.
 
@@ -2037,6 +2035,25 @@ Selects the line-ending sequence:
 
 Sets the preferred maximum line width, from `1` through `320`.
 
+### `yaml.formatter.quoteStyle`
+
+**Type:** `"single" | "double"`<br />
+**Default:** `"double"`
+
+Selects the preferred quote style for YAML string literals:
+
+- `"single"`: Prefers single quotes.
+- `"double"`: Prefers double quotes.
+
+Biome may use the alternate quote when that avoids additional escaping.
+
+### `formatter.bracketSpacing`
+
+**Type:** `boolean`<br />
+**Default:** `true`
+
+Controls spaces inside braces in supported single-line structures. The affected structures vary by language.
+
 ### `yaml.formatter.trailingNewline`
 
 **Type:** `boolean`<br />
@@ -2047,6 +2064,13 @@ Controls whether formatted files end with a newline.
 :::caution[Keep trailing newlines enabled]
 Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
 :::
+
+### `yaml.linter.enabled`
+
+**Type:** `boolean`<br />
+**Default:** `true`
+
+Enables or disables the linter for YAML.
 
 ## Glob syntax reference
 
