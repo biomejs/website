@@ -7,7 +7,7 @@ on:
         required: true
         type: string
   repository_dispatch:
-    types: [ biome-push-on-main-event ]
+    types: [ biome-release-cli-event ]
 
 permissions:
   actions: write
@@ -24,36 +24,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          ref: ${{ github.event.client_payload.event.ref || github.ref }}
 
       - name: Get commit ID (workflow dispatch, empty)
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit-id == '' }}
         run: echo "You must provide a full commit ID." && exit 1
 
-      - name: Get commit ID (workflow dispatch, non-empty)
+      - name: Get commit ID (workflow dispatch)
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.commit-id != '' }}
-        run: echo "COMMIT_ID=${{ github.event.inputs.commit-id }}" >> $GITHUB_ENV
+        run: echo "COMMIT_ID=${{ github.event.inputs.commit-id }}" >> "$GITHUB_ENV"
 
-      - name: Get commit ID (repository dispatch)
-        if: ${{ github.event_name == 'repository_dispatch'}}
-        run: echo "COMMIT_ID=${{ github.event.client_payload.event.head_commit.id }}" >> "$GITHUB_ENV"
+      - name: Get commit ID (release)
+        if: ${{ github.event_name == 'repository_dispatch' }}
+        run: echo "COMMIT_ID=${{ github.event.client_payload.sha }}" >> "$GITHUB_ENV"
 
       - name: Get short commit ID
         run: echo "SHORT_COMMIT_ID=$(echo ${{ env.COMMIT_ID }} | cut -c 1-7)" >> "$GITHUB_ENV"
 
       - name: Free Disk Space
         uses: ./.github/actions/free-disk-space
-
-      - name: Install pnpm
-        run: |
-          npm install -g corepack@latest
-          corepack enable
-
-      - name: Setup node
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version-file: ".node-version"
 
       - name: Update revision
         run: ./scripts/update-revision.sh '${{ env.COMMIT_ID }}'

@@ -10,13 +10,6 @@ if [ "$#" -ne 1 ]; then
 fi
 
 new_rev=$1
-short_rev=$(echo $new_rev | cut -c 1-7)
-
-# Update the @biomejs/wasm-web dependency in package.json
-jq ".devDependencies[\"@biomejs/wasm-web\"] = \"https://pkg.pr.new/@biomejs/wasm-web@$short_rev\"" package.json > package.json.tmp && mv package.json.tmp package.json
-
-# Install dependencies
-pnpm install --no-frozen-lockfile
 
 # Identify all top-level biome crates
 biome_crates=$(
