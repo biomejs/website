@@ -540,7 +540,7 @@ See the [assist documentation](/assist/) for the options supported by each actio
 
 ## `formatter`
 
-**Type:** `{ enabled?: boolean, includes?: string[], formatWithErrors?: boolean, indentStyle?: "tab" | "space", indentWidth?: integer, lineEnding?: "lf" | "crlf" | "cr" | "auto", lineWidth?: integer, attributePosition?: "auto" | "multiline", bracketSameLine?: boolean, bracketSpacing?: boolean, delimiterSpacing?: boolean, expand?: "auto" | "always" | "never", trailingNewline?: boolean, useEditorconfig?: boolean }`
+**Type:** `{ enabled?: boolean, includes?: string[], formatWithErrors?: boolean, indentStyle?: "tab" | "space", indentWidth?: integer, lineEnding?: "lf" | "crlf" | "cr" | "auto", lineWidth?: integer, attributePosition?: "auto" | "multiline", bracketSameLine?: boolean, bracketSpacing?: boolean, delimiterSpacing?: boolean, expand?: "auto" | "always" | "never" | "whenMultiple", trailingNewline?: boolean, useEditorconfig?: boolean }`
 
 Configures formatting for selected files.
 
@@ -649,7 +649,7 @@ Biome does not add spaces before opening delimiters or inside empty delimiters. 
 
 ### `formatter.expand`
 
-**Type:** `"auto" | "always" | "never"`<br />
+**Type:** `"auto" | "always" | "never" | "whenMultiple"`<br />
 **Default:** `"auto"`
 
 Controls whether arrays and objects are formatted on one line or multiple lines:
@@ -657,6 +657,33 @@ Controls whether arrays and objects are formatted on one line or multiple lines:
 - `"auto"`: Formats objects on multiple lines if the first property has a leading newline, and keeps arrays on one line when they fit.
 - `"always"`: Formats arrays and objects on multiple lines.
 - `"never"`: Keeps arrays and objects on one line when they fit.
+- `"whenMultiple"`: Formats objects with more than one property and arrays with more than one element on multiple lines, placing each property or element on its own line. Objects and arrays with a single member stay on one line when they fit. Comments, multiline content, or the configured line width can still require wrapping.
+
+The setting is also available through `javascript.formatter.expand` and `json.formatter.expand`. On the CLI, use `when-multiple`, for example `biome format --expand=when-multiple`.
+
+```json title="biome.json"
+{
+  "formatter": {
+    "expand": "whenMultiple"
+  }
+}
+```
+
+```js
+const single = { enabled: true };
+
+const multiple = {
+  enabled: true,
+  retries: 3,
+};
+
+const singleElement = [1];
+
+const multipleElements = [
+  1,
+  2,
+];
+```
 
 When formatting `package.json`, Biome uses `"always"` unless expansion is configured explicitly.
 
@@ -812,7 +839,7 @@ For example, this override changes the line width for JavaScript files directly 
 
 ### `overrides.<ITEM>.formatter`
 
-**Type:** `{ enabled?: boolean, formatWithErrors?: boolean, indentStyle?: "tab" | "space", indentSize?: integer, indentWidth?: integer, lineEnding?: "lf" | "crlf" | "cr" | "auto", lineWidth?: integer, attributePosition?: "auto" | "multiline", bracketSameLine?: boolean, bracketSpacing?: boolean, delimiterSpacing?: boolean, expand?: "auto" | "always" | "never", trailingCommas?: "all" | "es5" | "none", trailingNewline?: boolean }`
+**Type:** `{ enabled?: boolean, formatWithErrors?: boolean, indentStyle?: "tab" | "space", indentSize?: integer, indentWidth?: integer, lineEnding?: "lf" | "crlf" | "cr" | "auto", lineWidth?: integer, attributePosition?: "auto" | "multiline", bracketSameLine?: boolean, bracketSpacing?: boolean, delimiterSpacing?: boolean, expand?: "auto" | "always" | "never" | "whenMultiple", trailingCommas?: "all" | "es5" | "none", trailingNewline?: boolean }`
 
 Configures formatter settings for files selected by this override.
 
@@ -1123,7 +1150,7 @@ Controls attribute placement in JSX elements:
 
 ### `javascript.formatter.expand`
 
-**Type:** `"auto" | "always" | "never"`<br />
+**Type:** `"auto" | "always" | "never" | "whenMultiple"`<br />
 **Default:** `"auto"`
 
 Controls whether arrays and objects are formatted on one line or multiple lines:
@@ -1131,6 +1158,7 @@ Controls whether arrays and objects are formatted on one line or multiple lines:
 - `"auto"`: Formats objects on multiple lines if the first property has a leading newline, and keeps arrays on one line when they fit.
 - `"always"`: Formats arrays and objects on multiple lines.
 - `"never"`: Keeps arrays and objects on one line when they fit.
+- `"whenMultiple"`: Formats objects with more than one property and arrays with more than one element on multiple lines, placing each property or element on its own line. Objects and arrays with a single member stay on one line when they fit. Comments, multiline content, or the configured line width can still require wrapping.
 
 ### `javascript.formatter.operatorLinebreak`
 
@@ -1312,7 +1340,7 @@ Biome formats `[1, 2, 3]` when disabled and `[ 1, 2, 3 ]` when enabled. Empty ar
 
 ### `json.formatter.expand`
 
-**Type:** `"auto" | "always" | "never"`<br />
+**Type:** `"auto" | "always" | "never" | "whenMultiple"`<br />
 **Default:** `"auto"`
 
 Controls whether arrays and objects are formatted on one line or multiple lines:
@@ -1320,6 +1348,7 @@ Controls whether arrays and objects are formatted on one line or multiple lines:
 - `"auto"`: Formats objects on multiple lines if the first property has a leading newline, and keeps arrays on one line when they fit.
 - `"always"`: Formats arrays and objects on multiple lines.
 - `"never"`: Keeps arrays and objects on one line when they fit.
+- `"whenMultiple"`: Formats objects with more than one property and arrays with more than one element on multiple lines, placing each property or element on its own line. Objects and arrays with a single member stay on one line when they fit. Comments, multiline content, or the configured line width can still require wrapping.
 
 When formatting `package.json`, Biome uses `"always"` unless expansion is configured explicitly.
 
