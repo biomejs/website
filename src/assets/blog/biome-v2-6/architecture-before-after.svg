@@ -1,0 +1,302 @@
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 720 712"
+	role="img"
+	aria-label="Biome's previous architecture compared with the new one. Previously, the CLI and the LSP read and write one shared, mutable workspace server; the scanner parses every file and infers all types at startup; every lint request re-merges settings, re-resolves all types and rebuilds control flow before running rules; nothing can be cancelled. In the new architecture, clients write inputs to a salsa database; settings, imports, semantic models and types are memoized queries; every lint request reads a snapshot, reuses resolved settings and control flow, infers only the types it needs, and stale work is cancelled."
+>
+	<title>Previous and new architecture</title>
+	<style>
+	.biome-arch {
+		font-family: var(
+			--sl-font,
+			system-ui,
+			-apple-system,
+			"Segoe UI",
+			sans-serif
+		);
+	}
+	.biome-arch text {
+		fill: var(--sl-color-white, #17181c);
+		font-size: 12.5px;
+		font-weight: 600;
+	}
+	.biome-arch .mono {
+		font-family: var(--sl-font-mono, ui-monospace, monospace);
+		font-weight: 600;
+	}
+	.biome-arch .pt {
+		font-size: 15px;
+		font-weight: 700;
+	}
+	.biome-arch .h {
+		fill: var(--sl-color-gray-2, #353841);
+		font-size: 10.5px;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+	}
+	.biome-arch .s {
+		fill: var(--sl-color-gray-2, #353841);
+		font-size: 11px;
+		font-weight: 400;
+	}
+	.biome-arch .lbl {
+		fill: var(--sl-color-gray-3, #545861);
+		font-size: 11px;
+		font-weight: 400;
+	}
+	.biome-arch .hot-t {
+		fill: var(--sl-color-orange-high, hsl(41, 80%, 25%));
+	}
+	.biome-arch .memo-t {
+		fill: var(--sl-color-text-accent, #0065da);
+	}
+	.biome-arch .box {
+		fill: var(--sl-color-black, #ffffff);
+		stroke: var(--sl-color-gray-4, #888b96);
+	}
+	.biome-arch .cont {
+		fill: var(--sl-color-gray-6, #eceef2);
+		stroke: var(--sl-color-gray-5, #c0c2c7);
+	}
+	.biome-arch .hot {
+		fill: var(--sl-color-orange-low, hsl(41, 90%, 88%));
+		stroke: var(--sl-color-orange, hsl(41, 90%, 60%));
+	}
+	.biome-arch .memo {
+		fill: var(--sl-color-accent-low, #c2d9fa);
+		stroke: var(--sl-color-text-accent, #0065da);
+	}
+	.biome-arch .edge {
+		stroke: var(--sl-color-gray-3, #545861);
+		stroke-width: 1.5;
+		fill: none;
+	}
+	.biome-arch-ah {
+		fill: var(--sl-color-gray-3, #545861);
+	}
+	.biome-arch .sep {
+		stroke: var(--sl-color-gray-5, #c0c2c7);
+		stroke-dasharray: 4 4;
+	}
+	</style>
+	<defs>
+		<marker
+			id="biome-arch-arrow"
+			viewBox="0 0 8 8"
+			refX="8"
+			refY="4"
+			markerWidth="8"
+			markerHeight="8"
+			orient="auto-start-reverse"
+		>
+			<path class="biome-arch-ah" d="M0,0 L8,4 L0,8 z" />
+		</marker>
+	</defs>
+	<g class="biome-arch">
+		<!-- Previous architecture -->
+		<g>
+			<text class="pt" x="0" y="18">Previous architecture</text>
+			<text class="h" x="0" y="48">CLIENTS</text>
+			<text class="h" x="184" y="48">STATE</text>
+			<text class="h" x="512" y="48">EVERY LINT REQUEST</text>
+
+			<rect class="box" x="0.5" y="99.5" width="96" height="44" rx="6" />
+			<text x="14" y="126">CLI</text>
+			<rect class="box" x="0.5" y="171.5" width="96" height="44" rx="6" />
+			<text x="14" y="198">LSP</text>
+			<text class="s hot-t" x="0" y="236">no cancellation</text>
+
+			<line
+				class="edge"
+				x1="97"
+				y1="121.5"
+				x2="183"
+				y2="121.5"
+				marker-end="url(#biome-arch-arrow)"
+			/>
+			<text class="lbl" x="140" y="114" text-anchor="middle">read + write</text>
+			<line
+				class="edge"
+				x1="97"
+				y1="193.5"
+				x2="183"
+				y2="193.5"
+				marker-end="url(#biome-arch-arrow)"
+			/>
+			<text class="lbl" x="140" y="186" text-anchor="middle">read + write</text>
+
+			<rect class="cont" x="184.5" y="62.5" width="272" height="190" rx="8" />
+			<text x="198" y="85">Workspace server</text>
+			<text class="s" x="198" y="102">
+				shared and mutable: any thread writes
+			</text>
+			<rect class="box" x="196.5" y="118.5" width="248" height="34" rx="5" />
+			<text x="210" y="140">Documents</text>
+			<text class="s" x="432" y="140" text-anchor="end">
+				syntax + semantic model
+			</text>
+			<rect class="box" x="196.5" y="162.5" width="248" height="34" rx="5" />
+			<text x="210" y="184">Settings</text>
+			<text class="s" x="432" y="184" text-anchor="end">as configured</text>
+			<rect class="box" x="196.5" y="206.5" width="248" height="34" rx="5" />
+			<text x="210" y="228">Module graph</text>
+			<text class="s" x="432" y="228" text-anchor="end">
+				every module's types
+			</text>
+
+			<line
+				class="edge"
+				x1="320.5"
+				y1="276"
+				x2="320.5"
+				y2="254"
+				marker-end="url(#biome-arch-arrow)"
+			/>
+			<text class="lbl" x="330" y="269">fills at startup</text>
+			<rect class="hot" x="184.5" y="276.5" width="272" height="46" rx="6" />
+			<text x="198" y="296">Scanner</text>
+			<text class="s" x="198" y="313">every file: parse + infer all types</text>
+
+			<line
+				class="edge"
+				x1="457"
+				y1="157.5"
+				x2="511"
+				y2="157.5"
+				marker-end="url(#biome-arch-arrow)"
+			/>
+			<text class="lbl" x="484" y="150" text-anchor="middle">read</text>
+
+			<rect class="cont" x="512.5" y="62.5" width="207" height="190" rx="8" />
+			<rect class="hot" x="524.5" y="76.5" width="184" height="34" rx="5" />
+			<text x="538" y="98">Re-merge settings</text>
+			<rect class="hot" x="524.5" y="120.5" width="184" height="34" rx="5" />
+			<text x="538" y="142">Re-resolve all types</text>
+			<rect class="hot" x="524.5" y="164.5" width="184" height="34" rx="5" />
+			<text x="538" y="186">Rebuild control flow</text>
+			<rect class="hot" x="524.5" y="208.5" width="184" height="34" rx="5" />
+			<text x="538" y="230">Run rules</text>
+		</g>
+
+		<line class="sep" x1="0" y1="338.5" x2="720" y2="338.5" />
+
+		<!-- New architecture -->
+		<g transform="translate(0 352)">
+			<text class="pt" x="0" y="18">New architecture</text>
+			<text class="h" x="0" y="48">CLIENTS</text>
+			<text class="h" x="184" y="48">STATE</text>
+			<text class="h" x="512" y="48">EVERY LINT REQUEST</text>
+
+			<rect class="box" x="0.5" y="99.5" width="96" height="44" rx="6" />
+			<text x="14" y="126">CLI</text>
+			<rect class="box" x="0.5" y="171.5" width="96" height="44" rx="6" />
+			<text x="14" y="198">LSP</text>
+			<text class="s memo-t" x="0" y="236">cancels stale work</text>
+
+			<line
+				class="edge"
+				x1="97"
+				y1="121.5"
+				x2="183"
+				y2="121.5"
+				marker-end="url(#biome-arch-arrow)"
+			/>
+			<text class="lbl" x="140" y="114" text-anchor="middle">write inputs</text>
+			<line
+				class="edge"
+				x1="97"
+				y1="193.5"
+				x2="183"
+				y2="193.5"
+				marker-end="url(#biome-arch-arrow)"
+			/>
+			<text class="lbl" x="140" y="186" text-anchor="middle">write inputs</text>
+
+			<rect class="cont" x="184.5" y="62.5" width="272" height="190" rx="8" />
+			<text x="198" y="85"><tspan class="mono">salsa</tspan> database</text>
+			<text class="h" x="198" y="106">INPUTS</text>
+			<text class="h" x="304" y="106">MEMOIZED QUERIES</text>
+			<rect class="box" x="196.5" y="118.5" width="88" height="26" rx="5" />
+			<text x="208" y="136">Files</text>
+			<rect class="box" x="196.5" y="150.5" width="88" height="26" rx="5" />
+			<text x="208" y="168">Settings</text>
+			<rect class="box" x="196.5" y="182.5" width="88" height="26" rx="5" />
+			<text x="208" y="200">File system</text>
+			<line
+				class="edge"
+				x1="285"
+				y1="131.5"
+				x2="303"
+				y2="131.5"
+				marker-end="url(#biome-arch-arrow)"
+			/>
+			<line
+				class="edge"
+				x1="285"
+				y1="163.5"
+				x2="303"
+				y2="163.5"
+				marker-end="url(#biome-arch-arrow)"
+			/>
+			<line
+				class="edge"
+				x1="285"
+				y1="195.5"
+				x2="303"
+				y2="195.5"
+				marker-end="url(#biome-arch-arrow)"
+			/>
+			<rect class="memo" x="304.5" y="118.5" width="140" height="26" rx="5" />
+			<text x="316" y="136">Semantic model</text>
+			<rect class="memo" x="304.5" y="150.5" width="140" height="26" rx="5" />
+			<text x="316" y="168">Resolved settings</text>
+			<rect class="memo" x="304.5" y="182.5" width="140" height="26" rx="5" />
+			<text x="316" y="200">Resolved imports</text>
+			<rect class="memo" x="304.5" y="214.5" width="140" height="26" rx="5" />
+			<text x="316" y="232">Types</text>
+
+			<line
+				class="edge"
+				x1="320.5"
+				y1="276"
+				x2="320.5"
+				y2="254"
+				marker-end="url(#biome-arch-arrow)"
+			/>
+			<text class="lbl" x="330" y="269">fills at startup</text>
+			<rect class="hot" x="184.5" y="276.5" width="272" height="46" rx="6" />
+			<text x="198" y="296">Scanner</text>
+			<text class="s" x="198" y="313">
+				every file: parse + record raw types
+			</text>
+
+			<line
+				class="edge"
+				x1="457"
+				y1="157.5"
+				x2="511"
+				y2="157.5"
+				marker-end="url(#biome-arch-arrow)"
+			/>
+			<text class="lbl" x="484" y="150" text-anchor="middle">snapshot</text>
+
+			<rect class="cont" x="512.5" y="62.5" width="207" height="190" rx="8" />
+			<rect class="memo" x="524.5" y="76.5" width="184" height="34" rx="5" />
+			<text x="538" y="98">Reuse resolved settings</text>
+			<rect class="memo" x="524.5" y="120.5" width="184" height="34" rx="5" />
+			<text x="538" y="142">Infer types on demand</text>
+			<rect class="memo" x="524.5" y="164.5" width="184" height="34" rx="5" />
+			<text x="538" y="186">Reuse control flow</text>
+			<rect class="hot" x="524.5" y="208.5" width="184" height="34" rx="5" />
+			<text x="538" y="230">Run rules</text>
+		</g>
+
+		<!-- Legend -->
+		<rect class="hot" x="0.5" y="692.5" width="12" height="12" rx="2" />
+		<text class="lbl" x="20" y="703">recomputed on every run</text>
+		<rect class="memo" x="200.5" y="692.5" width="12" height="12" rx="2" />
+		<text class="lbl" x="220" y="703">
+			memoized: reused until its inputs change
+		</text>
+	</g>
+</svg>

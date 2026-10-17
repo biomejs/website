@@ -17,6 +17,8 @@ Biomeはプロジェクトの開発依存としてインストールするのが
   yarn={["add -D -E @biomejs/biome"]}
   bun={["add -D -E @biomejs/biome"]}
   deno={["add -D npm:@biomejs/biome"]}
+  standalone={"curl -fsSL https://biomejs.dev/install | bash"}
+  standaloneWindows={"irm https://biomejs.dev/install.ps1 | iex"}
 />
 
 :::note[バージョンの固定]
@@ -147,6 +149,27 @@ yarn exec biome check --write
 
 # 特定のファイルをフォーマット、リント、インポート整理
 yarn exec biome check --write <files>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="standalone" icon="seti:shell">
+		<Code frame="none" showLineNumbers={false} code={`
+# すべてのファイルをフォーマット
+biome format --write
+
+# 特定のファイルをフォーマット
+biome format --write <files>
+
+# すべてのファイルをリントし、安全な修正を適用
+biome lint --write
+
+# 特定のファイルをリントし、安全な修正を適用
+biome lint --write <files>
+
+# すべてのファイルをフォーマット、リント、インポート整理
+biome check --write
+
+# 特定のファイルをフォーマット、リント、インポート整理
+biome check --write <files>
     `} lang="bash"  />
 	</TabItem>
 </Tabs>

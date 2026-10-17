@@ -49,4 +49,12 @@ const { command } = Astro.props;
 			lang="bash"
 		/>
 	</TabItem>
+	<TabItem label="standalone" icon="seti:shell">
+		<Code
+			frame="none"
+			showLineNumbers={false}
+			code={`biome ${command}`}
+			lang="bash"
+		/>
+	</TabItem>
 </Tabs>
