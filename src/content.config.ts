@@ -38,6 +38,19 @@ export const collections = {
 			}),
 		loader: file("src/content/team.json"),
 	}),
+	plugins: defineCollection({
+		schema: () =>
+			z.object({
+				// name of the npm package
+				id: z.string(),
+				metadata: z.object({
+					repository: z.url().optional(),
+					website: z.url().optional(),
+					description: z.string().max(500),
+				}),
+			}),
+		loader: file("src/content/plugins.json"),
+	}),
 	changelogs: defineCollection({
 		loader: changelogsLoader([
 			{
@@ -69,6 +82,10 @@ export const collections = {
 				"users.featured.description": z.string().optional(),
 				"users.title": z.string().optional(),
 				"users.description": z.string().optional(),
+				"home.video.label": z.string().optional(),
+				"home.video.play": z.string().optional(),
+				"home.video.pause": z.string().optional(),
+				"home.video.fullscreen": z.string().optional(),
 			}),
 		}),
 	}),
