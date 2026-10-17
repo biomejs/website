@@ -43,12 +43,6 @@ The rule checks the `font` and `font-family` properties. It skips values supplie
 The unquoted pair `font-family: monospace, monospace` is allowed. This pattern preserves an
 inherited font size instead of using the browser's preferred monospace size. See
 [MDN's explanation](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/font-family#monospace_font_size).
-This rule ignores `var(--custom-property)` values.
-
-## SCSS limitations
-
-Font values that require SCSS evaluation, including variables, interpolation, and
-user-defined function results, are ignored because the emitted font names are unknown.
 
 ## Examples
 

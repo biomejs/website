@@ -49,12 +49,6 @@ Nested selectors are expanded before comparison. For example, `a { & b {} }` is 
 `a b`. A selector inside an at-rule such as `@media` is compared only with selectors inside
 the same at-rule, not with a matching selector at the top level.
 
-## SCSS limitations
-
-This rule does not evaluate SCSS. It compares selectors within the same SCSS block, but does
-not expand mixins, includes, or `@extend`. Selectors containing interpolation or placeholders
-are ignored because their emitted form cannot be determined statically.
-
 ## Examples
 
 ### Invalid
