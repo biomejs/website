@@ -172,7 +172,7 @@ The entries defined in `extends` are resolved from the path where the
 `biome.json` file is defined. They are processed in the order they are listed,
 with settings in later files overriding earlier ones.
 
-Files that you `extend` from cannot `extend` other files in turn.
+Files that you `extend` can also `extend` other files.
 
 Relative paths in a shared configuration are resolved from the directory containing the configuration that extends it, not from the directory containing the shared file. Plugin paths follow the same rule by default.
 
