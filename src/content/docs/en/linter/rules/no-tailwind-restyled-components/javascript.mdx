@@ -100,9 +100,6 @@ Allows categories or classes on selected components. Each entry contains:
 - `components`: a component name, an array of names, or `"*"` for all components.
 - `categories`: any of `color`, `typography`, `spacing`, `shape`, `effects`, or `motion`. Default: `[]`.
 - `classes`: exact classes, including variants and modifiers. Default: `[]`.
-- `advice`: instructions on how to fix the problem, shown in diagnostics for the
-matching components in place of the default advice. If several matching entries
-have `advice`, the first one is shown. Default: none.
 
 A name matches any segment of a member name, so both `UI` and `Button` match
 `UI.Button`. Dotted names such as `UI.Button` match consecutive segments.
@@ -138,37 +135,6 @@ A name matches any segment of a member name, so both `UI` and `Button` match
 ```jsx
 <Button className="rounded-none hover:shadow-lg" />;
 ```
-
-An entry can tell users how to change the appearance of a component:
-
-```json title='biome.json'
-{
-	"linter": {
-		"rules": {
-			"nursery": {
-				"noTailwindRestyledComponents": {
-					"level": "on",
-					"options": {
-						"allow": [
-							{
-								"components": "Button",
-								"advice": "Use the `variant` prop of `Button` to change its appearance."
-							}
-						]
-					}
-				}
-			}
-		}
-	}
-}
-
-```
-
-```jsx
-<Button className="rounded-none" />;
-```
-
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:20 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-restyled-components\">lint/nursery/noTailwindRestyledComponents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This Tailwind utility restyles a component.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;Button className=&quot;rounded-none&quot; /&gt;;<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The design system should manage the component's appearance.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the &#96;variant&#96; prop of &#96;Button&#96; to change its appearance.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://github.com/biomejs/biome/issues/11342\">https://github.com/biomejs/biome/issues/11342</a></span><span style=\"color: lightgreen;\"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
 
 ## Related links
 

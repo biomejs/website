@@ -49,13 +49,6 @@ The rule reports likely conflicts between selectors that end with the same targe
 same surrounding rules, such as `@media` or `@layer`. It cannot determine every case where
 two selectors match the same element.
 
-## SCSS limitations
-
-This rule does not evaluate SCSS. It compares statically written selectors within the same
-SCSS block, but not selectors across mixin or include boundaries, or across mutually exclusive
-control-flow branches. Selectors containing interpolation or placeholders are ignored because
-their emitted selector and specificity depend on SCSS evaluation.
-
 ## Examples
 
 ### Invalid

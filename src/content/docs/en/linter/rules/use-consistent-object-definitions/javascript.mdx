@@ -91,14 +91,6 @@ let valid = {
 };
 ```
 
-A function expression with its own name isn't reported, because turning it into a method could change the function's `name` or how its name can be used inside its body.
-
-```js
-let valid = {
-    baz: function qux() { return "qux"; },
-};
-```
-
 ### Invalid
 
 ```json title='biome.json'
