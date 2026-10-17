@@ -1,0 +1,67 @@
+name: Update playground
+on:
+  workflow_dispatch:
+    inputs:
+      commit-id:
+        description: Commit ID of biomejs/biome
+        required: true
+        type: string
+  repository_dispatch:
+    types: [ biome-push-on-main-event, biome-release-cli-event ]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  update-playground:
+    runs-on: depot-ubuntu-24.04-arm
+    env:
+      COMMIT_ID: ${{ github.event.inputs.commit-id || github.event.client_payload.event.head_commit.id || github.event.client_payload.sha }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Validate commit ID
+        run: |
+          if [[ -z "$COMMIT_ID" ]]; then
+            echo "You must provide a full commit ID."
+            exit 1
+          fi
+
+      - name: Get short commit ID
+        run: echo "SHORT_COMMIT_ID=$(echo "$COMMIT_ID" | cut -c 1-7)" >> "$GITHUB_ENV"
+
+      - name: Install pnpm
+        run: |
+          npm install -g corepack@latest
+          corepack enable
+
+      - name: Setup node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: ".node-version"
+
+      - name: Update playground
+        run: ./scripts/update-playground.sh "$COMMIT_ID"
+
+      - name: Create pull request
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          branch: "chore/update-playground-${{ github.event_name }}"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          title: "chore(ci): update playground to `${{ env.SHORT_COMMIT_ID }}`"
+          commit-message: "chore(ci): update playground to `${{ env.SHORT_COMMIT_ID }}`"
+          body: "Update playground to [`${{ env.SHORT_COMMIT_ID }}`](https://github.com/biomejs/biome/commit/${{ env.COMMIT_ID }})."
+          labels: CI-Synchronize
+
+      - name: Auto merge
+        if: ${{ steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != '' }}
+        run: gh pr merge --squash --auto --delete-branch ${{ steps.create-pull-request.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
