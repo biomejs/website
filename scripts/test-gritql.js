@@ -23,8 +23,6 @@ console.log("another debug");
 
 const encoder = new TextEncoder();
 const ext = lang === "json" ? "json" : lang === "css" ? "css" : "tsx";
-const defaultLanguage =
-	lang === "json" ? "JSON" : lang === "css" ? "CSS" : "JavaScript";
 
 const fs = new MemoryFileSystem();
 const workspace = Workspace.withFileSystem(fs);
@@ -44,7 +42,7 @@ workspace.openFile({
 
 const { patternId } = workspace.parsePattern({
 	pattern: query,
-	defaultLanguage,
+	defaultLanguage: lang,
 });
 
 const results = workspace.searchPattern({
