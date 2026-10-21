@@ -1,0 +1,222 @@
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 720 330"
+	role="img"
+	aria-label="What one edit recomputes with salsa. source.ts changes value from 1 to the string one. Its semantic model and the type of its export value re-run, and because that type changed, the type of result in index.ts, which imports value, re-runs too. The semantic model of index.ts, everything in other.ts, and the settings resolved from biome.json are reused from the database."
+>
+	<title>What one edit recomputes</title>
+	<style>
+	.biome-salsa {
+		font-family: var(
+			--sl-font,
+			system-ui,
+			-apple-system,
+			"Segoe UI",
+			sans-serif
+		);
+	}
+	.biome-salsa text {
+		fill: var(--sl-color-white, #17181c);
+		font-size: 12.5px;
+		font-weight: 600;
+	}
+	.biome-salsa .mono {
+		font-family: var(--sl-font-mono, ui-monospace, monospace);
+	}
+	.biome-salsa .h {
+		fill: var(--sl-color-gray-2, #353841);
+		font-size: 10.5px;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+	}
+	.biome-salsa .s {
+		fill: var(--sl-color-gray-2, #353841);
+		font-size: 11px;
+		font-weight: 400;
+	}
+	.biome-salsa .lbl {
+		fill: var(--sl-color-gray-3, #545861);
+		font-size: 11px;
+		font-weight: 400;
+	}
+	.biome-salsa .hot-t {
+		fill: var(--sl-color-orange-high, hsl(41, 80%, 25%));
+	}
+	.biome-salsa .box {
+		fill: var(--sl-color-black, #ffffff);
+		stroke: var(--sl-color-gray-4, #888b96);
+	}
+	.biome-salsa .hot {
+		fill: var(--sl-color-orange-low, hsl(41, 90%, 88%));
+		stroke: var(--sl-color-orange, hsl(41, 90%, 60%));
+	}
+	.biome-salsa .memo {
+		fill: var(--sl-color-accent-low, #c2d9fa);
+		stroke: var(--sl-color-text-accent, #0065da);
+	}
+	.biome-salsa .edge {
+		stroke: var(--sl-color-gray-4, #888b96);
+		stroke-width: 1.5;
+		fill: none;
+	}
+	.biome-salsa .edge-hot {
+		stroke: var(--sl-color-orange, hsl(41, 90%, 60%));
+		stroke-width: 2;
+		fill: none;
+	}
+	.biome-salsa-ah {
+		fill: var(--sl-color-gray-4, #888b96);
+	}
+	.biome-salsa-ah-hot {
+		fill: var(--sl-color-orange, hsl(41, 90%, 60%));
+	}
+	</style>
+	<defs>
+		<marker
+			id="biome-salsa-arrow"
+			viewBox="0 0 8 8"
+			refX="8"
+			refY="4"
+			markerWidth="8"
+			markerHeight="8"
+			orient="auto-start-reverse"
+		>
+			<path class="biome-salsa-ah" d="M0,0 L8,4 L0,8 z" />
+		</marker>
+		<marker
+			id="biome-salsa-arrow-hot"
+			viewBox="0 0 8 8"
+			refX="8"
+			refY="4"
+			markerWidth="6"
+			markerHeight="6"
+			orient="auto-start-reverse"
+		>
+			<path class="biome-salsa-ah-hot" d="M0,0 L8,4 L0,8 z" />
+		</marker>
+	</defs>
+	<g class="biome-salsa">
+		<text class="h" x="0" y="20">INPUTS</text>
+		<text class="h" x="260" y="20">PER-FILE QUERIES</text>
+		<text class="h" x="520" y="20">TYPE QUERIES</text>
+
+		<!-- Row 1: the edited file -->
+		<rect class="hot" x="0.5" y="36.5" width="199" height="52" rx="6" />
+		<text class="mono" x="14" y="58">source.ts</text>
+		<text class="s mono hot-t" x="14" y="76">value = 1 → "one"</text>
+		<line
+			class="edge-hot"
+			x1="200"
+			y1="62.5"
+			x2="259"
+			y2="62.5"
+			marker-end="url(#biome-salsa-arrow-hot)"
+		/>
+		<rect class="hot" x="260.5" y="36.5" width="199" height="52" rx="6" />
+		<text x="274" y="58">Semantic model</text>
+		<text class="s mono" x="274" y="76">source.ts</text>
+		<line
+			class="edge-hot"
+			x1="460"
+			y1="62.5"
+			x2="519"
+			y2="62.5"
+			marker-end="url(#biome-salsa-arrow-hot)"
+		/>
+		<rect class="hot" x="520.5" y="36.5" width="199" height="52" rx="6" />
+		<text x="534" y="58">
+			Type of export
+			<tspan class="mono">value</tspan>
+		</text>
+		<text class="s mono" x="534" y="76">source.ts</text>
+
+		<line
+			class="edge-hot"
+			x1="560.5"
+			y1="89"
+			x2="560.5"
+			y2="115"
+			marker-end="url(#biome-salsa-arrow-hot)"
+		/>
+		<text class="lbl" x="572" y="106">only if its type changed</text>
+
+		<!-- Row 2: a file that imports the edited one -->
+		<rect class="box" x="0.5" y="116.5" width="199" height="52" rx="6" />
+		<text class="mono" x="14" y="138">index.ts</text>
+		<text class="s mono" x="14" y="156">import { value }</text>
+		<line
+			class="edge"
+			x1="200"
+			y1="142.5"
+			x2="259"
+			y2="142.5"
+			marker-end="url(#biome-salsa-arrow)"
+		/>
+		<rect class="memo" x="260.5" y="116.5" width="199" height="52" rx="6" />
+		<text x="274" y="138">Semantic model</text>
+		<text class="s mono" x="274" y="156">index.ts</text>
+		<line
+			class="edge"
+			x1="460"
+			y1="142.5"
+			x2="519"
+			y2="142.5"
+			marker-end="url(#biome-salsa-arrow)"
+		/>
+		<rect class="hot" x="520.5" y="116.5" width="199" height="52" rx="6" />
+		<text x="534" y="138">
+			Type of
+			<tspan class="mono">result</tspan>
+		</text>
+		<text class="s mono" x="534" y="156">index.ts</text>
+
+		<!-- Row 3: an unrelated file -->
+		<rect class="box" x="0.5" y="196.5" width="199" height="52" rx="6" />
+		<text class="mono" x="14" y="218">other.ts</text>
+		<text class="s" x="14" y="236">doesn't import source.ts</text>
+		<line
+			class="edge"
+			x1="200"
+			y1="222.5"
+			x2="259"
+			y2="222.5"
+			marker-end="url(#biome-salsa-arrow)"
+		/>
+		<rect class="memo" x="260.5" y="196.5" width="199" height="52" rx="6" />
+		<text x="274" y="218">Semantic model</text>
+		<text class="s mono" x="274" y="236">other.ts</text>
+		<line
+			class="edge"
+			x1="460"
+			y1="222.5"
+			x2="519"
+			y2="222.5"
+			marker-end="url(#biome-salsa-arrow)"
+		/>
+		<rect class="memo" x="520.5" y="196.5" width="199" height="52" rx="6" />
+		<text x="534" y="218">Type queries</text>
+		<text class="s mono" x="534" y="236">other.ts</text>
+
+		<!-- Row 4: configuration -->
+		<rect class="box" x="0.5" y="276.5" width="199" height="52" rx="6" />
+		<text class="mono" x="14" y="298">biome.json</text>
+		<text class="s" x="14" y="316">unchanged</text>
+		<line
+			class="edge"
+			x1="200"
+			y1="302.5"
+			x2="259"
+			y2="302.5"
+			marker-end="url(#biome-salsa-arrow)"
+		/>
+		<rect class="memo" x="260.5" y="276.5" width="199" height="52" rx="6" />
+		<text x="274" y="298">Resolved settings</text>
+		<text class="s mono" x="274" y="316">biome.json</text>
+
+		<!-- Legend -->
+		<rect class="hot" x="520.5" y="285.5" width="12" height="12" rx="2" />
+		<text class="lbl" x="540" y="296">re-runs after the edit</text>
+		<rect class="memo" x="520.5" y="309.5" width="12" height="12" rx="2" />
+		<text class="lbl" x="540" y="320">reused from the database</text>
+	</g>
+</svg>
