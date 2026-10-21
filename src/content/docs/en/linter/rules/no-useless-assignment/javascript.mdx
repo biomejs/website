@@ -1,0 +1,148 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUselessAssignment (JavaScript)
+description: JavaScript (and super languages) documentation for noUselessAssignment
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-assignment/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.0`
+- Diagnostic Category: [`lint/nursery/noUselessAssignment`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`no-useless-assignment`](https://eslint.org/docs/latest/rules/no-useless-assignment)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessAssignment": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow assignments whose value is never read.
+
+If a variable gets a value that is never read before the variable is assigned
+again, or before the variable stops being used, the assignment has no effect.
+This often hints at a mistake: the value may have been meant to be used, or to
+be assigned to a different variable.
+
+```js
+let id = "x1234"; // this value is never read
+id = generateId();
+doSomethingWith(id);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:5 <a href=\"https://biomejs.dev/linter/rules/no-useless-assignment\">lint/nursery/noUselessAssignment</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The value assigned to </span><span style=\"color: Orange;\"><strong>id</strong></span><span style=\"color: Orange;\"> is never read.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>let id = &quot;x1234&quot;; // this value is never read<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>id = generateId();<br />    <strong>3 │ </strong>doSomethingWith(id);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">After this assignment, the variable is either assigned again or not read anymore, so this value is thrown away.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the assignment if it's unnecessary. Otherwise, check whether the value should be used, or assigned to a different variable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+The rule checks every way the code can run, including loops, `break`,
+`continue`, `return`, and errors caught by `try` statements.
+
+Variables that are never read are reported by [`noUnusedVariables`](https://biomejs.dev/linter/rules/no-unused-variables/)
+instead. The rule also ignores variables that are used inside nested functions,
+because it can't know when those functions run. Exported variables and
+top-level variables of Astro, Svelte, and Vue files are ignored too, because
+other files or the component template can read them.
+
+## Examples
+
+### Invalid
+
+```js
+function fn() {
+    let v = "used";
+    doSomething(v);
+    v = "unused";
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:5 <a href=\"https://biomejs.dev/linter/rules/no-useless-assignment\">lint/nursery/noUselessAssignment</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The value assigned to </span><span style=\"color: Orange;\"><strong>v</strong></span><span style=\"color: Orange;\"> is never read.</span><br />  <br />    <strong>2 │ </strong>    let v = &quot;used&quot;;<br />    <strong>3 │ </strong>    doSomething(v);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    v = &quot;unused&quot;;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">After this assignment, the variable is either assigned again or not read anymore, so this value is thrown away.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the assignment if it's unnecessary. Otherwise, check whether the value should be used, or assigned to a different variable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+function fn() {
+    let v = "used";
+    if (condition) {
+        v = "unused";
+        return;
+    }
+    doSomething(v);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:9 <a href=\"https://biomejs.dev/linter/rules/no-useless-assignment\">lint/nursery/noUselessAssignment</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The value assigned to </span><span style=\"color: Orange;\"><strong>v</strong></span><span style=\"color: Orange;\"> is never read.</span><br />  <br />    <strong>2 │ </strong>    let v = &quot;used&quot;;<br />    <strong>3 │ </strong>    if (condition) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>        v = &quot;unused&quot;;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>        return;<br />    <strong>6 │ </strong>    &#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">After this assignment, the variable is either assigned again or not read anymore, so this value is thrown away.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the assignment if it's unnecessary. Otherwise, check whether the value should be used, or assigned to a different variable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+function fn() {
+    let v = "unused";
+    v = "used";
+    doSomething(v);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:9 <a href=\"https://biomejs.dev/linter/rules/no-useless-assignment\">lint/nursery/noUselessAssignment</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The value assigned to </span><span style=\"color: Orange;\"><strong>v</strong></span><span style=\"color: Orange;\"> is never read.</span><br />  <br />    <strong>1 │ </strong>function fn() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    let v = &quot;unused&quot;;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    v = &quot;used&quot;;<br />    <strong>4 │ </strong>    doSomething(v);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">After this assignment, the variable is either assigned again or not read anymore, so this value is thrown away.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the assignment if it's unnecessary. Otherwise, check whether the value should be used, or assigned to a different variable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+function fn() {
+    let count = 0;
+    doSomething(count);
+    count++;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:5 <a href=\"https://biomejs.dev/linter/rules/no-useless-assignment\">lint/nursery/noUselessAssignment</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The value assigned to </span><span style=\"color: Orange;\"><strong>count</strong></span><span style=\"color: Orange;\"> is never read.</span><br />  <br />    <strong>2 │ </strong>    let count = 0;<br />    <strong>3 │ </strong>    doSomething(count);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    count++;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">After this assignment, the variable is either assigned again or not read anymore, so this value is thrown away.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the assignment if it's unnecessary. Otherwise, check whether the value should be used, or assigned to a different variable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+function fn1() {
+    let v = "used";
+    doSomething(v);
+    v = "used-2";
+    doSomething(v);
+}
+
+function fn2() {
+    let v = "used";
+    for (let i = 0; i < 10; i++) {
+        doSomething(v);
+        v = "used in next iteration";
+    }
+}
+
+function fn3() {
+    let result = "fallback";
+    try {
+        result = compute();
+    } catch {
+        // `result` keeps its previous value when `compute()` throws.
+    }
+    return result;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_useless_assignment.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUselessAssignment)
+- <RulePlaygroundLink rule="noUselessAssignment" category="lint" language="js" code={"let id = \"x1234\"; // this value is never read\nid = generateId();\ndoSomethingWith(id);\n"} />
+

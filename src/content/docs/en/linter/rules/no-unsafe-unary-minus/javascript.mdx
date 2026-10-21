@@ -1,0 +1,105 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUnsafeUnaryMinus (JavaScript)
+description: JavaScript (and super languages) documentation for noUnsafeUnaryMinus
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unsafe-unary-minus/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)
+:::
+## Summary
+- Rule available since: `v2.6.0`
+- Diagnostic Category: [`lint/nursery/noUnsafeUnaryMinus`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`types`](/linter/domains#types)
+- Sources: 
+  - Same as [`@typescript-eslint/no-unsafe-unary-minus`](https://typescript-eslint.io/rules/no-unsafe-unary-minus)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUnsafeUnaryMinus": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require the operand of unary `-` to be a `number` or a `bigint`.
+
+Unary negation converts any other operand to a number first. Negating a
+string, boolean, nullish value, or object usually produces `NaN` or an
+unexpected number, and TypeScript accepts many of these cases without
+reporting an error.
+
+Operands typed as `any` or `never` are allowed. Explicit `unknown`
+operands are reported.
+
+## Examples
+
+### Invalid
+
+```ts title='invalid-string.ts'
+declare const value: string;
+-value;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-string.ts\">/invalid-string.ts</a>:2:1 <a href=\"https://biomejs.dev/linter/rules/no-unsafe-unary-minus\">lint/nursery/noUnsafeUnaryMinus</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The operand of unary </span><span style=\"color: lightgreen;\"><strong>-</strong></span><span style=\"color: lightgreen;\"> may be </span><span style=\"color: lightgreen;\"><strong>string</strong></span><span style=\"color: lightgreen;\"> instead of </span><span style=\"color: lightgreen;\"><strong>number</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>bigint</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>declare const value: string;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>-value;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unary </span><span style=\"color: lightgreen;\"><strong>-</strong></span><span style=\"color: lightgreen;\"> converts other values to a number first, which usually produces </span><span style=\"color: lightgreen;\"><strong>NaN</strong></span><span style=\"color: lightgreen;\"> or an unexpected result.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Convert the operand to a number explicitly, or negate a numeric value instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts title='invalid-object.ts'
+declare const value: { x: number };
+-value;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-object.ts\">/invalid-object.ts</a>:2:1 <a href=\"https://biomejs.dev/linter/rules/no-unsafe-unary-minus\">lint/nursery/noUnsafeUnaryMinus</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The operand of unary </span><span style=\"color: lightgreen;\"><strong>-</strong></span><span style=\"color: lightgreen;\"> may be </span><span style=\"color: lightgreen;\"><strong>object</strong></span><span style=\"color: lightgreen;\"> instead of </span><span style=\"color: lightgreen;\"><strong>number</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>bigint</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>declare const value: &#123; x: number &#125;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>-value;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unary </span><span style=\"color: lightgreen;\"><strong>-</strong></span><span style=\"color: lightgreen;\"> converts other values to a number first, which usually produces </span><span style=\"color: lightgreen;\"><strong>NaN</strong></span><span style=\"color: lightgreen;\"> or an unexpected result.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Convert the operand to a number explicitly, or negate a numeric value instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts title='invalid-unknown.ts'
+declare const value: unknown;
+-value;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-unknown.ts\">/invalid-unknown.ts</a>:2:1 <a href=\"https://biomejs.dev/linter/rules/no-unsafe-unary-minus\">lint/nursery/noUnsafeUnaryMinus</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The operand of unary </span><span style=\"color: lightgreen;\"><strong>-</strong></span><span style=\"color: lightgreen;\"> may be </span><span style=\"color: lightgreen;\"><strong>unknown</strong></span><span style=\"color: lightgreen;\"> instead of </span><span style=\"color: lightgreen;\"><strong>number</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>bigint</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>declare const value: unknown;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>-value;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unary </span><span style=\"color: lightgreen;\"><strong>-</strong></span><span style=\"color: lightgreen;\"> converts other values to a number first, which usually produces </span><span style=\"color: lightgreen;\"><strong>NaN</strong></span><span style=\"color: lightgreen;\"> or an unexpected result.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Convert the operand to a number explicitly, or negate a numeric value instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```ts title='valid-number.ts'
+declare const value: number;
+-value;
+```
+
+```ts title='valid-numeric-union.ts'
+declare const value: number | bigint;
+-value;
+```
+
+```ts title='valid-member.ts'
+declare const value: { x: number };
+-value.x;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_unsafe_unary_minus.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUnsafeUnaryMinus)
+- <RulePlaygroundLink rule="noUnsafeUnaryMinus" category="lint" language="ts" code={"declare const value: string;\n-value;\n"} />
+

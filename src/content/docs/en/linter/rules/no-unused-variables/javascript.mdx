@@ -23,6 +23,7 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
   - Same as [`@typescript-eslint/no-unused-vars`](https://typescript-eslint.io/rules/no-unused-vars)
   - Same as [`unused-imports/no-unused-vars`](https://github.com/sweepline/eslint-plugin-unused-imports/blob/master/docs/rules/no-unused-vars.md)
   - Same as [`vue/no-unused-vars`](https://eslint.vuejs.org/rules/no-unused-vars)
+  - Same as [`no-unused-vars`](https://lint.deno.land/rules/no-unused-vars)
 
 ## How to configure
 ```json title="biome.json"
@@ -190,6 +191,44 @@ console.log(other);
 const car = { brand: "Tesla", year: 2019, countryCode: "US" };
 const { brand: _, ...other } = car;
 console.log(other);
+```
+
+### `ignoreUsingDeclarations`
+
+Default: `false`
+
+Whether to ignore unused variables declared with `using` or `await using`. Variables declared
+with `const`, `let`, or `var` are still reported.
+
+A `using` declaration cleans up its value automatically when the enclosing block ends,
+so the variable can be useful even if the code never reads it.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"correctness": {
+				"noUnusedVariables": {
+					"level": "on",
+					"options": {
+						"ignoreUsingDeclarations": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+```js
+async function main() {
+    using resource = createResource();
+    await using connection = await openConnection();
+}
+main();
 ```
 
 ### `ignore`

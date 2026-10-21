@@ -195,7 +195,7 @@ export function GET() {
 					"required": ["eslintNoSecrets"]
 				},
 				{
-					"description": "Rules from [Eslint Plugin Package.json](https://github.com/JoshuaKGoldberg/eslint-plugin-package-json)",
+					"description": "Rules from [Eslint Plugin Package.json](https://github.com/michaelfaith/eslint-plugin-package-json)",
 					"type": "object",
 					"properties": { "eslintPackageJson": { "type": "string" } },
 					"additionalProperties": false,
@@ -512,6 +512,13 @@ export function GET() {
 					},
 					"additionalProperties": false,
 					"required": ["markdownLint"]
+				},
+				{
+					"description": "Rules from [TanStack Query ESLint Plugin](https://tanstack.com/query/latest/docs/eslint/eslint-plugin-query)",
+					"type": "object",
+					"properties": { "eslintTanstackQuery": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintTanstackQuery"]
 				}
 			]
 		},

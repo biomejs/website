@@ -15,6 +15,9 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 :::caution
 This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
 :::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
 ## Summary
 - Rule available since: `v2.5.15`
 - Diagnostic Category: [`lint/nursery/noTailwindRawColors`](/reference/diagnostics#diagnostic-category)
@@ -22,6 +25,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 - The default severity of this rule is [**information**](/reference/diagnostics#information).
 - This rule belongs to the following domains:
   - [`tailwind`](/linter/domains#tailwind)
+  - [`project`](/linter/domains#project)
 - Sources: 
   - Inspired from [`shadcn/no-raw-colors`](https://github.com/shadcn-ui/lint/blob/main/docs/rules/no-raw-colors.md)
 
@@ -47,8 +51,20 @@ or `muted` let a design system change its palette without editing each component
 This rule checks color utilities, including variants and opacity modifiers.
 It allows custom color names, `black`, `white`, `transparent`, `current`, and `inherit`.
 This rule does not check arbitrary values such as `bg-[#ff00aa]`.
-It does not read your Tailwind CSS theme, so redefining a default palette name
+Giving a default palette name another value in your Tailwind CSS theme
 does not exempt it.
+
+When the [`tailwind.stylesheet`](https://biomejs.dev/reference/configuration/#tailwindstylesheet)
+option points at the CSS file that holds your Tailwind CSS configuration, the rule
+also lists up to three classes to use instead, such as `bg-brand` for `bg-pink-500`.
+Each one sets a color from your theme that looks similar to the reported one.
+It can only compare theme colors whose value is written out, such as
+`--color-brand: #00f`. It skips colors that refer to another value, such as
+`--color-brand: var(--brand)`.
+
+Biome scans your project when this rule is enabled, so that it can read the
+stylesheet and the files it imports. The scan happens even if `tailwind.stylesheet`
+isn't set.
 
 ## Examples
 

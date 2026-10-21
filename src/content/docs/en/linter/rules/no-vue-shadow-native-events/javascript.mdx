@@ -1,0 +1,114 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueShadowNativeEvents (JavaScript)
+description: JavaScript (and super languages) documentation for noVueShadowNativeEvents
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-shadow-native-events/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.0`
+- Diagnostic Category: [`lint/nursery/noVueShadowNativeEvents`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/no-shadow-native-events`](https://eslint.vuejs.org/rules/no-shadow-native-events)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueShadowNativeEvents": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow Vue component events named after built-in browser events.
+
+A component can send its own events to its parent with `emit`. When such an event has the
+same name as a browser event, like `click` or `keydown`, it looks like the browser event but
+works differently:
+
+- The listener receives whatever value the component passes to `emit`, instead of the
+browser's `Event` object.
+- The event only reaches the parent that listens to the component. Most browser events also
+reach every element that contains the element where they happened.
+- Modifiers that act on the browser's `Event` object, such as `@click.stop` and
+`@click.prevent`, do nothing unless the component passes that object along.
+
+Give the event a name that describes what happened in the component, such as `save` or
+`update:modelValue`.
+
+This rule checks the event names listed in the `emits` option and in `defineEmits()`. It
+also checks the event names passed to `this.$emit()`, to the `emit` function that `setup()`
+receives, to the function returned by `defineEmits()`, and to `$emit()` in templates.
+Uppercase and lowercase letters are treated the same, so `Click` is reported too.
+
+## Examples
+
+### Invalid
+
+```vue
+<script setup>
+defineEmits(["click"]);
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:14 <a href=\"https://biomejs.dev/linter/rules/no-vue-shadow-native-events\">lint/nursery/noVueShadowNativeEvents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This component event has the same name as the browser event </span><span style=\"color: Orange;\"><strong>click</strong></span><span style=\"color: Orange;\">.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>defineEmits([&quot;click&quot;]);<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/script&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">It is easy to mistake for the browser event, but it works differently: listeners receive the value passed to </span><span style=\"color: lightgreen;\"><strong>emit</strong></span><span style=\"color: lightgreen;\"> instead of an </span><span style=\"color: lightgreen;\"><strong>Event</strong></span><span style=\"color: lightgreen;\"> object, the event doesn't reach the elements around the component, and modifiers such as </span><span style=\"color: lightgreen;\"><strong>.stop</strong></span><span style=\"color: lightgreen;\"> don't work on it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the event to describe what happened in the component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup lang="ts">
+defineEmits<{ keydown: [key: string] }>();
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:15 <a href=\"https://biomejs.dev/linter/rules/no-vue-shadow-native-events\">lint/nursery/noVueShadowNativeEvents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This component event has the same name as the browser event </span><span style=\"color: Orange;\"><strong>keydown</strong></span><span style=\"color: Orange;\">.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup lang=&quot;ts&quot;&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>defineEmits&lt;&#123; keydown: [key: string] &#125;&gt;();<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/script&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">It is easy to mistake for the browser event, but it works differently: listeners receive the value passed to </span><span style=\"color: lightgreen;\"><strong>emit</strong></span><span style=\"color: lightgreen;\"> instead of an </span><span style=\"color: lightgreen;\"><strong>Event</strong></span><span style=\"color: lightgreen;\"> object, the event doesn't reach the elements around the component, and modifiers such as </span><span style=\"color: lightgreen;\"><strong>.stop</strong></span><span style=\"color: lightgreen;\"> don't work on it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the event to describe what happened in the component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script>
+export default {
+  methods: {
+    onClick() {
+      this.$emit("change", 42);
+    },
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:5:18 <a href=\"https://biomejs.dev/linter/rules/no-vue-shadow-native-events\">lint/nursery/noVueShadowNativeEvents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This component event has the same name as the browser event </span><span style=\"color: Orange;\"><strong>change</strong></span><span style=\"color: Orange;\">.</span><br />  <br />    <strong>3 │ </strong>  methods: &#123;<br />    <strong>4 │ </strong>    onClick() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>      this.$emit(&quot;change&quot;, 42);<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>    &#125;,<br />    <strong>7 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">It is easy to mistake for the browser event, but it works differently: listeners receive the value passed to </span><span style=\"color: lightgreen;\"><strong>emit</strong></span><span style=\"color: lightgreen;\"> instead of an </span><span style=\"color: lightgreen;\"><strong>Event</strong></span><span style=\"color: lightgreen;\"> object, the event doesn't reach the elements around the component, and modifiers such as </span><span style=\"color: lightgreen;\"><strong>.stop</strong></span><span style=\"color: lightgreen;\"> don't work on it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the event to describe what happened in the component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup>
+const emit = defineEmits(["save"]);
+emit("save");
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_shadow_native_events.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueShadowNativeEvents)
+- <RulePlaygroundLink rule="noVueShadowNativeEvents" category="lint" language="vue" code={"<script setup>\ndefineEmits([\"click\"]);\n</script>\n"} />
+

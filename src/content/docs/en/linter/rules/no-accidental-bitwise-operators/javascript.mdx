@@ -1,0 +1,108 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noAccidentalBitwiseOperators (JavaScript)
+description: JavaScript (and super languages) documentation for noAccidentalBitwiseOperators
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-accidental-bitwise-operators/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.0`
+- Diagnostic Category: [`lint/nursery/noAccidentalBitwiseOperators`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`unicorn/no-accidental-bitwise-operator`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-accidental-bitwise-operator.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noAccidentalBitwiseOperators": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow bitwise operators where a logical operator was likely intended.
+
+The bitwise operators `&`, `|`, and `|=` look a lot like the logical
+operators `&&`, `||`, and `||=`, so it is easy to type one when you meant
+the other. The two behave very differently:
+
+- Bitwise operators always evaluate both sides. In `obj & obj.prop`,
+`obj.prop` is read even when `obj` is `null` or `undefined`, which
+throws an error.
+- Bitwise operators turn both sides into whole numbers. In
+`options | {}`, the object becomes `0`, so the result is a number
+instead of `options` or `{}`.
+
+This rule only reports cases where a logical operator was clearly
+intended:
+
+- `&` between a variable and a property of that same variable, such as
+`obj & obj.prop`.
+- `|` or `|=` with a right side that can never be a useful number: an
+object, an array, a class, a function, a string, a template string, or
+`true`/`false`.
+
+Bitwise math such as `flags & MASK` or `value | 0` is not reported.
+
+## Examples
+
+### Invalid
+
+```js
+if (obj & obj.prop) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:9 <a href=\"https://biomejs.dev/linter/rules/no-accidental-bitwise-operators\">lint/nursery/noAccidentalBitwiseOperators</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The bitwise operator </span><span style=\"color: Orange;\"><strong>&amp;</strong></span><span style=\"color: Orange;\"> is used where the logical operator </span><span style=\"color: Orange;\"><strong>&amp;&amp;</strong></span><span style=\"color: Orange;\"> was likely intended.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (obj &amp; obj.prop) &#123;&#125;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Bitwise operators always evaluate both sides and turn them into numbers, so the result is not the value of either side.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Replace </span><span style=\"color: lightgreen;\"><strong>&amp;</strong></span><span style=\"color: lightgreen;\"> with </span><span style=\"color: lightgreen;\"><strong>&amp;&amp;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong>  1 │ </strong>if<span style=\"opacity: 0.8;\">·</span>(obj<span style=\"opacity: 0.8;\">·</span>&amp;<span style=\"color: MediumSeaGreen;\">&amp;</span><span style=\"opacity: 0.8;\">·</span>obj.prop)<span style=\"opacity: 0.8;\">·</span>&#123;&#125;<br />  <strong>    │ </strong>         <span style=\"color: MediumSeaGreen;\">+</span>             <br /></code></pre>"} />
+
+```js
+options = options | {};
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:19 <a href=\"https://biomejs.dev/linter/rules/no-accidental-bitwise-operators\">lint/nursery/noAccidentalBitwiseOperators</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The bitwise operator </span><span style=\"color: Orange;\"><strong>|</strong></span><span style=\"color: Orange;\"> is used where the logical operator </span><span style=\"color: Orange;\"><strong>||</strong></span><span style=\"color: Orange;\"> was likely intended.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>options = options | &#123;&#125;;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Bitwise operators always evaluate both sides and turn them into numbers, so the result is not the value of either side.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Replace </span><span style=\"color: lightgreen;\"><strong>|</strong></span><span style=\"color: lightgreen;\"> with </span><span style=\"color: lightgreen;\"><strong>||</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong>  1 │ </strong>options<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>options<span style=\"opacity: 0.8;\">·</span>|<span style=\"color: MediumSeaGreen;\">|</span><span style=\"opacity: 0.8;\">·</span>&#123;&#125;;<br />  <strong>    │ </strong>                   <span style=\"color: MediumSeaGreen;\">+</span>    <br /></code></pre>"} />
+
+```js
+input |= "";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:7 <a href=\"https://biomejs.dev/linter/rules/no-accidental-bitwise-operators\">lint/nursery/noAccidentalBitwiseOperators</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The bitwise operator </span><span style=\"color: Orange;\"><strong>|=</strong></span><span style=\"color: Orange;\"> is used where the logical operator </span><span style=\"color: Orange;\"><strong>||=</strong></span><span style=\"color: Orange;\"> was likely intended.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>input |= &quot;&quot;;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Bitwise operators always evaluate both sides and turn them into numbers, so the result is not the value of either side.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Replace </span><span style=\"color: lightgreen;\"><strong>|=</strong></span><span style=\"color: lightgreen;\"> with </span><span style=\"color: lightgreen;\"><strong>||=</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong>  1 │ </strong>input<span style=\"opacity: 0.8;\">·</span>|<span style=\"color: MediumSeaGreen;\">|</span>=<span style=\"opacity: 0.8;\">·</span>&quot;&quot;;<br />  <strong>    │ </strong>       <span style=\"color: MediumSeaGreen;\">+</span>     <br /></code></pre>"} />
+
+### Valid
+
+```js
+if (obj && obj.prop) {}
+options = options || {};
+input ||= "";
+const masked = flags & MASK;
+const truncated = value | 0;
+```
+
+## See Also
+
+- If you want to disallow bitwise operators entirely, see [`noBitwiseOperators`](https://biomejs.dev/linter/rules/no-bitwise-operators/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_accidental_bitwise_operators.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noAccidentalBitwiseOperators)
+- <RulePlaygroundLink rule="noAccidentalBitwiseOperators" category="lint" language="js" code={"if (obj & obj.prop) {}\n"} />
+

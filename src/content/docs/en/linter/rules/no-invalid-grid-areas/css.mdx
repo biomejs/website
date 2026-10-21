@@ -42,6 +42,11 @@ Each quoted row in `grid-template-areas` contains space-separated cells. Every r
 contain the same number of cells and must not be empty. When an area name appears in more
 than one cell, those cells must form one filled rectangle.
 
+## SCSS limitations
+
+A `grid-template-areas` value that requires SCSS evaluation is ignored. This includes values
+containing variables, interpolation, functions, or arithmetic expressions.
+
 ## Examples
 
 ### Invalid

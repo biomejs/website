@@ -1,0 +1,174 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useConsistentBlockLang (HTML)
+description: HTML documentation for useConsistentBlockLang
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-consistent-block-lang/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.0`
+- Diagnostic Category: [`lint/nursery/useConsistentBlockLang`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+  - [`svelte`](/linter/domains#svelte)
+- Sources: 
+  - Inspired from [`vue/block-lang`](https://eslint.vuejs.org/rules/block-lang)
+  - Inspired from [`svelte/block-lang`](https://sveltejs.github.io/eslint-plugin-svelte/rules/block-lang/)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentBlockLang": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce which languages the top-level blocks of Vue and Svelte components use.
+
+A top-level block is an element at the root of a component file, such as
+`<script>`, `<style>`, or `<template>`. Its `lang` attribute tells the build
+tool which language the block is written in, such as `lang="ts"` for
+TypeScript or `lang="scss"` for SCSS. Without `lang`, a `<script>` block
+is JavaScript and a `<style>` block is CSS.
+
+Using the same languages in every component keeps a codebase consistent.
+For example, this rule can make sure that every component is written in
+TypeScript, or that no component uses a CSS preprocessor that the project
+doesn't support.
+
+This rule checks the `lang` attribute of the top-level blocks listed in the
+[`blocks`](#blocks) option, and can require that a block is present.
+Elements nested inside other elements aren't checked.
+Without `blocks` configured, this rule doesn't check anything.
+
+## Options
+
+### `blocks`
+
+The top-level blocks to check. Each key is the tag name of a block, without
+angle brackets, such as `script`, `style`, or a Vue custom block like `i18n`.
+Blocks that aren't listed aren't checked.
+
+Each block accepts the following properties:
+
+- `lang`: the values allowed for the `lang` attribute. When set, it must
+contain at least one value. Values must match exactly, so `"ts"` doesn't
+allow `lang="TS"`. When omitted, the `lang` attribute of the block isn't
+checked.
+- `allowNoLang`: when `true`, the block may also omit the `lang` attribute.
+Only applies when `lang` is set. Default: `false`.
+- `required`: when `true`, every component must contain at least one block
+with this tag name. Works with or without `lang`. Default: `false`.
+
+The rule doesn't check a `lang` attribute whose value is computed, such as
+`lang={language}` in Svelte.
+
+The following configuration requires a TypeScript `<script>` block in every
+component, and allows `<style>` blocks to use SCSS or plain CSS:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentBlockLang": {
+					"level": "on",
+					"options": {
+						"blocks": {
+							"script": {
+								"lang": [
+									"ts"
+								],
+								"required": true
+							},
+							"style": {
+								"lang": [
+									"scss"
+								],
+								"allowNoLang": true
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+## Examples
+
+### Invalid
+
+The `<script>` block doesn't specify `lang="ts"`:
+
+```vue
+<script>
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:1 <a href=\"https://biomejs.dev/linter/rules/use-consistent-block-lang\">lint/nursery/useConsistentBlockLang</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>&lt;script&gt;</strong></span><span style=\"color: lightgreen;\"> block is missing the </span><span style=\"color: lightgreen;\"><strong>lang</strong></span><span style=\"color: lightgreen;\"> attribute.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;script&gt;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>&lt;/script&gt;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This project restricts the languages of </span><span style=\"color: lightgreen;\"><strong>&lt;script&gt;</strong></span><span style=\"color: lightgreen;\"> blocks so that every component is written the same way.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>lang</strong></span><span style=\"color: lightgreen;\"> attribute of </span><span style=\"color: lightgreen;\"><strong>&lt;script&gt;</strong></span><span style=\"color: lightgreen;\"> blocks must be </span><span style=\"color: lightgreen;\"><strong>ts</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Set the </span><span style=\"color: lightgreen;\"><strong>lang</strong></span><span style=\"color: lightgreen;\"> attribute to </span><span style=\"color: lightgreen;\"><strong>ts</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong>  1 │ </strong>&lt;script<span style=\"opacity: 0.8;\"><span style=\"color: MediumSeaGreen;\">·</span></span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">&quot;</span>&gt;<br />  <strong>    │ </strong>       <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span> <br /></code></pre>"} />
+
+The `<style>` block uses Less, which isn't allowed:
+
+```svelte
+<script lang="ts">
+</script>
+
+<style lang="less">
+</style>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.svelte:4:8 <a href=\"https://biomejs.dev/linter/rules/use-consistent-block-lang\">lint/nursery/useConsistentBlockLang</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The language </span><span style=\"color: lightgreen;\"><strong>less</strong></span><span style=\"color: lightgreen;\"> isn't allowed in </span><span style=\"color: lightgreen;\"><strong>&lt;style&gt;</strong></span><span style=\"color: lightgreen;\"> blocks.</span><br />  <br />    <strong>2 │ </strong>&lt;/script&gt;<br />    <strong>3 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>&lt;style lang=&quot;less&quot;&gt;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>&lt;/style&gt;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This project restricts the languages of </span><span style=\"color: lightgreen;\"><strong>&lt;style&gt;</strong></span><span style=\"color: lightgreen;\"> blocks so that every component is written the same way.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>lang</strong></span><span style=\"color: lightgreen;\"> attribute of </span><span style=\"color: lightgreen;\"><strong>&lt;style&gt;</strong></span><span style=\"color: lightgreen;\"> blocks must be omitted or </span><span style=\"color: lightgreen;\"><strong>scss</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+The component has no `<script>` block:
+
+```vue
+<template>
+  <div></div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:1 <a href=\"https://biomejs.dev/linter/rules/use-consistent-block-lang\">lint/nursery/useConsistentBlockLang</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This component is missing a </span><span style=\"color: lightgreen;\"><strong>&lt;script&gt;</strong></span><span style=\"color: lightgreen;\"> block.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;template&gt;<br />   <strong>   │ </strong><br />    <strong>2 │ </strong>  &lt;div&gt;&lt;/div&gt;<br />    <strong>3 │ </strong>&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This project requires every component to have a </span><span style=\"color: lightgreen;\"><strong>&lt;script&gt;</strong></span><span style=\"color: lightgreen;\"> block so that every component is written the same way.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>lang</strong></span><span style=\"color: lightgreen;\"> attribute of </span><span style=\"color: lightgreen;\"><strong>&lt;script&gt;</strong></span><span style=\"color: lightgreen;\"> blocks must be </span><span style=\"color: lightgreen;\"><strong>ts</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script lang="ts">
+</script>
+
+<style>
+</style>
+
+<style lang="scss">
+</style>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_consistent_block_lang.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useConsistentBlockLang)
+- <RulePlaygroundLink rule="useConsistentBlockLang" category="lint" language="vue" code={"<script>\n</script>\n"} />
+

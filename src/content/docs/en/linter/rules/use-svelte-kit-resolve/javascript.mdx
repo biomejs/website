@@ -1,0 +1,211 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useSvelteKitResolve (JavaScript)
+description: JavaScript (and super languages) documentation for useSvelteKitResolve
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-svelte-kit-resolve/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-svelte-kit-resolve/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.0`
+- Diagnostic Category: [`lint/nursery/useSvelteKitResolve`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`svelte`](/linter/domains#svelte)
+- Sources: 
+  - Same as [`svelte/no-navigation-without-resolve`](https://sveltejs.github.io/eslint-plugin-svelte/rules/no-navigation-without-resolve/)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useSvelteKitResolve": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require internal navigation in SvelteKit apps to use paths built with `resolve()`.
+
+SvelteKit's `resolve()` from `$app/paths` prefixes a route with the app's
+[base path](https://svelte.dev/docs/kit/configuration#paths) and checks it against the
+app's routes. Passing a hand-written path to `goto()`, `pushState()`, or `replaceState()`
+breaks navigation when the app is served from a sub-path, and lets typos in routes go unnoticed.
+
+`pushState()` and `replaceState()` also accept an empty string, which keeps the current URL
+for [shallow routing](https://svelte.dev/docs/kit/shallow-routing).
+
+Paths are also accepted when they come from a variable whose initializer uses `resolve()`,
+or from a variable or parameter annotated with the `ResolvedPathname` type from `$app/types`.
+
+For navigation to external URLs, use `window.location` instead of `goto()`.
+
+## Examples
+
+### Invalid
+
+```js
+import { goto } from "$app/navigation";
+
+goto("/foo");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:6 <a href=\"https://biomejs.dev/linter/rules/use-svelte-kit-resolve\">lint/nursery/useSvelteKitResolve</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The path passed to </span><span style=\"color: lightgreen;\"><strong>goto()</strong></span><span style=\"color: lightgreen;\"> isn't built with </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>import &#123; goto &#125; from &quot;$app/navigation&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>goto(&quot;/foo&quot;);<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Paths that aren't built with </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\"> lack the app's base path, and SvelteKit can't check them against the app's routes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Wrap the path in </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\"> from </span><span style=\"color: lightgreen;\"><strong>$app/paths</strong></span><span style=\"color: lightgreen;\">. To navigate to an external URL, use </span><span style=\"color: lightgreen;\"><strong>window.location</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { goto } from "$app/navigation";
+import { resolve } from "$app/paths";
+
+goto(resolve("/foo") + "/bar");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:6 <a href=\"https://biomejs.dev/linter/rules/use-svelte-kit-resolve\">lint/nursery/useSvelteKitResolve</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The path passed to </span><span style=\"color: lightgreen;\"><strong>goto()</strong></span><span style=\"color: lightgreen;\"> isn't built with </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>2 │ </strong>import &#123; resolve &#125; from &quot;$app/paths&quot;;<br />    <strong>3 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>goto(resolve(&quot;/foo&quot;) + &quot;/bar&quot;);<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Paths that aren't built with </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\"> lack the app's base path, and SvelteKit can't check them against the app's routes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Wrap the path in </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\"> from </span><span style=\"color: lightgreen;\"><strong>$app/paths</strong></span><span style=\"color: lightgreen;\">. To navigate to an external URL, use </span><span style=\"color: lightgreen;\"><strong>window.location</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { pushState } from "$app/navigation";
+
+pushState("/foo", {});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:11 <a href=\"https://biomejs.dev/linter/rules/use-svelte-kit-resolve\">lint/nursery/useSvelteKitResolve</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The path passed to </span><span style=\"color: lightgreen;\"><strong>pushState()</strong></span><span style=\"color: lightgreen;\"> isn't built with </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>import &#123; pushState &#125; from &quot;$app/navigation&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>pushState(&quot;/foo&quot;, &#123;&#125;);<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Paths that aren't built with </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\"> lack the app's base path, and SvelteKit can't check them against the app's routes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Wrap the path in </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\"> from </span><span style=\"color: lightgreen;\"><strong>$app/paths</strong></span><span style=\"color: lightgreen;\">, or pass an empty string to keep the current URL.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+import { goto, pushState, replaceState } from "$app/navigation";
+import { resolve } from "$app/paths";
+
+goto(resolve("/foo"));
+pushState(resolve("/foo"), {});
+replaceState(resolve("/foo"), {});
+
+// Shallow routing
+pushState("", {});
+replaceState("", {});
+```
+
+```ts
+import { goto } from "$app/navigation";
+import type { ResolvedPathname } from "$app/types";
+
+function navigate(path: ResolvedPathname) {
+    goto(path);
+}
+```
+
+## Options
+
+### `ignoreGoto`
+
+Whether to ignore all `goto()` calls. Default: `false`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useSvelteKitResolve": {
+					"level": "on",
+					"options": {
+						"ignoreGoto": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+import { goto } from "$app/navigation";
+
+goto("/foo");
+```
+
+### `ignorePushState`
+
+Whether to ignore all `pushState()` calls. Default: `false`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useSvelteKitResolve": {
+					"level": "on",
+					"options": {
+						"ignorePushState": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+import { pushState } from "$app/navigation";
+
+pushState("/foo", {});
+```
+
+### `ignoreReplaceState`
+
+Whether to ignore all `replaceState()` calls. Default: `false`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useSvelteKitResolve": {
+					"level": "on",
+					"options": {
+						"ignoreReplaceState": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+import { replaceState } from "$app/navigation";
+
+replaceState("/foo", {});
+```
+
+## References
+
+- [`resolve()` documentation](https://svelte.dev/docs/kit/$app-paths#resolve)
+- [`goto()` documentation](https://svelte.dev/docs/kit/$app-navigation#goto)
+- [`pushState()` documentation](https://svelte.dev/docs/kit/$app-navigation#pushState)
+- [`replaceState()` documentation](https://svelte.dev/docs/kit/$app-navigation#replaceState)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_svelte_kit_resolve.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useSvelteKitResolve)
+- <RulePlaygroundLink rule="useSvelteKitResolve" category="lint" language="js" code={"import { goto } from \"$app/navigation\";\n\ngoto(\"/foo\");\n"} />
+

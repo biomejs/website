@@ -43,6 +43,12 @@ This rule reports style rules that are not contained within a cascade layer (`@l
 Rules outside of a cascade layer (excluding `!important`) always take precedence over
 layered rules, making the cascade more difficult to predict and override.
 
+## SCSS limitations
+
+Layer membership is determined from the authored ancestors of a style rule. SCSS mixins and
+includes are not expanded, so a rule in a mixin is checked at its definition site rather than
+at the layer where the mixin may be included.
+
 ## Examples
 
 ### Invalid
