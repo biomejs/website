@@ -42,6 +42,22 @@ environment variable:
 BIOME_VERSION=2.0.0 pnpm codegen all
 ```
 
+## Synchronization workflows
+
+Codegen and playground updates use separate workflows:
+
+- **Synchronize** (`.github/workflows/synchronize.yaml`) runs automatically when
+  `biomejs/biome` publishes a release and can also be started manually. It
+  updates the Rust dependencies and generates the lint rule documentation using
+  `scripts/update-revision.sh`.
+- **Update playground** (`.github/workflows/update-playground.yaml`) listens for
+  repository dispatches from `biomejs/biome` after it builds the WASM package.
+  It updates `@biomejs/wasm-web` and the pnpm lockfile using
+  `scripts/update-playground.sh`.
+
+Keep the workflows separate so a codegen failure does not block a playground
+update.
+
 ## Internationalisation
 
 We welcome any kind contribution that could help translating Biome documentation, and reach out more developers!
