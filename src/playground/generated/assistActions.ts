@@ -8,6 +8,9 @@ export const ASSIST_ACTIONS = {
   source: {
     noDuplicateClasses: "noDuplicateClasses",
     organizeImports: "organizeImports",
+    useGraphqlSortedArguments: "useGraphqlSortedArguments",
+    useGraphqlSortedDefinitions: "useGraphqlSortedDefinitions",
+    useGraphqlSortedVariables: "useGraphqlSortedVariables",
     useSortedAttributes: "useSortedAttributes",
     useSortedEnumMembers: "useSortedEnumMembers",
     useSortedInterfaceMembers: "useSortedInterfaceMembers",

@@ -10,7 +10,7 @@ next: false
 
 banner:
     content: |
-      More than 500 lint rules with <a href="/blog/biome-v2-5/"><b>Biome v2.5!</b></a>
+      <a href="/blog/biome-v2-6/"><b>Biome v2.6</b></a> brings Markdown, SCSS, and YAML support, JavaScript plugins, and better Tailwind integration!
 
 hero:
   title: One toolchain for your web project
@@ -48,14 +48,27 @@ import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
 import AwardBanner from "@/components/AwardBanner.astro"
 import FeaturedUsers from "@/components/FeaturedUsers.astro"
 import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
+import PromoVideo from "@/components/PromoVideo.astro";
 
 <div class="gradient"></div>
+
+<PromoVideo/>
+
+<PackageManagerCommand
+  npm={["i -D -E @biomejs/biome"]}
+  pnpm={["add -D -E @biomejs/biome"]}
+  yarn={["add -D -E @biomejs/biome"]}
+  bun={["add -D -E @biomejs/biome"]}
+  deno={["add -D npm:@biomejs/biome"]}
+  standalone={"curl -fsSL https://biomejs.dev/install | bash"}
+  standaloneWindows={"irm https://biomejs.dev/install.ps1 | iex"}
+/>
 
 <div class="hero-code">
     <h2 class="head">Format code like Prettier, save time</h2>
 
     **Biome is a [fast formatter](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** for _JavaScript_,
-    _TypeScript_, _JSX_, _TSX_, _JSON_, _HTML_, _CSS_ and _GraphQL_ that scores **[97% compatibility with
+    _TypeScript_, _JSX_, _TSX_, _JSON_, _HTML_, _CSS_, _SCSS_, _GraphQL_, _YAML_ and _Markdown_ that scores **[97% compatibility with
     _Prettier_](https://console.algora.io/challenges/prettier)** (see [known limitations](/formatter/differences-with-prettier/#known-limitations-compared-to-prettier)), **saving CI and developer time**.
 
     Biome can even **format malformed code** as you write it in [your favorite editor](/configuration/editors/).
@@ -97,11 +110,12 @@ import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
     Try the Biome formatter on the [playground](/playground/) or directly on your project:
 
   <PackageManagerCommand
-    npm={["i -D -E @biomejs/biome", "@biomejs/biome format"]}
-    pnpm={["add -D -E @biomejs/biome", "@biomejs/biome format"]}
-    yarn={["add -D -E @biomejs/biome", "@biomejs/biome format"]}
-    bun={["add -D -E @biomejs/biome", "@biomejs/biome format"]}
-    deno={["add -D npm:@biomejs/biome", "@biomejs/biome format"]}
+    npm={["@biomejs/biome format"]}
+    pnpm={["@biomejs/biome format"]}
+    yarn={["@biomejs/biome format"]}
+    bun={["@biomejs/biome format"]}
+    deno={["@biomejs/biome format"]}
+    standalone={"biome format"}
   />
 </div>
 
@@ -110,7 +124,7 @@ import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
     <h2 class="head">Fix problems, learn best practice</h2>
 
     **Biome is a [performant linter](https://github.com/biomejs/biome/tree/main/benchmark#linting)** for _JavaScript_,
-    _TypeScript_, _JSX_, _CSS_ and _GraphQL_ that features **[<NumberOfRules/> rules](/linter/)** from ESLint,
+    _TypeScript_, _JSX_, _JSON_, _HTML_, _CSS_, _SCSS_, _GraphQL_, _YAML_ and _Markdown_ that features **[<NumberOfRules/> rules](/linter/)** from ESLint,
     TypeScript ESLint, and [other sources](/linter/rules-sources/).
 
     **Biome outputs detailed and contextualized diagnostics** that help you to improve your code and become a better
@@ -121,11 +135,12 @@ import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
     Try the Biome linter on the [playground](/playground/) or directly on your project:
 
   <PackageManagerCommand
-    npm={["i -D -E @biomejs/biome", "@biomejs/biome lint --write"]}
-    pnpm={["add -D -E @biomejs/biome", "@biomejs/biome lint --write"]}
-    yarn={["add -D -E @biomejs/biome", "@biomejs/biome lint --write"]}
-    bun={["add -D -E @biomejs/biome", "@biomejs/biome lint --write"]}
-    deno={["add -D npm:@biomejs/biome", "@biomejs/biome lint --write"]}
+    npm={["@biomejs/biome lint --write"]}
+    pnpm={["@biomejs/biome lint --write"]}
+    yarn={["@biomejs/biome lint --write"]}
+    bun={["@biomejs/biome lint --write"]}
+    deno={["@biomejs/biome lint --write"]}
+    standalone={"biome lint --write"}
   />
 
 </div>
@@ -141,11 +156,12 @@ import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
     Run all tools with the `check` command:
 
     <PackageManagerCommand
-      npm={["i -D -E @biomejs/biome", "@biomejs/biome check --write"]}
-      pnpm={["add -D -E @biomejs/biome", "@biomejs/biome check --write"]}
-      yarn={["add -D -E @biomejs/biome", "@biomejs/biome check --write"]}
-      bun={["add -D -E @biomejs/biome", "@biomejs/biome check --write"]}
-      deno={["add -D npm:@biomejs/biome", "@biomejs/biome check --write"]}
+      npm={["@biomejs/biome check --write"]}
+      pnpm={["@biomejs/biome check --write"]}
+      yarn={["@biomejs/biome check --write"]}
+      bun={["@biomejs/biome check --write"]}
+      deno={["@biomejs/biome check --write"]}
+      standalone={"biome check --write"}
     />
 
 </div>

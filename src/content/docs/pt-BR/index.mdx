@@ -42,13 +42,17 @@ import Sponsors from "@/components/Sponsors.astro";
 import LinterExample from "@/components/linter/example.md";
 import AwardBanner from "@/components/AwardBanner.astro";
 import FeaturedUsers from "@/components/FeaturedUsers.astro"
+import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
+import PromoVideo from "@/components/PromoVideo.astro";
 
 <div class="gradient"></div>
+
+<PromoVideo/>
 
 <div class="hero-code">
     <h2 class="head">Formata código como o Prettier e economiza tempo</h2>
 
-    **Biome é um [formatador rápido](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** para _JavaScript_, _TypeScript_, _JSX_, _JSON_, _CSS_ e _GraphQL_ que atinge **[97% de compatibilidade com o _Prettier_](https://console.algora.io/challenges/prettier)**, **economizando tempo para o desenvolvedor e para o CI**.
+    **Biome é um [formatador rápido](https://github.com/biomejs/biome/tree/main/benchmark#formatting)** para _JavaScript_, _TypeScript_, _JSX_, _TSX_, _JSON_, _HTML_, _CSS_, _SCSS_, _GraphQL_, _YAML_ e _Markdown_ que atinge **[97% de compatibilidade com o _Prettier_](https://console.algora.io/challenges/prettier)**, **economizando tempo para o desenvolvedor e para o CI**.
 
     O Biome pode até **formatar código malformado** enquanto você programa no seu [editor favorito](/editors/first-party-extensions/).
 
@@ -97,7 +101,7 @@ import FeaturedUsers from "@/components/FeaturedUsers.astro"
 <div class="hero-code">
     <h2 class="head">Corrija problemas e aprenda boas práticas</h2>
 
-    **O Biome é um [linter performático](https://github.com/biomejs/biome/tree/main/benchmark#linting)** para _JavaScript_, _TypeScript_, _JSX_, _CSS_ e _GraphQL_ que possui **[mais de 200 regras](https://biomejs.dev/pt-br/linter/)** do ESLint, typescript-eslint, e [de outras fontes](https://github.com/biomejs/biome/discussions/3).
+    **O Biome é um [linter performático](https://github.com/biomejs/biome/tree/main/benchmark#linting)** para _JavaScript_, _TypeScript_, _JSX_, _JSON_, _HTML_, _CSS_, _SCSS_, _GraphQL_, _YAML_ e _Markdown_ que possui **[<NumberOfRules/> regras](/pt-br/linter/)** do ESLint, typescript-eslint, e [de outras fontes](https://github.com/biomejs/biome/discussions/3).
 
     **O Biome retorna diagnósticos detalhados e contextualizados** que ajuda a melhorar seu código e ajuda você a se tornar um programador melhor!
 

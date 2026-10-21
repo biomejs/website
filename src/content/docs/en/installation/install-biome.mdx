@@ -3,7 +3,7 @@ title: Install Biome
 description: Every way to install Biome, from a package manager to a standalone binary.
 ---
 
-import { Code } from "@astrojs/starlight/components";
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
 import { getLatestVersion } from "@biomejs/version-utils";
 import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
@@ -12,9 +12,9 @@ export const version = await getLatestVersion("stable");
 
 Biome is distributed as an npm package and as a standalone executable. Install it with your package manager if your project already has one, or use the standalone executable when you do not use Node.js or when Biome would be the only reason to have a `package.json`.
 
-## Package manager
+## Install Biome
 
-Install `@biomejs/biome` as a development dependency:
+Install `@biomejs/biome` as a development dependency with a package manager, or use the standalone installer:
 
 <PackageManagerCommand
   npm={["i -D -E @biomejs/biome"]}
@@ -22,13 +22,15 @@ Install `@biomejs/biome` as a development dependency:
   yarn={["add -D -E @biomejs/biome"]}
   bun={["add -D -E @biomejs/biome"]}
   deno={["add -D npm:@biomejs/biome"]}
+  standalone={"curl -fsSL https://biomejs.dev/install | bash"}
+  standaloneWindows={"irm https://biomejs.dev/install.ps1 | iex"}
 />
 
 :::note[Version pinning]
-The `-E` flag pins the exact version in your `package.json`, so every contributor and your CI run the same version of Biome. See [why pinning matters](/internals/versioning#why-pinning-the-version-is-important).
+When using a package manager, the `-E` flag pins the exact version in your `package.json`, so every contributor and your CI run the same version of Biome. See [why pinning matters](/internals/versioning#why-pinning-the-version-is-important).
 :::
 
-Once installed, run Biome through your package manager. For example, `biome check` runs the formatter, the linter, and assist actions on your project:
+Once installed, run Biome through your package manager, or directly if installed with the standalone installer. For example, `biome check` runs the formatter, the linter, and assist actions on your project:
 
 <PackageManagerBiomeCommand command="check" />
 
@@ -40,16 +42,62 @@ The standalone executable does not need Node.js. Once installed, run it as `biom
 
 Pick the binary that matches your operating system and architecture:
 
-| Platform     | `arm64`                      | `x64`              |
-| ------------ | ---------------------------- | ------------------ |
-| Windows      | `win32-arm64`                | `win32-x64`        |
-| macOS        | `darwin-arm64` (Apple silicon) | `darwin-x64`       |
-| Linux        | `linux-arm64`                | `linux-x64`        |
-| Linux (musl) | `linux-arm64-musl`           | `linux-x64-musl`   |
+| Platform         | `arm64`                        | `x64`              |
+| ---------------- | ------------------------------ | ------------------ |
+| Windows          | `win32-arm64`                  | `win32-x64`        |
+| macOS            | `darwin-arm64` (Apple silicon) | `darwin-x64`       |
+| Linux            | `linux-arm64`                  | `linux-x64`        |
+| Linux (musl)     | `linux-arm64-musl`             | `linux-x64-musl`   |
+| Android (Termux) | `android-arm64`                | `android-x64`      |
 
 :::note
 Use the Linux variant inside Windows Subsystem for Linux (WSL).
 :::
+
+### Install script
+
+The installer downloads the latest stable binary and adds it to your `PATH`. It installs to `${XDG_BIN_HOME:-$HOME/.local/bin}` on macOS and Linux, and to `%LOCALAPPDATA%\Biome\bin` on Windows:
+
+<Tabs syncKey="install-script">
+  <TabItem label="bash">
+    ```shell
+    curl -fsSL https://biomejs.dev/install | bash
+    ```
+  </TabItem>
+  <TabItem label="PowerShell">
+    ```powershell
+    irm https://biomejs.dev/install.ps1 | iex
+    ```
+  </TabItem>
+</Tabs>
+
+:::tip
+You might need to restart your shell after installation before you can run `biome`.
+:::
+
+To install a specific version, pass it to the installer:
+
+<Tabs syncKey="install-script">
+  <TabItem label="bash">
+    ```shell
+    curl -fsSL https://biomejs.dev/install | bash -s -- --version 2.5.9
+    ```
+  </TabItem>
+  <TabItem label="PowerShell">
+    ```powershell
+    $env:BIOME_VERSION = "2.5.9"
+    irm https://biomejs.dev/install.ps1 | iex
+    ```
+  </TabItem>
+</Tabs>
+
+The installer also accepts these options:
+
+| Goal | bash | PowerShell |
+| --- | --- | --- |
+| Override the installation directory | `BIOME_INSTALL_DIR` environment variable | `BIOME_INSTALL_DIR` environment variable |
+| Leave your shell configuration or `PATH` unchanged | `--no-modify-path` | `-NoModifyPath` |
+| Reinstall a version that is already installed | `--force` | `-Force` |
 
 ### Homebrew
 
@@ -120,7 +168,7 @@ Run it as `./biome`, or move it to a directory on your `PATH` to run it as `biom
 
 ## Upgrade Biome
 
-If you installed Biome with a package manager, install the latest version with the same package manager, keeping the version pinned:
+Upgrade Biome using the same installation method:
 
 <PackageManagerCommand
   npm={["i -D -E @biomejs/biome@latest"]}
@@ -128,15 +176,10 @@ If you installed Biome with a package manager, install the latest version with t
   yarn={["add -D -E @biomejs/biome@latest"]}
   bun={["add -D -E @biomejs/biome@latest"]}
   deno={["add -D npm:@biomejs/biome@latest"]}
+  standalone={"biome upgrade"}
 />
 
-If you installed the standalone executable, run the `upgrade` command to update to the latest stable version:
-
-```shell
-biome upgrade
-```
-
-Biome detects whether it was installed through Homebrew or as a plain binary and upgrades accordingly. If the detection is wrong, set the [`BIOME_DISTRIBUTION` environment variable](/reference/environment-variables#biome_distribution).
+When you run `biome upgrade`, Biome detects whether it was installed through Homebrew or as a plain binary and upgrades accordingly. If the detection is wrong, set the [`BIOME_DISTRIBUTION` environment variable](/reference/environment-variables#biome_distribution).
 
 :::note
 If you installed Biome through Winget or pacman, update it with that tool instead.

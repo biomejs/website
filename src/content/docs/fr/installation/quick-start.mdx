@@ -13,7 +13,7 @@ La manière la plus rapide de télécharger Biome est d’utiliser un gestionnai
 Ceci requiert Node.js v14.18 ou une version plus récente.
 L’interface en ligne de commande est également disponible comme [exécutable autonome](/fr/guides/manual-installation) si vous souhaitez utiliser Biome sans installer Node.js.
 
-Pour installer Biome, exécutez les commandes suivantes dans un répertoire contenant un fichier `package.json`.
+Pour installer Biome, utilisez votre gestionnaire de paquets dans un répertoire contenant un fichier `package.json`, ou utilisez le programme d’installation autonome.
 
 <PackageManagerCommand
   npm={["install --save-dev --save-exact @biomejs/biome"]}
@@ -21,6 +21,8 @@ Pour installer Biome, exécutez les commandes suivantes dans un répertoire cont
   yarn={["add --dev --exact @biomejs/biome"]}
   bun={["add --dev --exact @biomejs/biome"]}
   deno={["add --dev npm:@biomejs/biome"]}
+  standalone={"curl -fsSL https://biomejs.dev/install | bash"}
+  standaloneWindows={"irm https://biomejs.dev/install.ps1 | iex"}
 />
 
 :::note

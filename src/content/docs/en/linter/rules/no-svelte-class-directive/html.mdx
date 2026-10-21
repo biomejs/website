@@ -1,0 +1,88 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noSvelteClassDirective (HTML)
+description: HTML documentation for noSvelteClassDirective
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-svelte-class-directive/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.0`
+- Diagnostic Category: [`lint/nursery/noSvelteClassDirective`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`svelte`](/linter/domains#svelte)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSvelteClassDirective": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow Svelte's `class:` directive.
+
+The `class:` directive adds one class to an element when a condition is true.
+Since Svelte 5.16, the `class` attribute accepts objects and arrays, which can do the same.
+Svelte recommends the `class` attribute, because an object or an array can add several
+classes with one condition, and can be combined with other class values, such as the
+classes that a component receives from its parent.
+
+Objects and arrays in the `class` attribute need Svelte 5.16 or later.
+This rule doesn't check which Svelte version your project uses,
+so turn it off if your project uses an older version.
+
+## Examples
+
+### Invalid
+
+```svelte
+<div class:active={isActive}></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.svelte:1:6 <a href=\"https://biomejs.dev/linter/rules/no-svelte-class-directive\">lint/nursery/noSvelteClassDirective</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>class:</strong></span><span style=\"color: lightgreen;\"> directive can be replaced with the </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> attribute.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div class:active=&#123;isActive&#125;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Since Svelte 5.16, the </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> attribute accepts objects and arrays. Unlike the directive, they can add several classes with one condition and can be combined with other class values.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the class into the element's </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> attribute, using an object such as </span><span style=\"color: lightgreen;\"><strong>class=&#123;&#123; active: isActive &#125;&#125;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```svelte
+<div class:active></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.svelte:1:6 <a href=\"https://biomejs.dev/linter/rules/no-svelte-class-directive\">lint/nursery/noSvelteClassDirective</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>class:</strong></span><span style=\"color: lightgreen;\"> directive can be replaced with the </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> attribute.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div class:active&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Since Svelte 5.16, the </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> attribute accepts objects and arrays. Unlike the directive, they can add several classes with one condition and can be combined with other class values.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the class into the element's </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> attribute, using an object such as </span><span style=\"color: lightgreen;\"><strong>class=&#123;&#123; active: isActive &#125;&#125;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```svelte
+<div class={{ active: isActive }}></div>
+<div class={{ active }}></div>
+<div class={["button", isActive && "active"]}></div>
+<div class={isActive ? "active" : "inactive"}></div>
+```
+
+### References
+
+- [Svelte `class` documentation](https://svelte.dev/docs/svelte/class)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_svelte_class_directive.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noSvelteClassDirective)
+- <RulePlaygroundLink rule="noSvelteClassDirective" category="lint" language="svelte" code={"<div class:active={isActive}></div>\n"} />
+

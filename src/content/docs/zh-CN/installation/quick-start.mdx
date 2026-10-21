@@ -13,7 +13,7 @@ import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
 
 如果您想在不安装Node.js的情况下使用Biome，CLI也可作为[独立可执行文件](/guides/manual-installation)使用。
 
-要安装Biome，请在包含`package.json`文件的目录中运行以下命令。
+要安装 Biome，请在包含 `package.json` 文件的目录中使用包管理器，或者使用独立安装程序。
 
 <PackageManagerCommand
   npm={["install --save-dev --save-exact @biomejs/biome"]}
@@ -21,6 +21,8 @@ import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
   yarn={["add --dev --exact @biomejs/biome"]}
   bun={["add --dev --exact @biomejs/biome"]}
   deno={["add --dev npm:@biomejs/biome"]}
+  standalone={"curl -fsSL https://biomejs.dev/install | bash"}
+  standaloneWindows={"irm https://biomejs.dev/install.ps1 | iex"}
 />
 
 :::note

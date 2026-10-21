@@ -7,9 +7,12 @@ interface Props {
 	yarn: string[];
 	bun: string[];
 	deno: string[];
+	standalone: string;
+	standaloneWindows?: string;
 }
 
-const { npm, pnpm, yarn, bun, deno } = Astro.props;
+const { npm, pnpm, yarn, bun, deno, standalone, standaloneWindows } =
+	Astro.props;
 
 let npmCommand = npm.reduce((acc, command) => {
 	return `${acc}npm ${command}\n`;
@@ -44,4 +47,33 @@ let denoCommand = deno.reduce((acc, command) => {
 	<TabItem label="yarn" icon="seti:yarn">
 		<Code frame="none" showLineNumbers={false} code={yarnCommand} lang="bash" />
 	</TabItem>
+	{standaloneWindows ? (
+		<>
+			<TabItem label="macOS / Linux" icon="linux">
+				<Code
+					frame="none"
+					showLineNumbers={false}
+					code={standalone}
+					lang="bash"
+				/>
+			</TabItem>
+			<TabItem label="Windows" icon="seti:windows">
+				<Code
+					frame="none"
+					showLineNumbers={false}
+					code={standaloneWindows}
+					lang="powershell"
+				/>
+			</TabItem>
+		</>
+	) : (
+		<TabItem label="standalone" icon="seti:shell">
+			<Code
+				frame="none"
+				showLineNumbers={false}
+				code={standalone}
+				lang="bash"
+			/>
+		</TabItem>
+	)}
 </Tabs>

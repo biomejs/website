@@ -1,0 +1,118 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useGraphqlSortedDefinitions (GraphQL)
+description: GraphQL documentation for useGraphqlSortedDefinitions
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+import EditorAction from "@/components/EditorAction.astro";
+
+<RuleLanguageLinks current="graphql" languages={[{"id":"graphql","label":"GraphQL","href":"/assist/actions/use-graphql-sorted-definitions/graphql/"}]} />
+
+## Summary
+- Rule available since: `v2.6.0`
+- Diagnostic Category: [`assist/source/useGraphqlSortedDefinitions`](/reference/diagnostics#diagnostic-category)
+- Sources: 
+  - Inspired from [`@graphql-eslint/alphabetize`](https://the-guild.dev/graphql/eslint/rules/alphabetize)
+
+## How to enable in your editor
+<EditorAction includeFixAll action="source.action.useGraphqlSortedDefinitions.biome" />
+## How to configure
+```json title="biome.json"
+{
+	"assist": {
+		"actions": {
+			"source": {
+				"useGraphqlSortedDefinitions": "on"
+			}
+		}
+	}
+}
+
+```
+## Description
+Sort the named definitions in a GraphQL document.
+
+This action natural sorts the named definitions of a document by name: the `scalar`, `type`,
+`interface`, `union`, `enum`, and `input` definitions, their `extend` counterparts,
+the `directive` definitions, the `fragment` definitions, and the named `query`,
+`mutation`, and `subscription` operations.
+Keeping them sorted makes growing documents easier to scan and review.
+The order of definitions doesn't affect how a document is executed or how a schema is built.
+
+Definitions are sorted by name in a [Natural order](https://en.wikipedia.org/wiki/Natural_sort_order),
+meaning that uppercase letters come before lowercase letters (e.g. `A` < `a` < `B` < `b`)
+and numbers are compared to their numerical value (e.g. `9` < `10`).
+
+Definitions without a name, such as `schema` definitions, anonymous operations, and
+shorthand queries, are placed after the named definitions.
+Definitions with the same name aren't sorted.
+
+## Examples
+
+### Invalid
+
+```graphql
+type User {
+  id: ID!
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+directive @auth on FIELD_DEFINITION
+```
+
+<Fragment set:html={"<pre class=\"language-diff\"><code class=\"language-diff\">code-block.graphql ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Source action diff:</span><br />  <br />    <strong> 1</strong>   <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>y</strong></span><span style=\"color: Tomato;\"><strong>p</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>U</strong></span><span style=\"color: Tomato;\"><strong>s</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>&#123;</strong></span><br />    <strong> 2</strong>   <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>:</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>I</strong></span><span style=\"color: Tomato;\"><strong>D</strong></span><span style=\"color: Tomato;\"><strong>!</strong></span><br />    <strong> 3</strong>   <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><strong>&#125;</strong></span><br />       <strong> 1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><strong>d</strong></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>r</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>c</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>v</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>@</strong></span><span style=\"color: MediumSeaGreen;\"><strong>a</strong></span><span style=\"color: MediumSeaGreen;\"><strong>u</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>h</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>F</strong></span><span style=\"color: MediumSeaGreen;\"><strong>I</strong></span><span style=\"color: MediumSeaGreen;\"><strong>E</strong></span><span style=\"color: MediumSeaGreen;\"><strong>L</strong></span><span style=\"color: MediumSeaGreen;\"><strong>D</strong></span><span style=\"color: MediumSeaGreen;\"><strong>&#95;</strong></span><span style=\"color: MediumSeaGreen;\"><strong>D</strong></span><span style=\"color: MediumSeaGreen;\"><strong>E</strong></span><span style=\"color: MediumSeaGreen;\"><strong>F</strong></span><span style=\"color: MediumSeaGreen;\"><strong>I</strong></span><span style=\"color: MediumSeaGreen;\"><strong>N</strong></span><span style=\"color: MediumSeaGreen;\"><strong>I</strong></span><span style=\"color: MediumSeaGreen;\"><strong>T</strong></span><span style=\"color: MediumSeaGreen;\"><strong>I</strong></span><span style=\"color: MediumSeaGreen;\"><strong>O</strong></span><span style=\"color: MediumSeaGreen;\"><strong>N</strong></span><br />    <strong> 4</strong> <strong> 2</strong><strong> │ </strong>  <br />    <strong> 5</strong> <strong> 3</strong><strong> │ </strong>  enum Role &#123;<br />  <strong>  </strong><strong>·····</strong><strong> │ <br /></strong>    <strong> 8</strong> <strong> 6</strong><strong> │ </strong>  &#125;<br />    <strong> 9</strong> <strong> 7</strong><strong> │ </strong>  <br />    <strong>10</strong>   <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>c</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>v</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>@</strong></span><span style=\"color: Tomato;\"><strong>a</strong></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>h</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>F</strong></span><span style=\"color: Tomato;\"><strong>I</strong></span><span style=\"color: Tomato;\"><strong>E</strong></span><span style=\"color: Tomato;\"><strong>L</strong></span><span style=\"color: Tomato;\"><strong>D</strong></span><span style=\"color: Tomato;\"><strong>&#95;</strong></span><span style=\"color: Tomato;\"><strong>D</strong></span><span style=\"color: Tomato;\"><strong>E</strong></span><span style=\"color: Tomato;\"><strong>F</strong></span><span style=\"color: Tomato;\"><strong>I</strong></span><span style=\"color: Tomato;\"><strong>N</strong></span><span style=\"color: Tomato;\"><strong>I</strong></span><span style=\"color: Tomato;\"><strong>T</strong></span><span style=\"color: Tomato;\"><strong>I</strong></span><span style=\"color: Tomato;\"><strong>O</strong></span><span style=\"color: Tomato;\"><strong>N</strong></span><br />       <strong> 8</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>y</strong></span><span style=\"color: MediumSeaGreen;\"><strong>p</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>U</strong></span><span style=\"color: MediumSeaGreen;\"><strong>s</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>r</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>&#123;</strong></span><br />       <strong> 9</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>d</strong></span><span style=\"color: MediumSeaGreen;\"><strong>:</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>I</strong></span><span style=\"color: MediumSeaGreen;\"><strong>D</strong></span><span style=\"color: MediumSeaGreen;\"><strong>!</strong></span><br />       <strong>10</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><strong>&#125;</strong></span><br />    <strong>11</strong> <strong>11</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```graphql
+directive @auth on FIELD_DEFINITION
+
+enum Role {
+  ADMIN
+  USER
+}
+
+type User {
+  id: ID!
+}
+```
+
+## Caveats
+
+Comments above a definition and comments at the end of its last line move with that definition.
+Because moving a comment can change which definition it describes or hide code, the action
+offers no fix in these cases:
+
+- A moved end-of-line comment would share a line with the next definition. Since a `#`
+comment continues to the end of its line, it would hide that definition. For example,
+sorting this input would move `Apple` before `Zebra`, but the comment would hide `Zebra`:
+
+```graphql
+type Zebra { id: ID! } type Apple { id: ID! } # Keep Apple
+```
+
+
+- A definition with a comment above it is, or would become, the first definition in the document.
+
+
+
+Sort such definitions manually, or put each definition on its own line.
+
+## Related links
+
+- [Disable a rule](/assist/#disable-a-rule)
+- [Configure the code fix](/assist#configure-the-code-fix)
+- [Rule options](/assist/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/src/assist/source/use_graphql_sorted_definitions.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_graphql_analyze/tests/specs/source/useGraphqlSortedDefinitions)
+- <RulePlaygroundLink rule="useGraphqlSortedDefinitions" category="assist" language="graphql" code={"type User {\n  id: ID!\n}\n\nenum Role {\n  ADMIN\n  USER\n}\n\ndirective @auth on FIELD_DEFINITION\n"} />
+

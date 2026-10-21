@@ -1,0 +1,159 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noInvalidThis (JavaScript)
+description: JavaScript (and super languages) documentation for noInvalidThis
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-invalid-this/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.0`
+- Diagnostic Category: [`lint/nursery/noInvalidThis`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`no-invalid-this`](https://eslint.org/docs/latest/rules/no-invalid-this)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noInvalidThis": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `this` in places where it is `undefined`.
+
+Inside a function, the value of `this` depends on how the function is called. When the
+function is called as a method, as in `obj.foo()`, `this` is `obj`. When it's called on its
+own, as in `foo()`, `this` is `undefined` in modules and classes. At the top level of a
+module, `this` is always `undefined`. Reading a property of `undefined` throws an error, so
+using `this` in these places is usually a mistake.
+
+This rule reports `this` at the top level of a module and in functions that are unlikely to
+be called as a method. It allows `this` in:
+
+- class members and object methods;
+- functions assigned to an object property, such as `obj.foo = function () {}`;
+- functions whose name starts with an uppercase letter, and functions without a name that
+are assigned to a variable whose name starts with an uppercase letter, because they're
+likely constructors called with `new`;
+- functions called with `.call()`, `.apply()`, or `.bind()` and an object to use as `this`,
+such as `(function () {}).call(obj)`;
+- functions passed to `Reflect.apply()`, `Array.from()`, or array methods such as
+`.forEach()` together with an object to use as `this`;
+- functions that declare the type of `this` with a TypeScript `this` parameter, such as
+`function foo(this: Obj) {}`;
+- functions in CommonJS files (`.cjs`) that don't start with `"use strict"`, because `this`
+is the global object there.
+
+Arrow functions don't have their own `this`. They use the `this` of the code around them,
+so the rule checks them against that code.
+
+## Examples
+
+### Invalid
+
+```js
+this.a = 0;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/no-invalid-this\">lint/nursery/noInvalidThis</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> at the top level of a module.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>this.a = 0;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> is always </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> at the top level of a module.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>globalThis</strong></span><span style=\"color: lightgreen;\"> to refer to the global object.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+function foo() {
+    this.a = 0;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:5 <a href=\"https://biomejs.dev/linter/rules/no-invalid-this\">lint/nursery/noInvalidThis</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> in a function that isn't a method or a constructor.</span><br />  <br />    <strong>1 │ </strong>function foo() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    this.a = 0;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When a function is called on its own instead of as a method, </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">, and reading its properties throws an error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the value as a parameter instead, or turn the function into a method. In TypeScript, if callers provide </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\">, declare its type with a </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> parameter.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+foo(function () {
+    this.a = 0;
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:5 <a href=\"https://biomejs.dev/linter/rules/no-invalid-this\">lint/nursery/noInvalidThis</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> in a function that isn't a method or a constructor.</span><br />  <br />    <strong>1 │ </strong>foo(function () &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    this.a = 0;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;);<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When a function is called on its own instead of as a method, </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">, and reading its properties throws an error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the value as a parameter instead, or turn the function into a method. In TypeScript, if callers provide </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\">, declare its type with a </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> parameter.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const foo = () => {
+    this.a = 0;
+};
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:5 <a href=\"https://biomejs.dev/linter/rules/no-invalid-this\">lint/nursery/noInvalidThis</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> at the top level of a module.</span><br />  <br />    <strong>1 │ </strong>const foo = () =&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    this.a = 0;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> is always </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> at the top level of a module.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>globalThis</strong></span><span style=\"color: lightgreen;\"> to refer to the global object.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```ts
+function Foo() {
+    this.a = 0;
+}
+
+const Bar = function () {
+    this.a = 0;
+};
+
+const obj = {
+    foo() {
+        this.a = 0;
+    },
+    bar: function () {
+        this.a = 0;
+    },
+};
+
+obj.baz = function () {
+    this.a = 0;
+};
+
+class Baz {
+    a = this;
+
+    constructor() {
+        this.a = 0;
+    }
+}
+
+list.forEach(function () {
+    this.a = 0;
+}, obj);
+
+(function () {
+    this.a = 0;
+}).call(obj);
+
+function qux(this: Obj) {
+    this.a = 0;
+}
+```
+
+## See Also
+
+- [`noThisOutsideOfClass`](https://biomejs.dev/linter/rules/no-this-outside-of-class/)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_invalid_this.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noInvalidThis)
+- <RulePlaygroundLink rule="noInvalidThis" category="lint" language="js" code={"this.a = 0;\n"} />
+

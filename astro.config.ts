@@ -77,6 +77,11 @@ const plugins = [
 				picture: "https://avatars.githubusercontent.com/u/649677?s=25&v=4",
 				url: "https://bsky.app/profile/hedger.ch",
 			},
+			netail: {
+				name: "Maikel van Dort",
+				picture: "https://avatars.githubusercontent.com/u/11695769?s=25&v=4",
+				url: "https://bsky.app/profile/netail.dev",
+			},
 			team: {
 				name: "Biome Core Team, Biome Maintainers",
 				picture: "/img/logo-avatar.png",
@@ -257,8 +262,8 @@ export default defineConfig({
 							link: "/installation/install-biome",
 						},
 						{
-							label: "Migrate from ESLint & Prettier",
-							link: "/installation/migrate-eslint-prettier",
+							label: "Migrate from other tools",
+							link: "/installation/migrate-from-other-tools",
 							translations: {
 								es: "Migrar de ESLint & Prettier",
 								fr: "Migrer depuis ESLint & Prettier",
@@ -329,6 +334,14 @@ export default defineConfig({
 								"pt-BR": "Usando o Biome em projetos grandes",
 								uk: "Використання Biome в великих проектах",
 								ru: "Применение Biome в крупных проектах",
+							},
+						},
+						{
+							label: "Publish packages",
+							link: "/guides/publish-packages",
+							badge: {
+								text: "new",
+								variant: "success",
 							},
 						},
 					],
@@ -445,11 +458,20 @@ export default defineConfig({
 								{
 									label: "Plugins",
 									link: "/linter/plugins",
+									badge: "updated",
 									translations: {
 										ja: "プラグイン",
 										"zh-CN": "插件系统",
 										pl: "Wtyczki",
 										ru: "Плагины",
+									},
+								},
+								{
+									label: "Community plugins",
+									link: "/community-plugins",
+									badge: {
+										text: "new",
+										variant: "success",
 									},
 								},
 								{
@@ -558,15 +580,22 @@ export default defineConfig({
 										ru: "Источники правил HTML",
 									},
 								},
-								// TODO: uncomment when we officially ship markdown lint rules
-								// {
-								// 	label: "Markdown Rules",
-								// 	link: "/linter/markdown/rules",
-								// },
-								// {
-								// 	label: "Markdown Rules sources",
-								// 	link: "/linter/markdown/sources",
-								// },
+								{
+									label: "Markdown Rules",
+									link: "/linter/markdown/rules",
+								},
+								{
+									label: "Markdown Rules sources",
+									link: "/linter/markdown/sources",
+								},
+								{
+									label: "YAML Rules",
+									link: "/linter/yaml/rules",
+								},
+								{
+									label: "YAML Rules sources",
+									link: "/linter/yaml/sources",
+								},
 							],
 							translations: {
 								"zh-CN": "检查器",
@@ -691,6 +720,22 @@ export default defineConfig({
 										pl: "Źródła akcji HTML",
 										ru: "Источники действий HTML",
 									},
+								},
+								{
+									label: "Markdown Actions",
+									link: "/assist/markdown/actions",
+								},
+								{
+									label: "Markdown Actions sources",
+									link: "/assist/markdown/sources",
+								},
+								{
+									label: "YAML Actions",
+									link: "/assist/yaml/actions",
+								},
+								{
+									label: "YAML Actions sources",
+									link: "/assist/yaml/sources",
 								},
 							],
 							translations: {
@@ -872,6 +917,14 @@ export default defineConfig({
 								"zh-CN": "调查 Biome 中的性能问题",
 								pl: "Badanie problemów z wydajnością",
 								ru: "Расследование медленной работы",
+							},
+						},
+						{
+							label: "Publish packages",
+							link: "/guides/publish-packages",
+							badge: {
+								text: "new",
+								variant: "success",
 							},
 						},
 					],

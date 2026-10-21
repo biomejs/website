@@ -8,13 +8,13 @@ import DefaultConfiguration from "@/components/generated/DefaultConfiguration.md
 import PackageManagerBiomeCommand from "@/components/PackageManagerBiomeCommand.astro";
 import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
 
-Go from a project without Biome to your first `biome check` in three steps. You need a project with a `package.json` and a package manager such as npm, pnpm, Yarn, Bun, or Deno.
+Go from a project without Biome to your first `biome check` in three steps. You can install Biome with a package manager such as npm, pnpm, Yarn, Bun, or Deno, or with the standalone installer, which does not require Node.js.
 
-If you do not use Node.js, or you want to see every installation method, go to the [Install Biome](/installation/install-biome) page instead.
+To see every installation method, go to the [Install Biome](/installation/install-biome) page.
 
 <Steps>
 
-1. **Install Biome** as a development dependency of your project:
+1. **Install Biome** with a package manager or the standalone installer:
 
    <PackageManagerCommand
      npm={["i -D -E @biomejs/biome"]}
@@ -22,10 +22,12 @@ If you do not use Node.js, or you want to see every installation method, go to t
      yarn={["add -D -E @biomejs/biome"]}
      bun={["add -D -E @biomejs/biome"]}
      deno={["add -D npm:@biomejs/biome"]}
+     standalone={"curl -fsSL https://biomejs.dev/install | bash"}
+     standaloneWindows={"irm https://biomejs.dev/install.ps1 | iex"}
    />
 
    :::note[Version pinning]
-   The `-E` flag pins the exact version in your `package.json`, so every contributor and your CI run the same version of Biome. See [why pinning matters](/internals/versioning#why-pinning-the-version-is-important).
+   When using a package manager, the `-E` flag pins the exact version in your `package.json`, so every contributor and your CI run the same version of Biome. See [why pinning matters](/internals/versioning#why-pinning-the-version-is-important).
    :::
 
 2. **Create a configuration file**. Biome works without one, but a `biome.json` lets you share settings with your team and your code editor:

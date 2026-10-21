@@ -20,6 +20,8 @@ Biome лучше всего устанавливать в качестве dev-�
   yarn={["add -D -E @biomejs/biome"]}
   bun={["add -D -E @biomejs/biome"]}
   deno={["add -D npm:@biomejs/biome"]}
+  standalone={"curl -fsSL https://biomejs.dev/install | bash"}
+  standaloneWindows={"irm https://biomejs.dev/install.ps1 | iex"}
 />
 
 :::note[Фиксация версии]
@@ -153,6 +155,27 @@ yarn exec biome check --write
 
 # Отформатировать, выполнить линтинг и организовать импорты выбранных файлов
 yarn exec biome check --write <файлы>
+    `} lang="bash"  />
+	</TabItem>
+	<TabItem label="standalone" icon="seti:shell">
+		<Code frame="none" showLineNumbers={false} code={`
+# Отформатировать все файлы
+biome format --write
+
+# Отформатировать выбранные файлы
+biome format --write <файлы>
+
+# Выполнить линтинг и применить безопасные исправления для всех файлов
+biome lint --write
+
+# Выполнить линтинг и применить безопасные исправления для выбранных файлов
+biome lint --write <файлы>
+
+# Отформатировать, выполнить линтинг и организовать импорты всех файлов
+biome check --write
+
+# Отформатировать, выполнить линтинг и организовать импорты выбранных файлов
+biome check --write <файлы>
     `} lang="bash"  />
 	</TabItem>
 </Tabs>

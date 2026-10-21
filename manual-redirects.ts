@@ -24,7 +24,9 @@ const docsRedirects: Record<string, string> = {
 	"/editors/create-an-extension": "/reference/language-server",
 	"/guides/getting-started": "/installation/quick-start",
 	"/guides/manual-installation": "/installation/install-biome",
-	"/guides/migrate-eslint-prettier": "/installation/migrate-eslint-prettier",
+	"/guides/migrate-eslint-prettier": "/installation/migrate-from-other-tools",
+	"/installation/migrate-eslint-prettier":
+		"/installation/migrate-from-other-tools",
 	"/guides/upgrade-to-biome-v2": "/installation/upgrade-to-biome-v2",
 	"/guides/configure-biome": "/configuration/configure-biome",
 	"/guides/integrate-in-vcs": "/configuration/integrate-with-vcs",
