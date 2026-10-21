@@ -21,12 +21,15 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
-| [noEmptyObjectKeys](/linter/rules/no-empty-object-keys/json) | Disallow empty keys in JSON objects. |  |
 | [noJsonUnsafeValues](/linter/rules/no-json-unsafe-values/json) | Disallow unsafe JSON values that may cause interoperability issues. |  |
 | [noRestrictedDependencies](/linter/rules/no-restricted-dependencies/json) | Disallow dependencies that are known to have better alternatives. |  |
-| [noTopLevelLiterals](/linter/rules/no-top-level-literals/json) | Require the JSON top-level value to be an array or object. |  |
-| [noUntrustedLicenses](/linter/rules/no-untrusted-licenses/json) | Disallow dependencies with untrusted licenses. |  |
 | [useConsistentObjectKeys](/linter/rules/use-consistent-object-keys/json) | Enforce JSON keys with consistent Unicode representation. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+
+## `style`
+
+| Rule name | Description | Properties |
+| --- | --- | --- |
+| [noTopLevelLiterals](/linter/rules/no-top-level-literals/json) | Require the JSON top-level value to be an array or object. |  |
 
 ## `suspicious`
 
@@ -35,7 +38,9 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noBiomeFirstException](/linter/rules/no-biome-first-exception/json) | Disallow ineffective ordering in `files.includes` patterns. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noDuplicateDependencies](/linter/rules/no-duplicate-dependencies/json) | Disallow duplicate dependencies in `package.json`. |  |
 | [noDuplicateObjectKeys](/linter/rules/no-duplicate-object-keys/json) | Disallow duplicate keys in JSON objects. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noEmptyObjectKeys](/linter/rules/no-empty-object-keys/json) | Disallow empty keys in JSON objects. |  |
 | [noQuickfixBiome](/linter/rules/no-quickfix-biome/json) | Disallow `quickfix.biome` in supported editor settings. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [noUntrustedLicenses](/linter/rules/no-untrusted-licenses/json) | Disallow dependencies with untrusted licenses. |  |
 | [useBiomeIgnoreFolder](/linter/rules/use-biome-ignore-folder/json) | Prefer folder exclusions that prevent Biome from scanning the folder. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useRequiredScripts](/linter/rules/use-required-scripts/json) | Require configured scripts in `package.json`. |  |
 ## Recommended rules 

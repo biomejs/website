@@ -13,6 +13,7 @@ import {
 	type LintRule,
 	OperatorLinebreak,
 	type PlaygroundState,
+	ProseWrap,
 	QuoteProperties,
 	QuoteStyle,
 	type RuleDomain,
@@ -46,6 +47,7 @@ export default function SettingsTab({
 			expand,
 			indentScriptAndStyle,
 			whitespaceSensitivity,
+			proseWrap,
 			lintRules,
 			enabledLinting,
 			assistActions,
@@ -125,6 +127,10 @@ export default function SettingsTab({
 	const setWhitespaceSensitivity = createPlaygroundSettingsSetter(
 		setPlaygroundState,
 		"whitespaceSensitivity",
+	);
+	const setProseWrap = createPlaygroundSettingsSetter(
+		setPlaygroundState,
+		"proseWrap",
 	);
 
 	const setLintRules = createPlaygroundSettingsSetter(
@@ -214,6 +220,8 @@ export default function SettingsTab({
 				setIndentScriptAndStyle={setIndentScriptAndStyle}
 				whitespaceSensitivity={whitespaceSensitivity}
 				setWhitespaceSensitivity={setWhitespaceSensitivity}
+				proseWrap={proseWrap}
+				setProseWrap={setProseWrap}
 			/>
 			<LinterSettings
 				lintRules={lintRules}
@@ -398,6 +406,8 @@ function FormatterSettings({
 	setIndentScriptAndStyle,
 	whitespaceSensitivity,
 	setWhitespaceSensitivity,
+	proseWrap,
+	setProseWrap,
 }: {
 	lineWidth: number;
 	setLineWidth: (value: number) => void;
@@ -431,6 +441,8 @@ function FormatterSettings({
 	setIndentScriptAndStyle: (value: boolean) => void;
 	whitespaceSensitivity: WhitespaceSensitivity;
 	setWhitespaceSensitivity: (value: WhitespaceSensitivity) => void;
+	proseWrap: ProseWrap;
+	setProseWrap: (value: ProseWrap) => void;
 }) {
 	const indentStyleId = useId();
 	const indentWidthId = useId();
@@ -447,6 +459,7 @@ function FormatterSettings({
 	const expandId = useId();
 	const indentScriptAndStyleId = useId();
 	const whitespaceSensitivityId = useId();
+	const proseWrapId = useId();
 	return (
 		<>
 			<h2>Formatter options</h2>
@@ -654,6 +667,22 @@ function FormatterSettings({
 						<option value={WhitespaceSensitivity.Strict}>Strict</option>
 						<option value={WhitespaceSensitivity.Ignore}>Ignore</option>
 					</select>
+				</div>
+
+				<h3>Markdown</h3>
+				<div className="field-row">
+					<label htmlFor={proseWrapId}>Prose Wrap</label>
+					<EnumSelect
+						id={proseWrapId}
+						name="proseWrap"
+						options={{
+							[ProseWrap.Preserve]: "Preserve",
+							[ProseWrap.Always]: "Always",
+							[ProseWrap.Never]: "Never",
+						}}
+						value={proseWrap ?? ProseWrap.Preserve}
+						onChangeValue={setProseWrap}
+					/>
 				</div>
 			</section>
 		</>

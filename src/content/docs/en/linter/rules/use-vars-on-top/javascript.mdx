@@ -12,14 +12,12 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 <RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vars-on-top/javascript/"}]} />
 
-:::caution
-This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
-:::
 ## Summary
 - Rule available since: `v2.4.12`
-- Diagnostic Category: [`lint/nursery/useVarsOnTop`](/reference/diagnostics#diagnostic-category)
+- Diagnostic Category: [`lint/style/useVarsOnTop`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
 - This rule doesn't have a fix.
-- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
 - Sources: 
   - Same as [`vars-on-top`](https://eslint.org/docs/latest/rules/vars-on-top)
 
@@ -28,7 +26,7 @@ This rule is part of the [nursery](/linter/#nursery) group. This means that it i
 {
 	"linter": {
 		"rules": {
-			"nursery": {
+			"style": {
 				"useVarsOnTop": "error"
 			}
 		}
@@ -60,7 +58,7 @@ function f() {
 }
 ```
 
-<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:5 <a href=\"https://biomejs.dev/linter/rules/use-vars-on-top\">lint/nursery/useVarsOnTop</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>var</strong></span><span style=\"color: Orange;\"> declaration is not at the top of its containing scope.</span><br />  <br />    <strong>1 │ </strong>function f() &#123;<br />    <strong>2 │ </strong>    doSomething();<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    var value = 1;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>var</strong></span><span style=\"color: lightgreen;\"> declarations are hoisted to the top of their enclosing function, script, module, or static block, so declaring them later makes the scope harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move this </span><span style=\"color: lightgreen;\"><strong>var</strong></span><span style=\"color: lightgreen;\"> declaration before other statements in the same scope. At module scope, imports may remain before it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:5 <a href=\"https://biomejs.dev/linter/rules/use-vars-on-top\">lint/style/useVarsOnTop</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>var</strong></span><span style=\"color: lightgreen;\"> declaration is not at the top of its containing scope.</span><br />  <br />    <strong>1 │ </strong>function f() &#123;<br />    <strong>2 │ </strong>    doSomething();<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    var value = 1;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>var</strong></span><span style=\"color: lightgreen;\"> declarations are hoisted to the top of their enclosing function, script, module, or static block, so declaring them later makes the scope harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move this </span><span style=\"color: lightgreen;\"><strong>var</strong></span><span style=\"color: lightgreen;\"> declaration before other statements in the same scope. At module scope, imports may remain before it.</span><br />  <br /></code></pre>"} />
 
 ### Valid
 
@@ -81,7 +79,7 @@ Related:
 - [Disable a rule](/linter/#disable-a-rule)
 - [Configure the code fix](/linter#configure-the-code-fix)
 - [Rule options](/linter/#rule-options)
-- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vars_on_top.rs)
-- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVarsOnTop)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/style/use_vars_on_top.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/style/useVarsOnTop)
 - <RulePlaygroundLink rule="useVarsOnTop" category="lint" language="js" code={"function f() {\n    doSomething();\n    var value = 1;\n}\n"} />
 

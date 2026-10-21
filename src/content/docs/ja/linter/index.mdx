@@ -299,13 +299,13 @@ Biomeのリンタは、最も近い `package.json` で特定の依存関係を�
 }
 ```
 
-ルールやグループと同様に、`"off"` 値でドメインに属するルールを無効にすることもできます：
+ルールやグループと同様に、`"none"` 値でドメインに属するルールを無効にすることもできます：
 
-```json title="biome.json" ins={4} mark="off"
+```json title="biome.json" ins={4} mark="none"
 {
   "linter": {
     "domains": {
-      "test": "off"
+      "test": "none"
     }
   }
 }

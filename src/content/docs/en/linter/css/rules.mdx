@@ -27,6 +27,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
+| [noExcessiveSelectorClasses](/linter/rules/no-excessive-selector-classes/css) | Limit the number of classes in a selector. |  |
 | [noImportantStyles](/linter/rules/no-important-styles/css) | Disallow `!important` declarations. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 
 ## `correctness`
@@ -50,14 +51,11 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
-| [noDuplicateSelectors](/linter/rules/no-duplicate-selectors/css) | Disallow duplicate selectors. |  |
-| [noExcessiveSelectorClasses](/linter/rules/no-excessive-selector-classes/css) | Limit the number of classes in a selector. |  |
 | [noInvalidPropertyInitValue](/linter/rules/no-invalid-property-init-value/css) | Checks that the `initial-value` of an `@property` rule follows the value format declared by its `syntax`. |  |
 | [noUndeclaredCustomProperties](/linter/rules/no-undeclared-custom-properties/css) | Reports custom properties used with `var()` that have no visible declaration. |  |
 | [noUnusedClasses](/linter/rules/no-unused-classes/css) | Reports CSS class selectors that are never referenced in any JSX or HTML file. |  |
-| [useBaseline](/linter/rules/use-baseline/css) | Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline. |  |
 | [useLayeredStyles](/linter/rules/use-layered-styles/css) | Enforce style rules to be defined within a cascade layer. |  |
-| [useLogicalProperties](/linter/rules/use-logical-properties/css) | Prefer logical CSS properties over physical properties. |  |
+| [useLogicalProperties](/linter/rules/use-logical-properties/css) | Prefer logical CSS properties over physical properties. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useNamedLayer](/linter/rules/use-named-layer/css) | Disallow anonymous cascade layers. |  |
 
 ## `style`
@@ -78,6 +76,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noDuplicateCustomProperties](/linter/rules/no-duplicate-custom-properties/css) | Disallow duplicate custom properties within declaration blocks. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noDuplicateFontNames](/linter/rules/no-duplicate-font-names/css) | Disallow duplicate names in font-family lists. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noDuplicateProperties](/linter/rules/no-duplicate-properties/css) | Disallow duplicate properties within declaration blocks. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noDuplicateSelectors](/linter/rules/no-duplicate-selectors/css) | Disallow duplicate selectors. |  |
 | [noDuplicateSelectorsKeyframeBlock](/linter/rules/no-duplicate-selectors-keyframe-block/css) | Disallow duplicate selectors within keyframe blocks. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noEmptyBlock](/linter/rules/no-empty-block/css) | Disallow empty CSS blocks. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noEmptySource](/linter/rules/no-empty-source/css) | Disallow empty sources. |  |
@@ -86,6 +85,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noShorthandPropertyOverrides](/linter/rules/no-shorthand-property-overrides/css) | Disallow shorthand properties that override earlier, more specific properties. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noUnknownAtRules](/linter/rules/no-unknown-at-rules/css) | Disallow unrecognized CSS at-rules. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
 | [noUselessEscapeInString](/linter/rules/no-useless-escape-in-string/css) | Disallow unnecessary escapes in string literals. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useBaseline](/linter/rules/use-baseline/css) | Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline. |  |
 ## Recommended rules 
 - [useGenericFontNames](/linter/rules/use-generic-font-names/css) (Severity: [error](/reference/diagnostics#error))
 - [noImportantStyles](/linter/rules/no-important-styles/css) (Severity: [warning](/reference/diagnostics#warning))
