@@ -39,7 +39,8 @@ Publish Biome plugins as npm packages by declaring their rules and presets in a 
        "version": 1,
        "plugins": {
          "rules": [
-           { "useCompanyLogger": "./rules/useCompanyLogger.grit" }
+           { "useCompanyLogger": "./rules/useCompanyLogger.grit" },
+           { "useCompanyLogger": "./rules/useCompanyLogger.ts" }
          ]
        }
      }
@@ -85,7 +86,7 @@ Publish groups of related rules as presets by declaring them in a Biome manifest
        "plugins": {
          "rules": [
            { "useCompanyLogger": "./rules/useCompanyLogger.grit" },
-           { "noLegacyLibrary": "./rules/noLegacyLibrary.grit" }
+           { "noLegacyLibrary": "./rules/noLegacyLibrary.ts" }
          ],
          "presets": {
            "recommended": ["useCompanyLogger"],
@@ -121,7 +122,7 @@ The following example uses a hypothetical `biome-ux-plugins` package and re-expo
            "biome-ux-plugins/noExternalLinks",
            "biome-ux-plugins/presets/minimal",
            { "useCompanyLogger": "./rules/useCompanyLogger.grit" },
-           { "noLegacyLibrary": "./rules/noLegacyLibrary.grit" }
+           { "noLegacyLibrary": "./rules/noLegacyLibrary.ts" }
          ],
          "presets": {
            "recommended": [

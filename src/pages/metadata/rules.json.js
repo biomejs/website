@@ -29,6 +29,23 @@ export function GET() {
           }
         },
         "complexity": {
+          "noExcessiveSelectorClasses": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "noExcessiveSelectorClasses",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-selector-classes/css",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "stylelint": "selector-max-class"
+                }
+              }
+            ],
+            "docs": " Limit the number of classes in a selector.\n\n Selectors with too many chained classes are harder to read, harder to override,\n and often signal overly specific styling.\n This rule enforces an upper bound on how many class selectors can appear in one selector.\n\n Each selector in a selector list is evaluated separately.\n For example, `.foo, .bar.baz` is treated as two selectors, and only `.bar.baz`\n contributes two class selectors.\n\n Nested selectors are checked as written instead of being combined with their parent. For\n example, in `.foo { &.bar {} }`, the nested selector `&.bar` contributes one class.\n\n ## Examples\n\n ### Invalid\n\n This example reports a diagnostic when `maxClasses` is `1`:\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 1\n     }\n }\n ```\n ```css,expect_diagnostic,use_options\n .foo .bar {}\n ```\n\n ```css,expect_diagnostic,use_options\n :is(.foo, .bar.baz) {}\n ```\n\n ### Valid\n\n The following examples are valid when `maxClasses` is set to `1`:\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 1\n     }\n }\n ```\n ```css,use_options\n .foo {}\n ```\n\n ```css,use_options\n .foo, div {}\n ```\n\n ## Options\n\n ### `maxClasses`\n\n The maximum number of class selectors allowed in a single selector.\n\n This option has no default value. Configure it explicitly to enable the rule.\n A value of `0` disallows class selectors entirely.\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 2\n     }\n }\n ```\n\n The following selector exceeds the configured limit because it contains three\n class selectors:\n\n ```css,expect_diagnostic,use_options\n .foo .bar.baz {}\n ```\n\n"
+          },
           "noImportantStyles": {
             "deprecated": false,
             "version": "2.0.0",
@@ -284,40 +301,6 @@ export function GET() {
           }
         },
         "nursery": {
-          "noDuplicateSelectors": {
-            "deprecated": false,
-            "version": "2.4.9",
-            "name": "noDuplicateSelectors",
-            "link": "https://biomejs.dev/linter/rules/no-duplicate-selectors/css",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "stylelint": "no-duplicate-selectors"
-                }
-              }
-            ],
-            "docs": " Disallow duplicate selectors.\n\n Two rules are duplicates when their selectors target the same elements within the same\n surrounding at-rules. The comparison treats equivalent spellings as equal:\n\n - whitespace differences are ignored;\n - HTML element names are compared without case (`DIV` equals `div`);\n - the order of combined parts is ignored (`.a.b` equals `.b.a`);\n - the order of a selector list is ignored (`.a, .b` equals `.b, .a`).\n\n Nested selectors are expanded before comparison. For example, `a { & b {} }` is compared as\n `a b`. A selector inside an at-rule such as `@media` is compared only with selectors inside\n the same at-rule, not with a matching selector at the top level.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n .foo {}\n .foo {}\n ```\n\n ```css,expect_diagnostic\n .foo, .bar {}\n .bar, .foo {}\n ```\n\n ```css,expect_diagnostic\n a b {}\n a {\n   & b {}\n }\n ```\n\n ### Valid\n\n ```css\n .foo {}\n .bar {}\n ```\n\n ```css\n .foo {}\n @media (min-width: 600px) {\n   .foo {}\n }\n ```\n\n ```css\n .foo {\n   .foo {}\n }\n ```\n\n"
-          },
-          "noExcessiveSelectorClasses": {
-            "deprecated": false,
-            "version": "2.4.12",
-            "name": "noExcessiveSelectorClasses",
-            "link": "https://biomejs.dev/linter/rules/no-excessive-selector-classes/css",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "stylelint": "selector-max-class"
-                }
-              }
-            ],
-            "docs": " Limit the number of classes in a selector.\n\n Selectors with too many chained classes are harder to read, harder to override,\n and often signal overly specific styling.\n This rule enforces an upper bound on how many class selectors can appear in one selector.\n\n Each selector in a selector list is evaluated separately.\n For example, `.foo, .bar.baz` is treated as two selectors, and only `.bar.baz`\n contributes two class selectors.\n\n Nested selectors are checked as written instead of being combined with their parent. For\n example, in `.foo { &.bar {} }`, the nested selector `&.bar` contributes one class.\n\n ## Examples\n\n ### Invalid\n\n This example reports a diagnostic when `maxClasses` is `1`:\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 1\n     }\n }\n ```\n ```css,expect_diagnostic,use_options\n .foo .bar {}\n ```\n\n ```css,expect_diagnostic,use_options\n :is(.foo, .bar.baz) {}\n ```\n\n ### Valid\n\n The following examples are valid when `maxClasses` is set to `1`:\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 1\n     }\n }\n ```\n ```css,use_options\n .foo {}\n ```\n\n ```css,use_options\n .foo, div {}\n ```\n\n ## Options\n\n ### `maxClasses`\n\n The maximum number of class selectors allowed in a single selector.\n\n This option has no default value. Configure it explicitly to enable the rule.\n A value of `0` disallows class selectors entirely.\n\n ```json,options\n {\n     \"options\": {\n         \"maxClasses\": 2\n     }\n }\n ```\n\n The following selector exceeds the configured limit because it contains three\n class selectors:\n\n ```css,expect_diagnostic,use_options\n .foo .bar.baz {}\n ```\n\n"
-          },
           "noInvalidPropertyInitValue": {
             "deprecated": false,
             "version": "2.5.8",
@@ -345,29 +328,6 @@ export function GET() {
             "fixKind": "none",
             "docs": " Reports CSS class selectors that are never referenced in any JSX or HTML file.\n\n This rule checks all CSS class selectors (`.foo`) in a CSS file and verifies\n that each class name is referenced somewhere in a `class=` or `className=`\n attribute in an HTML or JSX file that imports (directly or transitively) the\n CSS file.\n\n Classes inside `:global(.foo)` are excluded from this check, as they are\n intended to be used by external consumers without explicit imports.\n\n ## Examples\n\n ### Invalid\n\n ```css,file=styles.css\n .unused { color: red; }  /* Class \"unused\" is never referenced */\n .used { color: blue; }\n ```\n\n ```jsx,file=App.jsx\n import \"./styles.css\";\n export default () => <div className=\"used\" />;\n ```\n\n ### Valid\n\n ```css,file=styles.css\n .button { color: blue; }\n .container { padding: 1rem; }\n ```\n\n ```jsx,file=App.jsx\n import \"./styles.css\";\n export default () => (\n     <div className=\"container\">\n         <button className=\"button\">Click</button>\n     </div>\n );\n ```\n\n"
           },
-          "useBaseline": {
-            "deprecated": false,
-            "version": "2.4.7",
-            "name": "useBaseline",
-            "link": "https://biomejs.dev/linter/rules/use-baseline/css",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintCss": "use-baseline"
-                }
-              },
-              {
-                "kind": "inspired",
-                "source": {
-                  "htmlEslint": "use-baseline"
-                }
-              }
-            ],
-            "docs": " Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.\n\n [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility)\n tracks the availability of web platform features across core browsers.\n This rule helps you avoid features that aren't supported in the browsers you need to target.\n\n Features are categorized into three tiers:\n - **Limited**: Not yet available in all core browsers.\n - **Newly available**: Available in all core browsers for less than 30 months.\n - **Widely available**: Available in all core browsers for at least 30 months.\n\n By default, the rule reports on anything that is not Baseline **widely available**.\n\n Code inside `@supports` blocks is exempt: if you feature-detect a capability before\n using it, the rule does not flag it.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   backdrop-filter: blur(4px);\n }\n ```\n\n ```css,expect_diagnostic\n a { width: abs(20% - 100px); }\n ```\n\n ```css,expect_diagnostic\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ```css,expect_diagnostic\n details::details-content { background: red; }\n ```\n\n ### Valid\n\n ```css\n a { color: red; }\n ```\n\n ```css\n /* @supports exempts feature-detected code */\n @supports (backdrop-filter: blur(4px)) {\n   a { backdrop-filter: blur(4px); }\n }\n ```\n\n ## Options\n\n ### `available`\n\n Specifies the minimum Baseline availability tier to accept. Defaults to `\"widely\"`.\n\n - `\"widely\"`: Only accept features that are Baseline widely available (default).\n - `\"newly\"`: Accept features that are at least Baseline newly available.\n - A year number (e.g. `2023`): Accept features that became newly available in that year or earlier.\n\n Default: `\"widely\"`\n\n ```json,options\n {\n   \"options\": {\n     \"available\": \"newly\"\n   }\n }\n ```\n\n With `\"newly\"`, a property that is newly (but not yet widely) available doesn't trigger the rule:\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n But a limited property still fails:\n\n ```css,expect_diagnostic,use_options\n a { accent-color: red; }\n ```\n\n ### `allowProperties`\n\n A list of CSS property names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowProperties\": [\"backdrop-filter\"]\n   }\n }\n ```\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n ### `allowAtRules`\n\n A list of CSS at-rule names to exclude from checking (without `@`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowAtRules\": [\"view-transition\"]\n   }\n }\n ```\n\n ```css,use_options\n @view-transition { navigation: auto; }\n ```\n\n ### `allowFunctions`\n\n A list of CSS value function names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowFunctions\": [\"abs\"]\n   }\n }\n ```\n\n ```css,use_options\n a { width: abs(20% - 100px); }\n ```\n\n ### `allowMediaConditions`\n\n A list of CSS media query condition names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowMediaConditions\": [\"inverted-colors\"]\n   }\n }\n ```\n\n ```css,use_options\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ### `allowPropertyValues`\n\n An object mapping property names to arrays of allowed values (case-insensitive).\n\n Default: `{}`\n\n ```json,options\n {\n   \"options\": {\n     \"allowPropertyValues\": {\n       \"clip-path\": [\"fill-box\"]\n     }\n   }\n }\n ```\n\n ```css,use_options\n a { clip-path: fill-box; }\n ```\n\n ### `allowSelectors`\n\n A list of CSS pseudo-class or pseudo-element names to exclude from checking\n (without `:` or `::`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowSelectors\": [\"has\"]\n   }\n }\n ```\n\n ```css,use_options\n h1:has(+ h2) { margin: 0; }\n ```\n\n"
-          },
           "useLayeredStyles": {
             "deprecated": false,
             "version": "2.5.13",
@@ -391,8 +351,8 @@ export function GET() {
             "name": "useLogicalProperties",
             "link": "https://biomejs.dev/linter/rules/use-logical-properties/css",
             "recommended": false,
-            "fixKind": "none",
-            "docs": " Prefer logical CSS properties over physical properties.\n\n Physical properties such as `left`, `margin-left`, and `width` describe fixed directions or\n dimensions. Logical properties such as `inset-inline-start`, `margin-inline-start`, and\n `inline-size` adapt when text runs right to left or uses a vertical writing mode.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {\n   width: 100%;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   top: 0;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   margin-left: 1rem;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   border-left: 1px solid;\n }\n ```\n\n ### Valid\n\n ```css\n p {\n   inline-size: 100%;\n   inset-block-start: 0;\n   margin-inline-start: 1rem;\n   border-inline-start: 1px solid;\n }\n ```\n\n ## Options\n\n ### `direction`\n\n Sets the text direction used to replace left and right properties. Use `\"ltr\"` for\n left-to-right text or `\"rtl\"` for right-to-left text. Defaults to `\"ltr\"`.\n\n ```json,options\n {\n   \"options\": {\n     \"direction\": \"rtl\"\n   }\n }\n ```\n\n #### Invalid\n\n ```css,expect_diagnostic,use_options\n p {\n   margin-left: 1rem;\n }\n ```\n\n #### Valid\n\n ```css,use_options\n p {\n   margin-inline-end: 1rem;\n }\n ```\n\n"
+            "fixKind": "unsafe",
+            "docs": " Prefer logical CSS properties over physical properties.\n\n Physical properties such as `left`, `margin-left`, and `width` describe fixed directions or\n dimensions. Logical properties such as `inset-inline-start`, `margin-inline-start`, and\n `inline-size` adapt when text runs right to left or uses a vertical writing mode.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n p {\n   width: 100%;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   top: 0;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   margin-left: 1rem;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   border-left: 1px solid;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   float: left;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   text-align: right;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   justify-content: left;\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   inline-size: anchor-size(width);\n }\n ```\n\n ```css,expect_diagnostic\n p {\n   inset-block-start: anchor(bottom);\n }\n ```\n\n ### Valid\n\n ```css\n p {\n   inline-size: 100%;\n   inset-block-start: 0;\n   margin-inline-start: 1rem;\n   border-inline-start: 1px solid;\n   float: inline-start;\n   text-align: end;\n   justify-content: start;\n   inline-size: anchor-size(self-inline);\n   block-size: anchor-size(self-block);\n   inset-block-start: anchor(end);\n }\n ```\n\n ## Options\n\n ### `direction`\n\n Sets the text direction used to replace left and right properties. Use `\"ltr\"` for\n left-to-right text or `\"rtl\"` for right-to-left text. Defaults to `\"ltr\"`.\n\n ```json,options\n {\n   \"options\": {\n     \"direction\": \"rtl\"\n   }\n }\n ```\n\n #### Invalid\n\n ```css,expect_diagnostic,use_options\n p {\n   margin-left: 1rem;\n }\n ```\n\n #### Valid\n\n ```css,use_options\n p {\n   margin-inline-end: 1rem;\n }\n ```\n\n"
           },
           "useNamedLayer": {
             "deprecated": false,
@@ -558,6 +518,23 @@ export function GET() {
             ],
             "docs": " Disallow duplicate properties within declaration blocks.\n\n This rule checks the declaration blocks for duplicate properties. It ignores custom properties and declarations inside `@keyframes` blocks.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   color: pink;\n   color: orange;\n }\n ```\n\n ### Valid\n\n ```css\n a {\n   color: pink;\n   background: orange;\n }\n ```\n\n"
           },
+          "noDuplicateSelectors": {
+            "deprecated": false,
+            "version": "2.4.9",
+            "name": "noDuplicateSelectors",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-selectors/css",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "stylelint": "no-duplicate-selectors"
+                }
+              }
+            ],
+            "docs": " Disallow duplicate selectors.\n\n Two rules are duplicates when their selectors target the same elements within the same\n surrounding at-rules. The comparison treats equivalent spellings as equal:\n\n - whitespace differences are ignored;\n - HTML element names are compared without case (`DIV` equals `div`);\n - the order of combined parts is ignored (`.a.b` equals `.b.a`);\n - the order of a selector list is ignored (`.a, .b` equals `.b, .a`).\n\n Nested selectors are expanded before comparison. For example, `a { & b {} }` is compared as\n `a b`. A selector inside an at-rule such as `@media` is compared only with selectors inside\n the same at-rule, not with a matching selector at the top level.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n .foo {}\n .foo {}\n ```\n\n ```css,expect_diagnostic\n .foo, .bar {}\n .bar, .foo {}\n ```\n\n ```css,expect_diagnostic\n a b {}\n a {\n   & b {}\n }\n ```\n\n ### Valid\n\n ```css\n .foo {}\n .bar {}\n ```\n\n ```css\n .foo {}\n @media (min-width: 600px) {\n   .foo {}\n }\n ```\n\n ```css\n .foo {\n   .foo {}\n }\n ```\n\n"
+          },
           "noDuplicateSelectorsKeyframeBlock": {
             "deprecated": false,
             "version": "1.8.0",
@@ -703,6 +680,29 @@ export function GET() {
             "recommended": true,
             "fixKind": "safe",
             "docs": " Disallow unnecessary escapes in string literals.\n\n Escaping non-special characters in string literals doesn't have any effect.\n Hence, they may confuse a reader.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a::after {\n   content: \"\\z\"\n }\n ```\n\n ```css,expect_diagnostic\n a::after {\n   content: \"\\'\"\n }\n ```\n\n ### Valid\n\n ```css\n a::after {\n   content: \"\\\"\"\n }\n ```\n\n ```css\n a::after {\n   content: \"\\n\"\n }\n ```\n\n ```css\n a::after {\n   content: \"\\e7bb\"\n }\n ```\n\n"
+          },
+          "useBaseline": {
+            "deprecated": false,
+            "version": "2.4.7",
+            "name": "useBaseline",
+            "link": "https://biomejs.dev/linter/rules/use-baseline/css",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintCss": "use-baseline"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "htmlEslint": "use-baseline"
+                }
+              }
+            ],
+            "docs": " Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.\n\n [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility)\n tracks the availability of web platform features across core browsers.\n This rule helps you avoid features that aren't supported in the browsers you need to target.\n\n Features are categorized into three tiers:\n - **Limited**: Not yet available in all core browsers.\n - **Newly available**: Available in all core browsers for less than 30 months.\n - **Widely available**: Available in all core browsers for at least 30 months.\n\n By default, the rule reports on anything that is not Baseline **widely available**.\n\n Code inside `@supports` blocks is exempt: if you feature-detect a capability before\n using it, the rule does not flag it.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a {\n   backdrop-filter: blur(4px);\n }\n ```\n\n ```css,expect_diagnostic\n a { width: abs(20% - 100px); }\n ```\n\n ```css,expect_diagnostic\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ```css,expect_diagnostic\n details::details-content { background: red; }\n ```\n\n ### Valid\n\n ```css\n a { color: red; }\n ```\n\n ```css\n /* @supports exempts feature-detected code */\n @supports (backdrop-filter: blur(4px)) {\n   a { backdrop-filter: blur(4px); }\n }\n ```\n\n ## Options\n\n ### `available`\n\n Specifies the minimum Baseline availability tier to accept. Defaults to `\"widely\"`.\n\n - `\"widely\"`: Only accept features that are Baseline widely available (default).\n - `\"newly\"`: Accept features that are at least Baseline newly available.\n - A year number (e.g. `2023`): Accept features that became newly available in that year or earlier.\n\n Default: `\"widely\"`\n\n ```json,options\n {\n   \"options\": {\n     \"available\": \"newly\"\n   }\n }\n ```\n\n With `\"newly\"`, a property that is newly (but not yet widely) available doesn't trigger the rule:\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n But a limited property still fails:\n\n ```css,expect_diagnostic,use_options\n a { accent-color: red; }\n ```\n\n ### `allowProperties`\n\n A list of CSS property names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowProperties\": [\"backdrop-filter\"]\n   }\n }\n ```\n\n ```css,use_options\n a { backdrop-filter: blur(4px); }\n ```\n\n ### `allowAtRules`\n\n A list of CSS at-rule names to exclude from checking (without `@`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowAtRules\": [\"view-transition\"]\n   }\n }\n ```\n\n ```css,use_options\n @view-transition { navigation: auto; }\n ```\n\n ### `allowFunctions`\n\n A list of CSS value function names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowFunctions\": [\"abs\"]\n   }\n }\n ```\n\n ```css,use_options\n a { width: abs(20% - 100px); }\n ```\n\n ### `allowMediaConditions`\n\n A list of CSS media query condition names to exclude from checking (case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowMediaConditions\": [\"inverted-colors\"]\n   }\n }\n ```\n\n ```css,use_options\n @media (inverted-colors: inverted) { a { color: red; } }\n ```\n\n ### `allowPropertyValues`\n\n An object mapping property names to arrays of allowed values (case-insensitive).\n\n Default: `{}`\n\n ```json,options\n {\n   \"options\": {\n     \"allowPropertyValues\": {\n       \"clip-path\": [\"fill-box\"]\n     }\n   }\n }\n ```\n\n ```css,use_options\n a { clip-path: fill-box; }\n ```\n\n ### `allowSelectors`\n\n A list of CSS pseudo-class or pseudo-element names to exclude from checking\n (without `:` or `::`, case-insensitive).\n\n Default: `[]`\n\n ```json,options\n {\n   \"options\": {\n     \"allowSelectors\": [\"has\"]\n   }\n }\n ```\n\n ```css,use_options\n h1:has(+ h2) { margin: 0; }\n ```\n\n"
           }
         }
       },
@@ -741,6 +741,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow duplicate names in GraphQL enums.\n\n This rule compares enum values without regard to letter case, so `TEST` and `Test` are\n treated as the same name.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n enum A {\n   TEST\n   OTHER\n   TEST\n }\n ```\n\n ```graphql,expect_diagnostic\n enum B {\n   TEST\n   TesT\n }\n ```\n\n ### Valid\n\n ```graphql\n enum A {\n   TEST\n   OTHER\n }\n ```\n\n"
+          },
+          "noDuplicateFieldDefinitionNames": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "noDuplicateFieldDefinitionNames",
+            "link": "https://biomejs.dev/linter/rules/no-duplicate-field-definition-names/graphql",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintGraphql": "unique-field-definition-names"
+                }
+              }
+            ],
+            "docs": " Require all fields of a type to be unique.\n\n A GraphQL complex type is only valid if all its fields are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n type SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n interface SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n input SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ### Valid\n\n ```graphql\n type SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n interface SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n input SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n"
           },
           "noDuplicateInputFieldNames": {
             "deprecated": false,
@@ -809,25 +826,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow an anonymous operation in a document with other operations.\n\n GraphQL allows the shorthand `{ field }` without an operation name only when it is the sole\n operation in the document. Name every operation when the document contains more than one.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n query {\n   fieldA\n }\n\n query B {\n   fieldB\n }\n ```\n\n ### Valid\n\n ```graphql\n query A {\n   fieldA\n }\n\n query B {\n   fieldB\n }\n ```\n\n"
-          }
-        },
-        "nursery": {
-          "noDuplicateFieldDefinitionNames": {
-            "deprecated": false,
-            "version": "2.3.11",
-            "name": "noDuplicateFieldDefinitionNames",
-            "link": "https://biomejs.dev/linter/rules/no-duplicate-field-definition-names/graphql",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintGraphql": "unique-field-definition-names"
-                }
-              }
-            ],
-            "docs": " Require all fields of a type to be unique.\n\n A GraphQL complex type is only valid if all its fields are uniquely named.\n\n ## Examples\n\n ### Invalid\n\n ```graphql,expect_diagnostic\n type SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n interface SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ```graphql,expect_diagnostic\n input SomeObject {\n   foo: String\n   foo: String\n }\n ```\n\n ### Valid\n\n ```graphql\n type SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n interface SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n ```graphql\n input SomeObject {\n   foo: String\n   bar: String\n }\n ```\n\n"
           }
         },
         "style": {
@@ -1285,7 +1283,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce explicit `role` property is not the same as implicit/default role property on an element.\n\n :::note\n In `.html` files, all elements are treated as native HTML elements.\n\n In component-based frameworks (Vue, Svelte, Astro), only native HTML element names are checked.\n PascalCase names like `<Button>` and kebab-case names like `<my-button>` are assumed to be\n custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <article role=\"article\"></article>\n ```\n\n ```html,expect_diagnostic\n <button role=\"button\"></button>\n ```\n\n ```html,expect_diagnostic\n <h1 role=\"heading\" aria-level=\"1\">title</h1>\n ```\n\n ### Valid\n\n ```html\n <article role=\"presentation\"></article>\n ```\n\n ```html\n <span></span>\n ```\n\n"
+            "docs": " Enforce explicit `role` property is not the same as implicit/default role property on an element.\n\n :::note\n In `.html` files, all elements are treated as native HTML elements.\n\n In component-based frameworks (Vue, Svelte, Astro), only native HTML element names are checked.\n PascalCase names like `<Button>` and kebab-case names like `<my-button>` are assumed to be\n custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <article role=\"article\"></article>\n ```\n\n ```html,expect_diagnostic\n <button role=\"button\"></button>\n ```\n\n ```html,expect_diagnostic\n <h1 role=\"heading\" aria-level=\"1\">title</h1>\n ```\n\n ### Valid\n\n ```html\n <article role=\"presentation\"></article>\n ```\n\n ```html\n <span></span>\n ```\n\n ## Options\n\n ### `ignoreElements`\n\n An array of element names that the rule ignores. The comparison is case-insensitive.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreElements\": [\"button\"]\n     }\n }\n ```\n\n ```html,use_options\n <button role=\"button\"></button>\n ```\n\n"
           },
           "noStaticElementInteractions": {
             "deprecated": false,
@@ -1744,6 +1742,29 @@ export function GET() {
             ],
             "docs": " Disallow duplication of attributes.\n\n According to the HTML specification, each attribute name must be unique within a single element.\n Duplicate attributes are invalid and can lead to unexpected behavior in browsers.\n\n ## Vue templates\n\n For Vue templates (`.vue` files), this rule also considers the following directives as\n aliases of their arguments:\n\n - `v-bind:foo` and `:foo` are handled as the attribute `foo`.\n\n Vue class/style bindings are ignored. For example, `class` and `:class` may co-exist.\n\n Event handlers are ignored. For example, `@click` and `v-on:click` are not considered\n attributes by this rule.\n\n Dynamic arguments such as `:[foo]` or `v-bind:[foo]` are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div foo=\"a\" foo=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <div foo :foo=\"bar\" />\n </template>\n ```\n\n ### Valid\n\n ```html\n <div foo=\"a\" bar=\"b\"></div>\n ```\n\n"
           },
+          "noRestrictedElements": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noRestrictedElements",
+            "link": "https://biomejs.dev/linter/rules/no-restricted-elements/html",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "no-restricted-html-elements"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintSvelte": "no-restricted-html-elements"
+                }
+              }
+            ],
+            "docs": " Disallow the use of configured elements.\n\n This rule disallows the use of configured elements in HTML, Vue, Svelte, and Astro files.\n Without elements configured, this rule doesn't do anything.\n\n This rule is useful when a project wants to enforce a component or a different\n element instead of certain HTML elements. For example, a project might restrict\n `<a>` in favor of a router link component that handles client-side navigation.\n\n Native HTML, SVG, and MathML element names are matched case-insensitively, so\n restricting `marquee` also reports `<MARQUEE>`.\n Component names, such as `<RouterLink>` in Vue, Svelte, and Astro files, are matched exactly.\n\n ## Options\n\n ### `elements`\n\n A map of element names to the message to show when the element is used.\n Defaults to no restricted elements.\n\n ```json,options\n {\n     \"options\": {\n         \"elements\": {\n             \"marquee\": \"Use CSS animations instead.\",\n             \"RouterLink\": \"Use NuxtLink instead.\"\n         }\n     }\n }\n ```\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic,use_options\n <marquee>Breaking news</marquee>\n ```\n\n ```vue,expect_diagnostic,use_options\n <template>\n     <RouterLink to=\"/\">Home</RouterLink>\n </template>\n ```\n\n ### Valid\n\n ```vue,use_options\n <template>\n     <p>Breaking news</p>\n     <NuxtLink to=\"/\">Home</NuxtLink>\n </template>\n ```\n\n"
+          },
           "noVueVIfWithVFor": {
             "deprecated": false,
             "version": "2.3.6",
@@ -1760,6 +1781,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow using `v-if` and `v-for` directives on the same element.\n\n There are two common cases where this can be tempting:\n - To filter items in a list (e.g. `v-for=\"user in users\" v-if=\"user.isActive\"`). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).\n - To avoid rendering a list if it should be hidden (e.g. `v-for=\"user in users\" v-if=\"shouldShowUsers\"`). In these cases, move the v-if to a container element.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <TodoItem\n     v-if=\"complete\"\n     v-for=\"todo in todos\"\n     :todo=\"todo\"\n />\n ```\n\n ### Valid\n\n ```vue\n <ul v-if=\"complete\">\n     <TodoItem\n         v-for=\"todo in todos\"\n         :todo=\"todo\"\n     />\n </ul>\n ```\n\n"
+          },
+          "noVueVOnNumberValues": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "noVueVOnNumberValues",
+            "link": "https://biomejs.dev/linter/rules/no-vue-v-on-number-values/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-deprecated-v-on-number-modifiers"
+                }
+              }
+            ],
+            "docs": " Disallow deprecated number modifiers on Vue `v-on` directives.\n\n Vue 3 no longer supports using key code numbers as event modifiers.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <input v-on:keyup.13=\"submit\" />\n ```\n\n ```vue,expect_diagnostic\n <input @keyup.13=\"submit\" />\n ```\n\n ### Valid\n\n ```vue\n <input v-on:keyup.enter=\"submit\" />\n ```\n\n ```vue\n <input @keyup.enter=\"submit\" />\n ```\n\n"
           },
           "useVueVForKey": {
             "deprecated": false,
@@ -1862,6 +1900,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce valid `v-else-if` directives.\n\n Biome flags these cases:\n - Has an argument: `<div v-else-if:arg=\"b\"></div>`.\n - Has modifiers: `<div v-else-if.mod=\"b\"></div>`.\n - Missing value: `<div v-else-if></div>`.\n - Not preceded by a sibling with `v-if`/`v-else-if`.\n - On the same element as `v-if` or `v-else`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if:arg=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if.mod=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\"></div><div v-else-if></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-else-if=\"b\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"a\" v-else-if=\"b\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-if=\"a\"></div><div v-else-if=\"b\"></div><div v-else></div>\n ```\n\n"
+          },
+          "useVueValidVFor": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useVueValidVFor",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-for/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-for"
+                }
+              }
+            ],
+            "docs": " Enforces valid `v-for` directives in Vue templates.\n\n This rule reports `v-for` directives in the following cases:\n - The directive has an argument. E.g. `<div v-for:aaa=\"item in items\"></div>`\n - The directive has a modifier. E.g. `<div v-for.bbb=\"item in items\"></div>`\n - The directive does not have a value. E.g. `<div v-for></div>`\n - The second or third aliases are empty or are not simple identifiers.\n - A custom component rendered with `v-for` is missing `v-bind:key`.\n - The `v-bind:key` expression does not use any variable introduced by the `v-for` directive.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-for:aaa=\"item in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"(item, { key }) in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyItem v-for=\"item in items\"></MyItem>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"item in items\" :key=\"foo\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-for=\"item in items\"></div>\n ```\n\n ```vue\n <MyItem v-for=\"item in items\" :key=\"item.id\" />\n ```\n\n ```vue\n <template v-for=\"item in items\">\n     <div :key=\"item.id\"></div>\n </template>\n ```\n\n Related rules:\n - [`useVueVForKey`](https://biomejs.dev/linter/rules/use-vue-v-for-key/)\n\n"
           },
           "useVueValidVHtml": {
             "deprecated": false,
@@ -2001,29 +2056,6 @@ export function GET() {
             ],
             "docs": " Disallow the use of Astro's `set:html` directive.\n\n `set:html` renders HTML without escaping it. Using `set:html` can introduce cross-site scripting vulnerabilities.\n When raw HTML is required, sanitize the value before passing it to `set:html`, then suppress the diagnostic with an explanation.\n\n ## Examples\n\n ### Invalid\n\n ```astro,expect_diagnostic\n <div set:html={content} />\n ```\n\n ### Valid\n\n ```astro\n <div>{content}</div>\n ```\n\n ## References\n\n - [Astro `set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml)\n - [OWASP HTML sanitization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#html-sanitization)\n"
           },
-          "noInlineStyles": {
-            "deprecated": false,
-            "version": "2.4.9",
-            "name": "noInlineStyles",
-            "link": "https://biomejs.dev/linter/rules/no-inline-styles/html",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "htmlEslint": "no-inline-styles"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintSvelte": "no-inline-styles"
-                }
-              }
-            ],
-            "docs": " Disallow the use of inline styles.\n\n Inline styles via the `style` attribute make code harder to maintain and override,\n prevent reusability of styling, and can be a security concern when implementing\n a strict Content Security Policy (CSP).\n\n Instead of inline styles, use CSS classes, CSS modules, or a styling library.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div style=\"color: red;\"></div>\n ```\n\n ```html,expect_diagnostic\n <p style=\"font-size: 14px;\">Hello</p>\n ```\n\n ### Valid\n\n ```html\n <div class=\"text-red\"></div>\n ```\n\n ```html\n <p class=\"body-text\">Hello</p>\n ```\n\n ## Resources\n\n - [Content Security Policy: Allowing inline styles](https://content-security-policy.com/examples/allow-inline-style)\n\n"
-          },
           "noInvalidFileInputAccept": {
             "deprecated": false,
             "version": "2.5.12",
@@ -2158,7 +2190,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow arbitrary values in Tailwind CSS utility classes.\n\n Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties\n (e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports\n them so teams can keep styling constrained to named utilities from their Tailwind\n configuration.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"w-[400px]\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"text-[#555] bg-white\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"[color:red]\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"w-4 text-red-500 bg-white\"></div>\n ```\n\n ```html\n <div class=\"[&:nth-child(3)]:px-2\"></div>\n ```\n\n"
+            "docs": " Disallow arbitrary values in Tailwind CSS utility classes.\n\n Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties\n (e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports\n them so teams can keep styling constrained to named utilities from their Tailwind\n configuration.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"w-[400px]\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"text-[#555] bg-white\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"[color:red]\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"w-4 text-red-500 bg-white\"></div>\n ```\n\n ```html\n <div class=\"[&:nth-child(3)]:px-2\"></div>\n ```\n\n ## Recognized class strings\n\n This rule checks the attributes and functions recognized by the top-level\n [`tailwind` configuration](https://biomejs.dev/reference/configuration/#tailwind).\n\n"
           },
           "noTailwindRawColors": {
             "deprecated": false,
@@ -2175,7 +2207,24 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow Tailwind CSS utility classes that use raw palette colors.\n\n Palette colors such as `pink-500` and `slate-950` tie styles to specific\n colors instead of the role those colors play. Design system color names such as `primary`\n or `muted` let a design system change its palette without editing each component.\n This rule checks color utilities, including variants and opacity modifiers.\n It allows custom color names, `black`, `white`, `transparent`, `current`, and `inherit`.\n This rule does not check arbitrary values such as `bg-[#ff00aa]`.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"bg-pink-500\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"hover:text-red-500/80\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"bg-primary hover:text-muted-foreground\"></div>\n ```\n\n ```html\n <div class=\"bg-white text-black border-transparent fill-current stroke-inherit\"></div>\n ```\n\n ## Options\n\n ### allowedColors\n\n Default: `[]`\n\n Exact palette colors to allow.\n Entries are case-sensitive color names, such as `slate-950` or `pink-500`,\n without utility prefixes, variants, or opacity modifiers.\n Allowing `pink-500` permits it in every color utility, including variants\n and opacity modifiers; it does not allow other pink shades.\n\n ```json,options\n { \"options\": { \"allowedColors\": [\"pink-500\"] } }\n ```\n\n ```html,use_options\n <div class=\"bg-pink-500 hover:text-pink-500/80 border-black\"></div>\n ```\n\n ## See Also\n\n - [noTailwindArbitraryValue](https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value/)\n\n"
+            "docs": " Disallow Tailwind CSS utility classes that use raw palette colors.\n\n Palette colors such as `pink-500` and `slate-950` tie styles to specific\n colors instead of the role those colors play. Design system color names such as `primary`\n or `muted` let a design system change its palette without editing each component.\n This rule checks color utilities, including variants and opacity modifiers.\n It allows custom color names, `black`, `white`, `transparent`, `current`, and `inherit`.\n This rule does not check arbitrary values such as `bg-[#ff00aa]`.\n It does not read your Tailwind CSS theme, so redefining a default palette name\n does not exempt it.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"bg-pink-500\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"hover:text-red-500/80\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"bg-primary hover:text-muted-foreground\"></div>\n ```\n\n ```html\n <div class=\"bg-white text-black border-transparent fill-current stroke-inherit\"></div>\n ```\n\n ## Recognized class strings\n\n This rule checks the attributes and functions recognized by the top-level\n [`tailwind` configuration](https://biomejs.dev/reference/configuration/#tailwind).\n\n ## Options\n\n ### allowedColors\n\n Default: `[]`\n\n Exact palette colors to allow.\n Entries are case-sensitive color names, such as `slate-950` or `pink-500`,\n without utility prefixes, variants, or opacity modifiers.\n Allowing `pink-500` permits it in every color utility, including variants\n and opacity modifiers; it does not allow other pink shades.\n\n ```json,options\n { \"options\": { \"allowedColors\": [\"pink-500\"] } }\n ```\n\n ```html,use_options\n <div class=\"bg-pink-500 hover:text-pink-500/80 border-black\"></div>\n ```\n\n ## See Also\n\n - [noTailwindArbitraryValue](https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value/)\n\n"
+          },
+          "noTailwindRestyledComponents": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noTailwindRestyledComponents",
+            "link": "https://biomejs.dev/linter/rules/no-tailwind-restyled-components/html",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintShadcn": "no-restyle"
+                }
+              }
+            ],
+            "docs": " Disallow Tailwind utilities that override the appearance of components.\n\n A design system should own its components' appearance. Use component props\n for supported visual variants instead of overriding them with utility classes.\n\n The rule reports utilities in these categories:\n\n - `color`, such as `bg-red-500` and `text-white`\n - `typography`, such as `text-sm` and `font-bold`\n - `spacing`, such as `p-4` and `gap-2`\n - `shape`, such as `rounded-none` and `border-2`\n - `effects`, such as `shadow` and `opacity-50`\n - `motion`, such as `transition` and `animate-spin`\n\n Variants, important modifiers, and arbitrary values don't change the category, so\n `hover:bg-red-500`, `rounded-none!`, and `p-[3px]` are reported too. Arbitrary\n properties that set these styles, such as `[font-size:14px]`, are also reported.\n Other utilities, such as sizing, positioning, and margins, are ignored.\n\n Components are elements with capitalized names such as `MyButton` and custom\n elements with hyphenated names such as `my-button`. Native elements are not\n checked. The rule checks static `class` attributes. In Astro, Svelte, and Vue\n files, it also checks class expressions such as `class={...}`, Astro's\n `class:list={...}`, and Vue's `:class=\"...\"`.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <my-button class=\"rounded-none\"></my-button>\n ```\n\n ### Valid\n\n ```html\n <my-button variant=\"danger\" class=\"mt-4 w-full\"></my-button>\n <button class=\"rounded-none\"></button>\n ```\n\n ## Recognized class strings\n\n This rule checks the attributes and functions recognized by the top-level\n [`tailwind` configuration](https://biomejs.dev/reference/configuration/#tailwind).\n\n ## Options\n\n ### allow\n\n Default: `[]`.\n\n Allows categories or classes on selected components. Each entry contains:\n\n - `components`: a component name, an array of names, or `\"*\"` for all components.\n - `categories`: any of `color`, `typography`, `spacing`, `shape`, `effects`, or `motion`. Default: `[]`.\n - `classes`: exact classes, including variants and modifiers. Default: `[]`.\n\n A name matches any segment of a member name, so both `Card` and `Root` match\n `Card.Root`. Dotted names such as `Card.Root` match consecutive segments.\n\n ```json,options\n {\n   \"options\": {\n     \"allow\": [\n       { \"components\": [\"my-button\", \"MyButton\"], \"categories\": [\"shape\"], \"classes\": [\"hover:shadow-lg\"] }\n     ]\n   }\n }\n ```\n\n ```html,use_options\n <my-button class=\"rounded-none hover:shadow-lg\"></my-button>\n <MyButton class=\"rounded-none hover:shadow-lg\"></MyButton>\n ```\n\n"
           },
           "noUndeclaredClasses": {
             "deprecated": false,
@@ -2227,23 +2276,6 @@ export function GET() {
             "fixKind": "none",
             "docs": " Disallow custom Vue directives that are not declared.\n\n Vue resolves a custom directive such as `v-highlight` at runtime. When nothing\n registers it, Vue logs a warning and the element silently loses the behavior the\n directive was supposed to add.\n\n A custom directive is considered declared when any of the following registers it:\n\n - a top-level `<script setup>` binding named after the directive, using the\n   camelCase form prefixed with `v`, such as `vHighlight` for `v-highlight`;\n - the component's `directives` option, written either in `export default`,\n   in `defineComponent(...)`, or in `defineOptions(...)`;\n - the rule's [`globals`](#globals) option, which is how a directive registered\n   globally with `app.directive(...)` is declared to Biome.\n\n Built-in directives such as `v-if` are never reported. Nothing is reported either\n when the component's options cannot be resolved statically, which happens when they\n use `extends`, `mixins`, a spread, or a default export that is not an object literal,\n or when a `<script>` block uses `src=\"...\"` to load its content from another file.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <template>\n     <div v-highlight></div>\n </template>\n ```\n\n ### Valid\n\n A `<script setup>` binding declares the directive:\n\n ```vue,ignore\n <script setup>\n const vHighlight = {};\n </script>\n\n <template><div v-highlight></div></template>\n ```\n\n So does the component's `directives` option:\n\n ```vue,ignore\n <script>\n export default {\n     directives: { highlight: {} },\n };\n </script>\n\n <template><div v-highlight></div></template>\n ```\n\n ## Options\n\n ### `globals`\n\n A list of directive names that are registered globally with `app.directive(...)`.\n Write each name in kebab-case, exactly as it appears in the template without the\n `v-` prefix: `click-outside` for `v-click-outside`. Other spellings such as\n `clickOutside` or `vClickOutside` do not match.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"globals\": [\"click-outside\"]\n     }\n }\n ```\n\n #### Valid (using `globals`)\n\n ```vue,use_options\n <template>\n     <div v-click-outside></div>\n </template>\n ```\n"
           },
-          "noVueVOnNumberValues": {
-            "deprecated": false,
-            "version": "2.4.15",
-            "name": "noVueVOnNumberValues",
-            "link": "https://biomejs.dev/linter/rules/no-vue-v-on-number-values/html",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintVueJs": "no-deprecated-v-on-number-modifiers"
-                }
-              }
-            ],
-            "docs": " Disallow deprecated number modifiers on Vue `v-on` directives.\n\n Vue 3 no longer supports using key code numbers as event modifiers.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <input v-on:keyup.13=\"submit\" />\n ```\n\n ```vue,expect_diagnostic\n <input @keyup.13=\"submit\" />\n ```\n\n ### Valid\n\n ```vue\n <input v-on:keyup.enter=\"submit\" />\n ```\n\n ```vue\n <input @keyup.enter=\"submit\" />\n ```\n\n"
-          },
           "useAstroClientOnlyDirectiveValue": {
             "deprecated": false,
             "version": "2.5.9",
@@ -2278,31 +2310,14 @@ export function GET() {
             ],
             "docs": " Enforce that interactive control elements have an accessible label.\n\n A control with no accessible label is announced by assistive technology\n as an anonymous control (e.g. just \"button\"), leaving its purpose\n unclear. A label can come from text content, `aria-label`,\n `aria-labelledby`, or `title` attribute.\n\n This rule checks native controls whose accessible name is expected to\n come from their own content or attributes (`button`, `menuitem`).\n Elements hidden from assistive technology with `aria-hidden` are\n skipped, as are elements that already require a text alternative under\n a dedicated rule (e.g. `area`, `img`, checked by `useAltText`).\n\n :::note\n In `.html` files, this rule matches element names case-insensitively (e.g., `<BUTTON>`, `<Button>`).\n\n In component-based frameworks (Vue, Svelte, Astro), only lowercase element names are checked.\n PascalCase variants like `<Button>` are assumed to be custom components and are ignored.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <button></button>\n ```\n\n ```html,expect_diagnostic\n <button>   </button>\n ```\n\n ### Valid\n\n ```html\n <button>Submit</button>\n ```\n\n ```html\n <button aria-label=\"Close\"></button>\n ```\n\n ```html\n <button><span>Delete</span></button>\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 3.3.2](https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
           },
-          "useIframeSandbox": {
+          "useSortedClasses": {
             "deprecated": false,
-            "version": "2.4.12",
-            "name": "useIframeSandbox",
-            "link": "https://biomejs.dev/linter/rules/use-iframe-sandbox/html",
+            "version": "2.5.0",
+            "name": "useSortedClasses",
+            "link": "https://biomejs.dev/linter/rules/use-sorted-classes/html",
             "recommended": false,
-            "fixKind": "none",
-            "docs": " Require the `sandbox` attribute on `<iframe>` elements.\n\n An iframe can run content from another document. The `sandbox` attribute restricts\n capabilities such as scripts, forms, navigation, and popups. An empty `sandbox` applies all\n restrictions; individual `allow-*` tokens restore only the capabilities the frame needs.\n\n See [MDN's iframe sandbox reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox).\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <iframe src=\"https://example.com\"></iframe>\n ```\n\n ### Valid\n\n ```html\n <iframe src=\"https://example.com\" sandbox=\"allow-popups\"></iframe>\n ```\n\n"
-          },
-          "useScopedStyles": {
-            "deprecated": false,
-            "version": "2.4.5",
-            "name": "useScopedStyles",
-            "link": "https://biomejs.dev/linter/rules/use-scoped-styles/html",
-            "recommended": true,
             "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintVueJs": "enforce-style-attribute"
-                }
-              }
-            ],
-            "docs": " Keep component styles scoped in Vue and Astro files.\n\n A Vue single-file component contains its template, script, and styles in one `.vue` file.\n Its `<style>` blocks need the `scoped` attribute so their selectors apply only to that\n component. A `<style module>` block is also accepted because CSS Modules provide their own\n scoping.\n\n Astro scopes component styles by default. The rule reports `is:global` because that\n directive makes the entire style block affect the page globally.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <style>\n .foo { color: red; }\n </style>\n ```\n\n ```astro,expect_diagnostic\n <style is:global>\n .foo { color: red; }\n </style>\n ```\n\n ### Valid\n\n ```vue\n <style scoped>\n .foo { color: red; }\n </style>\n ```\n\n ```vue\n <style module>\n .foo { color: red; }\n </style>\n ```\n\n ## References:\n\n - [Vue Documentation](https://vuejs.org/api/sfc-css-features.html#scoped-css)\n - [Astro Documentation](https://docs.astro.build/en/guides/styling/#global-styles)\n"
+            "docs": " Enforce the sorting of CSS utility classes.\n\n This rule implements the same sorting algorithm as [Tailwind CSS](https://tailwindcss.com/blog/automatic-class-sorting-with-prettier#how-classes-are-sorted), but supports any utility class framework including [UnoCSS](https://unocss.dev/).\n\n It is analogous to [`prettier-plugin-tailwindcss`](https://github.com/tailwindlabs/prettier-plugin-tailwindcss).\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"px-2 foo p-4 bar\"></div>\n ```\n\n ```html,expect_diagnostic\n <div class=\"hover:focus:m-2 foo hover:px-2 p-4\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"bar foo p-4 px-2\"></div>\n ```\n\n"
           },
           "useSvelteRequireEachKey": {
             "deprecated": false,
@@ -2336,24 +2351,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same.\n\n This rule detects sequences of Tailwind CSS utility classes that can be replaced by a single\n shorter utility. Using shorthands reduces duplication, keeps class lists readable, and helps\n prevent drift where one side gets updated but the matching side does not.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"w-4 h-4\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"size-4\"></div>\n ```\n\n ## Known limitations\n\n This rule doesn't check bare strings inside framework-specific class collections,\n such as array or object entries in Vue, Svelte, or Astro class bindings:\n\n ```svelte\n <div class={[\"w-4 h-4\", selected && \"px-2 py-2\"]}></div>\n <div class={{ \"mr-3 ml-3\": active }}></div>\n ```\n\n It also doesn't check untagged template chunks inside framework class attributes:\n\n ```svelte\n <div class={`border-x border-y ${extra}`}></div>\n ```\n\n In Astro, bare strings inside `class:list` arrays are not checked unless they are passed to a\n recognized helper function such as `clsx`.\n"
-          },
-          "useVueValidVFor": {
-            "deprecated": false,
-            "version": "2.4.15",
-            "name": "useVueValidVFor",
-            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-for/html",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintVueJs": "valid-v-for"
-                }
-              }
-            ],
-            "docs": " Enforces valid `v-for` directives in Vue templates.\n\n This rule reports `v-for` directives in the following cases:\n - The directive has an argument. E.g. `<div v-for:aaa=\"item in items\"></div>`\n - The directive has a modifier. E.g. `<div v-for.bbb=\"item in items\"></div>`\n - The directive does not have a value. E.g. `<div v-for></div>`\n - The second or third aliases are empty or are not simple identifiers.\n - A custom component rendered with `v-for` is missing `v-bind:key`.\n - The `v-bind:key` expression does not use any variable introduced by the `v-for` directive.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-for:aaa=\"item in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"(item, { key }) in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyItem v-for=\"item in items\"></MyItem>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"item in items\" :key=\"foo\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-for=\"item in items\"></div>\n ```\n\n ```vue\n <MyItem v-for=\"item in items\" :key=\"item.id\" />\n ```\n\n ```vue\n <template v-for=\"item in items\">\n     <div :key=\"item.id\"></div>\n </template>\n ```\n\n Related rules:\n - [`useVueVForKey`](https://biomejs.dev/linter/rules/use-vue-v-for-key/)\n\n"
+            "docs": " Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same.\n\n This rule detects sequences of Tailwind CSS utility classes that can be replaced by a single\n shorter utility. Using shorthands reduces duplication, keeps class lists readable, and helps\n prevent drift where one side gets updated but the matching side does not.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div class=\"w-4 h-4\"></div>\n ```\n\n ### Valid\n\n ```html\n <div class=\"size-4\"></div>\n ```\n\n ## Recognized class strings\n\n This rule checks the attributes and functions recognized by the top-level\n [`tailwind` configuration](https://biomejs.dev/reference/configuration/#tailwind).\n\n ## Known limitations\n\n This rule doesn't check bare strings inside framework-specific class collections,\n such as array or object entries in Vue, Svelte, or Astro class bindings:\n\n ```svelte\n <div class={[\"w-4 h-4\", selected && \"px-2 py-2\"]}></div>\n <div class={{ \"mr-3 ml-3\": active }}></div>\n ```\n\n It also doesn't check untagged template chunks inside framework class attributes:\n\n ```svelte\n <div class={`border-x border-y ${extra}`}></div>\n ```\n\n In Astro, bare strings inside `class:list` arrays are not checked unless they are passed to a\n recognized helper function such as `clsx`.\n"
           }
         },
         "performance": {
@@ -2431,6 +2429,15 @@ export function GET() {
               }
             ],
             "docs": " Disallow `javascript:` URLs in HTML.\n\n Using `javascript:` URLs is considered a form of `eval` and can be a security risk.\n These URLs can execute arbitrary JavaScript code, which can lead to cross-site scripting (XSS) vulnerabilities.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <a href=\"javascript:void(0)\">Click me</a>\n ```\n\n ```html,expect_diagnostic\n <a href=\"javascript:alert('XSS')\">Click me</a>\n ```\n\n ### Valid\n\n ```html\n <a href=\"https://example.com\">Click me</a>\n <a href=\"/path/to/page\">Click me</a>\n <a href=\"#section\">Click me</a>\n <span href=\"javascript:void(0)\">Not a real href</span>\n ```\n\n"
+          },
+          "useIframeSandbox": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "useIframeSandbox",
+            "link": "https://biomejs.dev/linter/rules/use-iframe-sandbox/html",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Require the `sandbox` attribute on `<iframe>` elements.\n\n An iframe can run content from another document. The `sandbox` attribute restricts\n capabilities such as scripts, forms, navigation, and popups. An empty `sandbox` applies all\n restrictions; individual `allow-*` tokens restore only the capabilities the frame needs.\n\n See [MDN's iframe sandbox reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox).\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <iframe src=\"https://example.com\"></iframe>\n ```\n\n ### Valid\n\n ```html\n <iframe src=\"https://example.com\" sandbox=\"allow-popups\"></iframe>\n ```\n\n"
           }
         },
         "style": {
@@ -2442,6 +2449,46 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Restrict the number of lines in a file.\n\n Large HTML and component files are harder to navigate and maintain. A line limit can\n encourage splitting unrelated markup into focused components or templates.\n\n ## Examples\n\n ### Invalid\n\n This example reports a diagnostic when `maxLines` is `2`:\n\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```html,expect_diagnostic,use_options\n <div></div>\n <span></span>\n <p></p>\n ```\n\n ### Valid\n\n ```html\n <div></div>\n <span></span>\n ```\n\n ## Options\n\n ### `maxLines`\n\n Sets the maximum number of lines allowed in a file. Defaults to `300`.\n\n This example lowers the limit to `4` and reports a five-line file:\n\n ```json,options\n {\n     \"options\": {\n         \"maxLines\": 4\n     }\n }\n ```\n ```html,expect_diagnostic,use_options\n <div>Line 1</div>\n <div>Line 2</div>\n <div>Line 3</div>\n <div>Line 4</div>\n <div>Line 5</div>\n ```\n\n ### `skipBlankLines`\n\n Excludes blank lines from the line count when set to `true`. Defaults to `false`.\n\n Here, the blank lines do not count toward the limit:\n\n ```json,options\n {\n     \"options\": {\n         \"maxLines\": 2,\n         \"skipBlankLines\": true\n     }\n }\n ```\n ```html,use_options\n <div></div>\n\n\n <span></span>\n ```\n\n ## Suppressions\n\n If you need to exceed the line limit in a specific file, you can suppress this rule\n at the top of the file:\n\n ```json,options\n {\n     \"options\": {\n         \"maxLines\": 2\n     }\n }\n ```\n ```html,use_options\n <!-- biome-ignore-all lint/style/noExcessiveLinesPerFile: generated file -->\n <div></div>\n <span></span>\n <p></p>\n ```\n\n"
+          },
+          "noInlineStyles": {
+            "deprecated": false,
+            "version": "2.4.9",
+            "name": "noInlineStyles",
+            "link": "https://biomejs.dev/linter/rules/no-inline-styles/html",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "htmlEslint": "no-inline-styles"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSvelte": "no-inline-styles"
+                }
+              }
+            ],
+            "docs": " Disallow the use of inline styles.\n\n Inline styles via the `style` attribute make code harder to maintain and override,\n prevent reusability of styling, and can be a security concern when implementing\n a strict Content Security Policy (CSP).\n\n Instead of inline styles, use CSS classes, CSS modules, or a styling library.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <div style=\"color: red;\"></div>\n ```\n\n ```html,expect_diagnostic\n <p style=\"font-size: 14px;\">Hello</p>\n ```\n\n ### Valid\n\n ```html\n <div class=\"text-red\"></div>\n ```\n\n ```html\n <p class=\"body-text\">Hello</p>\n ```\n\n ## Resources\n\n - [Content Security Policy: Allowing inline styles](https://content-security-policy.com/examples/allow-inline-style)\n\n"
+          },
+          "useScopedStyles": {
+            "deprecated": false,
+            "version": "2.4.5",
+            "name": "useScopedStyles",
+            "link": "https://biomejs.dev/linter/rules/use-scoped-styles/html",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "enforce-style-attribute"
+                }
+              }
+            ],
+            "docs": " Keep component styles scoped in Vue and Astro files.\n\n A Vue single-file component contains its template, script, and styles in one `.vue` file.\n Its `<style>` blocks need the `scoped` attribute so their selectors apply only to that\n component. A `<style module>` block is also accepted because CSS Modules provide their own\n scoping.\n\n Astro scopes component styles by default. The rule reports `is:global` because that\n directive makes the entire style block affect the page globally.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <style>\n .foo { color: red; }\n </style>\n ```\n\n ```astro,expect_diagnostic\n <style is:global>\n .foo { color: red; }\n </style>\n ```\n\n ### Valid\n\n ```vue\n <style scoped>\n .foo { color: red; }\n </style>\n ```\n\n ```vue\n <style module>\n .foo { color: red; }\n </style>\n ```\n\n ## References:\n\n - [Vue Documentation](https://vuejs.org/api/sfc-css-features.html#scoped-css)\n - [Astro Documentation](https://docs.astro.build/en/guides/styling/#global-styles)\n"
           },
           "useVueConsistentVBindStyle": {
             "deprecated": false,
@@ -2700,6 +2747,23 @@ export function GET() {
             ],
             "docs": " Restrict the number of lines of code in a function.\n\n This rule checks the number of lines in a function body and reports a diagnostic if it exceeds a specified limit. Remember that this rule only counts the lines of code in the function body, not the entire function declaration.\n Some people consider large functions a code smell. Large functions tend to do a lot of things and can make it hard following what’s going on. Many coding style guides dictate a limit of the number of lines that a function can comprise of. This rule can help enforce that style.\n\n ## Examples\n\n ### Invalid\n\n The following example will show diagnostic when you set the maxLines limit to 3, however the default value is 50.\n\n ```js\n function foo () {\n   const x = 0;\n   const y = 1;\n   const z = 2;\n   return x + y + z;\n };\n ```\n\n ### Valid\n\n ```js\n  function foo () {\n     const x = 0;\n     const y = 1;\n };\n ```\n\n ## Options\n\n The rule supports the following options:\n\n ```json\n {\n     \"options\": {\n        \"maxLines\": 50,\n        \"skipBlankLines\": false,\n        \"skipIifes\": false\n     }\n }\n ```\n\n ### maxLines\n\n This option sets the maximum number of lines allowed in a function body.\n If the function body exceeds this limit, a diagnostic will be reported.\n\n Default: `50`\n\n When `maxLines: 2`, the following function will be considered invalid:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2\n     }\n }\n ```\n ```js,expect_diagnostic,use_options\n function example() {\n  const a = 1; // 1\n  const b = 2; // 2\n  const c = 3; // 3\n };\n ```\n\n ### skipBlankLines\n\n When this options is set to `true`, blank lines in the function body are not counted towards the maximum line limit.\n This means that only lines with actual code or comments will be counted.\n\n Default: `false`\n\n When `maxLines: 2` and `skipBlankLines: true`, the following function will be considered valid:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2,\n        \"skipBlankLines\": true\n     }\n }\n ```\n ```js,use_options\n function example() {\n  const a = 1; // 1\n  // not counted\n  const b = 2; // 2\n  // not counted\n };\n ```\n\n ### skipIifes\n\n When this option is set to `true`, Immediately Invoked Function Expressions (IIFEs) are not checked for the maximum line limit.\n\n Default: `false`\n\n When `maxLines: 2` and `skipIifes: true`, the following IIFE will be considered valid even though its body has 3 lines:\n ```json,options\n {\n     \"options\": {\n        \"maxLines\": 2,\n        \"skipIifes\": true\n     }\n }\n ```\n ```js,use_options\n (() => {\n  const a = 1; // 1\n  const b = 2; // 2\n  const c = 3; // 3\n })();\n ```\n\n"
           },
+          "noExcessiveNestedCallbacks": {
+            "deprecated": false,
+            "version": "2.4.14",
+            "name": "noExcessiveNestedCallbacks",
+            "link": "https://biomejs.dev/linter/rules/no-excessive-nested-callbacks/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "max-nested-callbacks"
+                }
+              }
+            ],
+            "docs": " Enforce a maximum depth that callbacks can be nested.\n\n Deeply nested callbacks make asynchronous control flow difficult to read and follow.\n This rule reports callback functions nested beyond the configured limit.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo1(function () {\n     foo2(function () {\n         foo3(function () {\n             foo4(function () {\n                 foo5(function () {\n                     foo6(function () {});\n                 });\n             });\n         });\n     });\n });\n ```\n\n ### Valid\n\n ```js\n foo1(handleFoo1);\n\n function handleFoo1() {\n     foo2(handleFoo2);\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum callback nesting depth allowed (default: 5).\n\n ```json,options\n {\n     \"options\": {\n         \"max\": 3\n     }\n }\n ```\n\n #### Invalid\n ```js,use_options,expect_diagnostic\n foo1(function () {\n     foo2(function () {\n         foo3(function () {\n             foo4(function () {});\n         });\n     });\n });\n ```\n\n #### Valid\n ```js,use_options\n foo1(function () {\n     foo2(function () {\n         foo3(function () {});\n     });\n });\n ```\n\n"
+          },
           "noExcessiveNestedTestSuites": {
             "deprecated": false,
             "version": "1.6.0",
@@ -2797,6 +2861,23 @@ export function GET() {
             ],
             "docs": " Encourage use of explicit type conversion functions over their shorthand counterparts.\n\n JavaScript (due to its dynamic typing) [automatically coerces](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)\n values to and from different types when applying certain operators.\n As such, one can use these operators as a \"shorthand\" for coercing values between different types:\n ```js,ignore\n const answer = +\"42\"; // 42 (coerced to number)\n\n const myStr = \"\" + answer; // \"42\" (coerced to string)\n console.log(!!answer); // true (coerced to boolean)\n ```\n\n While these \"implicit coercions\" can save space, there are several reasons one may prefer to avoid them:\n - Relying on these shortcuts can hurt readability, especially for newer developers less familiar with these patterns.\n   Writing `Boolean(value)` or `String(myNum)` makes the type of the resulting value clear and explicit, as opposed to `!!value` or `foo + \"\"` (which may appear confusing at first glance).\n - TypeScript does not allow declaration merging for the built-in type coercion operators, unlike their more explicit function counterparts.\n   For instance, `+value` cannot be overridden to return a more specific type under certain conditions (as opposed to `Number()`,\n   whose method signatures can be customized to do exactly that).\n\n This rule encourages the use of explicit type conversion functions like `Boolean()`, `Number()`, and `String()`\n in favor of implicit operator conversions.\n\n ### Disallowed patterns\n A full list of constructs linted by this rule are as follows:\n\n | Pattern                                        | Target              | Example                          |\n | ---------------------------------------------- | ------------------- | -------------------------------- |\n | Double negation[^1]                            | `Boolean`           | `!!value`                        |\n | Unary plus                                     | `Number`            | `+value`                         |\n | Double unary negation                          | `Number`            | `-(-value)`                      |\n | Subtraction with zero[^2]                      | `Number`            | `value - 0`                      |\n | Multiplication with one[^2]                    | `Number`            | `value * 1`                      |\n | Division with one[^2]                          | `Number`            | `value / 1`                      |\n | Concatenation with an empty string[^2]         | `String`            | `value + \"\"`, ```value + `` ```  |\n | Bitwise NOT with `indexOf`[^3]                 | Check against `-1`  | `~arr.indexOf(value)`            |\n\n [^1]: Unless the `allowDoubleNegation` option is set to `true`, in which case it is ignored.\n\n [^2]: Including their assignment counterparts (`+=`, `-=`, `*=`, `/=`).\n\n [^3]: Bitwise NOT produces the 2's complement negation of a number, which is `0` for `-1`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n !!foo;\n ```\n\n ```js,expect_diagnostic\n +foo;\n ```\n\n ```js,expect_diagnostic\n -(-foo);\n ```\n\n ```js,expect_diagnostic\n foo - 0;\n ```\n\n ```js,expect_diagnostic\n foo * 1;\n ```\n\n ```js,expect_diagnostic\n foo / 1;\n ```\n\n ```js,expect_diagnostic\n foo + \"\";\n ```\n\n ```js,expect_diagnostic\n '' + foo;\n ```\n\n ```js,expect_diagnostic\n baz += ``;\n ```\n\n ```js,expect_diagnostic\n ~foo.indexOf(1);\n ```\n\n ### Valid\n\n ```js\n Boolean(foo);\n ```\n\n ```js\n Number(foo);\n ```\n\n ```js\n String(foo);\n ```\n\n ```js\n foo.indexOf(1) !== -1;\n ```\n\n ```js\n `a${foo}`;\n ```\n\n ```js\n tag`${foo}`;\n ```\n\n These are not flagged because they may have other effects on the produced value other than type coercion:\n ```js\n !foo;\n ~foo;\n -foo;\n +1234;\n 2 * foo;\n foo + 'bar';\n foo + 0; // has the potential to concatenate strings, unlike `foo - 0` which always produces a number\n ```\n\n ## Options\n\n ### `allowDoubleNegation`\n Whether to allow or disallow the use of double negation (`!!value`) for `Boolean` coercions.\n\n Default: `false` (disallow)\n\n Examples of correct code with `allowDoubleNegation` set to `true`:\n ```json,options\n {\n   \"options\": {\n      \"allowDoubleNegation\": true\n   }\n }\n ```\n\n ```js,use_options\n !!foo;\n ```\n\n :::info\n While one could make an argument to add options for each individual disallowed pattern, the other variants are significantly less common\n and tend to suffer even more from readability issues.\n As such, the choice was made (for the time being) to only allow toggling double negation given its relatively high frequency.\n\n If you have a strong case to selectively allow one of the other patterns, open a feature request on [GitHub](https://github.com/biomejs/biome/discussions) and we can discuss it there!\n :::\n\n"
           },
+          "noPlaywrightUselessAwait": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightUselessAwait",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-useless-await/javascript",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-useless-await"
+                }
+              }
+            ],
+            "docs": " Disallow unnecessary `await` for Playwright methods that don't return promises.\n\n Some Playwright methods are frequently, yet incorrectly, awaited when they return\n synchronous values. This includes locator methods, which return locators (not promises),\n and synchronous expect matchers.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.locator('.my-element');\n ```\n\n ```js,expect_diagnostic\n await page.getByRole('button');\n ```\n\n ```js,expect_diagnostic\n await expect(1).toBe(1);\n ```\n\n ### Valid\n\n ```js\n page.locator('.my-element');\n await page.locator('.my-element').click();\n ```\n\n ```js\n page.getByRole('button');\n await page.getByRole('button').click();\n ```\n\n ```js\n expect(1).toBe(1);\n await expect(page.locator('.foo')).toBeVisible();\n ```\n\n"
+          },
           "noRedundantDefaultExport": {
             "deprecated": false,
             "version": "2.3.14",
@@ -2845,6 +2926,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow `this` and `super` in `static` contexts.\n\n In JavaScript, the `this` keyword in static contexts refers to the class (the constructor) instance,\n not an instance of the class. This can be confusing for developers coming from other languages where\n `this` typically refers to an instance of the class, not the class itself.\n\n Similarly, `super` in static contexts refers to the parent class, not an instance of the class.\n This can lead to unexpected behavior if not properly understood.\n\n This rule enforces the use of the class name itself to access static methods,\n which can make the code clearer and less prone to errors. It helps to prevent\n misunderstandings and bugs that can arise from the unique behavior of `this` and `super` in static contexts.\n\n ## Example\n\n ### Invalid\n\n ```js,expect_diagnostic\n  class A {\n     static CONSTANT = 0;\n\n     static foo() {\n         this.CONSTANT;\n     }\n  }\n ```\n\n ```js,expect_diagnostic\n  class B extends A {\n     static bar() {\n         super.CONSTANT;\n     }\n  }\n ```\n\n ### Valid\n\n ```js\n class B extends A {\n     static ANOTHER_CONSTANT = A.CONSTANT + 1;\n\n     static foo() {\n         A.CONSTANT;\n         B.ANOTHER_CONSTANT;\n     }\n\n     bar() {\n         this.property;\n     }\n }\n ```\n\n ```js\n class A {\n    static foo() {\n        doSomething()\n    }\n\n    bar() {\n      A.foo()\n    }\n }\n ```\n\n"
+          },
+          "noUnnecessaryTemplateExpression": {
+            "deprecated": false,
+            "version": "2.4.13",
+            "name": "noUnnecessaryTemplateExpression",
+            "link": "https://biomejs.dev/linter/rules/no-unnecessary-template-expression/javascript",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "no-unnecessary-template-expression"
+                }
+              }
+            ],
+            "docs": " Disallow unnecessary template expressions.\n\n A template expression (or template literal) is unnecessary when it only contains\n string literal expressions that could be written as a regular string literal instead.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const a = `${'hello'}`;\n ```\n\n ```js,expect_diagnostic\n const b = `${\"world\"}`;\n ```\n\n ```js,expect_diagnostic\n const c = `${'hello'}${'world'}`;\n ```\n\n ```js,expect_diagnostic\n const d = `prefix_${'suffix'}`;\n ```\n\n ### Valid\n\n ```js\n // Template with a non-string-literal expression\n const a = `${someVariable}`;\n ```\n\n ```js\n // Template with a non-string-literal interpolation mixed with text\n const b = `Hello, ${name}!`;\n ```\n\n ```js\n // Tagged templates are never flagged\n const c = html`${'foo'}`;\n ```\n\n ```js\n // Templates with newlines in the text part need the template syntax\n const d = `line one\n ${'line two'}`;\n ```\n\n"
           },
           "noUselessCatch": {
             "deprecated": false,
@@ -3134,6 +3232,23 @@ export function GET() {
             ],
             "docs": " Enforce the use of Array.prototype.find() over Array.prototype.filter() followed by [0] when looking for a single result.\n\n When searching for the first item in an array matching a condition, it may be tempting to use code like `arr.filter(x => x > 0)[0]`.\n However, it is simpler to use `Array.prototype.find()` instead, `arr.find(x => x > 0)`, which also returns the first entry matching a condition.\n Because the `.find()` only needs to execute the callback until it finds a match, it's also more efficient.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n [1, 2, 3].filter(x => x > 1)[0];\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n [1, 2, 3].filter(x => x > 1).at(0);\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n [1, 2, 3].find(x => x > 1);\n ```\n\n"
           },
+          "useArraySome": {
+            "deprecated": false,
+            "version": "2.4.5",
+            "name": "useArraySome",
+            "link": "https://biomejs.dev/linter/rules/use-array-some/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintUnicorn": "prefer-array-some"
+                }
+              }
+            ],
+            "docs": " Prefer `Array.prototype.some()` over verbose existence checks.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n array.filter(predicate).length > 0;\n ```\n\n ```js,expect_diagnostic\n array.findIndex(predicate) !== -1;\n ```\n\n ```js,expect_diagnostic\n if (array.find(predicate)) {}\n ```\n\n ```js,expect_diagnostic\n array.find(predicate) != null;\n ```\n\n ```js,expect_diagnostic\n array.findLastIndex(predicate) !== -1;\n ```\n\n ```js,expect_diagnostic\n if (array.findLast(predicate)) {}\n ```\n\n ### Valid\n\n ```js\n array.some(predicate);\n ```\n\n"
+          },
           "useArrowFunction": {
             "deprecated": false,
             "version": "1.0.0",
@@ -3243,6 +3358,23 @@ export function GET() {
             ],
             "docs": " Enforce the usage of a literal access to properties over computed property access.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n a.b[\"c\"];\n ```\n\n ```js,expect_diagnostic\n a.c[`d`]\n ```\n\n ```js,expect_diagnostic\n a.c[`d`] = \"something\"\n ```\n\n ```js,expect_diagnostic\n a = {\n \t['b']: d\n }\n ```\n\n ### Valid\n\n ```js\n a[\"c\" + \"d\"];\n a[d.c];\n ```\n\n"
           },
+          "useMathMinMax": {
+            "deprecated": false,
+            "version": "2.4.14",
+            "name": "useMathMinMax",
+            "link": "https://biomejs.dev/linter/rules/use-math-min-max/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "prefer-math-min-max"
+                }
+              }
+            ],
+            "docs": " Prefer `Math.min()` and `Math.max()` over ternaries for simple comparisons.\n\n Replacing ternary comparisons like `a > b ? b : a` with `Math.min(a, b)` makes the intent clearer and keeps equivalent min/max comparisons consistent across a codebase.\n\n This rule only targets straightforward min/max ternaries and ignores operands that are obviously not numeric, such as `bigint` and `Date` values.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n height > 50 ? 50 : height;\n ```\n\n ```js,expect_diagnostic\n height < 50 ? 50 : height;\n ```\n\n ### Valid\n\n ```js\n Math.min(height, 50);\n ```\n\n ```js\n Math.max(height, 50);\n ```\n\n ```js\n foo ? foo : bar;\n ```\n\n"
+          },
           "useMaxParams": {
             "deprecated": false,
             "version": "2.2.0",
@@ -3322,6 +3454,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce the use of the regular expression literals instead of the RegExp constructor if possible.\n\n There are two ways to create a regular expression:\n - Regular expression literals, e.g., `/abc/u`.\n - The RegExp constructor function, e.g., `new RegExp(\"abc\", \"u\")` .\n\n The constructor function is particularly useful when you want to dynamically generate the pattern,\n because it takes string arguments.\n\n Using regular expression literals avoids some escaping required in a string literal,\n and are easier to analyze statically.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n new RegExp(\"abc\", \"u\");\n ```\n\n ### Valid\n\n ```js\n /abc/u;\n\n new RegExp(\"abc\", flags);\n ```\n\n"
+          },
+          "useRegexpTest": {
+            "deprecated": false,
+            "version": "2.4.13",
+            "name": "useRegexpTest",
+            "link": "https://biomejs.dev/linter/rules/use-regexp-test/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "prefer-regexp-test"
+                }
+              }
+            ],
+            "docs": " Enforce the use of `RegExp.prototype.test()` over `String.prototype.match()` and `RegExp.prototype.exec()` in boolean contexts.\n\n When checking whether a string matches a regular expression, `RegExp.prototype.test()` is more appropriate\n than `String.prototype.match()` and `RegExp.prototype.exec()` because it returns a boolean directly.\n In contrast, `match()` and `exec()` return match objects or arrays, which involves unnecessary computation\n when only a true/false result is needed.\n\n The fix is marked as unsafe because `match()` and `exec()` can have side effects when used with\n [global or sticky](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/lastIndex) regular expressions,\n since they advance the `lastIndex` property differently than `test()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (\"hello world\".match(/hello/)) {}\n ```\n\n ```js,expect_diagnostic\n if (/hello/.exec(\"hello world\")) {}\n ```\n\n ### Valid\n\n ```js\n if (/hello/.test(\"hello world\")) {}\n ```\n\n"
           },
           "useSimpleNumberKeys": {
             "deprecated": false,
@@ -3532,6 +3681,12 @@ export function GET() {
                 "source": {
                   "eslint": "no-new-native-nonconstructor"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "no-new-symbol"
+                }
               }
             ],
             "docs": " Ensure that builtins are correctly instantiated.\n\n The following builtins require `new` to be instantiate:\n\n - ArrayBuffer\n - BigInt64Array\n - BigUint64Array\n - DataView\n - FinalizationRegistry\n - Float32Array\n - Float64Array\n - Int16Array\n - Int32Array\n - Int8Array\n - Map\n - Promise\n - Proxy\n - Set\n - SharedArrayBuffer\n - Uint16Array\n - Uint32Array\n - Uint8Array\n - Uint8ClampedArray\n - WeakMap\n - WeakRef\n - WeakSet\n\n Conversely, the following builtins cannot be instantiated with `new`:\n\n - BigInt\n - Symbol\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const text = new BigInt(1);\n ```\n\n ```js,expect_diagnostic\n const map = Map([\n   ['foo', 'bar']\n ]);\n ```\n\n ### Valid\n\n ```js\n const text = BigInt(1);\n ```\n\n ```js\n const map = new Map([\n  ['foo', 'bar']\n ]);\n ```\n"
@@ -3626,6 +3781,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow `\\8` and `\\9` escape sequences in string literals.\n\n Since ECMAScript 2021, the escape sequences \\8 and \\9 have been defined as non-octal decimal escape sequences.\n However, most JavaScript engines consider them to be \"useless\" escapes. For example:\n\n ```js,ignore\n \"\\8\" === \"8\"; // true\n \"\\9\" === \"9\"; // true\n ```\n\n Although this syntax is deprecated, it is still supported for compatibility reasons.\n If the ECMAScript host is not a web browser, this syntax is optional.\n However, web browsers are still required to support it, but only in non-strict mode.\n Regardless of your targeted environment, it is recommended to avoid using these escape sequences in new code.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const x = \"\\8\";\n ```\n\n ```js,expect_diagnostic\n const x = \"Don't use \\8 escape.\";\n ```\n\n ```js,expect_diagnostic\n const x = \"Don't use \\9 escape.\";\n ```\n\n ### Valid\n\n ```js\n const x = \"8\";\n ```\n\n ```js\n const x = \"Don't use \\\\8 and \\\\9 escapes.\";\n ```\n\n"
+          },
+          "noPlaywrightMissingAwait": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightMissingAwait",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-missing-await/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "missing-playwright-await"
+                }
+              }
+            ],
+            "docs": " Enforce Playwright async APIs to be awaited or returned.\n\n Playwright has asynchronous matchers and methods that must be properly awaited.\n This rule identifies common mistakes where async Playwright APIs are not properly handled,\n which can lead to false positives in tests.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test('example', async ({ page }) => {\n     expect(page.getByRole('button')).toBeVisible();\n });\n ```\n\n ```js,expect_diagnostic\n test('example', async ({ page }) => {\n     test.step('step', async () => {});\n });\n ```\n\n ### Valid\n\n ```js\n test('example', async ({ page }) => {\n     await expect(page.getByRole('button')).toBeVisible();\n });\n ```\n\n ```js\n test('example', async ({ page }) => {\n     await test.step('step', async () => {});\n });\n ```\n\n ```js\n test('example', async ({ page }) => {\n     return expect(page.getByRole('button')).toBeVisible();\n });\n ```\n\n"
           },
           "noPrecisionLoss": {
             "deprecated": false,
@@ -4058,6 +4230,40 @@ export function GET() {
             ],
             "docs": " Disallow duplicate keys in Vue component data, methods, computed properties, and other options.\n\n This rule prevents the use of duplicate keys across different Vue component options\n such as `props`, `data`, `computed`, `methods`, and `setup`. Even if keys don't conflict\n in the script tag, they may cause issues in the template since Vue allows direct\n access to these keys.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     props: ['foo'],\n     data() {\n         return {\n             foo: 'bar'\n         };\n     }\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     data() {\n         return {\n             message: 'hello'\n         };\n     },\n     methods: {\n         message() {\n             console.log('duplicate key');\n         }\n     }\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n     computed: {\n         count() {\n             return this.value * 2;\n         }\n     },\n     methods: {\n         count() {\n             this.value++;\n         }\n     }\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n     props: ['foo'],\n     data() {\n         return {\n             bar: 'baz'\n         };\n     },\n     methods: {\n         handleClick() {\n             console.log('unique key');\n         }\n     }\n };\n </script>\n ```\n\n ```vue\n <script>\n export default {\n     computed: {\n         displayMessage() {\n             return this.message.toUpperCase();\n         }\n     },\n     methods: {\n         clearMessage() {\n             this.message = '';\n         }\n     }\n };\n </script>\n ```\n\n"
           },
+          "noVueImportCompilerMacros": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "noVueImportCompilerMacros",
+            "link": "https://biomejs.dev/linter/rules/no-vue-import-compiler-macros/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-import-compiler-macros"
+                }
+              }
+            ],
+            "docs": " Disallow importing Vue compiler macros.\n\n Vue compiler macros are globally available inside `<script setup>` blocks and must not be imported.\n Outside of `<script setup>`, compiler macros are not valid Vue runtime imports.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n import { defineProps } from \"vue\";\n defineProps({});\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n defineProps({});\n </script>\n ```\n\n"
+          },
+          "noVueRefAsOperand": {
+            "deprecated": false,
+            "version": "2.4.5",
+            "name": "noVueRefAsOperand",
+            "link": "https://biomejs.dev/linter/rules/no-vue-ref-as-operand/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-ref-as-operand"
+                }
+              }
+            ],
+            "docs": " Disallow the use of value wrapped by `ref()`(Composition API) as operand\n\n To access value wrapped by `ref()`, you must use `.value`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const count = ref(0)\n count++\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const ok = ref(false)\n const msg = ok ? \"yes\" : \"no\"\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const ok = ref(false)\n if (ok) {\n   //\n }\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count)\n   }\n }\n ```\n\n ### Valid\n\n ```js\n import { ref } from \"vue\"\n\n const count = ref(0)\n count.value++\n ```\n\n ```js\n import { ref } from \"vue\"\n\n const ok = ref(true)\n const msg = ok.value ? \"yes\" : \"no\"\n if (ok.value) {\n   //\n }\n ```\n\n ```js\n import { ref } from \"vue\"\n\n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count.value)\n   }\n }\n ```\n\n"
+          },
           "noVueReservedKeys": {
             "deprecated": false,
             "version": "2.1.3",
@@ -4161,6 +4367,86 @@ export function GET() {
             ],
             "docs": " Enforce the consistent use of the radix argument when using `parseInt()`.\n\n When using the `parseInt()` function it is common to omit the second argument, the radix, and let the function try to determine from the first argument what type of number it is. By default, `parseInt()` will autodetect decimal and hexadecimal (via `0x` prefix). Prior to ECMAScript 5, `parseInt()` also autodetected octal literals, which caused problems because many developers assumed a leading `0` would be ignored.\n\n This confusion led to the suggestion that you always use the radix parameter to `parseInt()` to eliminate unintended consequences.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n parseInt(\"071\");\n ```\n\n ```js,expect_diagnostic\n parseInt(someValue);\n ```\n\n ```js,expect_diagnostic\n parseInt(\"071\", \"abc\");\n ```\n\n ```js,expect_diagnostic\n parseInt(\"071\", 37);\n ```\n\n ```js,expect_diagnostic\n parseInt();\n ```\n\n ### Valid\n\n ```js\n parseInt(\"071\", 10);\n parseInt(\"071\", 8);\n parseFloat(someValue);\n ```\n\n"
           },
+          "usePlaywrightValidDescribeCallback": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "usePlaywrightValidDescribeCallback",
+            "link": "https://biomejs.dev/linter/rules/use-playwright-valid-describe-callback/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "valid-describe-callback"
+                }
+              }
+            ],
+            "docs": " Enforce valid `describe()` callback.\n\n Using an improper `describe()` callback function can lead to unexpected test errors.\n This rule validates that describe callbacks are proper synchronous functions without parameters.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test.describe('suite', async () => {\n     test('one', async ({ page }) => {});\n });\n ```\n\n ```js,expect_diagnostic\n test.describe('suite', (done) => {\n     test('one', async ({ page }) => {});\n });\n ```\n\n ### Valid\n\n ```js\n test.describe('suite', () => {\n     test('one', async ({ page }) => {});\n     test('two', async ({ page }) => {});\n });\n ```\n\n ```js\n describe('suite', function() {\n     test('one', async ({ page }) => {});\n });\n ```\n\n"
+          },
+          "useQwikLoaderLocation": {
+            "deprecated": false,
+            "version": "2.4.11",
+            "name": "useQwikLoaderLocation",
+            "link": "https://biomejs.dev/linter/rules/use-qwik-loader-location/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintQwik": "loader-location"
+                }
+              }
+            ],
+            "docs": " Enforce that Qwik loader functions are declared in the correct location.\n\n Route functions like `routeLoader$`, `routeAction$` must be declared in route boundary files\n (`index`, `layout`, or `plugin` files inside the configured routes directory).\n All loader/action functions must also be exported from the module and follow the `use*` naming convention.\n\n See the [Qwik documentation](https://qwik.dev/docs/route-loader/) for more details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic,file=src/components/product.jsx\n // src/components/product.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n export const useProducts = routeLoader$(async () => {});\n ```\n\n ```jsx,expect_diagnostic,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n export const getProducts = routeLoader$(async () => {});\n ```\n\n ```jsx,expect_diagnostic,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n const useProducts = routeLoader$(async () => {});\n ```\n\n ```jsx,expect_diagnostic,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n async function fetcher() {}\n const useProducts = routeLoader$(fetcher);\n ```\n\n ### Valid\n\n ```jsx,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n export const useProducts = routeLoader$(async () => {});\n ```\n\n"
+          },
+          "useReactAsyncServerFunction": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "useReactAsyncServerFunction",
+            "link": "https://biomejs.dev/linter/rules/use-react-async-server-function/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "async-server-action"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "rsc-function-definition"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactRsc": "function-definition"
+                }
+              }
+            ],
+            "docs": " Require functions with the \"use server\" directive to be async.\n\n Require Server Functions (functions in a file with a top-level `\"use server\"` directive or functions with their own `\"use server\"` directive) to be async.\n\n See the [React documentation](https://react.dev/reference/rsc/use-server) for more details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <form\n   action={() => {\n     'use server';\n     // ...\n   }}\n >\n   // ...\n </form>\n ```\n\n ```js,expect_diagnostic\n function serverFunction() {\n   'use server';\n   // ...\n }\n ```\n\n ```js,expect_diagnostic\n 'use server';\n export function serverFunction() {\n   // ...\n }\n ```\n\n ### Valid\n\n ```jsx\n <form\n   action={async () => {\n     'use server';\n     // ...\n   }}\n >\n   // ...\n </form>\n ```\n\n ```js\n async function serverFunction() {\n   'use server';\n   // ...\n }\n ```\n\n ```js\n 'use server';\n export async function serverFunction() {\n   // ...\n }\n ```\n\n"
+          },
+          "useReactNativePlatformComponents": {
+            "deprecated": false,
+            "version": "2.4.13",
+            "name": "useReactNativePlatformComponents",
+            "link": "https://biomejs.dev/linter/rules/use-react-native-platform-components/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReactNativeIntellicode": "split-platform-components"
+                }
+              }
+            ],
+            "docs": " Ensure that platform-specific React Native components are only\n imported in files named for that platform.\n\n Some React Native components only work on one platform. For example,\n `ProgressBarAndroid` is Android-only and `ActivityIndicatorIOS` is\n iOS-only. These components should live in files with a matching\n platform suffix such as `.android.js` or `.ios.js`, so the React\n Native bundler can ship the right code to each platform.\n\n This rule reports an error when a platform-specific component is\n imported in a file that does not have the matching suffix, or when\n both Android and iOS components are imported in the same file.\n\n ## Examples\n\n ### Invalid\n\n Importing an Android component in a non-Android file:\n\n ```js,expect_diagnostic\n import { ProgressBarAndroid } from \"react-native\";\n ```\n\n Importing an iOS component in a non-iOS file:\n\n ```js,expect_diagnostic\n import { ActivityIndicatorIOS } from \"react-native\";\n ```\n\n ### Valid\n\n ```js\n import { View } from \"react-native\";\n ```\n\n ## Options\n\n ### `androidPathPatterns`\n\n A list of glob patterns to identify Android-specific files.\n\n Default: `[\"**/*.android.{js,jsx,ts,tsx}\"]`\n\n In the following example, Android files use `.droid.jsx` as their suffix instead of the default `.android.js`:\n\n ```json,options\n {\n     \"options\": {\n         \"androidPathPatterns\": [\"**/*.droid.jsx\"]\n     }\n }\n ```\n\n ```jsx,use_options,file=Button.droid.jsx\n import { ProgressBarAndroid } from \"react-native\";\n ```\n\n ```jsx,expect_diagnostic,use_options,file=Button.android.jsx\n import { ProgressBarAndroid } from \"react-native\";\n ```\n\n ### `iosPathPatterns`\n\n A list of glob patterns to identify iOS-specific files.\n\n Default: `[\"**/*.ios.{js,jsx,ts,tsx}\"]`\n\n In the following example, iOS files use `.apple.jsx` as their suffix instead of the default `.ios.js`:\n\n ```json,options\n {\n     \"options\": {\n         \"iosPathPatterns\": [\"**/*.apple.jsx\"]\n     }\n }\n ```\n\n ```jsx,use_options,file=Button.apple.jsx\n import { ActivityIndicatorIOS } from \"react-native\";\n ```\n\n ```jsx,expect_diagnostic,use_options,file=Button.ios.jsx\n import { ActivityIndicatorIOS } from \"react-native\";\n ```\n\n"
+          },
           "useSingleJsDocAsterisk": {
             "deprecated": false,
             "version": "2.0.0",
@@ -4257,86 +4543,6 @@ export function GET() {
             "fixKind": "none",
             "docs": " Forbid the use of Bun builtin modules.\n\n This can be useful for client-side web projects that don't have access to those modules.\n\n The rule doesn't trigger if there are dependencies declared in the `package.json` that match\n the name of a built-in Bun module.\n\n Type-only imports are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { Database } from \"bun:sqlite\";\n ```\n\n ### Valid\n\n ```js\n import { Database } from \"custom-sqlite\";\n ```\n\n ```ts\n import type { DatabaseOptions } from \"bun:sqlite\";\n ```\n"
           },
-          "noConditionalExpect": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "noConditionalExpect",
-            "link": "https://biomejs.dev/linter/rules/no-conditional-expect/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "no-conditional-expect"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintJest": "no-conditional-expect"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintVitest": "no-conditional-expect"
-                }
-              }
-            ],
-            "docs": " Disallow conditional `expect()` calls inside tests.\n\n Conditional expectations are problematic because they can silently pass\n when the condition is false, meaning assertions may never actually run.\n This can lead to tests that pass despite bugs in the code.\n\n If you need conditional testing logic, consider:\n - Using `test.skip()` to skip the entire test\n - Splitting into separate tests with clear conditions\n - Using `expect.soft()` for optional assertions\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"conditional expect\", async ({ page }) => {\n     if (someCondition) {\n         await expect(page).toHaveTitle(\"Title\");\n     }\n });\n ```\n\n ```js,expect_diagnostic\n test(\"ternary expect\", async ({ page }) => {\n     someCondition ? await expect(page).toHaveTitle(\"Title\") : null;\n });\n ```\n\n ```js,expect_diagnostic\n test(\"catch expect\", async ({ page }) => {\n     try {\n         await page.click(\"button\");\n     } catch (e) {\n         await expect(page).toHaveTitle(\"Title\");\n     }\n });\n ```\n\n ### Valid\n\n ```js\n test(\"unconditional expect\", async ({ page }) => {\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n ```js\n test(\"skip based on condition\", async ({ page }) => {\n     test.skip(someCondition, \"Reason to skip\");\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n"
-          },
-          "noDrizzleDeleteWithoutWhere": {
-            "deprecated": false,
-            "version": "2.4.8",
-            "name": "noDrizzleDeleteWithoutWhere",
-            "link": "https://biomejs.dev/linter/rules/no-drizzle-delete-without-where/javascript",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintDrizzle": "enforce-delete-with-where"
-                }
-              }
-            ],
-            "docs": " Require `.where()` to be called when using `.delete()` with Drizzle ORM.\n\n Without a `.where()` clause, a `delete` statement will delete **all rows** from the table.\n This rule requires explicitly calling `.where()` to prevent accidental data loss.\n\n ## Options\n\n Use the `drizzleObjectName` option to specify the variable names that represent Drizzle\n ORM instances.\n\n ```json,options\n {\n   \"options\": {\n     \"drizzleObjectName\": [\"db\"]\n   }\n }\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,use_options\n await db.delete(users);\n ```\n\n ### Valid\n\n ```js,use_options\n await db.delete(users).where(eq(users.id, 1));\n ```\n\n"
-          },
-          "noDrizzleUpdateWithoutWhere": {
-            "deprecated": false,
-            "version": "2.4.8",
-            "name": "noDrizzleUpdateWithoutWhere",
-            "link": "https://biomejs.dev/linter/rules/no-drizzle-update-without-where/javascript",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintDrizzle": "enforce-update-with-where"
-                }
-              }
-            ],
-            "docs": " Require `.where()` to be called when using `.update()` with Drizzle ORM.\n\n Without a `.where()` clause, an `update` statement will update **all rows** in the table.\n This rule requires explicitly calling `.where()` to prevent accidental mass updates.\n\n ## Options\n\n Use the `drizzleObjectName` option to specify the variable names that represent Drizzle\n ORM instances.\n\n ```json,options\n {\n   \"options\": {\n     \"drizzleObjectName\": [\"db\"]\n   }\n }\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,use_options\n await db.update(users).set({ name: \"John\" });\n ```\n\n ### Valid\n\n ```js,use_options\n await db.update(users).set({ name: \"John\" }).where(eq(users.id, 1));\n ```\n\n"
-          },
-          "noExcessiveNestedCallbacks": {
-            "deprecated": false,
-            "version": "2.4.14",
-            "name": "noExcessiveNestedCallbacks",
-            "link": "https://biomejs.dev/linter/rules/no-excessive-nested-callbacks/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslint": "max-nested-callbacks"
-                }
-              }
-            ],
-            "docs": " Enforce a maximum depth that callbacks can be nested.\n\n Deeply nested callbacks make asynchronous control flow difficult to read and follow.\n This rule reports callback functions nested beyond the configured limit.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo1(function () {\n     foo2(function () {\n         foo3(function () {\n             foo4(function () {\n                 foo5(function () {\n                     foo6(function () {});\n                 });\n             });\n         });\n     });\n });\n ```\n\n ### Valid\n\n ```js\n foo1(handleFoo1);\n\n function handleFoo1() {\n     foo2(handleFoo2);\n }\n ```\n\n ## Options\n\n ### max\n\n The maximum callback nesting depth allowed (default: 5).\n\n ```json,options\n {\n     \"options\": {\n         \"max\": 3\n     }\n }\n ```\n\n #### Invalid\n ```js,use_options,expect_diagnostic\n foo1(function () {\n     foo2(function () {\n         foo3(function () {\n             foo4(function () {});\n         });\n     });\n });\n ```\n\n #### Valid\n ```js,use_options\n foo1(function () {\n     foo2(function () {\n         foo3(function () {});\n     });\n });\n ```\n\n"
-          },
           "noExtendNative": {
             "deprecated": false,
             "version": "2.5.7",
@@ -4353,29 +4559,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow extending the prototype of built-in objects.\n\n Adding properties to the prototype of a built-in such as `Object`,\n `Array`, or `Error` leaks into every value of that type. The new\n property shows up in every `for...in`, collides with other libraries\n that patch the same prototype, and breaks assumptions across the whole\n program. Extend a subclass or use a standalone helper instead.\n\n This rule flags a direct prototype assignment\n (`Builtin.prototype.x = ...`), computed prototype access\n (`Builtin[\"prototype\"].x = ...`), and\n `Object.defineProperty`/`Object.defineProperties` targeting a\n built-in prototype.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Object.prototype.extra = \"a\";\n ```\n\n ```js,expect_diagnostic\n Array.prototype.times = function () {};\n ```\n\n ```js,expect_diagnostic\n Object.defineProperty(Array.prototype, \"times\", { value: 999 });\n ```\n\n ### Valid\n\n ```js\n class CustomArray extends Array {}\n ```\n\n ```js\n const obj = {};\n obj.extra = \"a\";\n ```\n\n"
-          },
-          "noIdenticalTestTitle": {
-            "deprecated": false,
-            "version": "2.4.12",
-            "name": "noIdenticalTestTitle",
-            "link": "https://biomejs.dev/linter/rules/no-identical-test-title/javascript",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintJest": "no-identical-title"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintVitest": "no-identical-title"
-                }
-              }
-            ],
-            "docs": " Disallow identical titles in test suites and test cases.\n\n Having identical titles for two different tests or test suites at the same level may create confusion.\n For example, when a test fails it is hard to tell which test exactly failed based on its title alone.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n it('should do bar', () => {});\n it('should do bar', () => {});\n ```\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   it('should do bar', () => {});\n   it('should do bar', () => {});\n });\n ```\n\n ```js,expect_diagnostic\n describe('foo', () => {});\n describe('foo', () => {});\n ```\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   describe('baz', () => {});\n   describe('baz', () => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   it('should do foo', () => {});\n   it('should do bar', () => {});\n });\n\n describe('bar', () => {});\n ```\n\n ```js\n describe('foo', () => {\n   describe('baz', () => {\n     it('should work', () => {});\n   });\n   describe('bar', () => {\n     it('should work', () => {});\n   });\n });\n ```\n\n"
           },
           "noImpliedEval": {
             "deprecated": false,
@@ -4406,46 +4589,6 @@ export function GET() {
             ],
             "docs": " Disallow the use of `eval()`-like methods.\n\n The `eval()` function evaluates the passed string as a _JavaScript_ code.\n Calling `setTimeout`, `setInterval`, or `setImmediate` with a string argument,\n or using the global `Function` constructor, is an implied `eval()` because code\n is created from strings at runtime.\n\n Using implied `eval()` is considered a bad practice because:\n 1. It exposes your code to security risks and performance issues\n 2. The code is evaluated in the global scope rather than the local scope\n 3. It prevents the JavaScript engine from optimizing the code\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n setTimeout(\"alert('Hello world!');\", 100);\n ```\n\n ```js,expect_diagnostic\n setInterval(\"alert('Hello world!');\", 100);\n ```\n\n ```js,expect_diagnostic\n setImmediate(\"alert('Hello world!');\");\n ```\n\n ```js,expect_diagnostic\n window.setTimeout(\"count = 5\", 10);\n ```\n\n ```js,expect_diagnostic\n window.setInterval(\"foo = bar\", 10);\n ```\n\n ```js,expect_diagnostic\n Function(\"a\", \"b\", \"return a + b\");\n ```\n\n ```js,expect_diagnostic\n new Function(\"a\", \"b\", \"return a + b\");\n ```\n\n ### Valid\n\n ```js\n setTimeout(function() {\n     alert('Hello world!');\n }, 100);\n ```\n\n ```js\n setInterval(() => {\n     alert('Hello world!');\n }, 100);\n ```\n\n ```js\n // setTimeout is shadowed by a local variable\n function foo(setTimeout) {\n     setTimeout(\"alert('Hello world!');\", 100);\n }\n ```\n\n ```js\n function foo(Function) {\n     Function(\"a\", \"b\", \"return a + b\");\n }\n ```\n\n ## Resources\n\n - [MDN setTimeout() documentation](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#the_string_problem)\n - [MDN eval() documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval#never_use_direct_eval!)\n\n"
           },
-          "noInlineStyles": {
-            "deprecated": false,
-            "version": "2.4.9",
-            "name": "noInlineStyles",
-            "link": "https://biomejs.dev/linter/rules/no-inline-styles/javascript",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactNativeIntellicode": "no-inline-styles"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintShadcn": "no-inline-styles"
-                }
-              }
-            ],
-            "docs": " Disallow the use of inline styles.\n\n Inline styles via the `style` attribute make code harder to maintain and override,\n prevent reusability of styling, and can be a security concern when implementing\n a strict Content Security Policy (CSP).\n\n Instead of inline styles, use CSS classes, CSS modules, or a styling library.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div style={{ color: \"red\" }}>Error</div>\n ```\n\n ```js,expect_diagnostic\n React.createElement(\"div\", { style: { color: \"red\" } });\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"text-red\">Error</div>\n ```\n\n ```js\n React.createElement(\"div\", { className: \"container\" });\n ```\n\n ## Resources\n\n - [Content Security Policy: Allowing inline styles](https://content-security-policy.com/examples/allow-inline-style)\n\n"
-          },
-          "noIteratorProperty": {
-            "deprecated": false,
-            "version": "next",
-            "name": "noIteratorProperty",
-            "link": "https://biomejs.dev/linter/rules/no-iterator-property/javascript",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslint": "no-iterator"
-                }
-              }
-            ],
-            "docs": " Disallow the use of the `__iterator__` property.\n\n `__iterator__` was a non-standard property that only Firefox supported. Assigning a function\n to it changed which values a `for...in` loop produced for an object. It was never part of\n the JavaScript standard, and Firefox has since removed it, so no current browser or\n JavaScript runtime uses it. Code that relies on it silently stops working.\n\n To make an object iterable, define a [`Symbol.iterator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/iterator)\n method instead, and loop over the object with `for...of`. The\n [iteration protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)\n guide explains how this works.\n\n The rule reports both reading and assigning `__iterator__`, whether the code uses a dot\n (`foo.__iterator__`) or brackets with a string (`foo[\"__iterator__\"]`).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Foo.prototype.__iterator__ = function () {\n     return new FooIterator(this);\n };\n ```\n\n ```js,expect_diagnostic\n foo.__iterator__ = function () {};\n ```\n\n ```js,expect_diagnostic\n foo[\"__iterator__\"] = function () {};\n ```\n\n ### Valid\n\n ```js\n // A variable named `__iterator__` isn't a property, so it's allowed.\n const __iterator__ = foo;\n\n // Brackets with a variable look up the variable's value, not a property named `__iterator__`.\n foo[__iterator__];\n\n // The standard way to make objects iterable.\n Foo.prototype[Symbol.iterator] = function* () {\n     yield 1;\n };\n ```\n\n"
-          },
           "noJsRestrictedProperties": {
             "deprecated": false,
             "version": "2.5.6",
@@ -4462,29 +4605,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow specific object properties.\n\n This rule lets you ban property access for exact object/property pairs, all properties on a\n given object, or a property name everywhere except for a short allowlist of objects.\n\n It also reports restricted properties when they appear in object destructuring.\n\n This rule requires explicit configuration to specify which properties are restricted, so it does not report anything by default.\n\n ## Examples\n\n ### Exact object/property restriction\n\n ```json,options\n {\n   \"options\": {\n     \"entries\": [\n       {\n         \"object\": \"require\",\n         \"property\": \"ensure\",\n         \"message\": \"Use dynamic import() instead.\"\n       }\n     ]\n   }\n }\n ```\n\n In this example, the rule reports the access of the `ensure` property on the `require` object, and emits the message \"Use dynamic import() instead.\":\n ```js,use_options,expect_diagnostic\n require.ensure(\"./entry\")\n ```\n\n ### Property-wide restriction with an allowlist\n\n ```json,options\n {\n   \"options\": {\n     \"entries\": [\n       {\n         \"property\": \"__defineGetter__\",\n         \"message\": \"Use Object.defineProperty() instead.\",\n         \"allowObjects\": [\"Object\"]\n       }\n     ]\n   }\n }\n ```\n\n In this example, the rule reports any access to the property `__defineGetter__`, except for `Object` object, and it emits the message \"Use Object.defineProperty() instead.\":\n ```js,use_options,expect_diagnostic\n foo.__defineGetter__\n ```\n\n ```js,use_options\n Object.__defineGetter__\n ```\n\n ### Object-wide restriction with allowed exceptions\n\n ```json,options\n {\n   \"options\": {\n     \"entries\": [\n       {\n         \"object\": \"arguments\",\n         \"message\": \"Avoid accessing arbitrary arguments properties.\",\n         \"allowProperties\": [\"length\"]\n       }\n     ]\n   }\n }\n ```\n\n In the following example, when the rule encounters the object `arguments`, it reports all properties except for `length` with the message \"Avoid accessing arbitrary arguments properties.\":\n ```js,use_options,expect_diagnostic\n arguments.callee\n ```\n\n ```js,use_options\n arguments.length\n ```\n\n ## Options\n\n ### `entries`\n\n An array of restricted object/property combinations. Depending on the provided options, each entry can:\n - Restrict a specific property on a specific object.\n - Restrict all properties on a specific object except for an allowlist of properties.\n - Restrict a specific property everywhere except for an allowlist of objects.\n - Provide a custom message to include in the diagnostic when the restriction is violated.\n\n ### `entries[].object`\n\n The object for which the restriction applies. If not provided, the restriction applies to all objects. If combined with `property`, it restricts only that property on the specified object.\n\n ### `entries[].property`\n\n The property for which the restriction applies. If not provided, the restriction applies to all properties. If combined with `object`, it restricts that property only on that object.\n\n ### `entries[].allowObjects`\n\n When restricting a property, an optional allowlist of objects that are exempt from the restriction. Only applicable when `property` is provided and `object` is not provided.\n\n It conflicts with `allowProperties`.\n\n ### `entries[].allowProperties`\n\n When restricting an object, an optional allowlist of properties that are exempt from the restriction. Only applicable when `object` is provided and `property` is not provided.\n\n It conflicts with `allowObjects`.\n\n ### `entries[].message`\n\n An optional custom message to include in the diagnostic when this restriction is violated. If not provided, a default message will be used.\n\n Use this to give context and explain why the property is restricted, and to suggest an alternative.\n\n"
-          },
-          "noLoopFunc": {
-            "deprecated": false,
-            "version": "2.4.13",
-            "name": "noLoopFunc",
-            "link": "https://biomejs.dev/linter/rules/no-loop-func/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslint": "no-loop-func"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintTypeScript": "no-loop-func"
-                }
-              }
-            ],
-            "docs": " Disallow functions created inside loops when they use variables that can change.\n\n A function created in a loop can run after the loop has moved to a later iteration. If the\n function reads a variable declared outside it, the function may observe the variable's later\n value instead of the value from the iteration that created the function.\n\n The rule ignores an immediately invoked function expression (IIFE), which is called as soon\n as it is created. It still reports async or generator IIFEs, and IIFEs that refer to their\n own name, because those functions can outlive the current iteration.\n\n ## Examples\n\n ### Invalid\n\n A `var` iteration variable is shared by every iteration, so a function created in the loop\n can observe a later value.\n\n ```js,expect_diagnostic\n for (var i = 0; i < 10; i++) {\n     handlers.push(() => i);\n }\n ```\n\n ```js,expect_diagnostic\n let value = 0;\n for (let i = 0; i < 10; i++) {\n     queue.push(function () {\n         return value;\n     });\n     value += 1;\n }\n ```\n\n ### Valid\n\n A `let` or `const` iteration variable is created separately for each iteration, so the\n function keeps the expected value.\n\n ```js\n for (let i = 0; i < 10; i++) {\n     handlers.push(() => i);\n }\n ```\n\n ```js\n for (var i = 0; i < 10; i++) {\n     const current = i;\n     queue.push(function() {\n         return current;\n     });\n }\n ```\n\n"
           },
           "noMeaninglessVoidOperator": {
             "deprecated": false,
@@ -4520,175 +4640,22 @@ export function GET() {
             ],
             "docs": " Disallow negated expressions on the left side of an equality check.\n\n When a negation operator (`!`) is used on the left side of an equality check (`===` or `!==`),\n the negation binds more tightly than the comparison operator due to operator precedence.\n This means `!foo === bar` is evaluated as `(!foo) === bar`, which is almost always\n unintended. The developer likely meant `foo !== bar`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (!foo === bar) {}\n ```\n\n ```js,expect_diagnostic\n if (!foo !== bar) {}\n ```\n\n ### Valid\n\n ```js\n if (foo !== bar) {}\n ```\n\n ```js\n if (!(foo === bar)) {}\n ```\n\n"
           },
-          "noPlaywrightElementHandle": {
+          "noNestedSwitch": {
             "deprecated": false,
-            "version": "2.4.2",
-            "name": "noPlaywrightElementHandle",
-            "link": "https://biomejs.dev/linter/rules/no-playwright-element-handle/javascript",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "no-element-handle"
-                }
-              }
-            ],
-            "docs": " Disallow usage of element handles (`page.$()` and `page.$$()`).\n\n Element handles are discouraged in Playwright. Use locators instead, which auto-wait\n and are more reliable. Locators represent a way to find elements at any moment,\n while element handles are references to specific elements that may become stale.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const button = await page.$('button');\n ```\n\n ```js,expect_diagnostic\n const buttons = await page.$$('.btn');\n ```\n\n ```js,expect_diagnostic\n const element = await frame.$('#element');\n ```\n\n ### Valid\n\n ```js\n const button = page.locator('button');\n await button.click();\n ```\n\n ```js\n const buttons = page.locator('.btn');\n await expect(buttons).toHaveCount(3);\n ```\n\n ```js\n await page.getByRole('button', { name: 'Submit' }).click();\n ```\n\n"
-          },
-          "noPlaywrightEval": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "noPlaywrightEval",
-            "link": "https://biomejs.dev/linter/rules/no-playwright-eval/javascript",
+            "version": "next",
+            "name": "noNestedSwitch",
+            "link": "https://biomejs.dev/linter/rules/no-nested-switch/javascript",
             "recommended": false,
             "fixKind": "none",
             "sources": [
               {
                 "kind": "sameLogic",
                 "source": {
-                  "eslintPlaywright": "no-eval"
+                  "eslintSonarJs": "no-nested-switch"
                 }
               }
             ],
-            "docs": " Disallow usage of `page.$eval()` and `page.$$eval()`.\n\n These methods are discouraged in favor of `locator.evaluate()` and `locator.evaluateAll()`.\n Locator-based evaluation is more reliable and follows Playwright's recommended patterns.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.$eval('.foo', el => el.textContent);\n ```\n\n ```js,expect_diagnostic\n const texts = await page.$$eval('.foo', els => els.map(el => el.textContent));\n ```\n\n ### Valid\n\n ```js\n const text = await page.locator('.foo').evaluate(el => el.textContent);\n ```\n\n ```js\n const texts = await page.locator('.foo').evaluateAll(els => els.map(el => el.textContent));\n ```\n\n"
-          },
-          "noPlaywrightForceOption": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "noPlaywrightForceOption",
-            "link": "https://biomejs.dev/linter/rules/no-playwright-force-option/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "no-force-option"
-                }
-              }
-            ],
-            "docs": " Disallow usage of the `{ force: true }` option.\n\n Playwright's `force` option bypasses actionability checks and can lead to unreliable tests.\n Instead of using `{ force: true }`, you should fix the underlying issue that requires forcing the action.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.locator('button').click({ force: true });\n ```\n\n ```js,expect_diagnostic\n await page.locator('check').check({ force: true });\n ```\n\n ```js,expect_diagnostic\n await page.locator('input').fill('text', { force: true });\n ```\n\n ### Valid\n\n ```js\n await page.locator('button').click();\n ```\n\n ```js\n await page.locator('check').check();\n ```\n\n ```js\n await page.locator('input').fill('text');\n ```\n\n"
-          },
-          "noPlaywrightMissingAwait": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "noPlaywrightMissingAwait",
-            "link": "https://biomejs.dev/linter/rules/no-playwright-missing-await/javascript",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "missing-playwright-await"
-                }
-              }
-            ],
-            "docs": " Enforce Playwright async APIs to be awaited or returned.\n\n Playwright has asynchronous matchers and methods that must be properly awaited.\n This rule identifies common mistakes where async Playwright APIs are not properly handled,\n which can lead to false positives in tests.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test('example', async ({ page }) => {\n     expect(page.getByRole('button')).toBeVisible();\n });\n ```\n\n ```js,expect_diagnostic\n test('example', async ({ page }) => {\n     test.step('step', async () => {});\n });\n ```\n\n ### Valid\n\n ```js\n test('example', async ({ page }) => {\n     await expect(page.getByRole('button')).toBeVisible();\n });\n ```\n\n ```js\n test('example', async ({ page }) => {\n     await test.step('step', async () => {});\n });\n ```\n\n ```js\n test('example', async ({ page }) => {\n     return expect(page.getByRole('button')).toBeVisible();\n });\n ```\n\n"
-          },
-          "noPlaywrightNetworkidle": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "noPlaywrightNetworkidle",
-            "link": "https://biomejs.dev/linter/rules/no-playwright-networkidle/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "no-networkidle"
-                }
-              }
-            ],
-            "docs": " Disallow usage of the `networkidle` option.\n\n Using `networkidle` is discouraged in favor of using web-first assertions.\n The `networkidle` event is unreliable and can lead to flaky tests.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForLoadState('networkidle');\n ```\n\n ```js,expect_diagnostic\n await page.goto('https://example.com', { waitUntil: 'networkidle' });\n ```\n\n ### Valid\n\n ```js\n await page.waitForLoadState('load');\n ```\n\n ```js\n await page.goto('https://example.com');\n await page.locator('.content').waitFor();\n ```\n\n"
-          },
-          "noPlaywrightPagePause": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "noPlaywrightPagePause",
-            "link": "https://biomejs.dev/linter/rules/no-playwright-page-pause/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "no-page-pause"
-                }
-              }
-            ],
-            "docs": " Disallow using `page.pause()`.\n\n Playwright's `page.pause()` is a debugging utility that should not be committed to version control.\n It pauses test execution and opens the Playwright Inspector, which is useful during development\n but should not be present in production test code.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.pause();\n ```\n\n ```js,expect_diagnostic\n test('example', async ({ page }) => {\n     await page.click('button');\n     await page.pause();\n });\n ```\n\n ### Valid\n\n ```js\n test('example', async ({ page }) => {\n     await page.click('button');\n     await expect(page.locator('.result')).toBeVisible();\n });\n ```\n\n"
-          },
-          "noPlaywrightUselessAwait": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "noPlaywrightUselessAwait",
-            "link": "https://biomejs.dev/linter/rules/no-playwright-useless-await/javascript",
-            "recommended": false,
-            "fixKind": "safe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "no-useless-await"
-                }
-              }
-            ],
-            "docs": " Disallow unnecessary `await` for Playwright methods that don't return promises.\n\n Some Playwright methods are frequently, yet incorrectly, awaited when they return\n synchronous values. This includes locator methods, which return locators (not promises),\n and synchronous expect matchers.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.locator('.my-element');\n ```\n\n ```js,expect_diagnostic\n await page.getByRole('button');\n ```\n\n ```js,expect_diagnostic\n await expect(1).toBe(1);\n ```\n\n ### Valid\n\n ```js\n page.locator('.my-element');\n await page.locator('.my-element').click();\n ```\n\n ```js\n page.getByRole('button');\n await page.getByRole('button').click();\n ```\n\n ```js\n expect(1).toBe(1);\n await expect(page.locator('.foo')).toBeVisible();\n ```\n\n"
-          },
-          "noPlaywrightWaitForNavigation": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "noPlaywrightWaitForNavigation",
-            "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-navigation/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "no-wait-for-navigation"
-                }
-              }
-            ],
-            "docs": " Disallow using `page.waitForNavigation()`.\n\n Playwright's `page.waitForNavigation()` is deprecated and should be replaced with more reliable\n alternatives like `page.waitForURL()` or `page.waitForLoadState()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForNavigation();\n ```\n\n ```js,expect_diagnostic\n await page.click('button');\n await page.waitForNavigation({ waitUntil: 'networkidle' });\n ```\n\n ### Valid\n\n ```js\n await page.waitForURL('/home');\n ```\n\n ```js\n await page.waitForLoadState('networkidle');\n ```\n\n ```js\n await page.goto('/home');\n ```\n\n"
-          },
-          "noPlaywrightWaitForSelector": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "noPlaywrightWaitForSelector",
-            "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-selector/javascript",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "no-wait-for-selector"
-                }
-              }
-            ],
-            "docs": " Disallow using `page.waitForSelector()`.\n\n Playwright's `page.waitForSelector()` is discouraged in favor of more reliable locator-based APIs.\n Using locators with assertions or actions automatically waits for elements to be ready.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForSelector('.submit-button');\n ```\n\n ```js,expect_diagnostic\n await page.waitForSelector('#dialog', { state: 'visible' });\n await page.click('#dialog .button');\n ```\n\n ### Valid\n\n ```js\n await page.locator('.submit-button').click();\n ```\n\n ```js\n await expect(page.locator('#dialog')).toBeVisible();\n ```\n\n ```js\n const button = page.getByRole('button', { name: 'Submit' });\n await button.click();\n ```\n\n"
-          },
-          "noPlaywrightWaitForTimeout": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "noPlaywrightWaitForTimeout",
-            "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-timeout/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "no-wait-for-timeout"
-                }
-              }
-            ],
-            "docs": " Disallow using `page.waitForTimeout()`.\n\n Playwright provides methods like `page.waitForLoadState()`, `page.waitForURL()`,\n and `page.waitForFunction()` which are better alternatives to using hardcoded timeouts.\n These methods wait for specific conditions and are more reliable than arbitrary timeouts.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForTimeout(5000);\n ```\n\n ```js,expect_diagnostic\n await page.waitForTimeout(1000);\n ```\n\n ### Valid\n\n ```js\n await page.waitForLoadState();\n ```\n\n ```js\n await page.waitForURL('/home');\n ```\n\n ```js\n await page.waitForFunction(() => window.innerWidth < 100);\n ```\n\n"
+            "docs": " Disallow `switch` statements inside other `switch` statements.\n\n A `switch` statement inside another `switch` statement is hard to read,\n because it is easy to mix up which `case` belongs to which `switch`.\n Move the inner `switch` into a separate function, written outside the\n outer `switch`, instead.\n\n A `switch` statement inside a function is still reported when that\n function is written inside another `switch` statement.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function foo(n, m) {\n     switch (n) {\n         case 0:\n             switch (m) {\n                 case 1:\n                     break;\n             }\n             break;\n         default:\n             break;\n     }\n }\n ```\n\n ```js,expect_diagnostic\n switch (n) {\n     case 0: {\n         const handle = (m) => {\n             switch (m) {\n                 case 1:\n                     break;\n             }\n         };\n         handle(n);\n         break;\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function foo(n, m) {\n     switch (n) {\n         case 0:\n             bar(m);\n             break;\n         default:\n             break;\n     }\n }\n\n function bar(m) {\n     switch (m) {\n         case 1:\n             break;\n     }\n }\n ```\n\n"
           },
           "noProcessExit": {
             "deprecated": false,
@@ -4719,40 +4686,6 @@ export function GET() {
             ],
             "docs": " Disallow the use of `process.exit()`.\n\n In Node.js, `process.exit()` stops the program right away.\n Work that is still in progress, such as writing a file, sending a network request, or waiting on a timer, never finishes.\n The program may also stop without printing why, which makes the problem hard to find.\n\n Throw an error instead.\n An error that nothing catches also stops the program, and Node.js prints its message and where it happened.\n To choose the exit code (the number the program reports when it ends, where `0` means success),\n set `process.exitCode` and let the program finish on its own.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (somethingBadHappened) {\n     console.error(\"Something bad happened!\");\n     process.exit(1);\n }\n ```\n\n ### Valid\n\n ```js\n if (somethingBadHappened) {\n     throw new Error(\"Something bad happened!\");\n }\n\n if (somethingElseHappened) {\n     console.error(\"Something else happened!\");\n     process.exitCode = 1;\n }\n ```\n\n ## See Also\n\n - If you want to require importing `process` from `node:process` instead of using the global, see [`noProcessGlobal`](https://biomejs.dev/linter/rules/no-process-global/).\n - If you want to disallow reading `process.env`, see [`noProcessEnv`](https://biomejs.dev/linter/rules/no-process-env/).\n\n"
           },
-          "noReactNativeDeepImports": {
-            "deprecated": false,
-            "version": "2.4.13",
-            "name": "noReactNativeDeepImports",
-            "link": "https://biomejs.dev/linter/rules/no-react-native-deep-imports/javascript",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactNative": "no-deep-imports"
-                }
-              }
-            ],
-            "docs": " Disallow deep imports from the `react-native` package.\n\n Deep imports reach into React Native's internal file structure,\n which is not part of the public API. Internal paths can change\n between versions without warning, breaking code that depends on them.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import View from \"react-native/Libraries/Components/View/View\";\n ```\n\n ```js,expect_diagnostic\n const Platform = require(\"react-native/Libraries/Utilities/Platform\");\n ```\n\n ```js,expect_diagnostic\n const View = require(\"react-native/Libraries/Components/View/View\");\n ```\n\n ```js,expect_diagnostic\n import(\"react-native/Libraries/Utilities/Platform\");\n ```\n\n ### Valid\n\n ```js\n import { View } from \"react-native\";\n ```\n\n ```js\n const { Platform } = require(\"react-native\");\n ```\n\n"
-          },
-          "noReactNativeLiteralColors": {
-            "deprecated": false,
-            "version": "2.4.13",
-            "name": "noReactNativeLiteralColors",
-            "link": "https://biomejs.dev/linter/rules/no-react-native-literal-colors/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactNativeIntellicode": "no-color-literals"
-                }
-              }
-            ],
-            "docs": " Disallow color literals in React Native styles.\n\n Hard-coding colors inside styles makes it harder to keep them consistent\n across components and to swap the palette when the design system evolves.\n Extracting colors into named constants or a shared theme module produces\n more maintainable code.\n\n This rule reports properties whose name contains `color` (case-insensitive)\n and whose value is a string literal, when they appear inside a\n `StyleSheet.create` call or inside a JSX attribute whose name contains\n `style` (case-insensitive). A ternary expression is also reported when\n either branch is a string literal.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Hello = () => <Text style={{ backgroundColor: '#FFFFFF' }}>hi</Text>;\n ```\n\n ```jsx,expect_diagnostic\n const styles = StyleSheet.create({\n     text: { color: 'red' }\n });\n ```\n\n ```jsx,expect_diagnostic\n const Hello = (flag) => (\n     <Text style={{ backgroundColor: flag ? '#fff' : '#000' }}>hi</Text>\n );\n ```\n\n ### Valid\n\n ```jsx\n const red = '#f00';\n const styles = StyleSheet.create({\n     text: { color: red }\n });\n ```\n\n ```jsx\n const Hello = () => (\n     <Text style={{ backgroundColor: theme.background }}>hi</Text>\n );\n ```\n\n"
-          },
           "noReactObjectTypeAsDefaultProp": {
             "deprecated": false,
             "version": "2.5.15",
@@ -4769,23 +4702,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow array, object, and function values as default props in React components.\n\n In React, a default prop value like `{ items = [] }` is created every\n time the component renders. Arrays, objects, and functions are new values\n each time, even when they look the same. React then thinks the prop changed,\n so it may re-render the component more than needed, or re-run hooks like\n `useEffect` that depends on the prop.\n\n Numbers, strings, and other primitives are fine, because they stay the same\n among renders.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function Component({ items = [] }) {\n     return items;\n }\n ```\n\n ```js,expect_diagnostic\n const Component = ({ config = {} }) => config;\n ```\n\n ### Valid\n\n ```js\n const EMPTY_ITEMS = [];\n\n function Component({ items = EMPTY_ITEMS }) {\n     return items;\n }\n ```\n\n ```js\n function Component({ count = 0, label = \"default\" }) {\n     return count;\n }\n ```\n\n"
-          },
-          "noReactStringRefs": {
-            "deprecated": false,
-            "version": "2.4.14",
-            "name": "noReactStringRefs",
-            "link": "https://biomejs.dev/linter/rules/no-react-string-refs/javascript",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReact": "no-string-refs"
-                }
-              }
-            ],
-            "docs": " Disallow string refs in React components.\n\n String refs are a legacy React feature. Modern React code should use callback refs,\n `createRef()`, or `useRef()` instead.\n\n Biome also flags template literal refs, even though upstream only does so through an option.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function Hello() {\n   return <div ref=\"hello\">Hello</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n function Hello({ id }) {\n   return <div ref={`hello-${id}`}>Hello</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n class Hello extends React.Component {\n   componentDidMount() {\n     this.refs.hello.focus();\n   }\n }\n ```\n\n ### Valid\n\n ```jsx\n function Hello() {\n   const helloRef = useRef(null);\n   return <div ref={helloRef}>Hello</div>;\n }\n ```\n\n"
           },
           "noRestrictedDependencies": {
             "deprecated": false,
@@ -4933,23 +4849,6 @@ export function GET() {
             ],
             "docs": " Disallow loop conditions whose variables are never modified in the loop.\n\n A variable in a loop condition usually changes during the loop. If it does not,\n the loop may never terminate or may not run as intended.\n\n Binary and conditional expressions are checked as a group. The condition is\n considered modified when any variable in the group changes in the loop.\n References inside dynamic expressions, such as function calls and property accesses,\n are ignored because their values may change without a local assignment. A binary or\n conditional expression containing a dynamic expression is ignored as a group.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let node = getNode();\n while (node) {\n     process(node);\n }\n ```\n\n ```js,expect_diagnostic\n for (let index = 0; index < 5;) {\n     process(index);\n }\n ```\n\n ### Valid\n\n ```js\n let node = getNode();\n while (node) {\n     process(node);\n     node = node.parent;\n }\n ```\n\n ```js\n for (let index = 0; index < items.length; index++) {\n     process(items[index]);\n }\n ```\n\n ```js\n while (object.ready) {\n     process(object);\n }\n ```\n\n"
           },
-          "noUnnecessaryTemplateExpression": {
-            "deprecated": false,
-            "version": "2.4.13",
-            "name": "noUnnecessaryTemplateExpression",
-            "link": "https://biomejs.dev/linter/rules/no-unnecessary-template-expression/javascript",
-            "recommended": false,
-            "fixKind": "safe",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintTypeScript": "no-unnecessary-template-expression"
-                }
-              }
-            ],
-            "docs": " Disallow unnecessary template expressions.\n\n A template expression (or template literal) is unnecessary when it only contains\n string literal expressions that could be written as a regular string literal instead.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const a = `${'hello'}`;\n ```\n\n ```js,expect_diagnostic\n const b = `${\"world\"}`;\n ```\n\n ```js,expect_diagnostic\n const c = `${'hello'}${'world'}`;\n ```\n\n ```js,expect_diagnostic\n const d = `prefix_${'suffix'}`;\n ```\n\n ### Valid\n\n ```js\n // Template with a non-string-literal expression\n const a = `${someVariable}`;\n ```\n\n ```js\n // Template with a non-string-literal interpolation mixed with text\n const b = `Hello, ${name}!`;\n ```\n\n ```js\n // Tagged templates are never flagged\n const c = html`${'foo'}`;\n ```\n\n ```js\n // Templates with newlines in the text part need the template syntax\n const d = `line one\n ${'line two'}`;\n ```\n\n"
-          },
           "noUnsafeIframeSandbox": {
             "deprecated": false,
             "version": "2.5.13",
@@ -5041,40 +4940,6 @@ export function GET() {
             ],
             "docs": " Disallow the deprecated Vue `$scopedSlots` API.\n\n Vue 3 unifies normal and scoped slots under `$slots`. Replace `$scopedSlots` with `$slots` when migrating a component from Vue 2.\n\n See the [Vue 3 migration guide](https://v3-migration.vuejs.org/breaking-changes/slots-unification.html) for more information.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   render() {\n     return this.$scopedSlots.default;\n   }\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   render() {\n     return this.$slots.default;\n   }\n };\n </script>\n ```\n"
           },
-          "noVueImportCompilerMacros": {
-            "deprecated": false,
-            "version": "2.4.15",
-            "name": "noVueImportCompilerMacros",
-            "link": "https://biomejs.dev/linter/rules/no-vue-import-compiler-macros/javascript",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintVueJs": "no-import-compiler-macros"
-                }
-              }
-            ],
-            "docs": " Disallow importing Vue compiler macros.\n\n Vue compiler macros are globally available inside `<script setup>` blocks and must not be imported.\n Outside of `<script setup>`, compiler macros are not valid Vue runtime imports.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n import { defineProps } from \"vue\";\n defineProps({});\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n defineProps({});\n </script>\n ```\n\n"
-          },
-          "noVueRefAsOperand": {
-            "deprecated": false,
-            "version": "2.4.5",
-            "name": "noVueRefAsOperand",
-            "link": "https://biomejs.dev/linter/rules/no-vue-ref-as-operand/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintVueJs": "no-ref-as-operand"
-                }
-              }
-            ],
-            "docs": " Disallow the use of value wrapped by `ref()`(Composition API) as operand\n\n To access value wrapped by `ref()`, you must use `.value`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const count = ref(0)\n count++\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const ok = ref(false)\n const msg = ok ? \"yes\" : \"no\"\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n const ok = ref(false)\n if (ok) {\n   //\n }\n ```\n\n ```js,expect_diagnostic\n import { ref } from \"vue\"\n\n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count)\n   }\n }\n ```\n\n ### Valid\n\n ```js\n import { ref } from \"vue\"\n\n const count = ref(0)\n count.value++\n ```\n\n ```js\n import { ref } from \"vue\"\n\n const ok = ref(true)\n const msg = ok.value ? \"yes\" : \"no\"\n if (ok.value) {\n   //\n }\n ```\n\n ```js\n import { ref } from \"vue\"\n\n export default {\n   setup(_props, { emit }) {\n     const count = ref(0)\n     emit('increment', count.value)\n   }\n }\n ```\n\n"
-          },
           "noXorAsExponentiation": {
             "deprecated": false,
             "version": "2.5.13",
@@ -5108,23 +4973,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow number literals with zero fractions or dangling dots.\n\n There is no difference in JavaScript between, for example, `1`, `1.0`, and `1.`.\n This rule suggests the shorter form for consistency and brevity.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = 1.0;\n ```\n\n ```js,expect_diagnostic\n const foo = 1.;\n ```\n\n ```js,expect_diagnostic\n const foo = 123.00e20;\n ```\n\n ### Valid\n\n ```js\n const foo = 1;\n const bar = -1.1;\n const baz = 123.456;\n const qux = 1e3;\n ```\n\n"
-          },
-          "useArraySome": {
-            "deprecated": false,
-            "version": "2.4.5",
-            "name": "useArraySome",
-            "link": "https://biomejs.dev/linter/rules/use-array-some/javascript",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintUnicorn": "prefer-array-some"
-                }
-              }
-            ],
-            "docs": " Prefer `Array.prototype.some()` over verbose existence checks.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n array.filter(predicate).length > 0;\n ```\n\n ```js,expect_diagnostic\n array.findIndex(predicate) !== -1;\n ```\n\n ```js,expect_diagnostic\n if (array.find(predicate)) {}\n ```\n\n ```js,expect_diagnostic\n array.find(predicate) != null;\n ```\n\n ```js,expect_diagnostic\n array.findLastIndex(predicate) !== -1;\n ```\n\n ```js,expect_diagnostic\n if (array.findLast(predicate)) {}\n ```\n\n ### Valid\n\n ```js\n array.some(predicate);\n ```\n\n"
           },
           "useAwaitThenable": {
             "deprecated": false,
@@ -5194,29 +5042,6 @@ export function GET() {
             ],
             "docs": " Enforce consistent use of function declarations or expressions assigned to variables.\n\n A consistent function style makes function definitions easier to recognize.\n Use the `style` option to choose the style that matches your project's conventions.\n\n In both styles, callbacks, methods, and default exports are ignored.\n Named exports follow the configured style.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function greet() {\n     return \"Hello\";\n }\n ```\n\n ### Valid\n\n ```js\n const greet = function() {\n     return \"Hello\";\n };\n const farewell = () => \"Goodbye\";\n ```\n\n ```js\n export default function greet() {\n     return \"Hello\";\n }\n ```\n\n ## Options\n\n ### `style`\n\n Type: `\"expression\" | \"declaration\"`\n\n Default: `\"expression\"`\n\n With `\"expression\"`, the rule requires function expressions or arrow functions\n assigned to variables.\n\n These functions can only be called after the variable is initialized. TypeScript\n overloads are allowed because they require declarations.\n\n ```ts\n function identity(value: string): string;\n function identity(value: number): number;\n function identity(value: string | number) {\n     return value;\n }\n ```\n\n With `\"declaration\"`, the rule requires function declarations.\n\n These are hoisted and can be called before their definition. Arrow functions that directly use\n `this` or `super` are allowed to preserve their lexical binding.\n Variables with TypeScript type annotations are also allowed because a function\n declaration cannot be annotated with an existing function type.\n A return type annotation on the function does not qualify for this exception.\n\n The following examples use `\"declaration\"`:\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"declaration\"\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n const greet = function() {};\n ```\n\n ```ts,use_options,expect_diagnostic\n const greet = (): string => \"Hello\";\n ```\n\n #### Valid\n\n ```js,use_options\n function greet() {}\n const getContext = () => this;\n ```\n\n ```ts,use_options\n type Greeting = () => string;\n const greet: Greeting = () => \"Hello\";\n const farewell: Greeting = function() { return \"Goodbye\"; };\n ```\n\n ### `allowArrowFunctions`\n\n Type: `boolean`\n\n Default: `false`\n\n Allow arrow functions regardless of style setting.\n Arrow functions are always allowed when expressions are required.\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"declaration\",\n         \"allowArrowFunctions\": true\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n const greet = function() { return \"Hello\"; };\n ```\n\n #### Valid\n\n ```js,use_options\n function greet() { return \"Hello\"; }\n const farewell = () => \"Goodbye\";\n ```\n\n ## See Also\n\n - [useArrowFunction](https://biomejs.dev/linter/rules/use-arrow-function/)\n\n"
           },
-          "useConsistentTestIt": {
-            "deprecated": false,
-            "version": "2.4.11",
-            "name": "useConsistentTestIt",
-            "link": "https://biomejs.dev/linter/rules/use-consistent-test-it/javascript",
-            "recommended": false,
-            "fixKind": "safe",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintJest": "consistent-test-it"
-                }
-              },
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintVitest": "consistent-test-it"
-                }
-              }
-            ],
-            "docs": " Enforce consistent use of `it` or `test` for test functions.\n\n `it` and `test` are aliases for the same function in most test frameworks.\n This rule enforces using one over the other for consistency.\n Imported functions keep their original export through an import alias.\n The fix is unavailable when the preferred name conflicts with another binding or global reference.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"foo\", () => {});\n ```\n\n ### Valid\n\n ```js\n it(\"foo\", () => {});\n ```\n\n ## Options\n\n ### `function`\n\n The function to use for top-level tests (outside `describe` blocks).\n Accepted values are:\n - `\"it\"` (default): Enforce using `it()` for top-level tests\n - `\"test\"`: Enforce using `test()` for top-level tests\n\n ```json,options\n {\n     \"options\": {\n         \"function\": \"test\"\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n it(\"foo\", () => {});\n ```\n\n #### Valid\n\n ```js,use_options\n test(\"foo\", () => {});\n ```\n\n ### `withinDescribe`\n\n The function to use for tests inside `describe` blocks.\n Accepted values are:\n - `\"it\"` (default): Enforce using `it()` inside describe blocks\n - `\"test\"`: Enforce using `test()` inside describe blocks\n\n ```json,options\n {\n     \"options\": {\n         \"withinDescribe\": \"test\"\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n describe(\"suite\", () => {\n     it(\"foo\", () => {});\n });\n ```\n\n #### Valid\n\n ```js,use_options\n describe(\"suite\", () => {\n     test(\"foo\", () => {});\n });\n ```\n\n"
-          },
           "useDisposables": {
             "deprecated": false,
             "version": "2.4.11",
@@ -5225,40 +5050,6 @@ export function GET() {
             "recommended": false,
             "fixKind": "unsafe",
             "docs": " Detects a disposable object assigned to a variable without using or await using syntax.\n\n Disposable objects, which implements Disposable or AsyncDisposable interface, are intended\n to dispose after use. Not disposing them can lead some resource or memory leak depending on\n the implementation.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=example1.ts\n function createDisposable(): Disposable {\n   return {\n     [Symbol.dispose]() {\n       // do something\n     },\n   };\n }\n\n const disposable = createDisposable();\n ```\n\n ```ts,expect_diagnostic,file=example2.ts\n class MyClass implements AsyncDisposable {\n   async [Symbol.asyncDispose]() {\n     // do something\n   }\n }\n\n const instance = new MyClass();\n ```\n\n ### Valid\n\n ```ts,file=example3.ts\n function createDisposable(): Disposable {\n   return {\n     [Symbol.dispose]() {\n       // do something\n     },\n   };\n }\n\n using disposable = createDisposable();\n ```\n\n ```ts,file=example4.ts\n class MyClass implements AsyncDisposable {\n   async [Symbol.asyncDispose]() {\n     // do something\n   }\n }\n\n await using instance = new MyClass();\n ```\n\n"
-          },
-          "useDomNodeTextContent": {
-            "deprecated": false,
-            "version": "2.4.13",
-            "name": "useDomNodeTextContent",
-            "link": "https://biomejs.dev/linter/rules/use-dom-node-text-content/javascript",
-            "recommended": true,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintUnicorn": "prefer-dom-node-text-content"
-                }
-              }
-            ],
-            "docs": " Prefer `.textContent` over `.innerText` for DOM node text.\n\n Because `innerText` depends on rendered layout and CSS, it should only be used when you specifically need that behavior.\n `textContent` is usually faster and more predictable than `innerText`.\n\n :::note\n `textContent` and `innerText` are not equivalent.\n See the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent#differences_from_innertext) for the differences between them.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const text = node.innerText;\n ```\n\n ```js,expect_diagnostic\n const {innerText} = node;\n ```\n\n ```js,expect_diagnostic\n node[\"innerText\"] = \"Biome\";\n ```\n\n ### Valid\n\n ```js\n const text = node.textContent;\n ```\n\n ```js\n const {textContent} = node;\n ```\n\n"
-          },
-          "useDomQuerySelector": {
-            "deprecated": false,
-            "version": "2.4.13",
-            "name": "useDomQuerySelector",
-            "link": "https://biomejs.dev/linter/rules/use-dom-query-selector/javascript",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintUnicorn": "prefer-query-selector"
-                }
-              }
-            ],
-            "docs": " Prefer `querySelector()` and `querySelectorAll()` over older DOM query APIs.\n\n This rule prefers `querySelector()` over `getElementById()`, and `querySelectorAll()` over\n `getElementsByClassName()`, `getElementsByTagName()`, and `getElementsByName()`.\n\n Using the more modern DOM query APIs can often make the intent of a DOM lookup clearer and\n more concise than the older APIs, especially for complex selectors or if filtering by multiple attributes.\n Additionally, these newer APIs are more flexible and can be easily refined later with more\n specific selectors without needing to change the method being called.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n document.getElementById(\"foo\");\n ```\n\n ```js,expect_diagnostic\n document.getElementsByClassName(\"foo bar\");\n ```\n\n ```js,expect_diagnostic\n document.getElementsByTagName(\"main\");\n ```\n\n ### Valid\n\n ```js\n document.querySelector(\"#foo\");\n ```\n\n ```js\n document.querySelectorAll(\".foo.bar\");\n ```\n\n ## Options\n\n ### `ignore`\n\n Allow specific variables to use the older DOM query APIs.\n This is useful if your application has APIs that expose methods with\n the same names as DOM query APIs.\n\n ```json,options\n {\n     \"options\": {\n         \"ignore\": [\"store\", \"customApi\"]\n     }\n }\n ```\n\n #### Valid\n\n These are ignored, so they are not flagged.\n\n ```js,use_options\n store.getElementById(\"COVER_IMAGE\");\n customApi.getElementsByClassName(\"item\");\n ```\n\n"
           },
           "useExhaustiveSwitchCases": {
             "deprecated": false,
@@ -5277,35 +5068,6 @@ export function GET() {
             ],
             "docs": " Require switch-case statements to be exhaustive.\n\n When working with union types in TypeScript, it's common to want to write a switch statement\n intended to contain a case for each possible variant.\n However, if the union type changes, it's easy to forget to modify the cases to account for\n any new types.\n\n By default, this rule reports when a switch statement over a value typed as a union of literals lacks\n a case for any of those literal types and does not have a default clause.\n Set `requireExplicitCase` to `true` to check for missing cases even when the switch has a `default` clause.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n }\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n type Day =\n   | 'Monday'\n   | 'Tuesday'\n   | 'Wednesday'\n   | 'Thursday'\n   | 'Friday'\n   | 'Saturday'\n   | 'Sunday';\n\n declare const day: Day;\n let result = 0;\n\n switch (day) {\n   case 'Monday':\n     result = 1;\n     break;\n   case 'Tuesday':\n     result = 2;\n     break;\n   case 'Wednesday':\n     result = 3;\n     break;\n   case 'Thursday':\n     result = 4;\n     break;\n   case 'Friday':\n     result = 5;\n     break;\n   case 'Saturday':\n     result = 6;\n     break;\n   case 'Sunday':\n     result = 7;\n     break;\n }\n ```\n\n ## Options\n\n ### requireExplicitCase\n\n Default: `false`.\n\n A `default` clause handles any value that does not match a `case`.\n By default, the rule accepts this as covering all remaining values in a union.\n This means that adding a value to the union will not produce a diagnostic if the switch has a `default` clause.\n\n Set `requireExplicitCase` to `true` to require a `case` for each value in the union.\n You can still keep `default` as a fallback for unexpected values at runtime.\n\n ```json,options\n {\n     \"options\": {\n         \"requireExplicitCase\": true\n     }\n }\n ```\n\n With this option enabled, the switch below passes because `\"A\"`, `\"B\"`, and `\"C\"` each have a case.\n The `default` clause stays as a runtime fallback. Removing `case \"C\"` would produce a diagnostic,\n even though the fallback would handle that value.\n\n ```ts,use_options,file=explicit-case-valid.ts\n type Letter = \"A\" | \"B\" | \"C\";\n declare const letter: Letter;\n switch (letter) {\n     case \"A\":\n     case \"B\":\n     case \"C\":\n         break;\n     default:\n         throw new Error(\"Unexpected letter\");\n }\n ```\n\n"
           },
-          "useExpect": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "useExpect",
-            "link": "https://biomejs.dev/linter/rules/use-expect/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "expect-expect"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintJest": "expect-expect"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintVitest": "expect-expect"
-                }
-              }
-            ],
-            "docs": " Ensure that test functions contain at least one `expect()` or similar assertion.\n\n Tests without assertions may pass even when behavior is broken, leading to\n false confidence in the test suite. This rule ensures that every test\n validates some expected behavior using `expect()` or an allowed variant thereof.\n \n ### Allowed `expect` variants\n \n - [`assert`](https://www.chaijs.com/api/assert/)\n - [`expectTypeOf`](https://github.com/mmkal/expect-type)\n - [`assertType`](https://vitest.dev/api/assert-type)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"no assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await page.click(\"button\");\n });\n ```\n\n ### Valid\n\n ```js\n test(\"has assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n ```js\n it(\"soft assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect.soft(page.locator(\"h1\")).toBeVisible();\n });\n ```\n \n Variant assertions are allowed:\n ```js\n it(\"returns bar when passed foo\", () => {\n   assert(myFunc(\"foo\") === \"bar\", \"didn't return bar\");\n });\n ```\n\n ```ts\n it(\"should allow passing 'foo' as an argument\", () => {\n   expectTypeOf(myFunc).toBeCallableWith(\"foo\");\n });\n ```\n ```ts\n it(\"should have proper type\", () => {\n   assertType<(n: string) => string>(myFunc);\n });\n ```\n (This replicates the rule's behavior in eslint-plugin-vitest with `typecheck` set to `true`.)\n\n"
-          },
           "useFlatMathMinMax": {
             "deprecated": false,
             "version": "2.5.12",
@@ -5322,23 +5084,6 @@ export function GET() {
               }
             ],
             "docs": " Prefer flat `Math.min()` and `Math.max()` calls over nested calls of the same method.\n\n `Math.min()` and `Math.max()` accept any number of arguments, so nesting the same call is unnecessary.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const biggest = Math.max(Math.max(a, b), c);\n ```\n\n ```js,expect_diagnostic\n const smallest = Math.min(a, Math.min(b, c));\n ```\n\n ### Valid\n\n ```js\n const biggest = Math.max(a, b, c);\n const clamped = Math.max(Math.min(value, upper), lower);\n ```\n\n"
-          },
-          "useImportsFirst": {
-            "deprecated": false,
-            "version": "2.4.7",
-            "name": "useImportsFirst",
-            "link": "https://biomejs.dev/linter/rules/use-imports-first/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintImport": "first"
-                }
-              }
-            ],
-            "docs": " Enforce that all imports appear at the top of the module.\n\n Import statements that appear after non-import statements are harder to\n find and may indicate disorganized code. Keeping all imports together at\n the top makes dependencies immediately visible.\n\n Directives such as `\"use strict\"` are always allowed before\n imports, since they are parsed separately from module items.\n\n This rule only applies to ES module `import` statements. CommonJS\n `require()` calls are not covered.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { foo } from \"foo\";\n const bar = 1;\n import { baz } from \"baz\";\n ```\n\n ### Valid\n\n ```js\n import { foo } from \"foo\";\n import { bar } from \"bar\";\n const baz = 1;\n ```\n\n ```js\n \"use strict\";\n import { foo } from \"foo\";\n ```\n\n"
           },
           "useIncludes": {
             "deprecated": false,
@@ -5369,23 +5114,6 @@ export function GET() {
             ],
             "docs": " Prefer `Array#includes()` over `Array#indexOf()`, `Array#lastIndexOf()`, and `Array#some()` when checking for existence or non-existence.\n\n `Array#indexOf()` and `Array#lastIndexOf()` return a numeric index and are commonly compared\n against `-1` to check for the presence of an element. `Array#some()` is sometimes used with a\n strict-equality callback for the same purpose. `Array#includes()` is more readable and\n expressive, and avoids off-by-one mistakes with the comparison operator.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid1.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) !== -1;\n ```\n\n ```ts,expect_diagnostic,file=invalid2.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) >= 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid3.ts\n const arr = [1, 2, 3];\n arr.indexOf(1) === -1;\n ```\n\n ```ts,expect_diagnostic,file=invalid4.ts\n const arr = [1, 2, 3];\n arr.lastIndexOf(1) !== -1;\n ```\n\n ```ts,expect_diagnostic,file=invalid5.ts\n const arr = [1, 2, 3];\n arr.some((item) => item === 1);\n ```\n\n ### Valid\n\n ```ts\n const arr = [1, 2, 3];\n\n arr.includes(1);\n\n !arr.includes(1);\n\n // Positional use of indexOf is fine\n const pos = arr.indexOf(1);\n ```\n\n"
           },
-          "useMathMinMax": {
-            "deprecated": false,
-            "version": "2.4.14",
-            "name": "useMathMinMax",
-            "link": "https://biomejs.dev/linter/rules/use-math-min-max/javascript",
-            "recommended": true,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintUnicorn": "prefer-math-min-max"
-                }
-              }
-            ],
-            "docs": " Prefer `Math.min()` and `Math.max()` over ternaries for simple comparisons.\n\n Replacing ternary comparisons like `a > b ? b : a` with `Math.min(a, b)` makes the intent clearer and keeps equivalent min/max comparisons consistent across a codebase.\n\n This rule only targets straightforward min/max ternaries and ignores operands that are obviously not numeric, such as `bigint` and `Date` values.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n height > 50 ? 50 : height;\n ```\n\n ```js,expect_diagnostic\n height < 50 ? 50 : height;\n ```\n\n ### Valid\n\n ```js\n Math.min(height, 50);\n ```\n\n ```js\n Math.max(height, 50);\n ```\n\n ```js\n foo ? foo : bar;\n ```\n\n"
-          },
           "useModernMathApis": {
             "deprecated": false,
             "version": "2.5.12",
@@ -5403,23 +5131,6 @@ export function GET() {
             ],
             "docs": " Use modern `Math` APIs for common mathematical operations.\n\n Dedicated `Math` methods express mathematical intent directly and avoid reimplementing standard operations.\n This rule recognizes logarithm conversions, sums of squares, and square roots of squared values.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Math.log(x) * Math.LOG10E;\n ```\n\n ```js,expect_diagnostic\n Math.sqrt(a * a + b * b);\n ```\n\n ```js,expect_diagnostic\n Math.sqrt(x ** 2);\n ```\n\n ### Valid\n\n ```js\n Math.log10(x);\n Math.hypot(a, b);\n Math.abs(x);\n ```\n\n"
           },
-          "useNamedCaptureGroup": {
-            "deprecated": false,
-            "version": "2.4.5",
-            "name": "useNamedCaptureGroup",
-            "link": "https://biomejs.dev/linter/rules/use-named-capture-group/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslint": "prefer-named-capture-group"
-                }
-              }
-            ],
-            "docs": " Enforce using named capture groups in regular expression.\n\n Numbered capture groups like `(...)` can be difficult to work with,\n as they are matched by their position and not by a descriptive name.\n Named capture groups (`(?<name>...)`) associate a descriptive name\n with each match, making the regular expression more readable and\n its intent clearer.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /(ba[rz])/;\n ```\n\n ```js,expect_diagnostic\n /([0-9]{4})/;\n ```\n\n ```js,expect_diagnostic\n /(?:ab)(cd)/;\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"(foo)\");\n ```\n\n ```js,expect_diagnostic\n RegExp(\"(foo)\");\n ```\n\n ### Valid\n\n ```js\n /(?<id>ba[rz])/;\n /(?:ba[rz])/;\n /ba[rz]/;\n /(?<year>[0-9]{4})-(?<month>[0-9]{2})/;\n new RegExp(\"(?<id>foo)\");\n new RegExp(pattern);\n ```\n\n"
-          },
           "useNullishCoalescing": {
             "deprecated": false,
             "version": "2.4.5",
@@ -5436,23 +5147,6 @@ export function GET() {
               }
             ],
             "docs": " Enforce using the nullish coalescing operator (`??`) instead of logical or (`||`).\n\n `??` only checks for `null` and `undefined`, while `||` checks for any falsy value\n including `0`, `''`, and `false`. The rule reports `||`, `||=`, and ternary patterns\n (`x !== null ? x : y`) when type analysis shows the left operand is possibly nullish.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-or.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n ```ts,expect_diagnostic,file=invalid-or-undefined.ts\n declare const maybeNumber: number | undefined;\n const value = maybeNumber || 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid-or-assign.ts\n declare let x: string | null;\n x ||= 'default';\n ```\n\n ```ts,expect_diagnostic\n declare const x: string | null;\n const value = x !== null ? x : 'default';\n ```\n\n ```ts,expect_diagnostic\n declare const x: string | null;\n const value = x == null ? 'default' : x;\n ```\n\n An `if` statement that only assigns to a nullish variable is also reported,\n since it can be rewritten as `??=`.\n\n ```ts,expect_diagnostic,file=invalid-if-assignment.ts\n declare let a: { x: string } | null;\n declare function makeA(): { x: string };\n if (!a) {\n     a = makeA();\n }\n ```\n\n ### Valid\n\n ```ts\n declare const maybeString: string | null;\n const value = maybeString ?? 'default';\n ```\n\n ```ts\n declare const definiteString: string;\n const value = definiteString || 'fallback';\n ```\n\n ```ts\n declare const cond: string | null;\n if (cond || 'fallback') {\n   console.log('in if');\n }\n ```\n\n ```ts\n declare let y: string | null;\n y ??= 'default';\n ```\n\n ## Options\n\n ### ignoreConditionalTests\n\n Ignore `||` expressions inside conditional test positions (if/while/for/do-while/ternary).\n Default: `true`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreConditionalTests\": false\n     }\n }\n ```\n\n ```ts,expect_diagnostic,use_options\n declare const cond: string | null;\n if (cond || 'fallback') {}\n ```\n\n ### ignoreTernaryTests\n\n Ignore ternary expressions that check for `null` or `undefined`. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreTernaryTests\": true\n     }\n }\n ```\n\n ```ts,use_options\n declare const x: string | null;\n const value = x !== null ? x : 'default';\n ```\n\n ### ignoreMixedLogicalExpressions\n\n Ignore `||` and `||=` whose connected logical tree also contains a `&&`. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreMixedLogicalExpressions\": true\n     }\n }\n ```\n\n #### Invalid\n\n `||` and `||=` are still reported when the surrounding logical tree does not contain `&&`.\n\n ```ts,expect_diagnostic,use_options,file=invalid-mixed-or.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n ```ts,expect_diagnostic,use_options,file=invalid-mixed-or-assign.ts\n declare let assigned: string | null;\n assigned ||= 'default';\n ```\n\n #### Valid\n\n `||` and `||=` mixed with `&&` in the same logical tree are not reported.\n\n ```ts,use_options\n declare const a: string | null;\n declare const b: string;\n const r = (a || 'default') && b;\n ```\n\n ```ts,use_options\n declare const b: string;\n declare let assigned: string | null;\n assigned ||= b && 'fallback';\n ```\n\n ### ignoreBooleanCoercion\n\n Ignore `||` and `||=` used inside a `Boolean()` call, where coalescing on\n falsy values is intentional. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreBooleanCoercion\": true\n     }\n }\n ```\n\n #### Invalid\n\n `||` and `||=` outside a `Boolean()` call are still reported.\n\n ```ts,expect_diagnostic,use_options,file=invalid-boolean-coercion.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n #### Valid\n\n `||` and `||=` inside a `Boolean()` call are not reported.\n\n ```ts,use_options,file=valid-boolean-coercion.ts\n declare const a: string | null;\n declare const b: string;\n const r = Boolean(a || b);\n ```\n\n ### ignorePrimitives\n\n Ignore `||`, `||=`, and ternary expressions when every non-nullish variant\n of the operand is a primitive the option opts out of. Use `true` to ignore\n all primitives, or an object selecting `string`, `number`, `boolean`, or\n `bigint`. Default: none.\n\n ```json,options\n {\n     \"options\": {\n         \"ignorePrimitives\": { \"string\": true }\n     }\n }\n ```\n\n #### Invalid\n\n Primitive kinds that are not opted out of are still reported.\n\n ```ts,expect_diagnostic,use_options,file=invalid-primitives.ts\n declare const count: number | null;\n const value = count || 0;\n ```\n\n #### Valid\n\n A `string` operand is not reported when `string` is ignored.\n\n ```ts,use_options,file=valid-primitives.ts\n declare const name: string | null;\n const value = name || 'default';\n ```\n\n ### ignoreIfStatements\n\n By default, Biome reports an `if` statement that only assigns to a\n nullish variable, since it can be rewritten as `??=`. Set this to `true`\n to ignore those statements. Default: `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreIfStatements\": true\n     }\n }\n ```\n\n #### Invalid\n\n `||` and `||=` are still reported when only `if` statements are ignored.\n\n ```ts,expect_diagnostic,use_options,file=invalid-if-statements.ts\n declare const maybeString: string | null;\n const value = maybeString || 'default';\n ```\n\n #### Valid\n\n An `if` statement performing a nullish assignment is not reported.\n\n ```ts,use_options,file=valid-if-statements.ts\n declare let a: { x: string } | null;\n declare function makeA(): { x: string };\n if (!a) {\n     a = makeA();\n }\n ```\n\n"
-          },
-          "usePlaywrightValidDescribeCallback": {
-            "deprecated": false,
-            "version": "2.4.2",
-            "name": "usePlaywrightValidDescribeCallback",
-            "link": "https://biomejs.dev/linter/rules/use-playwright-valid-describe-callback/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "valid-describe-callback"
-                }
-              }
-            ],
-            "docs": " Enforce valid `describe()` callback.\n\n Using an improper `describe()` callback function can lead to unexpected test errors.\n This rule validates that describe callbacks are proper synchronous functions without parameters.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test.describe('suite', async () => {\n     test('one', async ({ page }) => {});\n });\n ```\n\n ```js,expect_diagnostic\n test.describe('suite', (done) => {\n     test('one', async ({ page }) => {});\n });\n ```\n\n ### Valid\n\n ```js\n test.describe('suite', () => {\n     test('one', async ({ page }) => {});\n     test('two', async ({ page }) => {});\n });\n ```\n\n ```js\n describe('suite', function() {\n     test('one', async ({ page }) => {});\n });\n ```\n\n"
           },
           "usePromiseRejectErrors": {
             "deprecated": false,
@@ -5477,52 +5171,6 @@ export function GET() {
             ],
             "docs": " Require Error objects as Promise rejection reasons.\n\n Error objects capture a stack trace that helps locate the cause of a rejection.\n Rejecting with a string or another non-Error value loses this information.\n\n This rule checks `Promise.reject()` and calls to the second parameter of a\n `new Promise()` executor. Values that could be errors, such as function calls\n and unknown variables, are allowed without inspecting their types.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Promise.reject(\"Request failed\");\n ```\n\n ```js,expect_diagnostic\n new Promise((resolve, reject) => reject(42));\n ```\n\n ```js,expect_diagnostic\n Promise.reject();\n ```\n\n ### Valid\n\n ```js\n Promise.reject(new Error(\"Request failed\"));\n new Promise((resolve, reject) => reject(new TypeError(\"Invalid value\")));\n Promise.reject(getError());\n ```\n"
           },
-          "useQwikLoaderLocation": {
-            "deprecated": false,
-            "version": "2.4.11",
-            "name": "useQwikLoaderLocation",
-            "link": "https://biomejs.dev/linter/rules/use-qwik-loader-location/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintQwik": "loader-location"
-                }
-              }
-            ],
-            "docs": " Enforce that Qwik loader functions are declared in the correct location.\n\n Route functions like `routeLoader$`, `routeAction$` must be declared in route boundary files\n (`index`, `layout`, or `plugin` files inside the configured routes directory).\n All loader/action functions must also be exported from the module and follow the `use*` naming convention.\n\n See the [Qwik documentation](https://qwik.dev/docs/route-loader/) for more details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic,file=src/components/product.jsx\n // src/components/product.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n export const useProducts = routeLoader$(async () => {});\n ```\n\n ```jsx,expect_diagnostic,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n export const getProducts = routeLoader$(async () => {});\n ```\n\n ```jsx,expect_diagnostic,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n const useProducts = routeLoader$(async () => {});\n ```\n\n ```jsx,expect_diagnostic,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n async function fetcher() {}\n const useProducts = routeLoader$(fetcher);\n ```\n\n ### Valid\n\n ```jsx,file=src/routes/index.jsx\n // src/routes/index.jsx\n import { routeLoader$ } from '@builder.io/qwik-city';\n export const useProducts = routeLoader$(async () => {});\n ```\n\n"
-          },
-          "useReactAsyncServerFunction": {
-            "deprecated": false,
-            "version": "2.4.12",
-            "name": "useReactAsyncServerFunction",
-            "link": "https://biomejs.dev/linter/rules/use-react-async-server-function/javascript",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReact": "async-server-action"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactXyz": "rsc-function-definition"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactRsc": "function-definition"
-                }
-              }
-            ],
-            "docs": " Require functions with the \"use server\" directive to be async.\n\n Require Server Functions (functions in a file with a top-level `\"use server\"` directive or functions with their own `\"use server\"` directive) to be async.\n\n See the [React documentation](https://react.dev/reference/rsc/use-server) for more details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <form\n   action={() => {\n     'use server';\n     // ...\n   }}\n >\n   // ...\n </form>\n ```\n\n ```js,expect_diagnostic\n function serverFunction() {\n   'use server';\n   // ...\n }\n ```\n\n ```js,expect_diagnostic\n 'use server';\n export function serverFunction() {\n   // ...\n }\n ```\n\n ### Valid\n\n ```jsx\n <form\n   action={async () => {\n     'use server';\n     // ...\n   }}\n >\n   // ...\n </form>\n ```\n\n ```js\n async function serverFunction() {\n   'use server';\n   // ...\n }\n ```\n\n ```js\n 'use server';\n export async function serverFunction() {\n   // ...\n }\n ```\n\n"
-          },
           "useReactCompiler": {
             "deprecated": false,
             "version": "2.5.8",
@@ -5531,23 +5179,6 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Validate files with React Compiler.\n\n This rule runs React Compiler in lint mode and reports the actionable\n diagnostics it emits. React Compiler validates whether components and\n hooks can be safely compiled.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic,file=Component.jsx\n import { useState } from \"react\";\n\n function Component(props) {\n     if (props.enabled) {\n         useState(0);\n     }\n\n     return <div />;\n }\n ```\n\n ### Valid\n\n ```jsx\n function Component(props) {\n     return <div>{props.value}</div>;\n }\n ```\n\n ## Options\n\n ### `compilationMode`\n\n Controls which functions React Compiler analyzes. Accepted values are:\n\n - `\"infer\"` (default): analyzes functions that follow React conventions —\n   components (capitalized functions that create JSX or call hooks) and\n   hooks (functions whose name starts with `use`). Files that don't define\n   any such function are skipped entirely.\n - `\"annotation\"`: analyzes only functions annotated with a `\"use memo\"`\n   directive.\n - `\"all\"`: analyzes every function. This can report React-specific\n   diagnostics in non-React code, such as utility functions that update\n   module-level state.\n\n ```json,options\n {\n     \"options\": {\n         \"compilationMode\": \"all\"\n     }\n }\n ```\n\n With `\"compilationMode\": \"all\"`, violations are reported even in\n functions that don't follow React naming conventions:\n\n ```js,use_options,expect_diagnostic,file=counter.js\n let counter = 0;\n\n export function increment() {\n     counter = counter + 1;\n     return counter;\n }\n ```\n"
-          },
-          "useReactNativePlatformComponents": {
-            "deprecated": false,
-            "version": "2.4.13",
-            "name": "useReactNativePlatformComponents",
-            "link": "https://biomejs.dev/linter/rules/use-react-native-platform-components/javascript",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintReactNativeIntellicode": "split-platform-components"
-                }
-              }
-            ],
-            "docs": " Ensure that platform-specific React Native components are only\n imported in files named for that platform.\n\n Some React Native components only work on one platform. For example,\n `ProgressBarAndroid` is Android-only and `ActivityIndicatorIOS` is\n iOS-only. These components should live in files with a matching\n platform suffix such as `.android.js` or `.ios.js`, so the React\n Native bundler can ship the right code to each platform.\n\n This rule reports an error when a platform-specific component is\n imported in a file that does not have the matching suffix, or when\n both Android and iOS components are imported in the same file.\n\n ## Examples\n\n ### Invalid\n\n Importing an Android component in a non-Android file:\n\n ```js,expect_diagnostic\n import { ProgressBarAndroid } from \"react-native\";\n ```\n\n Importing an iOS component in a non-iOS file:\n\n ```js,expect_diagnostic\n import { ActivityIndicatorIOS } from \"react-native\";\n ```\n\n ### Valid\n\n ```js\n import { View } from \"react-native\";\n ```\n\n ## Options\n\n ### `androidPathPatterns`\n\n A list of glob patterns to identify Android-specific files.\n\n Default: `[\"**/*.android.{js,jsx,ts,tsx}\"]`\n\n In the following example, Android files use `.droid.jsx` as their suffix instead of the default `.android.js`:\n\n ```json,options\n {\n     \"options\": {\n         \"androidPathPatterns\": [\"**/*.droid.jsx\"]\n     }\n }\n ```\n\n ```jsx,use_options,file=Button.droid.jsx\n import { ProgressBarAndroid } from \"react-native\";\n ```\n\n ```jsx,expect_diagnostic,use_options,file=Button.android.jsx\n import { ProgressBarAndroid } from \"react-native\";\n ```\n\n ### `iosPathPatterns`\n\n A list of glob patterns to identify iOS-specific files.\n\n Default: `[\"**/*.ios.{js,jsx,ts,tsx}\"]`\n\n In the following example, iOS files use `.apple.jsx` as their suffix instead of the default `.ios.js`:\n\n ```json,options\n {\n     \"options\": {\n         \"iosPathPatterns\": [\"**/*.apple.jsx\"]\n     }\n }\n ```\n\n ```jsx,use_options,file=Button.apple.jsx\n import { ActivityIndicatorIOS } from \"react-native\";\n ```\n\n ```jsx,expect_diagnostic,use_options,file=Button.ios.jsx\n import { ActivityIndicatorIOS } from \"react-native\";\n ```\n\n"
           },
           "useRegexpExec": {
             "deprecated": false,
@@ -5571,23 +5202,6 @@ export function GET() {
               }
             ],
             "docs": " Enforce `RegExp#exec` over `String#match` if no global flag is provided.\n\n String#match is defined to work the same as RegExp#exec when the regular expression does not include the g flag.\n Keeping to consistently using one of the two can help improve code readability.\n\n RegExp#exec may also be slightly faster than String#match; this is the reason to choose it as the preferred usage.\n\n ## Examples\n\n ### Invalid\n\n ```ts,file=invalid.ts,expect_diagnostic\n 'something'.match(/thing/);\n ```\n\n ### Valid\n\n ```ts,file=valid.ts\n /thing/.exec('something');\n ```\n\n"
-          },
-          "useRegexpTest": {
-            "deprecated": false,
-            "version": "2.4.13",
-            "name": "useRegexpTest",
-            "link": "https://biomejs.dev/linter/rules/use-regexp-test/javascript",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintUnicorn": "prefer-regexp-test"
-                }
-              }
-            ],
-            "docs": " Enforce the use of `RegExp.prototype.test()` over `String.prototype.match()` and `RegExp.prototype.exec()` in boolean contexts.\n\n When checking whether a string matches a regular expression, `RegExp.prototype.test()` is more appropriate\n than `String.prototype.match()` and `RegExp.prototype.exec()` because it returns a boolean directly.\n In contrast, `match()` and `exec()` return match objects or arrays, which involves unnecessary computation\n when only a true/false result is needed.\n\n The fix is marked as unsafe because `match()` and `exec()` can have side effects when used with\n [global or sticky](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/lastIndex) regular expressions,\n since they advance the `lastIndex` property differently than `test()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (\"hello world\".match(/hello/)) {}\n ```\n\n ```js,expect_diagnostic\n if (/hello/.exec(\"hello world\")) {}\n ```\n\n ### Valid\n\n ```js\n if (/hello/.test(\"hello world\")) {}\n ```\n\n"
           },
           "useSortedClasses": {
             "deprecated": false,
@@ -5641,98 +5255,6 @@ export function GET() {
             "fixKind": "none",
             "docs": " Require importing SvelteKit's app state from `$app/state` instead of `$app/stores`.\n\n SvelteKit 2.12 deprecated `$app/stores` in favor of `$app/state`. The `$app/state` module\n exposes `page`, `navigating`, and `updated` as reactive objects built on Svelte 5 runes,\n so they can be read directly instead of through a store subscription.\n\n Switching modules also changes how the values are read. For example, `$page.url` becomes\n `page.url`, and `$updated` becomes `updated.current`. For this reason, the rule doesn't\n provide a code fix.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { page } from \"$app/stores\";\n ```\n\n ```svelte,expect_diagnostic\n <script>\n import { page } from \"$app/stores\";\n </script>\n\n <h1>{$page.url.pathname}</h1>\n ```\n\n ### Valid\n\n ```js\n import { page } from \"$app/state\";\n ```\n\n ```svelte\n <script>\n import { page } from \"$app/state\";\n </script>\n\n <h1>{page.url.pathname}</h1>\n ```\n\n"
           },
-          "useTestHooksInOrder": {
-            "deprecated": false,
-            "version": "2.4.15",
-            "name": "useTestHooksInOrder",
-            "link": "https://biomejs.dev/linter/rules/use-test-hooks-in-order/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintJest": "prefer-hooks-in-order"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintVitest": "prefer-hooks-in-order"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "prefer-hooks-in-order"
-                }
-              }
-            ],
-            "docs": " Enforce that test lifecycle hooks are declared in the order they execute.\n\n Jest and Vitest always execute lifecycle hooks in the following order,\n regardless of how they are written in the file:\n\n 1. `beforeAll` (or `before` if you are using `node:test`)\n 2. `beforeEach`\n 3. `afterEach`\n 4. `afterAll` (or `after` if you are using `node:test`)\n\n Writing the hooks in a different order creates a discrepancy between\n the visual order in the source and the actual execution order, which\n makes test code harder to reason about.\n\n This rule flags any hook that appears after a hook that runs later in the\n execution order. Only consecutive groups of hooks in the same block are\n compared — test cases and other statements between hooks are allowed and\n reset the comparison baseline.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   beforeEach(() => {});\n   beforeAll(() => {});\n });\n ```\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   afterEach(() => {});\n   afterAll(() => {});\n   beforeAll(() => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   beforeAll(() => {});\n   beforeEach(() => {});\n   afterEach(() => {});\n   afterAll(() => {});\n });\n ```\n\n ```js\n // Hooks separated by test cases are treated independently.\n describe('foo', () => {\n   beforeEach(() => {});\n   it('a test', () => {});\n   afterAll(() => {});\n });\n ```\n\n See [`useTestHooksOnTop`](https://biomejs.dev/linter/rules/use-test-hooks-on-top) if you want to group all the hooks at the top of the block, before any test cases.\n\n"
-          },
-          "useTestHooksOnTop": {
-            "deprecated": false,
-            "version": "2.4.14",
-            "name": "useTestHooksOnTop",
-            "link": "https://biomejs.dev/linter/rules/use-test-hooks-on-top/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintJest": "prefer-hooks-on-top"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintVitest": "prefer-hooks-on-top"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintPlaywright": "prefer-hooks-on-top"
-                }
-              }
-            ],
-            "docs": " Enforce that lifecycle hooks appear before any test cases in the same block.\n\n Placing `beforeEach`, `beforeAll`, `afterEach`, and `afterAll` hooks after\n test cases (`it`, `test`) makes the setup and teardown harder to spot at a\n glance and can be a source of confusion for readers of the test suite.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   it('does something', () => {});\n   beforeEach(() => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   beforeEach(() => {});\n   it('does something', () => {});\n });\n ```\n\n See also: [`useTestHooksInOrder`](https://biomejs.dev/linter/rules/use-test-hooks-in-order)\n\n"
-          },
-          "useThisInClassMethods": {
-            "deprecated": false,
-            "version": "2.4.15",
-            "name": "useThisInClassMethods",
-            "link": "https://biomejs.dev/linter/rules/use-this-in-class-methods/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslint": "class-methods-use-this"
-                }
-              }
-            ],
-            "docs": " Enforce that class methods utilize `this`.\n\n Instance methods usually communicate that their behavior depends on instance state.\n When a class member never uses `this`, it can often be made `static` or moved outside\n the class to better reflect its intent.\n\n This rule checks instance methods, getters, setters, and instance field initializers\n whose value is an arrow function or function expression. Constructors, static members,\n and static blocks are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class A {\n     foo() {\n         console.log(\"Hello\");\n     }\n }\n ```\n\n ### Valid\n\n ```js\n class A {\n     foo() {\n         this.value = \"Hello\";\n     }\n }\n ```\n\n ```js\n class A {\n     static foo() {}\n }\n ```\n\n ## Options\n\n ### `ignoreMethods`\n\n A list of method names to ignore for this rule.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreMethods\": [\"render\", \"#serialize\"]\n     }\n }\n ```\n\n In this example, `render` and `#serialize` are ignored, so the rule does not report these methods.\n ```js,use_options\n class Component {\n     render() {}\n     #serialize() {}\n }\n ```\n\n ### `ignoreOverrideMethods`\n\n Whether to ignore `override` methods on subclasses.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreOverrideMethods\": true\n     }\n }\n ```\n\n In this example, the method in `Derived` is ignored because it is marked with `override`.\n ```ts,use_options\n abstract class Base {\n     abstract method(): void;\n }\n\n class Derived extends Base {\n     override method() {} // ignored because it has `override`\n }\n ```\n\n ### `ignoreClassesWithImplements`\n\n Controls how classes with an `implements` clause are handled.\n\n Default: `\"none\"`\n\n - `\"none\"` checks classes with an `implements` clause the same way as any other class.\n - `\"all\"` ignores every eligible instance member in classes that implement an interface.\n - `\"public-fields\"` ignores only public eligible members in those classes. Protected and\n   private members are still checked.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreClassesWithImplements\": \"all\"\n     }\n }\n ```\n\n In this example, every eligible member in a class with an `implements` clause is ignored.\n ```ts,use_options\n interface Service {\n     run(): void;\n }\n\n class ServiceImpl implements Service {\n     run() {}\n }\n ```\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreClassesWithImplements\": \"public-fields\"\n     }\n }\n ```\n\n In this example, only public eligible members are ignored, so `helper` is still reported.\n ```ts,expect_diagnostic,use_options\n interface Service {\n     run(): void;\n }\n\n class ServiceImpl implements Service {\n     run() {}\n     protected helper() {}\n }\n ```\n"
-          },
-          "useUnicodeRegex": {
-            "deprecated": false,
-            "version": "2.4.5",
-            "name": "useUnicodeRegex",
-            "link": "https://biomejs.dev/linter/rules/use-unicode-regex/javascript",
-            "recommended": false,
-            "fixKind": "safe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslint": "require-unicode-regexp"
-                }
-              }
-            ],
-            "docs": " Enforce the use of the `u` or `v` flag for regular expressions.\n\n The `u` flag (Unicode mode) and `v` flag (Unicode Sets mode) enable proper handling\n of Unicode characters in regular expressions. Without these flags, regex patterns\n may not correctly match Unicode characters like emoji or characters outside the\n Basic Multilingual Plane.\n\n The `u` flag was introduced in ES2015 and enables:\n - Correct handling of surrogate pairs (e.g., emoji)\n - Unicode code point escapes (`\\u{...}`)\n - Case-insensitive matching for Unicode characters\n\n The `v` flag was introduced in ES2024 and provides all `u` flag features plus:\n - Set notation in character classes\n - String literals in character classes\n - Improved Unicode property escapes\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /foo/;\n ```\n\n ```js,expect_diagnostic\n /foo/gi;\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\");\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\", \"gi\");\n ```\n\n ### Valid\n\n ```js\n /foo/u;\n /foo/v;\n /foo/giu;\n new RegExp(\"foo\", \"u\");\n new RegExp(\"foo\", \"giv\");\n new RegExp(\"foo\", flags); // dynamic flags are ignored\n ```\n\n"
-          },
           "useValidTestTitle": {
             "deprecated": false,
             "version": "2.5.14",
@@ -5756,23 +5278,6 @@ export function GET() {
             ],
             "docs": " Enforce valid titles for unit test cases and test suites.\n\n Checks that the titles of test blocks (`describe`, `test`, `it`) are valid:\n - Titles must not be empty.\n - Titles must not have accidental leading or trailing whitespace.\n - Titles must be string or template literals.\n - Titles must not contain disallowed words (if configured).\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n it(\"\", () => {});\n ```\n\n ```js,expect_diagnostic\n describe(\" foo\", () => {});\n ```\n\n ```js,expect_diagnostic\n test(123, () => {});\n ```\n\n ### Valid\n\n ```js\n it(\"should work\", () => {});\n describe(\"my suite\", () => {});\n ```\n\n ## Options\n\n ### `disallowedWords`\n\n A list of words that are not allowed in test titles. Matching is whole-word and case-insensitive.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"disallowedWords\": [\"skip\", \"only\"]\n     }\n }\n ```\n\n"
           },
-          "useVarsOnTop": {
-            "deprecated": false,
-            "version": "2.4.12",
-            "name": "useVarsOnTop",
-            "link": "https://biomejs.dev/linter/rules/use-vars-on-top/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslint": "vars-on-top"
-                }
-              }
-            ],
-            "docs": " Require `var` declarations to appear at the top of their containing scope.\n\n Because `var` declarations are hoisted to the top of the nearest function,\n script, module, or static block, placing them later in the body makes code\n harder to follow. Keeping them at the top makes the scope's variable\n declarations easier to find. Note that this is not a problem for `let` and\n `const` declarations, which are block-scoped and not hoisted.\n\n This rule only allows leading standalone `var` statements. At module\n scope, leading `export var` declarations are allowed too. Directives and\n imports may appear before them.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f() {\n     doSomething();\n     var value = 1;\n }\n ```\n\n ### Valid\n\n ```js\n function f() {\n     var value = 1;\n     doSomething(value);\n }\n ```\n\n Related:\n - [noVar](https://biomejs.dev/linter/rules/no-var/)\n - [useConst](https://biomejs.dev/linter/rules/use-const/)\n"
-          },
           "useVueBaseImport": {
             "deprecated": false,
             "version": "2.5.13",
@@ -5789,40 +5294,6 @@ export function GET() {
               }
             ],
             "docs": " Enforce importing Vue's public entry point instead of internal Vue packages.\n\n The `@vue/runtime-dom`, `@vue/runtime-core`, `@vue/reactivity`, and `@vue/shared` packages are internal implementation packages. Their public exports should be imported from `vue` instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { computed } from \"@vue/reactivity\";\n ```\n\n ```js,expect_diagnostic\n export * from \"@vue/shared\";\n ```\n\n ### Valid\n\n ```js\n import { computed } from \"vue\";\n import { internalOnly } from \"@vue/reactivity\";\n ```\n\n"
-          },
-          "useVueConsistentDefinePropsDeclaration": {
-            "deprecated": false,
-            "version": "2.3.11",
-            "name": "useVueConsistentDefinePropsDeclaration",
-            "link": "https://biomejs.dev/linter/rules/use-vue-consistent-define-props-declaration/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintVueJs": "define-props-declaration"
-                }
-              }
-            ],
-            "docs": " Enforce a consistent declaration style for Vue's `defineProps` macro.\n\n Vue accepts two ways to declare component properties: a TypeScript type passed between\n angle brackets, or a runtime object passed as an argument. This rule enforces one style\n throughout the project. The default style is `type`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n const props = defineProps({\n   kind: { type: String },\n });\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup lang=\"ts\">\n const props = defineProps<{\n   kind: string;\n }>();\n </script>\n ```\n\n ## Options\n\n ### `style`\n\n Selects `type` or `runtime` declarations. Defaults to `type`.\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"runtime\"\n     }\n }\n ```\n\n With `runtime`, a type-based declaration is invalid:\n\n ```vue,use_options,expect_diagnostic\n <script setup lang=\"ts\">\n const props = defineProps<{ kind: string }>();\n </script>\n ```\n\n A runtime declaration is valid:\n\n ```vue,use_options\n <script setup lang=\"ts\">\n const props = defineProps({ kind: { type: String } });\n </script>\n ```\n\n"
-          },
-          "useVueNextTickPromise": {
-            "deprecated": false,
-            "version": "2.4.15",
-            "name": "useVueNextTickPromise",
-            "link": "https://biomejs.dev/linter/rules/use-vue-next-tick-promise/javascript",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintVueJs": "next-tick-style"
-                }
-              }
-            ],
-            "docs": " Enforces Promise syntax when using Vue `nextTick`.\n\n Vue `nextTick` returns a Promise when no callback is passed. Promise syntax composes better with `await` and keeps asynchronous control flow explicit.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n import { nextTick } from \"vue\";\n\n nextTick(() => {\n   // ...\n });\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n import { nextTick } from \"vue\";\n\n await nextTick();\n // ...\n </script>\n ```\n\n"
           }
         },
         "performance": {
@@ -5876,6 +5347,14 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/no-delete/javascript",
             "recommended": false,
             "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-delete-var"
+                }
+              }
+            ],
             "docs": " Disallow the use of the `delete` operator.\n\n The `delete` operator enables the removal of a property from an object.\n\n The `delete` operator should be avoided because it [can prevent some optimizations of _JavaScript_ engines](https://webkit.org/blog/10298/inline-caching-delete/).\n Moreover, it can lead to unexpected results.\n For instance, deleting an array element [does not change the length of the array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete#deleting_array_elements).\n\n The only legitimate use of `delete` is on an object that behaves like a _map_.\n To allow this pattern, this rule does not report `delete` on computed properties that are not literal values.\n Consider using [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instead of an object.\n An exception is [`delete process.env.NAME`](https://nodejs.org/api/process.html#processenv),\n which Node.js documents as the way to remove environment variables.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const arr = [1, 2, 3];\n delete arr[0];\n ```\n\n ```js,expect_diagnostic\n const obj = {a: {b: {c: 123}}};\n delete obj.a.b.c;\n ```\n\n ### Valid\n\n ```js\n const foo = new Set([1,2,3]);\n foo.delete(1);\n```\n\n ```js\n const map = Object.create(null);\n const key = \"key\"\n map[key] = \"value\"\n delete map[key];\n```\n\n ```js\n let x = 5;\n delete f(); // uncovered by this rule.\n```\n\n ```js\n delete process.env.FOO;\n```\n\n"
           },
           "noDynamicNamespaceImportAccess": {
@@ -5937,6 +5416,23 @@ export function GET() {
               }
             ],
             "docs": " Prevent the usage of synchronous scripts.\n\n A synchronous script can impact your webpage performance, read more on how to [Efficiently load third-party JavaScript](https://web.dev/articles/efficiently-load-third-party-javascript).\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Invalid = () => <script src=\"https://third-party-script.js\" />;\n ```\n\n ### Valid\n\n ```jsx\n const Valid = () => {\n   return (\n     <>\n       <script src=\"https://third-party-script.js\" async />\n       <script src=\"https://third-party-script.js\" defer />\n       <script src=\"https://third-party-script.js\" type=\"module\" />\n     </>\n   );\n }\n ```\n\n #### Next.js\n\n ```jsx\n import Script from 'next/script'\n\n const Valid = () => <Script src=\"https://third-party-script.js\" />;\n ```\n\n"
+          },
+          "useDomNodeTextContent": {
+            "deprecated": false,
+            "version": "2.4.13",
+            "name": "useDomNodeTextContent",
+            "link": "https://biomejs.dev/linter/rules/use-dom-node-text-content/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "prefer-dom-node-text-content"
+                }
+              }
+            ],
+            "docs": " Prefer `.textContent` over `.innerText` for DOM node text.\n\n Because `innerText` depends on rendered layout and CSS, it should only be used when you specifically need that behavior.\n `textContent` is usually faster and more predictable than `innerText`.\n\n :::note\n `textContent` and `innerText` are not equivalent.\n See the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent#differences_from_innertext) for the differences between them.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const text = node.innerText;\n ```\n\n ```js,expect_diagnostic\n const {innerText} = node;\n ```\n\n ```js,expect_diagnostic\n node[\"innerText\"] = \"Biome\";\n ```\n\n ### Valid\n\n ```js\n const text = node.textContent;\n ```\n\n ```js\n const {textContent} = node;\n ```\n\n"
           },
           "useSolidForComponent": {
             "deprecated": false,
@@ -6195,6 +5691,29 @@ export function GET() {
             ],
             "docs": " Disallows the usage of the unary operators ++ and --.\n\n Because the unary ++ and -- operators are subject to automatic semicolon insertion, differences in whitespace can change semantics of source code.\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i ++\n j\n // i = 11, j = 20\n ```\n\n ```js,expect_diagnostic\n let i = 10;\n let j = 20;\n\n i\n ++\n j\n // i = 10, j = 21\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = 0;\n foo++;\n ```\n\n ```js,expect_diagnostic\n let bar = 42;\n bar--;\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i++;\n }\n ```\n\n ### Valid\n\n ```js\n let foo = 0;\n foo += 1;\n ```\n\n ```js\n let bar = 42;\n bar -= 1;\n ```\n\n ```js\n for (let i = 0; i < 10; i += 1) {\n     doSomething(i);\n }\n ```\n\n ```js\n for (let i = 0; i < 10;) {\n     doSomething(i);\n     i += 1;\n }\n ```\n\n ## Options\n\n ### `allowForLoopAfterthoughts`\n\n Allows unary operators ++ and -- in the afterthought (final expression) of a for loop.\n\n Default `false`\n\n ```json,options\n {\n   \"options\": {\n     \"allowForLoopAfterthoughts\": true\n   }\n }\n ```\n\n #### Invalid\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < j; j = i++) {\n     doSomething(i, j);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 10; i--;) {\n     doSomething(i);\n }\n ```\n\n ```js,expect_diagnostic,use_options\n for (let i = 0; i < 10;) i++;\n ```\n\n #### Valid\n\n ```js,use_options\n for (let i = 0; i < 10; i++) {\n     doSomething(i);\n }\n ```\n\n ```js,use_options\n for (let i = 0, j = l; i < l; i++, j--) {\n     doSomething(i, j);\n }\n ```\n\n"
           },
+          "noInlineStyles": {
+            "deprecated": false,
+            "version": "2.4.9",
+            "name": "noInlineStyles",
+            "link": "https://biomejs.dev/linter/rules/no-inline-styles/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactNativeIntellicode": "no-inline-styles"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintShadcn": "no-inline-styles"
+                }
+              }
+            ],
+            "docs": " Disallow the use of inline styles.\n\n Inline styles via the `style` attribute make code harder to maintain and override,\n prevent reusability of styling, and can be a security concern when implementing\n a strict Content Security Policy (CSP).\n\n Instead of inline styles, use CSS classes, CSS modules, or a styling library.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div style={{ color: \"red\" }}>Error</div>\n ```\n\n ```js,expect_diagnostic\n React.createElement(\"div\", { style: { color: \"red\" } });\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"text-red\">Error</div>\n ```\n\n ```js\n React.createElement(\"div\", { className: \"container\" });\n ```\n\n ## Resources\n\n - [Content Security Policy: Allowing inline styles](https://content-security-policy.com/examples/allow-inline-style)\n\n"
+          },
           "noMultiAssign": {
             "deprecated": false,
             "version": "2.3.11",
@@ -6292,6 +5811,57 @@ export function GET() {
             ],
             "docs": " Disallow reassigning `function` parameters.\n\n Assignment to `function` parameters can be misleading and confusing,\n as modifying parameters will also mutate the `arguments` object.\n It is often unintended and indicative of a programmer error.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f(param) {\n     param = 13;\n }\n ```\n\n ```js,expect_diagnostic\n function f(param) {\n     param++;\n }\n ```\n\n ```js,expect_diagnostic\n function f(param) {\n     for (param of arr) {}\n }\n ```\n\n ```ts,expect_diagnostic\n class C {\n     constructor(readonly prop: number) {\n         prop++;\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function f(param) {\n     let local = param;\n }\n ```\n\n ## Options\n\n ### propertyAssignment\n\n The `noParameterAssign` rule can be configured using the `propertyAssignment` option, which determines whether property assignments on function parameters are allowed or denied. By default, `propertyAssignment` is set to `allow`.\n\n ```json\n {\n     \"options\": {\n         \"propertyAssignment\": \"allow\"\n     }\n }\n ```\n\n - **allow**: Allows property assignments on function parameters. This is the default behavior.\n   - Example:\n\n ```json,options\n {\n     \"options\": {\n         \"propertyAssignment\": \"allow\"\n     }\n }\n ```\n\n ```js,use_options\n function update(obj) {\n     obj.key = \"value\"; // No diagnostic\n }\n ```\n\n - **deny**: Disallows property assignments on function parameters, enforcing stricter immutability.\n   - Example:\n\n ```json,options\n {\n     \"options\": {\n         \"propertyAssignment\": \"deny\"\n     }\n }\n ```\n\n ```js,use_options,expect_diagnostic\n function update(obj) {\n     obj.key = \"value\"; // Diagnostic: Assignment to a property of function parameter is not allowed.\n }\n ```\n"
           },
+          "noPlaywrightElementHandle": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightElementHandle",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-element-handle/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-element-handle"
+                }
+              }
+            ],
+            "docs": " Disallow usage of element handles (`page.$()` and `page.$$()`).\n\n Element handles are discouraged in Playwright. Use locators instead, which auto-wait\n and are more reliable. Locators represent a way to find elements at any moment,\n while element handles are references to specific elements that may become stale.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const button = await page.$('button');\n ```\n\n ```js,expect_diagnostic\n const buttons = await page.$$('.btn');\n ```\n\n ```js,expect_diagnostic\n const element = await frame.$('#element');\n ```\n\n ### Valid\n\n ```js\n const button = page.locator('button');\n await button.click();\n ```\n\n ```js\n const buttons = page.locator('.btn');\n await expect(buttons).toHaveCount(3);\n ```\n\n ```js\n await page.getByRole('button', { name: 'Submit' }).click();\n ```\n\n"
+          },
+          "noPlaywrightEval": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightEval",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-eval/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-eval"
+                }
+              }
+            ],
+            "docs": " Disallow usage of `page.$eval()` and `page.$$eval()`.\n\n These methods are discouraged in favor of `locator.evaluate()` and `locator.evaluateAll()`.\n Locator-based evaluation is more reliable and follows Playwright's recommended patterns.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.$eval('.foo', el => el.textContent);\n ```\n\n ```js,expect_diagnostic\n const texts = await page.$$eval('.foo', els => els.map(el => el.textContent));\n ```\n\n ### Valid\n\n ```js\n const text = await page.locator('.foo').evaluate(el => el.textContent);\n ```\n\n ```js\n const texts = await page.locator('.foo').evaluateAll(els => els.map(el => el.textContent));\n ```\n\n"
+          },
+          "noPlaywrightWaitForSelector": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightWaitForSelector",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-selector/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-wait-for-selector"
+                }
+              }
+            ],
+            "docs": " Disallow using `page.waitForSelector()`.\n\n Playwright's `page.waitForSelector()` is discouraged in favor of more reliable locator-based APIs.\n Using locators with assertions or actions automatically waits for elements to be ready.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForSelector('.submit-button');\n ```\n\n ```js,expect_diagnostic\n await page.waitForSelector('#dialog', { state: 'visible' });\n await page.click('#dialog .button');\n ```\n\n ### Valid\n\n ```js\n await page.locator('.submit-button').click();\n ```\n\n ```js\n await expect(page.locator('#dialog')).toBeVisible();\n ```\n\n ```js\n const button = page.getByRole('button', { name: 'Submit' });\n await button.click();\n ```\n\n"
+          },
           "noProcessEnv": {
             "deprecated": false,
             "version": "1.9.1",
@@ -6305,9 +5875,32 @@ export function GET() {
                 "source": {
                   "eslintN": "no-process-env"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-process-env"
+                }
               }
             ],
             "docs": " Disallow the use of `process.env`.\n\n The `process.env` object in Node.js stores configuration settings. Using it directly throughout a project can cause problems:\n\n 1. It's harder to maintain\n 2. It can lead to conflicts in team development\n 3. It complicates deployment across multiple servers\n\n A better practice is to keep all settings in one configuration file and reference it throughout the project.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (process.env.NODE_ENV === 'development') {\n   // ...\n }\n ```\n\n ### Valid\n\n ```js\n const config = require('./config');\n if (config.NODE_ENV === 'development') {\n   // ...\n }\n ```\n\n"
+          },
+          "noReactNativeLiteralColors": {
+            "deprecated": false,
+            "version": "2.4.13",
+            "name": "noReactNativeLiteralColors",
+            "link": "https://biomejs.dev/linter/rules/no-react-native-literal-colors/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactNativeIntellicode": "no-color-literals"
+                }
+              }
+            ],
+            "docs": " Disallow color literals in React Native styles.\n\n Hard-coding colors inside styles makes it harder to keep them consistent\n across components and to swap the palette when the design system evolves.\n Extracting colors into named constants or a shared theme module produces\n more maintainable code.\n\n This rule reports properties whose name contains `color` (case-insensitive)\n and whose value is a string literal, when they appear inside a\n `StyleSheet.create` call or inside a JSX attribute whose name contains\n `style` (case-insensitive). A ternary expression is also reported when\n either branch is a string literal.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n const Hello = () => <Text style={{ backgroundColor: '#FFFFFF' }}>hi</Text>;\n ```\n\n ```jsx,expect_diagnostic\n const styles = StyleSheet.create({\n     text: { color: 'red' }\n });\n ```\n\n ```jsx,expect_diagnostic\n const Hello = (flag) => (\n     <Text style={{ backgroundColor: flag ? '#fff' : '#000' }}>hi</Text>\n );\n ```\n\n ### Valid\n\n ```jsx\n const red = '#f00';\n const styles = StyleSheet.create({\n     text: { color: red }\n });\n ```\n\n ```jsx\n const Hello = () => (\n     <Text style={{ backgroundColor: theme.background }}>hi</Text>\n );\n ```\n\n"
           },
           "noRestrictedGlobals": {
             "deprecated": false,
@@ -6615,6 +6208,29 @@ export function GET() {
             ],
             "docs": " Require the consistent declaration of object literals.\n\n ECMAScript 6 provides two ways to define an object literal: `{foo: foo}` and `{foo}`.\n The two styles are functionally equivalent.\n Using the same style consistently across your codebase makes it easier to quickly read and understand object definitions.\n\n ## Example\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"shorthand\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo: foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo,\n     bar() { return \"bar\"; },\n };\n ```\n\n ### Invalid\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n let foo = 1;\n let invalid = {\n     foo\n };\n ```\n\n ```js,expect_diagnostic,use_options\n let invalid = {\n     bar() { return \"bar\"; },\n };\n ```\n\n ### Valid\n\n ```js,use_options\n let foo = 1;\n let valid = {\n     foo: foo,\n     bar: function() { return \"bar\"; },\n };\n ```\n\n ## Options\n\n Use the options to specify the syntax of object literals to enforce.\n\n ```json,options\n {\n     \"options\": {\n         \"syntax\": \"explicit\"\n     }\n }\n ```\n\n ### syntax\n\n The syntax to use:\n - `shorthand`: enforces the use of shorthand object property syntax when possible.\n - `explicit`: enforces the use of explicit object property syntax in every case.\n\n **Default:** `shorthand`\n\n"
           },
+          "useConsistentTestIt": {
+            "deprecated": false,
+            "version": "2.4.11",
+            "name": "useConsistentTestIt",
+            "link": "https://biomejs.dev/linter/rules/use-consistent-test-it/javascript",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintJest": "consistent-test-it"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVitest": "consistent-test-it"
+                }
+              }
+            ],
+            "docs": " Enforce consistent use of `it` or `test` for test functions.\n\n `it` and `test` are aliases for the same function in most test frameworks.\n This rule enforces using one over the other for consistency.\n Imported functions keep their original export through an import alias.\n The fix is unavailable when the preferred name conflicts with another binding or global reference.\n\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"foo\", () => {});\n ```\n\n ### Valid\n\n ```js\n it(\"foo\", () => {});\n ```\n\n ## Options\n\n ### `function`\n\n The function to use for top-level tests (outside `describe` blocks).\n Accepted values are:\n - `\"it\"` (default): Enforce using `it()` for top-level tests\n - `\"test\"`: Enforce using `test()` for top-level tests\n\n ```json,options\n {\n     \"options\": {\n         \"function\": \"test\"\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n it(\"foo\", () => {});\n ```\n\n #### Valid\n\n ```js,use_options\n test(\"foo\", () => {});\n ```\n\n ### `withinDescribe`\n\n The function to use for tests inside `describe` blocks.\n Accepted values are:\n - `\"it\"` (default): Enforce using `it()` inside describe blocks\n - `\"test\"`: Enforce using `test()` inside describe blocks\n\n ```json,options\n {\n     \"options\": {\n         \"withinDescribe\": \"test\"\n     }\n }\n ```\n\n #### Invalid\n\n ```js,use_options,expect_diagnostic\n describe(\"suite\", () => {\n     it(\"foo\", () => {});\n });\n ```\n\n #### Valid\n\n ```js,use_options\n describe(\"suite\", () => {\n     test(\"foo\", () => {});\n });\n ```\n\n"
+          },
           "useConst": {
             "deprecated": false,
             "version": "1.0.0",
@@ -6627,6 +6243,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslint": "prefer-const"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSvelte": "prefer-const"
                 }
               }
             ],
@@ -6688,6 +6310,23 @@ export function GET() {
               }
             ],
             "docs": " Require destructuring from arrays and/or objects\n\n With JavaScript ES6, a new syntax was added for creating variables from an array index or object property,\n called destructuring. This rule enforces usage of destructuring instead of accessing a property through a member expression.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n var foo = array[0];\n ```\n\n ```js,expect_diagnostic\n var bar = foo.bar;\n ```\n\n\n ### Valid\n\n ```js\n var [foo] = array;\n ```\n\n ```js\n var { bar } = foo;\n ```\n\n ```ts\n // Variables with type annotations are ignored\n const foo: string = object.foo;\n ```\n\n ## Options\n\n ### `variableDeclarator`\n\n Default: `{ \"array\": true, \"object\": true }`\n\n Controls whether to enforce destructuring in variable declarations.\n Set `array` or `object` to `false` to disable enforcement for that pattern.\n\n In the following example, array destructuring is disabled in declarations:\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"variableDeclarator\": {\n             \"array\": false\n         }\n     }\n }\n ```\n\n ```js,ignore\n var foo = array[0]; // allowed\n var foo = object.foo; // still flagged\n ```\n\n ### `assignmentExpression`\n\n Default: `{ \"array\": true, \"object\": true }`\n\n Controls whether to enforce destructuring in assignment expressions.\n Set `array` or `object` to `false` to disable enforcement for that pattern.\n When enabled for objects, the diagnostic instructs users to wrap in parentheses: `({ prop } = object)`.\n\n In the following example, assignment destructuring is disabled entirely:\n\n ```json\n {\n     \"//\": \"...\",\n     \"options\": {\n         \"assignmentExpression\": {\n             \"array\": false,\n             \"object\": false\n         }\n     }\n }\n ```\n\n ```js,ignore\n foo = object.foo; // allowed\n ```\n\n"
+          },
+          "useDomQuerySelector": {
+            "deprecated": false,
+            "version": "2.4.13",
+            "name": "useDomQuerySelector",
+            "link": "https://biomejs.dev/linter/rules/use-dom-query-selector/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintUnicorn": "prefer-query-selector"
+                }
+              }
+            ],
+            "docs": " Prefer `querySelector()` and `querySelectorAll()` over older DOM query APIs.\n\n This rule prefers `querySelector()` over `getElementById()`, and `querySelectorAll()` over\n `getElementsByClassName()`, `getElementsByTagName()`, and `getElementsByName()`.\n\n Using the more modern DOM query APIs can often make the intent of a DOM lookup clearer and\n more concise than the older APIs, especially for complex selectors or if filtering by multiple attributes.\n Additionally, these newer APIs are more flexible and can be easily refined later with more\n specific selectors without needing to change the method being called.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n document.getElementById(\"foo\");\n ```\n\n ```js,expect_diagnostic\n document.getElementsByClassName(\"foo bar\");\n ```\n\n ```js,expect_diagnostic\n document.getElementsByTagName(\"main\");\n ```\n\n ### Valid\n\n ```js\n document.querySelector(\"#foo\");\n ```\n\n ```js\n document.querySelectorAll(\".foo.bar\");\n ```\n\n ## Options\n\n ### `ignore`\n\n Allow specific variables to use the older DOM query APIs.\n This is useful if your application has APIs that expose methods with\n the same names as DOM query APIs.\n\n ```json,options\n {\n     \"options\": {\n         \"ignore\": [\"store\", \"customApi\"]\n     }\n }\n ```\n\n #### Valid\n\n These are ignored, so they are not flagged.\n\n ```js,use_options\n store.getElementById(\"COVER_IMAGE\");\n customApi.getElementsByClassName(\"item\");\n ```\n\n"
           },
           "useErrorCause": {
             "deprecated": false,
@@ -6842,6 +6481,40 @@ export function GET() {
               }
             ],
             "docs": " Enforce that getters and setters for the same property are adjacent in class and object definitions.\n\n When defining a property in a class or object, it's common to have both a getter and a setter.\n This rule enforces that getter is defined right before the setter,\n making the code more maintainable and easier to read.\n\n ## Examples\n\n ### Invalid\n\n Name getter and setter are not adjacent:\n\n ```js,expect_diagnostic\n class User {\n   get name() { return this._name; }\n   constructor() {}\n   set name(value) { this._name = value; }\n }\n ```\n\n Getter should go before the setter.\n\n ```js,expect_diagnostic\n const user = {\n   set name(value) { this._name = value; },\n   get name() { return this._name; }\n };\n ```\n\n ### Valid\n\n ```js\n class User {\n   get name() { return this._name; }\n   set name(value) { this._name = value; }\n   get age() { return this._age; }\n   set age(age) { this._age = age; }\n }\n ```\n\n This rule does not enforce the existence of both getter and setter for a property.\n Single getters without setters and setters without getters are ignored.\n\n"
+          },
+          "useImportsFirst": {
+            "deprecated": false,
+            "version": "2.4.7",
+            "name": "useImportsFirst",
+            "link": "https://biomejs.dev/linter/rules/use-imports-first/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintImport": "first"
+                }
+              }
+            ],
+            "docs": " Enforce that all imports appear at the top of the module.\n\n Import statements that appear after non-import statements are harder to\n find and may indicate disorganized code. Keeping all imports together at\n the top makes dependencies immediately visible.\n\n Directives such as `\"use strict\"` are always allowed before\n imports, since they are parsed separately from module items.\n\n This rule only applies to ES module `import` statements. CommonJS\n `require()` calls are not covered.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { foo } from \"foo\";\n const bar = 1;\n import { baz } from \"baz\";\n ```\n\n ### Valid\n\n ```js\n import { foo } from \"foo\";\n import { bar } from \"bar\";\n const baz = 1;\n ```\n\n ```js\n \"use strict\";\n import { foo } from \"foo\";\n ```\n\n"
+          },
+          "useNamedCaptureGroup": {
+            "deprecated": false,
+            "version": "2.4.5",
+            "name": "useNamedCaptureGroup",
+            "link": "https://biomejs.dev/linter/rules/use-named-capture-group/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "prefer-named-capture-group"
+                }
+              }
+            ],
+            "docs": " Enforce using named capture groups in regular expression.\n\n Numbered capture groups like `(...)` can be difficult to work with,\n as they are matched by their position and not by a descriptive name.\n Named capture groups (`(?<name>...)`) associate a descriptive name\n with each match, making the regular expression more readable and\n its intent clearer.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /(ba[rz])/;\n ```\n\n ```js,expect_diagnostic\n /([0-9]{4})/;\n ```\n\n ```js,expect_diagnostic\n /(?:ab)(cd)/;\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"(foo)\");\n ```\n\n ```js,expect_diagnostic\n RegExp(\"(foo)\");\n ```\n\n ### Valid\n\n ```js\n /(?<id>ba[rz])/;\n /(?:ba[rz])/;\n /ba[rz]/;\n /(?<year>[0-9]{4})-(?<month>[0-9]{2})/;\n new RegExp(\"(?<id>foo)\");\n new RegExp(pattern);\n ```\n\n"
           },
           "useNodeAssertStrict": {
             "deprecated": false,
@@ -7052,6 +6725,81 @@ export function GET() {
             ],
             "docs": " Prefer template literals over string concatenation.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const s = foo + \"baz\";\n ```\n\n ```js,expect_diagnostic\n const s = 1 + 2 + \"foo\" + 3;\n ```\n\n ```js,expect_diagnostic\n const s = 1 * 2 + \"foo\";\n ```\n\n ```js,expect_diagnostic\n const s = 1 + \"foo\" + 2 + \"bar\" + \"baz\" + 3;\n ```\n\n ### Valid\n\n ```js\n let s = \"foo\" + \"bar\" + `baz`;\n ```\n\n ```js\n let s = `value: ${1}`;\n ```\n"
           },
+          "useTestHooksInOrder": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useTestHooksInOrder",
+            "link": "https://biomejs.dev/linter/rules/use-test-hooks-in-order/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "prefer-hooks-in-order"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "prefer-hooks-in-order"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "prefer-hooks-in-order"
+                }
+              }
+            ],
+            "docs": " Enforce that test lifecycle hooks are declared in the order they execute.\n\n Jest and Vitest always execute lifecycle hooks in the following order,\n regardless of how they are written in the file:\n\n 1. `beforeAll` (or `before` if you are using `node:test`)\n 2. `beforeEach`\n 3. `afterEach`\n 4. `afterAll` (or `after` if you are using `node:test`)\n\n Writing the hooks in a different order creates a discrepancy between\n the visual order in the source and the actual execution order, which\n makes test code harder to reason about.\n\n This rule flags any hook that appears after a hook that runs later in the\n execution order. Only consecutive groups of hooks in the same block are\n compared — test cases and other statements between hooks are allowed and\n reset the comparison baseline.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   beforeEach(() => {});\n   beforeAll(() => {});\n });\n ```\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   afterEach(() => {});\n   afterAll(() => {});\n   beforeAll(() => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   beforeAll(() => {});\n   beforeEach(() => {});\n   afterEach(() => {});\n   afterAll(() => {});\n });\n ```\n\n ```js\n // Hooks separated by test cases are treated independently.\n describe('foo', () => {\n   beforeEach(() => {});\n   it('a test', () => {});\n   afterAll(() => {});\n });\n ```\n\n See [`useTestHooksOnTop`](https://biomejs.dev/linter/rules/use-test-hooks-on-top) if you want to group all the hooks at the top of the block, before any test cases.\n\n"
+          },
+          "useTestHooksOnTop": {
+            "deprecated": false,
+            "version": "2.4.14",
+            "name": "useTestHooksOnTop",
+            "link": "https://biomejs.dev/linter/rules/use-test-hooks-on-top/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "prefer-hooks-on-top"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "prefer-hooks-on-top"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "prefer-hooks-on-top"
+                }
+              }
+            ],
+            "docs": " Enforce that lifecycle hooks appear before any test cases in the same block.\n\n Placing `beforeEach`, `beforeAll`, `afterEach`, and `afterAll` hooks after\n test cases (`it`, `test`) makes the setup and teardown harder to spot at a\n glance and can be a source of confusion for readers of the test suite.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   it('does something', () => {});\n   beforeEach(() => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   beforeEach(() => {});\n   it('does something', () => {});\n });\n ```\n\n See also: [`useTestHooksInOrder`](https://biomejs.dev/linter/rules/use-test-hooks-in-order)\n\n"
+          },
+          "useThisInClassMethods": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useThisInClassMethods",
+            "link": "https://biomejs.dev/linter/rules/use-this-in-class-methods/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "class-methods-use-this"
+                }
+              }
+            ],
+            "docs": " Enforce that class methods utilize `this`.\n\n Instance methods usually communicate that their behavior depends on instance state.\n When a class member never uses `this`, it can often be made `static` or moved outside\n the class to better reflect its intent.\n\n This rule checks instance methods, getters, setters, and instance field initializers\n whose value is an arrow function or function expression. Constructors, static members,\n and static blocks are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n class A {\n     foo() {\n         console.log(\"Hello\");\n     }\n }\n ```\n\n ### Valid\n\n ```js\n class A {\n     foo() {\n         this.value = \"Hello\";\n     }\n }\n ```\n\n ```js\n class A {\n     static foo() {}\n }\n ```\n\n ## Options\n\n ### `ignoreMethods`\n\n A list of method names to ignore for this rule.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreMethods\": [\"render\", \"#serialize\"]\n     }\n }\n ```\n\n In this example, `render` and `#serialize` are ignored, so the rule does not report these methods.\n ```js,use_options\n class Component {\n     render() {}\n     #serialize() {}\n }\n ```\n\n ### `ignoreOverrideMethods`\n\n Whether to ignore `override` methods on subclasses.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreOverrideMethods\": true\n     }\n }\n ```\n\n In this example, the method in `Derived` is ignored because it is marked with `override`.\n ```ts,use_options\n abstract class Base {\n     abstract method(): void;\n }\n\n class Derived extends Base {\n     override method() {} // ignored because it has `override`\n }\n ```\n\n ### `ignoreClassesWithImplements`\n\n Controls how classes with an `implements` clause are handled.\n\n Default: `\"none\"`\n\n - `\"none\"` checks classes with an `implements` clause the same way as any other class.\n - `\"all\"` ignores every eligible instance member in classes that implement an interface.\n - `\"public-fields\"` ignores only public eligible members in those classes. Protected and\n   private members are still checked.\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreClassesWithImplements\": \"all\"\n     }\n }\n ```\n\n In this example, every eligible member in a class with an `implements` clause is ignored.\n ```ts,use_options\n interface Service {\n     run(): void;\n }\n\n class ServiceImpl implements Service {\n     run() {}\n }\n ```\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreClassesWithImplements\": \"public-fields\"\n     }\n }\n ```\n\n In this example, only public eligible members are ignored, so `helper` is still reported.\n ```ts,expect_diagnostic,use_options\n interface Service {\n     run(): void;\n }\n\n class ServiceImpl implements Service {\n     run() {}\n     protected helper() {}\n }\n ```\n"
+          },
           "useThrowNewError": {
             "deprecated": false,
             "version": "1.8.0",
@@ -7109,6 +6857,57 @@ export function GET() {
             ],
             "docs": " Enforce the use of `String.trimStart()` and `String.trimEnd()` over `String.trimLeft()` and `String.trimRight()`.\n\n While `String.trimLeft()` and `String.trimRight()` are aliases for `String.trimStart()` and `String.trimEnd()`,\n only using the latter pair ensures consistency and is preferable for their direction-independent wording.\n\n Note that `String.trimStart()` and `String.trimEnd()` methods do not take any parameters. Any arguments passed to these methods will be ignored.\n See the MDN documentation for more details:\n - [String.prototype.trimStart()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimStart)\n - [String.prototype.trimEnd()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trimEnd)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = bar.trimLeft();\n ```\n\n ```js,expect_diagnostic\n const foo = bar.trimRight();\n ```\n\n ### Valid\n\n ```js\n const foo = bar.trimStart();\n ```\n\n ```js\n const foo = bar.trimEnd();\n ```\n\n"
           },
+          "useUnicodeRegex": {
+            "deprecated": false,
+            "version": "2.4.5",
+            "name": "useUnicodeRegex",
+            "link": "https://biomejs.dev/linter/rules/use-unicode-regex/javascript",
+            "recommended": false,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "require-unicode-regexp"
+                }
+              }
+            ],
+            "docs": " Enforce the use of the `u` or `v` flag for regular expressions.\n\n The `u` flag (Unicode mode) and `v` flag (Unicode Sets mode) enable proper handling\n of Unicode characters in regular expressions. Without these flags, regex patterns\n may not correctly match Unicode characters like emoji or characters outside the\n Basic Multilingual Plane.\n\n The `u` flag was introduced in ES2015 and enables:\n - Correct handling of surrogate pairs (e.g., emoji)\n - Unicode code point escapes (`\\u{...}`)\n - Case-insensitive matching for Unicode characters\n\n The `v` flag was introduced in ES2024 and provides all `u` flag features plus:\n - Set notation in character classes\n - String literals in character classes\n - Improved Unicode property escapes\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n /foo/;\n ```\n\n ```js,expect_diagnostic\n /foo/gi;\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\");\n ```\n\n ```js,expect_diagnostic\n new RegExp(\"foo\", \"gi\");\n ```\n\n ### Valid\n\n ```js\n /foo/u;\n /foo/v;\n /foo/giu;\n new RegExp(\"foo\", \"u\");\n new RegExp(\"foo\", \"giv\");\n new RegExp(\"foo\", flags); // dynamic flags are ignored\n ```\n\n"
+          },
+          "useVarsOnTop": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "useVarsOnTop",
+            "link": "https://biomejs.dev/linter/rules/use-vars-on-top/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "vars-on-top"
+                }
+              }
+            ],
+            "docs": " Require `var` declarations to appear at the top of their containing scope.\n\n Because `var` declarations are hoisted to the top of the nearest function,\n script, module, or static block, placing them later in the body makes code\n harder to follow. Keeping them at the top makes the scope's variable\n declarations easier to find. Note that this is not a problem for `let` and\n `const` declarations, which are block-scoped and not hoisted.\n\n This rule only allows leading standalone `var` statements. At module\n scope, leading `export var` declarations are allowed too. Directives and\n imports may appear before them.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function f() {\n     doSomething();\n     var value = 1;\n }\n ```\n\n ### Valid\n\n ```js\n function f() {\n     var value = 1;\n     doSomething(value);\n }\n ```\n\n Related:\n - [noVar](https://biomejs.dev/linter/rules/no-var/)\n - [useConst](https://biomejs.dev/linter/rules/use-const/)\n"
+          },
+          "useVueConsistentDefinePropsDeclaration": {
+            "deprecated": false,
+            "version": "2.3.11",
+            "name": "useVueConsistentDefinePropsDeclaration",
+            "link": "https://biomejs.dev/linter/rules/use-vue-consistent-define-props-declaration/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "define-props-declaration"
+                }
+              }
+            ],
+            "docs": " Enforce a consistent declaration style for Vue's `defineProps` macro.\n\n Vue accepts two ways to declare component properties: a TypeScript type passed between\n angle brackets, or a runtime object passed as an argument. This rule enforces one style\n throughout the project. The default style is `type`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n const props = defineProps({\n   kind: { type: String },\n });\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup lang=\"ts\">\n const props = defineProps<{\n   kind: string;\n }>();\n </script>\n ```\n\n ## Options\n\n ### `style`\n\n Selects `type` or `runtime` declarations. Defaults to `type`.\n\n ```json,options\n {\n     \"options\": {\n         \"style\": \"runtime\"\n     }\n }\n ```\n\n With `runtime`, a type-based declaration is invalid:\n\n ```vue,use_options,expect_diagnostic\n <script setup lang=\"ts\">\n const props = defineProps<{ kind: string }>();\n </script>\n ```\n\n A runtime declaration is valid:\n\n ```vue,use_options\n <script setup lang=\"ts\">\n const props = defineProps({ kind: { type: String } });\n </script>\n ```\n\n"
+          },
           "useVueDefineMacrosOrder": {
             "deprecated": false,
             "version": "2.3.0",
@@ -7142,6 +6941,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce multi-word component names in Vue components.\n\n Using a single-word component name (e.g. `App`, `Header`) can:\n - Conflict with native/custom HTML elements (present or future)\n - Reduce clarity/expressiveness\n\n This rule requires component names to be \"multi-word\".\n\n A name is considered multi-word when:\n - Kebab-case: contains at least one hyphen (`my-component`)\n - PascalCase / CamelCase: contains at least two capital letters (`MyComponent`); single-cap names like `App` or `Foo` are rejected\n\n Component names are extracted from the `name` property in Options API components, or inferred from the file name if not explicitly set.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   name: \"Foo\"\n };\n </script>\n ```\n\n ```js,expect_diagnostic\n import { defineComponent } from \"vue\";\n export default defineComponent({\n   name: \"Header\"\n });\n ```\n\n ```js,expect_diagnostic\n import { createApp } from \"vue\";\n createApp({\n   name: \"Widget\"\n }).mount(\"#app\");\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   name: \"MyComponent\"\n };\n </script>\n ```\n\n ```js\n export default {\n   name: \"my-component\"\n };\n ```\n\n ```js\n defineComponent({\n   name: \"MyComponent\"\n });\n ```\n\n ```js\n createApp({ name: \"MyApp\" }).mount(\"#app\");\n ```\n\n ## Options\n\n ### `ignores`\n\n Additional single-word component names to ignore (case-insensitive). The rule already ignores Vue built-in components and `App` by default.\n\n ```json,options\n {\n   \"options\": {\n     \"ignores\": [\n       \"Foo\"\n     ]\n   }\n }\n ```\n\n #### Valid\n\n ```vue,use_options\n <script>\n export default {\n   name: \"Foo\"\n };\n </script>\n ```\n\n"
+          },
+          "useVueNextTickPromise": {
+            "deprecated": false,
+            "version": "2.4.15",
+            "name": "useVueNextTickPromise",
+            "link": "https://biomejs.dev/linter/rules/use-vue-next-tick-promise/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "next-tick-style"
+                }
+              }
+            ],
+            "docs": " Enforces Promise syntax when using Vue `nextTick`.\n\n Vue `nextTick` returns a Promise when no callback is passed. Promise syntax composes better with `await` and keeps asynchronous control flow explicit.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n import { nextTick } from \"vue\";\n\n nextTick(() => {\n   // ...\n });\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n import { nextTick } from \"vue\";\n\n await nextTick();\n // ...\n </script>\n ```\n\n"
           }
         },
         "suspicious": {
@@ -7280,6 +7096,35 @@ export function GET() {
               }
             ],
             "docs": " Disallow comparing against `-0`\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n (1 >= -0)\n ```\n\n ### Valid\n\n ```js\n (1 >= 0)\n```\n"
+          },
+          "noConditionalExpect": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noConditionalExpect",
+            "link": "https://biomejs.dev/linter/rules/no-conditional-expect/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-conditional-expect"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "no-conditional-expect"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "no-conditional-expect"
+                }
+              }
+            ],
+            "docs": " Disallow conditional `expect()` calls inside tests.\n\n Conditional expectations are problematic because they can silently pass\n when the condition is false, meaning assertions may never actually run.\n This can lead to tests that pass despite bugs in the code.\n\n If you need conditional testing logic, consider:\n - Using `test.skip()` to skip the entire test\n - Splitting into separate tests with clear conditions\n - Using `expect.soft()` for optional assertions\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"conditional expect\", async ({ page }) => {\n     if (someCondition) {\n         await expect(page).toHaveTitle(\"Title\");\n     }\n });\n ```\n\n ```js,expect_diagnostic\n test(\"ternary expect\", async ({ page }) => {\n     someCondition ? await expect(page).toHaveTitle(\"Title\") : null;\n });\n ```\n\n ```js,expect_diagnostic\n test(\"catch expect\", async ({ page }) => {\n     try {\n         await page.click(\"button\");\n     } catch (e) {\n         await expect(page).toHaveTitle(\"Title\");\n     }\n });\n ```\n\n ### Valid\n\n ```js\n test(\"unconditional expect\", async ({ page }) => {\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n ```js\n test(\"skip based on condition\", async ({ page }) => {\n     test.skip(someCondition, \"Reason to skip\");\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n"
           },
           "noConfusingLabels": {
             "deprecated": false,
@@ -7434,6 +7279,40 @@ export function GET() {
               }
             ],
             "docs": " Require the use of `===` and `!==`.\n\n It is generally bad practice to use `==` for comparison instead of\n `===`. Double operators will trigger implicit [type coercion](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion)\n and are thus not preferred. Using strict equality operators is almost\n always best practice.\n\n For ergonomic reasons, this rule makes by default an exception for `== null` for\n comparing to both `null` and `undefined`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n foo == bar\n ```\n\n ### Valid\n\n ```js\n foo == null\n```\n\n ```js\n foo != null\n```\n\n ```js\n null == foo\n```\n\n ```js\n null != foo\n```\n\n ## Options\n\n The rule provides the option described below.\n\n ```json\n {\n     \"//\":\"...\",\n     \"options\": {\n         \"ignoreNull\": true\n     }\n }\n ```\n\n ### ignoreNull\n\n When this option is set to `true`, an exception will be made for checking against `null`,\n as relying on the double equals operator to compare with `null` is frequently used to check\n equality with either `null` or `undefined`.\n\n When the option is set to `false`, all double equal operators will be forbidden without\n exceptions.\n\n Default: `true`\n\n\n"
+          },
+          "noDrizzleDeleteWithoutWhere": {
+            "deprecated": false,
+            "version": "2.4.8",
+            "name": "noDrizzleDeleteWithoutWhere",
+            "link": "https://biomejs.dev/linter/rules/no-drizzle-delete-without-where/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintDrizzle": "enforce-delete-with-where"
+                }
+              }
+            ],
+            "docs": " Require `.where()` to be called when using `.delete()` with Drizzle ORM.\n\n Without a `.where()` clause, a `delete` statement will delete **all rows** from the table.\n This rule requires explicitly calling `.where()` to prevent accidental data loss.\n\n ## Options\n\n Use the `drizzleObjectName` option to specify the variable names that represent Drizzle\n ORM instances.\n\n ```json,options\n {\n   \"options\": {\n     \"drizzleObjectName\": [\"db\"]\n   }\n }\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,use_options\n await db.delete(users);\n ```\n\n ### Valid\n\n ```js,use_options\n await db.delete(users).where(eq(users.id, 1));\n ```\n\n"
+          },
+          "noDrizzleUpdateWithoutWhere": {
+            "deprecated": false,
+            "version": "2.4.8",
+            "name": "noDrizzleUpdateWithoutWhere",
+            "link": "https://biomejs.dev/linter/rules/no-drizzle-update-without-where/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintDrizzle": "enforce-update-with-where"
+                }
+              }
+            ],
+            "docs": " Require `.where()` to be called when using `.update()` with Drizzle ORM.\n\n Without a `.where()` clause, an `update` statement will update **all rows** in the table.\n This rule requires explicitly calling `.where()` to prevent accidental mass updates.\n\n ## Options\n\n Use the `drizzleObjectName` option to specify the variable names that represent Drizzle\n ORM instances.\n\n ```json,options\n {\n   \"options\": {\n     \"drizzleObjectName\": [\"db\"]\n   }\n }\n ```\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,use_options\n await db.update(users).set({ name: \"John\" });\n ```\n\n ### Valid\n\n ```js,use_options\n await db.update(users).set({ name: \"John\" }).where(eq(users.id, 1));\n ```\n\n"
           },
           "noDuplicateCase": {
             "deprecated": false,
@@ -7705,6 +7584,12 @@ export function GET() {
                 "source": {
                   "eslintVitest": "no-focused-tests"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-focused-test"
+                }
               }
             ],
             "docs": " Disallow focused tests.\n\n Disabled test are useful when developing and debugging, because it forces the test suite to run only certain tests.\n\n However, in pull/merge request, you usually want to run all the test suite.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n describe.only(\"foo\", () => {});\n ```\n\n ```js,expect_diagnostic\n test.only(\"foo\", () => {});\n ```\n\n ```js,expect_diagnostic\n test.only.each([[\"a\"]])(\"%s\", (a) => {});\n ```\n\n ### Valid\n ```js\n test(\"foo\", () => {});\n ```\n\n ```js\n test.each([[\"a\"]])(\"%s\", (a) => {});\n ```\n"
@@ -7756,6 +7641,12 @@ export function GET() {
                 "source": {
                   "eslint": "no-global-assign"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-native-reassign"
+                }
               }
             ],
             "docs": " Disallow assignments to native objects and read-only global variables.\n\n JavaScript's environments contain numerous built-in global variables, such as `window` in browsers and `process` in Node.js.\n Assigning values to these global variables can be problematic as it can override essential functionality.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n Object = null;\n ```\n\n ```js,expect_diagnostic\n window = {};\n ```\n\n ```js,expect_diagnostic\n undefined = true;\n ```\n\n ### Valid\n\n ```js\n a = 0;\n ```\n\n ```js\n let window;\n window = {};\n ```\n"
@@ -7777,6 +7668,35 @@ export function GET() {
             "recommended": true,
             "fixKind": "unsafe",
             "docs": " Use `Number.isNaN` instead of global `isNaN`.\n\n `Number.isNaN()` and `isNaN()` [do not have the same behavior](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isNaN#description).\n When the argument to `isNaN()` is not a number, the value is first coerced to a number.\n `Number.isNaN()` does not perform this coercion.\n Therefore, it is a more reliable way to test whether a value is `NaN`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n isNaN({}); // true\n ```\n\n ### Valid\n\n ```js\n Number.isNaN({}); // false\n ```\n\n"
+          },
+          "noIdenticalTestTitle": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "noIdenticalTestTitle",
+            "link": "https://biomejs.dev/linter/rules/no-identical-test-title/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "no-identical-title"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "no-identical-title"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-identical-title"
+                }
+              }
+            ],
+            "docs": " Disallow identical titles in test suites and test cases.\n\n Having identical titles for two different tests or test suites at the same level may create confusion.\n For example, when a test fails it is hard to tell which test exactly failed based on its title alone.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n it('should do bar', () => {});\n it('should do bar', () => {});\n ```\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   it('should do bar', () => {});\n   it('should do bar', () => {});\n });\n ```\n\n ```js,expect_diagnostic\n describe('foo', () => {});\n describe('foo', () => {});\n ```\n\n ```js,expect_diagnostic\n describe('foo', () => {\n   describe('baz', () => {});\n   describe('baz', () => {});\n });\n ```\n\n ### Valid\n\n ```js\n describe('foo', () => {\n   it('should do foo', () => {});\n   it('should do bar', () => {});\n });\n\n describe('bar', () => {});\n ```\n\n ```js\n describe('foo', () => {\n   describe('baz', () => {\n     it('should work', () => {});\n   });\n   describe('bar', () => {\n     it('should work', () => {});\n   });\n });\n ```\n\n"
           },
           "noImportAssign": {
             "deprecated": false,
@@ -7851,6 +7771,29 @@ export function GET() {
               }
             ],
             "docs": " Disallow labels that share a name with a variable\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const x1 = \"test\";\n x1: expr;\n ```\n\n ### Valid\n\n ```js\n const x = \"test\";\n z: expr;\n ```\n"
+          },
+          "noLoopFunc": {
+            "deprecated": false,
+            "version": "2.4.13",
+            "name": "noLoopFunc",
+            "link": "https://biomejs.dev/linter/rules/no-loop-func/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslint": "no-loop-func"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintTypeScript": "no-loop-func"
+                }
+              }
+            ],
+            "docs": " Disallow functions created inside loops when they use variables that can change.\n\n A function created in a loop can run after the loop has moved to a later iteration. If the\n function reads a variable declared outside it, the function may observe the variable's later\n value instead of the value from the iteration that created the function.\n\n The rule ignores an immediately invoked function expression (IIFE), which is called as soon\n as it is created. It still reports async or generator IIFEs, and IIFEs that refer to their\n own name, because those functions can outlive the current iteration.\n\n ## Examples\n\n ### Invalid\n\n A `var` iteration variable is shared by every iteration, so a function created in the loop\n can observe a later value.\n\n ```js,expect_diagnostic\n for (var i = 0; i < 10; i++) {\n     handlers.push(() => i);\n }\n ```\n\n ```js,expect_diagnostic\n let value = 0;\n for (let i = 0; i < 10; i++) {\n     queue.push(function () {\n         return value;\n     });\n     value += 1;\n }\n ```\n\n ### Valid\n\n A `let` or `const` iteration variable is created separately for each iteration, so the\n function keeps the expected value.\n\n ```js\n for (let i = 0; i < 10; i++) {\n     handlers.push(() => i);\n }\n ```\n\n ```js\n for (var i = 0; i < 10; i++) {\n     const current = i;\n     queue.push(function() {\n         return current;\n     });\n }\n ```\n\n"
           },
           "noMisleadingCharacterClass": {
             "deprecated": false,
@@ -7977,6 +7920,91 @@ export function GET() {
             ],
             "docs": " Disallow function parameters that are only used in recursive calls.\n\n A parameter that is only passed to recursive calls is effectively unused\n and can be removed or replaced with a constant, simplifying the function.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function factorial(n, acc) {\n     if (n === 0) return 1;\n     return factorial(n - 1, acc);\n }\n ```\n\n ```js,expect_diagnostic\n function countdown(n, step) {\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this.count(n - 1, acc);\n     }\n }\n ```\n\n ```js,expect_diagnostic\n function fn(n, acc) {\n     if (n === 0) return 0;\n     return fn(n - 1, acc || 0);\n }\n ```\n\n ```js,expect_diagnostic\n class Counter {\n     count(n, acc) {\n         if (n === 0) return 0;\n         return this?.count(n - 1, acc);\n     }\n }\n ```\n\n ### Valid\n\n ```js\n function factorial(n, acc) {\n     if (n === 0) return acc;\n     return factorial(n - 1, acc * n);\n }\n ```\n\n ```js\n function countdown(n, step) {\n     console.log(step);\n     if (n === 0) return 0;\n     return countdown(n - step, step);\n }\n ```\n\n ```js\n function fn(n, threshold) {\n     if (n > threshold) return n;\n     return fn(n + 1, threshold);\n }\n ```\n"
           },
+          "noPlaywrightForceOption": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightForceOption",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-force-option/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-force-option"
+                }
+              }
+            ],
+            "docs": " Disallow usage of the `{ force: true }` option.\n\n Playwright's `force` option bypasses actionability checks and can lead to unreliable tests.\n Instead of using `{ force: true }`, you should fix the underlying issue that requires forcing the action.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.locator('button').click({ force: true });\n ```\n\n ```js,expect_diagnostic\n await page.locator('check').check({ force: true });\n ```\n\n ```js,expect_diagnostic\n await page.locator('input').fill('text', { force: true });\n ```\n\n ### Valid\n\n ```js\n await page.locator('button').click();\n ```\n\n ```js\n await page.locator('check').check();\n ```\n\n ```js\n await page.locator('input').fill('text');\n ```\n\n"
+          },
+          "noPlaywrightNetworkidle": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightNetworkidle",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-networkidle/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-networkidle"
+                }
+              }
+            ],
+            "docs": " Disallow usage of the `networkidle` option.\n\n Using `networkidle` is discouraged in favor of using web-first assertions.\n The `networkidle` event is unreliable and can lead to flaky tests.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForLoadState('networkidle');\n ```\n\n ```js,expect_diagnostic\n await page.goto('https://example.com', { waitUntil: 'networkidle' });\n ```\n\n ### Valid\n\n ```js\n await page.waitForLoadState('load');\n ```\n\n ```js\n await page.goto('https://example.com');\n await page.locator('.content').waitFor();\n ```\n\n"
+          },
+          "noPlaywrightPagePause": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightPagePause",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-page-pause/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-page-pause"
+                }
+              }
+            ],
+            "docs": " Disallow using `page.pause()`.\n\n Playwright's `page.pause()` is a debugging utility that should not be committed to version control.\n It pauses test execution and opens the Playwright Inspector, which is useful during development\n but should not be present in production test code.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.pause();\n ```\n\n ```js,expect_diagnostic\n test('example', async ({ page }) => {\n     await page.click('button');\n     await page.pause();\n });\n ```\n\n ### Valid\n\n ```js\n test('example', async ({ page }) => {\n     await page.click('button');\n     await expect(page.locator('.result')).toBeVisible();\n });\n ```\n\n"
+          },
+          "noPlaywrightWaitForNavigation": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightWaitForNavigation",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-navigation/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-wait-for-navigation"
+                }
+              }
+            ],
+            "docs": " Disallow using `page.waitForNavigation()`.\n\n Playwright's `page.waitForNavigation()` is deprecated and should be replaced with more reliable\n alternatives like `page.waitForURL()` or `page.waitForLoadState()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForNavigation();\n ```\n\n ```js,expect_diagnostic\n await page.click('button');\n await page.waitForNavigation({ waitUntil: 'networkidle' });\n ```\n\n ### Valid\n\n ```js\n await page.waitForURL('/home');\n ```\n\n ```js\n await page.waitForLoadState('networkidle');\n ```\n\n ```js\n await page.goto('/home');\n ```\n\n"
+          },
+          "noPlaywrightWaitForTimeout": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "noPlaywrightWaitForTimeout",
+            "link": "https://biomejs.dev/linter/rules/no-playwright-wait-for-timeout/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "no-wait-for-timeout"
+                }
+              }
+            ],
+            "docs": " Disallow using `page.waitForTimeout()`.\n\n Playwright provides methods like `page.waitForLoadState()`, `page.waitForURL()`,\n and `page.waitForFunction()` which are better alternatives to using hardcoded timeouts.\n These methods wait for specific conditions and are more reliable than arbitrary timeouts.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n await page.waitForTimeout(5000);\n ```\n\n ```js,expect_diagnostic\n await page.waitForTimeout(1000);\n ```\n\n ### Valid\n\n ```js\n await page.waitForLoadState();\n ```\n\n ```js\n await page.waitForURL('/home');\n ```\n\n ```js\n await page.waitForFunction(() => window.innerWidth < 100);\n ```\n\n"
+          },
           "noProto": {
             "deprecated": false,
             "version": "2.3.8",
@@ -8046,6 +8074,23 @@ export function GET() {
             ],
             "docs": " Replaces usages of `forwardRef` with passing `ref` as a prop.\n\n In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.\n This rule detects the usage of the `forwardRef` API, and it suggests using the prop `ref`\n instead.\n See [the official blog post](https://react.dev/blog/2024/12/05/react-19#ref-as-a-prop) for details.\n\n This rule should be disabled if you are working with React 18 or earlier.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef(function MyInput(props, ref) {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ```jsx,expect_diagnostic\n import { forwardRef } from \"react\";\n\n const MyInput = forwardRef((props, ref) => {\n   return <input ref={ref} {...props} />;\n });\n ```\n\n ### Valid\n\n ```jsx\n function MyInput({ ref, ...props }) {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n ```jsx\n const MyInput = ({ ref, ...props }) => {\n   return <input ref={ref} {...props} />;\n }\n ```\n\n"
           },
+          "noReactNativeDeepImports": {
+            "deprecated": false,
+            "version": "2.4.13",
+            "name": "noReactNativeDeepImports",
+            "link": "https://biomejs.dev/linter/rules/no-react-native-deep-imports/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactNative": "no-deep-imports"
+                }
+              }
+            ],
+            "docs": " Disallow deep imports from the `react-native` package.\n\n Deep imports reach into React Native's internal file structure,\n which is not part of the public API. Internal paths can change\n between versions without warning, breaking code that depends on them.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import View from \"react-native/Libraries/Components/View/View\";\n ```\n\n ```js,expect_diagnostic\n const Platform = require(\"react-native/Libraries/Utilities/Platform\");\n ```\n\n ```js,expect_diagnostic\n const View = require(\"react-native/Libraries/Components/View/View\");\n ```\n\n ```js,expect_diagnostic\n import(\"react-native/Libraries/Utilities/Platform\");\n ```\n\n ### Valid\n\n ```js\n import { View } from \"react-native\";\n ```\n\n ```js\n const { Platform } = require(\"react-native\");\n ```\n\n"
+          },
           "noReactSpecificProps": {
             "deprecated": false,
             "version": "1.7.2",
@@ -8068,6 +8113,23 @@ export function GET() {
               }
             ],
             "docs": " Prevents React-specific JSX properties from being used.\n\n This rule is intended for use in JSX-based frameworks (such as Qwik, Solid, etc.) that do not use React-style prop names.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <Hello className=\"John\" />\n ```\n\n ### Valid\n\n ```jsx\n <Hello class=\"Doe\" />\n ```\n"
+          },
+          "noReactStringRefs": {
+            "deprecated": false,
+            "version": "2.4.14",
+            "name": "noReactStringRefs",
+            "link": "https://biomejs.dev/linter/rules/no-react-string-refs/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "no-string-refs"
+                }
+              }
+            ],
+            "docs": " Disallow string refs in React components.\n\n String refs are a legacy React feature. Modern React code should use callback refs,\n `createRef()`, or `useRef()` instead.\n\n Biome also flags template literal refs, even though upstream only does so through an option.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function Hello() {\n   return <div ref=\"hello\">Hello</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n function Hello({ id }) {\n   return <div ref={`hello-${id}`}>Hello</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n class Hello extends React.Component {\n   componentDidMount() {\n     this.refs.hello.focus();\n   }\n }\n ```\n\n ### Valid\n\n ```jsx\n function Hello() {\n   const helloRef = useRef(null);\n   return <div ref={helloRef}>Hello</div>;\n }\n ```\n\n"
           },
           "noRedeclare": {
             "deprecated": false,
@@ -8297,6 +8359,12 @@ export function GET() {
                 "source": {
                   "eslint": "no-unassigned-vars"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "init-declarations"
+                }
               }
             ],
             "docs": " Disallow `let` or `var` variables that are read but never assigned.\n\n This rule flags let or var declarations that are never assigned a value but are still read or used in the code.\n Since these variables will always be undefined, their usage is likely a programming mistake.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let status;\n if (status === 'ready') {\n     console.log('Status is ready');\n }\n ```\n\n ```ts,expect_diagnostic\n let value: number | undefined;\n console.log(value);\n ```\n\n ### Valid\n\n ```js\n let message = \"hello\";\n console.log(message);\n\n let user;\n user = getUser();\n console.log(user.name);\n\n let count;\n count = 0;\n count++;\n ```\n\n ```ts\n declare let value: number | undefined;\n console.log(value);\n\n declare module \"my-module\" {\n     let value: string;\n     export = value;\n }\n ```\n\n"
@@ -8347,6 +8415,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslint": "no-unsafe-negation"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "no-negated-in-lhs"
                 }
               }
             ],
@@ -8543,6 +8617,35 @@ export function GET() {
             ],
             "docs": " Enforce passing a message value when creating a built-in error.\n\n This rule enforces a message value to be passed in when creating an instance of a built-in `Error` object,\n which leads to more readable and debuggable code.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n throw Error();\n ```\n ```js,expect_diagnostic\n throw Error('');\n ```\n ```js,expect_diagnostic\n throw new TypeError();\n ```\n ```js,expect_diagnostic\n const error = new AggregateError(errors);\n ```\n\n ### Valid\n\n ```js\n throw Error('Unexpected property.');\n ```\n ```js\n throw new TypeError('Array expected.');\n ```\n ```js\n const error = new AggregateError(errors, 'Promises rejected.');\n ```\n"
           },
+          "useExpect": {
+            "deprecated": false,
+            "version": "2.4.2",
+            "name": "useExpect",
+            "link": "https://biomejs.dev/linter/rules/use-expect/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPlaywright": "expect-expect"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJest": "expect-expect"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVitest": "expect-expect"
+                }
+              }
+            ],
+            "docs": " Ensure that test functions contain at least one `expect()` or similar assertion.\n\n Tests without assertions may pass even when behavior is broken, leading to\n false confidence in the test suite. This rule ensures that every test\n validates some expected behavior using `expect()` or an allowed variant thereof.\n \n ### Allowed `expect` variants\n \n - [`assert`](https://www.chaijs.com/api/assert/)\n - [`expectTypeOf`](https://github.com/mmkal/expect-type)\n - [`assertType`](https://vitest.dev/api/assert-type)\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n test(\"no assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await page.click(\"button\");\n });\n ```\n\n ### Valid\n\n ```js\n test(\"has assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect(page).toHaveTitle(\"Title\");\n });\n ```\n\n ```js\n it(\"soft assertion\", async ({ page }) => {\n     await page.goto(\"/\");\n     await expect.soft(page.locator(\"h1\")).toBeVisible();\n });\n ```\n \n Variant assertions are allowed:\n ```js\n it(\"returns bar when passed foo\", () => {\n   assert(myFunc(\"foo\") === \"bar\", \"didn't return bar\");\n });\n ```\n\n ```ts\n it(\"should allow passing 'foo' as an argument\", () => {\n   expectTypeOf(myFunc).toBeCallableWith(\"foo\");\n });\n ```\n ```ts\n it(\"should have proper type\", () => {\n   assertType<(n: string) => string>(myFunc);\n });\n ```\n (This replicates the rule's behavior in eslint-plugin-vitest with `typecheck` set to `true`.)\n\n"
+          },
           "useGetterReturn": {
             "deprecated": false,
             "version": "1.0.0",
@@ -8644,29 +8747,20 @@ export function GET() {
             "link": "https://biomejs.dev/linter/rules/use-strict-mode/javascript",
             "recommended": false,
             "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "strict"
+                }
+              }
+            ],
             "docs": " Enforce the use of the directive `\"use strict\"` in script files.\n\n The JavaScript [strict mode](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode) prohibits some obsolete JavaScript syntaxes and makes some slight semantic changes to allow more optimizations by JavaScript engines.\n EcmaScript modules are always in strict mode, while JavaScript scripts are by default in non-strict mode, also known as _sloppy mode_.\n A developer can add the `\"use strict\"` directive at the start of a script file to enable the strict mode in that file.\n\n Biome considers a CommonJS (`.cjs`) file as a script file.\n By default, Biome recognizes a JavaScript file (`.js`) as a module file, except if `\"type\": \"commonjs\"` is specified in `package.json`.\n\n ## Examples\n\n ### Invalid\n\n ```cjs,expect_diagnostic\n var a = 1;\n ```\n\n ### Valid\n\n ```cjs\n \"use strict\";\n\n var a = 1;\n ```\n\n"
           }
         }
       },
       "json": {
         "nursery": {
-          "noEmptyObjectKeys": {
-            "deprecated": false,
-            "version": "2.4.7",
-            "name": "noEmptyObjectKeys",
-            "link": "https://biomejs.dev/linter/rules/no-empty-object-keys/json",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintJson": "no-empty-keys"
-                }
-              }
-            ],
-            "docs": " Disallow empty keys in JSON objects.\n\n JSON allows empty strings as object keys, but they are difficult to identify in logs, error\n messages, and source code. This rule reports keys that are empty or contain only whitespace,\n because they are usually accidental. Use a short, meaningful name instead.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"\": \"value\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"validKey\": \"value\",\n   \"\": \"another value\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \" \": \"space as key\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"\\t\": \"tab as key\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"\\n\": \"newline as key\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"key\": \"value\"\n }\n ```\n\n"
-          },
           "noJsonUnsafeValues": {
             "deprecated": false,
             "version": "2.5.14",
@@ -8701,32 +8795,6 @@ export function GET() {
             ],
             "docs": " Disallow dependencies that are known to have better alternatives.\n\n This rule checks `dependencies` and `devDependencies` in `package.json`\n against [e18e](https://e18e.dev/)'s replacement data and suggests modern, native, or more\n maintainable alternatives.\n\n ## Examples\n\n ### Invalid\n\n ```json,file=package.json,expect_diagnostic\n {\n   \"dependencies\": {\n     \"globby\": \"x.x.x\"\n   }\n }\n ```\n\n ### Valid\n\n ```json,file=package.json\n {\n   \"dependencies\": {\n     \"tinyglobby\": \"x.x.x\"\n   }\n }\n ```\n\n See [the e18e docs](https://e18e.dev/docs/replacements/) for the full list of replacements.\n\n"
           },
-          "noTopLevelLiterals": {
-            "deprecated": false,
-            "version": "2.4.7",
-            "name": "noTopLevelLiterals",
-            "link": "https://biomejs.dev/linter/rules/no-top-level-literals/json",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintJson": "top-level-interop"
-                }
-              }
-            ],
-            "docs": " Require the JSON top-level value to be an array or object.\n\n Modern JSON allows an object, array, string, number, boolean, or `null` at the top level.\n Older parsers based on [RFC 4627](https://datatracker.ietf.org/doc/html/rfc4627) accept only\n an object or array. Restricting the top level to those two forms improves compatibility and\n leaves room to add more fields or items later.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n \"just a string\"\n ```\n\n ```json,expect_diagnostic\n 42\n ```\n\n ```json,expect_diagnostic\n true\n ```\n\n ```json,expect_diagnostic\n null\n ```\n\n ### Valid\n\n ```json\n {\n   \"property\": \"value\",\n   \"otherProperty\": 123\n }\n ```\n\n ```json\n [\"element\", \"anotherElement\"]\n ```\n\n ```json\n {}\n ```\n\n ```json\n []\n ```\n\n"
-          },
-          "noUntrustedLicenses": {
-            "deprecated": false,
-            "version": "2.4.9",
-            "name": "noUntrustedLicenses",
-            "link": "https://biomejs.dev/linter/rules/no-untrusted-licenses/json",
-            "recommended": false,
-            "fixKind": "none",
-            "docs": " Disallow dependencies with untrusted licenses.\n\n When you install a dependency, it comes with a license that defines how you can use it.\n Some licenses may not be compatible with your project's requirements. For example,\n a proprietary project may not be allowed to use copyleft-licensed dependencies, or\n your organization may require all dependencies to use OSI-approved licenses.\n\n This rule reads the `license` field from each dependency's `package.json` inside\n `node_modules` and checks it against the [SPDX license list](https://spdx.org/licenses/).\n It supports compound expressions like `MIT OR Apache-2.0`.\n\n By default, the rule flags dependencies that:\n - Have **no** `license` field.\n - Have a license that is **not** a valid SPDX identifier.\n - Have a license **deprecated** in the SPDX standard.\n\n :::note\n The rule checks only dependencies imported by project code. In SPDX, `WITH` combines a\n license with a named exception, as in `Apache-2.0 WITH LLVM-exception`. The rule parses this\n form but checks only the base license and ignores the exception.\n :::\n\n ## Examples\n\n ### Invalid\n\n A dependency whose `package.json` has `\"license\": \"my-custom-license\"` is\n flagged because the identifier is not part of the SPDX standard:\n\n ```json,ignore\n {\n     \"dependencies\": {\n         \"untrusted-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n A dependency whose `package.json` has no `license` field at all is also\n flagged:\n\n ```json,ignore\n {\n     \"devDependencies\": {\n         \"no-license-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n ### Valid\n\n A dependency whose `package.json` has `\"license\": \"MIT\"` passes because\n MIT is a valid, non-deprecated SPDX identifier:\n\n ```json,ignore\n {\n     \"dependencies\": {\n         \"trusted-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n ## Options\n\n ### `allow`\n\n A list of extra license identifiers to accept, even if they are not part of\n the SPDX standard. This is useful for custom or proprietary licenses used\n inside your organization.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"allow\": [\"LicenseRef-Company\", \"my-org-license\"]\n     }\n }\n ```\n\n ### `deny`\n\n A list of license identifiers to explicitly reject, even if they are valid\n SPDX identifiers. This lets you block specific licenses that your project\n cannot use, for example, copyleft licenses in a proprietary codebase.\n\n Deny always takes precedence over allow and SPDX validity.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"deny\": [\"GPL-3.0-only\", \"AGPL-3.0-only\"]\n     }\n }\n ```\n\n ### `requireOsiApproved`\n\n When enabled, only licenses that have been approved by the\n [Open Source Initiative](https://opensource.org/) are accepted.\n Licenses in the `allow` list bypass this check.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"requireOsiApproved\": true\n     }\n }\n ```\n\n ### `requireFsfLibre`\n\n When enabled, only licenses that are recognized as free/libre by the\n [Free Software Foundation](https://www.gnu.org/licenses/license-list.html)\n are accepted. Licenses in the `allow` list bypass this check.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"requireFsfLibre\": true\n     }\n }\n ```\n\n ### `ignoreDeprecated`\n\n When enabled, deprecated SPDX license identifiers are accepted without\n being flagged. By default, deprecated identifiers such as `GPL-2.0` (which\n should be `GPL-2.0-only` or `GPL-2.0-or-later`) produce a diagnostic.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreDeprecated\": true\n     }\n }\n ```\n\n"
-          },
           "useConsistentObjectKeys": {
             "deprecated": false,
             "version": "2.5.14",
@@ -8743,6 +8811,25 @@ export function GET() {
               }
             ],
             "docs": " Enforce JSON keys with consistent Unicode representation.\n\n Unicode characters can have different internal representations that look identical.\n For example, \"é\" can be stored as one code point (U+00E9) or as \"e\" plus a combining accent (U+0065 + U+0301).\n Unicode normalization converts text to a standard form (such as NFC) so visually identical keys share the same representation.\n This avoids confusing behavior in JSON objects where equality checks and key lookups should treat matching text consistently.\n\n See [Unicode Standard Annex #15](https://www.unicode.org/reports/tr15/) for the normalization\n standard.\n\n ## Examples\n\n ### Invalid\n\n In JSON, `\\u` followed by four hexadecimal digits represents a Unicode code point. The\n following key uses `\\u0065` for `e` followed by `\\u0301` for a separate combining accent:\n\n ```json,expect_diagnostic\n {\n     \"caf\\u0065\\u0301\": \"espresso\"\n }\n ```\n\n ### Valid\n\n The same visible key can use the single precomposed character `é`:\n\n ```json\n {\n     \"caf\\u00e9\": \"espresso\"\n }\n ```\n\n ## Options\n\n ### `form`\n\n Selects the Unicode normalization form. Defaults to `NFC`.\n\n - `NFC` combines equivalent character sequences where possible;\n - `NFD` separates characters into their base character and combining marks;\n - `NFKC` replaces compatibility characters with ordinary equivalents, then combines\n   sequences;\n - `NFKD` makes the same compatibility replacements but keeps sequences separated.\n\n For example, the compatibility forms rewrite the single character `½` as the three-character\n sequence `1⁄2`.\n\n The following configuration selects `NFC`:\n\n ```json,options\n {\n     \"options\": {\n         \"form\": \"NFC\"\n     }\n }\n ```\n\n ```json,expect_diagnostic,use_options\n {\n     \"caf\\u0065\\u0301\": \"espresso\"\n }\n ```\n\n The following configuration selects `NFD`:\n\n ```json,options\n {\n     \"options\": {\n         \"form\": \"NFD\"\n     }\n }\n ```\n\n ```json,expect_diagnostic,use_options\n {\n     \"\\u00C5\": \"precomposed A-ring\"\n }\n ```\n\n The following configuration selects `NFKC`:\n\n ```json,options\n {\n     \"options\": {\n         \"form\": \"NFKC\"\n     }\n }\n ```\n\n ```json,expect_diagnostic,use_options\n {\n     \"\\u00BD\": \"vulgar fraction one half\"\n }\n ```\n\n The following configuration selects `NFKD`:\n\n ```json,options\n {\n     \"options\": {\n         \"form\": \"NFKD\"\n     }\n }\n ```\n\n ```json,expect_diagnostic,use_options\n {\n     \"\\u00BD\": \"vulgar fraction one half\"\n }\n ```\n\n"
+          }
+        },
+        "style": {
+          "noTopLevelLiterals": {
+            "deprecated": false,
+            "version": "2.4.7",
+            "name": "noTopLevelLiterals",
+            "link": "https://biomejs.dev/linter/rules/no-top-level-literals/json",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJson": "top-level-interop"
+                }
+              }
+            ],
+            "docs": " Require the JSON top-level value to be an array or object.\n\n Modern JSON allows an object, array, string, number, boolean, or `null` at the top level.\n Older parsers based on [RFC 4627](https://datatracker.ietf.org/doc/html/rfc4627) accept only\n an object or array. Restricting the top level to those two forms improves compatibility and\n leaves room to add more fields or items later.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n \"just a string\"\n ```\n\n ```json,expect_diagnostic\n 42\n ```\n\n ```json,expect_diagnostic\n true\n ```\n\n ```json,expect_diagnostic\n null\n ```\n\n ### Valid\n\n ```json\n {\n   \"property\": \"value\",\n   \"otherProperty\": 123\n }\n ```\n\n ```json\n [\"element\", \"anotherElement\"]\n ```\n\n ```json\n {}\n ```\n\n ```json\n []\n ```\n\n"
           }
         },
         "suspicious": {
@@ -8795,6 +8882,23 @@ export function GET() {
             ],
             "docs": " Disallow duplicate keys in JSON objects.\n\n When a key appears more than once, many parsers keep only the last value and silently discard\n the earlier ones. Unique keys prevent ambiguous or lost data.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"title\": \"New title\",\n   \"title\": \"Second title\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"title\": \"New title\",\n   \"secondTitle\": \"Second title\"\n }\n ```\n"
           },
+          "noEmptyObjectKeys": {
+            "deprecated": false,
+            "version": "2.4.7",
+            "name": "noEmptyObjectKeys",
+            "link": "https://biomejs.dev/linter/rules/no-empty-object-keys/json",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintJson": "no-empty-keys"
+                }
+              }
+            ],
+            "docs": " Disallow empty keys in JSON objects.\n\n JSON allows empty strings as object keys, but they are difficult to identify in logs, error\n messages, and source code. This rule reports keys that are empty or contain only whitespace,\n because they are usually accidental. Use a short, meaningful name instead.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic\n {\n   \"\": \"value\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"validKey\": \"value\",\n   \"\": \"another value\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \" \": \"space as key\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"\\t\": \"tab as key\"\n }\n ```\n\n ```json,expect_diagnostic\n {\n   \"\\n\": \"newline as key\"\n }\n ```\n\n ### Valid\n\n ```json\n {\n   \"key\": \"value\"\n }\n ```\n\n"
+          },
           "noQuickfixBiome": {
             "deprecated": false,
             "version": "2.1.3",
@@ -8803,6 +8907,15 @@ export function GET() {
             "recommended": true,
             "fixKind": "safe",
             "docs": " Disallow `quickfix.biome` in supported editor settings.\n\n `quickfix.biome` asks the editor to apply independent Biome fixes together. When fixes edit\n the same source text, their changes can overlap and produce invalid code. Use\n `source.fixAll.biome` instead.\n\n The rule checks Visual Studio Code and Zed settings files whose paths end with:\n - `.vscode/settings.json`\n - `Code/User/settings.json`\n - `.zed/settings.json`\n - `zed/settings.json`\n\n ## Examples\n\n ### Invalid\n\n ```json,ignore\n {\n     \"quickfix.biome\": \"explicit\"\n }\n ```\n\n ### Valid\n\n ```json,ignore\n {\n     \"source.fixAll.biome\": \"explicit\"\n }\n ```\n\n ## Options\n\n ### `additionalPaths`\n\n Adds settings-file path suffixes for other editors. For example, adding\n `\".myEditor/file.json\"` checks every file whose path ends with that value. Defaults to an\n empty list.\n\n ```json,options\n {\n     \"options\": {\n         \"additionalPaths\": [\".myEditor/file.json\"]\n     }\n }\n ```\n\n"
+          },
+          "noUntrustedLicenses": {
+            "deprecated": false,
+            "version": "2.4.9",
+            "name": "noUntrustedLicenses",
+            "link": "https://biomejs.dev/linter/rules/no-untrusted-licenses/json",
+            "recommended": false,
+            "fixKind": "none",
+            "docs": " Disallow dependencies with untrusted licenses.\n\n When you install a dependency, it comes with a license that defines how you can use it.\n Some licenses may not be compatible with your project's requirements. For example,\n a proprietary project may not be allowed to use copyleft-licensed dependencies, or\n your organization may require all dependencies to use OSI-approved licenses.\n\n This rule reads the `license` field from each dependency's `package.json` inside\n `node_modules` and checks it against the [SPDX license list](https://spdx.org/licenses/).\n It supports compound expressions like `MIT OR Apache-2.0`.\n\n By default, the rule flags dependencies that:\n - Have **no** `license` field.\n - Have a license that is **not** a valid SPDX identifier.\n - Have a license **deprecated** in the SPDX standard.\n\n :::note\n The rule checks only dependencies imported by project code. In SPDX, `WITH` combines a\n license with a named exception, as in `Apache-2.0 WITH LLVM-exception`. The rule parses this\n form but checks only the base license and ignores the exception.\n :::\n\n ## Examples\n\n ### Invalid\n\n A dependency whose `package.json` has `\"license\": \"my-custom-license\"` is\n flagged because the identifier is not part of the SPDX standard:\n\n ```json,ignore\n {\n     \"dependencies\": {\n         \"untrusted-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n A dependency whose `package.json` has no `license` field at all is also\n flagged:\n\n ```json,ignore\n {\n     \"devDependencies\": {\n         \"no-license-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n ### Valid\n\n A dependency whose `package.json` has `\"license\": \"MIT\"` passes because\n MIT is a valid, non-deprecated SPDX identifier:\n\n ```json,ignore\n {\n     \"dependencies\": {\n         \"trusted-pkg\": \"^1.0.0\"\n     }\n }\n ```\n\n ## Options\n\n ### `allow`\n\n A list of extra license identifiers to accept, even if they are not part of\n the SPDX standard. This is useful for custom or proprietary licenses used\n inside your organization.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"allow\": [\"LicenseRef-Company\", \"my-org-license\"]\n     }\n }\n ```\n\n ### `deny`\n\n A list of license identifiers to explicitly reject, even if they are valid\n SPDX identifiers. This lets you block specific licenses that your project\n cannot use, for example, copyleft licenses in a proprietary codebase.\n\n Deny always takes precedence over allow and SPDX validity.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"deny\": [\"GPL-3.0-only\", \"AGPL-3.0-only\"]\n     }\n }\n ```\n\n ### `requireOsiApproved`\n\n When enabled, only licenses that have been approved by the\n [Open Source Initiative](https://opensource.org/) are accepted.\n Licenses in the `allow` list bypass this check.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"requireOsiApproved\": true\n     }\n }\n ```\n\n ### `requireFsfLibre`\n\n When enabled, only licenses that are recognized as free/libre by the\n [Free Software Foundation](https://www.gnu.org/licenses/license-list.html)\n are accepted. Licenses in the `allow` list bypass this check.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"requireFsfLibre\": true\n     }\n }\n ```\n\n ### `ignoreDeprecated`\n\n When enabled, deprecated SPDX license identifiers are accepted without\n being flagged. By default, deprecated identifiers such as `GPL-2.0` (which\n should be `GPL-2.0-only` or `GPL-2.0-or-later`) produce a diagnostic.\n\n Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreDeprecated\": true\n     }\n }\n ```\n\n"
           },
           "useBiomeIgnoreFolder": {
             "deprecated": false,
@@ -9176,7 +9289,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce explicit `role` property is not the same as implicit/default role property on an element.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <article role='article'></article>\n ```\n\n ```jsx,expect_diagnostic\n <button role='button'></button>\n ```\n\n ```jsx,expect_diagnostic\n <h1 role='heading' aria-level='1'>title</h1>\n ```\n\n ### Valid\n\n ```jsx\n <article role='presentation'></article>\n ```\n\n ```jsx\n <Button role='button'></Button>\n ```\n\n ```jsx\n <span></span>\n ```\n\n"
+            "docs": " Enforce explicit `role` property is not the same as implicit/default role property on an element.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <article role='article'></article>\n ```\n\n ```jsx,expect_diagnostic\n <button role='button'></button>\n ```\n\n ```jsx,expect_diagnostic\n <h1 role='heading' aria-level='1'>title</h1>\n ```\n\n ### Valid\n\n ```jsx\n <article role='presentation'></article>\n ```\n\n ```jsx\n <Button role='button'></Button>\n ```\n\n ```jsx\n <span></span>\n ```\n\n ## Options\n\n ### `ignoreElements`\n\n An array of element names that the rule ignores. The comparison is case-insensitive.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"ignoreElements\": [\"button\"]\n     }\n }\n ```\n\n ```jsx,use_options\n <button role='button'></button>\n ```\n\n"
           },
           "noSvgWithoutTitle": {
             "deprecated": false,
@@ -9728,6 +9841,58 @@ export function GET() {
             ],
             "docs": " Prevent passing of **children** as props.\n\n When using JSX, the children should be nested between the opening and closing tags.\n When not using JSX, the children should be passed as additional arguments to `React.createElement`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <FirstComponent children={'foo'} />\n ```\n\n ```js,expect_diagnostic\n React.createElement('div', { children: 'foo' });\n ```\n"
           },
+          "noComponentHookFactories": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "noComponentHookFactories",
+            "link": "https://biomejs.dev/linter/rules/no-component-hook-factories/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactHooks": "component-hook-factories"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactX": "component-hook-factories"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "component-hook-factories"
+                }
+              }
+            ],
+            "docs": " Disallows defining React components or custom hooks inside other functions.\n\n Defining components or hooks inside other functions creates new instances on every call.\n React treats each new instance as a completely different component, which destroys and\n recreates the entire component subtree on each render and causes all state to be lost.\n\n ## Examples\n\n ### Invalid\n\n A component is defined inside a factory function:\n\n ```jsx,expect_diagnostic\n function makeComponent(label) {\n   function MyComponent() {\n     return <div>{label}</div>;\n   }\n   return MyComponent;\n }\n ```\n\n A hook is defined inside a factory function:\n\n ```jsx,expect_diagnostic\n function makeHook(key) {\n   function useMyHook() {\n     return useState(key);\n   }\n   return useMyHook;\n }\n ```\n\n ### Valid\n\n Components and hooks defined at the module level:\n\n ```jsx\n function MyComponent() {\n   return <div>Hello</div>;\n }\n\n function useMyHook() {\n   return useState(0);\n }\n ```\n\n Higher-order components that receive a component as a parameter are allowed:\n\n ```jsx\n function withAuth(WrappedComponent) {\n   function AuthenticatedComponent(props) {\n     return <WrappedComponent {...props} />;\n   }\n   return AuthenticatedComponent;\n }\n ```\n\n"
+          },
+          "noJsxNamespace": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "noJsxNamespace",
+            "link": "https://biomejs.dev/linter/rules/no-jsx-namespace/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactJsx": "no-namespace"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "jsx-no-namespace"
+                }
+              }
+            ],
+            "docs": " Disallow JSX namespace syntax.\n\n React does not support XML namespaced tags such as `<ns:Component />`.\n Although the JSX specification permits namespaces, React does not implement\n them and using a namespaced element may cause a runtime error.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <ns:testcomponent />\n ```\n\n ```jsx,expect_diagnostic\n <svg:circle cx=\"50\" cy=\"50\" r=\"40\" />\n ```\n\n ### Valid\n\n ```jsx\n <testcomponent />\n ```\n\n ```jsx\n <object.TestComponent />\n ```\n\n"
+          },
           "noNestedComponentDefinitions": {
             "deprecated": false,
             "version": "2.0.0",
@@ -9767,6 +9932,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow `useVisibleTask$()` functions in Qwik components.\n\n Prevents hydration-blocking operations that hurt Qwik's resumability.\n See [Qwik Tasks Documentation](https://qwik.dev/docs/components/tasks/) for proper alternatives.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n useVisibleTask$(() => {\n   console.log('Component is visible');\n });\n ```\n\n ### Valid\n\n ```js\n useTask$(() => {\n   console.log('Task executed');\n });\n ```\n\n"
+          },
+          "noReactNativeRawText": {
+            "deprecated": false,
+            "version": "2.4.13",
+            "name": "noReactNativeRawText",
+            "link": "https://biomejs.dev/linter/rules/no-react-native-raw-text/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactNativeIntellicode": "no-raw-text"
+                }
+              }
+            ],
+            "docs": " Disallow raw text outside `<Text>` components in React Native.\n\n In React Native, every string rendered in the UI must be wrapped in a `<Text>`\n component. Rendering text directly inside containers such as `<View>` throws at\n runtime on native platforms.\n\n By default, the following element names are treated as valid text containers:\n `Text`, `TSpan`, `StyledText`, and `Animated.Text`. Additional components can be\n whitelisted through the `skip` option.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <View>some text</View>\n ```\n\n ```jsx,expect_diagnostic\n <View>{'some text'}</View>\n ```\n\n ```jsx,expect_diagnostic\n const text = 'some text';\n <View>{`${text}`}</View>\n ```\n\n ### Valid\n\n ```jsx\n <View><Text>some text</Text></View>\n ```\n\n ```jsx\n <View><Text>{'some text'}</Text></View>\n ```\n\n ## Options\n\n ### `skip`\n\n An array of additional component names that are allowed to contain raw text.\n\n ```json,options\n {\n     \"options\": {\n         \"skip\": [\"Title\"]\n     }\n }\n ```\n\n ```jsx,use_options\n const Title = ({ children }) => <Text>{children}</Text>;\n <Title>This is the title</Title>;\n ```\n\n"
           },
           "noReactPropAssignments": {
             "deprecated": false,
@@ -10051,35 +10233,6 @@ export function GET() {
             ],
             "docs": " Disallow the use of Astro's `set:html` directive.\n\n `set:html` renders HTML without escaping it. Using `set:html` can introduce cross-site scripting vulnerabilities.\n When raw HTML is required, sanitize the value before passing it to `set:html`, then suppress the diagnostic with an explanation.\n\n ## Examples\n\n ### Invalid\n\n ```astro,expect_diagnostic,ignore\n {show && <span set:html={content} />}\n ```\n\n ### Valid\n\n ```astro,ignore\n {show && <span>{content}</span>}\n ```\n\n ## References\n\n - [Astro `set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml)\n - [OWASP HTML sanitization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#html-sanitization)\n"
           },
-          "noComponentHookFactories": {
-            "deprecated": false,
-            "version": "2.4.12",
-            "name": "noComponentHookFactories",
-            "link": "https://biomejs.dev/linter/rules/no-component-hook-factories/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactHooks": "component-hook-factories"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactX": "component-hook-factories"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactXyz": "component-hook-factories"
-                }
-              }
-            ],
-            "docs": " Disallows defining React components or custom hooks inside other functions.\n\n Defining components or hooks inside other functions creates new instances on every call.\n React treats each new instance as a completely different component, which destroys and\n recreates the entire component subtree on each render and causes all state to be lost.\n\n ## Examples\n\n ### Invalid\n\n A component is defined inside a factory function:\n\n ```jsx,expect_diagnostic\n function makeComponent(label) {\n   function MyComponent() {\n     return <div>{label}</div>;\n   }\n   return MyComponent;\n }\n ```\n\n A hook is defined inside a factory function:\n\n ```jsx,expect_diagnostic\n function makeHook(key) {\n   function useMyHook() {\n     return useState(key);\n   }\n   return useMyHook;\n }\n ```\n\n ### Valid\n\n Components and hooks defined at the module level:\n\n ```jsx\n function MyComponent() {\n   return <div>Hello</div>;\n }\n\n function useMyHook() {\n   return useState(0);\n }\n ```\n\n Higher-order components that receive a component as a parameter are allowed:\n\n ```jsx\n function withAuth(WrappedComponent) {\n   function AuthenticatedComponent(props) {\n     return <WrappedComponent {...props} />;\n   }\n   return AuthenticatedComponent;\n }\n ```\n\n"
-          },
           "noInvalidFileInputAccept": {
             "deprecated": false,
             "version": "2.5.12",
@@ -10096,52 +10249,6 @@ export function GET() {
               }
             ],
             "docs": " Disallow invalid `accept` values on file inputs.\n\n An `accept` value must contain comma-separated filename extensions, MIME types, or\n the wildcard MIME types `audio/*`, `image/*`, and `video/*`.\n Browsers ignore invalid entries, so the file picker may not filter files as intended.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <input type=\"file\" accept=\"image/jpg\" />\n ```\n\n ### Valid\n\n ```jsx\n <input type=\"file\" accept=\"image/jpeg, .jpg\" />\n ```\n\n"
-          },
-          "noJsxLeakedDollar": {
-            "deprecated": false,
-            "version": "2.4.13",
-            "name": "noJsxLeakedDollar",
-            "link": "https://biomejs.dev/linter/rules/no-jsx-leaked-dollar/javascript",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactJsx": "no-leaked-dollar"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactXyz": "jsx-no-leaked-dollar"
-                }
-              }
-            ],
-            "docs": " Flags text nodes with a trailing `$` before a JSX expression.\n\n This can happen when refactoring from a template literal to JSX and forgetting\n to remove the dollar sign. This results in an unintentional `$` being rendered\n as text in the output.\n\n ```jsx\n function MyComponent({ user }) {\n   return `Hello ${user.name}`;\n }\n ```\n\n When refactored to JSX, it might look like this:\n\n ```jsx,ignore\n function MyComponent({ user }) {\n   return <>Hello ${user.name}</>;\n }\n ```\n\n However, the `$` before `{user.name}` is unnecessary and will be rendered as text in the output.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function MyComponent({ user }) {\n   return <div>Hello ${user.name}</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n function MyComponent({ user }) {\n   return <div>${user.name} is your name</div>;\n }\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent({ user }) {\n   return <div>Hello {user.name}</div>;\n }\n ```\n\n ```jsx\n // A lone `$` before a single expression is treated as intentional (e.g. a price).\n function MyComponent({ price }) {\n   return <div>${price}</div>;\n }\n ```\n\n"
-          },
-          "noJsxNamespace": {
-            "deprecated": false,
-            "version": "2.4.12",
-            "name": "noJsxNamespace",
-            "link": "https://biomejs.dev/linter/rules/no-jsx-namespace/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactJsx": "no-namespace"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactXyz": "jsx-no-namespace"
-                }
-              }
-            ],
-            "docs": " Disallow JSX namespace syntax.\n\n React does not support XML namespaced tags such as `<ns:Component />`.\n Although the JSX specification permits namespaces, React does not implement\n them and using a namespaced element may cause a runtime error.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <ns:testcomponent />\n ```\n\n ```jsx,expect_diagnostic\n <svg:circle cx=\"50\" cy=\"50\" r=\"40\" />\n ```\n\n ### Valid\n\n ```jsx\n <testcomponent />\n ```\n\n ```jsx\n <object.TestComponent />\n ```\n\n"
           },
           "noMisplacedListElements": {
             "deprecated": false,
@@ -10194,23 +10301,6 @@ export function GET() {
             ],
             "docs": " Disallow obsolete HTML elements.\n\n Obsolete elements are no longer part of conforming HTML. Use standard HTML\n elements for structure and semantics, and CSS for presentation.\n\n This rule disallows `acronym`, `applet`, `basefont`, `bgsound`, `big`, `blink`,\n `center`, `dir`, `font`, `frame`, `frameset`, `isindex`, `keygen`, `listing`,\n `marquee`, `menuitem`, `multicol`, `nextid`, `nobr`, `noembed`, `noframes`,\n `plaintext`, `rb`, `rtc`, `spacer`, `strike`, `tt`, and `xmp`.\n\n This rule checks native JSX elements without case sensitivity. Component names\n such as `<Font />`, member expressions such as `<UI.font />`, and namespaced\n names are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <font color=\"red\">Warning</font>;\n ```\n\n ```jsx,expect_diagnostic\n <acronym title=\"World Wide Web\">WWW</acronym>;\n ```\n\n ### Valid\n\n ```jsx\n <span className=\"warning\">Warning</span>;\n <abbr title=\"World Wide Web\">WWW</abbr>;\n <Font />;\n <UI.font />;\n ```\n\n ## Resources\n\n - [HTML specification: Non-conforming features](https://html.spec.whatwg.org/multipage/obsolete.html#non-conforming-features)\n\n"
           },
-          "noReactNativeRawText": {
-            "deprecated": false,
-            "version": "2.4.13",
-            "name": "noReactNativeRawText",
-            "link": "https://biomejs.dev/linter/rules/no-react-native-raw-text/javascript",
-            "recommended": true,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactNativeIntellicode": "no-raw-text"
-                }
-              }
-            ],
-            "docs": " Disallow raw text outside `<Text>` components in React Native.\n\n In React Native, every string rendered in the UI must be wrapped in a `<Text>`\n component. Rendering text directly inside containers such as `<View>` throws at\n runtime on native platforms.\n\n By default, the following element names are treated as valid text containers:\n `Text`, `TSpan`, `StyledText`, and `Animated.Text`. Additional components can be\n whitelisted through the `skip` option.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <View>some text</View>\n ```\n\n ```jsx,expect_diagnostic\n <View>{'some text'}</View>\n ```\n\n ```jsx,expect_diagnostic\n const text = 'some text';\n <View>{`${text}`}</View>\n ```\n\n ### Valid\n\n ```jsx\n <View><Text>some text</Text></View>\n ```\n\n ```jsx\n <View><Text>{'some text'}</Text></View>\n ```\n\n ## Options\n\n ### `skip`\n\n An array of additional component names that are allowed to contain raw text.\n\n ```json,options\n {\n     \"options\": {\n         \"skip\": [\"Title\"]\n     }\n }\n ```\n\n ```jsx,use_options\n const Title = ({ children }) => <Text>{children}</Text>;\n <Title>This is the title</Title>;\n ```\n\n"
-          },
           "noTailwindArbitraryValue": {
             "deprecated": false,
             "version": "2.5.7",
@@ -10226,7 +10316,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow arbitrary values in Tailwind CSS utility classes.\n\n Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties\n (e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports\n them so teams can keep styling constrained to named utilities from their Tailwind\n configuration.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"w-[400px]\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"text-[#555] bg-white\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"[color:red]\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"w-4 text-red-500 bg-white\" />;\n ```\n\n ```jsx\n <div className=\"[&:nth-child(3)]:px-2\" />;\n ```\n\n The rule checks `class` and `className` JSX attributes, and strings passed to\n `clsx`, `tw`, `twMerge`, `twJoin`, `cva`, `tv`, `cn`, `cc`, `cnb`, and `ctl`.\n Tagged templates using these helpers, including members such as `tw.div`,\n are also checked.\n\n"
+            "docs": " Disallow arbitrary values in Tailwind CSS utility classes.\n\n Arbitrary values (e.g. `w-[400px]`, `text-[#555]`) and arbitrary properties\n (e.g. `[color:red]`) bypass Tailwind's configured theme scales. This rule reports\n them so teams can keep styling constrained to named utilities from their Tailwind\n configuration.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"w-[400px]\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"text-[#555] bg-white\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"[color:red]\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"w-4 text-red-500 bg-white\" />;\n ```\n\n ```jsx\n <div className=\"[&:nth-child(3)]:px-2\" />;\n ```\n\n ## Recognized class strings\n\n This rule checks the attributes and functions recognized by the top-level\n [`tailwind` configuration](https://biomejs.dev/reference/configuration/#tailwind).\n\n"
           },
           "noTailwindRawColors": {
             "deprecated": false,
@@ -10243,7 +10333,24 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Disallow Tailwind CSS utility classes that use raw palette colors.\n\n Palette colors such as `pink-500` and `slate-950` tie styles to specific\n colors instead of the role those colors play. Design system color names such as `primary`\n or `muted` let a design system change its palette without editing each component.\n This rule checks color utilities, including variants and opacity modifiers.\n It allows custom color names, `black`, `white`, `transparent`, `current`, and `inherit`.\n This rule does not check arbitrary values such as `bg-[#ff00aa]`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"bg-pink-500\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"hover:text-red-500/80\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"bg-primary hover:text-muted-foreground\" />;\n ```\n\n ```jsx\n <div className=\"bg-white text-black border-transparent fill-current stroke-inherit\" />;\n ```\n\n ## Supported class strings\n\n The rule checks `class` and `className` JSX attributes and string arguments\n to `clsx`, `tw`, `twMerge`, `twJoin`, `cva`, `tv`, `cn`, `cc`, `cnb`, and `ctl`.\n Tagged templates using these names, including members such as `tw.div`,\n are also checked. Static template chunks and class expressions in JSX,\n Svelte, Vue, and Astro attributes are checked. Dynamically constructed\n class names are not resolved.\n The rule does not read your Tailwind configuration; redefining a default\n palette name does not exempt it.\n\n ## Options\n\n ### allowedColors\n\n Default: `[]`\n\n Exact palette colors to allow.\n Entries are case-sensitive color names, such as `slate-950` or `pink-500`,\n without utility prefixes, variants, or opacity modifiers.\n Allowing `pink-500` permits it in every color utility, including variants\n and opacity modifiers; it does not allow other pink shades.\n\n ```json,options\n { \"options\": { \"allowedColors\": [\"pink-500\"] } }\n ```\n\n ```jsx,use_options\n <div className=\"bg-pink-500 hover:text-pink-500/80 border-black\" />;\n ```\n\n ## See Also\n\n - [noTailwindArbitraryValue](https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value/)\n\n"
+            "docs": " Disallow Tailwind CSS utility classes that use raw palette colors.\n\n Palette colors such as `pink-500` and `slate-950` tie styles to specific\n colors instead of the role those colors play. Design system color names such as `primary`\n or `muted` let a design system change its palette without editing each component.\n This rule checks color utilities, including variants and opacity modifiers.\n It allows custom color names, `black`, `white`, `transparent`, `current`, and `inherit`.\n This rule does not check arbitrary values such as `bg-[#ff00aa]`.\n It does not read your Tailwind CSS theme, so redefining a default palette name\n does not exempt it.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"bg-pink-500\" />;\n ```\n\n ```jsx,expect_diagnostic\n <div className=\"hover:text-red-500/80\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"bg-primary hover:text-muted-foreground\" />;\n ```\n\n ```jsx\n <div className=\"bg-white text-black border-transparent fill-current stroke-inherit\" />;\n ```\n\n ## Recognized class strings\n\n This rule checks the attributes and functions recognized by the top-level\n [`tailwind` configuration](https://biomejs.dev/reference/configuration/#tailwind).\n\n ## Options\n\n ### allowedColors\n\n Default: `[]`\n\n Exact palette colors to allow.\n Entries are case-sensitive color names, such as `slate-950` or `pink-500`,\n without utility prefixes, variants, or opacity modifiers.\n Allowing `pink-500` permits it in every color utility, including variants\n and opacity modifiers; it does not allow other pink shades.\n\n ```json,options\n { \"options\": { \"allowedColors\": [\"pink-500\"] } }\n ```\n\n ```jsx,use_options\n <div className=\"bg-pink-500 hover:text-pink-500/80 border-black\" />;\n ```\n\n ## See Also\n\n - [noTailwindArbitraryValue](https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value/)\n\n"
+          },
+          "noTailwindRestyledComponents": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noTailwindRestyledComponents",
+            "link": "https://biomejs.dev/linter/rules/no-tailwind-restyled-components/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintShadcn": "no-restyle"
+                }
+              }
+            ],
+            "docs": " Disallow Tailwind utilities that override the appearance of components.\n\n A design system should own its components' appearance. Use component props\n for supported visual variants instead of overriding them with utility classes.\n\n The rule reports utilities in these categories:\n\n - `color`, such as `bg-red-500` and `text-white`\n - `typography`, such as `text-sm` and `font-bold`\n - `spacing`, such as `p-4` and `gap-2`\n - `shape`, such as `rounded-none` and `border-2`\n - `effects`, such as `shadow` and `opacity-50`\n - `motion`, such as `transition` and `animate-spin`\n\n Variants, important modifiers, and arbitrary values don't change the category, so\n `hover:bg-red-500`, `rounded-none!`, and `p-[3px]` are reported too. Arbitrary\n properties that set these styles, such as `[font-size:14px]`, are also reported.\n Other utilities, such as sizing, positioning, and margins, are ignored.\n\n Components are elements with capitalized names such as `Button`, member names\n such as `UI.Button`, and custom elements with hyphenated names such as `my-button`.\n Native elements are not checked. The rule checks `class` and `className`,\n including literal branches of conditionals and common class helper calls.\n In Astro, Svelte, and Vue files, it also checks class expressions such as\n `class={...}`, Astro's `class:list={...}`, and Vue's `:class=\"...\"`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <Button className=\"rounded-none\" />;\n ```\n\n ### Valid\n\n ```jsx\n <Button variant=\"danger\" className=\"mt-4 w-full\" />;\n <button className=\"rounded-none\" />;\n ```\n\n ## Recognized class strings\n\n This rule checks the attributes and functions recognized by the top-level\n [`tailwind` configuration](https://biomejs.dev/reference/configuration/#tailwind).\n\n ## Options\n\n ### allow\n\n Default: `[]`.\n\n Allows categories or classes on selected components. Each entry contains:\n\n - `components`: a component name, an array of names, or `\"*\"` for all components.\n - `categories`: any of `color`, `typography`, `spacing`, `shape`, `effects`, or `motion`. Default: `[]`.\n - `classes`: exact classes, including variants and modifiers. Default: `[]`.\n\n A name matches any segment of a member name, so both `UI` and `Button` match\n `UI.Button`. Dotted names such as `UI.Button` match consecutive segments.\n\n ```json,options\n {\n   \"options\": {\n     \"allow\": [\n       { \"components\": \"Button\", \"categories\": [\"shape\"], \"classes\": [\"hover:shadow-lg\"] }\n     ]\n   }\n }\n ```\n\n ```jsx,use_options\n <Button className=\"rounded-none hover:shadow-lg\" />;\n ```\n\n"
           },
           "useControlLabel": {
             "deprecated": false,
@@ -10267,35 +10374,6 @@ export function GET() {
               }
             ],
             "docs": " Enforce that interactive control elements have an accessible label.\n\n A control with no accessible label is announced by assistive technology\n as an anonymous control (e.g. just \"button\"), leaving its purpose\n unclear. A label can come from text content anywhere inside the\n control, `aria-label`, `aria-labelledby`, or `title` attribute.\n\n This rule checks native controls whose accessible name is expected to\n come from their own content or attributes (`button`, `menuitem`).\n Elements hidden from assistive technology with `aria-hidden` are\n skipped, as are elements that already require a text alternative under\n a dedicated rule (e.g. `area`, `img`, checked by `useAltText`).\n\n The search through the content of a control is permissive: anything\n whose rendered output cannot be determined statically, such as an\n expression, a spread, or a custom component, is assumed to provide a\n label.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <button />;\n ```\n\n ```jsx,expect_diagnostic\n <button></button>;\n ```\n\n An icon button whose content renders nothing announceable:\n\n ```jsx,expect_diagnostic\n <button><i className=\"icon-save\" /></button>;\n ```\n\n ### Valid\n\n ```jsx\n <button>Submit</button>;\n ```\n\n ```jsx\n <button aria-label=\"Close\" />;\n ```\n\n ```jsx\n <button><Icon /><span>Delete</span></button>;\n ```\n\n ```jsx\n <button><img src=\"save.png\" alt=\"Save\" /></button>;\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 3.3.2](https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
-          },
-          "useIframeSandbox": {
-            "deprecated": false,
-            "version": "2.4.12",
-            "name": "useIframeSandbox",
-            "link": "https://biomejs.dev/linter/rules/use-iframe-sandbox/javascript",
-            "recommended": false,
-            "fixKind": "none",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintReactDom": "no-missing-iframe-sandbox"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReactXyz": "dom-no-missing-iframe-sandbox"
-                }
-              },
-              {
-                "kind": "sameLogic",
-                "source": {
-                  "eslintReact": "iframe-missing-sandbox"
-                }
-              }
-            ],
-            "docs": " Enforce the 'sandbox' attribute for 'iframe' elements.\n\n The sandbox attribute enables an extra set of restrictions for the content in the iframe.\n Using the sandbox attribute is considered a good security practice.\n\n See [the Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox) for details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function MyComponent() {\n   return <iframe src=\"https://example.com\" />;\n }\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent() {\n   return <iframe src=\"https://example.com\" sandbox=\"allow-popups\" />;\n }\n ```\n\n"
           },
           "useReactFunctionComponentDefinition": {
             "deprecated": false,
@@ -10376,7 +10454,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same.\n\n This rule detects sequences of Tailwind CSS utility classes that can be replaced by a single\n shorter utility. Using shorthands reduces duplication, keeps class lists readable, and helps\n prevent drift where one side gets updated but the matching side does not.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"w-4 h-4\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"size-4\" />;\n ```\n\n ### Where Tailwind is Recognized\n\n The rule checks string arguments and tagged template literals passed to known helper functions.\n This is useful for libraries like [`clsx`](https://github.com/lukeed/clsx),\n [`cva`](https://cva.style/), or CSS-in-JS helpers such as `tw`.\n\n The full list of helper functions is:\n\n - `clsx`\n - `tw`\n - `twMerge`\n - `twJoin`\n - `cva`\n - `tv`\n - `cn`\n - `cc`\n - `cnb`\n - `ctl`\n\n Tagged template members like `tw.div` are also checked when their base function name is recognized.\n\n ## Known limitations\n\n This rule currently doesn't check bare strings inside framework-specific class collections,\n such as array or object entries in Vue, Svelte, or Astro class bindings:\n\n ```svelte,ignore\n <div class={[\"w-4 h-4\", selected && \"px-2 py-2\"]}></div>\n <div class={{ \"mr-3 ml-3\": active }}></div>\n ```\n\n It also doesn't check untagged template chunks inside framework class attributes:\n\n ```svelte,ignore\n <div class={`border-x border-y ${extra}`}></div>\n ```\n\n In Astro, bare strings inside `class:list` arrays are currently not checked unless they are passed\n to a recognized helper function such as `clsx`.\n\n"
+            "docs": " Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same.\n\n This rule detects sequences of Tailwind CSS utility classes that can be replaced by a single\n shorter utility. Using shorthands reduces duplication, keeps class lists readable, and helps\n prevent drift where one side gets updated but the matching side does not.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div className=\"w-4 h-4\" />;\n ```\n\n ### Valid\n\n ```jsx\n <div className=\"size-4\" />;\n ```\n\n ## Recognized class strings\n\n This rule checks the attributes and functions recognized by the top-level\n [`tailwind` configuration](https://biomejs.dev/reference/configuration/#tailwind).\n\n ## Known limitations\n\n This rule currently doesn't check bare strings inside framework-specific class collections,\n such as array or object entries in Vue, Svelte, or Astro class bindings:\n\n ```svelte,ignore\n <div class={[\"w-4 h-4\", selected && \"px-2 py-2\"]}></div>\n <div class={{ \"mr-3 ml-3\": active }}></div>\n ```\n\n It also doesn't check untagged template chunks inside framework class attributes:\n\n ```svelte,ignore\n <div class={`border-x border-y ${extra}`}></div>\n ```\n\n In Astro, bare strings inside `class:list` arrays are currently not checked unless they are passed\n to a recognized helper function such as `clsx`.\n\n"
           }
         },
         "performance": {
@@ -10475,6 +10553,12 @@ export function GET() {
                 "source": {
                   "eslintReactXyz": "dom-no-unsafe-target-blank"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSvelte": "no-target-blank"
+                }
               }
             ],
             "docs": " Disallow `target=\"_blank\"` attribute without `rel=\"noopener\"`.\n\n When creating an anchor `a` element, there are times when its link has\n to be opened in a new browser tab via the `target=\"_blank\"` attribute.\n This attribute has to be paired with `rel=\"noopener\"` or you may run\n into security issues.\n\n See to the [`noopener` documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noopener).\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank'>child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a href='http://external.link' target='_blank' rel='nofollow'>child</a>\n ```\n\n ```jsx,expect_diagnostic\n <a {...props} href='http://external.link' target='_blank' rel='nofollow'>child</a>\n ```\n\n ### Valid\n\n ```jsx\n <a href='http://external.link' rel='noopener' target='_blank'>child</a>\n ```\n\n ```jsx\n <a href='http://external.link' rel='noreferrer' target='_blank'>child</a>\n ```\n\n ```jsx\n // The rule accepts elements with spread props, because the required\n // attribute may be injected dynamically:\n <a href='http://external.link' target='_blank' {...props}>child</a>\n ```\n\n ## Options\n\n ### `allowNoReferrer`\n\n By default, `noBlankTarget` accepts both `rel=\"noopener\"` and\n `rel=\"noreferrer\"` with links that have `target=\"_blank\"`. This is\n because the latter _implies_ the former, so either one is sufficient to\n mitigate the security risk.\n\n However, allowing `rel=\"noreferrer\"` may still be undesirable, because\n it can break tracking, which may be an undesirable side-effect. As such,\n you can set `allowNoReferrer: false` to _only_ accept `rel=\"noopener\"`.\n\n See to the [`noreferrer` documentation](https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer).\n\n\n ```json,options\n {\n     \"options\": {\n         \"allowNoReferrer\": false\n     }\n }\n ```\n\n ```jsx,use_options,expect_diagnostic\n <a href='http://external.link' rel='noreferrer' target='_blank'>child</a>\n ```\n\n Default: `true`\n\n ### `allowDomains`\n\n The option `allowDomains` allows specific domains to use\n `target=\"_blank\"` without `rel=\"noopener\"`. In the following\n configuration, it's allowed to use the domains `https://example.com` and\n `example.org`:\n\n ```json,options\n {\n     \"options\": {\n         \"allowDomains\": [\"https://example.com\", \"example.org\"]\n     }\n }\n ```\n\n ```jsx,use_options\n <>\n   <a target='_blank' testme href='https://example.com'></a>\n   <a target='_blank' href='example.org'></a>\n </>\n ```\n\n The diagnostic is applied to all domains not in the allow list:\n\n ```json,options\n {\n     \"options\": {\n         \"allowDomains\": [\"https://example.com\"]\n     }\n }\n ```\n\n ```jsx,expect_diagnostic,use_options\n <>\n   <a target='_blank' testme href='https://example.com'></a>\n   <a target='_blank' href='example.org'></a>\n </>\n ```\n Biome doesn't check if the list contains valid URLs.\n"
@@ -10536,6 +10620,35 @@ export function GET() {
               }
             ],
             "docs": " Report when a DOM element or a component uses both `children` and `dangerouslySetInnerHTML` prop.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function createMarkup() {\n     return { __html: 'child' }\n }\n <Component dangerouslySetInnerHTML={createMarkup()}>\"child1\"</Component>\n ```\n\n ```jsx,expect_diagnostic\n function createMarkup() {\n     return { __html: 'child' }\n }\n <Component dangerouslySetInnerHTML={createMarkup()} children=\"child1\" />\n ```\n\n ```js,expect_diagnostic\n React.createElement('div', { dangerouslySetInnerHTML: { __html: 'HTML' } }, 'children')\n ```\n"
+          },
+          "useIframeSandbox": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "useIframeSandbox",
+            "link": "https://biomejs.dev/linter/rules/use-iframe-sandbox/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintReactDom": "no-missing-iframe-sandbox"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "dom-no-missing-iframe-sandbox"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReact": "iframe-missing-sandbox"
+                }
+              }
+            ],
+            "docs": " Enforce the 'sandbox' attribute for 'iframe' elements.\n\n The sandbox attribute enables an extra set of restrictions for the content in the iframe.\n Using the sandbox attribute is considered a good security practice.\n\n See [the Mozilla docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox) for details.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function MyComponent() {\n   return <iframe src=\"https://example.com\" />;\n }\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent() {\n   return <iframe src=\"https://example.com\" sandbox=\"allow-popups\" />;\n }\n ```\n\n"
           }
         },
         "style": {
@@ -10660,6 +10773,12 @@ export function GET() {
                 "source": {
                   "eslintReactPreferFunctionComponent": "react-prefer-function-component"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactPreferFunctionComponent": "prefer-function-component"
+                }
               }
             ],
             "docs": " Enforce that components are defined as functions and never as classes.\n\n React in particular allows users to create components using functions or classes.\n However, using functions is generally preferred. This rule enforces the use of function components.\n\n This rule makes an exception for class components that implement `componentDidCatch` because there is\n currently no hook alternative for React. This function is typically used for defining error boundaries.\n It's recommended to define your error boundary once and then reuse it across your application.\n\n If you are using Preact, it has a [`useErrorBoundary`](https://preactjs.com/guide/v10/hooks/#useerrorboundary) hook.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n class Foo extends React.Component {\n   render() {\n     return (\n       <div>This is a class component.</div>\n     );\n   }\n }\n ```\n\n ### Valid\n\n ```jsx\n function Foo() {\n   return <div>This is a function component.</div>;\n }\n ```\n\n"
@@ -10762,6 +10881,29 @@ export function GET() {
               }
             ],
             "docs": " Prevent using the `next/head` module in `pages/_document.js` on Next.js projects.\n\n Importing `next/head` within the custom `pages/_document.js` file can cause\n unexpected behavior in your application. The `next/head` component is designed\n to be used at the page level, and when used in the custom document it can interfere\n with the global document structure, which leads to issues with rendering and SEO.\n\n To modify `<head>` elements across all pages, you should use the `<Head />`\n component from the `next/document` module.\n\n ## Examples\n\n ### Valid\n\n ```jsx\n // pages/_document.js\n import Document, { Html, Head, Main, NextScript } from \"next/document\";\n\n class MyDocument extends Document {\n   static async getInitialProps(ctx) {\n     //...\n   }\n\n   render() {\n     return (\n       <Html>\n         <Head></Head>\n       </Html>\n     );\n   }\n }\n\n export default MyDocument;\n ```\n\n"
+          },
+          "noJsxLeakedDollar": {
+            "deprecated": false,
+            "version": "2.4.13",
+            "name": "noJsxLeakedDollar",
+            "link": "https://biomejs.dev/linter/rules/no-jsx-leaked-dollar/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactJsx": "no-leaked-dollar"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintReactXyz": "jsx-no-leaked-dollar"
+                }
+              }
+            ],
+            "docs": " Flags text nodes with a trailing `$` before a JSX expression.\n\n This can happen when refactoring from a template literal to JSX and forgetting\n to remove the dollar sign. This results in an unintentional `$` being rendered\n as text in the output.\n\n ```jsx\n function MyComponent({ user }) {\n   return `Hello ${user.name}`;\n }\n ```\n\n When refactored to JSX, it might look like this:\n\n ```jsx,ignore\n function MyComponent({ user }) {\n   return <>Hello ${user.name}</>;\n }\n ```\n\n However, the `$` before `{user.name}` is unnecessary and will be rendered as text in the output.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n function MyComponent({ user }) {\n   return <div>Hello ${user.name}</div>;\n }\n ```\n\n ```jsx,expect_diagnostic\n function MyComponent({ user }) {\n   return <div>${user.name} is your name</div>;\n }\n ```\n\n ### Valid\n\n ```jsx\n function MyComponent({ user }) {\n   return <div>Hello {user.name}</div>;\n }\n ```\n\n ```jsx\n // A lone `$` before a single expression is treated as intentional (e.g. a price).\n function MyComponent({ price }) {\n   return <div>${price}</div>;\n }\n ```\n\n"
           },
           "noLeakedRender": {
             "deprecated": false,
@@ -11009,23 +11151,6 @@ export function GET() {
               }
             ],
             "docs": " Enforce types in functions, methods, variables, and parameters.\n\n Functions in TypeScript often don't need to be given an explicit return type annotation.\n Leaving off the return type is less code to read or write and allows the compiler to infer it from the contents of the function.\n\n However, explicit return types do make it visually clearer what type is returned by a function.\n They can also speed up TypeScript type-checking performance in large codebases with many large functions.\n Explicit return types also reduce the chance of bugs by asserting the return type, and it avoids surprising \"action at a distance,\" where changing the body of one function may cause failures inside another function.\n\n Annotating module-level variables serves a similar purpose. This rule only allows assignment of literals and some objects to untyped variables.\n Objects that are allowed must not contain spread syntax and values that aren't literals.\n Additionally, `let` and `var` variables with `null` or `undefined` as value require explicit annotation.\n\n This rule enforces that functions do have an explicit return type annotation.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n // Should indicate that no value is returned (void)\n function test() {\n   return;\n }\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that a number is returned\n var fn = function () {\n    return 1;\n };\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that a string is returned\n var arrowFn = () => 'test';\n ```\n\n ```ts,expect_diagnostic\n class Test {\n   // Should indicate that no value is returned (void)\n   method() {\n     return;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n // Should indicate that no value is returned (void)\n function test(a: number) {\n   a += 1;\n }\n ```\n\n ```ts,expect_diagnostic\n // Should use const assertions\n var func = (value: number) => ({ type: 'X', value }) as any;\n ```\n\n ```ts,expect_diagnostic\n // let bindings of null and undefined are usually overwritten by other code\n let foo = null;\n ```\n\n The following example is considered incorrect for a higher-order function, as the returned function does not specify a return type:\n\n ```ts,expect_diagnostic\n var arrowFn = () => () => {};\n ```\n\n ```ts,expect_diagnostic\n var arrowFn = () => {\n   return () => { };\n }\n ```\n\n The following example is considered incorrect for a higher-order function because the function body contains multiple statements. We only check whether the first statement is a function return.\n\n ```ts,expect_diagnostic\n // A function has multiple statements in the body\n function f() {\n   if (x) {\n     return 0;\n   }\n   return (): void => {}\n }\n ```\n\n ```ts,expect_diagnostic\n // A function has multiple statements in the body\n function f() {\n   let str = \"test\";\n   return (): string => {\n     str;\n   }\n }\n ```\n\n ```ts,expect_diagnostic\n // A function has multiple statements in the body\n function f() {\n   let str = \"test\";\n }\n ```\n\n The following example is considered incorrect for an interface method without a return type:\n\n ```ts,expect_diagnostic\n interface Array<Type> {\n   method();\n }\n ```\n\n The following example is considered incorrect for a type declaration of a function without a return type:\n\n ```ts,expect_diagnostic\n type MyObject = {\n   (input: string);\n   propertyName: string;\n };\n ```\n\n The following example is considered incorrect for an abstract class method without a return type:\n\n ```ts,expect_diagnostic\n abstract class MyClass {\n   public abstract method();\n }\n ```\n\n The following example is considered incorrect for an abstract class getter without a return type:\n\n ```ts,expect_diagnostic\n abstract class P<T> {\n   abstract get poke();\n }\n ```\n\n The following example is considered incorrect for a function declaration in a namespace without a return type:\n\n ```ts,expect_diagnostic\n declare namespace myLib {\n   function makeGreeting(s: string);\n }\n ```\n\n The following example is considered incorrect for a module function export without a return type:\n\n ```ts,expect_diagnostic\n declare module \"foo\" {\n   export default function bar();\n }\n ```\n\n ### Valid\n ```ts\n // No return value should be expected (void)\n function test(): void {\n   return;\n }\n ```\n\n ```ts\n // A return value of type number\n var fn = function (): number {\n   return 1;\n }\n ```\n\n ```ts\n // A return value of type string\n var arrowFn = (): string => 'test';\n ```\n\n ```ts\n // A literal value\n const PREFIX = \"/prefix\";\n ```\n\n ```ts\n // Explicit variable annotation\n function func(): string {\n     return \"\";\n }\n let something: string = func();\n ```\n\n ```ts\n class Test {\n   // No return value should be expected (void)\n   method(): void {\n     return;\n   }\n }\n ```\n\n The following example is considered correct code for a function immediately returning a value with `as const`:\n\n ```ts\n var func = (value: number) => ({ foo: 'bar', value }) as const;\n ```\n\n The following example is considered correct code for a value assigned using type assertion:\n\n ```ts\n function fn(): string {\n     return \"Not inline\";\n }\n const direct = fn() as string;\n const nested = { result: fn() as string };\n ```\n\n The following examples are considered correct code for a function allowed within specific expression contexts, such as an IIFE, a function passed as an argument, or a function inside an array:\n\n ```ts\n // Callbacks without return types\n setTimeout(function() { console.log(\"Hello!\"); }, 1000);\n ```\n\n ```ts\n // Callbacks without argument types (immediately nested in a function call)\n new Promise((resolve) => resolve(1));\n ```\n\n ```ts\n // IIFE\n (() => {})();\n ```\n\n The following example is considered correct code for a higher-order function, where the returned function explicitly specifies a return type and the function body contains only one statement:\n\n ```ts\n // the outer function returns an inner function that has a `void` return type\n var arrowFn = () => (): void => {};\n ```\n\n ```ts\n // the outer function returns an inner function that has a `void` return type\n var arrowFn = () => {\n   return (): void => { };\n }\n ```\n\n The following examples are considered correct for type annotations on variables in function expressions:\n\n ```ts\n // A function with a type assertion using `as`\n var asTyped = (() => '') as () => string;\n ```\n\n ```ts\n // A function with a type assertion using `<>`\n var castTyped = <() => string>(() => '');\n ```\n\n ```ts\n // A variable declarator with a type annotation.\n type FuncType = () => string;\n var arrowFn: FuncType = () => 'test';\n ```\n\n ```ts\n // A function is a default parameter with a type annotation\n type CallBack = () => void;\n var f = (gotcha: CallBack = () => { }): void => { };\n ```\n\n ```ts\n // A class property with a type annotation\n type MethodType = () => void;\n class App {\n     private method: MethodType = () => { };\n }\n ```\n\n"
-          },
-          "useReduceTypeParameter": {
-            "deprecated": false,
-            "version": "2.4.12",
-            "name": "useReduceTypeParameter",
-            "link": "https://biomejs.dev/linter/rules/use-reduce-type-parameter/javascript",
-            "recommended": false,
-            "fixKind": "unsafe",
-            "sources": [
-              {
-                "kind": "inspired",
-                "source": {
-                  "eslintTypeScript": "prefer-reduce-type-parameter"
-                }
-              }
-            ],
-            "docs": " Enforce using a type parameter on `Array#reduce` instead of casting the initial value.\n\n When using `Array#reduce`, the type of the accumulator is inferred from the initial value.\n If you use a type assertion (`as` or angle bracket `<T>`) on the initial value, the type\n is not checked against the accumulator usage in the callback. Using a type parameter on\n `reduce` instead is more type-safe because TypeScript will verify that the callback's\n return type matches the declared type.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n const arr: number[] = [1, 2, 3];\n arr.reduce((sum, num) => sum.concat(num * 2), [] as number[]);\n ```\n\n ```ts,expect_diagnostic\n const arr: string[] = ['a', 'b'];\n arr.reduce((acc, name) => ({ ...acc, [name]: true }), {} as Record<string, boolean>);\n ```\n\n ```ts,expect_diagnostic\n const arr: number[] = [1, 2, 3];\n arr.reduceRight((sum, num) => sum.concat(num * 2), [] as number[]);\n ```\n\n ### Valid\n\n ```ts\n const arr: number[] = [1, 2, 3];\n arr.reduce<number[]>((sum, num) => sum.concat(num * 2), []);\n\n arr.reduce((a, b) => a + b);\n\n arr.reduce((sum, n) => sum + n, 0);\n ```\n\n"
           }
         },
         "style": {
@@ -11338,6 +11463,18 @@ export function GET() {
                 "source": {
                   "eslintTypeScript": "naming-convention"
                 }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslint": "camelcase"
+                }
+              },
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "camelcase"
+                }
               }
             ],
             "docs": " Enforce naming conventions for everything across a codebase.\n\n Enforcing [naming conventions](https://en.wikipedia.org/wiki/Naming_convention_(programming)) helps to keep the codebase consistent,\n and reduces overhead when thinking about the name [case] of a variable.\n\n The following section describes the default conventions enforced by the rule.\n You can also enforce custom conventions with the [rule options](#options).\n\n ## Naming conventions\n\n All names can be prefixed and suffixed with underscores `_` and dollar signs `$`.\n Unused variables with a name prefixed with `_` are completely ignored.\n This avoids conflicts with the `noUnusedVariables` rule.\n\n ### Variable and parameter names\n\n All variables and function parameters are in [`camelCase`] or [`PascalCase`].\n Catch parameters are in [`camelCase`].\n\n Additionally, global variables declared as `const` or `var` may be in [`CONSTANT_CASE`].\n Global variables are declared at module or script level.\n Variables declared in a TypeScript `namespace` are also considered global.\n\n ```js\n function f(param, _unusedParam) {\n     let localValue = 0;\n     try {\n         /* ... */\n     } catch (customError) {\n         /* ... */\n     }\n }\n\n export const A_CONSTANT = 5;\n\n let aVariable = 0;\n\n export namespace ns {\n     export const ANOTHER_CONSTANT = \"\";\n }\n ```\n\n Examples of incorrect names:\n\n ```js,expect_diagnostic\n let a_value = 0;\n ```\n\n ```js,expect_diagnostic\n const fooYPosition = 0;\n ```\n\n ```js,expect_diagnostic\n function f(FIRST_PARAM) {}\n ```\n\n ### Function names\n\n - A `function` name is in [`camelCase`] or [`PascalCase`].\n - A global `function` can also be in `UPPERCASE`.\n   This allows supporting the frameworks that require some function to use valid [HTTP method names](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).\n\n ```jsx\n function trimString(s) { /*...*/ }\n\n function Component() {\n     return <div></div>;\n }\n\n export function GET() { /*...*/ }\n ```\n\n ### TypeScript `enum` names\n\n A _TypeScript_ `enum` name is in [`PascalCase`].\n\n `enum` members are by default in [`PascalCase`].\n However, you can configure the [case] of `enum` members.\n See [options](#options) for more details.\n\n ```ts\n enum Status {\n     Open,\n     Close,\n }\n ```\n\n ### Classes\n\n - A class name is in [`PascalCase`].\n\n - Static property and static getter names are in [`camelCase`] or [`CONSTANT_CASE`].\n\n - Class property and method names are in [`camelCase`].\n\n ```js\n class Person {\n     static MAX_FRIEND_COUNT = 256;\n\n     static get SPECIAL_PERSON_INSTANCE() { /*...*/ }\n\n     initializedProperty = 0;\n\n     specialMethod() {}\n }\n ```\n\n ### TypeScript `type` aliases and `interface`\n\n - A `type` alias or an interface name are in [`PascalCase`].\n\n - Member names of a type are in [`camelCase`].\n\n - `readonly` property and getter names can also be in [`CONSTANT_CASE`].\n\n ```ts\n type Named = {\n     readonly fullName: string;\n\n     specialMethod(): void;\n };\n\n interface Named {\n     readonly fullName: string;\n\n     specialMethod(): void;\n }\n\n interface PersonConstructor {\n     readonly MAX_FRIEND_COUNT: number;\n\n     get SPECIAL_PERSON_INSTANCE(): Person;\n\n     new(): Person;\n }\n ```\n\n Examples of an incorrect type alias:\n\n ```ts,expect_diagnostic\n type person = { fullName: string };\n ```\n\n ### Literal object member names\n\n - Literal object members are in [`camelCase`].\n\n ```js\n const alice = {\n     fullName: \"Alice\",\n }\n ```\n\n Example of an incorrect name:\n\n ```js,expect_diagnostic\n const alice = {\n     full_name: \"Alice\",\n }\n ```\n\n ### Import and export aliases and namespaces\n\n Import and export namespaces are in [`camelCase`] or [`PascalCase`].\n\n ```js\n import * as myLib from \"my-lib\";\n import * as Framework from \"framework\";\n\n export * as myLib from \"my-lib\";\n export * as Framework from \"framework\";\n ```\n\n `import` and `export` aliases are in [`camelCase`], [`PascalCase`], or [`CONSTANT_CASE`]:\n\n ```js\n import assert, {\n     deepStrictEqual as deepEqual,\n     AssertionError as AssertError\n } from \"node:assert\";\n ```\n\n Examples of an incorrect name:\n\n ```ts,expect_diagnostic\n import * as MY_LIB from \"my-lib\";\n ```\n\n ### TypeScript type parameter names\n\n A _TypeScript_ type parameter name is in [`PascalCase`].\n\n ```ts\n function id<Val>(value: Val): Val { /* ... */}\n ```\n\n ### TypeScript `namespace` names\n\n A _TypeScript_ `namespace` name is in [`camelCase`] or in [`PascalCase`].\n\n ```ts\n namespace mathExtra {\n     /*...*/\n }\n\n namespace MathExtra {\n     /*...*/\n }\n ```\n\n ## Ignored declarations\n\n Note that some declarations are always ignored.\n You cannot apply a convention to them.\n This is the case for:\n\n - Member names that are not identifiers\n\n   ```js\n   class C {\n     [\"not an identifier\"]() {}\n   }\n   ```\n\n - Named imports\n\n  ```js\n   import { an_IMPORT } from \"mod\"\n   ```\n\n - Destructured object properties\n\n   ```js\n   const { destructed_PROP } = obj;\n   ```\n\n - Class members marked with `override`:\n\n   ```ts\n   class C extends B {\n     override overridden_METHOD() {}\n   }\n   ```\n\n - Declarations inside an external TypeScript module\n\n   ```ts\n   declare module \"myExternalModule\" {\n     export interface my_INTERFACE {}\n   }\n   ```\n\n - Declarations inside a global declaration\n\n   ```ts\n   declare global {\n     interface HTMLElement {}\n   }\n   ```\n\n ## Options\n\n The rule provides several options that are detailed in the following subsections.\n\n ```json,options\n {\n     \"options\": {\n         \"strictCase\": false,\n         \"requireAscii\": false,\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.+)\",\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n ### strictCase\n\n When this option is set to `true`, it forbids consecutive uppercase characters in [`camelCase`] and [`PascalCase`].\n\n **Default:** `true`\n\n For instance, `HTTPServer` or `aHTTPServer` are not permitted for `strictCase: true`.\n These names should be renamed to `HttpServer` and `aHttpServer`:\n\n ```json,options\n {\n     \"options\": {\n         \"strictCase\": true\n     }\n }\n ```\n\n ```js,expect_diagnostic,use_options\n class HTTPServer {\n }\n ```\n\n When `strictCase` is set to `false`, consecutive uppercase characters are allowed.\n For example, `HTTPServer` and `aHTTPServer` would be considered valid then:\n\n ```json,options\n {\n     \"options\": {\n         \"strictCase\": false\n     }\n }\n ```\n\n ```js,use_options\n class HTTPServer {\n }\n ```\n\n ### requireAscii\n\n When `true`, names must only consist of ASCII characters only,\n forbidding names like `café` or `안녕하세요` that include non-ASCII characters.\n\n When `requireAscii` is set to `false`, names may include non-ASCII characters.\n For example, `café` and `안녕하세요` would be considered valid then.\n\n **Default:** `true`\n\n ### conventions\n\n The `conventions` option allows applying custom conventions.\n The option takes an array of conventions.\n Every convention is an object that includes an optional `selector` and one or more requirements (`match` and `formats`).\n\n For example, you can enforce the use of [`CONSTANT_CASE`] for global `const` declarations:\n\n ```json,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"const\",\n                     \"scope\": \"global\"\n                 },\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }\n         ]\n     }\n }\n ```\n\n A selector describes which declarations the convention applies to.\n You can select a declaration based on several criteria:\n\n - `kind`: the kind of the declaration among:\n   - `any` (default kind if the kind is unset)\n   - `typeLike`: classes, enums, type aliases, and interfaces\n   - `class`\n   - `enum`\n   - `enumMember`\n   - `interface`\n   - `typeAlias`\n   - `function`: named function declarations and expressions\n   - `namespaceLike`: TypeScript namespaces, import and export namespaces (`import * as namespace from`)\n   - `namespace`: TypeScript namespaces\n   - `importNamespace`\n   - `exportNamespace`\n   - `importAlias`: default imports and aliases of named imports\n   - `exportAlias`: aliases of re-exported names\n   - `variable`: const, let, using, and var declarations\n     - `const`\n     - `let`\n     - `var`\n     - `using`\n   - `functionParameter`\n   - `catchParameter`\n   - `indexParameter`: parameters of index signatures\n   - `typeParameter`: generic type parameter\n   - `classMember`: class properties, parameter properties, methods, getters, and setters\n     - `classProperty`: class properties, including parameter properties\n     - `classMethod`\n     - `classGetter`\n     - `classSetter`\n   - `objectLiteralMember`: literal object properties, methods, getters, and setters (you might want to duplicate the convention for `typeMember`)\n     - `objectLiteralProperty`\n     - `objectLiteralMethod`\n     - `objectLiteralGetter`\n     - `objectLiteralSetter`\n   - `typeMember`: properties, methods, getters, and setters declared in type aliases and interfaces\n     - `typeProperty`\n     - `typeMethod`\n     - `typeGetter`\n     - `typeSetter`\n - `modifiers`: an array of modifiers among:\n   - `abstract`: applies to class members and classes\n   - `private`: applies to class members\n   - `protected`: applies to class members\n   - `readonly`: applies to class members and type members\n   - `static`: applies to class members\n - `scope`: where the declaration appears. Allowed values:\n   - `any`: anywhere (default value if the scope is unset)\n   - `global`: the global scope (also includes the namespace scopes)\n\n For each declaration,\n the `conventions` array is traversed in-order until a selector selects the declaration.\n The requirements of the convention are so verified on the declaration.\n\n A convention must set at least one requirement among:\n\n - `match`: a regular expression that the name of the declaration must match.\n - `formats`: the string [case] that the name must follow.\n   The supported cases are: [`PascalCase`], [`CONSTANT_CASE`], [`camelCase`], and [`snake_case`].\n\n If only `formats` is set, it's checked against the name of the declaration.\n In the following configuration, we require `static readonly` class properties to be in [`CONSTANT_CASE`].\n\n ```json,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"classProperty\",\n                     \"modifiers\": [\"static\", \"readonly\"]\n                 },\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }\n         ]\n     }\n }\n ```\n\n The following code is then reported by the rule:\n\n ```ts,use_options,expect_diagnostic\n class C {\n     static readonly prop = 0;\n }\n ```\n\n A convention can make another one useless.\n In the following configuration, the second convention is useless because the first one always applies to class members, including class properties.\n You should always place first more specific conventions.\n\n ```json,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": { \"kind\": \"classMember\" },\n                 \"formats\": [\"camelCase\"]\n             },\n             {\n                 \"selector\": { \"kind\": \"classProperty\" },\n                 \"formats\": [\"camelCase\", \"CONSTANT_CASE\"]\n             }\n         ]\n     }\n }\n ```\n\n If only `match` is set and the regular expression has no capturing groups,\n then `match` is checked against the name of the declaration directly.\n In the following configuration, all variable names must have a minimum of 3 characters and a maximum of 20 characters.\n\n ```json,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": { \"kind\": \"variable\" },\n                 \"match\": \".{3,20}\"\n             }\n         ]\n     }\n }\n ```\n\n If both `match` and `formats` are set, then `formats` is checked against the first capture of the regular expression.\n Only the first capture is tested. Other captures are ignored.\n If nothing is captured, then `formats` is ignored.\n\n In the following example, we require that:\n\n - A private property starts with `_` and consists of at least two characters.\n - The captured name (the name without the leading `_`) is in [`camelCase`].\n\n ```json,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": { \"kind\": \"classMember\", \"modifiers\": [\"private\"] },\n                 \"match\": \"_(.+)\",\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n If `match` is set and `formats` is unset, then the part of the name captured by the regular expression is forwarded to the next conventions of the array that selects the declaration.\n The following configuration has exactly the same effect as the previous one.\n The first convention applies to any private class member name.\n It stipulates that the name must have a leading underscore.\n The regular expression captures the part of the name without the leading underscore.\n Because `formats` is not set, the capture is forwarded to the next convention that applies to a private class member name.\n In our case, the next convention applies.\n The capture is then checked against `formats`.\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": { \"kind\": \"classMember\", \"modifiers\": [\"private\"] },\n                 \"match\": \"_(.+)\"\n                 // We don't need to specify `formats` because the capture is forwarded to the next conventions.\n             }, {\n                 \"selector\": { \"kind\": \"classMember\", \"modifiers\": [\"private\"] },\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n The forwarding has particularly useful to factorize some conventions.\n For example, the following configuration...\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": { \"kind\": \"classMember\", \"modifiers\": [\"private\"] },\n                 \"match\": \"_(.+)\",\n                 \"formats\": [\"camelCase\"]\n             }, {\n                 \"selector\": { \"kind\": \"classMember\" },\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n can be factorized to...\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": { \"kind\": \"classMember\", \"modifiers\": [\"private\"] },\n                 \"match\": \"_(.+)\"\n             }, {\n                 \"selector\": { \"kind\": \"classMember\" },\n                 \"formats\": [\"camelCase\"]\n             }\n         ]\n     }\n }\n ```\n\n If a declaration is not selected or if a capture is forwarded while there are no more conventions,\n then the declaration name is verified against the default conventions.\n Because the default conventions already ensure that class members are in [\"camelCase\"],\n the previous example can be simplified to:\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": { \"kind\": \"classMember\", \"modifiers\": [\"private\"] },\n                 \"match\": \"_(.+)\"\n                 // We don't need to specify `formats` because the capture is forwarded to the next conventions.\n             }\n             // default conventions\n         ]\n     }\n }\n ```\n\n If the capture is identical to the initial name (it is not a part of the initial name),\n then, leading and trailing underscore and dollar signs are trimmed before being checked against default conventions.\n In the previous example, the capture is a part of the name because `_` is not included in the capture, thus, no trimming is performed.\n\n You can reset all default conventions by adding a convention at the end of the array that accepts anything:\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             // your conventions\n             // ...\n\n             // Otherwise, accept anything\n             {\n                 \"match\": \".*\"\n             }\n         ]\n     }\n }\n ```\n\n Let's take a more complex example with the following conventions:\n\n 1. A variable name is `i`, `j`, or follows the next selected convention (convention (2)).\n 2. An identifier contains at least two characters and follow the next selected convention (the default convention).\n 3. A `private` class member name starts with an underscore `_` and the name without the underscore follows the next selected convention (convention (4) for some of them, and the default convention for others).\n 4. A `static readonly` class property name is in [`CONSTANT_CASE`].\n 5. A global constant is in [`CONSTANT_CASE`] and can be enclosed by double underscores or to be named `_SPECIAL_`.\n 6. An interface name starts with `I`, except for interfaces ending with `Error`, and is in [`PascalCase`].\n 7. All other names follow the default conventions\n\n ```jsonc,options\n {\n     \"options\": {\n         \"conventions\": [\n             {\n                 \"selector\": {\n                     \"kind\": \"variable\"\n                 },\n                 \"match\": \"[ij]|(.*)\"\n             },\n             {\n                 \"match\": \"(.{2,})\"\n             },\n             {\n                 \"selector\": {\n                     \"kind\": \"classMember\",\n                     \"modifiers\": [\"private\"]\n                 },\n                 \"match\": \"_(.*)\"\n             }, {\n                 \"selector\": {\n                     \"kind\": \"classProperty\",\n                     \"modifiers\": [\"static\", \"readonly\"]\n                 },\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }, {\n                 \"selector\": {\n                     \"kind\": \"const\",\n                     \"scope\": \"global\"\n                 },\n                 \"match\": \"__(.+)__|_SPECIAL_|(.+)\",\n                 \"formats\": [\"CONSTANT_CASE\"]\n             }, {\n                 \"selector\": {\n                     \"kind\": \"interface\"\n                 },\n                 \"match\": \"I(.*)|(.*?)Error\",\n                 \"formats\": [\"PascalCase\"]\n             }\n             // default conventions\n         ]\n     }\n }\n ```\n\n Hers some examples:\n\n - A private class property named `_` is reported by the rule because it contains a single character.\n   According to the second convention, the name should contain at least two characters.\n - A variable `a_variable` is reported by the rule because it doesn't respect the default convention that forbid variable names in [`snake_case`].\n   The variable name is first verified against the first convention.\n   It is forwarded to the second convention, which is also respected, because it is neither `i` nor `j`.\n   The name is captured and is forwarded to the next convention.\n   In our case, the next convention is the default one.\n\n ### Regular expression syntax\n\n The `match` option takes a regular expression that supports the following syntaxes:\n\n - Greedy quantifiers `*`, `?`, `+`, `{n}`, `{n,m}`, `{n,}`, `{m}`\n - Non-greedy quantifiers `*?`, `??`, `+?`, `{n}?`, `{n,m}?`, `{n,}?`, `{m}?`\n - Any character matcher `.`\n - Character classes `[a-z]`, `[xyz]`, `[^a-z]`\n - Alternations `|`\n - Capturing groups `()`\n - Non-capturing groups `(?:)`\n - Case-insensitive groups `(?i:)` and case-sensitive groups `(?-i:)`\n - A limited set of escaped characters including all special characters\n   and regular string escape characters `\\f`, `\\n`, `\\r`, `\\t`, `\\v`.\n   Note that you can also escape special characters using character classes.\n   For example, `\\$` and `[$]` are two valid patterns that escape `$`.\n\n [case]: https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats\n [`camelCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`PascalCase`]: https://en.wikipedia.org/wiki/Camel_case\n [`CONSTANT_CASE`]: https://en.wikipedia.org/wiki/Snake_case\n [`snake_case`]: https://en.wikipedia.org/wiki/Snake_case\n"
@@ -11358,6 +11495,23 @@ export function GET() {
               }
             ],
             "docs": " Enforce marking instance properties as `readonly` if they are never modified outside the\n constructor, and static properties as `readonly` if they are never reassigned.\n\n This rule ensures that class properties, especially private ones, are marked as `readonly` if their values\n remain constant after being initialized. This helps improve code readability, maintainability, and ensures\n immutability where applicable.\n\n It can be configured to check only private members or all class properties.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n class Container {\n     private onlyModifiedInConstructor = 1;\n     constructor(\n         member1: number,\n     ) {\n         this.onlyModifiedInConstructor = onlyModifiedInConstructor;\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     constructor(\n        private constructorParameter: number,\n     ) {\n     }\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     private neverModifiedMember = true;\n }\n ```\n\n ```ts,expect_diagnostic\n class Container {\n     #neverModifiedPrivateField = 3;\n }\n ```\n\n ### Valid\n\n ```ts\n class Container {\n     private readonly neverModifiedMember = true;\n     private readonly onlyModifiedInConstructor: number;\n     readonly #neverModifiedPrivateField = 3;\n\n     public constructor(\n         onlyModifiedInConstructor: number,\n         private readonly neverModifiedParameter: string,\n     ) {\n         this.onlyModifiedInConstructor = onlyModifiedInConstructor;\n     }\n }\n ```\n\n ## Options\n\n ### `checkAllProperties`\n\n Checks whether all class properties (including public and protected) should be analyzed.\n By default, `checkAllProperties` is set to `false`.\n\n ```json,options\n {\n     \"options\": {\n         \"checkAllProperties\": true\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n class Example {\n     public constantValue = 42;\n\n     constructor(value: number) {\n         this.constantValue = value;\n     }\n }\n ```\n\n ```ts,use_options,expect_diagnostic\n class Example {\n     constructor(protected constructorParameter: string) {\n     }\n }\n ```\n\n"
+          },
+          "useReduceTypeParameter": {
+            "deprecated": false,
+            "version": "2.4.12",
+            "name": "useReduceTypeParameter",
+            "link": "https://biomejs.dev/linter/rules/use-reduce-type-parameter/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintTypeScript": "prefer-reduce-type-parameter"
+                }
+              }
+            ],
+            "docs": " Enforce using a type parameter on `Array#reduce` instead of casting the initial value.\n\n When using `Array#reduce`, the type of the accumulator is inferred from the initial value.\n If you use a type assertion (`as` or angle bracket `<T>`) on the initial value, the type\n is not checked against the accumulator usage in the callback. Using a type parameter on\n `reduce` instead is more type-safe because TypeScript will verify that the callback's\n return type matches the declared type.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n const arr: number[] = [1, 2, 3];\n arr.reduce((sum, num) => sum.concat(num * 2), [] as number[]);\n ```\n\n ```ts,expect_diagnostic\n const arr: string[] = ['a', 'b'];\n arr.reduce((acc, name) => ({ ...acc, [name]: true }), {} as Record<string, boolean>);\n ```\n\n ```ts,expect_diagnostic\n const arr: number[] = [1, 2, 3];\n arr.reduceRight((sum, num) => sum.concat(num * 2), [] as number[]);\n ```\n\n ### Valid\n\n ```ts\n const arr: number[] = [1, 2, 3];\n arr.reduce<number[]>((sum, num) => sum.concat(num * 2), []);\n\n arr.reduce((a, b) => a + b);\n\n arr.reduce((sum, n) => sum + n, 0);\n ```\n\n"
           },
           "useShorthandFunctionType": {
             "deprecated": false,
@@ -11544,7 +11698,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 627
+    "numberOrRules": 631
   },
   "syntax": {
     "languages": {
@@ -11730,7 +11884,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Sort HTML attributes and framework directives into a consistent order.\n\n Regular HTML attributes and Astro directives are sorted by name. Svelte directives follow\n the order from eslint-plugin-svelte's\n [`sort-attributes` rule](https://sveltejs.github.io/eslint-plugin-svelte/rules/sort-attributes/),\n and Vue directives follow the\n [Vue attribute-order convention](https://eslint.vuejs.org/rules/attributes-order).\n Attributes within the same category use the configured `sortOrder`.\n\n A spread attribute or Vue's\n [`v-bind=\"object\"`](https://vuejs.org/guide/essentials/template-syntax.html#dynamically-binding-multiple-attributes)\n can provide or replace several attributes. The action leaves each spread in place and sorts\n only the consecutive attributes on either side, preserving override behavior.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"text\" id=\"name\" name=\"name\" />\n ```\n\n ```html,expect_diagnostic\n <textarea id=\"mytextarea\" name=\"textarea\" rows=\"5\" cols=\"20\" data-1=\"\" data-11=\"\" data-12=\"\" data-2=\"\">Hello, world!</textarea>\n ```\n\n ```astro,expect_diagnostic\n   <svg slot=\"fallback\" class=\"generic-avatar\" transition:name=\"avatar\">...</svg>\n ```\n\n ```svelte,expect_diagnostic\n   \t<input type=\"range\" bind:value={b} min=\"0\" max=\"10\" />\n ```\n\n ```svelte,expect_diagnostic\n   \t<div bind:value2={a} bind:value1={a} {...props} style:color=\"red\">...</div>\n ```\n\n ```vue,expect_diagnostic\n   \t<input @input=\"onInput\" :value=\"text\" placeholder=\"Type here\">\n ```\n\n ### Valid\n\n ```html\n <input id=\"name\" name=\"name\" type=\"text\" />\n ```\n\n ```html\n <textarea cols=\"20\" data-1=\"\" data-2=\"\" data-11=\"\" data-12=\"\" id=\"mytextarea\" name=\"textarea\" rows=\"5\">Hello, world!</textarea>\n ```\n\n ```astro\n   <svg class=\"generic-avatar\" slot=\"fallback\" transition:name=\"avatar\">...</svg>\n ```\n\n ```svelte\n   \t<input max=\"10\" min=\"0\" type=\"range\" bind:value={b} />\n ```\n\n ```svelte\n   \t<div bind:value1={a} bind:value2={a} {...props} style:color=\"red\">...</div>\n ```\n\n ```vue\n   \t<input placeholder=\"Type here\" :value=\"text\" @input=\"onInput\" >\n ```\n\n ## Options\n\n ### `sortOrder`\n\n Selects `natural` or `lexicographic` ordering. Natural ordering compares numbers by value,\n so `data-2` comes before `data-11`, and is the default. Lexicographic ordering compares names\n character by character.\n\n The following configuration uses lexicographic order:\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```html,use_options,expect_diff\n <textarea id=\"mytextarea\" name=\"textarea\" rows=\"5\" cols=\"20\" data-1=\"\" data-2=\"\" data-11=\"\" data-12=\"\">Hello, world!</textarea>\n ```\n\n"
+            "docs": " Sort HTML attributes and framework directives into a consistent order.\n\n Regular HTML attributes and Astro directives are sorted by name. Svelte directives follow\n the order from eslint-plugin-svelte's\n [`sort-attributes` rule](https://sveltejs.github.io/eslint-plugin-svelte/rules/sort-attributes/),\n and Vue directives follow the\n [Vue attribute-order convention](https://eslint.vuejs.org/rules/attributes-order).\n Attributes within the same category use the configured `sortOrder`.\n\n A spread attribute or Vue's\n [`v-bind=\"object\"`](https://vuejs.org/guide/essentials/template-syntax.html#dynamically-binding-multiple-attributes)\n can provide or replace several attributes. The action leaves each spread in place and sorts\n only the consecutive attributes on either side, preserving override behavior.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <input type=\"text\" id=\"name\" name=\"name\" />\n ```\n\n ```html,expect_diagnostic\n <textarea id=\"mytextarea\" name=\"textarea\" rows=\"5\" cols=\"20\" data-1=\"\" data-11=\"\" data-12=\"\" data-2=\"\">Hello, world!</textarea>\n ```\n\n ```astro,expect_diagnostic\n   <svg slot=\"fallback\" class=\"generic-avatar\" transition:name=\"avatar\">...</svg>\n ```\n\n ```svelte,expect_diagnostic\n   \t<input type=\"range\" bind:value={b} min=\"0\" max=\"10\" />\n ```\n\n ```svelte,expect_diagnostic\n   \t<div bind:value2={a} bind:value1={a} {...props} style:color=\"red\">...</div>\n ```\n\n ```vue,expect_diagnostic\n   \t<input @input=\"onInput\" :value=\"text\" placeholder=\"Type here\">\n ```\n\n ### Valid\n\n ```html\n <input id=\"name\" name=\"name\" type=\"text\" />\n ```\n\n ```html\n <textarea cols=\"20\" data-1=\"\" data-2=\"\" data-11=\"\" data-12=\"\" id=\"mytextarea\" name=\"textarea\" rows=\"5\">Hello, world!</textarea>\n ```\n\n ```astro\n   <svg class=\"generic-avatar\" slot=\"fallback\" transition:name=\"avatar\">...</svg>\n ```\n\n ```svelte\n   \t<input max=\"10\" min=\"0\" type=\"range\" bind:value={b} />\n ```\n\n ```svelte\n   \t<div bind:value1={a} bind:value2={a} {...props} style:color=\"red\">...</div>\n ```\n\n ```vue\n   \t<input placeholder=\"Type here\" :value=\"text\" @input=\"onInput\" >\n ```\n\n ## Options\n\n ### `sortOrder`\n\n Selects `natural` or `lexicographic` ordering. Natural ordering compares numbers by value,\n so `data-2` comes before `data-11`, and is the default. Lexicographic ordering compares names\n character by character.\n\n The following configuration uses lexicographic order:\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n ```html,use_options,expect_diff\n <textarea id=\"mytextarea\" name=\"textarea\" rows=\"5\" cols=\"20\" data-1=\"\" data-2=\"\" data-11=\"\" data-12=\"\">Hello, world!</textarea>\n ```\n\n ### `sortFirst`\n A list of attribute names that should be sorted before all other attributes,\n in the order they appear in this list. The remaining attributes are sorted\n after the listed ones. Listed attributes take precedence over the category-based ordering.\n\n ```json,options\n {\n     \"options\": {\n         \"sortFirst\": [\"type\"]\n     }\n }\n ```\n ```html,use_options,expect_diagnostic\n <input id=\"name\" name=\"name\" type=\"text\" />\n ```\n\n"
           }
         }
       },
@@ -11878,7 +12032,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Sort JSX attributes by name.\n\n By default, the action uses [natural order](https://en.wikipedia.org/wiki/Natural_sort_order),\n which compares numbers by value so that `prop9` comes before `prop10`.\n\n A spread attribute such as `{...properties}` can provide or replace any attribute. The\n action therefore treats each spread as a boundary and sorts only the named attributes on\n each side. It never moves an attribute across a spread.\n\n ## Examples\n\n ```jsx,expect_diff\n <Hello lastName=\"Smith\" firstName=\"John\" />;\n ```\n\n ```jsx,expect_diff\n <Hello lastName=\"Smith\" firstName=\"John\" {...this.props} tel=\"0000\" address=\"111 Main Street\" {...another.props} />;\n ```\n\n ## Options\n\n ### `sortOrder`\n\n Selects `natural` or `lexicographic` ordering. Natural ordering compares numbers by value\n and is the default. Lexicographic ordering compares names character by character.\n\n The following configuration uses natural order:\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"natural\"\n     }\n }\n ```\n\n ```jsx,use_options,expect_diff\n <Hello {...this.props} opt1=\"\" opt2=\"\" opt12=\"\" opt11=\"\" />;\n ```\n\n The following configuration uses lexicographic order:\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n\n ```jsx,use_options,expect_diff\n <Hello {...this.props} opt1=\"\" opt2=\"\" opt12=\"\" opt11=\"\" />;\n ```\n\n"
+            "docs": " Sort JSX attributes by name.\n\n By default, the action uses [natural order](https://en.wikipedia.org/wiki/Natural_sort_order),\n which compares numbers by value so that `prop9` comes before `prop10`.\n\n A spread attribute such as `{...properties}` can provide or replace any attribute. The\n action therefore treats each spread as a boundary and sorts only the named attributes on\n each side. It never moves an attribute across a spread.\n\n ## Examples\n\n ```jsx,expect_diff\n <Hello lastName=\"Smith\" firstName=\"John\" />;\n ```\n\n ```jsx,expect_diff\n <Hello lastName=\"Smith\" firstName=\"John\" {...this.props} tel=\"0000\" address=\"111 Main Street\" {...another.props} />;\n ```\n\n ## Options\n\n ### `sortOrder`\n\n Selects `natural` or `lexicographic` ordering. Natural ordering compares numbers by value\n and is the default. Lexicographic ordering compares names character by character.\n\n The following configuration uses natural order:\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"natural\"\n     }\n }\n ```\n\n ```jsx,use_options,expect_diff\n <Hello {...this.props} opt1=\"\" opt2=\"\" opt12=\"\" opt11=\"\" />;\n ```\n\n The following configuration uses lexicographic order:\n\n ```json,options\n {\n     \"options\": {\n         \"sortOrder\": \"lexicographic\"\n     }\n }\n ```\n\n ```jsx,use_options,expect_diff\n <Hello {...this.props} opt1=\"\" opt2=\"\" opt12=\"\" opt11=\"\" />;\n ```\n\n ### `sortFirst`\n A list of attribute names that should be sorted before all other attributes,\n in the order they appear in this list. The remaining attributes are sorted\n after the listed ones. This is useful to keep attributes such as `key` first.\n\n ```json,options\n {\n     \"options\": {\n         \"sortFirst\": [\"key\"]\n     }\n }\n ```\n ```jsx,use_options,expect_diagnostic\n <Hello firstName=\"John\" key={id} lastName=\"Smith\" />;\n ```\n\n"
           }
         }
       },
@@ -11928,7 +12082,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Sort named members of a TypeScript interface.\n\n The action uses natural order, which compares numbers by value so that `item9` comes before\n `item10`. It can sort members with fixed names:\n\n - properties: `property: type`;\n - methods: `method(): type`;\n - getters: `get property(): type`;\n - setters: `set property(value: type): void`.\n\n Members without a fixed name cannot be sorted by name:\n\n - call signatures such as `(): type` make the interface callable;\n - construct signatures such as `new (): type` make it constructible;\n - index signatures such as `[key: string]: type` describe dynamically named properties;\n - computed names such as `[Symbol.iterator]()` are calculated from an expression.\n\n The action places sorted, named members first. It keeps members without fixed names in their\n original relative order after them.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface MixedMembers {\n   z: string;\n   a: number;\n   (): void;  // Call signature\n   y: boolean;\n   new (): MixedMembers;  // Construct signature\n   b: string;\n   [key: string]: any;  // Index signature\n }\n ```\n\n ### Valid\n\n ```ts\n interface MixedMembers {\n   a: number;\n   b: string;\n   y: boolean;\n   z: string;\n   (): void;  // Non-sortable members remain in original order\n   new (): MixedMembers;\n   [key: string]: any;\n }\n ```\n\n"
+            "docs": " Sort named members of a TypeScript interface.\n\n The action uses natural order, which compares numbers by value so that `item9` comes before\n `item10`. It can sort members with fixed names:\n\n - properties: `property: type`;\n - methods: `method(): type`;\n - getters: `get property(): type`;\n - setters: `set property(value: type): void`.\n\n Members without a fixed name cannot be sorted by name:\n\n - call signatures such as `(): type` make the interface callable;\n - construct signatures such as `new (): type` make it constructible;\n - index signatures such as `[key: string]: type` describe dynamically named properties;\n - computed names such as `[Symbol.iterator]()` are calculated from an expression.\n\n The action places sorted, named members first. It keeps members without fixed names in their\n original relative order after them.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic\n interface MixedMembers {\n   z: string;\n   a: number;\n   (): void;  // Call signature\n   y: boolean;\n   new (): MixedMembers;  // Construct signature\n   b: string;\n   [key: string]: any;  // Index signature\n }\n ```\n\n ### Valid\n\n ```ts\n interface MixedMembers {\n   a: number;\n   b: string;\n   y: boolean;\n   z: string;\n   (): void;  // Non-sortable members remain in original order\n   new (): MixedMembers;\n   [key: string]: any;\n }\n ```\n\n ## Options\n\n ### `partitionByNewLine`\n\n When enabled, members separated by a blank line are kept in their own\n section and sorted only within that section. This preserves logical\n groupings that the author intentionally introduced with empty lines.\n\n > Default: `false`\n\n ```json,options\n {\n     \"options\": {\n         \"partitionByNewLine\": true\n     }\n }\n ```\n\n With the option enabled, the following interface is considered sorted\n because each section is sorted on its own:\n\n ```ts,use_options\n interface User {\n   id: string;\n\n   createdAt: Date;\n   updatedAt: Date;\n\n   email: string;\n   name: string;\n   passwordHash: string;\n }\n ```\n\n"
           }
         }
       }

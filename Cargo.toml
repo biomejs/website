@@ -187,7 +187,7 @@ biome_yaml_syntax      = {
   version = "0.7.0"
 }
 
-bpaf           = { version = "0.9.27", features = ["docgen"] }
+bpaf           = { version = "0.9.28", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes
 camino         = "1.2.6"
 jiff-static    = "0.2.37"

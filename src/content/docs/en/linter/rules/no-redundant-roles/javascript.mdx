@@ -75,6 +75,38 @@ Enforce explicit `role` property is not the same as implicit/default role proper
 <span></span>
 ```
 
+## Options
+
+### `ignoreElements`
+
+An array of element names that the rule ignores. The comparison is case-insensitive.
+
+Default: `[]`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"a11y": {
+				"noRedundantRoles": {
+					"level": "on",
+					"options": {
+						"ignoreElements": [
+							"button"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```jsx
+<button role='button'></button>
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

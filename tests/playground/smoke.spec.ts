@@ -58,6 +58,37 @@ test.describe("playground should format code", () => {
 		});
 	});
 
+	test("wraps markdown prose", async ({ page }) => {
+		const hash = new URLSearchParams({
+			"files.main.md": encodeCode("one\ntwo\n"),
+		});
+		await page.goto(`/playground?prettier=true#${hash}`);
+		const biomeOutput = page.getByTestId("biome-output").getByRole("textbox");
+		const prettierOutput = page
+			.getByTestId("prettier-output")
+			.getByRole("textbox");
+		// The last line is the empty one after the trailing newline.
+		await expect(biomeOutput.locator(".cm-line")).toHaveText([
+			"one",
+			"two",
+			"",
+		]);
+		await expect(prettierOutput.locator(".cm-line")).toHaveText([
+			"one",
+			"two",
+			"",
+		]);
+
+		await page.getByLabel("Prose Wrap").selectOption("never");
+
+		await expect(page).toHaveURL(/proseWrap=never/);
+		await expect(biomeOutput.locator(".cm-line")).toHaveText(["one two", ""]);
+		await expect(prettierOutput.locator(".cm-line")).toHaveText([
+			"one two",
+			"",
+		]);
+	});
+
 	test("shows how Biome's output compares to Prettier", async ({ page }) => {
 		await page.goto(
 			`/playground?prettier=true#code=${encodeURIComponent(encodeCode("let a=5"))}`,
@@ -523,9 +554,7 @@ test.describe("playground layout", () => {
 				},
 				linter: {
 					rules: {
-						nursery: {
-							preset: "none",
-						},
+						preset: "recommended",
 					},
 				},
 				javascript: {
@@ -570,7 +599,7 @@ test.describe("playground layout", () => {
 		await page.getByLabel("Format", { exact: true }).uncheck();
 		await expect(
 			page.getByTestId("biome-output").getByRole("textbox"),
-		).toContainText("let a=5");
+		).toContainText("const a=5");
 
 		await page.getByRole("button", { name: "Go back", exact: true }).click();
 		await expect(
@@ -818,7 +847,7 @@ test.describe("playground layout", () => {
 			await page.evaluate((size) => {
 				localStorage.setItem("playground:gritql-matches-ratio", String(size));
 			}, size);
-			await page.goto(`/playground#code=${gritCode}`);
+			await page.goto(`/playground?code=${gritCode}`);
 			await page.getByRole("button", { name: "GritQL search" }).click();
 			await page
 				.locator(".gritql-panel .cm-content")
@@ -894,5 +923,37 @@ test.describe("playground layout", () => {
 		if (!output || !problems) throw new Error("output not rendered");
 		expect(problems.y).toBeGreaterThanOrEqual(output.y + output.height - 1);
 		expect(problems.height).toBeGreaterThanOrEqual(400);
+	});
+});
+
+test.describe("playground GritQL search", () => {
+	test("searches in the language picked from the dropdown", async ({
+		page,
+	}) => {
+		const cases = [
+			{
+				file: "main.js",
+				code: 'console.log("a");\nconsole.log("b");',
+				language: "JavaScript",
+				query: "`console.log($message)`",
+				matches: "2",
+			},
+			{
+				file: "main.css",
+				code: ".a:is(.b, .c) { color: red; }",
+				language: "CSS",
+				query: "CssPseudoClassSelector()",
+				matches: "1",
+			},
+		];
+		for (const { file, code, language, query, matches } of cases) {
+			await page.goto(
+				`/playground?files.${file}=${encodeURIComponent(encodeCode(code))}`,
+			);
+			await toggleView(page, "GritQL search");
+			await page.locator(".gritql-select").selectOption({ label: language });
+			await page.locator(".gritql-panel .cm-content").fill(query);
+			await expect(page.locator(".gritql-match-count")).toHaveText(matches);
+		}
 	});
 });
