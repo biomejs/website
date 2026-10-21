@@ -49,6 +49,11 @@ A generic family may appear anywhere in the list. It is not required when:
 - the final family comes from a custom property through `var()`;
 - `font-family` appears inside an `@font-face` rule.
 
+## SCSS limitations
+
+Font values that require SCSS evaluation, including variables, interpolation, and
+user-defined function results, are ignored because the emitted font family is unknown.
+
 ## Examples
 
 ### Invalid

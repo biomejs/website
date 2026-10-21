@@ -1,0 +1,136 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noPromiseExecutorReturn (JavaScript)
+description: JavaScript (and super languages) documentation for noPromiseExecutorReturn
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-promise-executor-return/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noPromiseExecutorReturn`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`no-promise-executor-return`](https://eslint.org/docs/latest/rules/no-promise-executor-return)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noPromiseExecutorReturn": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow returning values from the function passed to `new Promise()`.
+
+When you create a Promise with `new Promise()`, you pass it a function called the _executor_.
+The executor usually starts an asynchronous task, such as reading a file.
+When the task finishes, the executor calls `resolve` with the result, or `reject` with an error.
+
+`new Promise()` ignores the value that the executor returns, so returning a value has no effect on the Promise.
+This is usually a mistake: the code most likely meant to call `resolve` or `reject` instead.
+
+A `return` statement without a value is allowed, because it only stops the executor early.
+
+## Examples
+
+### Invalid
+
+```js
+new Promise((resolve, reject) => {
+    if (someCondition) {
+        return defaultResult;
+    }
+    getSomething((err, result) => {
+        if (err) {
+            reject(err);
+        } else {
+            resolve(result);
+        }
+    });
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:9 <a href=\"https://biomejs.dev/linter/rules/no-promise-executor-return\">lint/nursery/noPromiseExecutorReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The function passed to </span><span style=\"color: Orange;\"><strong>new Promise()</strong></span><span style=\"color: Orange;\"> returns a value here.</span><br />  <br />    <strong>1 │ </strong>new Promise((resolve, reject) =&gt; &#123;<br />    <strong>2 │ </strong>    if (someCondition) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        return defaultResult;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    &#125;<br />    <strong>5 │ </strong>    getSomething((err, result) =&gt; &#123;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>new Promise()</strong></span><span style=\"color: lightgreen;\"> ignores this returned value, so it has no effect on the Promise.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>reject()</strong></span><span style=\"color: lightgreen;\"> to complete the Promise. To stop the function early, use </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> without a value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+An arrow function without braces returns the value of its body:
+
+```js
+new Promise((resolve, reject) => getSomething((err, data) => {
+    if (err) {
+        reject(err);
+    } else {
+        resolve(data);
+    }
+}));
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:34 <a href=\"https://biomejs.dev/linter/rules/no-promise-executor-return\">lint/nursery/noPromiseExecutorReturn</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The function passed to </span><span style=\"color: Orange;\"><strong>new Promise()</strong></span><span style=\"color: Orange;\"> returns this value.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>new Promise((resolve, reject) =&gt; getSomething((err, data) =&gt; &#123;<br />   <strong>   │ </strong>                                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    if (err) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        reject(err);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    &#125; else &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>        resolve(data);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>    &#125;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>7 │ </strong>&#125;));<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>8 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>new Promise()</strong></span><span style=\"color: lightgreen;\"> ignores this returned value, so it has no effect on the Promise.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>reject()</strong></span><span style=\"color: lightgreen;\"> to complete the Promise. To stop the function early, use </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> without a value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Wrap the expression in braces.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">w</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">P</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">,</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">j</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&gt;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">S</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">h</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">,</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&gt;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">w</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">P</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">,</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">j</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&gt;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>&#123;</strong></span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">S</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">h</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">,</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&gt;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>      if (err) &#123;<br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>          reject(err);<br />  <strong>  </strong><strong>···</strong><strong> │ <br /></strong>    <strong>5</strong> <strong>5</strong><strong> │ </strong>          resolve(data);<br />    <strong>6</strong> <strong>6</strong><strong> │ </strong>      &#125;<br />    <strong>7</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">&#125;</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\">;</span><br />      <strong>7</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">&#125;</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><strong>&#125;</strong></span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>8</strong> <strong>8</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```js
+new Promise(() => {
+    return 1;
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:5 <a href=\"https://biomejs.dev/linter/rules/no-promise-executor-return\">lint/nursery/noPromiseExecutorReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The function passed to </span><span style=\"color: Orange;\"><strong>new Promise()</strong></span><span style=\"color: Orange;\"> returns a value here.</span><br />  <br />    <strong>1 │ </strong>new Promise(() =&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    return 1;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;);<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>new Promise()</strong></span><span style=\"color: lightgreen;\"> ignores this returned value, so it has no effect on the Promise.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>reject()</strong></span><span style=\"color: lightgreen;\"> to complete the Promise. To stop the function early, use </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> without a value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+new Promise(r => r(1));
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:18 <a href=\"https://biomejs.dev/linter/rules/no-promise-executor-return\">lint/nursery/noPromiseExecutorReturn</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The function passed to </span><span style=\"color: Orange;\"><strong>new Promise()</strong></span><span style=\"color: Orange;\"> returns this value.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>new Promise(r =&gt; r(1));<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>new Promise()</strong></span><span style=\"color: lightgreen;\"> ignores this returned value, so it has no effect on the Promise.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>resolve()</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>reject()</strong></span><span style=\"color: lightgreen;\"> to complete the Promise. To stop the function early, use </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> without a value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Wrap the expression in braces.</span><br />  <br />  <strong>  1 │ </strong>new<span style=\"opacity: 0.8;\">·</span>Promise(r<span style=\"opacity: 0.8;\">·</span>=&gt;<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">&#123;</span>r(1)<span style=\"color: MediumSeaGreen;\">&#125;</span>);<br />  <strong>    │ </strong>                 <span style=\"color: MediumSeaGreen;\">+</span>    <span style=\"color: MediumSeaGreen;\">+</span>  <br /></code></pre>"} />
+
+### Valid
+
+```js
+new Promise((resolve, reject) => {
+    if (someCondition) {
+        resolve(defaultResult);
+        return;
+    }
+    getSomething((err, result) => {
+        if (err) {
+            reject(err);
+        } else {
+            resolve(result);
+        }
+    });
+});
+
+new Promise(r => { r(1) });
+
+Promise.resolve(1);
+```
+
+## See Also
+
+- To disallow `async` functions as the executor, see [`noAsyncPromiseExecutor`](https://biomejs.dev/linter/rules/no-async-promise-executor/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_promise_executor_return.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noPromiseExecutorReturn)
+- <RulePlaygroundLink rule="noPromiseExecutorReturn" category="lint" language="js" code={"new Promise((resolve, reject) => {\n    if (someCondition) {\n        return defaultResult;\n    }\n    getSomething((err, result) => {\n        if (err) {\n            reject(err);\n        } else {\n            resolve(result);\n        }\n    });\n});\n"} />
+

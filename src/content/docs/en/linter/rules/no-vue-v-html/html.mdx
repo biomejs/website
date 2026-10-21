@@ -1,0 +1,92 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueVHtml (HTML)
+description: HTML documentation for noVueVHtml
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-v-html/html/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noVueVHtml`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-v-html`](https://eslint.vuejs.org/rules/no-v-html)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueVHtml": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the use of Vue's `v-html` directive.
+
+`v-html` inserts its value into the page as real HTML. Any tags in the value become
+part of the page, including tags that run code in the browser. If the value contains
+text from users or another source you don't control, an attacker can use it to run
+their own code on your page. This attack is called cross-site scripting (XSS).
+
+To show a value as text, put it inside double curly braces (`{{ }}`) instead. Vue then
+displays any HTML tags in the value as plain text.
+
+If you need to render HTML, first remove any dangerous tags from it with a library
+such as [DOMPurify](https://github.com/cure53/DOMPurify). Then
+[suppress this rule](https://biomejs.dev/analyzer/suppressions/) with a comment that
+explains why the value is safe.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <div v-html="content"></div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:8 <a href=\"https://biomejs.dev/linter/rules/no-vue-v-html\">lint/nursery/noVueVHtml</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-html</strong></span><span style=\"color: Tomato;\"> directive inserts its value into the page as HTML.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div v-html=&quot;content&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">If the value contains text from users, an attacker can use it to run their own code on your page. This attack is called cross-site scripting (XSS).</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To show the value as text, use </span><span style=\"color: lightgreen;\"><strong>&#123;&#123; &#125;&#125;</strong></span><span style=\"color: lightgreen;\"> instead. If you need to render HTML, remove any dangerous tags from it before using </span><span style=\"color: lightgreen;\"><strong>v-html</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <div>{{ content }}</div>
+</template>
+```
+
+## References
+
+- [Vue `v-html` directive](https://vuejs.org/api/built-in-directives.html#v-html)
+- [Vue security guide: HTML injection](https://vuejs.org/guide/best-practices/security.html#html-injection)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_v_html.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueVHtml)
+- <RulePlaygroundLink rule="noVueVHtml" category="lint" language="vue" code={"<template>\n  <div v-html=\"content\"></div>\n</template>\n"} />
+
