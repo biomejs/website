@@ -58,6 +58,7 @@ function PlaygroundLoader() {
 	const [loadingState, setLoadingState] = useState<LoadingState>(
 		LoadingState.Loading,
 	);
+	const [loadRequested, setLoadRequested] = useState(false);
 	const [state, setPlaygroundState, resetPlaygroundState] =
 		usePlaygroundState();
 	const workerRef = useRef<Worker | null>(null);
@@ -65,6 +66,10 @@ function PlaygroundLoader() {
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: dependencies mismatch
 	useEffect(() => {
+		if (!loadRequested) {
+			return;
+		}
+
 		workerRef.current = new Worker(
 			new URL("./workers/biomeWorker", import.meta.url),
 			{ type: "module" },
@@ -188,7 +193,7 @@ function PlaygroundLoader() {
 			workerRef.current?.terminate();
 			prettierWorkerRef.current?.terminate();
 		};
-	}, []);
+	}, [loadRequested]);
 
 	// Dispatch updated settings
 	// biome-ignore lint/correctness/useExhaustiveDependencies: dependencies mismatch
@@ -282,7 +287,12 @@ function PlaygroundLoader() {
 			return <div>Error loading. Please refresh</div>;
 
 		case LoadingState.Loading:
-			return <LoadingScreen />;
+			return (
+				<LoadingScreen
+					loading={loadRequested}
+					onLoad={() => setLoadRequested(true)}
+				/>
+			);
 
 		default:
 			return (
