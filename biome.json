@@ -8,7 +8,8 @@
       "!**/redirects.js",
       "!**/src/components/generated",
       "!**/src/playground/generated",
-      "!!*.svg"
+      "!!*.svg",
+      "!!pnpm-lock.yaml"
     ]
   },
   "assist": {
@@ -73,6 +74,10 @@
           }
         }
       }
+    },
+    {
+      "includes": ["**/*.md"],
+      "javascript": { "formatter": { "enabled": false } }
     }
   ],
   "html": {
@@ -80,5 +85,6 @@
     "formatter": {
       "enabled": true
     }
-  }
+  },
+  "markdown": { "parser": { "frontmatter": true } }
 }

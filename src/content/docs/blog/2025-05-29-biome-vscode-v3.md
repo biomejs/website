@@ -14,7 +14,6 @@ socialImage: "@/assets/social-logo.png"
 We're excited to announce that version 3 of the Biome VS Code extension is now
 available! This release includes a range of new features and improvements to
 make your development experience even better:
-
 - 🗄️ Support for multi-root workspaces
 - 📝 Support for single-file mode
 - 👻 Support for unsaved files
@@ -34,8 +33,7 @@ version over the past few months, please note that support for the
 recommend using **multiple workspace folders** instead to manage multiple
 projects. :::
 
-[multi-root workspaces]:
-  https://code.visualstudio.com/docs/editor/multi-root-workspaces
+[multi-root workspaces]: https://code.visualstudio.com/docs/editor/multi-root-workspaces
 
 ## Single-file mode
 
@@ -62,8 +60,7 @@ spin up a global Biome instance on demand.
 As with single-file mode, this feature requires [Biome to be installed
 globally]. The extension will notify you if it’s missing from your PATH.
 
-[Biome to be installed globally]:
-  https://biomejs.dev/guides/manual-installation/
+[Biome to be installed globally]: https://biomejs.dev/guides/manual-installation/
 
 ## Automatic reload
 
