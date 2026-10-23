@@ -23,7 +23,7 @@ Clients send requests with the following JSON payload, where `method` is one of 
 These methods aren't part of the semantic versioning contract, and may change without notice.
 :::
 
-[//]: # (Start-custom-methods)
+[//]: # "Start-custom-methods"
 ## Custom methods
 
 ### `biome/file_features`
@@ -749,4 +749,4 @@ interface DropPatternParams {
 Returns `void`.
 
 
-[//]: # (End-custom-methods)
+[//]: # "End-custom-methods"

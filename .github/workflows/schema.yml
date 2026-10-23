@@ -20,7 +20,7 @@ on:
         default: "0.0.0"
 
   repository_dispatch:
-    types: [ biome-release-cli-event ]
+    types: [biome-release-cli-event]
 
 permissions:
   actions: write
@@ -78,4 +78,3 @@ jobs:
         run: gh pr merge --squash --auto --delete-branch ${{ steps.create-pull-request.outputs.pull-request-number }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

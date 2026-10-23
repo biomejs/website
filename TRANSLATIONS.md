@@ -11,7 +11,6 @@ We're using [Starlight](https://starlight.astro.build/) for our docs website, wh
 ### Initial Translation
 
 If the docs are not available in your language yet and you would like to translate them, you can do so by following these steps:
-
 1. Find or create an issue for the language you want to translate to. If there is no issue for your language yet, feel free to create one. This is to avoid duplicate work, and also allows for community to track the progress of the translation.
    - If existing issue is found, please comment on the issue to let others know you're working on it. We recommend creating single PR for each doc, so that it's easier to review.
 

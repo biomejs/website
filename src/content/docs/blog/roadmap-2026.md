@@ -55,13 +55,13 @@ Later last year, we announced the experimental full support of Vue, Svelte, and 
 ## 2026 roadmap
 
 I can't stress enough that Biome is a community-driven project, all the features we want to implement are driven by our passions and needs. We can't promise that all of these features will be implemented. Alas, we will try our best to stay aligned and deliver what's listed below.
-
 - **JavaScript embedded languages**: improve the DX of the embedded languages in JavaScript, such as CSS and GraphQL.
 - **Stabilize everything around HTML**
   - Improve HTML formatting so that its formatting matches Prettier's as much as possible.
   - Enhance existing lint rules so that they work for HTML-ish languages too, notably Vue, Svelte, and Astro
 - **Cross-language lint rules**: we want to explore and deliver lint rules that work across languages. Now that Biome has the infrastructure to do so, we might be able to achieve it. What's a cross-language lint rule, you ask? Here's an example: have you ever discovered a CSS class not used anywhere? What if there was a lint rule able to discover all your CSS styles, and check if they are actually used inside JSX/HTML-ish files? That's where a cross-language lint rule comes into play!
 - **Opt-in, improved `workspaces`**: this is mostly an idea, but we want to address the [poor DX introduced by monorepo-out-the-box](#monorepo-out-of-the-box), by making it opt-in and offer better control. For example, we envision a solution where the configuration might look like this:
+
   ```json title="biome.json"
   {
     "workspaces": [
@@ -70,6 +70,7 @@ I can't stress enough that Biome is a community-driven project, all the features
     ]
   }
   ```
+
   With a configuration like this, Biome knows where to look for possible nested configuration files. We believe a solution like this **might improve the DX and the performance of the tool**.
 
 - **SCSS support**: we want to ship SCSS support. It was our [most wanted](https://github.com/biomejs/biome/discussions/3441). We recently closed it, and started the works.
