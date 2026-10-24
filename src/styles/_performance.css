@@ -58,11 +58,6 @@
 	background: var(--sl-color-gray-7);
 }
 
-[data-theme="dark"] .inp > span,
-[data-theme="dark"] .out > span {
-	background-color: var(--sl-color-gray-6);
-}
-
 .perf-out {
 	background: var(--sl-color-gray-6);
 	margin: 0 !important;
@@ -80,6 +75,11 @@
 	height: 2.5rem;
 	padding-left: 1.2rem;
 	font-weight: bold;
+}
+
+[data-theme="dark"] .inp > span,
+[data-theme="dark"] .out > span {
+	background-color: var(--sl-color-gray-6);
 }
 
 .bench {

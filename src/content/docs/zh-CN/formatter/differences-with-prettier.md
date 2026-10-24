@@ -131,7 +131,6 @@ a.?.b!
 Prettier 对 JavaScript 和 TypeScript 的基于 Babel 的解析非常宽松，允许忽略[多个错误](https://github.com/prettier/prettier/blob/e4a74c05f4502dd4ec70495c3130ff08ab088e05/src/language-js/parse/babel.js#L177-L218)。
 Biome 的解析器有意比 Prettier 解析器更严格。
 它能正确识别以下语法错误：
-
 - 函数不能有重复的修改器
 - 属性修饰符的顺序无效
 - 函数声明不允许有主体

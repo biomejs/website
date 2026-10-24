@@ -361,12 +361,12 @@
 	min-height: 0;
 }
 
-.playground-code-output.split .playground-output-pane {
-	min-width: 140px;
-}
-
 .playground-output-pane + .playground-output-pane {
 	border-left: 1px solid var(--sl-color-gray-5);
+}
+
+.playground-code-output.split .playground-output-pane {
+	min-width: 140px;
 }
 
 .playground-output-heading {

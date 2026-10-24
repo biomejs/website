@@ -4,6 +4,7 @@
 title: Environment variables
 description: A list of the environment variables that configure Biome's behavior.
 ---
+
 The following environment variables configure Biome and its npm package.
 
 
@@ -12,7 +13,6 @@ The following environment variables configure Biome and its npm package.
 Overrides the installation source detected by `biome upgrade`.
 
 The following installation sources are supported:
-
 - `npm`: updates Biome by running an npm-compatible package manager command.
 - `homebrew`: updates Biome by running `brew upgrade biome`.
 - `standalone`: updates the standalone Biome binary directly.
@@ -58,7 +58,6 @@ BIOME_LOG_PREFIX_NAME=my-project.log biome start
 Controls internal logging for commands such as `check`, `lint`, `format`, and `ci`. Defaults to `none`.
 
 The following logging levels are supported:
-
 - `none`: Disables internal logging.
 - `info`: Shows general information about Biome's operation.
 - `warn`: Shows warnings and errors.
@@ -77,7 +76,6 @@ BIOME_LOG_LEVEL=debug biome check .
 Controls the internal log format for commands such as `check`, `lint`, `format`, and `ci`. Defaults to `pretty`.
 
 The following log formats are supported:
-
 - `pretty`: Displays human-readable, multiline logs with terminal styling.
 - `compact`: Displays logs in a condensed, human-readable format.
 - `json`: Displays machine-readable JSON logs.
@@ -113,7 +111,6 @@ BIOME_THREADS=2 biome ci .
 Selects the file watcher used by the Biome daemon. Defaults to `recommended`.
 
 The following file-watching strategies are supported:
-
 - `recommended`: Uses the strategy recommended by the operating system.
 - `polling`: Periodically checks for changes. This can be slower but may work better on mounted or network filesystems.
 - `none`: Disables file watching. The daemon and editor integrations will not detect file changes.
@@ -157,4 +154,3 @@ RUST_BACKTRACE=1 biome check .
 :::note
 `RUST_BACKTRACE` is a Rust environment variable, not a Biome-specific option. Biome supports it because it is built with Rust and uses Rust's backtrace support when reporting a panic.
 :::
-
