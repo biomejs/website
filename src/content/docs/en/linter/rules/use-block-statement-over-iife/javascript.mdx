@@ -1,0 +1,118 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useBlockStatementOverIife (JavaScript)
+description: JavaScript (and super languages) documentation for useBlockStatementOverIife
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-block-statement-over-iife/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/useBlockStatementOverIife`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicorn/prefer-block-statement-over-iife`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-block-statement-over-iife.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useBlockStatementOverIife": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Prefer block statements over functions that are called immediately only to create a scope.
+
+A function that is called as soon as it is created is known as an immediately invoked
+function expression (IIFE). Before `let` and `const` existed, wrapping code in such a
+function was the only way to stop its variables from being visible to the code around it.
+
+Variables declared with `let`, `const`, or `class` are only visible inside the block
+statement (code wrapped in `{` and `}`) that contains them. A block statement therefore
+hides variables in the same way, with less code and without a function call.
+
+This rule only reports functions that a block statement can replace without changing how
+the code behaves. It ignores a function that is called immediately when:
+
+- the result of the call is used, or the call passes arguments;
+- the function has a name, has parameters, is `async`, or is a generator;
+- the function contains a `return` statement, a `var` declaration, a call to `eval`, or a
+directive such as `"use strict"`;
+- the function is declared with the `function` keyword and uses `this`, `arguments`, or
+`new.target`;
+- the function contains a function declaration, and the file is a script instead of a
+module, such as a `.cjs` file.
+
+## Examples
+
+### Invalid
+
+```js
+(() => {
+    const value = getValue();
+    run(value);
+})();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/use-block-statement-over-iife\">lint/nursery/useBlockStatementOverIife</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function is called immediately, and a block statement can replace it.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>(() =&gt; &#123;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    const value = getValue();<br />    <strong>3 │ </strong>    run(value);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A block statement hides </span><span style=\"color: lightgreen;\"><strong>let</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>const</strong></span><span style=\"color: lightgreen;\">, and </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> declarations from the surrounding code in the same way, with less code and without a function call.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use a block statement instead.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><strong>(</strong></span><span style=\"color: Tomato;\"><strong>(</strong></span><span style=\"color: Tomato;\"><strong>)</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>=</strong></span><span style=\"color: Tomato;\"><strong>&gt;</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\">&#123;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">&#123;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>      const value = getValue();<br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>      run(value);<br />    <strong>4</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">&#125;</span><span style=\"color: Tomato;\"><strong>)</strong></span><span style=\"color: Tomato;\"><strong>(</strong></span><span style=\"color: Tomato;\"><strong>)</strong></span><span style=\"color: Tomato;\"><strong>;</strong></span><br />      <strong>4</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">&#125;</span><br />    <strong>5</strong> <strong>5</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```js
+(function () {
+    const value = getValue();
+    run(value);
+})();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/use-block-statement-over-iife\">lint/nursery/useBlockStatementOverIife</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function is called immediately, and a block statement can replace it.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>(function () &#123;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    const value = getValue();<br />    <strong>3 │ </strong>    run(value);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A block statement hides </span><span style=\"color: lightgreen;\"><strong>let</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>const</strong></span><span style=\"color: lightgreen;\">, and </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> declarations from the surrounding code in the same way, with less code and without a function call.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use a block statement instead.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><strong>(</strong></span><span style=\"color: Tomato;\"><strong>f</strong></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>c</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>(</strong></span><span style=\"color: Tomato;\"><strong>)</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\">&#123;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">&#123;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>      const value = getValue();<br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>      run(value);<br />    <strong>4</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">&#125;</span><span style=\"color: Tomato;\"><strong>)</strong></span><span style=\"color: Tomato;\"><strong>(</strong></span><span style=\"color: Tomato;\"><strong>)</strong></span><span style=\"color: Tomato;\"><strong>;</strong></span><br />      <strong>4</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">&#125;</span><br />    <strong>5</strong> <strong>5</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+{
+    const value = getValue();
+    run(value);
+}
+
+const result = (() => {
+    return getValue();
+})();
+
+(async () => {
+    await run();
+})();
+
+(function () {
+    this.run();
+})();
+
+(() => {
+    var count = 1;
+    run(count);
+})();
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_block_statement_over_iife.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useBlockStatementOverIife)
+- <RulePlaygroundLink rule="useBlockStatementOverIife" category="lint" language="js" code={"(() => {\n    const value = getValue();\n    run(value);\n})();\n"} />
+

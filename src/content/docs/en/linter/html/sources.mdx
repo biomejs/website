@@ -14,7 +14,6 @@ description: A page that maps rules from other sources to Biome
 - [noSvgWithoutTitle](/linter/rules/no-svg-without-title/html)
 - [noUndeclaredClasses](/linter/rules/no-undeclared-classes/html)
 - [noUndeclaredCustomProperties](/linter/rules/no-undeclared-custom-properties/html)
-- [noVueUndeclaredDirectives](/linter/rules/no-vue-undeclared-directives/html)
 - [useIframeSandbox](/linter/rules/use-iframe-sandbox/html)
 - [useTailwindSortedClasses](/linter/rules/use-tailwind-sorted-classes/html)
 - [useVueVapor](/linter/rules/use-vue-vapor/html)
@@ -38,6 +37,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-inline-styles](https://html-eslint.org/docs/rules/no-inline-styles) |[noInlineStyles](/linter/rules/no-inline-styles/html) |
 | [no-invalid-role](https://html-eslint.org/docs/rules/no-invalid-role) |[useValidAriaRole](/linter/rules/use-valid-aria-role/html) |
 | [no-non-scalable-viewport](https://html-eslint.org/docs/rules/no-non-scalable-viewport) |[noNonScalableViewport](/linter/rules/no-non-scalable-viewport/html) |
+| [no-obsolete-attrs](https://html-eslint.org/docs/rules/no-obsolete-attrs) |[noObsoleteAttributes](/linter/rules/no-obsolete-attributes/html) |
 | [no-obsolete-tags](https://html-eslint.org/docs/rules/no-obsolete-tags) |[noObsoleteTags](/linter/rules/no-obsolete-tags/html) |
 | [no-positive-tabindex](https://html-eslint.org/docs/rules/no-positive-tabindex) |[noPositiveTabindex](/linter/rules/no-positive-tabindex/html) |
 | [no-redundant-role](https://html-eslint.org/docs/rules/no-redundant-role) |[noRedundantRoles](/linter/rules/no-redundant-roles/html) |
@@ -61,6 +61,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | ESLint Rules name | Biome Rules name |
 | ---- | ---- |
 | [no-script-url](https://eslint.org/docs/latest/rules/no-script-url) |[noScriptUrl](/linter/rules/no-script-url/html) |
+| [unicode-bom](https://eslint.org/docs/latest/rules/unicode-bom) |[useConsistentUnicodeBom](/linter/rules/use-consistent-unicode-bom/html) |
 ### eslint-plugin-astro
 | eslint-plugin-astro Rules name | Biome Rules name |
 | ---- | ---- |
@@ -164,10 +165,15 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-duplicate-attributes](https://eslint.vuejs.org/rules/no-duplicate-attributes) |[noDuplicateAttributes](/linter/rules/no-duplicate-attributes/html) |
 | [no-restricted-html-elements](https://eslint.vuejs.org/rules/no-restricted-html-elements) |[noRestrictedElements](/linter/rules/no-restricted-elements/html) (inspired) |
 | [no-root-v-if](https://eslint.vuejs.org/rules/no-root-v-if) |[noVueRootVIf](/linter/rules/no-vue-root-v-if/html) |
+| [no-undef-directives](https://eslint.vuejs.org/rules/no-undef-directives) |[noVueUndeclaredDirectives](/linter/rules/no-vue-undeclared-directives/html) |
 | [no-use-v-if-with-v-for](https://eslint.vuejs.org/rules/no-use-v-if-with-v-for) |[noVueVIfWithVFor](/linter/rules/no-vue-v-if-with-v-for/html) |
 | [no-v-html](https://eslint.vuejs.org/rules/no-v-html) |[noVueVHtml](/linter/rules/no-vue-v-html/html) |
 | [no-v-text](https://eslint.vuejs.org/rules/no-v-text) |[noVueVText](/linter/rules/no-vue-v-text/html) |
+| [no-v-text-v-html-on-component](https://eslint.vuejs.org/rules/no-v-text-v-html-on-component) |[noVueVTextVHtmlOnComponent](/linter/rules/no-vue-v-text-v-html-on-component/html) |
+| [require-component-is](https://eslint.vuejs.org/rules/require-component-is) |[useVueComponentIs](/linter/rules/use-vue-component-is/html) |
+| [require-toggle-inside-transition](https://eslint.vuejs.org/rules/require-toggle-inside-transition) |[useVueToggleInsideTransition](/linter/rules/use-vue-toggle-inside-transition/html) |
 | [require-v-for-key](https://eslint.vuejs.org/rules/require-v-for-key) |[useVueVForKey](/linter/rules/use-vue-v-for-key/html) |
+| [use-v-on-exact](https://eslint.vuejs.org/rules/use-v-on-exact) |[useVueVOnExact](/linter/rules/use-vue-v-on-exact/html) |
 | [v-bind-style](https://eslint.vuejs.org/rules/v-bind-style) |[useVueConsistentVBindStyle](/linter/rules/use-vue-consistent-v-bind-style/html) |
 | [v-on-event-hyphenation](https://eslint.vuejs.org/rules/v-on-event-hyphenation) |[useVueConsistentEventHyphenation](/linter/rules/use-vue-consistent-event-hyphenation/html) |
 | [v-on-style](https://eslint.vuejs.org/rules/v-on-style) |[useVueConsistentVOnStyle](/linter/rules/use-vue-consistent-v-on-style/html) |

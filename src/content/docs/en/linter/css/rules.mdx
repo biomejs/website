@@ -52,8 +52,13 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | Rule name | Description | Properties |
 | --- | --- | --- |
 | [noInvalidPropertyInitValue](/linter/rules/no-invalid-property-init-value/css) | Checks that the `initial-value` of an `@property` rule follows the value format declared by its `syntax`. |  |
+| [noSelfNestedLayer](/linter/rules/no-self-nested-layer/css) | Disallow nesting a cascade layer inside a layer with the same name. |  |
+| [noShortTimeValues](/linter/rules/no-short-time-values/css) | Disallow animation and transition times that are shorter than a configured minimum. |  |
 | [noUndeclaredCustomProperties](/linter/rules/no-undeclared-custom-properties/css) | Reports custom properties used with `var()` that have no visible declaration. |  |
 | [noUnusedClasses](/linter/rules/no-unused-classes/css) | Reports CSS class selectors that are never referenced in any JSX or HTML file. |  |
+| [noZeroLengthUnit](/linter/rules/no-zero-length-unit/css) | Disallow units on zero lengths. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useConsistentLightnessNotation](/linter/rules/use-consistent-lightness-notation/css) | Enforce a consistent notation for the lightness of colors. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useConsistentUnicodeBom](/linter/rules/use-consistent-unicode-bom/css) | Require or disallow a Unicode byte order mark at the beginning of a file. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useLayeredStyles](/linter/rules/use-layered-styles/css) | Enforce style rules to be defined within a cascade layer. |  |
 | [useLogicalProperties](/linter/rules/use-logical-properties/css) | Prefer logical CSS properties over physical properties. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useNamedLayer](/linter/rules/use-named-layer/css) | Disallow anonymous cascade layers. |  |
