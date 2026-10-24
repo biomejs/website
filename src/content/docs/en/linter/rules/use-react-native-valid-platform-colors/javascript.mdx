@@ -1,0 +1,113 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useReactNativeValidPlatformColors (JavaScript)
+description: JavaScript (and super languages) documentation for useReactNativeValidPlatformColors
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-react-native-valid-platform-colors/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/useReactNativeValidPlatformColors`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`reactNative`](/linter/domains#reactNative)
+- Sources: 
+  - Same as [`@react-native/platform-colors`](https://github.com/facebook/react-native/blob/main/packages/eslint-plugin-react-native/README.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useReactNativeValidPlatformColors": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require `PlatformColor()` and `DynamicColorIOS()` calls to use values written directly in the call.
+
+React Native can optimize `PlatformColor()` and `DynamicColorIOS()` calls,
+but only when it can read their values without running the code.
+Values that come from variables or other expressions are only known when the app runs.
+
+This rule checks that:
+
+- `PlatformColor()` receives at least one argument, and every argument is a literal
+such as a string. The last argument can also be an object with a single
+`fallback` property whose value is a literal.
+- `DynamicColorIOS()` receives exactly one object, and every value in that object is
+either a literal or a `PlatformColor()` call.
+
+## Examples
+
+### Invalid
+
+```js
+import { PlatformColor } from "react-native";
+
+const color = PlatformColor();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:15 <a href=\"https://biomejs.dev/linter/rules/use-react-native-valid-platform-colors\">lint/nursery/useReactNativeValidPlatformColors</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\"><strong>PlatformColor()</strong></span><span style=\"color: Tomato;\"> is called without a color name.</span><br />  <br />    <strong>1 │ </strong>import &#123; PlatformColor &#125; from &quot;react-native&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>const color = PlatformColor();<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A platform color needs at least one color name to look up.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass at least one color name as a string, for example: </span><span style=\"color: lightgreen;\"><strong>PlatformColor(&quot;labelColor&quot;)</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { PlatformColor } from "react-native";
+
+const labelColor = "labelColor";
+const color = PlatformColor(labelColor);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:29 <a href=\"https://biomejs.dev/linter/rules/use-react-native-valid-platform-colors\">lint/nursery/useReactNativeValidPlatformColors</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This argument of </span><span style=\"color: Tomato;\"><strong>PlatformColor()</strong></span><span style=\"color: Tomato;\"> is not a literal value.</span><br />  <br />    <strong>3 │ </strong>const labelColor = &quot;labelColor&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const color = PlatformColor(labelColor);<br />   <strong>   │ </strong>                            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">React Native can only optimize platform colors whose values are written directly in the call.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write the color name as a string. The last argument can also be an object like </span><span style=\"color: lightgreen;\"><strong>&#123; fallback: &quot;red&quot; &#125;</strong></span><span style=\"color: lightgreen;\">, with a literal value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { DynamicColorIOS } from "react-native";
+
+const colors = { light: "black", dark: "white" };
+const color = DynamicColorIOS(colors);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:30 <a href=\"https://biomejs.dev/linter/rules/use-react-native-valid-platform-colors\">lint/nursery/useReactNativeValidPlatformColors</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\"><strong>DynamicColorIOS()</strong></span><span style=\"color: Tomato;\"> must be called with a single object written directly in the call.</span><br />  <br />    <strong>3 │ </strong>const colors = &#123; light: &quot;black&quot;, dark: &quot;white&quot; &#125;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const color = DynamicColorIOS(colors);<br />   <strong>   │ </strong>                             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">React Native can only optimize dynamic colors whose values are written directly in the call.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass an object like </span><span style=\"color: lightgreen;\"><strong>&#123; light: &quot;black&quot;, dark: &quot;white&quot; &#125;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { DynamicColorIOS } from "react-native";
+
+const black = "black";
+const color = DynamicColorIOS({ light: black, dark: "white" });
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:33 <a href=\"https://biomejs.dev/linter/rules/use-react-native-valid-platform-colors\">lint/nursery/useReactNativeValidPlatformColors</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This value of </span><span style=\"color: Tomato;\"><strong>DynamicColorIOS()</strong></span><span style=\"color: Tomato;\"> is not a literal or a </span><span style=\"color: Tomato;\"><strong>PlatformColor()</strong></span><span style=\"color: Tomato;\"> call.</span><br />  <br />    <strong>3 │ </strong>const black = &quot;black&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const color = DynamicColorIOS(&#123; light: black, dark: &quot;white&quot; &#125;);<br />   <strong>   │ </strong>                                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">React Native can only optimize dynamic colors whose values are written directly in the call.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write the color as a string, or use a </span><span style=\"color: lightgreen;\"><strong>PlatformColor()</strong></span><span style=\"color: lightgreen;\"> call.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+import { DynamicColorIOS, PlatformColor } from "react-native";
+
+const label = PlatformColor("labelColor");
+const accent = PlatformColor("controlAccentColor", "controlColor", { fallback: "red" });
+const text = DynamicColorIOS({ light: "black", dark: PlatformColor("labelColor") });
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_react_native_valid_platform_colors.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useReactNativeValidPlatformColors)
+- <RulePlaygroundLink rule="useReactNativeValidPlatformColors" category="lint" language="js" code={"import { PlatformColor } from \"react-native\";\n\nconst color = PlatformColor();\n"} />
+

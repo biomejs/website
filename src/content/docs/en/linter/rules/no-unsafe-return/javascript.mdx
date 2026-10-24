@@ -1,0 +1,122 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUnsafeReturn (JavaScript)
+description: JavaScript (and super languages) documentation for noUnsafeReturn
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unsafe-return/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/noUnsafeReturn`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`types`](/linter/domains#types)
+- Sources: 
+  - Same as [`@typescript-eslint/no-unsafe-return`](https://typescript-eslint.io/rules/no-unsafe-return)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUnsafeReturn": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow returning a value typed as `any` from a function.
+
+TypeScript doesn't check how values typed as `any` are used. When a
+function returns such a value, every caller receives it without type
+checking, which can hide bugs far away from where the `any` came from.
+
+This rule reports functions that return a value typed as `any` or
+`any[]`, and `async` functions that return a `Promise<any>`. It also
+reports returned values that use `any` in a type argument where the
+return type expects a specific type, such as returning a `Set<any>`
+from a function whose return type is `Set<string>`.
+
+Returning `any` is allowed when the return type is declared as `any`
+or `unknown`, and returning `any[]` is allowed when the return type is
+`unknown[]`.
+
+## Examples
+
+### Invalid
+
+```ts title='invalid-any.ts'
+function parse(text: string) {
+    return JSON.parse(text);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-any.ts\">/invalid-any.ts</a>:2:5 <a href=\"https://biomejs.dev/linter/rules/no-unsafe-return\">lint/nursery/noUnsafeReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function returns a value of type </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>function parse(text: string) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    return JSON.parse(text);<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">TypeScript doesn't check values of type </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">, so callers can misuse the returned value without any error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Give the returned value a specific type. If the type isn't known in advance, use </span><span style=\"color: lightgreen;\"><strong>unknown</strong></span><span style=\"color: lightgreen;\"> instead, which requires callers to check the value before using it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts title='invalid-any-array.ts'
+const getItems = () => [] as any[];
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-any-array.ts\">/invalid-any-array.ts</a>:1:24 <a href=\"https://biomejs.dev/linter/rules/no-unsafe-return\">lint/nursery/noUnsafeReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function returns a value of type </span><span style=\"color: lightgreen;\"><strong>any[]</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const getItems = () =&gt; [] as any[];<br />   <strong>   │ </strong>                       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">TypeScript doesn't check values of type </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">, so callers can misuse the returned value without any error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Give the returned value a specific type. If the type isn't known in advance, use </span><span style=\"color: lightgreen;\"><strong>unknown</strong></span><span style=\"color: lightgreen;\"> instead, which requires callers to check the value before using it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts title='invalid-promise-any.ts'
+declare const pending: Promise<any>;
+async function load() {
+    return pending;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-promise-any.ts\">/invalid-promise-any.ts</a>:3:5 <a href=\"https://biomejs.dev/linter/rules/no-unsafe-return\">lint/nursery/noUnsafeReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function returns a value of type </span><span style=\"color: lightgreen;\"><strong>Promise&lt;any&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>declare const pending: Promise&lt;any&gt;;<br />    <strong>2 │ </strong>async function load() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    return pending;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">TypeScript doesn't check values of type </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">, so callers can misuse the returned value without any error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Give the returned value a specific type. If the type isn't known in advance, use </span><span style=\"color: lightgreen;\"><strong>unknown</strong></span><span style=\"color: lightgreen;\"> instead, which requires callers to check the value before using it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts title='invalid-type-argument.ts'
+function getNames(): Set<string> {
+    return new Set<any>([1]);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-type-argument.ts\">/invalid-type-argument.ts</a>:2:5 <a href=\"https://biomejs.dev/linter/rules/no-unsafe-return\">lint/nursery/noUnsafeReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function returns a value that uses </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\"> where its return type expects a specific type.</span><br />  <br />    <strong>1 │ </strong>function getNames(): Set&lt;string&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    return new Set&lt;any&gt;([1]);<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">TypeScript doesn't check values of type </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">, so callers can misuse the returned value without any error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\"> in the type arguments of the returned value with the types that the return type expects.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```ts title='valid.ts'
+function parse(text: string): unknown {
+    return JSON.parse(text);
+}
+
+function getNames(): Set<string> {
+    return new Set<string>(["a"]);
+}
+
+const getItems = () => ["a"];
+```
+
+## See Also
+
+- If you want to disallow writing the `any` type, see [`noExplicitAny`](https://biomejs.dev/linter/rules/no-explicit-any/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_unsafe_return.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUnsafeReturn)
+- <RulePlaygroundLink rule="noUnsafeReturn" category="lint" language="ts" code={"function parse(text: string) {\n    return JSON.parse(text);\n}\n"} />
+
