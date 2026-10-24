@@ -1,0 +1,130 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueUnusedEmitDeclarations (JavaScript)
+description: JavaScript (and super languages) documentation for noVueUnusedEmitDeclarations
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-unused-emit-declarations/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/noVueUnusedEmitDeclarations`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-unused-emit-declarations`](https://eslint.vuejs.org/rules/no-unused-emit-declarations)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueUnusedEmitDeclarations": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow declaring events that a Vue component never emits.
+
+A component lists the events it can emit with the `emits` option or with `defineEmits()`.
+An event that is declared but never emitted misleads the people who use the component:
+they can listen for the event, but their listener is never called. Such a declaration is
+usually left behind when the code that emitted the event was removed.
+
+This rule reports a declared event when neither the script nor the template of the
+component emits it. In the template, events are emitted with `$emit('name')` or with the
+function that `defineEmits()` returns.
+
+An event named `update:name` counts as emitted when the component declares a model called
+`name` with `defineModel()`, because Vue emits that event whenever the model changes.
+
+:::note
+In `.vue` files, this rule needs to read the template, which requires
+[`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)
+to be `true`. Without that setting, the rule only checks components defined in JavaScript
+and TypeScript files.
+:::
+
+The rule reports nothing for a component when it can't know every event the component
+emits. That is the case when:
+
+- an event name is not written as a string, as in `emit(eventName)`;
+- the function that emits events, the `setup()` context, or the component itself (`this`)
+is stored or handed to other code, as in `useForm(emit)`;
+- code written elsewhere runs as part of the component and can emit the events too:
+`mixins`, `extends`, an object copied into the options with `...`, a `setup` function
+that is not written inside the component, or a `<script src>` block;
+- the template can't be read, because it is kept in another file, written in a language
+other than HTML, or given as a string in the `template` option;
+- the component is an app created with `createApp()`, whose template can be written in
+the page.
+
+## Examples
+
+### Invalid
+
+```js
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  emits: ["change", "close"],
+  methods: {
+    close() {
+      this.$emit("close");
+    },
+  },
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:11 <a href=\"https://biomejs.dev/linter/rules/no-vue-unused-emit-declarations\">lint/nursery/noVueUnusedEmitDeclarations</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The event </span><span style=\"color: Orange;\"><strong>change</strong></span><span style=\"color: Orange;\"> is declared but never emitted.</span><br />  <br />    <strong>3 │ </strong>export default defineComponent(&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>  emits: [&quot;change&quot;, &quot;close&quot;],<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  methods: &#123;<br />    <strong>6 │ </strong>    close() &#123;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Other components can listen for this event, but their listeners are never called.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the declaration, or emit the event.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup lang="ts">
+const emit = defineEmits<{
+  change: [value: string];
+}>();
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <button @click="$emit('close')">Close</button>
+</template>
+
+<script setup>
+const emit = defineEmits(["change", "close"]);
+
+function onInput(value) {
+  emit("change", value);
+}
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_unused_emit_declarations.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueUnusedEmitDeclarations)
+- <RulePlaygroundLink rule="noVueUnusedEmitDeclarations" category="lint" language="js" code={"import { defineComponent } from \"vue\";\n\nexport default defineComponent({\n  emits: [\"change\", \"close\"],\n  methods: {\n    close() {\n      this.$emit(\"close\");\n    },\n  },\n});\n"} />
+

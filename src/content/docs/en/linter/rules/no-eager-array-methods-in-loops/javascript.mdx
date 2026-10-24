@@ -1,0 +1,122 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noEagerArrayMethodsInLoops (JavaScript)
+description: JavaScript (and super languages) documentation for noEagerArrayMethodsInLoops
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-eager-array-methods-in-loops/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/noEagerArrayMethodsInLoops`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`unicorn/no-duplicate-loops`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-duplicate-loops.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noEagerArrayMethodsInLoops": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `.map()` and `.filter()` calls in the header of `for...of` loops.
+
+Calling `.map()` or `.filter()` on an array in the header of a `for...of` or
+`for await...of` loop goes through the items twice.
+The method visits every item to build a new array, and then the loop visits every item of that new array.
+Doing the same work inside the loop body avoids the extra array and the second pass.
+
+The rule only checks calls written directly in the loop header.
+It doesn't report an array that is stored in a variable before the loop.
+
+The rule ignores calls on iterators. An iterator is an object that produces its values one at a time,
+so its `.map()` and `.filter()` methods don't build an array.
+The rule treats the following as iterators:
+
+- The result of `.values()`, `.keys()`, or `.entries()` called without arguments, or of `.matchAll()`.
+- The result of `Iterator.from()`, `Iterator.concat()`, `Iterator.zip()`, or `Iterator.zipKeyed()`.
+- The result of calling `.map()`, `.filter()`, `.flatMap()`, `.take()`, or `.drop()` on an iterator.
+- The result of calling a generator function declared in the same file.
+- A `const` variable that is assigned one of the values above.
+- In TypeScript, a value whose type annotation or type assertion names a built-in iterator type,
+such as `Iterator<string>` or `Generator<number>`, or a type alias for one.
+This includes the result of calling a function declared in the same file with such a return type.
+
+:::caution
+Moving an asynchronous callback into the loop body changes when the work starts.
+`urls.map(async (url) => fetch(url))` starts every request before the loop begins,
+while `await fetch(url)` inside the loop body starts each request only after the previous one finishes.
+:::
+
+## Examples
+
+### Invalid
+
+```js
+for (const name of users.map((user) => user.name)) {
+    console.log(name);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:20 <a href=\"https://biomejs.dev/linter/rules/no-eager-array-methods-in-loops\">lint/nursery/noEagerArrayMethodsInLoops</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>.map()</strong></span><span style=\"color: Orange;\"> call builds a new array that is only used by the </span><span style=\"color: Orange;\"><strong>for...of</strong></span><span style=\"color: Orange;\"> loop.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>for (const name of users.map((user) =&gt; user.name)) &#123;<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    console.log(name);<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>.map()</strong></span><span style=\"color: lightgreen;\"> visits every item to build the array before the loop starts, and the loop then visits every item again. The array is discarded after the loop.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Loop over the original items and do the callback's work inside the loop body.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+for (const user of users.filter((user) => user.isActive)) {
+    console.log(user);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:20 <a href=\"https://biomejs.dev/linter/rules/no-eager-array-methods-in-loops\">lint/nursery/noEagerArrayMethodsInLoops</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>.filter()</strong></span><span style=\"color: Orange;\"> call builds a new array that is only used by the </span><span style=\"color: Orange;\"><strong>for...of</strong></span><span style=\"color: Orange;\"> loop.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>for (const user of users.filter((user) =&gt; user.isActive)) &#123;<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    console.log(user);<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>.filter()</strong></span><span style=\"color: lightgreen;\"> visits every item to build the array before the loop starts, and the loop then visits every item again. The array is discarded after the loop.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Loop over the original items and skip the unwanted ones inside the loop body, for example with an </span><span style=\"color: lightgreen;\"><strong>if</strong></span><span style=\"color: lightgreen;\"> statement.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+for (const user of users) {
+    console.log(user.name);
+}
+
+for (const user of users) {
+    if (user.isActive) {
+        console.log(user);
+    }
+}
+
+// `.values()` returns an iterator, so `.map()` doesn't build an array.
+for (const name of users.values().map((user) => user.name)) {
+    console.log(name);
+}
+
+// The array is created before the loop.
+const names = users.map((user) => user.name);
+for (const name of names) {
+    console.log(name);
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_eager_array_methods_in_loops.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noEagerArrayMethodsInLoops)
+- <RulePlaygroundLink rule="noEagerArrayMethodsInLoops" category="lint" language="js" code={"for (const name of users.map((user) => user.name)) {\n    console.log(name);\n}\n"} />
+

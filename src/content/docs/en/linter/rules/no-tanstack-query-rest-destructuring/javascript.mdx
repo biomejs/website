@@ -1,0 +1,154 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noTanstackQueryRestDestructuring (JavaScript)
+description: JavaScript (and super languages) documentation for noTanstackQueryRestDestructuring
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-tanstack-query-rest-destructuring/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/noTanstackQueryRestDestructuring`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`tanstackQuery`](/linter/domains#tanstackQuery)
+- Sources: 
+  - Same as [`@tanstack/query/no-rest-destructuring`](https://tanstack.com/query/latest/docs/eslint/no-rest-destructuring)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTanstackQueryRestDestructuring": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow rest destructuring and object spread on TanStack Query results.
+
+The object returned by a TanStack Query function such as `useQuery` keeps track of the
+properties that a component reads. The component only updates when one of those
+properties changes.
+
+Collecting the remaining properties with a rest element (`...rest`), or copying the
+result into another object with a spread (`...query`), reads every property. The
+component then updates each time any part of the query changes, even the parts that
+the component doesn't use.
+
+This rule checks the results of the following functions, when they are imported from a
+TanStack Query package such as `@tanstack/react-query` or `@tanstack/svelte-query`:
+
+- `useQuery`, `useInfiniteQuery`, `useSuspenseQuery` and `useSuspenseInfiniteQuery`
+- `useQueries` and `useSuspenseQueries`
+- `createQuery`, `createInfiniteQuery` and `createQueries`, the names that
+`@tanstack/svelte-query` uses
+
+:::note
+The rule only checks direct calls to these functions. It doesn't check the result of a
+custom function that wraps one of them.
+:::
+
+## Examples
+
+### Invalid
+
+```js
+import { useQuery } from "@tanstack/react-query";
+
+const { data, ...rest } = useQuery({ queryKey: ["todos"], queryFn: fetchTodos });
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:15 <a href=\"https://biomejs.dev/linter/rules/no-tanstack-query-rest-destructuring\">lint/nursery/noTanstackQueryRestDestructuring</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This rest element collects every remaining property of a TanStack Query result.</span><br />  <br />    <strong>1 │ </strong>import &#123; useQuery &#125; from &quot;@tanstack/react-query&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>const &#123; data, ...rest &#125; = useQuery(&#123; queryKey: [&quot;todos&quot;], queryFn: fetchTodos &#125;);<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A query result only updates the component when a property that the component reads changes. Collecting the remaining properties reads all of them, so the component updates on every change to the query.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the rest element and list the properties that you need.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { useQuery } from "@tanstack/react-query";
+
+const query = useQuery({ queryKey: ["todos"], queryFn: fetchTodos });
+const { data, ...rest } = query;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:15 <a href=\"https://biomejs.dev/linter/rules/no-tanstack-query-rest-destructuring\">lint/nursery/noTanstackQueryRestDestructuring</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This rest element collects every remaining property of a TanStack Query result.</span><br />  <br />    <strong>3 │ </strong>const query = useQuery(&#123; queryKey: [&quot;todos&quot;], queryFn: fetchTodos &#125;);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const &#123; data, ...rest &#125; = query;<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A query result only updates the component when a property that the component reads changes. Collecting the remaining properties reads all of them, so the component updates on every change to the query.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the rest element and list the properties that you need.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { useQuery } from "@tanstack/react-query";
+
+const query = useQuery({ queryKey: ["todos"], queryFn: fetchTodos });
+const result = { ...query, todos: query.data };
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:18 <a href=\"https://biomejs.dev/linter/rules/no-tanstack-query-rest-destructuring\">lint/nursery/noTanstackQueryRestDestructuring</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This spread copies every property of a TanStack Query result.</span><br />  <br />    <strong>3 │ </strong>const query = useQuery(&#123; queryKey: [&quot;todos&quot;], queryFn: fetchTodos &#125;);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const result = &#123; ...query, todos: query.data &#125;;<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A query result only updates the component when a property that the component reads changes. Copying the result reads all of its properties, so the component updates on every change to the query.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the spread and copy the properties that you need.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { useQueries } from "@tanstack/react-query";
+
+const [{ data, ...rest }] = useQueries({
+    queries: [{ queryKey: ["todos"], queryFn: fetchTodos }],
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:16 <a href=\"https://biomejs.dev/linter/rules/no-tanstack-query-rest-destructuring\">lint/nursery/noTanstackQueryRestDestructuring</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This rest element collects every remaining property of a TanStack Query result.</span><br />  <br />    <strong>1 │ </strong>import &#123; useQueries &#125; from &quot;@tanstack/react-query&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>const [&#123; data, ...rest &#125;] = useQueries(&#123;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    queries: [&#123; queryKey: [&quot;todos&quot;], queryFn: fetchTodos &#125;],<br />    <strong>5 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A query result only updates the component when a property that the component reads changes. Collecting the remaining properties reads all of them, so the component updates on every change to the query.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the rest element and list the properties that you need.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```svelte
+<script>
+import { createQuery } from "@tanstack/svelte-query";
+
+const query = createQuery(() => ({ queryKey: ["todos"], queryFn: fetchTodos }));
+const { data, ...rest } = query;
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.svelte:5:15 <a href=\"https://biomejs.dev/linter/rules/no-tanstack-query-rest-destructuring\">lint/nursery/noTanstackQueryRestDestructuring</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This rest element collects every remaining property of a TanStack Query result.</span><br />  <br />    <strong>4 │ </strong>const query = createQuery(() =&gt; (&#123; queryKey: [&quot;todos&quot;], queryFn: fetchTodos &#125;));<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>const &#123; data, ...rest &#125; = query;<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>&lt;/script&gt;<br />    <strong>7 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A query result only updates the component when a property that the component reads changes. Collecting the remaining properties reads all of them, so the component updates on every change to the query.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the rest element and list the properties that you need.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+import { useQueries, useQuery } from "@tanstack/react-query";
+
+const { data, isPending } = useQuery({ queryKey: ["todos"], queryFn: fetchTodos });
+
+const query = useQuery({ queryKey: ["users"], queryFn: fetchUsers });
+const users = query.data;
+
+const [first, { data: posts }, ...others] = useQueries({
+    queries: [
+        { queryKey: ["todos"], queryFn: fetchTodos },
+        { queryKey: ["posts"], queryFn: fetchPosts },
+        { queryKey: ["users"], queryFn: fetchUsers },
+    ],
+});
+```
+
+```svelte
+<script>
+import { createQuery } from "@tanstack/svelte-query";
+
+const query = createQuery(() => ({ queryKey: ["todos"], queryFn: fetchTodos }));
+</script>
+
+<p>{query.data.length} todos</p>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_tanstack_query_rest_destructuring.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noTanstackQueryRestDestructuring)
+- <RulePlaygroundLink rule="noTanstackQueryRestDestructuring" category="lint" language="js" code={"import { useQuery } from \"@tanstack/react-query\";\n\nconst { data, ...rest } = useQuery({ queryKey: [\"todos\"], queryFn: fetchTodos });\n"} />
+

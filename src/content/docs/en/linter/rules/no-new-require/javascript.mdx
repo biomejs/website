@@ -1,0 +1,82 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noNewRequire (JavaScript)
+description: JavaScript (and super languages) documentation for noNewRequire
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-new-require/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/noNewRequire`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`no-new-require`](https://eslint.org/docs/latest/rules/no-new-require)
+  - Same as [`n/no-new-require`](https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-new-require.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noNewRequire": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow calling `require` with the `new` operator.
+
+Code like `new require("app-header")` looks like it loads a module and creates a new
+object from what the module exports, all in one step. It doesn't. `new` applies to
+`require` itself, not to the value that `require` returns. The result is whatever the
+module exports, such as a class, instead of a new object created from that class.
+
+Store the result of `require` in a variable first, then use `new` on that variable.
+
+The rule doesn't report `require` when it's a variable, parameter, or function declared
+in your own code.
+
+## Examples
+
+### Invalid
+
+```js
+const appHeader = new require("app-header");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:19 <a href=\"https://biomejs.dev/linter/rules/no-new-require\">lint/nursery/noNewRequire</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Unexpected use of </span><span style=\"color: Orange;\"><strong>new</strong></span><span style=\"color: Orange;\"> with </span><span style=\"color: Orange;\"><strong>require</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const appHeader = new require(&quot;app-header&quot;);<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Here </span><span style=\"color: lightgreen;\"><strong>new</strong></span><span style=\"color: lightgreen;\"> applies to </span><span style=\"color: lightgreen;\"><strong>require</strong></span><span style=\"color: lightgreen;\"> itself, so the result is whatever the module exports, not a new object created from it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Store the result of </span><span style=\"color: lightgreen;\"><strong>require</strong></span><span style=\"color: lightgreen;\"> in a variable first, then use </span><span style=\"color: lightgreen;\"><strong>new</strong></span><span style=\"color: lightgreen;\"> on that variable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+const AppHeader = require("app-header");
+const appHeader = new AppHeader();
+```
+
+## See Also
+
+- If you want to disallow `require` entirely, see [`noCommonJs`](https://biomejs.dev/linter/rules/no-common-js/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_new_require.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noNewRequire)
+- <RulePlaygroundLink rule="noNewRequire" category="lint" language="js" code={"const appHeader = new require(\"app-header\");\n"} />
+
