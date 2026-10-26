@@ -2,11 +2,11 @@ import type { RuleDomainValue } from "@biomejs/wasm-web";
 import {
 	type Dispatch,
 	type SetStateAction,
+	useCallback,
 	useEffect,
 	useRef,
 	useState,
 } from "react";
-import LoadingScreen from "@/playground/components/LoadingScreen";
 import Playground from "@/playground/Playground";
 import {
 	type ArrowParentheses,
@@ -282,27 +282,30 @@ function PlaygroundLoader() {
 		getFileState(state, state.currentFile)?.gritQuery,
 	]);
 
-	switch (loadingState) {
-		case LoadingState.Error:
-			return <div>Error loading. Please refresh</div>;
+	const loadPlayground = useCallback(() => {
+		setLoadRequested(true);
+	}, []);
 
-		case LoadingState.Loading:
-			return (
-				<LoadingScreen
-					loading={loadRequested}
-					onLoad={() => setLoadRequested(true)}
-				/>
-			);
-
-		default:
-			return (
-				<Playground
-					resetPlaygroundState={resetPlaygroundState}
-					setPlaygroundState={setPlaygroundState}
-					playgroundState={state}
-				/>
-			);
-	}
+	return (
+		<>
+			<Playground
+				resetPlaygroundState={resetPlaygroundState}
+				setPlaygroundState={setPlaygroundState}
+				playgroundState={state}
+				onEditorFocus={loadPlayground}
+			/>
+			{loadRequested && loadingState === LoadingState.Loading && (
+				<div className="playground-load-status" role="status">
+					Loading Biome…
+				</div>
+			)}
+			{loadingState === LoadingState.Error && (
+				<div className="playground-load-status error" role="alert">
+					Error loading Biome. Please refresh.
+				</div>
+			)}
+		</>
+	);
 }
 
 function buildLocation(state: PlaygroundState): string {

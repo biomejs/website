@@ -94,6 +94,7 @@ function viewLabel(view: PlaygroundViewType): string {
 export default function Playground({
 	setPlaygroundState,
 	playgroundState,
+	onEditorFocus,
 }: PlaygroundProps) {
 	const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
 	const [rightDrawerOpen, setRightDrawerOpen] = useState(false);
@@ -253,7 +254,7 @@ export default function Playground({
 			placeholder="Enter your code here"
 			onUpdate={onUpdate}
 			onChange={onChange}
-			autoFocus={true}
+			onFocusCapture={onEditorFocus}
 			data-testid="editor"
 			gritQueryMatches={gritQueryResults.matches}
 		/>

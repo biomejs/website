@@ -6,6 +6,13 @@ function encodeCode(code: string): string {
 	return Buffer.from(code, "utf16le").toString("base64");
 }
 
+async function activatePlayground(page: Page) {
+	await page.getByTestId("editor").getByRole("textbox").focus();
+	const loadStatus = page.locator(".playground-load-status");
+	await expect(loadStatus).toHaveText("Loading Biome…");
+	await expect(loadStatus).toHaveCount(0, { timeout: 30_000 });
+}
+
 /** Toggles a view from the toolbar, expanding the "Internals" group first if needed. */
 async function toggleView(
 	page: Page,
@@ -19,12 +26,35 @@ async function toggleView(
 	await button.click(options.additive ? { modifiers: ["Shift"] } : {});
 }
 
+test("loads the Biome WASM after editor focus", async ({ page }) => {
+	const wasmRequests: string[] = [];
+	page.on("request", (request) => {
+		const url = request.url();
+		if (url.includes("biome_wasm_bg") && url.includes(".wasm")) {
+			wasmRequests.push(url);
+		}
+	});
+
+	await page.goto("/playground");
+	await page.waitForLoadState("networkidle");
+	await expect(
+		page.getByTestId("editor").getByRole("textbox"),
+	).not.toBeFocused();
+	expect(wasmRequests).toEqual([]);
+
+	await activatePlayground(page);
+	await expect
+		.poll(() => wasmRequests.length, { timeout: 30_000 })
+		.toBeGreaterThan(0);
+});
+
 test.describe("playground should format code", () => {
 	test.describe("on navigation", () => {
 		test("javascript", async ({ page }) => {
 			await page.goto(
 				"/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D&prettier=true",
 			);
+			await activatePlayground(page);
 			await expect(
 				page.getByTestId("biome-output").getByRole("textbox"),
 			).toContainText("let a = 5;");
@@ -37,6 +67,7 @@ test.describe("playground should format code", () => {
 			await page.goto(
 				"/playground?files.main.css=ZABpAHYAIAB7AGMAbwBsAG8AcgA6ACAAYgBsAHUAZQA7AH0A&prettier=true",
 			);
+			await activatePlayground(page);
 			await expect(
 				page.getByTestId("biome-output").getByRole("textbox"),
 			).toContainText("div { color: blue;}");
@@ -49,6 +80,7 @@ test.describe("playground should format code", () => {
 			await page.goto(
 				"/playground?files.main.html=PABkAGkAdgA%2BADwALwBkAGkAdgA%2BAA%3D%3D&prettier=true",
 			);
+			await activatePlayground(page);
 			await expect(
 				page.getByTestId("biome-output").getByRole("textbox"),
 			).toContainText("<div></div>");
@@ -63,6 +95,7 @@ test.describe("playground should format code", () => {
 			"files.main.md": encodeCode("one\ntwo\n"),
 		});
 		await page.goto(`/playground?prettier=true#${hash}`);
+		await activatePlayground(page);
 		const biomeOutput = page.getByTestId("biome-output").getByRole("textbox");
 		const prettierOutput = page
 			.getByTestId("prettier-output")
@@ -93,6 +126,7 @@ test.describe("playground should format code", () => {
 		await page.goto(
 			`/playground?prettier=true#code=${encodeURIComponent(encodeCode("let a=5"))}`,
 		);
+		await activatePlayground(page);
 		await expect(page.getByTestId("prettier-diff-hint")).toHaveText(
 			"Exact match",
 		);
@@ -101,6 +135,7 @@ test.describe("playground should format code", () => {
 	test.describe("on typing", () => {
 		test("javascript", async ({ page }) => {
 			await page.goto("/playground");
+			await activatePlayground(page);
 			await page.getByLabel("Compare Prettier").check();
 			await page.getByTestId("editor").getByRole("textbox").fill("let a = 5;");
 			await expect(
@@ -118,6 +153,7 @@ test.describe("playground should show formatter IR", () => {
 
 	test("javascript", async ({ page }) => {
 		await page.goto("/playground?code=bABlAHQAIABhACAAPQAgADUAOwA%3D");
+		await activatePlayground(page);
 		await toggleView(page, "Formatter IR");
 		await page
 			.locator(".playground-view-pane")
@@ -135,6 +171,7 @@ test.describe("playground should show formatter IR", () => {
 		await page.goto(
 			"/playground?files.main.css=ZABpAHYAIAB7AGMAbwBsAG8AcgA6ACAAYgBsAHUAZQA7AH0A",
 		);
+		await activatePlayground(page);
 		await toggleView(page, "Formatter IR");
 		await page
 			.locator(".playground-view-pane")
@@ -152,6 +189,7 @@ test.describe("playground should show formatter IR", () => {
 		await page.goto(
 			"/playground?files.main.html=PABkAGkAdgA%2BADwALwBkAGkAdgA%2BAA%3D%3D",
 		);
+		await activatePlayground(page);
 		await toggleView(page, "Formatter IR");
 		await page
 			.locator(".playground-view-pane")
@@ -234,6 +272,7 @@ test.describe("playground links", () => {
 			const popup = page.waitForEvent("popup");
 			await link.click();
 			const playground = await popup;
+			await activatePlayground(playground);
 			await expect(
 				playground.getByTestId("editor").locator(".cm-line"),
 			).toHaveText(code.split("\n"));
@@ -360,6 +399,7 @@ test.describe("playground links", () => {
 	test("loads code from the hash", async ({ page }) => {
 		const code = "let hashValue = 1;";
 		await page.goto(`/playground#code=${encodeURIComponent(encodeCode(code))}`);
+		await activatePlayground(page);
 
 		await expect(page.getByTestId("editor").getByRole("textbox")).toContainText(
 			code,
@@ -406,6 +446,7 @@ test.describe("playground links", () => {
 			"files.main.ts": encodeCode('import { nested } from "./src/component";'),
 		});
 		await page.goto(`/playground#${hash}`);
+		await activatePlayground(page);
 
 		await expect(
 			page.getByRole("button", { name: "component.ts", exact: true }),
@@ -477,6 +518,7 @@ test.describe("playground links", () => {
 			),
 		});
 		await page.goto(`/playground#${hash}`);
+		await activatePlayground(page);
 
 		await expect(
 			page.getByTestId("biome-output").getByRole("textbox"),
@@ -489,6 +531,7 @@ test.describe("playground layout", () => {
 		await page.goto(
 			`/playground?prettier=true#code=${encodeURIComponent(encodeCode("let a=5"))}`,
 		);
+		await activatePlayground(page);
 		const output = page.getByTestId("biome-output").getByRole("textbox");
 		const comparePrettier = page.getByLabel("Compare Prettier");
 		await expect(output).toContainText("let a = 5;");
@@ -517,6 +560,7 @@ test.describe("playground layout", () => {
 		await page.goto(
 			`/playground?enabledLinting=false&fix=safeFixes#code=${encodeURIComponent(encodeCode("let a=5"))}`,
 		);
+		await activatePlayground(page);
 
 		await expect(
 			page.getByTestId("biome-output").getByRole("textbox"),
@@ -594,6 +638,7 @@ test.describe("playground layout", () => {
 		await expect(page.getByLabel("Language", { exact: true })).toBeDisabled();
 
 		await page.reload();
+		await activatePlayground(page);
 		await page.getByRole("button", { name: "main.tsx", exact: true }).click();
 		await page.getByRole("button", { name: "Safe", exact: true }).click();
 		await page.getByLabel("Format", { exact: true }).uncheck();
@@ -848,6 +893,7 @@ test.describe("playground layout", () => {
 				localStorage.setItem("playground:gritql-matches-ratio", String(size));
 			}, size);
 			await page.goto(`/playground?code=${gritCode}`);
+			await activatePlayground(page);
 			await page.getByRole("button", { name: "GritQL search" }).click();
 			await page
 				.locator(".gritql-panel .cm-content")
@@ -884,6 +930,7 @@ test.describe("playground layout", () => {
 		await page.goto(
 			`/playground?prettier=true#code=${encodeURIComponent(encodeCode(code))}`,
 		);
+		await activatePlayground(page);
 		const biome = page.getByTestId("biome-output");
 		const prettier = page.getByTestId("prettier-output");
 		await expect(prettier.getByRole("textbox")).toContainText("let a59 = 59;");
@@ -950,6 +997,7 @@ test.describe("playground GritQL search", () => {
 			await page.goto(
 				`/playground?files.${file}=${encodeURIComponent(encodeCode(code))}`,
 			);
+			await activatePlayground(page);
 			await toggleView(page, "GritQL search");
 			await page.locator(".gritql-select").selectOption({ label: language });
 			await page.locator(".gritql-panel .cm-content").fill(query);
