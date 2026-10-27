@@ -168,6 +168,10 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      '@netlify/edge-functions':
+        specifier: ^4.0.3
+        version: 4.0.3
     devDependencies:
       '@astrojs/check':
         specifier: 0.9.12
@@ -1660,6 +1664,10 @@ packages:
     resolution: {integrity: sha512-DQflkwaC3greGAAZ9v2wE5PU0qkXMeC7xhRnF/8DEGCjWaVLt/uf48nqDkyCxLG84GYMSQSmlMs+O4wPf+FqPw==}
     engines: {node: '>=22.12.0'}
 
+  '@netlify/edge-functions@4.0.3':
+    resolution: {integrity: sha512-AMxIH6D+VaMbCWFVXeYtCGGqIGxJ/92vbRj9fVzWvTvfjUA4S+0zHWnDLpa36CkYRk7ED00PR1Gh1W+CSAB/8g==}
+    engines: {node: '>=22.12.0'}
+
   '@netlify/functions-dev@2.0.11':
     resolution: {integrity: sha512-0sG1QsmYZavqLROTp8i8SFkAJ8dQZUjciP9eOH98BvgHOKrBdTonBOjugdLJgVzQqa7HklpQ4UOmUVDhLWKV4A==}
     engines: {node: '>=22.12.0'}
@@ -1726,6 +1734,10 @@ packages:
 
   '@netlify/types@3.2.0':
     resolution: {integrity: sha512-PVvY1EEN9i2Er0LQoiyNG7i/BnwnttLuZqIkBnhL2Jrcj3P5N/NcGkv1i20MJ2ngNGSPQcT7tagDmF3V6BsdWg==}
+    engines: {node: '>=22.12.0'}
+
+  '@netlify/types@3.3.0':
+    resolution: {integrity: sha512-u/uh0vOFslJsTcG8nnynAKnTpVIakXbv3mkBG9DTqKZrDEzmfLKDZ3I7evHA3/CYUmNB24pNrzlHj2nIsqEwzg==}
     engines: {node: '>=22.12.0'}
 
   '@netlify/vite-plugin@3.0.1':
@@ -8101,6 +8113,10 @@ snapshots:
     dependencies:
       '@netlify/types': 3.2.0
 
+  '@netlify/edge-functions@4.0.3':
+    dependencies:
+      '@netlify/types': 3.3.0
+
   '@netlify/functions-dev@2.0.11(encoding@0.1.13)(supports-color@10.2.2)':
     dependencies:
       '@netlify/blobs': 11.1.4(supports-color@10.2.2)
@@ -8218,6 +8234,8 @@ snapshots:
   '@netlify/types@2.8.0': {}
 
   '@netlify/types@3.2.0': {}
+
+  '@netlify/types@3.3.0': {}
 
   '@netlify/vite-plugin@3.0.1(encoding@0.1.13)(supports-color@10.2.2)(vite@8.3.5(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))':
     dependencies:
