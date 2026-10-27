@@ -34,7 +34,7 @@
     "@astrojs/prism": "4.1.1",
     "@astrojs/react": "7.1.1",
     "@astrojs/rss": "4.0.19",
-    "@astrojs/starlight": "0.42.6",
+    "@astrojs/starlight": "0.42.7",
     "@axe-core/playwright": "4.13.0",
     "@base-ui/react": "1.8.0",
     "@biomejs/biome": "2.5.15",
