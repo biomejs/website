@@ -275,6 +275,42 @@ When a global installation of Biome is required but not found in the `PATH`, the
 
 This setting controls whether that suggestion popup is shown.
 
+### `biome.languageAliases`
+
+**Default:** `{}` | **Scopes:** `global`, `workspace`, `workspace folder`
+
+Some extensions assign their own language identifier to files written in a language Biome supports. For example, the
+[Azure Pipelines](https://marketplace.visualstudio.com/items?itemName=ms-azure-devops.azure-pipelines) extension assigns the
+`azure-pipelines` language identifier to pipeline definitions, which are YAML files. This setting lets Biome handle these files
+as their underlying language.
+
+Aliases are listed by the language Biome supports:
+
+```json title=".vscode/settings.json"
+{
+  "biome.languageAliases": {
+    "yaml": ["azure-pipelines", "my-yaml-dialect"]
+  }
+}
+```
+
+By default, the following language identifiers are handled as YAML:
+
+- `ansible`
+- `azure-pipelines`
+- `dockercompose`
+- `github-actions-workflow`
+
+Listing aliases for a language replaces its default ones. To stop handling the default aliases of a language, set it to an empty list:
+
+```json title=".vscode/settings.json"
+{
+  "biome.languageAliases": {
+    "yaml": []
+  }
+}
+```
+
 ### `biome.lsp.trace.server`
 
 **Default:** `off` | **Scopes:** `global`
