@@ -39,7 +39,7 @@
     "@base-ui/react": "1.8.0",
     "@biomejs/biome": "2.5.15",
     "@biomejs/version-utils": "0.4.0",
-    "@biomejs/wasm-web": "https://pkg.pr.new/@biomejs/wasm-web@301402f",
+    "@biomejs/wasm-web": "https://pkg.pr.new/@biomejs/wasm-web@5d7553b",
     "@codemirror/lang-css": "6.3.1",
     "@codemirror/lang-html": "6.4.12",
     "@codemirror/lang-javascript": "6.2.5",
