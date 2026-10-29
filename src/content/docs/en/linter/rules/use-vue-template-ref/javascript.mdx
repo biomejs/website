@@ -1,0 +1,124 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueTemplateRef (JavaScript)
+description: JavaScript (and super languages) documentation for useVueTemplateRef
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-template-ref/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/useVueTemplateRef`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/prefer-use-template-ref`](https://eslint.vuejs.org/rules/prefer-use-template-ref)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueTemplateRef": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require `useTemplateRef()` instead of `ref()` or `shallowRef()` to access elements of the template.
+
+A template ref gives your script access to an element or a child component of the
+template. You name the element with the `ref` attribute, as in `<input ref="input" />`.
+
+In `<script setup>`, Vue fills in a variable created with `ref()` or `shallowRef()` when the
+variable has the same name as a `ref` attribute. The link between the two is only the
+name, so renaming the variable silently breaks it. The variable also looks like any other
+piece of state, which makes it hard to tell that the template fills it in.
+
+Vue 3.5 added `useTemplateRef()`, which takes the name of the `ref` attribute as an
+argument. The variable can then have any name, and the call shows that the value comes from
+the template.
+
+This rule reports a variable declared at the top level of `<script setup>` with `ref()` or
+`shallowRef()` when an element of the template has a `ref` attribute with the same name.
+
+A `ref` attribute with a dynamic value, such as `:ref="(el) => (input = el)"`, isn't
+reported, because the function decides where the element is stored.
+
+:::note
+This rule needs to read the template, which requires
+[`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)
+to be `true`.
+:::
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <input ref="input" />
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const input = ref();
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+  <div ref="root" />
+</template>
+
+<script setup>
+import { shallowRef } from "vue";
+
+const root = shallowRef(null);
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <input ref="input" />
+  <button :ref="(el) => (button = el)">Send</button>
+</template>
+
+<script setup>
+import { ref, useTemplateRef } from "vue";
+
+const inputElement = useTemplateRef("input");
+const button = ref();
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_template_ref.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueTemplateRef)
+- <RulePlaygroundLink rule="useVueTemplateRef" category="lint" language="vue" code={"<template>\n  <input ref=\"input\" />\n</template>\n\n<script setup>\nimport { ref } from \"vue\";\n\nconst input = ref();\n</script>\n"} />
+

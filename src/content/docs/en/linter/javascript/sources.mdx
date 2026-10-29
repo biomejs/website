@@ -701,6 +701,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-const](https://sveltejs.github.io/eslint-plugin-svelte/rules/prefer-const/) |[useConst](/linter/rules/use-const/javascript) |
 | [prefer-derived-over-derived-by](https://sveltejs.github.io/eslint-plugin-svelte/rules/prefer-derived-over-derived-by/) |[noSvelteUselessDerivedBy](/linter/rules/no-svelte-useless-derived-by/javascript) |
 | [prefer-svelte-reactivity](https://sveltejs.github.io/eslint-plugin-svelte/rules/prefer-svelte-reactivity/) |[useSvelteReactiveClasses](/linter/rules/use-svelte-reactive-classes/javascript) (inspired) |
+| [require-event-dispatcher-types](https://sveltejs.github.io/eslint-plugin-svelte/rules/require-event-dispatcher-types/) |[useSvelteEventDispatcherTypes](/linter/rules/use-svelte-event-dispatcher-types/javascript) |
 ### eslint-plugin-tailwindcss
 | eslint-plugin-tailwindcss Rules name | Biome Rules name |
 | ---- | ---- |
@@ -725,6 +726,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-array-for-each](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-for-each.md) |[noForEach](/linter/rules/no-for-each/javascript) |
 | [no-array-sort-for-min-max](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-array-sort-for-min-max.md) |[noArraySortForMinMax](/linter/rules/no-array-sort-for-min-max/javascript) |
 | [no-boolean-sort-comparator](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-boolean-sort-comparator.md) |[noBooleanSortComparator](/linter/rules/no-boolean-sort-comparator/javascript) |
+| [no-console-spaces](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-console-spaces.md) |[noConsoleSpaces](/linter/rules/no-console-spaces/javascript) |
 | [no-document-cookie](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-document-cookie.md) |[noDocumentCookie](/linter/rules/no-document-cookie/javascript) |
 | [no-double-comparison](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-double-comparison.md) |[noDoubleComparison](/linter/rules/no-double-comparison/javascript) |
 | [no-duplicate-loops](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-duplicate-loops.md) |[noEagerArrayMethodsInLoops](/linter/rules/no-eager-array-methods-in-loops/javascript) |
@@ -733,15 +735,20 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-instanceof-array](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-instanceof-array.md) |[useIsArray](/linter/rules/use-is-array/javascript) |
 | [no-invalid-file-input-accept](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-invalid-file-input-accept.md) |[noInvalidFileInputAccept](/linter/rules/no-invalid-file-input-accept/javascript) |
 | [no-lonely-if](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-lonely-if.md) |[useCollapsedIf](/linter/rules/use-collapsed-if/javascript) |
+| [no-magic-array-flat-depth](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-magic-array-flat-depth.md) |[noMagicArrayFlatDepth](/linter/rules/no-magic-array-flat-depth/javascript) |
 | [no-negated-condition](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-negated-condition.md) |[noNegationElse](/linter/rules/no-negation-else/javascript) |
 | [no-negation-in-equality-check](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-negation-in-equality-check.md) |[noNegationInEqualityCheck](/linter/rules/no-negation-in-equality-check/javascript) |
 | [no-nested-ternary](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-nested-ternary.md) |[noNestedTernary](/linter/rules/no-nested-ternary/javascript) (inspired) |
+| [no-null](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-null.md) |[noNull](/linter/rules/no-null/javascript) |
 | [no-process-exit](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-process-exit.md) |[noProcessExit](/linter/rules/no-process-exit/javascript) (inspired) |
+| [no-return-array-push](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-return-array-push.md) |[noReturnArrayPush](/linter/rules/no-return-array-push/javascript) |
 | [no-static-only-class](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-static-only-class.md) |[noStaticOnlyClass](/linter/rules/no-static-only-class/javascript) |
 | [no-thenable](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-thenable.md) |[noThenProperty](/linter/rules/no-then-property/javascript) |
 | [no-this-outside-of-class](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-this-outside-of-class.md) |[noThisOutsideOfClass](/linter/rules/no-this-outside-of-class/javascript) |
 | [no-unnecessary-splice](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-unnecessary-splice.md) |[noUselessSplice](/linter/rules/no-useless-splice/javascript) |
 | [no-unreadable-for-of-expression](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-unreadable-for-of-expression.md) |[noUnreadableForOfExpression](/linter/rules/no-unreadable-for-of-expression/javascript) |
+| [no-unreadable-iife](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-unreadable-iife.md) |[noUnreadableIife](/linter/rules/no-unreadable-iife/javascript) |
+| [no-useless-recursion](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-recursion.md) |[noUselessRecursion](/linter/rules/no-useless-recursion/javascript) |
 | [no-useless-switch-case](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-switch-case.md) |[noUselessSwitchCase](/linter/rules/no-useless-switch-case/javascript) |
 | [no-useless-undefined](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-undefined.md) |[noUselessUndefined](/linter/rules/no-useless-undefined/javascript) |
 | [no-xor-as-exponentiation](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-xor-as-exponentiation.md) |[noXorAsExponentiation](/linter/rules/no-xor-as-exponentiation/javascript) |
@@ -773,6 +780,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [prefer-string-slice](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-string-slice.md) |[noSubstr](/linter/rules/no-substr/javascript) |
 | [prefer-string-trim-start-end](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-string-trim-start-end.md) |[useTrimStartEnd](/linter/rules/use-trim-start-end/javascript) |
 | [prefer-unary-minus](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-unary-minus.md) |[useUnaryMinus](/linter/rules/use-unary-minus/javascript) |
+| [prefer-while-loop-condition](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-while-loop-condition.md) |[useWhileLoopCondition](/linter/rules/use-while-loop-condition/javascript) |
 | [require-number-to-fixed-digits-argument](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/require-number-to-fixed-digits-argument.md) |[useNumberToFixedDigitsArgument](/linter/rules/use-number-to-fixed-digits-argument/javascript) |
 | [throw-new-error](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/throw-new-error.md) |[useThrowNewError](/linter/rules/use-throw-new-error/javascript) |
 ### eslint-plugin-unused-imports
@@ -787,15 +795,20 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [component-api-style](https://eslint.vuejs.org/rules/component-api-style) |[noVueOptionsApi](/linter/rules/no-vue-options-api/javascript) (inspired) |
 | [define-macros-order](https://eslint.vuejs.org/rules/define-macros-order) |[useVueDefineMacrosOrder](/linter/rules/use-vue-define-macros-order/javascript) |
 | [define-props-declaration](https://eslint.vuejs.org/rules/define-props-declaration) |[useVueConsistentDefinePropsDeclaration](/linter/rules/use-vue-consistent-define-props-declaration/javascript) |
+| [define-props-destructuring](https://eslint.vuejs.org/rules/define-props-destructuring) |[useVueDefinePropsDestructuring](/linter/rules/use-vue-define-props-destructuring/javascript) |
+| [dot-notation](https://eslint.vuejs.org/rules/dot-notation) |[useLiteralKeys](/linter/rules/use-literal-keys/javascript) |
 | [eqeqeq](https://eslint.vuejs.org/rules/eqeqeq) |[noDoubleEquals](/linter/rules/no-double-equals/javascript) |
 | [match-component-file-name](https://eslint.vuejs.org/rules/match-component-file-name) |[useVueMatchingComponentFileName](/linter/rules/use-vue-matching-component-file-name/javascript) (inspired) |
 | [multi-word-component-names](https://eslint.vuejs.org/rules/multi-word-component-names) |[useVueMultiWordComponentNames](/linter/rules/use-vue-multi-word-component-names/javascript) (inspired) |
 | [next-tick-style](https://eslint.vuejs.org/rules/next-tick-style) |[useVueNextTickPromise](/linter/rules/use-vue-next-tick-promise/javascript) (inspired) |
 | [no-arrow-functions-in-watch](https://eslint.vuejs.org/rules/no-arrow-functions-in-watch) |[noVueArrowFuncInWatch](/linter/rules/no-vue-arrow-func-in-watch/javascript) |
 | [no-boolean-default](https://eslint.vuejs.org/rules/no-boolean-default) |[noVueBooleanDefault](/linter/rules/no-vue-boolean-default/javascript) |
+| [no-computed-properties-in-data](https://eslint.vuejs.org/rules/no-computed-properties-in-data) |[noVueComputedPropertiesInData](/linter/rules/no-vue-computed-properties-in-data/javascript) |
 | [no-console](https://eslint.vuejs.org/rules/no-console) |[noConsole](/linter/rules/no-console/javascript) |
 | [no-constant-condition](https://eslint.vuejs.org/rules/no-constant-condition) |[noConstantCondition](/linter/rules/no-constant-condition/javascript) |
 | [no-deprecated-data-object-declaration](https://eslint.vuejs.org/rules/no-deprecated-data-object-declaration) |[noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration/javascript) (inspired) |
+| [no-deprecated-delete-set](https://eslint.vuejs.org/rules/no-deprecated-delete-set) |[noVueDeprecatedDeleteSet](/linter/rules/no-vue-deprecated-delete-set/javascript) |
+| [no-deprecated-dollar-listeners-api](https://eslint.vuejs.org/rules/no-deprecated-dollar-listeners-api) |[noVueDeprecatedListeners](/linter/rules/no-vue-deprecated-listeners/javascript) |
 | [no-deprecated-dollar-scopedslots-api](https://eslint.vuejs.org/rules/no-deprecated-dollar-scopedslots-api) |[noVueDeprecatedScopedSlots](/linter/rules/no-vue-deprecated-scoped-slots/javascript) |
 | [no-dupe-keys](https://eslint.vuejs.org/rules/no-dupe-keys) |[noVueDuplicateKeys](/linter/rules/no-vue-duplicate-keys/javascript) |
 | [no-empty-pattern](https://eslint.vuejs.org/rules/no-empty-pattern) |[noEmptyPattern](/linter/rules/no-empty-pattern/javascript) |
@@ -804,6 +817,8 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-irregular-whitespace](https://eslint.vuejs.org/rules/no-irregular-whitespace) |[noIrregularWhitespace](/linter/rules/no-irregular-whitespace/javascript) |
 | [no-lifecycle-after-await](https://eslint.vuejs.org/rules/no-lifecycle-after-await) |[noVueLifecycleAfterAwait](/linter/rules/no-vue-lifecycle-after-await/javascript) |
 | [no-loss-of-precision](https://eslint.vuejs.org/rules/no-loss-of-precision) |[noPrecisionLoss](/linter/rules/no-precision-loss/javascript) |
+| [no-multiple-slot-args](https://eslint.vuejs.org/rules/no-multiple-slot-args) |[noVueMultipleSlotArgs](/linter/rules/no-vue-multiple-slot-args/javascript) |
+| [no-mutating-props](https://eslint.vuejs.org/rules/no-mutating-props) |[noVueMutatingProps](/linter/rules/no-vue-mutating-props/javascript) |
 | [no-negated-condition](https://eslint.vuejs.org/rules/no-negated-condition) |[noNegationElse](/linter/rules/no-negation-else/javascript) |
 | [no-ref-as-operand](https://eslint.vuejs.org/rules/no-ref-as-operand) |[noVueRefAsOperand](/linter/rules/no-vue-ref-as-operand/javascript) |
 | [no-required-prop-with-default](https://eslint.vuejs.org/rules/no-required-prop-with-default) |[noVueRequiredPropWithDefault](/linter/rules/no-vue-required-prop-with-default/javascript) |
@@ -812,6 +827,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-setup-props-reactivity-loss](https://eslint.vuejs.org/rules/no-setup-props-reactivity-loss) |[noVueSetupPropsReactivityLoss](/linter/rules/no-vue-setup-props-reactivity-loss/javascript) (inspired) |
 | [no-shadow-native-events](https://eslint.vuejs.org/rules/no-shadow-native-events) |[noVueShadowNativeEvents](/linter/rules/no-vue-shadow-native-events/javascript) (inspired) |
 | [no-shared-component-data](https://eslint.vuejs.org/rules/no-shared-component-data) |[noVueDataObjectDeclaration](/linter/rules/no-vue-data-object-declaration/javascript) (inspired) |
+| [no-side-effects-in-computed-properties](https://eslint.vuejs.org/rules/no-side-effects-in-computed-properties) |[noVueSideEffectsInComputed](/linter/rules/no-vue-side-effects-in-computed/javascript) (inspired) |
 | [no-sparse-arrays](https://eslint.vuejs.org/rules/no-sparse-arrays) |[noSparseArray](/linter/rules/no-sparse-array/javascript) |
 | [no-template-target-blank](https://eslint.vuejs.org/rules/no-template-target-blank) |[noBlankTarget](/linter/rules/no-blank-target/javascript) |
 | [no-unused-emit-declarations](https://eslint.vuejs.org/rules/no-unused-emit-declarations) |[noVueUnusedEmitDeclarations](/linter/rules/no-vue-unused-emit-declarations/javascript) |
@@ -819,8 +835,14 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-useless-concat](https://eslint.vuejs.org/rules/no-useless-concat) |[noUselessStringConcat](/linter/rules/no-useless-string-concat/javascript) |
 | [no-watch-after-await](https://eslint.vuejs.org/rules/no-watch-after-await) |[noVueWatchAfterAwait](/linter/rules/no-vue-watch-after-await/javascript) |
 | [object-shorthand](https://eslint.vuejs.org/rules/object-shorthand) |[useConsistentObjectDefinitions](/linter/rules/use-consistent-object-definitions/javascript) |
+| [prefer-define-options](https://eslint.vuejs.org/rules/prefer-define-options) |[useVueDefineOptions](/linter/rules/use-vue-define-options/javascript) |
 | [prefer-import-from-vue](https://eslint.vuejs.org/rules/prefer-import-from-vue) |[useVueBaseImport](/linter/rules/use-vue-base-import/javascript) |
+| [prefer-use-template-ref](https://eslint.vuejs.org/rules/prefer-use-template-ref) |[useVueTemplateRef](/linter/rules/use-vue-template-ref/javascript) (inspired) |
+| [require-prop-types](https://eslint.vuejs.org/rules/require-prop-types) |[useVueTypedProps](/linter/rules/use-vue-typed-props/javascript) |
 | [require-typed-ref](https://eslint.vuejs.org/rules/require-typed-ref) |[useVueTypedRef](/linter/rules/use-vue-typed-ref/javascript) |
+| [valid-define-emits](https://eslint.vuejs.org/rules/valid-define-emits) |[useVueValidDefineEmits](/linter/rules/use-vue-valid-define-emits/javascript) |
+| [valid-define-props](https://eslint.vuejs.org/rules/valid-define-props) |[useVueValidDefineProps](/linter/rules/use-vue-valid-define-props/javascript) (inspired) |
+| [valid-v-memo](https://eslint.vuejs.org/rules/valid-v-memo) |[useVueValidVMemo](/linter/rules/use-vue-valid-v-memo/javascript) |
 ### typescript-eslint
 | typescript-eslint Rules name | Biome Rules name |
 | ---- | ---- |

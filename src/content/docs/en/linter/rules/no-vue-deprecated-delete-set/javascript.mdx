@@ -1,0 +1,124 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDeprecatedDeleteSet (JavaScript)
+description: JavaScript (and super languages) documentation for noVueDeprecatedDeleteSet
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-deprecated-delete-set/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noVueDeprecatedDeleteSet`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-deprecated-delete-set`](https://eslint.vuejs.org/rules/no-deprecated-delete-set)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedDeleteSet": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the `$set` and `$delete` functions that Vue 3 removed.
+
+Vue 2 could not detect when a property was added to or deleted from a reactive object, so it provided `$set` and `$delete` (also available as `Vue.set` and `Vue.delete`, or as `set` and `del` imported from `vue`) to make these changes visible.
+Vue 3 detects these changes on its own and no longer provides these functions, so calling them throws an error.
+
+Assign the property directly to add it, and use the `delete` operator to remove it.
+
+See the [Vue 3 migration guide](https://v3-migration.vuejs.org/breaking-changes/#removed-apis) for more information.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  methods: {
+    addName() {
+      this.$set(this.user, "name", "Alice");
+    }
+  }
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:5:7 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-delete-set\">lint/nursery/noVueDeprecatedDeleteSet</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This calls the Vue </span><span style=\"color: lightgreen;\"><strong>set</strong></span><span style=\"color: lightgreen;\"> function, which Vue 3 removed.</span><br />  <br />    <strong>3 │ </strong>  methods: &#123;<br />    <strong>4 │ </strong>    addName() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>      this.$set(this.user, &quot;name&quot;, &quot;Alice&quot;);<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>    &#125;<br />    <strong>7 │ </strong>  &#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 detects added and deleted properties on its own, so this function no longer exists and calling it throws an error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Assign the property directly instead, for example </span><span style=\"color: lightgreen;\"><strong>object.key = value</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script>
+export default {
+  methods: {
+    removeName() {
+      this.$delete(this.user, "name");
+    }
+  }
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:5:7 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-delete-set\">lint/nursery/noVueDeprecatedDeleteSet</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This calls the Vue </span><span style=\"color: lightgreen;\"><strong>delete</strong></span><span style=\"color: lightgreen;\"> function, which Vue 3 removed.</span><br />  <br />    <strong>3 │ </strong>  methods: &#123;<br />    <strong>4 │ </strong>    removeName() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>      this.$delete(this.user, &quot;name&quot;);<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>    &#125;<br />    <strong>7 │ </strong>  &#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 detects added and deleted properties on its own, so this function no longer exists and calling it throws an error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the </span><span style=\"color: lightgreen;\"><strong>delete</strong></span><span style=\"color: lightgreen;\"> operator instead, for example </span><span style=\"color: lightgreen;\"><strong>delete object.key</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import Vue from "vue";
+
+Vue.set(user, "name", "Alice");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:1 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-delete-set\">lint/nursery/noVueDeprecatedDeleteSet</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This calls the Vue </span><span style=\"color: lightgreen;\"><strong>set</strong></span><span style=\"color: lightgreen;\"> function, which Vue 3 removed.</span><br />  <br />    <strong>1 │ </strong>import Vue from &quot;vue&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>Vue.set(user, &quot;name&quot;, &quot;Alice&quot;);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 detects added and deleted properties on its own, so this function no longer exists and calling it throws an error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Assign the property directly instead, for example </span><span style=\"color: lightgreen;\"><strong>object.key = value</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { del } from "vue";
+
+del(user, "name");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:1 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-delete-set\">lint/nursery/noVueDeprecatedDeleteSet</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This calls the Vue </span><span style=\"color: lightgreen;\"><strong>delete</strong></span><span style=\"color: lightgreen;\"> function, which Vue 3 removed.</span><br />  <br />    <strong>1 │ </strong>import &#123; del &#125; from &quot;vue&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>del(user, &quot;name&quot;);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 detects added and deleted properties on its own, so this function no longer exists and calling it throws an error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the </span><span style=\"color: lightgreen;\"><strong>delete</strong></span><span style=\"color: lightgreen;\"> operator instead, for example </span><span style=\"color: lightgreen;\"><strong>delete object.key</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+export default {
+  methods: {
+    addName() {
+      this.user.name = "Alice";
+    },
+    removeName() {
+      delete this.user.name;
+    }
+  }
+};
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_deprecated_delete_set.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueDeprecatedDeleteSet)
+- <RulePlaygroundLink rule="noVueDeprecatedDeleteSet" category="lint" language="vue" code={"<script>\nexport default {\n  methods: {\n    addName() {\n      this.$set(this.user, \"name\", \"Alice\");\n    }\n  }\n};\n</script>\n"} />
+

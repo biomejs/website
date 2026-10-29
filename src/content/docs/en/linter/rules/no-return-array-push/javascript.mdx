@@ -1,0 +1,127 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noReturnArrayPush (JavaScript)
+description: JavaScript (and super languages) documentation for noReturnArrayPush
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-return-array-push/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noReturnArrayPush`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`unicorn/no-return-array-push`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-return-array-push.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noReturnArrayPush": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow using the return value of `Array.prototype.push()` and `Array.prototype.unshift()`.
+
+`push()` and `unshift()` add items to an array and return the new length of the array.
+They don't return the added item or the array itself.
+Returning or storing this length is almost always a mistake, because the code reads as if
+the result were meaningful when it says nothing about what was added.
+
+To add an item and stop the function, call `push()` or `unshift()` before `return`.
+If you need the new length, read the `length` property of the array after adding the item.
+
+The rule only reports calls with at least one argument.
+It ignores calls whose result is discarded with the `void` operator, such as `void items.push(item)`,
+and calls whose result is accessed with `.` or `[]`, such as `router.push(to).catch(handleError)`,
+because this usually means `push()` is a custom method that returns something other than a length.
+
+The rule also ignores `push()` calls on objects that are commonly not arrays:
+`stream`, `router`, `this`, `this.stream`, `this.router`, `this.$router`,
+`process.stdin`, `process.stdout`, and `process.stderr`.
+It ignores `push()` and `unshift()` calls on values that are written in a way that shows they
+aren't arrays: objects (`{}`), functions, classes, template strings, and `new` expressions
+other than `new Array()`.
+
+## Examples
+
+### Invalid
+
+```js
+function add(item) {
+    return items.push(item);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:18 <a href=\"https://biomejs.dev/linter/rules/no-return-array-push\">lint/nursery/noReturnArrayPush</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The return value of </span><span style=\"color: Orange;\"><strong>push()</strong></span><span style=\"color: Orange;\"> is used here.</span><br />  <br />    <strong>1 │ </strong>function add(item) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    return items.push(item);<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>push()</strong></span><span style=\"color: lightgreen;\"> returns the new length of the array, not the added item or the array. Using this length is usually a mistake.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>push()</strong></span><span style=\"color: lightgreen;\"> as its own statement. If you need the new length, read the </span><span style=\"color: lightgreen;\"><strong>length</strong></span><span style=\"color: lightgreen;\"> property of the array afterward.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Move the call before the </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> statement.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  function add(item) &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">h</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\">;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">.</span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">h</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\">;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><strong>r</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>u</strong></span><span style=\"color: MediumSeaGreen;\"><strong>r</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>;</strong></span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  &#125;<br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```js
+const add = (item) => items.push(item);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:29 <a href=\"https://biomejs.dev/linter/rules/no-return-array-push\">lint/nursery/noReturnArrayPush</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The return value of </span><span style=\"color: Orange;\"><strong>push()</strong></span><span style=\"color: Orange;\"> is used here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const add = (item) =&gt; items.push(item);<br />   <strong>   │ </strong>                            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>push()</strong></span><span style=\"color: lightgreen;\"> returns the new length of the array, not the added item or the array. Using this length is usually a mistake.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>push()</strong></span><span style=\"color: lightgreen;\"> as its own statement. If you need the new length, read the </span><span style=\"color: lightgreen;\"><strong>length</strong></span><span style=\"color: lightgreen;\"> property of the array afterward.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const length = items.unshift(item);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:22 <a href=\"https://biomejs.dev/linter/rules/no-return-array-push\">lint/nursery/noReturnArrayPush</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The return value of </span><span style=\"color: Orange;\"><strong>unshift()</strong></span><span style=\"color: Orange;\"> is used here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const length = items.unshift(item);<br />   <strong>   │ </strong>                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>unshift()</strong></span><span style=\"color: lightgreen;\"> returns the new length of the array, not the added item or the array. Using this length is usually a mistake.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>unshift()</strong></span><span style=\"color: lightgreen;\"> as its own statement. If you need the new length, read the </span><span style=\"color: lightgreen;\"><strong>length</strong></span><span style=\"color: lightgreen;\"> property of the array afterward.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+An arrow function without braces returns its body, even when the caller ignores the result:
+
+```js
+source.forEach((item) => target.push(item));
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:33 <a href=\"https://biomejs.dev/linter/rules/no-return-array-push\">lint/nursery/noReturnArrayPush</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The return value of </span><span style=\"color: Orange;\"><strong>push()</strong></span><span style=\"color: Orange;\"> is used here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>source.forEach((item) =&gt; target.push(item));<br />   <strong>   │ </strong>                                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>push()</strong></span><span style=\"color: lightgreen;\"> returns the new length of the array, not the added item or the array. Using this length is usually a mistake.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>push()</strong></span><span style=\"color: lightgreen;\"> as its own statement. If you need the new length, read the </span><span style=\"color: lightgreen;\"><strong>length</strong></span><span style=\"color: lightgreen;\"> property of the array afterward.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+function add(item) {
+    items.push(item);
+    return;
+}
+
+const addItem = (item) => {
+    items.push(item);
+};
+
+items.unshift(item);
+const length = items.length;
+
+function getNextLength(item) {
+    items.push(item);
+    return items.length;
+}
+
+target.push(...source);
+
+void items.push(item);
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_return_array_push.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noReturnArrayPush)
+- <RulePlaygroundLink rule="noReturnArrayPush" category="lint" language="js" code={"function add(item) {\n    return items.push(item);\n}\n"} />
+

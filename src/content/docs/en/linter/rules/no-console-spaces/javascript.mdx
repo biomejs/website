@@ -1,0 +1,92 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noConsoleSpaces (JavaScript)
+description: JavaScript (and super languages) documentation for noConsoleSpaces
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-console-spaces/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noConsoleSpaces`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`unicorn/no-console-spaces`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-console-spaces.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noConsoleSpaces": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow leading and trailing spaces in `console` method arguments.
+
+`console.log()`, `console.debug()`, `console.info()`, `console.warn()`, and `console.error()`
+put a space between their arguments when printing them.
+A string argument that starts or ends with a space next to another argument
+prints two spaces instead of one.
+
+The first argument may start with a space, and the last argument may end with one,
+because nothing is printed before or after them.
+Strings that contain only one space, or that start or end with two or more spaces,
+are allowed because the extra spacing is likely intentional.
+
+## Examples
+
+### Invalid
+
+```js
+console.log("abc ", "def");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:17 <a href=\"https://biomejs.dev/linter/rules/no-console-spaces\">lint/nursery/noConsoleSpaces</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This argument ends with a space.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>console.log(&quot;abc &quot;, &quot;def&quot;);<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>console.log()</strong></span><span style=\"color: lightgreen;\"> already prints a space between its arguments, so this space adds a second one.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the trailing space.</span><br />  <br />  <strong>  1 │ </strong>console.log(&quot;abc<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span>&quot;,<span style=\"opacity: 0.8;\">·</span>&quot;def&quot;);<br />  <strong>    │ </strong>                <span style=\"color: Tomato;\">-</span>          <br /></code></pre>"} />
+
+```js
+console.error("abc", " def");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:23 <a href=\"https://biomejs.dev/linter/rules/no-console-spaces\">lint/nursery/noConsoleSpaces</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This argument starts with a space.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>console.error(&quot;abc&quot;, &quot; def&quot;);<br />   <strong>   │ </strong>                      <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>console.error()</strong></span><span style=\"color: lightgreen;\"> already prints a space between its arguments, so this space adds a second one.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the leading space.</span><br />  <br />  <strong>  1 │ </strong>console.error(&quot;abc&quot;,<span style=\"opacity: 0.8;\">·</span>&quot;<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span>def&quot;);<br />  <strong>    │ </strong>                      <span style=\"color: Tomato;\">-</span>      <br /></code></pre>"} />
+
+```js
+console.warn(`abc `, "def");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:18 <a href=\"https://biomejs.dev/linter/rules/no-console-spaces\">lint/nursery/noConsoleSpaces</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This argument ends with a space.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>console.warn(&#96;abc &#96;, &quot;def&quot;);<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>console.warn()</strong></span><span style=\"color: lightgreen;\"> already prints a space between its arguments, so this space adds a second one.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the trailing space.</span><br />  <br />  <strong>  1 │ </strong>console.warn(&#96;abc<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span>&#96;,<span style=\"opacity: 0.8;\">·</span>&quot;def&quot;);<br />  <strong>    │ </strong>                 <span style=\"color: Tomato;\">-</span>          <br /></code></pre>"} />
+
+### Valid
+
+```js
+console.log("abc", "def");
+console.log(" abc", "def ");
+console.log("abc  ", "def");
+console.log("abc\t", "def");
+console.log("abc", " ", "def");
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_console_spaces.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noConsoleSpaces)
+- <RulePlaygroundLink rule="noConsoleSpaces" category="lint" language="js" code={"console.log(\"abc \", \"def\");\n"} />
+

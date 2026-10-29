@@ -1,0 +1,86 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDeprecatedListeners (JavaScript)
+description: JavaScript (and super languages) documentation for noVueDeprecatedListeners
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-deprecated-listeners/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noVueDeprecatedListeners`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-deprecated-dollar-listeners-api`](https://eslint.vuejs.org/rules/no-deprecated-dollar-listeners-api)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedListeners": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the deprecated Vue `$listeners` API.
+
+Vue 3 removed `$listeners`. Event listeners passed to a component are now part of `$attrs`,
+so code that still reads `$listeners` no longer receives them. Use `$attrs` instead when
+migrating a component from Vue 2.
+
+See the [Vue 3 migration guide](https://v3-migration.vuejs.org/breaking-changes/listeners-removed.html) for more information.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  mounted() {
+    console.log(this.$listeners);
+  }
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:22 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-listeners\">lint/nursery/noVueDeprecatedListeners</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The Vue </span><span style=\"color: lightgreen;\"><strong>$listeners</strong></span><span style=\"color: lightgreen;\"> API is deprecated.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  mounted() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    console.log(this.$listeners);<br />   <strong>   │ </strong>                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  &#125;<br />    <strong>6 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 removed </span><span style=\"color: lightgreen;\"><strong>$listeners</strong></span><span style=\"color: lightgreen;\"> and passes event listeners to the component through </span><span style=\"color: lightgreen;\"><strong>$attrs</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>$attrs</strong></span><span style=\"color: lightgreen;\">. See the </span><span style=\"color: lightgreen;\"><a href=\"https://v3-migration.vuejs.org/breaking-changes/listeners-removed.html\">Vue 3 migration guide</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+export default {
+  mounted() {
+    console.log(this.$attrs);
+  }
+};
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_deprecated_listeners.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueDeprecatedListeners)
+- <RulePlaygroundLink rule="noVueDeprecatedListeners" category="lint" language="vue" code={"<script>\nexport default {\n  mounted() {\n    console.log(this.$listeners);\n  }\n};\n</script>\n"} />
+
