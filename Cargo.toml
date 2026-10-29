@@ -63,5 +63,5 @@ pulldown-cmark = "0.13.4"
 schemars = "1.2.2"
 serde = "1.0.229"
 serde_json = "1.0.151"
-smallvec = "=1.16.2"  # locking to the same version of biome
+smallvec = "=1.16.4"  # locking to the same version of biome
 ureq = "3.4.2"
