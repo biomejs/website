@@ -1,0 +1,153 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDeprecatedRouterLinkTagProp (HTML)
+description: HTML documentation for noVueDeprecatedRouterLinkTagProp
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-deprecated-router-link-tag-prop/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noVueDeprecatedRouterLinkTagProp`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-deprecated-router-link-tag-prop`](https://eslint.vuejs.org/rules/no-deprecated-router-link-tag-prop)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedRouterLinkTagProp": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the `tag` prop on `RouterLink`.
+
+Vue Router 4, the version of Vue Router for Vue 3, doesn't support the `tag` prop on
+`<RouterLink>`. Writing `<RouterLink tag="li">` doesn't render an `<li>` element: the
+prop is ignored, and the link still renders as an `<a>` element.
+
+To render a different element, add the `custom` prop and put your own element in the
+link's default slot. The slot gives you a `navigate` function to call when the element
+is clicked:
+
+```vue
+<template>
+  <RouterLink to="/" custom v-slot="{ navigate }">
+    <li role="link" @click="navigate">Home</li>
+  </RouterLink>
+</template>
+```
+
+This rule checks `<RouterLink>` and `<router-link>`. Use the `components` option to
+check other link components.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <RouterLink tag="li" to="/">Home</RouterLink>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:15 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-router-link-tag-prop\">lint/nursery/noVueDeprecatedRouterLinkTagProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>tag</strong></span><span style=\"color: Tomato;\"> prop is used on </span><span style=\"color: Tomato;\"><strong>RouterLink</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;RouterLink tag=&quot;li&quot; to=&quot;/&quot;&gt;Home&lt;/RouterLink&gt;<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue Router 4 doesn't support this prop, so it's ignored and the link still renders as an </span><span style=\"color: lightgreen;\"><strong>&lt;a&gt;</strong></span><span style=\"color: lightgreen;\"> element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To render a different element, add the </span><span style=\"color: lightgreen;\"><strong>custom</strong></span><span style=\"color: lightgreen;\"> prop and put the element in the link's default slot.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <router-link :tag="element" to="/">Home</router-link>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-router-link-tag-prop\">lint/nursery/noVueDeprecatedRouterLinkTagProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>tag</strong></span><span style=\"color: Tomato;\"> prop is used on </span><span style=\"color: Tomato;\"><strong>router-link</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;router-link :tag=&quot;element&quot; to=&quot;/&quot;&gt;Home&lt;/router-link&gt;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue Router 4 doesn't support this prop, so it's ignored and the link still renders as an </span><span style=\"color: lightgreen;\"><strong>&lt;a&gt;</strong></span><span style=\"color: lightgreen;\"> element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To render a different element, add the </span><span style=\"color: lightgreen;\"><strong>custom</strong></span><span style=\"color: lightgreen;\"> prop and put the element in the link's default slot.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <RouterLink to="/">Home</RouterLink>
+  <router-link to="/">
+    <div>Home</div>
+  </router-link>
+  <NuxtLink tag="li" to="/">Home</NuxtLink>
+</template>
+```
+
+## Options
+
+### `components`
+
+Default: `["RouterLink"]`
+
+The names of the link components to check. Each name matches both its PascalCase and
+kebab-case spelling, so `"NuxtLink"` matches `<NuxtLink>` and `<nuxt-link>`. Setting
+this option replaces the default list, so include `"RouterLink"` to keep checking it.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedRouterLinkTagProp": {
+					"level": "on",
+					"options": {
+						"components": [
+							"RouterLink",
+							"NuxtLink"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```vue
+<template>
+  <nuxt-link tag="li" to="/">Home</nuxt-link>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:14 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-router-link-tag-prop\">lint/nursery/noVueDeprecatedRouterLinkTagProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>tag</strong></span><span style=\"color: Tomato;\"> prop is used on </span><span style=\"color: Tomato;\"><strong>nuxt-link</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;nuxt-link tag=&quot;li&quot; to=&quot;/&quot;&gt;Home&lt;/nuxt-link&gt;<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue Router 4 doesn't support this prop, so it's ignored and the link still renders as an </span><span style=\"color: lightgreen;\"><strong>&lt;a&gt;</strong></span><span style=\"color: lightgreen;\"> element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To render a different element, add the </span><span style=\"color: lightgreen;\"><strong>custom</strong></span><span style=\"color: lightgreen;\"> prop and put the element in the link's default slot.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <NuxtLink to="/">Home</NuxtLink>
+</template>
+```
+
+## References
+
+- [Vue Router migration guide: removal of the `tag` prop](https://router.vuejs.org/guide/migration/#Removal-of-event-and-tag-props-in-router-link-)
+- [Extending `RouterLink`](https://router.vuejs.org/guide/advanced/extending-router-link.html)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_deprecated_router_link_tag_prop.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueDeprecatedRouterLinkTagProp)
+- <RulePlaygroundLink rule="noVueDeprecatedRouterLinkTagProp" category="lint" language="vue" code={"<template>\n  <RouterLink tag=\"li\" to=\"/\">Home</RouterLink>\n</template>\n"} />
+

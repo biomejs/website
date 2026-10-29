@@ -1,0 +1,122 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueSideEffectsInComputed (JavaScript)
+description: JavaScript (and super languages) documentation for noVueSideEffectsInComputed
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-side-effects-in-computed/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noVueSideEffectsInComputed`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/no-side-effects-in-computed-properties`](https://eslint.vuejs.org/rules/no-side-effects-in-computed-properties)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueSideEffectsInComputed": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow changing state inside Vue computed properties.
+
+A computed property should only calculate a value from other values and return it. Vue
+decides when to run it: it may run it many times, or reuse the last result without running
+it at all. When a computed property also changes state, such as assigning to a variable or
+sorting an array, those changes happen at times that are hard to predict, and the
+component becomes hard to understand.
+
+This rule reports code in the function that calculates a computed property when that code:
+
+- assigns to, increments, or deletes a property of the component (`this.count++`), or of
+a variable declared in `setup()` or in `<script setup>` (`user.value.name = ""`);
+- calls an array method that changes the array itself instead of returning a new one:
+`copyWithin()`, `fill()`, `pop()`, `push()`, `reverse()`, `shift()`, `sort()`,
+`splice()` or `unshift()`;
+- passes such a value as the first argument of `Object.assign()`, which changes it.
+
+Changes to variables declared inside the computed property are allowed, because no other
+code can see them. A computed property can also have a `set` function, which runs when a
+new value is assigned to the property. That function isn't checked, because changing state
+is its purpose.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  computed: {
+    reversedItems() {
+      return this.items.reverse();
+    },
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:5:14 <a href=\"https://biomejs.dev/linter/rules/no-vue-side-effects-in-computed\">lint/nursery/noVueSideEffectsInComputed</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The computed property </span><span style=\"color: Tomato;\"><strong>reversedItems</strong></span><span style=\"color: Tomato;\"> changes state.</span><br />  <br />    <strong>3 │ </strong>  computed: &#123;<br />    <strong>4 │ </strong>    reversedItems() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>      return this.items.reverse();<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>    &#125;,<br />    <strong>7 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue decides when to run a computed property, and skips running it again while the values it reads stay the same. Changes made inside it happen at unpredictable times.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Make the change in a method or a watcher instead. To sort or reverse an array, work on a copy, as in </span><span style=\"color: lightgreen;\"><strong>[...items].reverse()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+import { computed, ref } from "vue";
+
+const count = ref(0);
+const doubled = computed(() => {
+  count.value++;
+  return count.value * 2;
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:6:3 <a href=\"https://biomejs.dev/linter/rules/no-vue-side-effects-in-computed\">lint/nursery/noVueSideEffectsInComputed</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The computed property </span><span style=\"color: Tomato;\"><strong>doubled</strong></span><span style=\"color: Tomato;\"> changes state.</span><br />  <br />    <strong>4 │ </strong>const count = ref(0);<br />    <strong>5 │ </strong>const doubled = computed(() =&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>  count.value++;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>  return count.value &#42; 2;<br />    <strong>8 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue decides when to run a computed property, and skips running it again while the values it reads stay the same. Changes made inside it happen at unpredictable times.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Make the change in a method or a watcher instead. To sort or reverse an array, work on a copy, as in </span><span style=\"color: lightgreen;\"><strong>[...items].reverse()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup>
+import { computed, ref } from "vue";
+
+const items = ref([]);
+const reversedItems = computed(() => [...items.value].reverse());
+const total = computed(() => {
+  let sum = 0;
+  for (const item of items.value) {
+    sum += item.price;
+  }
+  return sum;
+});
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_side_effects_in_computed.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueSideEffectsInComputed)
+- <RulePlaygroundLink rule="noVueSideEffectsInComputed" category="lint" language="vue" code={"<script>\nexport default {\n  computed: {\n    reversedItems() {\n      return this.items.reverse();\n    },\n  },\n};\n</script>\n"} />
+

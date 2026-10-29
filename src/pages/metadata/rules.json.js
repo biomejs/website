@@ -1888,9 +1888,15 @@ export function GET() {
                 "source": {
                   "eslintVueJs": "no-use-v-if-with-v-for"
                 }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-use-v-else-with-v-for"
+                }
               }
             ],
-            "docs": " Disallow using `v-if` and `v-for` directives on the same element.\n\n There are two common cases where this can be tempting:\n - To filter items in a list (e.g. `v-for=\"user in users\" v-if=\"user.isActive\"`). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).\n - To avoid rendering a list if it should be hidden (e.g. `v-for=\"user in users\" v-if=\"shouldShowUsers\"`). In these cases, move the v-if to a container element.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <TodoItem\n     v-if=\"complete\"\n     v-for=\"todo in todos\"\n     :todo=\"todo\"\n />\n ```\n\n ### Valid\n\n ```vue\n <ul v-if=\"complete\">\n     <TodoItem\n         v-for=\"todo in todos\"\n         :todo=\"todo\"\n     />\n </ul>\n ```\n\n"
+            "docs": " Disallow using `v-if`, `v-else-if`, or `v-else` and `v-for` directives on the same element.\n\n There are two common cases where `v-if` and `v-for` on the same element can be tempting:\n - To filter items in a list (e.g. `v-for=\"user in users\" v-if=\"user.isActive\"`). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).\n - To avoid rendering a list if it should be hidden (e.g. `v-for=\"user in users\" v-if=\"shouldShowUsers\"`). In these cases, move the v-if to a container element.\n\n Putting `v-else-if` or `v-else` on the same element as `v-for` works, but the condition\n is checked before the loop runs, which is hard to tell when reading the template.\n Move the `v-else-if` or `v-else` to a wrapper element, such as a `<template>`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <TodoItem\n     v-if=\"complete\"\n     v-for=\"todo in todos\"\n     :todo=\"todo\"\n />\n ```\n\n ```vue,expect_diagnostic\n <div v-if=\"loading\">Loading...</div>\n <TodoItem v-else v-for=\"todo in todos\" :todo=\"todo\" />\n ```\n\n ### Valid\n\n ```vue\n <ul v-if=\"complete\">\n     <TodoItem\n         v-for=\"todo in todos\"\n         :todo=\"todo\"\n     />\n </ul>\n <div v-if=\"loading\">Loading...</div>\n <template v-else>\n     <TodoItem v-for=\"todo in todos\" :todo=\"todo\" />\n </template>\n ```\n\n"
           },
           "noVueVOnNumberValues": {
             "deprecated": false,
@@ -2026,7 +2032,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Enforces valid `v-for` directives in Vue templates.\n\n This rule reports `v-for` directives in the following cases:\n - The directive has an argument. E.g. `<div v-for:aaa=\"item in items\"></div>`\n - The directive has a modifier. E.g. `<div v-for.bbb=\"item in items\"></div>`\n - The directive does not have a value. E.g. `<div v-for></div>`\n - The second or third aliases are empty or are not simple identifiers.\n - A custom component rendered with `v-for` is missing `v-bind:key`.\n - The `v-bind:key` expression does not use any variable introduced by the `v-for` directive.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-for:aaa=\"item in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"(item, { key }) in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyItem v-for=\"item in items\"></MyItem>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"item in items\" :key=\"foo\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-for=\"item in items\"></div>\n ```\n\n ```vue\n <MyItem v-for=\"item in items\" :key=\"item.id\" />\n ```\n\n ```vue\n <template v-for=\"item in items\">\n     <div :key=\"item.id\"></div>\n </template>\n ```\n\n Related rules:\n - [`useVueVForKey`](https://biomejs.dev/linter/rules/use-vue-v-for-key/)\n\n"
+            "docs": " Enforces valid `v-for` directives in Vue templates.\n\n This rule reports `v-for` directives in the following cases:\n - The directive has an argument. E.g. `<div v-for:aaa=\"item in items\"></div>`\n - The directive has a modifier. E.g. `<div v-for.bbb=\"item in items\"></div>`\n - The directive does not have a value. E.g. `<div v-for></div>`\n - The second or third aliases are empty or are not simple identifiers, for example because they use destructuring or a default value.\n - A custom component rendered with `v-for` is missing `v-bind:key`.\n - The `v-bind:key` expression does not use any variable introduced by the `v-for` directive.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-for:aaa=\"item in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"(item, { key }) in items\"></div>\n ```\n\n ```vue,expect_diagnostic\n <MyItem v-for=\"item in items\"></MyItem>\n ```\n\n ```vue,expect_diagnostic\n <div v-for=\"item in items\" :key=\"foo\"></div>\n ```\n\n ### Valid\n\n ```vue\n <div v-for=\"item in items\"></div>\n ```\n\n ```vue\n <MyItem v-for=\"item in items\" :key=\"item.id\" />\n ```\n\n ```vue\n <template v-for=\"item in items\">\n     <div :key=\"item.id\"></div>\n </template>\n ```\n\n Related rules:\n - [`useVueVForKey`](https://biomejs.dev/linter/rules/use-vue-v-for-key/)\n\n"
           },
           "useVueValidVHtml": {
             "deprecated": false,
@@ -2426,6 +2432,40 @@ export function GET() {
             ],
             "docs": " Disallow `allow-scripts` together with `allow-same-origin` in an iframe sandbox.\n\n `allow-scripts` lets the embedded document run JavaScript, while `allow-same-origin` keeps\n its original security origin. For same-origin content, combining both permissions can let the\n embedded script remove the iframe's `sandbox` attribute and escape its restrictions. Remove\n one of the two permissions.\n\n See [Play safely in sandboxed iframes](https://web.dev/articles/sandboxed-iframes) for more\n details.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <iframe src=\"https://example.com\" sandbox=\"allow-scripts allow-same-origin\"></iframe>\n ```\n\n ### Valid\n\n ```html\n <iframe src=\"https://example.com\" sandbox=\"allow-popups\"></iframe>\n ```\n\n"
           },
+          "noVueDeprecatedRouterLinkTagProp": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noVueDeprecatedRouterLinkTagProp",
+            "link": "https://biomejs.dev/linter/rules/no-vue-deprecated-router-link-tag-prop/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-deprecated-router-link-tag-prop"
+                }
+              }
+            ],
+            "docs": " Disallow the `tag` prop on `RouterLink`.\n\n Vue Router 4, the version of Vue Router for Vue 3, doesn't support the `tag` prop on\n `<RouterLink>`. Writing `<RouterLink tag=\"li\">` doesn't render an `<li>` element: the\n prop is ignored, and the link still renders as an `<a>` element.\n\n To render a different element, add the `custom` prop and put your own element in the\n link's default slot. The slot gives you a `navigate` function to call when the element\n is clicked:\n\n ```vue\n <template>\n   <RouterLink to=\"/\" custom v-slot=\"{ navigate }\">\n     <li role=\"link\" @click=\"navigate\">Home</li>\n   </RouterLink>\n </template>\n ```\n\n This rule checks `<RouterLink>` and `<router-link>`. Use the `components` option to\n check other link components.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <template>\n   <RouterLink tag=\"li\" to=\"/\">Home</RouterLink>\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <router-link :tag=\"element\" to=\"/\">Home</router-link>\n </template>\n ```\n\n ### Valid\n\n ```vue\n <template>\n   <RouterLink to=\"/\">Home</RouterLink>\n   <router-link to=\"/\">\n     <div>Home</div>\n   </router-link>\n   <NuxtLink tag=\"li\" to=\"/\">Home</NuxtLink>\n </template>\n ```\n\n ## Options\n\n ### `components`\n\n Default: `[\"RouterLink\"]`\n\n The names of the link components to check. Each name matches both its PascalCase and\n kebab-case spelling, so `\"NuxtLink\"` matches `<NuxtLink>` and `<nuxt-link>`. Setting\n this option replaces the default list, so include `\"RouterLink\"` to keep checking it.\n\n ```json,options\n {\n     \"options\": {\n         \"components\": [\"RouterLink\", \"NuxtLink\"]\n     }\n }\n ```\n\n ```vue,expect_diagnostic,use_options\n <template>\n   <nuxt-link tag=\"li\" to=\"/\">Home</nuxt-link>\n </template>\n ```\n\n ```vue,use_options\n <template>\n   <NuxtLink to=\"/\">Home</NuxtLink>\n </template>\n ```\n\n ## References\n\n - [Vue Router migration guide: removal of the `tag` prop](https://router.vuejs.org/guide/migration/#Removal-of-event-and-tag-props-in-router-link-)\n - [Extending `RouterLink`](https://router.vuejs.org/guide/advanced/extending-router-link.html)\n"
+          },
+          "noVueDeprecatedScopeAttribute": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noVueDeprecatedScopeAttribute",
+            "link": "https://biomejs.dev/linter/rules/no-vue-deprecated-scope-attribute/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-deprecated-scope-attribute"
+                }
+              }
+            ],
+            "docs": " Disallow the `scope` attribute on `<template>` elements in Vue templates.\n\n Old versions of Vue used the `scope` attribute to receive the values that a component\n passes to its slot, also called slot props.\n Current versions of Vue don't support this attribute: they ignore it, so the names it\n declares are never defined inside the `<template>`.\n\n Use the `v-slot` directive, or its `#` shorthand, to receive slot props instead.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <template>\n   <ListComponent>\n     <template scope=\"props\">\n       {{ props.title }}\n     </template>\n   </ListComponent>\n </template>\n ```\n\n ### Valid\n\n ```vue\n <template>\n   <ListComponent>\n     <template v-slot=\"props\">\n       {{ props.title }}\n     </template>\n   </ListComponent>\n   <ListComponent>\n     <template #item=\"{ title }\">\n       {{ title }}\n     </template>\n   </ListComponent>\n </template>\n ```\n\n ## References\n\n - [Vue scoped slots](https://vuejs.org/guide/components/slots.html#scoped-slots)\n"
+          },
           "noVueRootVIf": {
             "deprecated": false,
             "version": "2.6.0",
@@ -2459,6 +2499,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow custom Vue directives that are not declared.\n\n Vue resolves a custom directive such as `v-highlight` at runtime. When nothing\n registers it, Vue logs a warning and the element silently loses the behavior the\n directive was supposed to add.\n\n A custom directive is considered declared when any of the following registers it:\n\n - a top-level `<script setup>` binding named after the directive, using the\n   camelCase form prefixed with `v`, such as `vHighlight` for `v-highlight`;\n - the component's `directives` option, written either in `export default`,\n   in `defineComponent(...)`, or in `defineOptions(...)`;\n - the rule's [`globals`](#globals) option, which is how a directive registered\n   globally with `app.directive(...)` is declared to Biome.\n\n Built-in directives such as `v-if` are never reported. Nothing is reported either\n when the component's options cannot be resolved statically, which happens when they\n use `extends`, `mixins`, a spread, or a default export that is not an object literal,\n or when a `<script>` block uses `src=\"...\"` to load its content from another file.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <template>\n     <div v-highlight></div>\n </template>\n ```\n\n ### Valid\n\n A `<script setup>` binding declares the directive:\n\n ```vue,ignore\n <script setup>\n const vHighlight = {};\n </script>\n\n <template><div v-highlight></div></template>\n ```\n\n So does the component's `directives` option:\n\n ```vue,ignore\n <script>\n export default {\n     directives: { highlight: {} },\n };\n </script>\n\n <template><div v-highlight></div></template>\n ```\n\n ## Options\n\n ### `globals`\n\n A list of directive names that are registered globally with `app.directive(...)`.\n Write each name in kebab-case, exactly as it appears in the template without the\n `v-` prefix: `click-outside` for `v-click-outside`. Other spellings such as\n `clickOutside` or `vClickOutside` do not match.\n\n Default: `[]`\n\n ```json,options\n {\n     \"options\": {\n         \"globals\": [\"click-outside\"]\n     }\n }\n ```\n\n #### Valid (using `globals`)\n\n ```vue,use_options\n <template>\n     <div v-click-outside></div>\n </template>\n ```\n"
+          },
+          "noVueUnusedRefs": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noVueUnusedRefs",
+            "link": "https://biomejs.dev/linter/rules/no-vue-unused-refs/html",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-unused-refs"
+                }
+              }
+            ],
+            "docs": " Disallow template refs that are never used.\n\n A `ref` attribute gives a name to an element of the template, so that the\n component's code can reach that element through `$refs` or `useTemplateRef()`.\n When nothing reads that name, the attribute has no effect. It is usually left\n behind after the code that used it was removed.\n\n A template ref counts as used when:\n\n - the template or the script reads it from `$refs`, as in `$refs.input` or\n   `this.$refs.input`;\n - the script passes its name to `useTemplateRef()`, as in `useTemplateRef(\"input\")`;\n - the component exposes a variable with the same name from `<script setup>` or\n   from the object that `setup()` returns. Vue stores the element in that variable.\n\n Only refs written as plain text, such as `ref=\"input\"`, are checked. A ref bound\n with `:ref` is never reported.\n\n :::note\n This rule needs to read both the template and the scripts of the component,\n which requires\n [`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)\n to be `true`.\n :::\n\n The rule reports nothing when it can't know which refs are used. That is the case\n when:\n\n - a ref is read with a name that is not written as a string, as in `$refs[name]`\n   or `useTemplateRef(name)`;\n - `$refs` itself is stored or handed to other code, as in `const refs = this.$refs`;\n - a `<script src>` block loads part of the component from another file.\n\n Refs read from another component, for example through `$parent.$refs`, are not\n detected.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic,ignore\n <template>\n   <input ref=\"input\" />\n </template>\n ```\n\n ```vue,expect_diagnostic,ignore\n <script>\n export default {\n   mounted() {\n     this.$refs.input.focus();\n   },\n };\n </script>\n\n <template>\n   <input ref=\"input\" />\n   <button ref=\"submit\">Submit</button>\n </template>\n ```\n\n ### Valid\n\n ```vue,ignore\n <script setup>\n import { ref, useTemplateRef } from \"vue\";\n\n const input = useTemplateRef(\"input\");\n const submit = ref(null);\n </script>\n\n <template>\n   <input ref=\"input\" />\n   <button ref=\"submit\">Submit</button>\n   <span ref=\"label\" @click=\"$refs.label.focus()\"></span>\n </template>\n ```\n\n"
           },
           "noVueVHtml": {
             "deprecated": false,
@@ -2736,6 +2793,23 @@ export function GET() {
             ],
             "docs": " Require the element inside a Vue `<Transition>` to be shown and hidden with `v-if` or `v-show`.\n\n A `<Transition>` plays its animation when the element inside it is added,\n removed, shown, or hidden. An element that is always shown never changes,\n so the animation never plays.\n\n The rule checks the first element inside each `<Transition>`. That element\n is accepted when one of the following is true:\n\n - it has a `v-if` or `v-show` directive;\n - it has a `key` bound with `:key` or `v-bind:key`, because Vue replaces the\n   element when the key changes;\n - it is a component, a `<component>`, a `<slot>`, or an element with an `is`\n   attribute, because the rule can't see what they render;\n - the `<Transition>` has the `appear` attribute, which plays the animation\n   when the element is first shown. `:appear=\"false\"` doesn't count.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <template>\n   <Transition>\n     <div>Content</div>\n   </Transition>\n </template>\n ```\n\n ### Valid\n\n ```vue\n <template>\n   <Transition>\n     <div v-if=\"visible\">Content</div>\n   </Transition>\n   <Transition>\n     <div v-show=\"visible\">Content</div>\n   </Transition>\n   <Transition>\n     <div :key=\"step\">Content</div>\n   </Transition>\n   <Transition>\n     <MyComponent />\n   </Transition>\n   <Transition appear>\n     <div>Content</div>\n   </Transition>\n </template>\n ```\n\n"
           },
+          "useVueVModel": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueVModel",
+            "link": "https://biomejs.dev/linter/rules/use-vue-v-model/html",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "prefer-v-model"
+                }
+              }
+            ],
+            "docs": " Enforce `v-model` instead of a prop binding paired with an `update:` listener that writes the value back.\n\n A component that supports [`v-model`](https://vuejs.org/guide/components/v-model.html)\n receives a prop, and emits an `update:` event with the new value when it changes. Binding\n the prop and writing the new value back by hand, as in\n `:title=\"title\" @update:title=\"title = $event\"`, does the same thing as\n `v-model:title=\"title\"`. The `v-model` form is shorter, and the prop and its listener can't\n get out of sync.\n\n For the `modelValue` prop, the rule suggests the shorter `v-model=\"value\"` form.\n\n The rule only checks components. It reports a pair when the listener does nothing but\n assign the new value to the bound expression, written either as `value = $event` or as\n `(newValue) => value = newValue`. Bindings and listeners with modifiers are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic,ignore\n <template>\n   <MyComponent :modelValue=\"text\" @update:modelValue=\"text = $event\" />\n </template>\n ```\n\n ```vue,expect_diagnostic,ignore\n <template>\n   <MyComponent :title=\"title\" @update:title=\"title = $event\" />\n </template>\n ```\n\n ```vue,expect_diagnostic,ignore\n <template>\n   <MyComponent v-bind:title=\"title\" v-on:update:title=\"(value) => title = value\" />\n </template>\n ```\n\n ### Valid\n\n ```vue,ignore\n <template>\n   <MyComponent v-model=\"text\" />\n   <MyComponent v-model:title=\"title\" />\n   <MyComponent :title=\"title\" @update:title=\"otherTitle = $event\" />\n   <MyComponent :title=\"title\" @update:title=\"setTitle($event)\" />\n   <MyComponent :title=\"title\" @update:title=\"title = $event; save()\" />\n </template>\n ```\n\n"
+          },
           "useVueVOnExact": {
             "deprecated": false,
             "version": "2.6.3",
@@ -2752,6 +2826,91 @@ export function GET() {
               }
             ],
             "docs": " Enforce the `.exact` modifier on `v-on` directives when another listener for the same event needs more modifier keys.\n\n In Vue, a listener with modifier keys such as `.ctrl` or `.shift` runs when those keys are\n held down, even if other keys are held down too. A listener without modifier keys runs no\n matter which keys are held down. So when an element has both `@click=\"select\"` and\n `@click.ctrl=\"open\"`, a Ctrl+click runs both `select` and `open`.\n\n The [`.exact` modifier](https://vuejs.org/guide/essentials/event-handling.html#exact-modifier)\n makes a listener run only when exactly its modifier keys are held down. This rule reports\n `v-on` directives that also run for the modifier keys of another listener for the same\n event on the same element.\n\n The modifier keys are `.ctrl`, `.shift`, `.alt` and `.meta`.\n\n Components, such as `<MyComponent>`, `<component>` and `<tr is=\"vue:my-row\">`, are ignored,\n because their listeners usually handle events emitted by the component.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <template>\n   <button @click=\"select\" @click.ctrl=\"open\"></button>\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <input @keydown.enter=\"submit\" @keydown.enter.shift=\"addLine\" />\n </template>\n ```\n\n ### Valid\n\n ```vue\n <template>\n   <button @click.exact=\"select\" @click.ctrl=\"open\"></button>\n   <input @keydown.enter.exact=\"submit\" @keydown.enter.shift=\"addLine\" />\n   <button @click=\"select\" @click.stop=\"track\"></button>\n   <button @click=\"select\"></button>\n   <button @click.ctrl=\"open\"></button>\n </template>\n ```\n\n"
+          },
+          "useVueValidVIs": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueValidVIs",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-is/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-is"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-is` Vue directives.\n\n The `v-is` directive tells Vue to render a component in place of a native HTML element,\n such as `<tr v-is=\"'my-row'\">`. Its value is a JavaScript expression, so a fixed\n component name needs its own quotes inside the attribute value.\n\n This rule reports `v-is` directives in the following cases:\n - The directive has an argument. E.g. `<div v-is:aaa=\"'my-row'\"></div>`\n - The directive has any modifiers. E.g. `<div v-is.bbb=\"'my-row'\"></div>`\n - The directive does not have a value. E.g. `<div v-is></div>`\n - The directive is on a component instead of a native HTML element. E.g. `<MyComponent v-is=\"'my-row'\"></MyComponent>`\n\n An element counts as a component when its name isn't a known HTML, SVG, or MathML\n element, for example `<MyComponent>`, `<my-component>`, or `<component>`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <template>\n   <tr v-is:row=\"'my-row'\"></tr>\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <tr v-is.lazy=\"'my-row'\"></tr>\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <tr v-is></tr>\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <MyComponent v-is=\"'my-row'\"></MyComponent>\n </template>\n ```\n\n ### Valid\n\n ```vue\n <template>\n   <tr v-is=\"'my-row'\"></tr>\n   <div v-is=\"componentName\"></div>\n </template>\n ```\n\n ## References\n\n - [Vue `is` attribute](https://vuejs.org/api/built-in-special-attributes.html#is)\n"
+          },
+          "useVueValidVMemo": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueValidVMemo",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-memo/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-memo"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-memo` Vue directives.\n\n `v-memo` takes an array of values. Vue skips updating the element and its\n children until one of those values changes.\n\n This rule reports `v-memo` directives in the following cases:\n - The directive has an argument. E.g. `<div v-memo:aaa=\"[x]\"></div>`\n - The directive has a modifier. E.g. `<div v-memo.bbb=\"[x]\"></div>`\n - The directive has no value, or an empty value. E.g. `<div v-memo></div>`\n - The directive is on an element inside another element that has `v-for`. `v-memo` doesn't work there. To use `v-memo` with `v-for`, put both on the same element.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-memo:aaa=\"[x]\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-memo.bbb=\"[x]\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-memo></div>\n ```\n\n ```vue,expect_diagnostic\n <template>\n     <div v-for=\"item in items\">\n         <div v-memo=\"[item.id]\"></div>\n     </div>\n </template>\n ```\n\n ### Valid\n\n ```vue\n <template>\n     <div v-memo=\"[valueA, valueB]\"></div>\n     <div v-memo=\"dependencies\"></div>\n     <div v-for=\"item in items\" :key=\"item.id\" v-memo=\"[item.id === selected]\"></div>\n </template>\n ```\n\n"
+          },
+          "useVueValidVModel": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueValidVModel",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-model/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-model"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-model` directives.\n\n `v-model` keeps a form field and a variable in sync: when the user\n types, Vue writes the new value back to the variable. This only works\n in some places, and only with a value that Vue can write to.\n\n This rule reports `v-model` directives that:\n\n - are placed on an element other than `<input>`, `<select>`,\n   `<textarea>`, or a component, such as `<div v-model=\"foo\">`;\n - are placed on a file input, such as `<input type=\"file\" v-model=\"foo\">`;\n   the browser doesn't let code set the file of a file input;\n - have an argument on a native element, such as `<input v-model:foo=\"bar\">`;\n   only components accept an argument;\n - have a modifier other than `.lazy`, `.number`, or `.trim` on a native\n   element, such as `<input v-model.foo=\"bar\">`;\n - have no value, such as `<input v-model>`;\n - have a value that can't be assigned to, such as `<input v-model=\"foo + bar\">`;\n - read their value with optional chaining (`?.`), such as `<input v-model=\"foo?.bar\">`;\n - read a property of a value that may be `null` or `undefined`, such as\n   `<input v-model=\"(foo?.bar).baz\">`;\n - write to a variable of a `v-for` or `v-slot`, such as\n   `<input v-for=\"item in items\" v-model=\"item\">`; a new value for these\n   variables wouldn't reach the list or the slot data they were read from.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <template>\n   <div v-model=\"foo\"></div>\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <input v-model:foo=\"bar\" />\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <input v-model />\n </template>\n ```\n\n ```vue,expect_diagnostic,ignore\n <template>\n   <input v-model=\"foo + bar\" />\n </template>\n ```\n\n ```vue,expect_diagnostic,ignore\n <template>\n   <input v-model=\"foo?.bar\" />\n </template>\n ```\n\n ```vue,expect_diagnostic,ignore\n <template>\n   <div v-for=\"todo in todos\">\n     <input v-model=\"todo\" />\n   </div>\n </template>\n ```\n\n ### Valid\n\n ```vue\n <template>\n   <input v-model=\"foo\" />\n   <input v-model.lazy=\"foo\" />\n   <textarea v-model=\"foo\"></textarea>\n   <MyComponent v-model=\"foo\" />\n   <MyComponent v-model:propName.modifier=\"foo\" />\n   <div v-for=\"todo in todos\">\n     <input v-model=\"todo.name\" />\n   </div>\n </template>\n ```\n\n"
+          },
+          "useVueValidVShow": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueValidVShow",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-show/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-show"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-show` directives.\n\n The `v-show` directive shows or hides an element depending on whether its value is true or false.\n It takes only a value, and it must be placed on an element that appears on the page.\n\n This rule reports `v-show` directives in the following cases:\n - The directive has an argument. E.g. `<div v-show:aaa=\"foo\"></div>`\n - The directive has a modifier. E.g. `<div v-show.bbb=\"foo\"></div>`\n - The directive does not have a value. E.g. `<div v-show></div>`\n - The directive is on a `<template>` element. E.g. `<template v-show=\"foo\"></template>`\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <div v-show:aaa=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-show.bbb=\"foo\"></div>\n ```\n\n ```vue,expect_diagnostic\n <div v-show></div>\n ```\n\n ```vue,expect_diagnostic\n <template v-show=\"foo\"><div></div></template>\n ```\n\n ### Valid\n\n ```vue\n <div v-show=\"isVisible\"></div>\n <template v-if=\"isVisible\"><div></div></template>\n ```\n\n ## References\n\n - [Vue `v-show` directive](https://vuejs.org/api/built-in-directives.html#v-show)\n - [Conditional rendering with `v-show`](https://vuejs.org/guide/essentials/conditional.html#v-show)\n"
+          },
+          "useVueValidVSlot": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueValidVSlot",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-slot/html",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-slot"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-slot` directives in Vue templates.\n\n A `v-slot` directive (or its `#` shorthand) passes content to a slot of a component.\n Vue only accepts it in specific places, and a misplaced or duplicated `v-slot`\n is either rejected when the template is compiled or silently drops content.\n\n This rule reports `v-slot` directives in the following cases:\n\n - The directive isn't on a component, or on a `<template>` placed directly inside a component.\n   For example, `<div v-slot=\"props\"></div>`.\n - A named slot is written on the component itself instead of on a `<template>` inside it.\n   For example, `<MyComponent v-slot:header></MyComponent>`.\n - The default slot is written on the component itself while the component also has\n   `<template>` elements with `v-slot`.\n - An element has more than one `v-slot` directive.\n - Two `<template>` elements inside the same component fill the same slot.\n   Elements in the same `v-if`, `v-else-if`, `v-else` sequence are allowed to fill the same slot,\n   because only one of them is shown at a time.\n - A `<template>` with `v-for` fills a slot whose name doesn't change between repetitions.\n - The directive has modifiers, such as `v-slot.foo`.\n - The default slot is written on the component itself without a value.\n   For example, `<MyComponent v-slot></MyComponent>`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <template>\n   <div v-slot=\"{ item }\">{{ item }}</div>\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <MyComponent v-slot:header>Title</MyComponent>\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <MyComponent v-slot=\"{ item }\">\n     {{ item }}\n     <template #header>Title</template>\n   </MyComponent>\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <MyComponent>\n     <template #header>First title</template>\n     <template #header>Second title</template>\n   </MyComponent>\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <MyComponent>\n     <template v-for=\"item in items\" #header>{{ item }}</template>\n   </MyComponent>\n </template>\n ```\n\n ```vue,expect_diagnostic\n <template>\n   <MyComponent v-slot>Content</MyComponent>\n </template>\n ```\n\n ### Valid\n\n ```vue\n <template>\n   <MyComponent v-slot=\"{ item }\">{{ item }}</MyComponent>\n   <MyComponent>\n     <template #default=\"{ item }\">{{ item }}</template>\n     <template #header>Title</template>\n   </MyComponent>\n   <MyComponent>\n     <template v-if=\"isAdmin\" #header>Admin title</template>\n     <template v-else #header>Title</template>\n   </MyComponent>\n   <MyComponent>\n     <template v-for=\"item in items\" #[item.slot]>{{ item.text }}</template>\n   </MyComponent>\n </template>\n ```\n\n ## References\n\n - [Vue slots](https://vuejs.org/guide/components/slots.html)\n - [Vue `v-slot` directive](https://vuejs.org/api/built-in-directives.html#v-slot)\n"
           }
         },
         "performance": {
@@ -3767,6 +3926,12 @@ export function GET() {
                 "kind": "sameLogic",
                 "source": {
                   "eslintTypeScript": "dot-notation"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "dot-notation"
                 }
               }
             ],
@@ -5051,6 +5216,23 @@ export function GET() {
             "fixKind": "none",
             "docs": " Forbid the use of Bun builtin modules.\n\n This can be useful for client-side web projects that don't have access to those modules.\n\n The rule doesn't trigger if there are dependencies declared in the `package.json` that match\n the name of a built-in Bun module.\n\n Type-only imports are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { Database } from \"bun:sqlite\";\n ```\n\n ### Valid\n\n ```js\n import { Database } from \"custom-sqlite\";\n ```\n\n ```ts\n import type { DatabaseOptions } from \"bun:sqlite\";\n ```\n"
           },
+          "noConsoleSpaces": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noConsoleSpaces",
+            "link": "https://biomejs.dev/linter/rules/no-console-spaces/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-console-spaces"
+                }
+              }
+            ],
+            "docs": " Disallow leading and trailing spaces in `console` method arguments.\n\n `console.log()`, `console.debug()`, `console.info()`, `console.warn()`, and `console.error()`\n put a space between their arguments when printing them.\n A string argument that starts or ends with a space next to another argument\n prints two spaces instead of one.\n\n The first argument may start with a space, and the last argument may end with one,\n because nothing is printed before or after them.\n Strings that contain only one space, or that start or end with two or more spaces,\n are allowed because the extra spacing is likely intentional.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n console.log(\"abc \", \"def\");\n ```\n\n ```js,expect_diagnostic\n console.error(\"abc\", \" def\");\n ```\n\n ```js,expect_diagnostic\n console.warn(`abc `, \"def\");\n ```\n\n ### Valid\n\n ```js\n console.log(\"abc\", \"def\");\n console.log(\" abc\", \"def \");\n console.log(\"abc  \", \"def\");\n console.log(\"abc\\t\", \"def\");\n console.log(\"abc\", \" \", \"def\");\n ```\n\n"
+          },
           "noDanglingUnderscore": {
             "deprecated": false,
             "version": "2.6.3",
@@ -5199,6 +5381,23 @@ export function GET() {
             ],
             "docs": " Disallow specific object properties.\n\n This rule lets you ban property access for exact object/property pairs, all properties on a\n given object, or a property name everywhere except for a short allowlist of objects.\n\n It also reports restricted properties when they appear in object destructuring.\n\n This rule requires explicit configuration to specify which properties are restricted, so it does not report anything by default.\n\n ## Examples\n\n ### Exact object/property restriction\n\n ```json,options\n {\n   \"options\": {\n     \"entries\": [\n       {\n         \"object\": \"require\",\n         \"property\": \"ensure\",\n         \"message\": \"Use dynamic import() instead.\"\n       }\n     ]\n   }\n }\n ```\n\n In this example, the rule reports the access of the `ensure` property on the `require` object, and emits the message \"Use dynamic import() instead.\":\n ```js,use_options,expect_diagnostic\n require.ensure(\"./entry\")\n ```\n\n ### Property-wide restriction with an allowlist\n\n ```json,options\n {\n   \"options\": {\n     \"entries\": [\n       {\n         \"property\": \"__defineGetter__\",\n         \"message\": \"Use Object.defineProperty() instead.\",\n         \"allowObjects\": [\"Object\"]\n       }\n     ]\n   }\n }\n ```\n\n In this example, the rule reports any access to the property `__defineGetter__`, except for `Object` object, and it emits the message \"Use Object.defineProperty() instead.\":\n ```js,use_options,expect_diagnostic\n foo.__defineGetter__\n ```\n\n ```js,use_options\n Object.__defineGetter__\n ```\n\n ### Object-wide restriction with allowed exceptions\n\n ```json,options\n {\n   \"options\": {\n     \"entries\": [\n       {\n         \"object\": \"arguments\",\n         \"message\": \"Avoid accessing arbitrary arguments properties.\",\n         \"allowProperties\": [\"length\"]\n       }\n     ]\n   }\n }\n ```\n\n In the following example, when the rule encounters the object `arguments`, it reports all properties except for `length` with the message \"Avoid accessing arbitrary arguments properties.\":\n ```js,use_options,expect_diagnostic\n arguments.callee\n ```\n\n ```js,use_options\n arguments.length\n ```\n\n ## Options\n\n ### `entries`\n\n An array of restricted object/property combinations. Depending on the provided options, each entry can:\n - Restrict a specific property on a specific object.\n - Restrict all properties on a specific object except for an allowlist of properties.\n - Restrict a specific property everywhere except for an allowlist of objects.\n - Provide a custom message to include in the diagnostic when the restriction is violated.\n\n ### `entries[].object`\n\n The object for which the restriction applies. If not provided, the restriction applies to all objects. If combined with `property`, it restricts only that property on the specified object.\n\n ### `entries[].property`\n\n The property for which the restriction applies. If not provided, the restriction applies to all properties. If combined with `object`, it restricts that property only on that object.\n\n ### `entries[].allowObjects`\n\n When restricting a property, an optional allowlist of objects that are exempt from the restriction. Only applicable when `property` is provided and `object` is not provided.\n\n It conflicts with `allowProperties`.\n\n ### `entries[].allowProperties`\n\n When restricting an object, an optional allowlist of properties that are exempt from the restriction. Only applicable when `object` is provided and `property` is not provided.\n\n It conflicts with `allowObjects`.\n\n ### `entries[].message`\n\n An optional custom message to include in the diagnostic when this restriction is violated. If not provided, a default message will be used.\n\n Use this to give context and explain why the property is restricted, and to suggest an alternative.\n\n"
           },
+          "noMagicArrayFlatDepth": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noMagicArrayFlatDepth",
+            "link": "https://biomejs.dev/linter/rules/no-magic-array-flat-depth/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-magic-array-flat-depth"
+                }
+              }
+            ],
+            "docs": " Disallow unexplained numbers as the depth argument of `Array.prototype.flat()`.\n\n The depth passed to [`flat()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)\n is usually `1` (the default) or `Infinity`.\n Any other number doesn't say why the array needs to be flattened to that exact depth.\n Store the depth in a variable with a descriptive name, or add a comment inside the parentheses that explains it.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const items = array.flat(2);\n ```\n\n ```js,expect_diagnostic\n const items = array.flat(99);\n ```\n\n ### Valid\n\n ```js\n const items = array.flat();\n const allItems = array.flat(Infinity);\n const allValues = array.flat(Number.POSITIVE_INFINITY);\n const rows = array.flat(depth);\n const cells = array.flat(/* The grid is always two levels deep. */ 2);\n ```\n\n"
+          },
           "noMeaninglessVoidOperator": {
             "deprecated": false,
             "version": "2.5.15",
@@ -5289,6 +5488,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow calling `require` with the `new` operator.\n\n Code like `new require(\"app-header\")` looks like it loads a module and creates a new\n object from what the module exports, all in one step. It doesn't. `new` applies to\n `require` itself, not to the value that `require` returns. The result is whatever the\n module exports, such as a class, instead of a new object created from that class.\n\n Store the result of `require` in a variable first, then use `new` on that variable.\n\n The rule doesn't report `require` when it's a variable, parameter, or function declared\n in your own code.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const appHeader = new require(\"app-header\");\n ```\n\n ### Valid\n\n ```js\n const AppHeader = require(\"app-header\");\n const appHeader = new AppHeader();\n ```\n\n ## See Also\n\n - If you want to disallow `require` entirely, see [`noCommonJs`](https://biomejs.dev/linter/rules/no-common-js/).\n\n"
+          },
+          "noNull": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noNull",
+            "link": "https://biomejs.dev/linter/rules/no-null/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-null"
+                }
+              }
+            ],
+            "docs": " Disallow the use of the `null` literal.\n\n JavaScript has two values that mean \"no value\": `null` and `undefined`.\n Code that uses both has to check for both, and it's easy to forget one of them.\n Using only `undefined` keeps missing values consistent across a codebase.\n\n Strict comparisons such as `foo === null` are allowed, because code often needs to check for `null` values that come from other libraries or from APIs such as `JSON.parse()`.\n\n Some common APIs require `null` as an argument and are allowed:\n - `Object.create(null)`, which creates an object with no prototype.\n - `useRef(null)` and `React.useRef(null)`, the usual way to create a React ref for an element.\n - `parent.insertBefore(node, null)`, which adds `node` at the end of `parent`.\n\n The fix replaces `null` with `undefined`.\n It isn't applied automatically, because other code may check for `null` with `===`, and TypeScript types that include `null` may not accept `undefined`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = null;\n ```\n\n ```js,expect_diagnostic\n if (bar == null) {}\n ```\n\n ```js,expect_diagnostic\n function getUser() {\n     return null;\n }\n ```\n\n ```js,expect_diagnostic\n foo(null);\n ```\n\n ### Valid\n\n ```js\n let foo;\n if (bar == undefined) {}\n if (bar === null) {}\n const dictionary = Object.create(null);\n const ref = useRef(null);\n parent.insertBefore(node, null);\n ```\n\n ## See Also\n\n - To remove `undefined` that is assigned to a variable when it is declared, see [`noUselessUndefinedInitialization`](https://biomejs.dev/linter/rules/no-useless-undefined-initialization/).\n\n"
           },
           "noObjectConstructor": {
             "deprecated": false,
@@ -5449,6 +5665,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow dependencies that are known to have better alternatives.\n\n This rule checks static imports, dynamic `import()`, and `require()` calls\n and suggests modern, native, or more maintainable alternatives based on\n [e18e](https://e18e.dev/)'s replacement data.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import glob from \"globby\";\n ```\n\n ```js,expect_diagnostic\n const glob = require(\"globby\");\n ```\n\n ```js,expect_diagnostic\n const glob = await import(\"globby\");\n ```\n\n ### Valid\n\n ```js\n import glob from \"tinyglobby\";\n ```\n\n ```js\n const glob = require(\"tinyglobby\");\n ```\n\n ```js\n const glob = await import(\"tinyglobby\");\n ```\n\n See [the e18e docs](https://e18e.dev/docs/replacements/) for the full list of replacements.\n\n"
+          },
+          "noReturnArrayPush": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noReturnArrayPush",
+            "link": "https://biomejs.dev/linter/rules/no-return-array-push/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-return-array-push"
+                }
+              }
+            ],
+            "docs": " Disallow using the return value of `Array.prototype.push()` and `Array.prototype.unshift()`.\n\n `push()` and `unshift()` add items to an array and return the new length of the array.\n They don't return the added item or the array itself.\n Returning or storing this length is almost always a mistake, because the code reads as if\n the result were meaningful when it says nothing about what was added.\n\n To add an item and stop the function, call `push()` or `unshift()` before `return`.\n If you need the new length, read the `length` property of the array after adding the item.\n\n The rule only reports calls with at least one argument.\n It ignores calls whose result is discarded with the `void` operator, such as `void items.push(item)`,\n and calls whose result is accessed with `.` or `[]`, such as `router.push(to).catch(handleError)`,\n because this usually means `push()` is a custom method that returns something other than a length.\n\n The rule also ignores `push()` calls on objects that are commonly not arrays:\n `stream`, `router`, `this`, `this.stream`, `this.router`, `this.$router`,\n `process.stdin`, `process.stdout`, and `process.stderr`.\n It ignores `push()` and `unshift()` calls on values that are written in a way that shows they\n aren't arrays: objects (`{}`), functions, classes, template strings, and `new` expressions\n other than `new Array()`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function add(item) {\n     return items.push(item);\n }\n ```\n\n ```js,expect_diagnostic\n const add = (item) => items.push(item);\n ```\n\n ```js,expect_diagnostic\n const length = items.unshift(item);\n ```\n\n An arrow function without braces returns its body, even when the caller ignores the result:\n\n ```js,expect_diagnostic\n source.forEach((item) => target.push(item));\n ```\n\n ### Valid\n\n ```js\n function add(item) {\n     items.push(item);\n     return;\n }\n\n const addItem = (item) => {\n     items.push(item);\n };\n\n items.unshift(item);\n const length = items.length;\n\n function getNextLength(item) {\n     items.push(item);\n     return items.length;\n }\n\n target.push(...source);\n\n void items.push(item);\n ```\n\n"
           },
           "noReturnInFinally": {
             "deprecated": false,
@@ -5681,6 +5914,23 @@ export function GET() {
             ],
             "docs": " Disallow complex expressions as the value that a `for...of` loop goes through.\n\n The parentheses of a `for...of` or `for await...of` loop hold two things: the variable\n that receives each item, and the value that the loop goes through.\n When that value is a long or nested expression, it is harder to see what the loop works on.\n Storing the value in a variable before the loop gives it a name and keeps the loop easy to scan.\n\n The rule accepts these expressions as the value to loop over:\n\n - A variable, `this`, an array such as `[first, second]`, or a literal such as a string\n   in quotes. A template string (a string in backticks) is not accepted here.\n - A property read with a dot, such as `object.items`, when the part before the dot is\n   also in this list.\n - A call such as `getItems(argument)` or `object.getItems(argument)`. The function must be\n   a variable or a property that is in this list, and every argument must be short.\n   A short argument is a variable, a literal, a template string, a property read with a dot,\n   a call without arguments, or an array of those.\n\n The rule reports every other expression. Examples are a call that takes another call with\n arguments, a `new` expression, an `await` expression, a condition such as `first || second`,\n optional chaining (`items?.values()`), and a property read with brackets (`items[index]`).\n A method call on such an expression is also reported, as in `(first || second).values()`.\n\n Two kinds of method calls follow their own rules:\n\n - A call to `.map()` or `.filter()` that produces the value to loop over is not reported,\n   whatever its arguments are.\n - A call to `.map()`, `.filter()`, `.flatMap()`, `.take()`, or `.drop()` on an iterator is\n   always reported. An iterator is an object that produces its values one at a time.\n   The rule recognizes the iterators returned by `.entries()`, `.keys()`, `.values()`,\n   `.matchAll()`, methods called on `Iterator` itself such as `Iterator.from()`, and generator\n   functions (`function*`) declared in the same file. It also follows a `const` variable\n   declared before the loop to the value that the variable holds.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (const item of getItems(createArgument(seed))) {\n     console.log(item);\n }\n ```\n\n ```js,expect_diagnostic\n for (const key of Object.keys(Object.fromEntries(entries))) {\n     console.log(key);\n }\n ```\n\n ```js,expect_diagnostic\n for (const item of new Set(items)) {\n     console.log(item);\n }\n ```\n\n ```js,expect_diagnostic\n for (const value of items.values().map(callback)) {\n     console.log(value);\n }\n ```\n\n ### Valid\n\n ```js\n const argument = createArgument(seed);\n for (const item of getItems(argument)) {\n     console.log(item);\n }\n\n for (const item of object.items) {\n     console.log(item);\n }\n\n for (const value of Object.values(object)) {\n     console.log(value);\n }\n\n for (const [index, item] of [first, second].entries()) {\n     console.log(index, item);\n }\n\n for (const item of items.filter(item => item.isEnabled)) {\n     console.log(item);\n }\n ```\n\n"
           },
+          "noUnreadableIife": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noUnreadableIife",
+            "link": "https://biomejs.dev/linter/rules/no-unreadable-iife/javascript",
+            "recommended": false,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-unreadable-iife"
+                }
+              }
+            ],
+            "docs": " Disallow immediately called arrow functions whose body is wrapped in parentheses.\n\n An immediately invoked function expression, or IIFE, is a function that is called\n right where it is defined, such as `(() => value)()`.\n\n When the body of such an arrow function is also wrapped in parentheses, the code\n contains several nested pairs of parentheses. This makes the function look like\n a grouped expression and hides where the function body starts and ends.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = (bar => (bar ? bar.baz : baz))(getBar());\n ```\n\n ```js,expect_diagnostic\n const foo = ((bar, baz) => ({ bar, baz }))(bar, baz);\n ```\n\n ### Valid\n\n ```js\n const bar = getBar();\n const foo = bar ? bar.baz : baz;\n\n const getBaz = bar => (bar ? bar.baz : baz);\n const qux = getBaz(getBar());\n\n const quux = (bar => {\n     return bar ? bar.baz : baz;\n })(getBar());\n ```\n\n"
+          },
           "noUnsafeIframeSandbox": {
             "deprecated": false,
             "version": "2.5.13",
@@ -5789,6 +6039,23 @@ export function GET() {
             ],
             "docs": " Disallow calling `.getTime()` on a date before passing it to the `Date` constructor.\n\n Passing a `Date` object to `new Date()` creates a copy of it.\n Calling `.getTime()` on the date first does the same thing with extra code.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const copy = new Date(date.getTime());\n ```\n\n ### Valid\n\n ```js\n const copy = new Date(date);\n const timestamp = date.getTime();\n ```\n\n"
           },
+          "noUselessRecursion": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noUselessRecursion",
+            "link": "https://biomejs.dev/linter/rules/no-useless-recursion/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-useless-recursion"
+                }
+              }
+            ],
+            "docs": " Disallow functions that return a call to themselves when a loop can do the same work.\n\n A recursive function is a function that calls itself.\n Each of these calls uses a bit more memory until it finishes,\n so a function that calls itself too many times in a row crashes the program with a \"Maximum call stack size exceeded\" error.\n When the function only returns the result of calling itself again,\n a loop such as `while` can do the same work without that limit, and is often easier to follow.\n\n This rule only reports `return name(...)` inside a function declared with the `function` keyword\n and a name, where `name` is that function's own name.\n It doesn't report other kinds of recursion, such as calls whose result is used in a larger expression,\n calls inside methods or arrow functions, or calls inside `function*` functions.\n\n It also doesn't report calls in these places, because code there runs after each call finishes,\n so a loop can't replace the call directly:\n\n - inside a `try` statement;\n - after a `using` or `await using` declaration in the same block, or in a block that contains the call;\n - inside a `for` or `for...of` loop that declares its variable with `using` or `await using`, such as `for (using file of files)`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function findRoot(node) {\n     if (node.parent) {\n         return findRoot(node.parent);\n     }\n\n     return node;\n }\n ```\n\n ### Valid\n\n ```js\n function findRoot(node) {\n     while (node.parent) {\n         node = node.parent;\n     }\n\n     return node;\n }\n\n function flatten(value) {\n     if (Array.isArray(value)) {\n         return value.flatMap((item) => flatten(item));\n     }\n\n     return [value];\n }\n\n function sum(list) {\n     return list.length === 0 ? 0 : list[0] + sum(list.slice(1));\n }\n ```\n\n"
+          },
           "noUselessSplice": {
             "deprecated": false,
             "version": "2.6.3",
@@ -5840,6 +6107,57 @@ export function GET() {
             ],
             "docs": " Disallow default values for Boolean props in Vue components.\n\n Vue treats a Boolean prop like an HTML boolean attribute: it is `true` when present and\n `false` when absent. A default value breaks that convention. With `default: true`, the prop\n can only be turned off by explicitly binding `false`, and `default: false` restates what\n Vue already does.\n\n This rule checks props declared through the `props` option, `defineProps()`,\n `withDefaults()`, and destructured `defineProps()` with default values.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   props: {\n     disabled: {\n       type: Boolean,\n       default: true,\n     },\n   },\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n withDefaults(defineProps<{ disabled?: boolean }>(), {\n   disabled: false,\n });\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n const { disabled = false } = defineProps<{ disabled?: boolean }>();\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   props: {\n     disabled: Boolean,\n     size: {\n       type: Number,\n       default: 1,\n     },\n   },\n };\n </script>\n ```\n\n ```vue\n <script setup lang=\"ts\">\n defineProps<{ disabled?: boolean }>();\n </script>\n ```\n\n"
           },
+          "noVueComputedPropertiesInData": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noVueComputedPropertiesInData",
+            "link": "https://biomejs.dev/linter/rules/no-vue-computed-properties-in-data/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-computed-properties-in-data"
+                }
+              }
+            ],
+            "docs": " Disallow using computed properties inside the `data` function of a Vue component.\n\n Vue runs the `data` function before it sets up the component's computed properties.\n Reading a computed property there through `this` gives `undefined` instead of the\n computed value.\n\n Only code written directly in `data` is checked. Code inside a function created in\n `data`, such as an arrow function stored as a data property, is not reported.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   data() {\n     return {\n       total: this.doubled,\n     };\n   },\n   computed: {\n     doubled() {\n       return 2;\n     },\n   },\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   props: [\"initial\"],\n   data() {\n     return {\n       count: this.initial,\n       label: this.formatLabel(),\n       read: () => this.doubled,\n     };\n   },\n   computed: {\n     doubled() {\n       return this.count * 2;\n     },\n   },\n   methods: {\n     formatLabel() {\n       return \"Count\";\n     },\n   },\n };\n </script>\n ```\n\n"
+          },
+          "noVueDeprecatedDeleteSet": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noVueDeprecatedDeleteSet",
+            "link": "https://biomejs.dev/linter/rules/no-vue-deprecated-delete-set/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-deprecated-delete-set"
+                }
+              }
+            ],
+            "docs": " Disallow the `$set` and `$delete` functions that Vue 3 removed.\n\n Vue 2 could not detect when a property was added to or deleted from a reactive object, so it provided `$set` and `$delete` (also available as `Vue.set` and `Vue.delete`, or as `set` and `del` imported from `vue`) to make these changes visible.\n Vue 3 detects these changes on its own and no longer provides these functions, so calling them throws an error.\n\n Assign the property directly to add it, and use the `delete` operator to remove it.\n\n See the [Vue 3 migration guide](https://v3-migration.vuejs.org/breaking-changes/#removed-apis) for more information.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   methods: {\n     addName() {\n       this.$set(this.user, \"name\", \"Alice\");\n     }\n   }\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   methods: {\n     removeName() {\n       this.$delete(this.user, \"name\");\n     }\n   }\n };\n </script>\n ```\n\n ```js,expect_diagnostic\n import Vue from \"vue\";\n\n Vue.set(user, \"name\", \"Alice\");\n ```\n\n ```js,expect_diagnostic\n import { del } from \"vue\";\n\n del(user, \"name\");\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   methods: {\n     addName() {\n       this.user.name = \"Alice\";\n     },\n     removeName() {\n       delete this.user.name;\n     }\n   }\n };\n </script>\n ```\n\n"
+          },
+          "noVueDeprecatedListeners": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noVueDeprecatedListeners",
+            "link": "https://biomejs.dev/linter/rules/no-vue-deprecated-listeners/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-deprecated-dollar-listeners-api"
+                }
+              }
+            ],
+            "docs": " Disallow the deprecated Vue `$listeners` API.\n\n Vue 3 removed `$listeners`. Event listeners passed to a component are now part of `$attrs`,\n so code that still reads `$listeners` no longer receives them. Use `$attrs` instead when\n migrating a component from Vue 2.\n\n See the [Vue 3 migration guide](https://v3-migration.vuejs.org/breaking-changes/listeners-removed.html) for more information.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   mounted() {\n     console.log(this.$listeners);\n   }\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   mounted() {\n     console.log(this.$attrs);\n   }\n };\n </script>\n ```\n"
+          },
           "noVueDeprecatedScopedSlots": {
             "deprecated": false,
             "version": "2.5.12",
@@ -5874,6 +6192,40 @@ export function GET() {
             ],
             "docs": " Disallow registering Vue lifecycle hooks after an `await` in `setup()`.\n\n Lifecycle hooks, such as `onMounted()` and `onUnmounted()`, attach code to the component\n whose `setup()` function is currently running. When `setup()` pauses at an `await`, Vue\n stops tracking which component is being set up. A lifecycle hook called after that point\n isn't attached to the component, so its code never runs.\n\n This rule reports calls to these functions imported from `vue` that come after an `await`\n in a component's `setup()` function: `onActivated`, `onBeforeMount`, `onBeforeUnmount`,\n `onBeforeUpdate`, `onDeactivated`, `onErrorCaptured`, `onMounted`, `onRenderTracked`,\n `onRenderTriggered`, `onUnmounted`, and `onUpdated`.\n\n A call that passes the component as the second argument is allowed, because it doesn't\n depend on the component that is currently being set up.\n\n Code inside `<script setup>` isn't checked, because Vue keeps track of the component\n across each `await` there.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n import { onMounted } from \"vue\";\n\n export default {\n   async setup() {\n     await fetchUser();\n     onMounted(() => {});\n   },\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n import { onMounted } from \"vue\";\n\n export default {\n   async setup() {\n     onMounted(() => {});\n     await fetchUser();\n   },\n };\n </script>\n ```\n\n"
           },
+          "noVueMultipleSlotArgs": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noVueMultipleSlotArgs",
+            "link": "https://biomejs.dev/linter/rules/no-vue-multiple-slot-args/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-multiple-slot-args"
+                }
+              }
+            ],
+            "docs": " Disallow passing more than one argument to a Vue slot.\n\n In a render function, `this.$slots.name(...)` renders the content that the parent component provides for the slot called `name`.\n When the parent writes that content in a template, it receives only the first argument as its slot props, so any other arguments are lost.\n Pass a single object that holds all the values instead.\n\n Spreading an array into a slot call, as in `this.$slots.default(...items)`, is also reported, because each item becomes a separate argument.\n\n The rule checks calls on `this.$slots`, or on a `const` variable that holds `this`, inside components defined with `export default { ... }` in a `.vue` file, `defineComponent()`, or `createApp()`.\n It also checks calls through a variable that holds a slot, such as `const item = this.$slots.item`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   render() {\n     return this.$slots.default(item, index);\n   }\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   render() {\n     return this.$slots.default(...items);\n   }\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   render() {\n     this.$slots.header();\n     this.$slots.footer(item);\n     return this.$slots.default({ item, index });\n   }\n };\n </script>\n ```\n"
+          },
+          "noVueMutatingProps": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noVueMutatingProps",
+            "link": "https://biomejs.dev/linter/rules/no-vue-mutating-props/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "no-mutating-props"
+                }
+              }
+            ],
+            "docs": " Disallow changing the props of a Vue component.\n\n Props pass data from a parent component down to a child. The parent owns that data, so the\n child should treat its props as read-only. Vue refuses to assign a new value to a prop and\n warns about it. Changing an object or array prop in place, for example by setting one of\n its properties or calling `push()` on it, does work, but it changes the parent's data\n without the parent knowing, which makes the data flow of the application hard to follow.\n\n Instead, emit an event so the parent changes the value itself, or copy the prop into a\n local `ref()` or computed property when the child needs a value of its own.\n\n This rule reports props that are assigned, incremented, deleted, bound with `v-model`, or\n changed in place with an array method such as `push()` or `sort()`, in the script and in\n the template.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   props: {\n     count: Number,\n   },\n   methods: {\n     increment() {\n       this.count++;\n     },\n   },\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup>\n const props = defineProps({\n   items: Array,\n });\n\n function addItem() {\n   props.items.push(\"new item\");\n }\n </script>\n ```\n\n ```js,expect_diagnostic\n import { defineComponent } from \"vue\";\n\n export default defineComponent({\n   props: {\n     user: Object,\n   },\n   setup(props) {\n     props.user.name = \"Alice\";\n   },\n });\n ```\n\n ```vue,expect_diagnostic,ignore\n <script setup>\n defineProps({\n   value: String,\n });\n </script>\n\n <template>\n   <input v-model=\"value\" />\n </template>\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n import { ref } from \"vue\";\n\n const props = defineProps({\n   count: Number,\n });\n const emit = defineEmits([\"update:count\"]);\n\n const localCount = ref(props.count);\n\n function increment() {\n   localCount.value++;\n   emit(\"update:count\", props.count + 1);\n }\n </script>\n\n <template>\n   <input :value=\"count\" @input=\"emit('update:count', $event.target.value)\" />\n </template>\n ```\n\n"
+          },
           "noVueRequiredPropWithDefault": {
             "deprecated": false,
             "version": "2.6.0",
@@ -5907,6 +6259,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow Vue component events named after built-in browser events.\n\n A component can send its own events to its parent with `emit`. When such an event has the\n same name as a browser event, like `click` or `keydown`, it looks like the browser event but\n works differently:\n\n - The listener receives whatever value the component passes to `emit`, instead of the\n   browser's `Event` object.\n - The event only reaches the parent that listens to the component. Most browser events also\n   reach every element that contains the element where they happened.\n - Modifiers that act on the browser's `Event` object, such as `@click.stop` and\n   `@click.prevent`, do nothing unless the component passes that object along.\n\n Give the event a name that describes what happened in the component, such as `save` or\n `update:modelValue`.\n\n This rule checks the event names listed in the `emits` option and in `defineEmits()`. It\n also checks the event names passed to `this.$emit()`, to the `emit` function that `setup()`\n receives, to the function returned by `defineEmits()`, and to `$emit()` in templates.\n Uppercase and lowercase letters are treated the same, so `Click` is reported too.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n defineEmits([\"click\"]);\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n defineEmits<{ keydown: [key: string] }>();\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   methods: {\n     onClick() {\n       this.$emit(\"change\", 42);\n     },\n   },\n };\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n const emit = defineEmits([\"save\"]);\n emit(\"save\");\n </script>\n ```\n\n"
+          },
+          "noVueSideEffectsInComputed": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "noVueSideEffectsInComputed",
+            "link": "https://biomejs.dev/linter/rules/no-vue-side-effects-in-computed/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "no-side-effects-in-computed-properties"
+                }
+              }
+            ],
+            "docs": " Disallow changing state inside Vue computed properties.\n\n A computed property should only calculate a value from other values and return it. Vue\n decides when to run it: it may run it many times, or reuse the last result without running\n it at all. When a computed property also changes state, such as assigning to a variable or\n sorting an array, those changes happen at times that are hard to predict, and the\n component becomes hard to understand.\n\n This rule reports code in the function that calculates a computed property when that code:\n\n - assigns to, increments, or deletes a property of the component (`this.count++`), or of\n   a variable declared in `setup()` or in `<script setup>` (`user.value.name = \"\"`);\n - calls an array method that changes the array itself instead of returning a new one:\n   `copyWithin()`, `fill()`, `pop()`, `push()`, `reverse()`, `shift()`, `sort()`,\n   `splice()` or `unshift()`;\n - passes such a value as the first argument of `Object.assign()`, which changes it.\n\n Changes to variables declared inside the computed property are allowed, because no other\n code can see them. A computed property can also have a `set` function, which runs when a\n new value is assigned to the property. That function isn't checked, because changing state\n is its purpose.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   computed: {\n     reversedItems() {\n       return this.items.reverse();\n     },\n   },\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup>\n import { computed, ref } from \"vue\";\n\n const count = ref(0);\n const doubled = computed(() => {\n   count.value++;\n   return count.value * 2;\n });\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n import { computed, ref } from \"vue\";\n\n const items = ref([]);\n const reversedItems = computed(() => [...items.value].reverse());\n const total = computed(() => {\n   let sum = 0;\n   for (const item of items.value) {\n     sum += item.price;\n   }\n   return sum;\n });\n </script>\n ```\n\n"
           },
           "noVueUnusedEmitDeclarations": {
             "deprecated": false,
@@ -6484,6 +6853,23 @@ export function GET() {
             ],
             "docs": " Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks.\n\n This rule detects common string comparisons such as indexing, `charAt`, `indexOf`, `lastIndexOf`,\n `slice`, `substring`, `match`, and anchored `RegExp#test` calls when they are being used to check\n whether a string starts or ends with another string.\n\n The rule uses type information and only reports when the receiver is known to be a string. Array\n indexing and other non-string receivers are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```ts,expect_diagnostic,file=invalid-index.ts\n declare const text: string;\n text[0] === \"a\";\n ```\n\n ```ts,expect_diagnostic,file=invalid-search.ts\n declare const text: string;\n text.indexOf(\"foo\") === 0;\n ```\n\n ```ts,expect_diagnostic,file=invalid-regex.ts\n declare const text: string;\n /^foo/.test(text);\n ```\n\n ### Valid\n\n ```ts,file=valid-string.ts\n declare const text: string;\n text.startsWith(\"foo\");\n text.endsWith(\"bar\");\n ```\n\n ```ts,file=valid-array.ts\n declare const list: string[];\n list[0] === \"a\";\n ```\n"
           },
+          "useSvelteEventDispatcherTypes": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useSvelteEventDispatcherTypes",
+            "link": "https://biomejs.dev/linter/rules/use-svelte-event-dispatcher-types/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSvelte": "require-event-dispatcher-types"
+                }
+              }
+            ],
+            "docs": " Require `createEventDispatcher` calls to declare the types of their events.\n\n `createEventDispatcher` returns a function that a Svelte component uses to send\n events to its parent. In TypeScript, the events are described between angle\n brackets: `createEventDispatcher<{ save: string }>()` declares one event named\n `save` that carries a `string`.\n\n When that description is missing, TypeScript accepts any event name with any\n data. A misspelled event name or the wrong kind of data is not reported, and the\n parent component doesn't know what its event handlers receive.\n\n This rule only checks Svelte components whose script uses TypeScript\n (`<script lang=\"ts\">`), and only calls to the `createEventDispatcher` function\n imported from `svelte`.\n\n `createEventDispatcher` is how components send events in Svelte 3 and Svelte 4.\n Svelte 5 deprecates it: there, a component receives functions from its parent\n and calls them instead of sending events.\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n <script lang=\"ts\">\n import { createEventDispatcher } from \"svelte\";\n\n const dispatch = createEventDispatcher();\n </script>\n ```\n\n ### Valid\n\n ```svelte\n <script lang=\"ts\">\n import { createEventDispatcher } from \"svelte\";\n\n const dispatch = createEventDispatcher<{ save: string; close: null }>();\n </script>\n ```\n\n ### References\n\n - [Svelte `createEventDispatcher`](https://svelte.dev/docs/svelte/svelte#createEventDispatcher)\n"
+          },
           "useSvelteKitResolve": {
             "deprecated": false,
             "version": "2.6.0",
@@ -6607,6 +6993,40 @@ export function GET() {
             ],
             "docs": " Enforce importing Vue's public entry point instead of internal Vue packages.\n\n The `@vue/runtime-dom`, `@vue/runtime-core`, `@vue/reactivity`, and `@vue/shared` packages are internal implementation packages. Their public exports should be imported from `vue` instead.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n import { computed } from \"@vue/reactivity\";\n ```\n\n ```js,expect_diagnostic\n export * from \"@vue/shared\";\n ```\n\n ### Valid\n\n ```js\n import { computed } from \"vue\";\n import { internalOnly } from \"@vue/reactivity\";\n ```\n\n"
           },
+          "useVueDefineOptions": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueDefineOptions",
+            "link": "https://biomejs.dev/linter/rules/use-vue-define-options/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "prefer-define-options"
+                }
+              }
+            ],
+            "docs": " Enforce `defineOptions()` instead of a default export in components that use `<script setup>`.\n\n A Vue single-file component can have two script blocks: a plain `<script>` block and a\n `<script setup>` block. Before Vue 3.3, options such as `name` or `inheritAttrs` could\n only be set with `export default { ... }` in the plain `<script>` block, so the component\n was split across both blocks.\n\n Since Vue 3.3, the `defineOptions()` macro sets these options directly inside\n `<script setup>`. A macro is a function that the Vue compiler handles at build time, so it\n doesn't need to be imported. Using it keeps the whole component in one block.\n\n This rule reports the default export of a plain `<script>` block when the same file also\n has a `<script setup>` block.\n\n :::note\n This rule needs to read every script block of a `.vue` file, which requires\n [`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)\n to be `true`. Without that setting, Biome only checks the first script block of the file,\n and this rule reports nothing.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic,ignore\n <script>\n export default {\n   name: \"MyComponent\",\n   inheritAttrs: false,\n };\n </script>\n\n <script setup>\n const props = defineProps([\"title\"]);\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n defineOptions({\n   name: \"MyComponent\",\n   inheritAttrs: false,\n });\n\n const props = defineProps([\"title\"]);\n </script>\n ```\n\n A component without `<script setup>` still uses a default export:\n\n ```vue\n <script>\n export default {\n   name: \"MyComponent\",\n };\n </script>\n ```\n\n ## Resources\n\n - [`defineOptions()`](https://vuejs.org/api/sfc-script-setup.html#defineoptions)\n\n"
+          },
+          "useVueDefinePropsDestructuring": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueDefinePropsDestructuring",
+            "link": "https://biomejs.dev/linter/rules/use-vue-define-props-destructuring/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "define-props-destructuring"
+                }
+              }
+            ],
+            "docs": " Require destructuring the props returned by Vue's `defineProps` macro.\n\n Since Vue 3.5, the variables you destructure from `defineProps()` stay reactive, so they\n update when the parent component passes new values. Destructuring lets you read each prop\n as a plain variable and set its default value with regular JavaScript default value syntax.\n This rule reports `defineProps()` calls whose result is assigned to a variable without\n destructuring it into separate props.\n\n Once props are destructured, `withDefaults()` is no longer needed to set default values,\n so this rule also reports `withDefaults()` calls whose result is destructured or not\n assigned to a variable.\n\n Calls to `defineProps()` without arguments are ignored, and so are calls that receive only\n an empty object, an empty array, or the empty type `{}`.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n const props = defineProps([\"foo\"]);\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n const props = withDefaults(defineProps<{ foo?: string }>(), { foo: \"default\" });\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n const { foo } = withDefaults(defineProps<{ foo?: string }>(), { foo: \"default\" });\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n withDefaults(defineProps<{ foo?: string }>(), { foo: \"default\" });\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup lang=\"ts\">\n const { foo } = defineProps<{ foo?: string }>();\n const { bar = \"default\" } = defineProps<{ bar?: string }>();\n defineProps<{ baz?: string }>();\n const props = defineProps();\n </script>\n ```\n\n"
+          },
           "useVueMatchingComponentFileName": {
             "deprecated": false,
             "version": "2.6.0",
@@ -6623,6 +7043,108 @@ export function GET() {
               }
             ],
             "docs": " Enforce that the name of a Vue component matches its file name.\n\n When a component's name differs from the name of the file that defines it, finding the\n component's source from its name, or the other way around, becomes harder.\n\n The names must be identical, including uppercase and lowercase letters: a component named\n `my-component` doesn't match the file `MyComponent.vue`.\n\n The rule checks every component whose name is written as a string, including when a file\n defines several components. It reads the component's name from:\n\n - the `name` option of `export default { ... }` in a `.vue`, `.jsx`, or `.tsx` file;\n - the `name` option passed to `defineComponent()`, `createApp()`, or `defineOptions()`;\n - the name passed to `app.component()` together with the component's definition.\n\n ## Examples\n\n ### Invalid\n\n ```vue,file=MyComponent.vue,expect_diagnostic\n <script>\n export default {\n   name: \"MyButton\"\n };\n </script>\n ```\n\n ```vue,file=MyComponent.vue,expect_diagnostic\n <script setup>\n defineOptions({\n   name: \"my-component\"\n });\n </script>\n ```\n\n ```js,file=MyComponent.js,expect_diagnostic\n app.component(\"MyButton\", {\n   template: \"<div />\"\n });\n ```\n\n ### Valid\n\n ```vue,file=MyComponent.vue\n <script>\n export default {\n   name: \"MyComponent\"\n };\n </script>\n ```\n\n"
+          },
+          "useVueTemplateRef": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueTemplateRef",
+            "link": "https://biomejs.dev/linter/rules/use-vue-template-ref/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "prefer-use-template-ref"
+                }
+              }
+            ],
+            "docs": " Require `useTemplateRef()` instead of `ref()` or `shallowRef()` to access elements of the template.\n\n A template ref gives your script access to an element or a child component of the\n template. You name the element with the `ref` attribute, as in `<input ref=\"input\" />`.\n\n In `<script setup>`, Vue fills in a variable created with `ref()` or `shallowRef()` when the\n variable has the same name as a `ref` attribute. The link between the two is only the\n name, so renaming the variable silently breaks it. The variable also looks like any other\n piece of state, which makes it hard to tell that the template fills it in.\n\n Vue 3.5 added `useTemplateRef()`, which takes the name of the `ref` attribute as an\n argument. The variable can then have any name, and the call shows that the value comes from\n the template.\n\n This rule reports a variable declared at the top level of `<script setup>` with `ref()` or\n `shallowRef()` when an element of the template has a `ref` attribute with the same name.\n\n A `ref` attribute with a dynamic value, such as `:ref=\"(el) => (input = el)\"`, isn't\n reported, because the function decides where the element is stored.\n\n :::note\n This rule needs to read the template, which requires\n [`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)\n to be `true`.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic,ignore\n <template>\n   <input ref=\"input\" />\n </template>\n\n <script setup>\n import { ref } from \"vue\";\n\n const input = ref();\n </script>\n ```\n\n ```vue,expect_diagnostic,ignore\n <template>\n   <div ref=\"root\" />\n </template>\n\n <script setup>\n import { shallowRef } from \"vue\";\n\n const root = shallowRef(null);\n </script>\n ```\n\n ### Valid\n\n ```vue\n <template>\n   <input ref=\"input\" />\n   <button :ref=\"(el) => (button = el)\">Send</button>\n </template>\n\n <script setup>\n import { ref, useTemplateRef } from \"vue\";\n\n const inputElement = useTemplateRef(\"input\");\n const button = ref();\n </script>\n ```\n\n"
+          },
+          "useVueTypedProps": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueTypedProps",
+            "link": "https://biomejs.dev/linter/rules/use-vue-typed-props/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "require-prop-types"
+                }
+              }
+            ],
+            "docs": " Require a type for every prop of a Vue component.\n\n A prop's type tells Vue what kind of value to expect. When a parent passes a value of\n the wrong kind, Vue warns about it during development. A prop declared without a type\n accepts anything, so these mistakes go unnoticed, and readers of the component can't tell\n what the prop is for.\n\n This rule checks props declared through the `props` option, `defineProps()`, and\n `defineModel()`. A prop counts as typed when it names a type, either as a constructor such\n as `String`, in a `type` option, or with a TypeScript type, or when it has a `validator`\n function.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   props: [\"title\"],\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script>\n export default {\n   props: {\n     title: { default: \"\" },\n   },\n };\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup>\n defineProps({ title: {} });\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup>\n const title = defineModel(\"title\");\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script>\n export default {\n   props: {\n     title: String,\n     size: [Number, String],\n     status: { type: String, required: true },\n     level: { validator: (value) => value > 0 },\n   },\n };\n </script>\n ```\n\n ```vue\n <script setup lang=\"ts\">\n defineProps<{ title: string }>();\n const count = defineModel<number>(\"count\");\n const visible = defineModel(\"visible\", { type: Boolean });\n </script>\n ```\n\n"
+          },
+          "useVueValidDefineEmits": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueValidDefineEmits",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-define-emits/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-define-emits"
+                }
+              }
+            ],
+            "docs": " Enforce valid usage of Vue's `defineEmits` macro.\n\n `defineEmits` declares the events that a component can send to its parent.\n Vue reads the call when it compiles the component, so the call must follow a\n few rules. This rule reports a `defineEmits` call in `<script setup>` when:\n\n - It declares the events with both a type and an argument. Vue accepts only\n   one of the two, and fails to compile the component when both are present.\n - Its argument uses a variable, function, or class declared in the same\n   `<script setup>` block. Vue evaluates the argument before the code in\n   `<script setup>` runs, so these names do not exist yet. Imported names and\n   names declared in a separate `<script>` block can be used.\n - It comes after another `defineEmits` call. Vue allows a single call per\n   component, and fails to compile the component when there are more.\n - It has neither a type nor an argument, so it declares no events.\n\n This rule only checks the `<script setup>` block. It does not read an `emits`\n option declared in a separate `<script>` block of the same file.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n const emit = defineEmits<(e: 'notify') => void>(['submit'])\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup>\n const events = ['notify']\n const emit = defineEmits(events)\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup>\n defineEmits(['notify'])\n defineEmits(['submit'])\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup>\n const emit = defineEmits()\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n import { events } from './events'\n\n const emit = defineEmits(events)\n </script>\n ```\n\n ```vue\n <script setup lang=\"ts\">\n const emit = defineEmits<(e: 'notify') => void>()\n </script>\n ```\n\n"
+          },
+          "useVueValidDefineProps": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueValidDefineProps",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-define-props/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintVueJs": "valid-define-props"
+                }
+              }
+            ],
+            "docs": " Enforce valid `defineProps()` calls in Vue components.\n\n In `<script setup>`, a component declares its props with `defineProps()`. Vue reads this\n call when it compiles the component, so the call has to follow some rules. This rule\n reports a `defineProps()` call when:\n\n - its argument uses a variable declared in `<script setup>`. Vue moves the argument out of\n   the setup code, where these variables don't exist;\n - it declares the props both with a type, as in `defineProps<{ msg: string }>()`, and with\n   an argument, as in `defineProps({ msg: String })`;\n - the component calls it more than once;\n - the default export of the plain `<script>` block also declares props with the `props`\n   option;\n - it declares no props, and the plain `<script>` block doesn't declare any either.\n\n The rule checks the `defineProps()` calls at the top level of `<script setup>`: a call\n written as a statement of its own or as the value of a variable, also when it's wrapped in\n `withDefaults()`.\n\n :::note\n The last two checks read the plain `<script>` block of the file, which requires\n [`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)\n to be `true`. Without that setting, the rule skips them.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic\n <script setup>\n const definition = { msg: String };\n defineProps(definition);\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup lang=\"ts\">\n defineProps<{ msg?: string }>({ msg: String });\n </script>\n ```\n\n ```vue,expect_diagnostic\n <script setup>\n defineProps({ msg: String });\n defineProps({ count: Number });\n </script>\n ```\n\n ```vue,expect_diagnostic,ignore\n <script>\n export default {\n   props: { msg: String },\n };\n </script>\n <script setup>\n defineProps({ count: Number });\n </script>\n ```\n\n ```vue,expect_diagnostic,ignore\n <script setup>\n defineProps();\n </script>\n ```\n\n ### Valid\n\n ```vue\n <script setup>\n import { definition } from \"./definition\";\n\n defineProps(definition);\n </script>\n ```\n\n ```vue\n <script setup lang=\"ts\">\n defineProps<{ msg?: string }>();\n </script>\n ```\n\n ```vue\n <script>\n const definition = { msg: String };\n </script>\n <script setup>\n defineProps(definition);\n </script>\n ```\n\n"
+          },
+          "useVueValidVMemo": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useVueValidVMemo",
+            "link": "https://biomejs.dev/linter/rules/use-vue-valid-v-memo/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintVueJs": "valid-v-memo"
+                }
+              }
+            ],
+            "docs": " Enforce valid `v-memo` Vue directives.\n\n `v-memo` takes an array of values. Vue skips updating the element and its\n children until one of those values changes.\n\n This rule reports a `v-memo` value that can never be an array, such as an\n object, a string, a number, or a function. When the value is a condition,\n like `a ? b : c`, each possible result is checked.\n\n ## Examples\n\n ### Invalid\n\n ```vue,expect_diagnostic,ignore\n <template>\n     <div v-memo=\"{ x }\"></div>\n </template>\n ```\n\n ```vue,expect_diagnostic,ignore\n <template>\n     <div v-memo=\"selected ? [item.id] : item.id + 1\"></div>\n </template>\n ```\n\n ### Valid\n\n ```vue,ignore\n <template>\n     <div v-memo=\"[valueA, valueB]\"></div>\n     <div v-memo=\"dependencies\"></div>\n </template>\n ```\n\n"
+          },
+          "useWhileLoopCondition": {
+            "deprecated": false,
+            "version": "2.6.4",
+            "name": "useWhileLoopCondition",
+            "link": "https://biomejs.dev/linter/rules/use-while-loop-condition/javascript",
+            "recommended": true,
+            "fixKind": "safe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "prefer-while-loop-condition"
+                }
+              }
+            ],
+            "docs": " Require the condition that ends a loop to be written in the `while` statement.\n\n A loop such as `while (true)` or `for (;;)` that starts its body with\n `if (condition) { break; }` splits its stopping condition across two places.\n Writing the condition in the `while` statement shows when the loop stops\n without having to read its body.\n\n The rule reports `while (true)`, `do ... while (true)`, `for (;;)`, and\n `for (; true;)` loops whose body starts with an `if` statement that contains\n only a `break`. The rule ignores loops that have a label, and loops that can\n also be stopped by another `break` in their body.\n\n The fix isn't offered when comments in the loop header or in the `if`\n statement would be lost.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n while (true) {\n     if (!hasMore()) {\n         break;\n     }\n     processNext();\n }\n ```\n\n ```js,expect_diagnostic\n for (;;) {\n     if (done) break;\n     processNext();\n }\n ```\n\n ```js,expect_diagnostic\n do {\n     if (!hasMore()) {\n         break;\n     }\n     processNext();\n } while (true);\n ```\n\n ### Valid\n\n ```js\n while (hasMore()) {\n     processNext();\n }\n\n while (!done) {\n     processNext();\n }\n\n while (true) {\n     prepare();\n     if (!hasMore()) {\n         break;\n     }\n }\n\n while (true) {\n     if (!hasMore()) {\n         break;\n     }\n     if (cancelled) {\n         break;\n     }\n }\n ```\n\n"
           }
         },
         "performance": {
@@ -13291,7 +13813,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 710
+    "numberOrRules": 740
   },
   "syntax": {
     "languages": {

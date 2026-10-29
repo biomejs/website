@@ -213,6 +213,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noBaseToString](/linter/rules/no-base-to-string/javascript) | Require stringification to avoid values that only use the default object representation. |  |
 | [noBooleanSortComparator](/linter/rules/no-boolean-sort-comparator/javascript) | Disallow sort comparators that return a boolean. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noBunModules](/linter/rules/no-bun-modules/javascript) | Forbid the use of Bun builtin modules. |  |
+| [noConsoleSpaces](/linter/rules/no-console-spaces/javascript) | Disallow leading and trailing spaces in `console` method arguments. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noDanglingUnderscore](/linter/rules/no-dangling-underscore/javascript) | Disallow names that start or end with an underscore. |  |
 | [noDoubleComparison](/linter/rules/no-double-comparison/javascript) | Disallow two comparisons of the same values that can be combined into one. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noEagerArrayMethodsInLoops](/linter/rules/no-eager-array-methods-in-loops/javascript) | Disallow `.map()` and `.filter()` calls in the header of `for...of` loops. |  |
@@ -223,6 +224,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noInvalidFileInputAccept](/linter/rules/no-invalid-file-input-accept/javascript) | Disallow invalid `accept` values on file inputs. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noInvalidThis](/linter/rules/no-invalid-this/javascript) | Disallow `this` in places where it is `undefined`. |  |
 | [noJsRestrictedProperties](/linter/rules/no-js-restricted-properties/javascript) | Disallow specific object properties. |  |
+| [noMagicArrayFlatDepth](/linter/rules/no-magic-array-flat-depth/javascript) | Disallow unexplained numbers as the depth argument of `Array.prototype.flat()`. |  |
 | [noMeaninglessVoidOperator](/linter/rules/no-meaningless-void-operator/javascript) | Disallow `void` when it does not discard a call's return value or a thenable. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noMisleadingReturnType](/linter/rules/no-misleading-return-type/javascript) | Detect return type annotations that are misleadingly wider than what |  |
 | [noMisplacedListElements](/linter/rules/no-misplaced-list-elements/javascript) | Require `<li>` elements with an HTML element parent to be children of `<ul>`, `<ol>`, or `<menu>`. |  |
@@ -232,6 +234,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noNestedTemplateLiterals](/linter/rules/no-nested-template-literals/javascript) | Disallow template literals inside other template literals. |  |
 | [noNewRequire](/linter/rules/no-new-require/javascript) | Disallow calling `require` with the `new` operator. |  |
 | [noNonScalableViewport](/linter/rules/no-non-scalable-viewport/javascript) | Disallow disabling zoom with `user-scalable=no` in the `<meta name="viewport">` element. |  |
+| [noNull](/linter/rules/no-null/javascript) | Disallow the use of the `null` literal. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noObjectConstructor](/linter/rules/no-object-constructor/javascript) | Disallow calling `Object` without arguments to create an empty object. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noObsoleteAttributes](/linter/rules/no-obsolete-attributes/javascript) | Disallow obsolete attributes on HTML elements. |  |
 | [noObsoleteTags](/linter/rules/no-obsolete-tags/javascript) | Disallow obsolete HTML elements. |  |
@@ -242,6 +245,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noPromiseExecutorReturn](/linter/rules/no-promise-executor-return/javascript) | Disallow returning values from the function passed to `new Promise()`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noReactObjectTypeAsDefaultProp](/linter/rules/no-react-object-type-as-default-prop/javascript) | Disallow array, object, and function values as default props in React components. |  |
 | [noRestrictedDependencies](/linter/rules/no-restricted-dependencies/javascript) | Disallow dependencies that are known to have better alternatives. |  |
+| [noReturnArrayPush](/linter/rules/no-return-array-push/javascript) | Disallow using the return value of `Array.prototype.push()` and `Array.prototype.unshift()`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noReturnInFinally](/linter/rules/no-return-in-finally/javascript) | Disallow return statements in `Promise.prototype.finally()` callbacks. |  |
 | [noSelfImport](/linter/rules/no-self-import/javascript) | Forbid a module from importing itself. |  |
 | [noSvelteAddEventListener](/linter/rules/no-svelte-add-event-listener/javascript) | Disallow `addEventListener` in Svelte files. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -261,6 +265,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noUndeclaredCustomProperties](/linter/rules/no-undeclared-custom-properties/javascript) | Reports custom properties used with `var()` that have no visible declaration. |  |
 | [noUnmodifiedLoopCondition](/linter/rules/no-unmodified-loop-condition/javascript) | Disallow loop conditions whose variables are never modified in the loop. |  |
 | [noUnreadableForOfExpression](/linter/rules/no-unreadable-for-of-expression/javascript) | Disallow complex expressions as the value that a `for...of` loop goes through. |  |
+| [noUnreadableIife](/linter/rules/no-unreadable-iife/javascript) | Disallow immediately called arrow functions whose body is wrapped in parentheses. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noUnsafeIframeSandbox](/linter/rules/no-unsafe-iframe-sandbox/javascript) | Disallow an unsafe combination of the `sandbox` attribute. |  |
 | [noUnsafePlusOperands](/linter/rules/no-unsafe-plus-operands/javascript) | Disallow `+` operations with operands that are known to be unsafe. |  |
 | [noUnsafeReturn](/linter/rules/no-unsafe-return/javascript) | Disallow returning a value typed as `any` from a function. |  |
@@ -269,13 +274,20 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noUselessAssignment](/linter/rules/no-useless-assignment/javascript) | Disallow assignments whose value is never read. |  |
 | [noUselessCall](/linter/rules/no-useless-call/javascript) | Disallow unnecessary `.call()` and `.apply()`. |  |
 | [noUselessDateGetTime](/linter/rules/no-useless-date-get-time/javascript) | Disallow calling `.getTime()` on a date before passing it to the `Date` constructor. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noUselessRecursion](/linter/rules/no-useless-recursion/javascript) | Disallow functions that return a call to themselves when a loop can do the same work. |  |
 | [noUselessSplice](/linter/rules/no-useless-splice/javascript) | Disallow `splice()` calls that have a simpler alternative. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noUselessTypeConversion](/linter/rules/no-useless-type-conversion/javascript) | Disallow type conversions that do not change the type of an expression. |  |
 | [noVueBooleanDefault](/linter/rules/no-vue-boolean-default/javascript) | Disallow default values for Boolean props in Vue components. |  |
+| [noVueComputedPropertiesInData](/linter/rules/no-vue-computed-properties-in-data/javascript) | Disallow using computed properties inside the `data` function of a Vue component. |  |
+| [noVueDeprecatedDeleteSet](/linter/rules/no-vue-deprecated-delete-set/javascript) | Disallow the `$set` and `$delete` functions that Vue 3 removed. |  |
+| [noVueDeprecatedListeners](/linter/rules/no-vue-deprecated-listeners/javascript) | Disallow the deprecated Vue `$listeners` API. |  |
 | [noVueDeprecatedScopedSlots](/linter/rules/no-vue-deprecated-scoped-slots/javascript) | Disallow the deprecated Vue `$scopedSlots` API. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noVueLifecycleAfterAwait](/linter/rules/no-vue-lifecycle-after-await/javascript) | Disallow registering Vue lifecycle hooks after an `await` in `setup()`. |  |
+| [noVueMultipleSlotArgs](/linter/rules/no-vue-multiple-slot-args/javascript) | Disallow passing more than one argument to a Vue slot. |  |
+| [noVueMutatingProps](/linter/rules/no-vue-mutating-props/javascript) | Disallow changing the props of a Vue component. |  |
 | [noVueRequiredPropWithDefault](/linter/rules/no-vue-required-prop-with-default/javascript) | Disallow props that are both required and have a default value. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noVueShadowNativeEvents](/linter/rules/no-vue-shadow-native-events/javascript) | Disallow Vue component events named after built-in browser events. |  |
+| [noVueSideEffectsInComputed](/linter/rules/no-vue-side-effects-in-computed/javascript) | Disallow changing state inside Vue computed properties. |  |
 | [noVueUnusedEmitDeclarations](/linter/rules/no-vue-unused-emit-declarations/javascript) | Disallow declaring events that a Vue component never emits. |  |
 | [noVueWatchAfterAwait](/linter/rules/no-vue-watch-after-await/javascript) | Disallow creating Vue watchers after an `await` in `setup()`. |  |
 | [noXorAsExponentiation](/linter/rules/no-xor-as-exponentiation/javascript) | Disallow the bitwise XOR operator where exponentiation was likely intended. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -313,6 +325,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useSimplifiedBooleanReturn](/linter/rules/use-simplified-boolean-return/javascript) | Return conditions directly instead of using `if` statements that only return `true` or `false`. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useStrictBooleanExpressions](/linter/rules/use-strict-boolean-expressions/javascript) | Require unambiguous boolean expressions in conditions. |  |
 | [useStringStartsEndsWith](/linter/rules/use-string-starts-ends-with/javascript) | Prefer `String#startsWith()` and `String#endsWith()` over verbose prefix and suffix checks. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useSvelteEventDispatcherTypes](/linter/rules/use-svelte-event-dispatcher-types/javascript) | Require `createEventDispatcher` calls to declare the types of their events. |  |
 | [useSvelteKitResolve](/linter/rules/use-svelte-kit-resolve/javascript) | Require internal navigation in SvelteKit apps to use paths built with `resolve()`. |  |
 | [useSvelteKitRuneImports](/linter/rules/use-svelte-kit-rune-imports/javascript) | Require importing SvelteKit's app state from `$app/state` instead of `$app/stores`. |  |
 | [useSvelteReactiveClasses](/linter/rules/use-svelte-reactive-classes/javascript) | Require the reactive classes from `svelte/reactivity` instead of built-in objects that are |  |
@@ -322,8 +335,16 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useUnaryMinus](/linter/rules/use-unary-minus/javascript) | Enforce the use of the unary minus operator over multiplying or dividing by `-1`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useValidTestTitle](/linter/rules/use-valid-test-title/javascript) | Enforce valid titles for unit test cases and test suites. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [useVueBaseImport](/linter/rules/use-vue-base-import/javascript) | Enforce importing Vue's public entry point instead of internal Vue packages. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useVueDefineOptions](/linter/rules/use-vue-define-options/javascript) | Enforce `defineOptions()` instead of a default export in components that use `<script setup>`. |  |
+| [useVueDefinePropsDestructuring](/linter/rules/use-vue-define-props-destructuring/javascript) | Require destructuring the props returned by Vue's `defineProps` macro. |  |
 | [useVueMatchingComponentFileName](/linter/rules/use-vue-matching-component-file-name/javascript) | Enforce that the name of a Vue component matches its file name. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueTemplateRef](/linter/rules/use-vue-template-ref/javascript) | Require `useTemplateRef()` instead of `ref()` or `shallowRef()` to access elements of the template. |  |
+| [useVueTypedProps](/linter/rules/use-vue-typed-props/javascript) | Require a type for every prop of a Vue component. |  |
 | [useVueTypedRef](/linter/rules/use-vue-typed-ref/javascript) | Require a type for refs created with `ref()` or `shallowRef()` in TypeScript. |  |
+| [useVueValidDefineEmits](/linter/rules/use-vue-valid-define-emits/javascript) | Enforce valid usage of Vue's `defineEmits` macro. |  |
+| [useVueValidDefineProps](/linter/rules/use-vue-valid-define-props/javascript) | Enforce valid `defineProps()` calls in Vue components. |  |
+| [useVueValidVMemo](/linter/rules/use-vue-valid-v-memo/javascript) | Enforce valid `v-memo` Vue directives. |  |
+| [useWhileLoopCondition](/linter/rules/use-while-loop-condition/javascript) | Require the condition that ends a loop to be written in the `while` statement. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 
 ## `performance`
 
