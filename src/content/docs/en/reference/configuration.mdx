@@ -662,33 +662,7 @@ Controls whether arrays and objects are formatted on one line or multiple lines:
 - `"auto"`: Formats objects on multiple lines if the first property has a leading newline, and keeps arrays on one line when they fit.
 - `"always"`: Formats arrays and objects on multiple lines.
 - `"never"`: Keeps arrays and objects on one line when they fit.
-- `"whenMultiple"`: Formats objects with more than one property and arrays with more than one element on multiple lines, placing each property or element on its own line. Objects and arrays with a single member stay on one line when they fit. Comments, multiline content, or the configured line width can still require wrapping.
-
-The setting is also available through `javascript.formatter.expand` and `json.formatter.expand`. On the CLI, use `when-multiple`, for example `biome format --expand=when-multiple`.
-
-```json title="biome.json"
-{
-  "formatter": {
-    "expand": "whenMultiple"
-  }
-}
-```
-
-```js
-const single = { enabled: true };
-
-const multiple = {
-  enabled: true,
-  retries: 3,
-};
-
-const singleElement = [1];
-
-const multipleElements = [
-  1,
-  2,
-];
-```
+- `"whenMultiple"`: Formats arrays and objects with more than one member on multiple lines, and keeps those with a single member on one line when they fit.
 
 When formatting `package.json`, Biome uses `"always"` unless expansion is configured explicitly.
 
@@ -1169,7 +1143,7 @@ Controls whether arrays and objects are formatted on one line or multiple lines:
 - `"auto"`: Formats objects on multiple lines if the first property has a leading newline, and keeps arrays on one line when they fit.
 - `"always"`: Formats arrays and objects on multiple lines.
 - `"never"`: Keeps arrays and objects on one line when they fit.
-- `"whenMultiple"`: Formats objects with more than one property and arrays with more than one element on multiple lines, placing each property or element on its own line. Objects and arrays with a single member stay on one line when they fit. Comments, multiline content, or the configured line width can still require wrapping.
+- `"whenMultiple"`: Formats arrays and objects with more than one member on multiple lines, and keeps those with a single member on one line when they fit.
 
 ### `javascript.formatter.operatorLinebreak`
 
@@ -1359,7 +1333,7 @@ Controls whether arrays and objects are formatted on one line or multiple lines:
 - `"auto"`: Formats objects on multiple lines if the first property has a leading newline, and keeps arrays on one line when they fit.
 - `"always"`: Formats arrays and objects on multiple lines.
 - `"never"`: Keeps arrays and objects on one line when they fit.
-- `"whenMultiple"`: Formats objects with more than one property and arrays with more than one element on multiple lines, placing each property or element on its own line. Objects and arrays with a single member stay on one line when they fit. Comments, multiline content, or the configured line width can still require wrapping.
+- `"whenMultiple"`: Formats arrays and objects with more than one member on multiple lines, and keeps those with a single member on one line when they fit.
 
 When formatting `package.json`, Biome uses `"always"` unless expansion is configured explicitly.
 
