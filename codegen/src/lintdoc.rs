@@ -416,6 +416,7 @@ fn generate_rule_pages() -> Result<()> {
     biome_graphql_analyze::visit_registry(&mut visitor);
     biome_html_analyze::visit_registry(&mut visitor);
     biome_markdown_analyze::visit_registry(&mut visitor);
+    biome_yaml_analyze::visit_registry(&mut visitor);
 
     let RulesVisitor { actions, lints } = visitor;
 

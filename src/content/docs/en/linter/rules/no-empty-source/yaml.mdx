@@ -1,0 +1,140 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noEmptySource (YAML)
+description: YAML documentation for noEmptySource
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="yaml" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-empty-source/css/"},{"id":"graphql","label":"GraphQL","href":"/linter/rules/no-empty-source/graphql/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-empty-source/javascript/"},{"id":"markdown","label":"Markdown","href":"/linter/rules/no-empty-source/markdown/"},{"id":"yaml","label":"YAML","href":"/linter/rules/no-empty-source/yaml/"}]} />
+
+## Summary
+- Rule available since: `v2.6.0`
+- Diagnostic Category: [`lint/suspicious/noEmptySource`](/reference/diagnostics#diagnostic-category)
+- This rule isn't recommended, so you need to enable it.
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`yml/no-empty-document`](https://ota-meshi.github.io/eslint-plugin-yml/rules/no-empty-document.html)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noEmptySource": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow empty sources.
+
+A YAML file can hold several documents, separated by `---` lines.
+This rule reports each document that has no content, and files that contain no documents at all.
+A document that only has a tag (such as `!!map`) or an anchor (such as `&config`) also counts as empty,
+because it still holds no value.
+
+Empty documents and files are usually leftovers from editing, and tools that read the file
+get an empty value (`null`) for them.
+
+By default, whitespace and comments do not count as content.
+
+## Examples
+
+### Invalid
+
+```yaml
+
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:2:1 <a href=\"https://biomejs.dev/linter/rules/no-empty-source\">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">An empty source is not allowed.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>"} />
+
+```yaml
+# Only comments
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:2:1 <a href=\"https://biomejs.dev/linter/rules/no-empty-source\">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">An empty source is not allowed.</span><br />  <br />    <strong>1 │ </strong># Only comments<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong><br />   <strong>   │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Empty sources can clutter the codebase and increase cognitive load; deleting empty sources can help reduce it.</span><br />  <br /></code></pre>"} />
+
+```yaml
+name: foo
+---
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:2:1 <a href=\"https://biomejs.dev/linter/rules/no-empty-source\">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">An empty document is not allowed.</span><br />  <br />    <strong>1 │ </strong>name: foo<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>---<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Tools that read this file get an empty value for this document, which is rarely intended.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add content to the document, or remove it.</span><br />  <br /></code></pre>"} />
+
+```yaml
+--- !!map
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:1:1 <a href=\"https://biomejs.dev/linter/rules/no-empty-source\">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">An empty document is not allowed.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>--- !!map<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Tools that read this file get an empty value for this document, which is rarely intended.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add content to the document, or remove it.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```yaml
+name: foo
+---
+name: bar
+```
+
+## Options
+
+### `allowComments`
+
+Default: `false`
+
+Treats comments as meaningful content when set to `true`, so a file or document that only
+contains comments is valid.
+An entirely empty file or document remains invalid.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noEmptySource": {
+					"level": "on",
+					"options": {
+						"allowComments": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```yaml
+name: foo
+---
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:2:1 <a href=\"https://biomejs.dev/linter/rules/no-empty-source\">lint/suspicious/noEmptySource</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">An empty document is not allowed.</span><br />  <br />    <strong>1 │ </strong>name: foo<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>---<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Tools that read this file get an empty value for this document, which is rarely intended.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add content to the document, or remove it.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```yaml
+name: foo
+---
+# Only comments
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_yaml_analyze/src/lint/suspicious/no_empty_source.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_yaml_analyze/tests/specs/suspicious/noEmptySource)
+- <RulePlaygroundLink rule="noEmptySource" category="lint" language="yaml" code={"\n"} />
+
