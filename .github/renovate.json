@@ -23,6 +23,11 @@
       "matchManagers": ["npm"],
       "matchDepNames": ["@codemirror/*"],
       "postUpdateOptions": ["pnpmDedupe"]
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchDepNames": ["@expressive-code/*"],
+      "postUpdateOptions": ["pnpmDedupe"]
     }
   ]
 }
