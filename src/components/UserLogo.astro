@@ -5,7 +5,7 @@ import type { CollectionEntry } from "astro:content";
 interface Props {
 	user: CollectionEntry<"users">;
 	size: number;
-	class?: string;
+	class?: string | undefined;
 }
 
 const { user, size, class: className } = Astro.props;
