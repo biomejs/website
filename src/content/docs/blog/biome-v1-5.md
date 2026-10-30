@@ -81,7 +81,7 @@ biome explain noAccumulatingSpread
 
 Which will print the following Markdown:
 
-``````markdown
+````markdown
 # noAccumulatingSpread
 
 No fix available.
@@ -124,8 +124,7 @@ a.reduce((acc, val) => ({...acc, [val]: val}), {});
 var a = ['a', 'b', 'c'];
 a.reduce((acc, val) => {acc.push(val); return acc}, []);
 ```
-
-``````
+````
 
 We plan to make this output more readable for terminals, as well as provide autocompletion for this command.
 
@@ -142,13 +141,12 @@ The command `biome migrate` now updates the `$schema` value inside the configura
 
 ### New rules
 
-####  [useExportType](/linter/rules/use-export-type)
+#### [useExportType](/linter/rules/use-export-type)
 
 ```ts
-interface I {
-}
+interface I {}
 
-export {I};
+export { I };
 ```
 
 <pre class="language-text"><code class="language-text">nursery/useExportType.js:2:8 <a href="/linter/rules/use-export-type">lint/nursery/useExportType</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -168,10 +166,10 @@ export {I};
 <strong>  </strong><strong>    │ </strong>       <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>
 </code></pre>
 
-####  [useImportType](/linter/rules/use-import-type)
+#### [useImportType](/linter/rules/use-import-type)
 
 ```ts
-import {A} from "./mod.js";
+import { A } from "./mod.js";
 
 type TypeOfA = typeof A;
 let a: A;
@@ -194,14 +192,14 @@ let a: A;
 <strong>  </strong><strong>    │ </strong>       <span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span><span style="color: MediumSeaGreen;">+</span>
 </code></pre>
 
-####  [useFilenamingConvention](/linter/rules/use-filenaming-convention)
+#### [useFilenamingConvention](/linter/rules/use-filenaming-convention)
 
 Enforces naming conventions for JavaScript and TypeScript filenames.
 
 #### [useNodejsImportProtocol](/linter/rules/use-nodejs-import-protocol)
 
 ```jsx
-import fs from 'fs';
+import fs from "fs";
 ```
 
 <pre class="language-text"><code class="language-text">nursery/useNodejsImportProtocol.js:1:16 <a href="/linter/rules/use-nodejs-import-protocol">lint/nursery/useNodejsImportProtocol</a> <span style="color: #000; background-color: #ddd;"> FIXABLE </span> ━━━━━━━━━━━━━━━━━
@@ -326,8 +324,7 @@ Object = null;
 
 ```jsx
 const foo = {
-    then() {
-    }
+	then() {},
 };
 ```
 
@@ -345,8 +342,7 @@ const foo = {
 
 ```jsx
 const foo = {
-    get then() {
-    }
+	get then() {},
 };
 ```
 

@@ -48,6 +48,13 @@ pre[class*="language-"] {
 	}
 }
 
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: 0.1em;
+	border-radius: 0.3em;
+	white-space: normal;
+}
+
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
 	background: #282c34;
@@ -61,13 +68,6 @@ pre[class*="language-"] {
 			background: #1d2026;
 		}
 	}
-}
-
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-	padding: 0.1em;
-	border-radius: 0.3em;
-	white-space: normal;
 }
 
 .token.comment,

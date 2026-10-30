@@ -38,15 +38,9 @@ Given the following ESLint configuration:
 
 ```json title=".eslintrc.json"
 {
-  "extends": [
-    "plugin:unicorn/recommended"
-  ],
-  "plugins": [
-    "unicorn"
-  ],
-  "ignore_patterns": [
-    "dist/**"
-  ],
+  "extends": ["plugin:unicorn/recommended"],
+  "plugins": ["unicorn"],
+  "ignore_patterns": ["dist/**"],
   "globals": {
     "Global1": "readonly"
   },
@@ -55,9 +49,7 @@ Given the following ESLint configuration:
   },
   "overrides": [
     {
-      "files": [
-        "tests/**"
-      ],
+      "files": ["tests/**"],
       "rules": {
         "eqeqeq": "off"
       }
@@ -112,15 +104,11 @@ Run
     }
   },
   "javascript": {
-    "globals": [
-      "Global1"
-    ]
+    "globals": ["Global1"]
   },
   "overrides": [
     {
-      "include": [
-        "tests/**"
-      ],
+      "include": ["tests/**"],
       "linter": {
         "rules": {
           "suspicious": {
@@ -157,9 +145,7 @@ During the migration, Prettier's `overrides` is translated to [Biome's
   "singleQuote": true,
   "overrides": [
     {
-      "files": [
-        "*.json"
-      ],
+      "files": ["*.json"],
       "options": {
         "tabWidth": 2
       }
@@ -206,9 +192,7 @@ Run
   },
   "overrides": [
     {
-      "include": [
-        "*.json"
-      ],
+      "include": ["*.json"],
       "formatter": {
         "indentWidth": 2
       }
@@ -259,7 +243,6 @@ Since _Biome
 v1.6_, we added several new rules. New rules are incubated in the nursery group. Nursery rules are exempt from semantic versioning.
 
 The new rules are:
-
 - [nursery/noConstantMathMinMaxClamp](/linter/rules/no-constant-math-min-max-clamp/)
 - [nursery/noDoneCallback](/linter/rules/no-done-callback/)
 - [nursery/noDuplicateElseIf](/linter/rules/no-duplicate-else-if/)
@@ -270,7 +253,6 @@ The new rules are:
 ### Promoted rules
 
 Once stable, a nursery rule is promoted to a stable group. The following rules are promoted:
-
 - [complexity/noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites)
 - [complexity/noUselessTernary](/linter/rules/no-useless-ternary/)
 - [correctness/useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable/)
@@ -302,8 +284,7 @@ Once stable, a nursery rule is promoted to a stable group. The following rules a
   ```
 
 - You can now ignore
-  `React` imports in the rules [noUnusedImports](/linter/rules/no-unused-imports/#options) and [useImportType](/linter/rules/use-import-type/#options) by setting [
-  `javascript.jsxRuntime`](/reference/configuration/#javascriptjsxruntime) to `reactClassic`.
+  `React` imports in the rules [noUnusedImports](/linter/rules/no-unused-imports/#options) and [useImportType](/linter/rules/use-import-type/#options) by setting [`javascript.jsxRuntime`](/reference/configuration/#javascriptjsxruntime) to `reactClassic`.
 
 - Biome applies specific settings to [well-known files](/guides/configure-biome/#well-known-files). It now recognizes more files and distinguishes between JSON files that only allow comments and JSON files that allow both comments and trailing commas.
 
@@ -316,8 +297,7 @@ See the [changelog](/internals/changelog/#170-2024-04-15) for more details.
 
 ## What’s Next?
 
-We have started work on the CSS formatter and linter. Early implementation towards a [plugin system](https://github.com/biomejs/biome/discussions/2286) is also underway. Some of our contributors have started preliminary work for [
-_GraphQL_](https://github.com/biomejs/biome/issues/1927) and [YAML](https://github.com/biomejs/biome/issues/2365). Any help is welcome!
+We have started work on the CSS formatter and linter. Early implementation towards a [plugin system](https://github.com/biomejs/biome/discussions/2286) is also underway. Some of our contributors have started preliminary work for [_GraphQL_](https://github.com/biomejs/biome/issues/1927) and [YAML](https://github.com/biomejs/biome/issues/2365). Any help is welcome!
 
 If Biome is valuable to you or your company, consider donating monthly to our [Open Collective](https://opencollective.com/biome). You can also [sponsor us on GitHub](https://github.com/sponsors/biomejs). This is important for the sustainability of the project.
 

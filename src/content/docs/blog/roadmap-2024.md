@@ -17,7 +17,6 @@ We are thrilled to share what the Core Contributors and Maintainers would like t
 We want to remind you that Biome is a community-driven project, so we can only promise that some of the ideas outlined below will be shipped.
 
 However, if you're excited about some aspects of the project, and you want to see some of them developed faster than others, you can help us in many ways:
-
 - [**Be involved in the project and the community**](https://github.com/biomejs). Please help us to build those features.
 - [**Sponsor us**](https://opencollective.com/biome). Ask your company to sponsor us. Biome is so fast that it can reduce your company's CI times and save money. Performance is part of our mission. Plus, sponsorship is a good medium of
   _advertisement_ for your company.
@@ -47,7 +46,7 @@ Users have different needs, though, so it will only be possible to satisfy some 
 - Offer guides on our website to users who want to migrate from ESlint (CLI commands and configuration)
 - Offer a section on our website that shows a mapping of the ESLint rules to our rules
 - Offer commands to ease the transition
-    - A command called `biome migrate prettier` that will read `.prettierrc` and `.prettierignore` will update the `biome.json` file (or create it) with the configuration from the Prettier files.
+  - A command called `biome migrate prettier` that will read `.prettierrc` and `.prettierignore` will update the `biome.json` file (or create it) with the configuration from the Prettier files.
     - A command called `biome migrate eslint` will read the JSON configuration of Eslint and the ignore file. There will be expectations and limitations.
 
 ## Expand Biome's language support
@@ -77,7 +76,6 @@ With project resolution, we will be able to provide more lint rules, some of whi
 With dependency resolution, we can - for example - detect dependencies that aren't used inside a project.
 
 With this infrastructure, our LSP is going to be more powerful and provide more features, for example:
-
 - rename variables across a project;
 - auto-complete for imports;
 - in-line types
@@ -93,7 +91,6 @@ Once we have something we can rely on, we can slowly widen the capabilities of o
 ### CLI
 
 More features for the command line tool, such as:
-
 - Add the `explain` command for offline documentation;
 - Allow the output to be exported in different formats (JSON, etc.)
 - Auto-completion for other shells such as `zsh`;
@@ -107,7 +104,6 @@ We will explore plugins and come up with a design that fits Biome. Biome is diff
 We don't know yet what a Biome's plugin will look like, although a plugin should be able to tap all the tools that Biome offers.
 
 Some ideas that we will consider:
-
 - DSL
 - WASM
 - A Runtime
@@ -123,7 +119,7 @@ We will provide the ability to transform TypeScript and JSX files into JavaScrip
 Biome has a growing ecosystem, with an official VSCode extension, an official IntelliJ extension, and a Discord bot. We want to grow the features these tools provide and welcome anyone who wants to help us.
 
 Our community is slowly growing, and we want to reward everyone who sticks around and contributes to Biome. At Biome, **we value every contribution**, so you don't need to be proficient in Rust to help us. Even participating in discussions and helping us to shape our features or helping other people are considered
-*contributions*. If you'd like to continue contributing to our ecosystem, we also encourage you to [nominate yourself as a maintainer of the project](https://github.com/biomejs/biome/blob/main/GOVERNANCE.md#maintainer-nomination).
+_contributions_. If you'd like to continue contributing to our ecosystem, we also encourage you to [nominate yourself as a maintainer of the project](https://github.com/biomejs/biome/blob/main/GOVERNANCE.md#maintainer-nomination).
 
 Recently Biome started its own [YouTube Channel](https://www.youtube.com/channel/UC6ssscaFgCSlbv1Pb6krGVw). We will use this channel to share learning content with the community.
 

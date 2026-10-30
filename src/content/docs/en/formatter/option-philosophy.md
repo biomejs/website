@@ -3,13 +3,13 @@ title: Formatter Option Philosophy
 description: Configuring an opinionated formatter.
 ---
 
->💡 Biome follows the same [Option Philosophy as Prettier](https://prettier.io/docs/en/option-philosophy). The existing set of options for formatting is considered stable, and new options are not likely to be considered.
+> 💡 Biome follows the same [Option Philosophy as Prettier](https://prettier.io/docs/en/option-philosophy). The existing set of options for formatting is considered stable, and new options are not likely to be considered.
 >
->This document explains some history about how and why Biome got to where it is today, and an outlook for the future.
+> This document explains some history about how and why Biome got to where it is today, and an outlook for the future.
 
-Biome is an *opinionated formatter*. In an ideal world, that means Biome assumes there is only one correct way to format things and will enforce that style at all times. No matter the project, no matter the setup, code formatted by Biome will always look the same. From another perspective, Biome is its own *automatic style guide*, not a tool for implementing other style guides.
+Biome is an _opinionated formatter_. In an ideal world, that means Biome assumes there is only one correct way to format things and will enforce that style at all times. No matter the project, no matter the setup, code formatted by Biome will always look the same. From another perspective, Biome is its own _automatic style guide_, not a tool for implementing other style guides.
 
-Having such a strong opinion on formatting may seem heavy-handed, but the benefits quickly become clear after adoption. All of the discussions about where spaces should go, whether a line should be broken out, whether a line should be indented, and so many more simply *vanish*. [Trivial, bike-shedding discussions](https://en.wikipedia.org/wiki/Law_of_triviality) no longer distract from focusing on what matters. Code reviews become free of re-formatting requests and cyclical debates. All it takes is trust that Biome does its best to format code cleanly, legibly, and consistently.
+Having such a strong opinion on formatting may seem heavy-handed, but the benefits quickly become clear after adoption. All of the discussions about where spaces should go, whether a line should be broken out, whether a line should be indented, and so many more simply _vanish_. [Trivial, bike-shedding discussions](https://en.wikipedia.org/wiki/Law_of_triviality) no longer distract from focusing on what matters. Code reviews become free of re-formatting requests and cyclical debates. All it takes is trust that Biome does its best to format code cleanly, legibly, and consistently.
 
 Beyond the benefits within individual teams and organizations, the adoption of consistent formatters across the whole web ecosystem benefits everyone, making it easier to retain familiarity when moving between projects and helping newcomers learn and recognize patterns more intuitively without distractions.
 
@@ -23,7 +23,7 @@ Biome started out with a strict subset of configuration options, targeting the m
 
 Leaning on the [Prettier Option Philosophy](https://prettier.io/docs/en/option-philosophy), Biome had the chance to start fresh and avoid the pitfalls that Prettier had fallen into with its other existing options, like `--bracket-same-line` and `--arrow-parens`:
 
-> …[these] are not the type of options we’re happy to have. They cause a lot of bike-shedding in teams, and we’re sorry for that. Difficult to remove now, these options exist as a historical artifact and should not motivate adding more options (“If *those* options exist, why can’t this one?”).
+> …[these] are not the type of options we’re happy to have. They cause a lot of bike-shedding in teams, and we’re sorry for that. Difficult to remove now, these options exist as a historical artifact and should not motivate adding more options (“If _those_ options exist, why can’t this one?”).
 
 However, when the [Prettier Challenge](https://console.algora.io/challenges/prettier) was announced, Biome decided to accept the challenge, which required implementing all of the configuration options that Prettier had to achieve full compatibility.
 
