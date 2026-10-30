@@ -1007,8 +1007,10 @@ fn generate_rule_content(rule_content: RuleContent) -> Result<Vec<u8>> {
     if !meta.domains.is_empty() {
         writeln!(content, "- This rule belongs to the following domains:")?;
         for domain in meta.domains {
-            let domain = markup_to_string(&markup!({ domain }).to_owned());
-            writeln!(content, "  - [`{domain}`](/linter/domains#{domain})")?;
+            let domain = domain.as_str();
+            // Heading anchors on the domains page are lowercase slugs.
+            let anchor = domain.to_ascii_lowercase();
+            writeln!(content, "  - [`{domain}`](/linter/domains#{anchor})")?;
         }
     }
 
