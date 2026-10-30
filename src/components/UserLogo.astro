@@ -1,0 +1,54 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	user: CollectionEntry<"users">;
+	size: number;
+	class?: string;
+}
+
+const { user, size, class: className } = Astro.props;
+const { id, logo, logoSvg, logoSvgDark, logoSvgInvertDark } = user.data;
+const alt = `${id} logo`;
+---
+
+{logoSvg ? (
+	<>
+		<Image
+			src={logoSvg}
+			alt={alt}
+			class:list={[
+				className,
+				{ "dark:sl-hidden": logoSvgDark, "invert-dark": logoSvgInvertDark },
+			]}
+			height={size}
+			loading="lazy"
+		/>
+		{logoSvgDark && (
+			<Image
+				src={logoSvgDark}
+				alt={alt}
+				class:list={[className, "light:sl-hidden"]}
+				height={size}
+				loading="lazy"
+			/>
+		)}
+	</>
+) : (
+	<Image
+		src={logo}
+		alt={alt}
+		class={className}
+		width={size}
+		height={size}
+		densities={[1, 2]}
+		loading="lazy"
+	/>
+)}
+
+<style>
+:global([data-theme="dark"] .invert-dark) {
+	filter: invert(1);
+}
+</style>

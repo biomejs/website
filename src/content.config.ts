@@ -27,10 +27,12 @@ export const collections = {
 				logo: image(),
 				url: z.url(),
 				featured: z.boolean(),
-				// High-resolution logo shown on the home page; falls back to `logo`
-				featuredLogo: image().optional(),
-				// Variant of `featuredLogo` for dark mode
-				featuredLogoDark: image().optional(),
+				// Official vector logo; preferred over `logo` when present
+				logoSvg: image().optional(),
+				// Variant of `logoSvg` for dark mode
+				logoSvgDark: image().optional(),
+				// Invert a single-colour `logoSvg` in dark mode when no dark variant exists
+				logoSvgInvertDark: z.boolean().optional(),
 			});
 		},
 	}),

@@ -1,7 +1,7 @@
 ---
-import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { LinkButton } from "@astrojs/starlight/components";
+import UsersGrid from "@/components/UsersGrid.astro";
 
 const allUsers = await getCollection("users");
 const featuredUsers = allUsers.filter((user) => user.data.featured);
@@ -12,29 +12,7 @@ const description = Astro.locals.t("users.featured.description");
 <div class="featured-users">
 	<h2>{title}</h2>
 	<p>{description}</p>
-	<div class="featured-users-grid">
-		{featuredUsers.map((user) => (
-			<div class="featured-user-card">
-				<Image
-					src={user.data.featuredLogo ?? user.data.logo}
-					alt={`${user.data.id} logo`}
-					class:list={{ "dark:sl-hidden": user.data.featuredLogoDark }}
-					height={64}
-					loading="lazy"
-				/>
-				{user.data.featuredLogoDark && (
-					<Image
-						src={user.data.featuredLogoDark}
-						alt={`${user.data.id} logo`}
-						class="light:sl-hidden"
-						height={64}
-						loading="lazy"
-					/>
-				)}
-				<span class="user-name">{user.data.id}</span>
-			</div>
-		))}
-	</div>
+	<UsersGrid users={featuredUsers} />
 	<LinkButton href="/users" style="margin: 0">
 		View all users
 		<svg
@@ -60,78 +38,5 @@ const description = Astro.locals.t("users.featured.description");
 	margin: 4rem auto;
 	padding: 0 1rem;
 	text-align: center;
-}
-
-.featured-users-grid {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1.5rem;
-	margin-bottom: 3rem;
-	justify-content: center;
-}
-
-@media (min-width: 768px) {
-	.featured-users-grid {
-		gap: 2rem;
-	}
-}
-
-.featured-user-card {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start;
-	gap: 0.5rem;
-	padding: 1rem;
-	border-radius: 12px;
-	box-sizing: border-box;
-	margin: 0 !important;
-	width: calc(50% - 0.75rem);
-	min-width: 0;
-	flex-shrink: 0;
-}
-
-@media (min-width: 768px) {
-	.featured-user-card {
-		width: 170px;
-		min-width: 170px;
-		padding: 1.5rem;
-		gap: 0.75rem;
-	}
-}
-
-.featured-user-card img,
-.featured-user-card :global(img) {
-	width: 100%;
-	height: 48px;
-	object-fit: contain;
-	flex-shrink: 0;
-	margin: 0;
-}
-
-@media (min-width: 768px) {
-	.featured-user-card img,
-	.featured-user-card :global(img) {
-		height: 64px;
-	}
-}
-
-.user-name {
-	font-size: 0.75rem;
-	font-weight: 500;
-	color: var(--sl-color-text);
-	text-align: center;
-	line-height: 1.4;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-	margin: 0;
-}
-
-@media (min-width: 768px) {
-	.user-name {
-		font-size: 0.875rem;
-	}
 }
 </style>
