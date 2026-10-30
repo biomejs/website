@@ -1,0 +1,107 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noYamlBooleanKeys (YAML)
+description: YAML documentation for noYamlBooleanKeys
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="yaml" languages={[{"id":"yaml","label":"YAML","href":"/linter/rules/no-yaml-boolean-keys/yaml/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noYamlBooleanKeys`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`yml/no-boolean-key`](https://ota-meshi.github.io/eslint-plugin-yml/rules/no-boolean-key.html)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noYamlBooleanKeys": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow boolean values as keys in YAML.
+
+YAML reads some unquoted words as boolean values (true or false) instead of text.
+A key written as one of these words is a boolean, which is rarely intended.
+Tools that read the file can reject boolean keys, or convert them to text
+that differs from what is written in the file.
+
+Which words are booleans depends on the YAML version of the document:
+
+- YAML 1.2, the default: `true`, `True`, `TRUE`, `false`, `False`, and `FALSE`.
+- YAML 1.1: the words above, and also `y`, `Y`, `yes`, `Yes`, `YES`, `n`, `N`, `no`, `No`, `NO`,
+`on`, `On`, `ON`, `off`, `Off`, and `OFF`.
+
+A document uses YAML 1.1 when a `%YAML 1.1` line comes before its `---` line.
+A document that has no lines starting with `%` uses the same version as the document before it.
+
+This rule also reports keys marked as booleans with the `!!bool` tag,
+and keys that are aliases (such as `*flag`) to a boolean value.
+
+## Examples
+
+### Invalid
+
+```yaml
+true: enabled
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:1:1 <a href=\"https://biomejs.dev/linter/rules/no-yaml-boolean-keys\">lint/nursery/noYamlBooleanKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This key is a boolean, not text.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>true: enabled<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">YAML reads this unquoted word as a boolean value. Tools that read this file can reject boolean keys, or convert them to text that differs from what is written here.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Wrap the key in quotes to keep it as text.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```yaml
+%YAML 1.1
+---
+no: Norway
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:3:1 <a href=\"https://biomejs.dev/linter/rules/no-yaml-boolean-keys\">lint/nursery/noYamlBooleanKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This key is a boolean, not text.</span><br />  <br />    <strong>1 │ </strong>%YAML 1.1<br />    <strong>2 │ </strong>---<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>no: Norway<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">YAML reads this unquoted word as a boolean value. Tools that read this file can reject boolean keys, or convert them to text that differs from what is written here.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Wrap the key in quotes to keep it as text.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```yaml
+!!bool "true": enabled
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:1:1 <a href=\"https://biomejs.dev/linter/rules/no-yaml-boolean-keys\">lint/nursery/noYamlBooleanKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This key is tagged as a boolean.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>!!bool &quot;true&quot;: enabled<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Tools that read this file can reject boolean keys, or convert them to text that differs from what is written here.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the boolean tag and use a text key.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```yaml
+default: &flag true
+labels: { *flag : enabled }
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:2:11 <a href=\"https://biomejs.dev/linter/rules/no-yaml-boolean-keys\">lint/nursery/noYamlBooleanKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This key is an alias to a boolean value.</span><br />  <br />    <strong>1 │ </strong>default: &amp;flag true<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>labels: &#123; &#42;flag : enabled &#125;<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The alias refers to the value marked with this anchor.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>default: &amp;flag true<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>labels: &#123; &#42;flag : enabled &#125;<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Tools that read this file can reject boolean keys, or convert them to text that differs from what is written here.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a text key instead of the alias.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```yaml
+"true": enabled
+!!str false: disabled
+# Without a `%YAML 1.1` line, `no` is text.
+no: Norway
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_yaml_analyze/src/lint/nursery/no_yaml_boolean_keys.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_yaml_analyze/tests/specs/nursery/noYamlBooleanKeys)
+- <RulePlaygroundLink rule="noYamlBooleanKeys" category="lint" language="yaml" code={"true: enabled\n"} />
+
