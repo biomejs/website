@@ -163,13 +163,15 @@ function makeCommunityContent(contributors) {
 						.slice(pointer, pointer + itemsPerRow)
 						.map(({ avatar_url, login }) =>
 							[
-								"  <Image",
-								'    class="contributor-avatar"',
-								`    src="${avatar_url}"`,
-								`    alt="User ${login}"`,
-								'    width="84"',
-								'    height="84"',
-								"  />",
+								`  <a class="contributor-link" href="https://github.com/${login}">`,
+								"    <Image",
+								'      class="contributor-avatar"',
+								`      src="${avatar_url}"`,
+								`      alt="User ${login}"`,
+								'      width="84"',
+								'      height="84"',
+								"    />",
+								"  </a>",
 							].join("\n"),
 						)
 						.join("\n"),
