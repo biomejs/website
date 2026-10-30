@@ -21,7 +21,7 @@
     },
     {
       "matchManagers": ["npm"],
-      "matchDepNames": ["@codemirror/*"],
+      "matchDepNames": ["@codemirror/*", "@lezer/*"],
       "postUpdateOptions": ["pnpmDedupe"]
     }
   ]
