@@ -3,13 +3,16 @@
     "id": "Ant Design",
     "logo": "@/assets/users/ant-design.png",
     "url": "https://github.com/ant-design",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/ant-design.svg"
   },
   {
     "id": "AWS",
     "logo": "@/assets/users/aws.png",
     "url": "https://github.com/aws",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/aws.svg",
+    "logoSvgDark": "@/assets/users/svg/aws-dark.svg"
   },
   {
     "id": "beta.gouv.fr",
@@ -21,49 +24,60 @@
     "id": "Canonical",
     "logo": "@/assets/users/canonical.png",
     "url": "https://github.com/canonical",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/canonical.svg"
   },
   {
     "id": "Cloudflare",
     "logo": "@/assets/users/cloudflare.png",
     "url": "https://github.com/cloudflare",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/cloudflare.svg"
   },
   {
     "id": "Software Engineering Institute - Carnegie Mellon University",
     "logo": "@/assets/users/cmu-sei.png",
     "url": "https://github.com/cmu-sei",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/cmu-sei.svg",
+    "logoSvgInvertDark": true
   },
   {
     "id": "Coinbase",
     "logo": "@/assets/users/coinbase.png",
     "url": "https://github.com/coinbase",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/coinbase.svg"
   },
   {
     "id": "Comcast",
     "logo": "@/assets/users/comcast.png",
     "url": "https://github.com/Comcast",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/comcast.svg",
+    "logoSvgDark": "@/assets/users/svg/comcast-dark.svg"
   },
   {
     "id": "Digital Agency of Japan",
     "logo": "@/assets/users/digital-go-jp.png",
     "url": "https://github.com/digital-go-jp",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/digital-go-jp.svg",
+    "logoSvgDark": "@/assets/users/svg/digital-go-jp-dark.svg"
   },
   {
     "id": "Digital Democracy 2030",
     "logo": "@/assets/users/digitaldemocracy2030.png",
     "url": "https://github.com/digitaldemocracy2030",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/digitaldemocracy2030.svg"
   },
   {
     "id": "Discord",
     "logo": "@/assets/users/discord.png",
     "url": "https://github.com/discord",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/discord.svg"
   },
   {
     "id": "Discord.js",
@@ -75,19 +89,24 @@
     "id": "Express",
     "logo": "@/assets/users/expressjs.png",
     "url": "https://github.com/expressjs",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/expressjs.svg",
+    "logoSvgDark": "@/assets/users/svg/expressjs-dark.svg"
   },
   {
     "id": "Sentry",
     "logo": "@/assets/users/getsentry.png",
     "url": "https://github.com/getsentry",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/getsentry.svg",
+    "logoSvgDark": "@/assets/users/svg/getsentry-dark.svg"
   },
   {
     "id": "Google",
     "logo": "@/assets/users/google.png",
     "url": "https://github.com/google",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/google.svg"
   },
   {
     "id": "Harvard Medical School - Department of Biomedical Informatics",
@@ -99,91 +118,111 @@
     "id": "MetaMask",
     "logo": "@/assets/users/metamask.png",
     "url": "https://github.com/MetaMask",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/metamask.svg"
   },
   {
     "id": "Microsoft",
     "logo": "@/assets/users/microsoft.png",
     "url": "https://github.com/microsoft",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/microsoft.svg"
   },
   {
     "id": "n8n",
     "logo": "@/assets/users/n8n-io.png",
     "url": "https://github.com/n8n-io",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/n8n.svg"
   },
   {
     "id": "Norwegian Labour and Welfare Directorate",
     "logo": "@/assets/users/navikt.png",
     "url": "https://github.com/navikt",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/navikt.svg",
+    "logoSvgDark": "@/assets/users/svg/navikt-dark.svg"
   },
   {
     "id": "Node.js",
     "logo": "@/assets/users/nodejs.png",
     "url": "https://github.com/nodejs",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/nodejs.svg"
   },
   {
     "id": "Polar",
     "logo": "@/assets/users/polarsource.png",
     "url": "https://github.com/polarsource",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/polarsource.svg",
+    "logoSvgDark": "@/assets/users/svg/polarsource-dark.svg"
   },
   {
     "id": "Preact",
     "logo": "@/assets/users/preactjs.png",
     "url": "https://github.com/preactjs",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/preactjs.svg",
+    "logoSvgDark": "@/assets/users/svg/preactjs-dark.svg"
   },
   {
     "id": "Slack",
     "logo": "@/assets/users/slackapi.png",
     "url": "https://github.com/slackapi",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/slack.svg"
   },
   {
     "id": "Socket",
     "logo": "@/assets/users/socketdev.png",
     "url": "https://github.com/SocketDev",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/socket.svg"
   },
   {
     "id": "Storybook",
     "logo": "@/assets/users/storybookjs.png",
     "url": "https://github.com/storybookjs",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/storybookjs.svg"
   },
   {
     "id": "TC39",
     "logo": "@/assets/users/tc39.png",
     "url": "https://github.com/tc39",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/tc39.svg"
   },
   {
     "id": "TUM Developers - Technical University of Munich",
     "logo": "@/assets/users/tum-dev.png",
     "url": "https://github.com/TUM-Dev",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/tum-dev.svg",
+    "logoSvgDark": "@/assets/users/svg/tum-dev-dark.svg"
   },
   {
     "id": "Uniswap",
     "logo": "@/assets/users/uniswap.png",
     "url": "https://github.com/Uniswap",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/uniswap.svg"
   },
   {
     "id": "U.S. Environmental Protection Agency",
     "logo": "@/assets/users/usepa.png",
     "url": "https://github.com/USEPA",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/usepa.svg"
   },
   {
     "id": "Vercel",
     "logo": "@/assets/users/vercel.png",
     "url": "https://github.com/vercel",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/vercel.svg",
+    "logoSvgDark": "@/assets/users/svg/vercel-dark.svg"
   },
   {
     "id": "ByteDance Web Infra",
@@ -195,12 +234,16 @@
     "id": "Wevm",
     "logo": "@/assets/users/wevm.png",
     "url": "https://github.com/wevm",
-    "featured": false
+    "featured": false,
+    "logoSvg": "@/assets/users/svg/wevm.svg",
+    "logoSvgDark": "@/assets/users/svg/wevm-dark.svg"
   },
   {
     "id": "Astro",
     "logo": "@/assets/users/withastro.png",
     "url": "https://github.com/withastro",
-    "featured": true
+    "featured": true,
+    "logoSvg": "@/assets/users/svg/astro.svg",
+    "logoSvgDark": "@/assets/users/svg/astro-dark.svg"
   }
 ]

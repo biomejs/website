@@ -27,6 +27,12 @@ export const collections = {
 				logo: image(),
 				url: z.url(),
 				featured: z.boolean(),
+				// Official vector logo; preferred over `logo` when present
+				logoSvg: image().optional(),
+				// Variant of `logoSvg` for dark mode
+				logoSvgDark: image().optional(),
+				// Invert a single-colour `logoSvg` in dark mode when no dark variant exists
+				logoSvgInvertDark: z.boolean().optional(),
 			});
 		},
 	}),
