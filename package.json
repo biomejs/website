@@ -52,7 +52,7 @@
     "@codemirror/lint": "6.9.7",
     "@codemirror/state": "6.7.6",
     "@codemirror/view": "6.43.15",
-    "@expressive-code/plugin-line-numbers": "0.44.2",
+    "@expressive-code/plugin-line-numbers": "0.44.3",
     "@fontsource/geist": "5.3.0",
     "@fontsource/jetbrains-mono": "5.3.0",
     "@lezer/common": "1.5.2",
