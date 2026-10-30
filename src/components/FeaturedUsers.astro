@@ -16,12 +16,21 @@ const description = Astro.locals.t("users.featured.description");
 		{featuredUsers.map((user) => (
 			<div class="featured-user-card">
 				<Image
-					src={user.data.logo}
+					src={user.data.featuredLogo ?? user.data.logo}
 					alt={`${user.data.id} logo`}
-					width={64}
+					class:list={{ "dark:sl-hidden": user.data.featuredLogoDark }}
 					height={64}
 					loading="lazy"
 				/>
+				{user.data.featuredLogoDark && (
+					<Image
+						src={user.data.featuredLogoDark}
+						alt={`${user.data.id} logo`}
+						class="light:sl-hidden"
+						height={64}
+						loading="lazy"
+					/>
+				)}
 				<span class="user-name">{user.data.id}</span>
 			</div>
 		))}
@@ -93,10 +102,9 @@ const description = Astro.locals.t("users.featured.description");
 
 .featured-user-card img,
 .featured-user-card :global(img) {
-	width: 48px;
+	width: 100%;
 	height: 48px;
-	border-radius: 50%;
-	object-fit: cover;
+	object-fit: contain;
 	flex-shrink: 0;
 	margin: 0;
 }
@@ -104,7 +112,6 @@ const description = Astro.locals.t("users.featured.description");
 @media (min-width: 768px) {
 	.featured-user-card img,
 	.featured-user-card :global(img) {
-		width: 64px;
 		height: 64px;
 	}
 }

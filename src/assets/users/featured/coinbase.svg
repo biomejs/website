@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Coinbase">
+  <title>Coinbase</title>
+  <!-- Mark extracted from the published CDP documentation wordmark:
+       https://mintcdn.com/coinbase-prod/B68gj-lD9xkJGij4/logos/wordmark-light.svg -->
+  <path d="M16.0301 24C11.6018 24 8.01503 20.42 8.01503 16C8.01503 11.58 11.6018 8 16.0301 8C19.9975 8 23.2903 10.8867 23.9249 14.6667H32C31.3187 6.45333 24.4325 0 16.0301 0C7.18013 0 0 7.16667 0 16C0 24.8333 7.18013 32 16.0301 32C24.4325 32 31.3187 25.5467 32 17.3333H23.9249C23.2903 21.1133 19.9975 24 16.0301 24Z" fill="#0052FF"/>
+</svg>

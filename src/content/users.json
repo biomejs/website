@@ -9,7 +9,9 @@
     "id": "AWS",
     "logo": "@/assets/users/aws.png",
     "url": "https://github.com/aws",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/aws.svg",
+    "featuredLogoDark": "@/assets/users/featured/aws-dark.svg"
   },
   {
     "id": "beta.gouv.fr",
@@ -21,13 +23,15 @@
     "id": "Canonical",
     "logo": "@/assets/users/canonical.png",
     "url": "https://github.com/canonical",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/canonical.svg"
   },
   {
     "id": "Cloudflare",
     "logo": "@/assets/users/cloudflare.png",
     "url": "https://github.com/cloudflare",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/cloudflare.svg"
   },
   {
     "id": "Software Engineering Institute - Carnegie Mellon University",
@@ -39,13 +43,16 @@
     "id": "Coinbase",
     "logo": "@/assets/users/coinbase.png",
     "url": "https://github.com/coinbase",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/coinbase.svg"
   },
   {
     "id": "Comcast",
     "logo": "@/assets/users/comcast.png",
     "url": "https://github.com/Comcast",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/comcast.svg",
+    "featuredLogoDark": "@/assets/users/featured/comcast-dark.svg"
   },
   {
     "id": "Digital Agency of Japan",
@@ -63,7 +70,8 @@
     "id": "Discord",
     "logo": "@/assets/users/discord.png",
     "url": "https://github.com/discord",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/discord.svg"
   },
   {
     "id": "Discord.js",
@@ -87,7 +95,8 @@
     "id": "Google",
     "logo": "@/assets/users/google.png",
     "url": "https://github.com/google",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/google.svg"
   },
   {
     "id": "Harvard Medical School - Department of Biomedical Informatics",
@@ -105,13 +114,15 @@
     "id": "Microsoft",
     "logo": "@/assets/users/microsoft.png",
     "url": "https://github.com/microsoft",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/microsoft.svg"
   },
   {
     "id": "n8n",
     "logo": "@/assets/users/n8n-io.png",
     "url": "https://github.com/n8n-io",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/n8n.svg"
   },
   {
     "id": "Norwegian Labour and Welfare Directorate",
@@ -123,7 +134,8 @@
     "id": "Node.js",
     "logo": "@/assets/users/nodejs.png",
     "url": "https://github.com/nodejs",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/nodejs.svg"
   },
   {
     "id": "Polar",
@@ -141,13 +153,15 @@
     "id": "Slack",
     "logo": "@/assets/users/slackapi.png",
     "url": "https://github.com/slackapi",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/slack.svg"
   },
   {
     "id": "Socket",
     "logo": "@/assets/users/socketdev.png",
     "url": "https://github.com/SocketDev",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/socket.svg"
   },
   {
     "id": "Storybook",
@@ -171,7 +185,8 @@
     "id": "Uniswap",
     "logo": "@/assets/users/uniswap.png",
     "url": "https://github.com/Uniswap",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/uniswap.svg"
   },
   {
     "id": "U.S. Environmental Protection Agency",
@@ -183,7 +198,9 @@
     "id": "Vercel",
     "logo": "@/assets/users/vercel.png",
     "url": "https://github.com/vercel",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/vercel.svg",
+    "featuredLogoDark": "@/assets/users/featured/vercel-dark.svg"
   },
   {
     "id": "ByteDance Web Infra",
@@ -201,6 +218,8 @@
     "id": "Astro",
     "logo": "@/assets/users/withastro.png",
     "url": "https://github.com/withastro",
-    "featured": true
+    "featured": true,
+    "featuredLogo": "@/assets/users/featured/astro.svg",
+    "featuredLogoDark": "@/assets/users/featured/astro-dark.svg"
   }
 ]

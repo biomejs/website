@@ -27,6 +27,10 @@ export const collections = {
 				logo: image(),
 				url: z.url(),
 				featured: z.boolean(),
+				// High-resolution logo shown on the home page; falls back to `logo`
+				featuredLogo: image().optional(),
+				// Variant of `featuredLogo` for dark mode
+				featuredLogoDark: image().optional(),
 			});
 		},
 	}),
