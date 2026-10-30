@@ -29,21 +29,27 @@
 	color: var(--sl-color-text-accent);
 }
 
-.expressive-code
-	.frame:not(.has-title, .is-terminal):has(
-		pre[data-language="bash"],
-		pre[data-language="shell"],
-		pre[data-language="sh"],
-		pre[data-language="powershell"]
-	)
-	.header::before {
-	content: "TERMINAL";
-}
-
 .expressive-code:not(.linter .expressive-code) .frame:not(.is-terminal) pre {
 	border: 1px solid var(--ec-brdCol);
 	border-top: 0;
 	border-radius: 0 0 var(--biome-radius-sm) var(--biome-radius-sm);
+}
+
+.expressive-code .frame.is-terminal .header {
+	justify-content: flex-start;
+}
+
+.expressive-code .frame.is-terminal .header::before {
+	position: static;
+	width: auto;
+	height: auto;
+	margin-inline-end: 0.5rem;
+	background: none;
+	color: var(--sl-color-text-accent);
+	content: "TERMINAL";
+	opacity: 1;
+	-webkit-mask-image: none;
+	mask-image: none;
 }
 
 .expressive-code .frame.has-title:not(.is-terminal) .header {
@@ -74,21 +80,15 @@
 	color: var(--sl-color-text-accent);
 }
 
-.expressive-code .frame.is-terminal .header {
-	justify-content: flex-start;
-}
-
-.expressive-code .frame.is-terminal .header::before {
-	position: static;
-	width: auto;
-	height: auto;
-	margin-inline-end: 0.5rem;
-	background: none;
-	color: var(--sl-color-text-accent);
+.expressive-code
+	.frame:not(.has-title, .is-terminal):has(
+		pre[data-language="bash"],
+		pre[data-language="shell"],
+		pre[data-language="sh"],
+		pre[data-language="powershell"]
+	)
+	.header::before {
 	content: "TERMINAL";
-	opacity: 1;
-	-webkit-mask-image: none;
-	mask-image: none;
 }
 
 .expressive-code .copy button {
