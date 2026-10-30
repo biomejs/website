@@ -382,10 +382,7 @@ test.describe("playground links", () => {
 		const search = dialog.getByRole("combobox", { name: "Search rules" });
 		await expect(search).toBeFocused();
 		await search.fill("nconsl");
-		await dialog
-			.getByRole("option")
-			.filter({ hasText: /^noConsole/ })
-			.click();
+		await dialog.getByRole("option", { name: /^noConsole\b/ }).click();
 		await expect(dialog).toBeHidden();
 		await expect(
 			page.getByRole("button", { name: "Lint Rules noConsole" }),
