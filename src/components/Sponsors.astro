@@ -4,58 +4,349 @@ import darkCodSpeed from "../assets/sponsors/codspeed-logo-dark.svg";
 import lightCodSpeed from "../assets/sponsors/codspeed-logo-light.svg";
 import lightDepot from "../assets/sponsors/depot-logo-horizontal-dark.svg";
 import darkDepot from "../assets/sponsors/depot-logo-horizontal-light.svg";
+import darkNetlify from "../assets/sponsors/logo-netlify-large-fullcolor-darkmode.svg";
+import lightNetlify from "../assets/sponsors/logo-netlify-large-fullcolor-lightmode.svg";
 
 const { title } = Astro.props;
+const description = Astro.locals.t("home.sponsors.description");
+const cta = Astro.locals.t("home.sponsors.cta");
+const platinum = Astro.locals.t("home.sponsors.platinum");
+const gold = Astro.locals.t("home.sponsors.gold");
+const hostedBy = Astro.locals.t("home.sponsors.hostedBy");
 ---
 
-<h2 class="head">{title}</h2>
-<div class="sponsors">
-	<a
-		class="sponsors-row"
-		href="https://depot.dev"
-		rel="nofollow"
-		title="Depot"
-		target="_blank"
-	>
-		<Image
-			alt="Depot"
-			src={lightDepot}
-			data-canonical-src={lightDepot.src}
-			width="300"
-			class="dark:sl-hidden"
-			loading="eager"
-		/>
-		<Image
-			alt="Depot"
-			src={darkDepot}
-			data-canonical-src={darkDepot.src}
-			width="300"
-			class="light:sl-hidden"
-			loading="eager"
-		/>
+<div class="sponsors-card">
+	<h2 class="head">{title}</h2>
+	<p class="sponsors-description">{description}</p>
+	<div class="sponsors">
+		<section class="sponsors-tier">
+			<span class="sponsors-tier-label sponsors-tier-platinum">{platinum}</span>
+			<div class="sponsors-tier-row">
+				<a
+					class="sponsor"
+					href="https://depot.dev"
+					rel="nofollow"
+					title="Depot"
+					target="_blank"
+				>
+					<Image
+						alt="Depot"
+						src={lightDepot}
+						data-canonical-src={lightDepot.src}
+						width="300"
+						class="dark:sl-hidden"
+						loading="eager"
+					/>
+					<Image
+						alt="Depot"
+						src={darkDepot}
+						data-canonical-src={darkDepot.src}
+						width="300"
+						class="light:sl-hidden"
+						loading="eager"
+					/>
+				</a>
+			</div>
+		</section>
+		<section class="sponsors-tier">
+			<span class="sponsors-tier-label sponsors-tier-gold">{gold}</span>
+			<div class="sponsors-tier-row">
+				<a
+					class="sponsor"
+					href="https://codspeed.io/docs"
+					rel="nofollow"
+					title="CodSpeed"
+					target="_blank"
+				>
+					<Image
+						alt="CodSpeed"
+						src={lightCodSpeed}
+						data-canonical-src={lightCodSpeed.src}
+						width="300"
+						class="dark:sl-hidden"
+						loading="eager"
+					/>
+					<Image
+						alt="CodSpeed"
+						src={darkCodSpeed}
+						data-canonical-src={darkCodSpeed.src}
+						width="300"
+						class="light:sl-hidden"
+						loading="eager"
+					/>
+				</a>
+			</div>
+		</section>
+	</div>
+	<a class="sponsors-link" href="https://opencollective.com/biome">
+		{cta}
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="16"
+			height="16"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="2"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			aria-hidden="true"
+		>
+			<path d="M5 12h14"></path>
+			<path d="m12 5 7 7-7 7"></path>
+		</svg>
 	</a>
-	<a
-		class="sponsors-row"
-		href="https://codspeed.io/docs"
-		rel="nofollow"
-		title="CodSpeed"
-		target="_blank"
-	>
-		<Image
-			alt="CodSpeed"
-			src={lightCodSpeed}
-			data-canonical-src={lightCodSpeed.src}
-			width="300"
-			class="dark:sl-hidden"
-			loading="eager"
-		/>
-		<Image
-			alt="CodSpeed"
-			src={darkCodSpeed}
-			data-canonical-src={darkCodSpeed.src}
-			width="300"
-			class="light:sl-hidden"
-			loading="eager"
-		/>
-	</a>
+	<div class="sponsors-host">
+		<span>{hostedBy}</span>
+		<a
+			href="https://www.netlify.com"
+			title="This site is powered by Netlify"
+			target="_blank"
+		>
+			<Image
+				alt="Netlify"
+				src={lightNetlify}
+				data-canonical-src={lightNetlify.src}
+				width="300"
+				class="dark:sl-hidden"
+				loading="eager"
+			/>
+			<Image
+				alt="Netlify"
+				src={darkNetlify}
+				data-canonical-src={darkNetlify.src}
+				width="300"
+				class="light:sl-hidden"
+				loading="eager"
+			/>
+		</a>
+	</div>
 </div>
+
+<style>
+.sponsors-card {
+	width: 68rem;
+	max-width: 100%;
+	margin: 0 auto 5rem !important;
+	padding: 3.5rem 2rem 3rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 1.5rem;
+	overflow: hidden;
+	text-align: center;
+	/* Mirrors the community card's glows so the stacked cards alternate */
+	background:
+		radial-gradient(
+			ellipse at 50% 0%,
+			hsla(var(--sl-hue-red), 68%, 52%, 12%),
+			transparent 55%
+		),
+		radial-gradient(
+			ellipse at 50% 120%,
+			var(--sl-color-blue-low),
+			transparent 60%
+		);
+
+	.head {
+		margin-top: 0;
+	}
+
+	.sponsors-description {
+		font-size: 1.5rem;
+		margin: 1rem 0 2.5rem;
+	}
+}
+
+/* One vertical section per sponsorship tier, highest tier first */
+.sponsors {
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
+	margin: 0 0 2.5rem;
+
+	.sponsors-tier {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 2rem;
+		margin: 0;
+	}
+
+	.sponsors-tier-label {
+		margin: 0;
+		padding: 0.2rem 0.65rem;
+		border-radius: 6.2rem;
+		font-size: 0.7rem;
+		font-weight: 600;
+		line-height: 1.4;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	/* Metallic pills: a bevel highlight on top, a darker rim below */
+	.sponsors-tier-platinum,
+	.sponsors-tier-gold {
+		box-shadow:
+			inset 0 1px 0 rgb(255 255 255 / 85%),
+			inset 0 -1px 0 rgb(0 0 0 / 12%),
+			0 1px 2px rgb(0 0 0 / 20%);
+	}
+
+	/* Platinum is brighter and cooler than silver, with a faint pearly sheen sweeping across */
+	.sponsors-tier-platinum {
+		background:
+			linear-gradient(
+				110deg,
+				transparent 35%,
+				rgb(255 255 255 / 90%) 50%,
+				transparent 65%
+			)
+			0 0 / 250% 100%,
+			linear-gradient(
+				135deg,
+				#ffffff 0%,
+				#e4ecf7 22%,
+				#f6f3ff 40%,
+				#c7d1e0 62%,
+				#eef6fa 80%,
+				#b4bfd0 100%
+			);
+		color: #1a2230;
+		animation: sponsors-platinum-sheen 4s ease-in-out infinite;
+	}
+
+	.sponsors-tier-gold {
+		background: linear-gradient(135deg, #fff0b8, #f2c94c 45%, #c8901a);
+		color: #3d2c00;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.sponsors-tier-platinum {
+			animation: none;
+		}
+	}
+
+	.sponsors-tier-row {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 1rem;
+		width: 100%;
+		margin: 0;
+	}
+
+	.sponsor {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 16rem;
+		max-width: 100%;
+		height: 6.5rem;
+		margin: 0;
+		padding: 1.5rem 2rem;
+		box-sizing: border-box;
+		border: 1px solid var(--sl-color-gray-6);
+		border-radius: 12px;
+		background-color: var(--sl-color-bg);
+		transition: border-color 0.15s;
+
+		&:hover,
+		&:focus-visible {
+			border-color: rgb(37 175 244);
+		}
+	}
+
+	img {
+		width: 100%;
+		max-width: 11rem;
+		max-height: 100%;
+		height: auto;
+		margin: 0;
+	}
+}
+
+.sponsors-link {
+	/* Same pill as the community section's social links */
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+	margin: 0;
+	padding: 0.5rem 1.3rem;
+	border-radius: 6.2rem;
+	background-color: rgb(37 175 244 / 10%);
+	text-decoration: none;
+	transition:
+		background-color 0.15s,
+		color 0.15s;
+
+	&:hover,
+	&:focus-visible {
+		background-color: rgb(37 175 244);
+		color: var(--sl-community-link);
+	}
+}
+
+/* Netlify hosts the site rather than sponsoring a tier, so it sits apart */
+.sponsors-host {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	margin: 2.5rem 0 0;
+	padding-top: 2rem;
+	border-top: 1px solid var(--sl-color-gray-5);
+	color: var(--sl-color-gray-3);
+	font-size: 0.875rem;
+
+	a {
+		display: flex;
+		margin: 0;
+	}
+
+	img {
+		width: 6rem;
+		height: auto;
+		margin: 0;
+	}
+}
+
+@keyframes sponsors-platinum-sheen {
+	0%,
+	60% {
+		background-position:
+			150% 0,
+			0 0;
+	}
+	100% {
+		background-position:
+			-50% 0,
+			0 0;
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.sponsors-card {
+		padding: 2.5rem 1rem 2.5rem;
+
+		.sponsors-description {
+			font-size: 1.2rem;
+		}
+	}
+
+	.sponsors {
+		gap: 3rem;
+
+		.sponsors-tier-row {
+			gap: 0.75rem;
+		}
+
+		.sponsor {
+			height: 5.5rem;
+			padding: 1.25rem 1.5rem;
+		}
+
+		img {
+			max-width: 9.5rem;
+		}
+	}
+}
+</style>
