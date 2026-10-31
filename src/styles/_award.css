@@ -1,11 +1,43 @@
 .award {
-	margin-top: 9.4rem !important;
+	margin-top: 3rem !important;
+	padding-top: 2.5rem;
+	border-top: 1px solid var(--sl-color-gray-5);
 	display: flex;
-	justify-content: center;
-	gap: 20px;
-	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+
+	.award-badges {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin: 0;
+
+		> a {
+			display: block;
+			line-height: 0;
+			transition: transform 0.15s;
+
+			&:hover {
+				transform: translateY(-2px);
+			}
+		}
+
+		img {
+			width: 180px;
+			height: auto;
+			margin: 0;
+		}
+	}
 }
 
-.award img {
-	margin-top: 0;
+@media only screen and (max-width: 700px) {
+	.award .award-badges {
+		gap: 0.5rem;
+
+		img {
+			width: 140px;
+		}
+	}
 }

@@ -6,14 +6,22 @@ import "@/styles/_award.css";
 ---
 
 <div class="award">
-	<Image
-		src={banner}
-		alt="JS OS Award 2024 - Productivity booster"
-		width="500"
-	/>
-	<Image
-		src={banner2026}
-		alt="JS OS Award 2026 - Productivity booster"
-		width="500"
-	/>
+	<div class="award-badges">
+		<a href="https://osawards.com/javascript/">
+			<Image
+				src={banner2026}
+				alt="JS OS Award 2026 - Productivity booster"
+				width="180"
+				densities={[1, 2]}
+			/>
+		</a>
+		<a href="https://osawards.com/javascript/">
+			<Image
+				src={banner}
+				alt="JS OS Award 2024 - Productivity booster"
+				width="180"
+				densities={[1, 2]}
+			/>
+		</a>
+	</div>
 </div>
