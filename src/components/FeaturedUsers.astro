@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { LinkButton } from "@astrojs/starlight/components";
+import AwardBanner from "@/components/AwardBanner.astro";
 import UsersGrid from "@/components/UsersGrid.astro";
 
 const allUsers = await getCollection("users");
@@ -10,10 +10,10 @@ const description = Astro.locals.t("users.featured.description");
 ---
 
 <div class="featured-users">
-	<h2>{title}</h2>
-	<p>{description}</p>
+	<h2 class="head">{title}</h2>
+	<p class="featured-users-description">{description}</p>
 	<UsersGrid users={featuredUsers} />
-	<LinkButton href="/users" style="margin: 0">
+	<a href="/users" class="featured-users-link">
 		View all users
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -30,13 +30,94 @@ const description = Astro.locals.t("users.featured.description");
 			<path d="M5 12h14"></path>
 			<path d="m12 5 7 7-7 7"></path>
 		</svg>
-	</LinkButton>
+	</a>
+	<AwardBanner />
 </div>
 
 <style>
 .featured-users {
-	margin: 4rem auto;
-	padding: 0 1rem;
+	width: 68rem;
+	max-width: 100%;
+	margin: 7rem auto 0 !important;
+	padding: 3.5rem 2rem 4rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 1.5rem;
+	overflow: hidden;
 	text-align: center;
+	/* Mirrors the community card's glows so the two stacked cards read as a pair */
+	background:
+		radial-gradient(
+			ellipse at 50% 0%,
+			hsla(var(--sl-hue-red), 68%, 52%, 12%),
+			transparent 55%
+		),
+		radial-gradient(
+			ellipse at 50% 120%,
+			var(--sl-color-blue-low),
+			transparent 60%
+		);
+
+	.head {
+		margin-top: 0;
+	}
+
+	.featured-users-description {
+		font-size: 1.5rem;
+		margin: 1rem 0 2.5rem;
+	}
+
+	:global(.users-grid) {
+		gap: 1rem;
+		margin-bottom: 2.5rem;
+	}
+
+	.featured-users-link {
+		/* Same pill as the community section's social links */
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		margin: 0;
+		padding: 0.5rem 1.3rem;
+		border-radius: 6.2rem;
+		background-color: rgb(37 175 244 / 10%);
+		text-decoration: none;
+		transition:
+			background-color 0.15s,
+			color 0.15s;
+
+		&:hover,
+		&:focus-visible {
+			background-color: rgb(37 175 244);
+			color: var(--sl-community-link);
+		}
+	}
+
+	:global(.user-card) {
+		background-color: var(--sl-color-bg);
+		border: 1px solid var(--sl-color-gray-6);
+		transition: border-color 0.15s;
+
+		&:hover {
+			border-color: rgb(37 175 244);
+		}
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.featured-users {
+		padding: 2.5rem 1rem 3rem;
+
+		.featured-users-description {
+			font-size: 1.2rem;
+		}
+
+		:global(.users-grid) {
+			gap: 0.75rem;
+		}
+
+		:global(.user-card) {
+			width: calc(50% - 0.375rem);
+		}
+	}
 }
 </style>
