@@ -257,13 +257,13 @@ export const noAssign = defineRule({
 It accepts one name or a list of nodes to query. Via `semantic`, it's possible to inspect the **semantic model** of the current file, accessible via [`ctx.model`](#ctxmodel).
 
 
-```ts title="plugin.ts" ins='semantic' ins='ctx.model()'
+```ts title="plugin.ts" ins='semantic' ins='ctx.model'
 import { defineRule, semantic, registerDiagnostic } from "@biomejs/runtime/plugin"
 
 export const noAssign = defineRule({
     query: semantic("JS_CALL_EXPRESSION", "JS_DEBUGGER"),
     run(node, ctx) {
-      let model = ctx.model();
+      const model = ctx.model;
       registerDiagnostic(node, "error", "Can't assign anything.")
     }
 })
