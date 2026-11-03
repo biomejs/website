@@ -1971,6 +1971,31 @@ With `"never"`, Biome joins a wrapped paragraph into a single line:
 +Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 ```
 
+### `markdown.formatter.quoteStyle`
+
+**Type:** `"single" | "double"`<br />
+**Default:** `"double"`
+
+Selects the preferred quote style for the titles of links, images, and link reference definitions:
+
+- `"single"`: Prefers single quotes.
+- `"double"`: Prefers double quotes.
+
+For example, with `"single"`, Biome formats the following link:
+
+```diff title="file.md"
+-[Biome](https://biomejs.dev "The Biome website")
++[Biome](https://biomejs.dev 'The Biome website')
+```
+
+Biome may use the alternate quote when that avoids additional escaping. When a title contains both
+single and double quotes, Biome may wrap it in parentheses instead:
+
+```md title="file.md"
+[Biome](https://biomejs.dev "It's fast")
+[Biome](https://biomejs.dev (It's "fast"))
+```
+
 ### `markdown.formatter.trailingNewline`
 
 **Type:** `boolean`<br />
