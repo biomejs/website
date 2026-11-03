@@ -15,10 +15,6 @@ banner:
 hero:
   title: One toolchain for your web project
   tagline: Format, lint, and more in a fraction of a second.
-  image:
-    alt: Biome, Toolchain of the web
-    dark: "@/assets/svg/slogan-dark-transparent.svg"
-    light: "@/assets/svg/slogan-light-transparent.svg"
   actions:
     - text: Get started
       link: /guides/getting-started/
@@ -47,11 +43,8 @@ import LinterExample from "@/components/linter/example.md";
 import NumberOfRules from "@/components/generated/linter/NumberOfRules.astro";
 import FeaturedUsers from "@/components/FeaturedUsers.astro"
 import PackageManagerCommand from "@/components/PackageManagerCommand.astro";
-import PromoVideo from "@/components/PromoVideo.astro";
 
 <div class="gradient"></div>
-
-<PromoVideo/>
 
 <PackageManagerCommand
   npm={["i -D -E @biomejs/biome"]}
