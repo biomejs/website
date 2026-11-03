@@ -2004,9 +2004,9 @@ For example, with `"asterisk"`, Biome formats the following list:
 
 Nested lists and lists inside block quotes use the same marker.
 
-When two lists are next to each other, Markdown would merge them into a single list if they used
-the same marker, so Biome gives the second list a different marker. With `"asterisk"`, the second
-list uses `-`:
+Markdown merges lists that are separated only by blank lines and use the same marker, so Biome alternates the marker of such lists with `*` for `"dash"`, or `-` for `"asterisk"` and `"plus"`.
+
+For example, with `"asterisk"`:
 
 ```md title="file.md"
 * First list
