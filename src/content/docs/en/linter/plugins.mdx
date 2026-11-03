@@ -724,7 +724,7 @@ Neither method includes or visits the node you call it on, even when its kind is
 
 #### `node.descendants`
 
-**Type**: `(kinds: NodeKindSet) => readonly AnyJsAstNode[]`
+**Type**: `<K extends keyof JsNodeByKind>(kinds: NodeKindSet<K>) => readonly JsNodeByKind[K][]`
 
 Returns a new array with the nodes inside `node` whose kind is in `kinds`, in source order. Each call creates new node objects, so calling it twice returns different objects for the same nodes.
 
@@ -738,7 +738,7 @@ In TypeScript, the result has the node types in the set. `root.descendants(nodeK
 
 #### `node.walk`
 
-**Type**: `(kinds: NodeKindSet, enter: (node: AnyJsAstNode) => unknown, exit?: (node: AnyJsAstNode) => void) => void`
+**Type**: `<K extends keyof JsNodeByKind>(kinds: NodeKindSet<K>, enter: (node: JsNodeByKind[K]) => unknown, exit?: (node: JsNodeByKind[K]) => void) => void`
 
 Visits the nodes inside `node` whose kind is in `kinds`, in source order. Biome calls `enter(match)` before it visits the nodes inside a match, and `exit(match)` after them. `exit` receives the same object that `enter` received, and you can omit it.
 
@@ -747,7 +747,7 @@ Use `walk()` instead of `descendants()` when you need to know how matches nest, 
 ```js title="plugin.js" ins='.walk'
 import { ast, defineRule, nodeKinds, registerDiagnostic } from "@biomejs/runtime/plugin"
 
-const FUNCTIONS_AND_CALLS = nodeKinds("JS_FUNCTION_DECLARATION", "JS_ARROW_FUNCTION_EXPRESSION", "JS_CALL_EXPRESSION");
+const FUNCTIONS_AND_CALLS = nodeKinds("JS_FUNCTION_DECLARATION", "JS_FUNCTION_EXPRESSION", "JS_ARROW_FUNCTION_EXPRESSION", "JS_CALL_EXPRESSION");
 
 export const enclosingFunctions = defineRule({
     query: ast("JS_MODULE"),
@@ -762,7 +762,7 @@ export const enclosingFunctions = defineRule({
           } else if (node.id?.text === "skipped") {
             return false;
           } else {
-            functions.push(node.id?.text ?? "an arrow function");
+            functions.push(node.id?.text ?? "an anonymous function");
           }
         },
         (node) => {
