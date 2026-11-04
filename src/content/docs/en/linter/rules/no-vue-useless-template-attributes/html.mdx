@@ -1,0 +1,121 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueUselessTemplateAttributes (HTML)
+description: HTML documentation for noVueUselessTemplateAttributes
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-useless-template-attributes/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueUselessTemplateAttributes`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-useless-template-attributes`](https://eslint.vuejs.org/rules/no-useless-template-attributes)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueUselessTemplateAttributes": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow attributes and directives that have no effect on `<template>` elements.
+
+Inside a Vue template, a `<template>` element with `v-if`, `v-else-if`, `v-else`, `v-for`,
+or `v-slot` (or its `#` shorthand) is only a wrapper: Vue renders its content, but not the
+`<template>` element itself. Any other attribute or directive on it, such as `class`,
+`ref`, `:title`, or `@click`, has nowhere to go, so Vue ignores it.
+
+Move the attribute or directive to an element inside the `<template>`, or remove it.
+
+This rule doesn't report:
+
+- `key`, `:key`, or `v-bind:key`, which Vue uses to tell the rendered items apart.
+- `v-memo` on a `<template>` that has `v-for`, which Vue uses to skip updating unchanged items.
+- `v-once` on a `<template>` that has `v-if`, `v-else-if`, `v-else`, or `v-for`, which makes
+Vue render the content only once.
+- Any attribute on a `<template>` that has none of the directives listed above. Vue keeps
+such an element as a regular HTML `<template>` element, so its attributes aren't ignored.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <template v-if="visible" class="heading">Title</template>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:28 <a href=\"https://biomejs.dev/linter/rules/no-vue-useless-template-attributes\">lint/nursery/noVueUselessTemplateAttributes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This attribute has no effect on a </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> element.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;template v-if=&quot;visible&quot; class=&quot;heading&quot;&gt;Title&lt;/template&gt;<br />   <strong>   │ </strong>                           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't render a </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element that has </span><span style=\"color: lightgreen;\"><strong>v-if</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>v-else-if</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>v-else</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>v-for</strong></span><span style=\"color: lightgreen;\">, or </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\">, only its content, so it ignores this.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move it to an element inside the </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\">, or remove it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <template v-for="item in items" :title="item.name">{{ item.name }}</template>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:35 <a href=\"https://biomejs.dev/linter/rules/no-vue-useless-template-attributes\">lint/nursery/noVueUselessTemplateAttributes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This directive has no effect on a </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> element.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;template v-for=&quot;item in items&quot; :title=&quot;item.name&quot;&gt;&#123;&#123; item.name &#125;&#125;&lt;/template&gt;<br />   <strong>   │ </strong>                                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't render a </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element that has </span><span style=\"color: lightgreen;\"><strong>v-if</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>v-else-if</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>v-else</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>v-for</strong></span><span style=\"color: lightgreen;\">, or </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\">, only its content, so it ignores this.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move it to an element inside the </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\">, or remove it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <MyList>
+    <template #item="{ name }" @click="select">{{ name }}</template>
+  </MyList>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:32 <a href=\"https://biomejs.dev/linter/rules/no-vue-useless-template-attributes\">lint/nursery/noVueUselessTemplateAttributes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This directive has no effect on a </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> element.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;MyList&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;template #item=&quot;&#123; name &#125;&quot; @click=&quot;select&quot;&gt;&#123;&#123; name &#125;&#125;&lt;/template&gt;<br />   <strong>   │ </strong>                               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &lt;/MyList&gt;<br />    <strong>5 │ </strong>&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't render a </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element that has </span><span style=\"color: lightgreen;\"><strong>v-if</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>v-else-if</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>v-else</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>v-for</strong></span><span style=\"color: lightgreen;\">, or </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\">, only its content, so it ignores this.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move it to an element inside the </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\">, or remove it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <template v-if="visible">
+    <h1 class="heading">Title</h1>
+  </template>
+  <template v-else-if="loading">Loading</template>
+  <template v-else v-once>Hidden</template>
+  <template v-for="item in items" :key="item.id" v-memo="[item.name]">
+    <span :title="item.name">{{ item.name }}</span>
+  </template>
+  <MyList>
+    <template #item="{ name }">{{ name }}</template>
+  </MyList>
+  <template class="heading" ref="content">Content</template>
+</template>
+```
+
+## References
+
+- [Vue `<template>` element](https://vuejs.org/api/built-in-special-elements.html#template)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_useless_template_attributes.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueUselessTemplateAttributes)
+- <RulePlaygroundLink rule="noVueUselessTemplateAttributes" category="lint" language="vue" code={"<template>\n  <template v-if=\"visible\" class=\"heading\">Title</template>\n</template>\n"} />
+

@@ -94,6 +94,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noObsoleteTags](/linter/rules/no-obsolete-tags/html) | Disallow obsolete HTML elements. |  |
 | [noSvelteAtDebugTags](/linter/rules/no-svelte-at-debug-tags/html) | Disallow the use of Svelte's `{@debug}` tag. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noSvelteAtHtmlTags](/linter/rules/no-svelte-at-html-tags/html) | Disallow the use of Svelte's `{@html}` tag. |  |
+| [noSvelteBindValueOnCheckableInputs](/linter/rules/no-svelte-bind-value-on-checkable-inputs/html) | Disallow `bind:value` on checkbox and radio inputs. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [noSvelteClassDirective](/linter/rules/no-svelte-class-directive/html) | Disallow Svelte's `class:` directive. |  |
 | [noSvelteLegacyConst](/linter/rules/no-svelte-legacy-const/html) | Disallow legacy Svelte `{@const}` tags. |  |
 | [noTailwindArbitraryValue](/linter/rules/no-tailwind-arbitrary-value/html) | Disallow arbitrary values in Tailwind CSS utility classes. |  |
@@ -103,11 +104,28 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noUndeclaredClasses](/linter/rules/no-undeclared-classes/html) | Reports CSS class names in HTML `class` attributes that are not defined |  |
 | [noUndeclaredCustomProperties](/linter/rules/no-undeclared-custom-properties/html) | Disallow undeclared CSS custom properties in inline styles. |  |
 | [noUnsafeIframeSandbox](/linter/rules/no-unsafe-iframe-sandbox/html) | Disallow `allow-scripts` together with `allow-same-origin` in an iframe sandbox. |  |
+| [noVueChildContent](/linter/rules/no-vue-child-content/html) | Disallow content inside elements whose content is replaced by `v-html` or `v-text`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noVueDeprecatedFunctionalTemplate](/linter/rules/no-vue-deprecated-functional-template/html) | Disallow the deprecated `functional` attribute on the `<template>` of a Vue component. |  |
+| [noVueDeprecatedHtmlElementIs](/linter/rules/no-vue-deprecated-html-element-is/html) | Disallow the `is` attribute on HTML elements in Vue templates. |  |
+| [noVueDeprecatedInlineTemplate](/linter/rules/no-vue-deprecated-inline-template/html) | Disallow the `inline-template` attribute on Vue components. |  |
 | [noVueDeprecatedRouterLinkTagProp](/linter/rules/no-vue-deprecated-router-link-tag-prop/html) | Disallow the `tag` prop on `RouterLink`. |  |
 | [noVueDeprecatedScopeAttribute](/linter/rules/no-vue-deprecated-scope-attribute/html) | Disallow the `scope` attribute on `<template>` elements in Vue templates. |  |
+| [noVueDeprecatedSlotAttribute](/linter/rules/no-vue-deprecated-slot-attribute/html) | Disallow the deprecated `slot` attribute in Vue templates. |  |
+| [noVueDeprecatedSlotScope](/linter/rules/no-vue-deprecated-slot-scope/html) | Disallow the deprecated `slot-scope` attribute in Vue templates. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noVueDeprecatedVBindSync](/linter/rules/no-vue-deprecated-v-bind-sync/html) | Disallow the `.sync` modifier on Vue `v-bind` directives. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noVueDeprecatedVOnNativeModifier](/linter/rules/no-vue-deprecated-v-on-native-modifier/html) | Disallow the `.native` modifier on Vue's `v-on` directive. |  |
+| [noVueLoneTemplate](/linter/rules/no-vue-lone-template/html) | Disallow `<template>` elements in a Vue template that don't use `v-if`, `v-else-if`, `v-else`, `v-for`, or `v-slot`. |  |
+| [noVueRestrictedVOn](/linter/rules/no-vue-restricted-v-on/html) | Disallow configured event listeners in `v-on` directives. |  |
 | [noVueRootVIf](/linter/rules/no-vue-root-v-if/html) | Disallow `v-if` on the root element of a Vue component template. |  |
+| [noVueTemplateKey](/linter/rules/no-vue-template-key/html) | Disallow the `key` attribute on `<template>` elements in Vue. |  |
+| [noVueTemplateShadow](/linter/rules/no-vue-template-shadow/html) | Disallow template variables that reuse the name of a variable from an outer scope. |  |
+| [noVueTextareaMustache](/linter/rules/no-vue-textarea-mustache/html) | Disallow `{{ }}` text interpolation inside a Vue `<textarea>`. |  |
 | [noVueUndeclaredDirectives](/linter/rules/no-vue-undeclared-directives/html) | Disallow custom Vue directives that are not declared. |  |
+| [noVueUndeclaredSlots](/linter/rules/no-vue-undeclared-slots/html) | Disallow `<slot>` elements whose slot isn't declared in the component's types. |  |
 | [noVueUnusedRefs](/linter/rules/no-vue-unused-refs/html) | Disallow template refs that are never used. |  |
+| [noVueUselessTemplateAttributes](/linter/rules/no-vue-useless-template-attributes/html) | Disallow attributes and directives that have no effect on `<template>` elements. |  |
+| [noVueUselessVBind](/linter/rules/no-vue-useless-v-bind/html) | Disallow `v-bind` directives whose value is a fixed string. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [noVueVForTemplateKeyOnChild](/linter/rules/no-vue-v-for-template-key-on-child/html) | Disallow placing the `key` of a `<template v-for>` on its child elements. |  |
 | [noVueVHtml](/linter/rules/no-vue-v-html/html) | Disallow the use of Vue's `v-html` directive. |  |
 | [noVueVText](/linter/rules/no-vue-v-text/html) | Disallow the use of Vue's `v-text` directive. |  |
 | [noVueVTextVHtmlOnComponent](/linter/rules/no-vue-v-text-v-html-on-component/html) | Disallow `v-text` and `v-html` on components. |  |
@@ -121,11 +139,18 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [useTailwindShorthandClasses](/linter/rules/use-tailwind-shorthand-classes/html) | Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useTailwindSortedClasses](/linter/rules/use-tailwind-sorted-classes/html) | Enforce the sorting of Tailwind CSS classes. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useTailwindStaticClassStrings](/linter/rules/use-tailwind-static-class-strings/html) | Require complete, statically written class names. |  |
+| [useTailwindVariablesShorthand](/linter/rules/use-tailwind-variables-shorthand/html) | Enforce the shorthand syntax for CSS variables in Tailwind CSS classes. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useVueBlockOrder](/linter/rules/use-vue-block-order/html) | Enforce the order of the top-level blocks in Vue components. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useVueComponentIs](/linter/rules/use-vue-component-is/html) | Require `<component>` elements to bind the `is` attribute. |  |
+| [useVueConsistentBooleanPropStyle](/linter/rules/use-vue-consistent-boolean-prop-style/html) | Enforce a consistent style for component props set to `true`. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useVueConsistentEventHyphenation](/linter/rules/use-vue-consistent-event-hyphenation/html) | Enforce a consistent hyphenation style for event names in `v-on` directives on custom components. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
+| [useVueConsistentVForDelimiter](/linter/rules/use-vue-consistent-v-for-delimiter/html) | Enforce a consistent delimiter between the item and the list in `v-for` directives. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useVueConsistentVSlotStyle](/linter/rules/use-vue-consistent-v-slot-style/html) | Enforce a consistent style for `v-slot` in Vue templates. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useVueSlotNameCasing](/linter/rules/use-vue-slot-name-casing/html) | Enforce a consistent casing for the names of Vue slots. |  |
 | [useVueToggleInsideTransition](/linter/rules/use-vue-toggle-inside-transition/html) | Require the element inside a Vue `<Transition>` to be shown and hidden with `v-if` or `v-show`. |  |
 | [useVueVModel](/linter/rules/use-vue-v-model/html) | Enforce `v-model` instead of a prop binding paired with an `update:` listener that writes the value back. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
 | [useVueVOnExact](/linter/rules/use-vue-v-on-exact/html) | Enforce the `.exact` modifier on `v-on` directives when another listener for the same event needs more modifier keys. |  |
+| [useVueValidAttributeName](/linter/rules/use-vue-valid-attribute-name/html) | Require valid attribute names in Vue templates. |  |
 | [useVueValidVIs](/linter/rules/use-vue-valid-v-is/html) | Enforce valid `v-is` Vue directives. |  |
 | [useVueValidVMemo](/linter/rules/use-vue-valid-v-memo/html) | Enforce valid `v-memo` Vue directives. |  |
 | [useVueValidVModel](/linter/rules/use-vue-valid-v-model/html) | Enforce valid `v-model` directives. |  |

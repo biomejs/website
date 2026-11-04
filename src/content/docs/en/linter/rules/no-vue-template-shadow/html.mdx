@@ -1,0 +1,145 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueTemplateShadow (HTML)
+description: HTML documentation for noVueTemplateShadow
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-template-shadow/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueTemplateShadow`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-template-shadow`](https://eslint.vuejs.org/rules/no-template-shadow)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueTemplateShadow": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow template variables that reuse the name of a variable from an outer scope.
+
+`v-for` and `v-slot` create variables that only exist inside their element. When
+one of these variables has the same name as a variable the template can already
+see, the new variable hides the old one. Inside the element, the name always refers
+to the new variable, so the outer value can't be used there, and readers can easily
+confuse the two.
+
+The variables that can be hidden are:
+
+- variables created by an enclosing `v-for` or `v-slot`;
+- top-level variables and imports of `<script setup>`;
+- what the component exposes to its template: props, models created with
+`defineModel()`, `data`, `asyncData`, computed properties, methods, injected
+values, and the values returned by `setup()`.
+
+Types declared in `<script setup lang="ts">` are not variables, so a template
+variable can reuse their names.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <div v-for="item in groups">
+    <span v-for="item in item.children">{{ item }}</span>
+  </div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:18 <a href=\"https://biomejs.dev/linter/rules/no-vue-template-shadow\">lint/nursery/noVueTemplateShadow</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The template variable </span><span style=\"color: Orange;\"><strong>item</strong></span><span style=\"color: Orange;\"> hides a variable with the same name.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;div v-for=&quot;item in groups&quot;&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;span v-for=&quot;item in item.children&quot;&gt;&#123;&#123; item &#125;&#125;&lt;/span&gt;<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &lt;/div&gt;<br />    <strong>5 │ </strong>&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The hidden </span><span style=\"color: lightgreen;\"><strong>item</strong></span><span style=\"color: lightgreen;\"> is declared here.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div v-for=&quot;item in groups&quot;&gt;<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    &lt;span v-for=&quot;item in item.children&quot;&gt;&#123;&#123; item &#125;&#125;&lt;/span&gt;<br />    <strong>4 │ </strong>  &lt;/div&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Inside this element, </span><span style=\"color: lightgreen;\"><strong>item</strong></span><span style=\"color: lightgreen;\"> refers to the template variable, so the other </span><span style=\"color: lightgreen;\"><strong>item</strong></span><span style=\"color: lightgreen;\"> can't be used, and the two are easy to confuse.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the template variable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+const item = "selected";
+</script>
+
+<template>
+  <div v-for="item in items">{{ item }}</div>
+</template>
+```
+
+### Valid
+
+```vue
+<template>
+  <div v-for="group in groups">
+    <span v-for="child in group.children">{{ child }}</span>
+  </div>
+  <div v-for="group in otherGroups">{{ group }}</div>
+</template>
+```
+
+## Options
+
+### `allow`
+
+Type: `string[]`
+
+Default: `[]`
+
+A list of names that template variables may reuse. A variable with one of these
+names is never reported.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueTemplateShadow": {
+					"level": "on",
+					"options": {
+						"allow": [
+							"item"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid (using `allow`)
+
+```vue
+<template>
+  <div v-for="item in groups">
+    <span v-for="item in item.children">{{ item }}</span>
+  </div>
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_template_shadow.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueTemplateShadow)
+- <RulePlaygroundLink rule="noVueTemplateShadow" category="lint" language="vue" code={"<template>\n  <div v-for=\"item in groups\">\n    <span v-for=\"item in item.children\">{{ item }}</span>\n  </div>\n</template>\n"} />
+

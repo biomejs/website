@@ -1,0 +1,201 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueConsistentBooleanPropStyle (HTML)
+description: HTML documentation for useVueConsistentBooleanPropStyle
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-consistent-boolean-prop-style/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueConsistentBooleanPropStyle`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/prefer-true-attribute-shorthand`](https://eslint.vuejs.org/rules/prefer-true-attribute-shorthand)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentBooleanPropStyle": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce a consistent style for component props set to `true`.
+
+In Vue, a `Boolean` prop written without a value receives `true`. This means
+`<MyComponent disabled />` passes the same value as `<MyComponent :disabled="true" />`, and
+the shorthand form is easier to read.
+
+This rule only checks components. On native HTML elements, an attribute without a value
+isn't always the same as `true`: for example, `<div data-active>` sets `data-active` to an
+empty string.
+
+:::caution
+In Vue, the shorthand form passes `true` only to props declared with the `Boolean` type.
+It passes an empty string instead when the prop isn't declared as `Boolean`, when its type
+lists `String` before `Boolean`, such as `type: [String, Boolean]`, or when the component
+doesn't declare the prop and Vue adds it to the component's root element as an HTML
+attribute. Check how the component declares the prop before applying the fix. To catch
+props that list another type before `Boolean`, use
+[`useVueBooleanPropTypeFirst`](https://biomejs.dev/linter/rules/use-vue-boolean-prop-type-first/).
+:::
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <MyComponent :disabled="true" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-consistent-boolean-prop-style\">lint/nursery/useVueConsistentBooleanPropStyle</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The prop </span><span style=\"color: lightgreen;\"><strong>disabled</strong></span><span style=\"color: lightgreen;\"> has the value </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\">, which can be omitted.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;MyComponent :disabled=&quot;true&quot; /&gt;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A prop written without a value receives </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\">, so the shorthand form is shorter and passes the same value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The shorthand form passes </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> only if the component declares the prop as </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\"> and doesn't list </span><span style=\"color: lightgreen;\"><strong>String</strong></span><span style=\"color: lightgreen;\"> before </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\">. Otherwise, it passes an empty string. Check how the component declares the prop before you remove the value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the value.</span><br />  <br />  <strong>  2 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>&lt;MyComponent<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">:</span>disabled<span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">&quot;</span><span style=\"opacity: 0.8;\">·</span>/&gt;<br />  <strong>    │ </strong>               <span style=\"color: Tomato;\">-</span>        <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>   <br /></code></pre>"} />
+
+```vue
+<template>
+  <MyComponent v-bind:disabled="true" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-consistent-boolean-prop-style\">lint/nursery/useVueConsistentBooleanPropStyle</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The prop </span><span style=\"color: lightgreen;\"><strong>disabled</strong></span><span style=\"color: lightgreen;\"> has the value </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\">, which can be omitted.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;MyComponent v-bind:disabled=&quot;true&quot; /&gt;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A prop written without a value receives </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\">, so the shorthand form is shorter and passes the same value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The shorthand form passes </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> only if the component declares the prop as </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\"> and doesn't list </span><span style=\"color: lightgreen;\"><strong>String</strong></span><span style=\"color: lightgreen;\"> before </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\">. Otherwise, it passes an empty string. Check how the component declares the prop before you remove the value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the value.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  &lt;template&gt;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">M</span><span style=\"color: Tomato;\">y</span><span style=\"color: Tomato;\">C</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>v</strong></span><span style=\"color: Tomato;\"><strong>-</strong></span><span style=\"color: Tomato;\"><strong>b</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>:</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>s</strong></span><span style=\"color: Tomato;\"><strong>a</strong></span><span style=\"color: Tomato;\"><strong>b</strong></span><span style=\"color: Tomato;\"><strong>l</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>=</strong></span><span style=\"color: Tomato;\"><strong>&quot;</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>&quot;</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">/</span><span style=\"color: Tomato;\">&gt;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">M</span><span style=\"color: MediumSeaGreen;\">y</span><span style=\"color: MediumSeaGreen;\">C</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>d</strong></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>s</strong></span><span style=\"color: MediumSeaGreen;\"><strong>a</strong></span><span style=\"color: MediumSeaGreen;\"><strong>b</strong></span><span style=\"color: MediumSeaGreen;\"><strong>l</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>d</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">/</span><span style=\"color: MediumSeaGreen;\">&gt;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  &lt;/template&gt;<br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <MyComponent disabled />
+  <MyComponent :disabled="false" />
+  <MyComponent :disabled="isDisabled" />
+  <MyComponent disabled="true" />
+  <input :disabled="true" />
+</template>
+```
+
+## Options
+
+### `style`
+
+Default: `"shorthand"`
+
+How a prop set to `true` should be written:
+
+- `"shorthand"`: write only the name of the prop, such as `disabled`.
+- `"longhand"`: write the value `true` explicitly, such as `:disabled="true"`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentBooleanPropStyle": {
+					"level": "on",
+					"options": {
+						"style": "longhand"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```vue
+<template>
+  <MyComponent disabled />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-consistent-boolean-prop-style\">lint/nursery/useVueConsistentBooleanPropStyle</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The prop </span><span style=\"color: lightgreen;\"><strong>disabled</strong></span><span style=\"color: lightgreen;\"> is written without a value.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;MyComponent disabled /&gt;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This project requires writing the value </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> explicitly, which makes it clear that the prop receives a boolean.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A prop without a value receives </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> only if the component declares it as </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\"> and doesn't list </span><span style=\"color: lightgreen;\"><strong>String</strong></span><span style=\"color: lightgreen;\"> before </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\">. Otherwise, it receives an empty string. Check how the component declares the prop before you add the value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Write the value </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> explicitly.</span><br />  <br />  <strong>  2 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>&lt;MyComponent<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">:</span>disabled<span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"opacity: 0.8;\">·</span>/&gt;<br />  <strong>    │ </strong>               <span style=\"color: MediumSeaGreen;\">+</span>        <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>   <br /></code></pre>"} />
+
+#### Valid
+
+```vue
+<template>
+  <MyComponent :disabled="true" />
+  <MyComponent v-bind:disabled="true" />
+</template>
+```
+
+### `except`
+
+Default: `[]`
+
+A list of prop names that must use the opposite of [`style`](#style). Names must match
+exactly, as written in the template. With the default `style`, the following configuration
+requires `value` to be written in the longhand form:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentBooleanPropStyle": {
+					"level": "on",
+					"options": {
+						"except": [
+							"value"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```vue
+<template>
+  <MyComponent value />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-consistent-boolean-prop-style\">lint/nursery/useVueConsistentBooleanPropStyle</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The prop </span><span style=\"color: lightgreen;\"><strong>value</strong></span><span style=\"color: lightgreen;\"> is written without a value.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;MyComponent value /&gt;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This project requires writing the value </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> explicitly, which makes it clear that the prop receives a boolean.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A prop without a value receives </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> only if the component declares it as </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\"> and doesn't list </span><span style=\"color: lightgreen;\"><strong>String</strong></span><span style=\"color: lightgreen;\"> before </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\">. Otherwise, it receives an empty string. Check how the component declares the prop before you add the value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Write the value </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> explicitly.</span><br />  <br />  <strong>  2 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>&lt;MyComponent<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">:</span>value<span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"opacity: 0.8;\">·</span>/&gt;<br />  <strong>    │ </strong>               <span style=\"color: MediumSeaGreen;\">+</span>     <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>   <br /></code></pre>"} />
+
+#### Valid
+
+```vue
+<template>
+  <MyComponent :value="true" disabled />
+</template>
+```
+
+## See Also
+
+- If you want a consistent style for `v-bind` in Vue, see [`useVueConsistentVBindStyle`](https://biomejs.dev/linter/rules/use-vue-consistent-v-bind-style/).
+- If you want `Boolean` to be listed first in the type of a prop, see [`useVueBooleanPropTypeFirst`](https://biomejs.dev/linter/rules/use-vue-boolean-prop-type-first/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_consistent_boolean_prop_style.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueConsistentBooleanPropStyle)
+- <RulePlaygroundLink rule="useVueConsistentBooleanPropStyle" category="lint" language="vue" code={"<template>\n  <MyComponent :disabled=\"true\" />\n</template>\n"} />
+

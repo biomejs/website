@@ -11,6 +11,7 @@ description: A page that maps rules from other sources to Biome
 ## Biome exclusive rules
 - [noExcessiveLinesPerFile](/linter/rules/no-excessive-lines-per-file/css)
 - [noInvalidPropertyInitValue](/linter/rules/no-invalid-property-init-value/css)
+- [noPseudoElementInFunctionalPseudoClass](/linter/rules/no-pseudo-element-in-functional-pseudo-class/css)
 - [noSelfNestedLayer](/linter/rules/no-self-nested-layer/css)
 - [noUndeclaredCustomProperties](/linter/rules/no-undeclared-custom-properties/css)
 - [noUnusedClasses](/linter/rules/no-unused-classes/css)
@@ -64,6 +65,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [length-zero-no-unit](https://github.com/stylelint/stylelint/blob/main/lib/rules/length-zero-no-unit/README.md) |[noZeroLengthUnit](/linter/rules/no-zero-length-unit/css) |
 | [liberty/use-logical-spec](https://github.com/stylelint/stylelint/blob/main/lib/rules/liberty/use-logical-spec/README.md) |[useLogicalProperties](/linter/rules/use-logical-properties/css) |
 | [lightness-notation](https://github.com/stylelint/stylelint/blob/main/lib/rules/lightness-notation/README.md) |[useConsistentLightnessNotation](/linter/rules/use-consistent-lightness-notation/css) |
+| [max-nesting-depth](https://github.com/stylelint/stylelint/blob/main/lib/rules/max-nesting-depth/README.md) |[noExcessiveNestedBlocks](/linter/rules/no-excessive-nested-blocks/css) |
 | [media-feature-name-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/media-feature-name-no-unknown/README.md) |[noUnknownMediaFeatureName](/linter/rules/no-unknown-media-feature-name/css) |
 | [media-type-no-deprecated](https://github.com/stylelint/stylelint/blob/main/lib/rules/media-type-no-deprecated/README.md) |[noDeprecatedMediaType](/linter/rules/no-deprecated-media-type/css) |
 | [named-grid-areas-no-invalid](https://github.com/stylelint/stylelint/blob/main/lib/rules/named-grid-areas-no-invalid/README.md) |[noInvalidGridAreas](/linter/rules/no-invalid-grid-areas/css) |
@@ -81,5 +83,9 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [selector-type-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/selector-type-no-unknown/README.md) |[noUnknownTypeSelector](/linter/rules/no-unknown-type-selector/css) |
 | [time-min-milliseconds](https://github.com/stylelint/stylelint/blob/main/lib/rules/time-min-milliseconds/README.md) |[noShortTimeValues](/linter/rules/no-short-time-values/css) |
 | [unit-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/unit-no-unknown/README.md) |[noUnknownUnit](/linter/rules/no-unknown-unit/css) |
+### stylelint-scss
+| stylelint-scss Rules name | Biome Rules name |
+| ---- | ---- |
+| [dollar-variable-no-missing-interpolation](https://github.com/stylelint-scss/stylelint-scss/blob/master/src/rules/dollar-variable-no-missing-interpolation/README.md) |[noMissingScssInterpolation](/linter/rules/no-missing-scss-interpolation/css) (inspired) |
 
 Missing a rule? Help us by [contributing](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) to the [analyzer](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) or create a rule suggestion [here](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).

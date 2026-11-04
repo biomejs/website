@@ -1,0 +1,201 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noExcessiveNestedBlocks (CSS)
+description: CSS documentation for noExcessiveNestedBlocks
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-excessive-nested-blocks/css/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-excessive-nested-blocks/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noExcessiveNestedBlocks`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`max-nesting-depth`](https://github.com/stylelint/stylelint/blob/main/lib/rules/max-nesting-depth/README.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveNestedBlocks": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce a maximum depth that blocks can be nested.
+
+Deeply nested styles are difficult to read and follow. Every level of nesting also makes
+the resulting selector longer, which makes the styles harder to override. This rule reports
+`{}` blocks nested beyond the configured limit.
+
+The block of a rule or at-rule written at the top level of the file isn't nested, so it
+doesn't count as a level. Wrapping styles in a top-level at-rule, such as `@media` or
+`@layer`, doesn't add a level either. Every other block adds one level.
+
+Only the outermost block exceeding the limit is reported: blocks nested inside it aren't
+reported again.
+
+## Examples
+
+### Invalid
+
+```css
+.a {
+    .b {
+        .c {
+            .d {
+                .e {
+                    .f {
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:6:21 <a href=\"https://biomejs.dev/linter/rules/no-excessive-nested-blocks\">lint/nursery/noExcessiveNestedBlocks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This block is nested too deeply.</span><br />  <br />    <strong>4 │ </strong>            .d &#123;<br />    <strong>5 │ </strong>                .e &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>                    .f &#123;<br />   <strong>   │ </strong>                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>                        color: red;<br />    <strong>8 │ </strong>                    &#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Blocks nested 5 levels deep are hard to read and produce long selectors that are hard to override. The configured maximum is 4.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the nested styles closer to the top level, or use a single class name instead of a chain of nested selectors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```css
+.a {
+    .b {
+        .c {
+            .d {
+                .e {
+                    color: red;
+                }
+            }
+        }
+    }
+}
+
+@media (width >= 600px) {
+    .a {
+        .b {
+            .c {
+                .d {
+                    .e {
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+## Options
+
+### max
+
+Default: 4
+
+The maximum block nesting depth allowed.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveNestedBlocks": {
+					"level": "on",
+					"options": {
+						"max": 1
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+.a {
+    .b {
+        .c {
+            color: red;
+        }
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:3:9 <a href=\"https://biomejs.dev/linter/rules/no-excessive-nested-blocks\">lint/nursery/noExcessiveNestedBlocks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This block is nested too deeply.</span><br />  <br />    <strong>1 │ </strong>.a &#123;<br />    <strong>2 │ </strong>    .b &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        .c &#123;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>            color: red;<br />    <strong>5 │ </strong>        &#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Blocks nested 2 levels deep are hard to read and produce long selectors that are hard to override. The configured maximum is 1.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the nested styles closer to the top level, or use a single class name instead of a chain of nested selectors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+.a {
+    .b {
+        color: red;
+    }
+}
+```
+
+### ignoreAtRules
+
+Default: `[]`
+
+A list of at-rule names, without the leading `@`. The blocks of these at-rules don't count
+as a level and are never reported. Names are matched regardless of letter case.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveNestedBlocks": {
+					"level": "on",
+					"options": {
+						"max": 1,
+						"ignoreAtRules": [
+							"media"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```css
+.a {
+    @media print {
+        .b {
+            color: red;
+        }
+    }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_excessive_nested_blocks.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noExcessiveNestedBlocks)
+- <RulePlaygroundLink rule="noExcessiveNestedBlocks" category="lint" language="css" code={".a {\n    .b {\n        .c {\n            .d {\n                .e {\n                    .f {\n                        color: red;\n                    }\n                }\n            }\n        }\n    }\n}\n"} />
+

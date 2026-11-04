@@ -1,0 +1,138 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUselessTypeAssertion (JavaScript)
+description: JavaScript (and super languages) documentation for noUselessTypeAssertion
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-type-assertion/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noUselessTypeAssertion`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`types`](/linter/domains#types)
+- Sources: 
+  - Same as [`@typescript-eslint/no-unnecessary-type-assertion`](https://typescript-eslint.io/rules/no-unnecessary-type-assertion)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessTypeAssertion": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow type assertions that don't change the type of an expression.
+
+A type assertion tells TypeScript to treat a value as a different type.
+This includes `as` assertions (`value as string`), angle-bracket
+assertions (`<string>value`), and non-null assertions (`value!`), which
+tell TypeScript that a value isn't `null` or `undefined`.
+
+When the value already has the asserted type, the assertion does nothing.
+It only adds noise, and it makes the assertions that do matter harder to
+notice.
+
+This rule reports:
+
+- non-null assertions on values that can't be `null` or `undefined`;
+- non-null assertions on the left side of an `=` assignment, because
+assigning a value never reads the old one;
+- `as` and angle-bracket assertions to a type that the value already has.
+This check only covers `string`, `number`, `bigint`, `boolean`,
+`symbol`, `null`, `undefined`, and unions of them, such as
+`string | undefined`. It only checks function calls, awaited function
+calls, `+`, comparisons, and other type assertions. It doesn't check
+variables and properties, because TypeScript can give them a more
+specific type where the assertion is written, for example inside
+`if (typeof value === "string")`.
+
+The rule doesn't report `as const` assertions.
+
+## Examples
+
+### Invalid
+
+```ts title='invalid-non-null.ts'
+const foo = 3;
+const bar = foo!;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-non-null.ts\">/invalid-non-null.ts</a>:2:13 <a href=\"https://biomejs.dev/linter/rules/no-useless-type-assertion\">lint/nursery/noUselessTypeAssertion</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This non-null assertion is unnecessary.</span><br />  <br />    <strong>1 │ </strong>const foo = 3;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const bar = foo!;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This value can't be </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">, so the assertion has no effect.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unnecessary assertions add noise and make the assertions that matter harder to notice.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the non-null assertion.</span><br />  <br />  <strong>  2 │ </strong>const<span style=\"opacity: 0.8;\">·</span>bar<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>foo<span style=\"color: Tomato;\">!</span>;<br />  <strong>    │ </strong>               <span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+```ts title='invalid-parameter.ts'
+function foo(x: number): number {
+    return x!;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-parameter.ts\">/invalid-parameter.ts</a>:2:12 <a href=\"https://biomejs.dev/linter/rules/no-useless-type-assertion\">lint/nursery/noUselessTypeAssertion</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This non-null assertion is unnecessary.</span><br />  <br />    <strong>1 │ </strong>function foo(x: number): number &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    return x!;<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This value can't be </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">, so the assertion has no effect.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unnecessary assertions add noise and make the assertions that matter harder to notice.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the non-null assertion.</span><br />  <br />  <strong>  2 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>return<span style=\"opacity: 0.8;\">·</span>x<span style=\"color: Tomato;\">!</span>;<br />  <strong>    │ </strong>            <span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+```ts title='invalid-angle-bracket.ts'
+const foo = <number>(3 + 5);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-angle-bracket.ts\">/invalid-angle-bracket.ts</a>:1:13 <a href=\"https://biomejs.dev/linter/rules/no-useless-type-assertion\">lint/nursery/noUselessTypeAssertion</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This type assertion is unnecessary.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const foo = &lt;number&gt;(3 + 5);<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The expression already has this type, so the assertion has no effect.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unnecessary assertions add noise and make the assertions that matter harder to notice.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the type assertion.</span><br />  <br />  <strong>  1 │ </strong>const<span style=\"opacity: 0.8;\">·</span>foo<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">b</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">&gt;</span>(3<span style=\"opacity: 0.8;\">·</span>+<span style=\"opacity: 0.8;\">·</span>5);<br />  <strong>    │ </strong>            <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>        <br /></code></pre>"} />
+
+```ts title='invalid-alias.ts'
+type Foo = number;
+const foo = (3 + 5) as Foo;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-alias.ts\">/invalid-alias.ts</a>:2:21 <a href=\"https://biomejs.dev/linter/rules/no-useless-type-assertion\">lint/nursery/noUselessTypeAssertion</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This type assertion is unnecessary.</span><br />  <br />    <strong>1 │ </strong>type Foo = number;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const foo = (3 + 5) as Foo;<br />   <strong>   │ </strong>                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The expression already has this type, so the assertion has no effect.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unnecessary assertions add noise and make the assertions that matter harder to notice.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the type assertion.</span><br />  <br />  <strong>  2 │ </strong>const<span style=\"opacity: 0.8;\">·</span>foo<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>(3<span style=\"opacity: 0.8;\">·</span>+<span style=\"opacity: 0.8;\">·</span>5)<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">s</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">F</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">o</span>;<br />  <strong>    │ </strong>                   <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+```ts title='invalid-double.ts'
+declare function getName(): string;
+const foo = getName() as unknown as string;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-double.ts\">/invalid-double.ts</a>:2:13 <a href=\"https://biomejs.dev/linter/rules/no-useless-type-assertion\">lint/nursery/noUselessTypeAssertion</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">These type assertions are unnecessary.</span><br />  <br />    <strong>1 │ </strong>declare function getName(): string;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const foo = getName() as unknown as string;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The original expression already has the final type, so the assertions have no effect.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unnecessary assertions add noise and make the assertions that matter harder to notice.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the type assertions.</span><br />  <br />  <strong>  2 │ </strong>const<span style=\"opacity: 0.8;\">·</span>foo<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>getName()<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">s</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">k</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">w</span><span style=\"color: Tomato;\">n</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">s</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">g</span>;<br />  <strong>    │ </strong>                     <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+```ts title='invalid-assignment.ts'
+let foo: number | undefined;
+foo! = 1;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-assignment.ts\">/invalid-assignment.ts</a>:2:1 <a href=\"https://biomejs.dev/linter/rules/no-useless-type-assertion\">lint/nursery/noUselessTypeAssertion</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This non-null assertion is unnecessary.</span><br />  <br />    <strong>1 │ </strong>let foo: number | undefined;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>foo! = 1;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">An assignment replaces the current value without reading it, so the value doesn't need to be non-null.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unnecessary assertions add noise and make the assertions that matter harder to notice.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the non-null assertion.</span><br />  <br />  <strong>  2 │ </strong>foo<span style=\"color: Tomato;\">!</span><span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>1;<br />  <strong>    │ </strong>   <span style=\"color: Tomato;\">-</span>     <br /></code></pre>"} />
+
+### Valid
+
+```ts
+const a = <number>3;
+const b = 3 as number;
+let c = "foo" as const;
+
+function foo(x: number | undefined): number {
+    return x!;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_useless_type_assertion.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUselessTypeAssertion)
+- <RulePlaygroundLink rule="noUselessTypeAssertion" category="lint" language="ts" code={"const foo = 3;\nconst bar = foo!;\n"} />
+

@@ -1,0 +1,120 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueOneComponentPerFile (JavaScript)
+description: JavaScript (and super languages) documentation for useVueOneComponentPerFile
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-one-component-per-file/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueOneComponentPerFile`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/one-component-per-file`](https://eslint.vuejs.org/rules/one-component-per-file)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueOneComponentPerFile": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce that each file defines at most one Vue component.
+
+When every component lives in its own file, components are easier to find, and each file
+stays small enough to read and change on its own.
+
+The rule counts every component that a file defines:
+
+- a `<script setup>` block;
+- `export default { ... }` in a `.vue` file;
+- `defineComponent()` called with an options object or a setup function;
+- `createApp()` called with an options object.
+
+A component that is only imported, as in `createApp(App)`, isn't counted. The default
+export of a plain `<script>` block that sits next to a `<script setup>` block is part of the
+same component, so it isn't counted either.
+
+When a file defines more than one component, the rule reports each of them, except the
+main component of a `.vue` file.
+
+## Examples
+
+### Invalid
+
+```vue
+<script setup>
+import { defineComponent, h } from "vue";
+
+const Badge = defineComponent({
+  render: () => h("span", "New"),
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:15 <a href=\"https://biomejs.dev/linter/rules/use-vue-one-component-per-file\">lint/nursery/useVueOneComponentPerFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This file defines more than one component.</span><br />  <br />    <strong>2 │ </strong>import &#123; defineComponent, h &#125; from &quot;vue&quot;;<br />    <strong>3 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const Badge = defineComponent(&#123;<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>  render: () =&gt; h(&quot;span&quot;, &quot;New&quot;),<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>&#125;);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>&lt;/script&gt;<br />    <strong>8 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Components that share a file are harder to find, and the file grows harder to read and change.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move this component to its own file.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script>
+import { defineComponent } from "vue";
+
+const TodoItem = defineComponent({
+  props: ["title"],
+});
+
+export default {
+  components: { TodoItem },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:18 <a href=\"https://biomejs.dev/linter/rules/use-vue-one-component-per-file\">lint/nursery/useVueOneComponentPerFile</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This file defines more than one component.</span><br />  <br />    <strong>2 │ </strong>import &#123; defineComponent &#125; from &quot;vue&quot;;<br />    <strong>3 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const TodoItem = defineComponent(&#123;<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>  props: [&quot;title&quot;],<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>&#125;);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong><br />    <strong>8 │ </strong>export default &#123;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Components that share a file are harder to find, and the file grows harder to read and change.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move this component to its own file.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup>
+import Badge from "./Badge.vue";
+</script>
+```
+
+```js
+import { createApp } from "vue";
+import App from "./App.vue";
+
+createApp(App).mount("#app");
+```
+
+## Resources
+
+- [Vue style guide: component files](https://vuejs.org/style-guide/rules-strongly-recommended.html#component-files)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_one_component_per_file.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueOneComponentPerFile)
+- <RulePlaygroundLink rule="useVueOneComponentPerFile" category="lint" language="vue" code={"<script setup>\nimport { defineComponent, h } from \"vue\";\n\nconst Badge = defineComponent({\n  render: () => h(\"span\", \"New\"),\n});\n</script>\n"} />
+

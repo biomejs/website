@@ -1,0 +1,121 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueSeparateStaticClass (JavaScript)
+description: JavaScript (and super languages) documentation for useVueSeparateStaticClass
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-separate-static-class/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueSeparateStaticClass`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/prefer-separate-static-class`](https://eslint.vuejs.org/rules/prefer-separate-static-class)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueSeparateStaticClass": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require static class names to be in a separate `class` attribute.
+
+In Vue, the `:class` binding (also written `v-bind:class`) is for classes that are
+computed while the app runs, such as a class that is only added when a condition is true.
+A class name that never changes doesn't need a binding: putting it in the plain `class`
+attribute keeps the classes that always apply apart from the ones that change, and makes
+the template easier to read.
+
+Vue merges the `class` attribute and the `:class` binding, so an element can use both.
+
+:::note
+This rule reads the template of `.vue` files, which requires
+[`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)
+to be `true`. Without that setting, the rule reports nothing.
+:::
+
+This rule reports class names in a `:class` binding that always apply:
+
+- a string, such as `:class="'header'"`;
+- a string in an array, such as `:class="['header', theme]"`;
+- an object key whose value is `true`, such as `:class="{ header: true }"`;
+- a part of a template literal that is separated by spaces from every
+`${}` placeholder, such as `header` in `:class="`header ${theme}`"`.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <div :class="'header'"></div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-separate-static-class\">lint/nursery/useVueSeparateStaticClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The static class </span><span style=\"color: lightgreen;\"><strong>header</strong></span><span style=\"color: lightgreen;\"> is in a </span><span style=\"color: lightgreen;\"><strong>:class</strong></span><span style=\"color: lightgreen;\"> binding.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div :class=&quot;'header'&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Classes that always apply don't need a binding. Mixing them with the classes that change makes the template harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the static classes to the </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> attribute of the element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <div :class="['header', theme]"></div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:17 <a href=\"https://biomejs.dev/linter/rules/use-vue-separate-static-class\">lint/nursery/useVueSeparateStaticClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The static class </span><span style=\"color: lightgreen;\"><strong>header</strong></span><span style=\"color: lightgreen;\"> is in a </span><span style=\"color: lightgreen;\"><strong>:class</strong></span><span style=\"color: lightgreen;\"> binding.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div :class=&quot;['header', theme]&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Classes that always apply don't need a binding. Mixing them with the classes that change makes the template harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the static classes to the </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> attribute of the element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <div :class="{ header: true, active: isActive }"></div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:18 <a href=\"https://biomejs.dev/linter/rules/use-vue-separate-static-class\">lint/nursery/useVueSeparateStaticClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The static class </span><span style=\"color: lightgreen;\"><strong>header</strong></span><span style=\"color: lightgreen;\"> is in a </span><span style=\"color: lightgreen;\"><strong>:class</strong></span><span style=\"color: lightgreen;\"> binding.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div :class=&quot;&#123; header: true, active: isActive &#125;&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Classes that always apply don't need a binding. Mixing them with the classes that change makes the template harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the static classes to the </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> attribute of the element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <div :class="`header ${theme}`"></div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:17 <a href=\"https://biomejs.dev/linter/rules/use-vue-separate-static-class\">lint/nursery/useVueSeparateStaticClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The static class </span><span style=\"color: lightgreen;\"><strong>header</strong></span><span style=\"color: lightgreen;\"> is in a </span><span style=\"color: lightgreen;\"><strong>:class</strong></span><span style=\"color: lightgreen;\"> binding.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div :class=&quot;&#96;header $&#123;theme&#125;&#96;&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Classes that always apply don't need a binding. Mixing them with the classes that change makes the template harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the static classes to the </span><span style=\"color: lightgreen;\"><strong>class</strong></span><span style=\"color: lightgreen;\"> attribute of the element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <div class="header"></div>
+  <div class="header" :class="theme"></div>
+  <div class="header" :class="{ active: isActive }"></div>
+  <div :class="`header-${theme}`"></div>
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_separate_static_class.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueSeparateStaticClass)
+- <RulePlaygroundLink rule="useVueSeparateStaticClass" category="lint" language="vue" code={"<template>\n  <div :class=\"'header'\"></div>\n</template>\n"} />
+

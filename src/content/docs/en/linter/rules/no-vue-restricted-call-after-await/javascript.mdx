@@ -1,0 +1,210 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueRestrictedCallAfterAwait (JavaScript)
+description: JavaScript (and super languages) documentation for noVueRestrictedCallAfterAwait
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-restricted-call-after-await/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueRestrictedCallAfterAwait`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-restricted-call-after-await`](https://eslint.vuejs.org/rules/no-restricted-call-after-await)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueRestrictedCallAfterAwait": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow calling configured functions after an `await` in `setup()`.
+
+Some functions, such as `useI18n()` from `vue-i18n`, need to know which component is
+being set up. Vue only keeps track of that while `setup()` runs without pausing. Once
+`setup()` pauses at an `await`, these functions can no longer find the component, so they
+fail or behave incorrectly.
+
+This rule reports calls to the functions listed in the [`functions`](#functions) option
+that come after an `await` in a component's `setup()` function. It does nothing until you
+list at least one function.
+
+Code inside `<script setup>` isn't checked, because Vue keeps track of the component
+across each `await` there.
+
+## Examples
+
+The examples below use the following configuration:
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueRestrictedCallAfterAwait": {
+					"level": "on",
+					"options": {
+						"functions": [
+							{
+								"module": "vue-i18n",
+								"path": "useI18n"
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+### Invalid
+
+```vue
+<script>
+import { useI18n } from "vue-i18n";
+
+export default {
+  async setup() {
+    await fetchUser();
+    const { t } = useI18n();
+    return { t };
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:7:19 <a href=\"https://biomejs.dev/linter/rules/no-vue-restricted-call-after-await\">lint/nursery/noVueRestrictedCallAfterAwait</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This call to </span><span style=\"color: Tomato;\"><strong>useI18n()</strong></span><span style=\"color: Tomato;\"> from </span><span style=\"color: Tomato;\"><strong>vue-i18n</strong></span><span style=\"color: Tomato;\"> comes after an </span><span style=\"color: Tomato;\"><strong>await</strong></span><span style=\"color: Tomato;\"> in </span><span style=\"color: Tomato;\"><strong>setup()</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>5 │ </strong>  async setup() &#123;<br />    <strong>6 │ </strong>    await fetchUser();<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>7 │ </strong>    const &#123; t &#125; = useI18n();<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>8 │ </strong>    return &#123; t &#125;;<br />    <strong>9 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>setup()</strong></span><span style=\"color: lightgreen;\"> function pauses here. After this point, Vue no longer knows which component is being set up.</span><br />  <br />    <strong>4 │ </strong>export default &#123;<br />    <strong>5 │ </strong>  async setup() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>    await fetchUser();<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>    const &#123; t &#125; = useI18n();<br />    <strong>8 │ </strong>    return &#123; t &#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function is listed in the </span><span style=\"color: lightgreen;\"><strong>functions</strong></span><span style=\"color: lightgreen;\"> option because it needs to know which component is being set up. Call it before the first </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\"> in </span><span style=\"color: lightgreen;\"><strong>setup()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+import { useI18n } from "vue-i18n";
+
+export default {
+  async setup() {
+    const { t } = useI18n();
+    await fetchUser();
+    return { t };
+  },
+};
+</script>
+```
+
+## Options
+
+### `functions`
+
+Default: `[]`
+
+The functions that must not be called after an `await` in `setup()`. Each entry is an
+object with these properties:
+
+- `module`: The module that exports the function, written the same way as in the `import`
+statement. This property is required.
+- `path`: The name the function is exported as. Use a list of names when the function is a
+property of an exported object: `["bar", "baz"]` matches `bar.baz()` for
+`import { bar } from "..."`. Defaults to `"default"`, which matches the module's default
+export.
+- `message`: A custom message to show in place of the default message.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueRestrictedCallAfterAwait": {
+					"level": "on",
+					"options": {
+						"functions": [
+							{
+								"module": "vue-i18n",
+								"path": "useI18n"
+							},
+							{
+								"module": "my-store",
+								"path": [
+									"store",
+									"use"
+								],
+								"message": "Call store.use() before the first await."
+							},
+							{
+								"module": "my-plugin"
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```vue
+<script>
+import { store } from "my-store";
+
+export default {
+  async setup() {
+    await fetchUser();
+    store.use();
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:7:5 <a href=\"https://biomejs.dev/linter/rules/no-vue-restricted-call-after-await\">lint/nursery/noVueRestrictedCallAfterAwait</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Call store.use() before the first await.</span><br />  <br />    <strong>5 │ </strong>  async setup() &#123;<br />    <strong>6 │ </strong>    await fetchUser();<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>7 │ </strong>    store.use();<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>8 │ </strong>  &#125;,<br />    <strong>9 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>setup()</strong></span><span style=\"color: lightgreen;\"> function pauses here. After this point, Vue no longer knows which component is being set up.</span><br />  <br />    <strong>4 │ </strong>export default &#123;<br />    <strong>5 │ </strong>  async setup() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>    await fetchUser();<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>    store.use();<br />    <strong>8 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function is listed in the </span><span style=\"color: lightgreen;\"><strong>functions</strong></span><span style=\"color: lightgreen;\"> option because it needs to know which component is being set up. Call it before the first </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\"> in </span><span style=\"color: lightgreen;\"><strong>setup()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script>
+import usePlugin from "my-plugin";
+
+export default {
+  async setup() {
+    await fetchUser();
+    usePlugin();
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:7:5 <a href=\"https://biomejs.dev/linter/rules/no-vue-restricted-call-after-await\">lint/nursery/noVueRestrictedCallAfterAwait</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This call to </span><span style=\"color: Tomato;\"><strong>default()</strong></span><span style=\"color: Tomato;\"> from </span><span style=\"color: Tomato;\"><strong>my-plugin</strong></span><span style=\"color: Tomato;\"> comes after an </span><span style=\"color: Tomato;\"><strong>await</strong></span><span style=\"color: Tomato;\"> in </span><span style=\"color: Tomato;\"><strong>setup()</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>5 │ </strong>  async setup() &#123;<br />    <strong>6 │ </strong>    await fetchUser();<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>7 │ </strong>    usePlugin();<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>8 │ </strong>  &#125;,<br />    <strong>9 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>setup()</strong></span><span style=\"color: lightgreen;\"> function pauses here. After this point, Vue no longer knows which component is being set up.</span><br />  <br />    <strong>4 │ </strong>export default &#123;<br />    <strong>5 │ </strong>  async setup() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>    await fetchUser();<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>    usePlugin();<br />    <strong>8 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function is listed in the </span><span style=\"color: lightgreen;\"><strong>functions</strong></span><span style=\"color: lightgreen;\"> option because it needs to know which component is being set up. Call it before the first </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\"> in </span><span style=\"color: lightgreen;\"><strong>setup()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+## See Also
+
+- [`noVueLifecycleAfterAwait`](https://biomejs.dev/linter/rules/no-vue-lifecycle-after-await/) reports Vue lifecycle hooks, such as `onMounted()`, that are registered after an `await` in `setup()`.
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_restricted_call_after_await.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueRestrictedCallAfterAwait)
+- <RulePlaygroundLink rule="noVueRestrictedCallAfterAwait" category="lint" language="vue" code={"<script>\nimport { useI18n } from \"vue-i18n\";\n\nexport default {\n  async setup() {\n    await fetchUser();\n    const { t } = useI18n();\n    return { t };\n  },\n};\n</script>\n"} />
+
