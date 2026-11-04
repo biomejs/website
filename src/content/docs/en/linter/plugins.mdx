@@ -539,3 +539,133 @@ Returns whether the model classifies this global reference as a write.
 **Type**: `() => AnyJsIdentifierReference`
 
 Returns the identifier node whose name could not be resolved.
+
+### Kind sets
+
+A common operation in lint rules is checking the kind of a syntax node or token. Sometimes, you want to check for multiple kinds at a time.
+
+```js
+if (node.kind === "JS_CALL_EXPRESSION" || node.kind === "JS_NEW_EXPRESSION") { ... }
+```
+
+However, there is a performance cost when you check this way. It results in multiple string comparisons. To avoid most of this cost, we provide these "kind sets" APIs that can check for any number of kinds in constant time.
+
+Build each set once at module scope, then reuse it in every `run()` call:
+
+```ts title="plugin.ts" ins='nodeKinds' ins='tokenKinds' ins='.has'
+import { ast, defineRule, nodeKinds, registerDiagnostic, tokenKinds } from "@biomejs/runtime/plugin"
+
+const CALLS = nodeKinds("JS_CALL_EXPRESSION", "JS_NEW_EXPRESSION");
+const LOOSE_EQUALITY = tokenKinds("EQ2", "NEQ");
+
+export const kindSets = defineRule({
+    query: ast("JS_EXPRESSION_STATEMENT"),
+    run(statement, ctx) {
+      const expression = statement.expression;
+      if (!expression) return;
+      if (CALLS.has(expression)) {
+        registerDiagnostic(expression, "information", `${expression.kind} is in CALLS.`)
+      }
+      for (const element of expression.childrenWithTokens()) {
+        if (LOOSE_EQUALITY.has(element)) {
+          registerDiagnostic(expression, "warning", `${element.text} is in LOOSE_EQUALITY.`)
+        }
+      }
+    }
+})
+```
+
+#### `nodeKinds`
+
+**Type**: `<K extends keyof JsNodeByKind>(...kinds: K[]) => NodeKindSet<K>`
+
+Creates a set of node kinds. It accepts the same names as [`ast`](#ast-query), such as `"JS_CALL_EXPRESSION"`. Pass each kind as a separate argument, not as an array. `nodeKinds()` with no arguments returns an empty set, which matches nothing.
+
+It throws a `TypeError` for an unknown name or a token kind. For a token kind, the message names the function to use instead:
+
+```text
+nodeKinds() received the token kind "IDENT", but it only accepts node kinds. Create a set of token kinds with tokenKinds("IDENT") instead.
+```
+
+#### `tokenKinds`
+
+**Type**: `<K extends JsAstToken["kind"]>(...kinds: K[]) => TokenKindSet<K>`
+
+Creates a set of token kinds. It accepts any name that `token.kind` can return, such as `"IDENT"` or `"LET_KW"`. This includes `"EOF"`, `"ERROR_TOKEN"`, and trivia kinds such as `"WHITESPACE"` and `"COMMENT"`.
+
+Like `nodeKinds`, it throws a `TypeError` if a name is unknown or is a node kind.
+
+#### `NodeKindSet.has`
+
+**Type**: `(element: JsAstElement | undefined) => boolean`
+
+Returns whether `element` is a node whose kind is in the set. It returns `false` for tokens and for `undefined`, so you can pass optional fields and the results of `childrenWithTokens()` directly.
+
+It throws a `TypeError` for anything that isn't a node, a token, or `undefined`. That includes kind strings and `null`, so `CALLS.has("JS_CALL_EXPRESSION")` throws.
+
+In TypeScript, a `true` result narrows `element` to the node types in the set. After `CALLS.has(element)`, `element` is a `JsCallExpression | JsNewExpression`.
+
+#### `TokenKindSet.has`
+
+**Type**: `(element: JsAstElement | undefined) => boolean`
+
+Returns whether `element` is a token whose kind is in the set. It returns `false` for nodes and for `undefined`, and throws a `TypeError` for anything else.
+
+In TypeScript, a `true` result narrows `element` to a token with one of the set's kinds. After `LOOSE_EQUALITY.has(element)`, `element.kind` is `"EQ2" | "NEQ"`.
+
+#### `NodeKindSet.union`
+
+**Type**: `(other: NodeKindSet) => NodeKindSet`
+
+Returns a new set with the kinds of both sets. Neither set changes, so you can share a base set and extend it in several places:
+
+```ts title="plugin.ts" ins='.union'
+import { nodeKinds } from "@biomejs/runtime/plugin"
+
+const CALLS = nodeKinds("JS_CALL_EXPRESSION", "JS_NEW_EXPRESSION");
+const CALLS_AND_IMPORTS = CALLS.union(nodeKinds("JS_IMPORT_CALL_EXPRESSION"));
+```
+
+`other` must be a set returned by `nodeKinds()`. Passing a token kind set throws a `TypeError` that says so:
+
+```text
+set.union() received a token kind set, but this is a node kind set. Pass a set returned by nodeKinds() instead.
+```
+
+It also throws for a kind name, an array, or anything else that isn't a node kind set, and when you pass zero or more than one argument. To add a single kind, wrap it in a set first, as in `CALLS.union(nodeKinds("JS_IMPORT_CALL_EXPRESSION"))`.
+
+In TypeScript, the result's type has the kinds of both sets, so `has()` on it narrows to any of them. After `CALLS_AND_IMPORTS.has(element)`, `element` is a `JsCallExpression | JsNewExpression | JsImportCallExpression`.
+
+#### `TokenKindSet.union`
+
+**Type**: `(other: TokenKindSet) => TokenKindSet`
+
+Returns a new set with the kinds of both sets. Neither set changes.
+
+```ts title="plugin.ts" ins='.union'
+import { tokenKinds } from "@biomejs/runtime/plugin"
+
+const EQUALITY = tokenKinds("EQ2", "EQ3", "NEQ", "NEQ2");
+const COMPARISON = EQUALITY.union(tokenKinds("L_ANGLE", "R_ANGLE", "LTEQ", "GTEQ"));
+```
+
+`other` must be a set returned by `tokenKinds()`. Like `NodeKindSet.union`, it throws a `TypeError` for a node kind set, a kind name, an array, or the wrong number of arguments.
+
+#### `NodeKindSet` and `TokenKindSet` types
+
+The two set types are separate. You can't pass a node kind set where a token kind set is expected, or the other way around. That includes `union`: TypeScript rejects `CALLS.union(LOOSE_EQUALITY)`, and it throws at runtime.
+
+Each set's type records exactly the kinds it was built with. `nodeKinds("JS_CALL_EXPRESSION", "JS_NEW_EXPRESSION")` has the type `NodeKindSet<"JS_CALL_EXPRESSION" | "JS_NEW_EXPRESSION">`, and you can't assign it to a `NodeKindSet` with any other kinds, whether fewer, more, or a plain `NodeKindSet`. A helper that accepts any set must be generic over its kinds:
+
+```ts title="plugin.ts"
+import type { AnyJsAstNode, JsNodeByKind, NodeKindSet } from "@biomejs/runtime/plugin"
+
+function countMembers<K extends keyof JsNodeByKind>(
+    set: NodeKindSet<K>,
+    nodes: readonly AnyJsAstNode[],
+): number {
+    return nodes.filter((node) => set.has(node)).length;
+}
+```
+
+For token kind sets, use `K extends JsAstToken["kind"]` and `TokenKindSet<K>`.
