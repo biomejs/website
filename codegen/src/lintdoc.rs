@@ -1471,7 +1471,7 @@ fn write_documentation(
             }
 
             Event::Code(text) => {
-                write!(content, "`{text}`")?;
+                write!(content, "{}", inline_code(&text))?;
             }
             Event::Start(ref link_tag @ Tag::Link { link_type, .. }) => {
                 start_link_tag = Some(link_tag.clone());
@@ -1703,12 +1703,32 @@ fn events_to_text(events: Vec<Event>) -> String {
     for event in events {
         match event {
             Event::Text(text) => buffer.push_str(&text),
-            Event::Code(text) => buffer.push_str(format!("`{text}`").as_str()),
+            Event::Code(text) => buffer.push_str(&inline_code(&text)),
             _ => {}
         }
     }
 
     buffer
+}
+
+/// Wraps `text` in a Markdown code span.
+///
+/// The delimiter has one more backtick than the most consecutive backticks in
+/// `text`, so backticks inside the code don't close the span early.
+fn inline_code(text: &str) -> String {
+    let max_consecutive_backticks = text
+        .split(|c| c != '`')
+        .map(str::len)
+        .max()
+        .unwrap_or_default();
+    let fence = "`".repeat(max_consecutive_backticks + 1);
+    let padding = if text.starts_with('`') || text.ends_with('`') {
+        " "
+    } else {
+        ""
+    };
+
+    format!("{fence}{padding}{text}{padding}{fence}")
 }
 
 fn extract_summary_from_rule(content: &str) -> String {
@@ -1796,4 +1816,28 @@ fn is_main_heading(heading: HeadingLevel) -> bool {
         heading,
         HeadingLevel::H1 | HeadingLevel::H2 | HeadingLevel::H3 | HeadingLevel::H4
     )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::inline_code;
+
+    #[test]
+    fn inline_code_without_backticks() {
+        assert_eq!(inline_code("foo"), "`foo`");
+    }
+
+    #[test]
+    fn inline_code_with_backticks() {
+        assert_eq!(
+            inline_code(":class=\"`header ${theme}`\""),
+            "``:class=\"`header ${theme}`\"``"
+        );
+        assert_eq!(inline_code("a``b"), "```a``b```");
+    }
+
+    #[test]
+    fn inline_code_with_edge_backticks() {
+        assert_eq!(inline_code("`foo`"), "`` `foo` ``");
+    }
 }
