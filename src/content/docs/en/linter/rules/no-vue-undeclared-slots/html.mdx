@@ -1,0 +1,123 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueUndeclaredSlots (HTML)
+description: HTML documentation for noVueUndeclaredSlots
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-undeclared-slots/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueUndeclaredSlots`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/require-explicit-slots`](https://eslint.vuejs.org/rules/require-explicit-slots)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueUndeclaredSlots": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `<slot>` elements whose slot isn't declared in the component's types.
+
+In a Vue component written in TypeScript, the slots the component renders can be
+declared with types. The types describe which slots a parent component can fill, and
+the data each slot passes to that content. Editors and type checkers use them to check
+the content parent components pass in. A slot that is rendered but not declared isn't
+checked at all.
+
+Slots are declared in one of two ways:
+
+- with `defineSlots()` in `<script setup>`;
+- with the `slots` option of the component, written as `Object as SlotsType<...>`.
+
+A `<slot>` element without a `name` attribute renders the slot named `default`.
+
+The rule only checks components that have a `<script lang="ts">` or
+`<script lang="tsx">` block, because slots can only be declared with types.
+It doesn't report a slot when its name is computed with an expression, or when the
+declared slots come from a type that Biome can't read, such as an imported type or an
+interface that extends another one.
+
+## Examples
+
+### Invalid
+
+```vue
+<script setup lang="ts">
+defineSlots<{
+    default(props: { msg: string }): any;
+}>();
+</script>
+
+<template>
+    <slot name="footer" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:8:17 <a href=\"https://biomejs.dev/linter/rules/no-vue-undeclared-slots\">lint/nursery/noVueUndeclaredSlots</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The slot </span><span style=\"color: Orange;\"><strong>footer</strong></span><span style=\"color: Orange;\"> isn't declared.</span><br />  <br />     <strong>7 │ </strong>&lt;template&gt;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>8 │ </strong>    &lt;slot name=&quot;footer&quot; /&gt;<br />    <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />     <strong>9 │ </strong>&lt;/template&gt;<br />    <strong>10 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without a declaration, the content that parent components pass to this slot isn't type checked.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Declare the slot with </span><span style=\"color: lightgreen;\"><strong>defineSlots()</strong></span><span style=\"color: lightgreen;\"> in </span><span style=\"color: lightgreen;\"><strong>&lt;script setup&gt;</strong></span><span style=\"color: lightgreen;\">, or with the </span><span style=\"color: lightgreen;\"><strong>slots</strong></span><span style=\"color: lightgreen;\"> option of the component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script lang="ts">
+import { defineComponent, type SlotsType } from "vue";
+
+export default defineComponent({
+    slots: Object as SlotsType<{
+        header: { title: string };
+    }>,
+});
+</script>
+
+<template>
+    <slot />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:12:6 <a href=\"https://biomejs.dev/linter/rules/no-vue-undeclared-slots\">lint/nursery/noVueUndeclaredSlots</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The slot </span><span style=\"color: Orange;\"><strong>default</strong></span><span style=\"color: Orange;\"> isn't declared.</span><br />  <br />    <strong>11 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>12 │ </strong>    &lt;slot /&gt;<br />    <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>13 │ </strong>&lt;/template&gt;<br />    <strong>14 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without a declaration, the content that parent components pass to this slot isn't type checked.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Declare the slot with </span><span style=\"color: lightgreen;\"><strong>defineSlots()</strong></span><span style=\"color: lightgreen;\"> in </span><span style=\"color: lightgreen;\"><strong>&lt;script setup&gt;</strong></span><span style=\"color: lightgreen;\">, or with the </span><span style=\"color: lightgreen;\"><strong>slots</strong></span><span style=\"color: lightgreen;\"> option of the component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup lang="ts">
+defineSlots<{
+    default(props: { msg: string }): any;
+    footer(props: {}): any;
+}>();
+</script>
+
+<template>
+    <slot msg="hello" />
+    <slot name="footer" />
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_undeclared_slots.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueUndeclaredSlots)
+- <RulePlaygroundLink rule="noVueUndeclaredSlots" category="lint" language="vue" code={"<script setup lang=\"ts\">\ndefineSlots<{\n    default(props: { msg: string }): any;\n}>();\n</script>\n\n<template>\n    <slot name=\"footer\" />\n</template>\n"} />
+

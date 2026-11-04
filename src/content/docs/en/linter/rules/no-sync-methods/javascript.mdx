@@ -1,0 +1,174 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noSyncMethods (JavaScript)
+description: JavaScript (and super languages) documentation for noSyncMethods
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-sync-methods/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noSyncMethods`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`n/no-sync`](https://github.com/eslint-community/eslint-plugin-n/blob/master/docs/rules/no-sync.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSyncMethods": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow calling synchronous methods, such as `fs.readFileSync()`.
+
+Many Node.js functions come in two versions. For example, `fs.readFile()` reads a file
+in the background and lets the program keep running, while `fs.readFileSync()` stops
+everything else until the file is read. By convention, the names of the blocking versions
+end with `Sync`.
+
+Blocking calls are fine in a command-line script that does one thing at a time. In a web
+server, a single blocking call holds up every other request until it finishes.
+
+This rule reports every call to a function or method whose name ends with `Sync`,
+including calls made through `.call()` and `.apply()`. It only looks at names, so it also
+reports functions that don't come from Node.js.
+
+## Examples
+
+### Invalid
+
+```js
+fs.existsSync(somePath);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/no-sync-methods\">lint/nursery/noSyncMethods</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected call to the synchronous function </span><span style=\"color: lightgreen;\"><strong>existsSync</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>fs.existsSync(somePath);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Synchronous functions block the program until they finish, so nothing else can run in the meantime.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the asynchronous version of this function instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+function foo() {
+    var contents = fs.readFileSync(somePath).toString();
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:20 <a href=\"https://biomejs.dev/linter/rules/no-sync-methods\">lint/nursery/noSyncMethods</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected call to the synchronous function </span><span style=\"color: lightgreen;\"><strong>readFileSync</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>function foo() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    var contents = fs.readFileSync(somePath).toString();<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Synchronous functions block the program until they finish, so nothing else can run in the meantime.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the asynchronous version of this function instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+obj.sync();
+
+const contents = await fs.promises.readFile(somePath);
+
+const readFile = fs.readFileSync;
+```
+
+## Options
+
+### `allowAtRootLevel`
+
+Default: `false`
+
+When `true`, the rule allows synchronous calls at the top level of a file, outside of
+any function. Code at the top level runs once, when the file is first loaded, so blocking
+there doesn't slow down later work. Calls inside functions and methods are still
+reported, and so are calls in the values of class properties that aren't `static`,
+because those values are computed each time the class creates an object.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSyncMethods": {
+					"level": "on",
+					"options": {
+						"allowAtRootLevel": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```js
+const read = (file) => fs.readFileSync(file);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:24 <a href=\"https://biomejs.dev/linter/rules/no-sync-methods\">lint/nursery/noSyncMethods</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected call to the synchronous function </span><span style=\"color: lightgreen;\"><strong>readFileSync</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const read = (file) =&gt; fs.readFileSync(file);<br />   <strong>   │ </strong>                       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Synchronous functions block the program until they finish, so nothing else can run in the meantime.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the asynchronous version of this function instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```js
+const config = fs.readFileSync("config.json").toString();
+```
+
+### `ignore`
+
+Default: `[]`
+
+A list of function names that the rule doesn't report.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSyncMethods": {
+					"level": "on",
+					"options": {
+						"ignore": [
+							"readFileSync"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```js
+fs.readdirSync(somePath);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/no-sync-methods\">lint/nursery/noSyncMethods</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unexpected call to the synchronous function </span><span style=\"color: lightgreen;\"><strong>readdirSync</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>fs.readdirSync(somePath);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Synchronous functions block the program until they finish, so nothing else can run in the meantime.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the asynchronous version of this function instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```js
+fs.readFileSync(somePath);
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_sync_methods.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noSyncMethods)
+- <RulePlaygroundLink rule="noSyncMethods" category="lint" language="js" code={"fs.existsSync(somePath);\n"} />
+

@@ -1,0 +1,152 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noTanstackQueryVoidQueryFn (JavaScript)
+description: JavaScript (and super languages) documentation for noTanstackQueryVoidQueryFn
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-tanstack-query-void-query-fn/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noTanstackQueryVoidQueryFn`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`tanstackQuery`](/linter/domains#tanstackquery)
+  - [`types`](/linter/domains#types)
+- Sources: 
+  - Same as [`@tanstack/query/no-void-query-fn`](https://tanstack.com/query/latest/docs/eslint/no-void-query-fn)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTanstackQueryVoidQueryFn": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow TanStack Query functions that don't return any data.
+
+A query function is the function that you give to TanStack Query as `queryFn`, for
+example in the options of `useQuery`. TanStack Query saves the value that this function
+returns as the data of the query. If the function returns a promise, TanStack Query waits
+for the promise and saves its result instead.
+
+TanStack Query doesn't accept `undefined` as data. When a query function returns
+`undefined`, the query fails with an error. This usually happens because a `return`
+statement is missing, or because the function returns a value in some cases but not in
+others.
+
+This rule checks every object property named `queryFn`. It reports the property when the
+function can return `undefined`, or a promise whose result is `undefined`.
+
+When the function is written in the property itself, the rule checks every `return`
+statement and whether the end of the function can be reached. When the property refers to
+a function that is defined somewhere else, the rule only reports it if the function never
+returns any data.
+
+If a query has no data to return, return `null` instead.
+
+## Examples
+
+### Invalid
+
+```js title='invalid-missing-return.js'
+import { useQuery } from "@tanstack/react-query";
+
+useQuery({
+    queryKey: ["todos"],
+    queryFn: async () => {
+        await fetch("/api/todos");
+    },
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-missing-return.js\">/invalid-missing-return.js</a>:5:5 <a href=\"https://biomejs.dev/linter/rules/no-tanstack-query-void-query-fn\">lint/nursery/noTanstackQueryVoidQueryFn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This query function can return </span><span style=\"color: Tomato;\"><strong>undefined</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>3 │ </strong>useQuery(&#123;<br />    <strong>4 │ </strong>    queryKey: [&quot;todos&quot;],<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>    queryFn: async () =&gt; &#123;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>        await fetch(&quot;/api/todos&quot;);<br />    <strong>7 │ </strong>    &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">TanStack Query doesn't accept </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> as the data of a query. The query fails with an error instead of saving a result.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Return the data in every case. If there is no data to return, return </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js title='invalid-missing-return-in-one-path.js'
+import { useQuery } from "@tanstack/react-query";
+
+useQuery({
+    queryKey: ["todos"],
+    queryFn: async () => {
+        const response = await fetch("/api/todos");
+        if (response.ok) {
+            return response.json();
+        }
+    },
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-missing-return-in-one-path.js\">/invalid-missing-return-in-one-path.js</a>:5:5 <a href=\"https://biomejs.dev/linter/rules/no-tanstack-query-void-query-fn\">lint/nursery/noTanstackQueryVoidQueryFn</a> ━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This query function can return </span><span style=\"color: Tomato;\"><strong>undefined</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>3 │ </strong>useQuery(&#123;<br />    <strong>4 │ </strong>    queryKey: [&quot;todos&quot;],<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>    queryFn: async () =&gt; &#123;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>        const response = await fetch(&quot;/api/todos&quot;);<br />    <strong>7 │ </strong>        if (response.ok) &#123;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">TanStack Query doesn't accept </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> as the data of a query. The query fails with an error instead of saving a result.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Return the data in every case. If there is no data to return, return </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts title='invalid-void-function.ts'
+import { queryOptions } from "@tanstack/react-query";
+
+async function refreshTodos(): Promise<void> {
+    await fetch("/api/todos/refresh");
+}
+
+const options = queryOptions({
+    queryKey: ["todos"],
+    queryFn: refreshTodos,
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-void-function.ts\">/invalid-void-function.ts</a>:9:5 <a href=\"https://biomejs.dev/linter/rules/no-tanstack-query-void-query-fn\">lint/nursery/noTanstackQueryVoidQueryFn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This query function can return </span><span style=\"color: Tomato;\"><strong>undefined</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />     <strong>7 │ </strong>const options = queryOptions(&#123;<br />     <strong>8 │ </strong>    queryKey: [&quot;todos&quot;],<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>9 │ </strong>    queryFn: refreshTodos,<br />    <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>10 │ </strong>&#125;);<br />    <strong>11 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">TanStack Query doesn't accept </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> as the data of a query. The query fails with an error instead of saving a result.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Return the data in every case. If there is no data to return, return </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```ts title='valid.ts'
+import { queryOptions, useQuery } from "@tanstack/react-query";
+
+useQuery({
+    queryKey: ["todos"],
+    queryFn: async () => {
+        const response = await fetch("/api/todos");
+        return response.json();
+    },
+});
+
+useQuery({
+    queryKey: ["selected-todo"],
+    queryFn: () => null,
+});
+
+async function countTodos(): Promise<number> {
+    return 3;
+}
+
+const options = queryOptions({
+    queryKey: ["todo-count"],
+    queryFn: countTodos,
+});
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_tanstack_query_void_query_fn.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noTanstackQueryVoidQueryFn)
+- <RulePlaygroundLink rule="noTanstackQueryVoidQueryFn" category="lint" language="js" code={"import { useQuery } from \"@tanstack/react-query\";\n\nuseQuery({\n    queryKey: [\"todos\"],\n    queryFn: async () => {\n        await fetch(\"/api/todos\");\n    },\n});\n"} />
+

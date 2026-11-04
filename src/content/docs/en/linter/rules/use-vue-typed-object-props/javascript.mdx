@@ -1,0 +1,105 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueTypedObjectProps (JavaScript)
+description: JavaScript (and super languages) documentation for useVueTypedObjectProps
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-typed-object-props/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueTypedObjectProps`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/require-typed-object-prop`](https://eslint.vuejs.org/rules/require-typed-object-prop)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueTypedObjectProps": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require a TypeScript type for Vue props declared with `Object` or `Array`.
+
+When a prop is declared with `Object` or `Array` as its type, TypeScript only knows that
+the prop is an object or an array. It doesn't know which properties the object has or
+what the array holds, so it can't catch mistakes when the prop is passed or used.
+
+Add the full type with `as PropType<...>`, where `PropType` is imported from `vue`.
+
+This rule checks props declared through the `props` option and `defineProps()`. Only
+TypeScript files and Vue files with `<script lang="ts">` are checked.
+
+## Examples
+
+### Invalid
+
+```vue
+<script setup lang="ts">
+defineProps({
+  user: Object,
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:9 <a href=\"https://biomejs.dev/linter/rules/use-vue-typed-object-props\">lint/nursery/useVueTypedObjectProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This prop is declared with </span><span style=\"color: Orange;\"><strong>Object</strong></span><span style=\"color: Orange;\"> but has no TypeScript type.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup lang=&quot;ts&quot;&gt;<br />    <strong>2 │ </strong>defineProps(&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  user: Object,<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;);<br />    <strong>5 │ </strong>&lt;/script&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">TypeScript only knows that the prop is an object, not which properties it has, so it can't catch mistakes when the prop is passed or used.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the type with </span><span style=\"color: lightgreen;\"><strong>PropType</strong></span><span style=\"color: lightgreen;\"> from </span><span style=\"color: lightgreen;\"><strong>vue</strong></span><span style=\"color: lightgreen;\">, for example </span><span style=\"color: lightgreen;\"><strong>Object as PropType&lt;User&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script lang="ts">
+export default {
+  props: {
+    items: { type: Array, required: true },
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:20 <a href=\"https://biomejs.dev/linter/rules/use-vue-typed-object-props\">lint/nursery/useVueTypedObjectProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This prop is declared with </span><span style=\"color: Orange;\"><strong>Array</strong></span><span style=\"color: Orange;\"> but has no TypeScript type.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  props: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    items: &#123; type: Array, required: true &#125;,<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  &#125;,<br />    <strong>6 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">TypeScript only knows that the prop is an array, not what it holds, so it can't catch mistakes when the prop is passed or used.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the type with </span><span style=\"color: lightgreen;\"><strong>PropType</strong></span><span style=\"color: lightgreen;\"> from </span><span style=\"color: lightgreen;\"><strong>vue</strong></span><span style=\"color: lightgreen;\">, for example </span><span style=\"color: lightgreen;\"><strong>Array as PropType&lt;string[]&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup lang="ts">
+import type { PropType } from "vue";
+
+interface User {
+  name: string;
+}
+
+defineProps({
+  user: Object as PropType<User>,
+  items: { type: Array as PropType<string[]>, required: true },
+  label: [String, Number],
+});
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_typed_object_props.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueTypedObjectProps)
+- <RulePlaygroundLink rule="useVueTypedObjectProps" category="lint" language="vue" code={"<script setup lang=\"ts\">\ndefineProps({\n  user: Object,\n});\n</script>\n"} />
+

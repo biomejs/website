@@ -1,0 +1,112 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noInvalidRemoveEventListener (JavaScript)
+description: JavaScript (and super languages) documentation for noInvalidRemoveEventListener
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-invalid-remove-event-listener/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noInvalidRemoveEventListener`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`unicorn/no-invalid-remove-event-listener`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-invalid-remove-event-listener.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noInvalidRemoveEventListener": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow passing a newly created function to `removeEventListener()`.
+
+`removeEventListener()` only removes a listener when it receives the exact same function
+that was passed to `addEventListener()`. An inline function, or the result of calling
+`.bind()`, creates a new function every time the code runs. Such a function was never
+added as a listener, so the call does nothing and the original listener stays attached.
+
+## Examples
+
+### Invalid
+
+```js
+window.removeEventListener("click", listener.bind(window));
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:46 <a href=\"https://biomejs.dev/linter/rules/no-invalid-remove-event-listener\">lint/nursery/noInvalidRemoveEventListener</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The function returned by </span><span style=\"color: Tomato;\"><strong>.bind()</strong></span><span style=\"color: Tomato;\"> is never removed by </span><span style=\"color: Tomato;\"><strong>removeEventListener()</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>window.removeEventListener(&quot;click&quot;, listener.bind(window));<br />   <strong>   │ </strong>                                             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>.bind()</strong></span><span style=\"color: lightgreen;\"> returns a new function every time it's called, so it can't be the same function that was passed to </span><span style=\"color: lightgreen;\"><strong>addEventListener()</strong></span><span style=\"color: lightgreen;\">. The original listener stays attached.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Store the listener in a variable or property, and pass that same reference to both </span><span style=\"color: lightgreen;\"><strong>addEventListener()</strong></span><span style=\"color: lightgreen;\"> and </span><span style=\"color: lightgreen;\"><strong>removeEventListener()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+window.removeEventListener("click", () => {});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:37 <a href=\"https://biomejs.dev/linter/rules/no-invalid-remove-event-listener\">lint/nursery/noInvalidRemoveEventListener</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This inline function is never removed by </span><span style=\"color: Tomato;\"><strong>removeEventListener()</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>window.removeEventListener(&quot;click&quot;, () =&gt; &#123;&#125;);<br />   <strong>   │ </strong>                                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">An inline function is a new function, so it can't be the same function that was passed to </span><span style=\"color: lightgreen;\"><strong>addEventListener()</strong></span><span style=\"color: lightgreen;\">. The original listener stays attached.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Store the listener in a variable or property, and pass that same reference to both </span><span style=\"color: lightgreen;\"><strong>addEventListener()</strong></span><span style=\"color: lightgreen;\"> and </span><span style=\"color: lightgreen;\"><strong>removeEventListener()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+window.removeEventListener("click", function () {});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:37 <a href=\"https://biomejs.dev/linter/rules/no-invalid-remove-event-listener\">lint/nursery/noInvalidRemoveEventListener</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This inline function is never removed by </span><span style=\"color: Tomato;\"><strong>removeEventListener()</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>window.removeEventListener(&quot;click&quot;, function () &#123;&#125;);<br />   <strong>   │ </strong>                                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">An inline function is a new function, so it can't be the same function that was passed to </span><span style=\"color: lightgreen;\"><strong>addEventListener()</strong></span><span style=\"color: lightgreen;\">. The original listener stays attached.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Store the listener in a variable or property, and pass that same reference to both </span><span style=\"color: lightgreen;\"><strong>addEventListener()</strong></span><span style=\"color: lightgreen;\"> and </span><span style=\"color: lightgreen;\"><strong>removeEventListener()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+class MyElement extends HTMLElement {
+    handler() {}
+
+    disconnectedCallback() {
+        this.removeEventListener("click", this.handler.bind(this));
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:5:56 <a href=\"https://biomejs.dev/linter/rules/no-invalid-remove-event-listener\">lint/nursery/noInvalidRemoveEventListener</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The function returned by </span><span style=\"color: Tomato;\"><strong>.bind()</strong></span><span style=\"color: Tomato;\"> is never removed by </span><span style=\"color: Tomato;\"><strong>removeEventListener()</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>4 │ </strong>    disconnectedCallback() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>        this.removeEventListener(&quot;click&quot;, this.handler.bind(this));<br />   <strong>   │ </strong>                                                       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>    &#125;<br />    <strong>7 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>.bind()</strong></span><span style=\"color: lightgreen;\"> returns a new function every time it's called, so it can't be the same function that was passed to </span><span style=\"color: lightgreen;\"><strong>addEventListener()</strong></span><span style=\"color: lightgreen;\">. The original listener stays attached.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Store the listener in a variable or property, and pass that same reference to both </span><span style=\"color: lightgreen;\"><strong>addEventListener()</strong></span><span style=\"color: lightgreen;\"> and </span><span style=\"color: lightgreen;\"><strong>removeEventListener()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+const listener = () => {};
+window.addEventListener("click", listener);
+window.removeEventListener("click", listener);
+
+window.removeEventListener("click", getListener());
+
+class MyElement extends HTMLElement {
+    constructor() {
+        super();
+        this.handler = this.handler.bind(this);
+    }
+
+    handler() {}
+
+    disconnectedCallback() {
+        this.removeEventListener("click", this.handler);
+    }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_invalid_remove_event_listener.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noInvalidRemoveEventListener)
+- <RulePlaygroundLink rule="noInvalidRemoveEventListener" category="lint" language="js" code={"window.removeEventListener(\"click\", listener.bind(window));\n"} />
+

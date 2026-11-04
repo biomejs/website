@@ -1,0 +1,94 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noObjectLiteralComparison (JavaScript)
+description: JavaScript (and super languages) documentation for noObjectLiteralComparison
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-object-literal-comparison/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noObjectLiteralComparison`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`oxc/bad-object-literal-comparison`](https://oxc.rs/docs/guide/usage/linter/rules/oxc/bad-object-literal-comparison)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noObjectLiteralComparison": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow comparing a value with an empty object `{}` or an empty array `[]`.
+
+Code like `value === {}` or `list === []` looks like it checks whether a value is empty, but it doesn't.
+Each `{}` and `[]` creates a new object, and JavaScript compares objects and arrays by reference,
+not by their contents. With `===`, the comparison is always `false`, and with `!==`, it's always `true`.
+With `==` and `!=`, JavaScript first converts `{}` to the string `"[object Object]"` and `[]` to the
+empty string `""` when the other value isn't an object, so `"" == []` and `0 == []` are both `true`,
+even though neither value is an empty array.
+
+To check whether an object has no properties, use `Object.keys(value).length === 0`.
+To check whether an array is empty, use `value.length === 0`.
+
+## Examples
+
+### Invalid
+
+```js
+if (value === {}) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:5 <a href=\"https://biomejs.dev/linter/rules/no-object-literal-comparison\">lint/nursery/noObjectLiteralComparison</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This compares a value with an empty object literal.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (value === &#123;&#125;) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Each object literal creates a new object. Comparing a value with it never checks whether the value is empty: objects and arrays are compared by reference, not by their contents.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To check whether an object has no properties, use </span><span style=\"color: lightgreen;\"><strong>Object.keys(value).length === 0</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+if (list !== []) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:5 <a href=\"https://biomejs.dev/linter/rules/no-object-literal-comparison\">lint/nursery/noObjectLiteralComparison</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This compares a value with an empty array literal.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (list !== []) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Each array literal creates a new array. Comparing a value with it never checks whether the value is empty: objects and arrays are compared by reference, not by their contents.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To check whether an array is empty, use </span><span style=\"color: lightgreen;\"><strong>value.length === 0</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+if (value == {}) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:5 <a href=\"https://biomejs.dev/linter/rules/no-object-literal-comparison\">lint/nursery/noObjectLiteralComparison</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This compares a value with an empty object literal.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (value == &#123;&#125;) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Each object literal creates a new object. Comparing a value with it never checks whether the value is empty: objects and arrays are compared by reference, not by their contents.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To check whether an object has no properties, use </span><span style=\"color: lightgreen;\"><strong>Object.keys(value).length === 0</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+if (value !== null && typeof value === "object" && Object.keys(value).length === 0) {}
+if (Array.isArray(list) && list.length === 0) {}
+if (value === null) {}
+```
+
+## See Also
+
+- To report more comparisons that always give the same result, see [`noConstantBinaryExpressions`](https://biomejs.dev/linter/rules/no-constant-binary-expressions/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_object_literal_comparison.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noObjectLiteralComparison)
+- <RulePlaygroundLink rule="noObjectLiteralComparison" category="lint" language="js" code={"if (value === {}) {}\n"} />
+

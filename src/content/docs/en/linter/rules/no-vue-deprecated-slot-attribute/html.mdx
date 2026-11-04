@@ -1,0 +1,224 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDeprecatedSlotAttribute (HTML)
+description: HTML documentation for noVueDeprecatedSlotAttribute
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-deprecated-slot-attribute/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueDeprecatedSlotAttribute`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/no-deprecated-slot-attribute`](https://eslint.vuejs.org/rules/no-deprecated-slot-attribute)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedSlotAttribute": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the deprecated `slot` attribute in Vue templates.
+
+Vue 3 removed the `slot` attribute, which Vue 2 used to send content to a
+named slot of a component. Vue 3 treats it as a regular attribute, so the
+content ends up in the component's default slot instead of the named slot.
+
+Use the `v-slot` directive on a `<template>` element instead, for example
+`<template v-slot:header>` or its shorter form `<template #header>`.
+
+The rule checks `slot="..."`, `:slot="..."`, and `v-bind:slot="..."`.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <MyComponent>
+    <template slot="header">Title</template>
+  </MyComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:15 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-slot-attribute\">lint/nursery/noVueDeprecatedSlotAttribute</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>slot</strong></span><span style=\"color: Tomato;\"> attribute is deprecated.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;MyComponent&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;template slot=&quot;header&quot;&gt;Title&lt;/template&gt;<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &lt;/MyComponent&gt;<br />    <strong>5 │ </strong>&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 treats it as a regular attribute, so the content goes to the component's default slot instead of the named slot.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\"> directive on a </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element instead, for example </span><span style=\"color: lightgreen;\"><strong>&lt;template v-slot:name&gt;</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>&lt;template #name&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <MyComponent>
+    <div slot="header">Title</div>
+  </MyComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:10 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-slot-attribute\">lint/nursery/noVueDeprecatedSlotAttribute</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>slot</strong></span><span style=\"color: Tomato;\"> attribute is deprecated.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;MyComponent&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;div slot=&quot;header&quot;&gt;Title&lt;/div&gt;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &lt;/MyComponent&gt;<br />    <strong>5 │ </strong>&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 treats it as a regular attribute, so the content goes to the component's default slot instead of the named slot.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\"> directive on a </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element instead, for example </span><span style=\"color: lightgreen;\"><strong>&lt;template v-slot:name&gt;</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>&lt;template #name&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <MyComponent>
+    <template :slot="slotName">Title</template>
+  </MyComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:15 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-slot-attribute\">lint/nursery/noVueDeprecatedSlotAttribute</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>slot</strong></span><span style=\"color: Tomato;\"> attribute is deprecated.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;MyComponent&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;template :slot=&quot;slotName&quot;&gt;Title&lt;/template&gt;<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &lt;/MyComponent&gt;<br />    <strong>5 │ </strong>&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 treats it as a regular attribute, so the content goes to the component's default slot instead of the named slot.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\"> directive on a </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element instead, for example </span><span style=\"color: lightgreen;\"><strong>&lt;template v-slot:name&gt;</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>&lt;template #name&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <MyComponent>
+    <template v-slot:header>Title</template>
+  </MyComponent>
+  <MyComponent>
+    <template #header>Title</template>
+  </MyComponent>
+  <MyComponent>
+    <template #[slotName]>Title</template>
+  </MyComponent>
+</template>
+```
+
+## Options
+
+### `ignore`
+
+Type: `string[]`
+
+Default: `[]`
+
+Names of elements that can use the `slot` attribute. Case and hyphens are
+ignored, so `my-component` also matches `MyComponent`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedSlotAttribute": {
+					"level": "on",
+					"options": {
+						"ignore": [
+							"my-component"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+```vue
+<template>
+  <ListComponent>
+    <MyComponent slot="header">Title</MyComponent>
+  </ListComponent>
+</template>
+```
+
+#### Invalid
+
+```vue
+<template>
+  <ListComponent>
+    <OtherComponent slot="header">Title</OtherComponent>
+  </ListComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:21 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-slot-attribute\">lint/nursery/noVueDeprecatedSlotAttribute</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>slot</strong></span><span style=\"color: Tomato;\"> attribute is deprecated.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;ListComponent&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;OtherComponent slot=&quot;header&quot;&gt;Title&lt;/OtherComponent&gt;<br />   <strong>   │ </strong>                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &lt;/ListComponent&gt;<br />    <strong>5 │ </strong>&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 treats it as a regular attribute, so the content goes to the component's default slot instead of the named slot.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\"> directive on a </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element instead, for example </span><span style=\"color: lightgreen;\"><strong>&lt;template v-slot:name&gt;</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>&lt;template #name&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### `ignoreParents`
+
+Type: `string[]`
+
+Default: `[]`
+
+Names of elements whose direct children can use the `slot` attribute. Case
+and hyphens are ignored, so `my-web-component` also matches `MyWebComponent`.
+
+This is useful for [web components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components),
+where `slot` is a standard HTML attribute that places a child into a named slot
+of the web component.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedSlotAttribute": {
+					"level": "on",
+					"options": {
+						"ignoreParents": [
+							"my-web-component"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+```vue
+<template>
+  <my-web-component>
+    <span slot="header">Title</span>
+  </my-web-component>
+</template>
+```
+
+#### Invalid
+
+```vue
+<template>
+  <OtherComponent>
+    <span slot="header">Title</span>
+  </OtherComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:11 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-slot-attribute\">lint/nursery/noVueDeprecatedSlotAttribute</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>slot</strong></span><span style=\"color: Tomato;\"> attribute is deprecated.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;OtherComponent&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;span slot=&quot;header&quot;&gt;Title&lt;/span&gt;<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &lt;/OtherComponent&gt;<br />    <strong>5 │ </strong>&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 treats it as a regular attribute, so the content goes to the component's default slot instead of the named slot.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\"> directive on a </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element instead, for example </span><span style=\"color: lightgreen;\"><strong>&lt;template v-slot:name&gt;</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>&lt;template #name&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+## References
+
+- [Vue named slots](https://vuejs.org/guide/components/slots.html#named-slots)
+- [Vue `v-slot` directive](https://vuejs.org/api/built-in-directives.html#v-slot)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_deprecated_slot_attribute.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueDeprecatedSlotAttribute)
+- <RulePlaygroundLink rule="noVueDeprecatedSlotAttribute" category="lint" language="vue" code={"<template>\n  <MyComponent>\n    <template slot=\"header\">Title</template>\n  </MyComponent>\n</template>\n"} />
+

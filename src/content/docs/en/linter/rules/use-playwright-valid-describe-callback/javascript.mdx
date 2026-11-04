@@ -77,6 +77,15 @@ describe('suite', function() {
 });
 ```
 
+A group without a title is also valid:
+
+```js
+test.describe(() => {
+    test.use({ colorScheme: 'dark' });
+    test('one', async ({ page }) => {});
+});
+```
+
 ## Related links
 
 - [Disable a rule](/linter/#disable-a-rule)

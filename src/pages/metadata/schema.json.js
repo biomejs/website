@@ -519,6 +519,20 @@ export function GET() {
 					"properties": { "eslintTanstackQuery": { "type": "string" } },
 					"additionalProperties": false,
 					"required": ["eslintTanstackQuery"]
+				},
+				{
+					"description": "Rules from [stylelint-scss](https://github.com/stylelint-scss/stylelint-scss)",
+					"type": "object",
+					"properties": { "stylelintScss": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["stylelintScss"]
+				},
+				{
+					"description": "Rules from the `oxc` plugin of [Oxlint](https://oxc.rs/docs/guide/usage/linter)",
+					"type": "object",
+					"properties": { "oxc": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["oxc"]
 				}
 			]
 		},

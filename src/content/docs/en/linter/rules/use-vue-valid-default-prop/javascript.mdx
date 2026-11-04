@@ -1,0 +1,153 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueValidDefaultProp (JavaScript)
+description: JavaScript (and super languages) documentation for useVueValidDefaultProp
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-valid-default-prop/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueValidDefaultProp`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/require-valid-default-prop`](https://eslint.vuejs.org/rules/require-valid-default-prop)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueValidDefaultProp": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require the default value of a Vue prop to match the type of the prop.
+
+When a prop declares its type, such as `type: Number`, its default value should have
+that type too. Otherwise, the component receives a value it doesn't expect whenever the
+parent doesn't pass the prop.
+
+Default values that are objects or arrays must be returned from a function, such as
+`() => []`. Vue calls this function for each instance of the component, so every
+instance gets its own copy. An object or array written directly would be shared by all
+instances, and changing it in one instance would change it in all of them.
+
+This rule checks default values given in the `props` option, in `defineProps()`, in
+`withDefaults()`, in a destructured `defineProps()`, and in `defineModel()`.
+
+A default value written in a destructuring pattern, such as
+`const { items = [] } = defineProps()`, is used as it is. Vue doesn't call it like a
+function, so it can be an object or an array, but it can't be a function that creates
+the value.
+
+The rule only checks props whose types are all built-in types such as `String`,
+`Number`, `Boolean`, `Array`, `Object`, or `Function`, and only default values whose
+type is clear from the code, such as numbers, strings, arrays, and objects.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  props: {
+    count: {
+      type: Number,
+      default: "zero",
+    },
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:6:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-default-prop\">lint/nursery/useVueValidDefaultProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The default value of the prop </span><span style=\"color: Tomato;\"><strong>count</strong></span><span style=\"color: Tomato;\"> doesn't match the type of the prop.</span><br />  <br />    <strong>4 │ </strong>    count: &#123;<br />    <strong>5 │ </strong>      type: Number,<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>      default: &quot;zero&quot;,<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>    &#125;,<br />    <strong>8 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The prop accepts </span><span style=\"color: lightgreen;\"><strong>Number</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script>
+export default {
+  props: {
+    items: {
+      type: Array,
+      default: [],
+    },
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:6:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-default-prop\">lint/nursery/useVueValidDefaultProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The default value of the prop </span><span style=\"color: Tomato;\"><strong>items</strong></span><span style=\"color: Tomato;\"> isn't returned from a function.</span><br />  <br />    <strong>4 │ </strong>    items: &#123;<br />    <strong>5 │ </strong>      type: Array,<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>      default: [],<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>    &#125;,<br />    <strong>8 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">An object or array written directly as a default value is shared by every instance of the component. Changing it in one instance changes it in all of them.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Return the value from a function instead, such as </span><span style=\"color: lightgreen;\"><strong>() =&gt; []</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>() =&gt; (&#123;&#125;)</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup lang="ts">
+withDefaults(defineProps<{ label?: string }>(), {
+  label: () => 42,
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-default-prop\">lint/nursery/useVueValidDefaultProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The function returns a default value for the prop </span><span style=\"color: Tomato;\"><strong>label</strong></span><span style=\"color: Tomato;\"> that doesn't match the type of the prop.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup lang=&quot;ts&quot;&gt;<br />    <strong>2 │ </strong>withDefaults(defineProps&lt;&#123; label?: string &#125;&gt;(), &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  label: () =&gt; 42,<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;);<br />    <strong>5 │ </strong>&lt;/script&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The prop accepts </span><span style=\"color: lightgreen;\"><strong>String</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+const { tags = () => [] } = defineProps({ tags: Array });
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-default-prop\">lint/nursery/useVueValidDefaultProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The default value of the prop </span><span style=\"color: Tomato;\"><strong>tags</strong></span><span style=\"color: Tomato;\"> is a function, but the prop doesn't accept functions.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const &#123; tags = () =&gt; [] &#125; = defineProps(&#123; tags: Array &#125;);<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/script&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A default value in a destructuring pattern is used as it is. Vue doesn't call it to create the value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write a value of type </span><span style=\"color: lightgreen;\"><strong>Array</strong></span><span style=\"color: lightgreen;\"> directly instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+defineModel({ type: Object, default: { size: "small" } });
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:38 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-default-prop\">lint/nursery/useVueValidDefaultProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The default value of the prop </span><span style=\"color: Tomato;\"><strong>modelValue</strong></span><span style=\"color: Tomato;\"> isn't returned from a function.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>defineModel(&#123; type: Object, default: &#123; size: &quot;small&quot; &#125; &#125;);<br />   <strong>   │ </strong>                                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/script&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">An object or array written directly as a default value is shared by every instance of the component. Changing it in one instance changes it in all of them.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Return the value from a function instead, such as </span><span style=\"color: lightgreen;\"><strong>() =&gt; []</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>() =&gt; (&#123;&#125;)</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup>
+const { tags = [] } = defineProps({
+  count: { type: Number, default: 0 },
+  items: { type: Array, default: () => [] },
+  options: {
+    type: Object,
+    default() {
+      return { size: "small" };
+    },
+  },
+  format: { type: Function, default: (value) => String(value) },
+  tags: Array,
+});
+defineModel({ type: Object, default: () => ({ size: "small" }) });
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_valid_default_prop.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueValidDefaultProp)
+- <RulePlaygroundLink rule="useVueValidDefaultProp" category="lint" language="vue" code={"<script>\nexport default {\n  props: {\n    count: {\n      type: Number,\n      default: \"zero\",\n    },\n  },\n};\n</script>\n"} />
+

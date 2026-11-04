@@ -1,0 +1,99 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDeprecatedHtmlElementIs (HTML)
+description: HTML documentation for noVueDeprecatedHtmlElementIs
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-deprecated-html-element-is/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueDeprecatedHtmlElementIs`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-deprecated-html-element-is`](https://eslint.vuejs.org/rules/no-deprecated-html-element-is)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedHtmlElementIs": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the `is` attribute on HTML elements in Vue templates.
+
+In Vue 2, you could add `is` to an HTML element, such as `<tr is="my-row">`, to render a
+component in its place. Vue 3 removed this. On an HTML, SVG, or MathML element, Vue 3
+passes `is` to the browser as a regular attribute, so the component isn't rendered.
+
+To render a component in place of an HTML element, prefix the value with `vue:`, as in
+`<tr is="vue:my-row">`. To choose the component while the app is running, use the
+built-in `<component>` element, as in `<component :is="current">`.
+
+This rule doesn't report `is` on components, such as `<MyComponent>` or `<component>`.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <div is="my-component" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:8 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-html-element-is\">lint/nursery/noVueDeprecatedHtmlElementIs</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>is</strong></span><span style=\"color: Tomato;\"> attribute is used on a built-in element.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div is=&quot;my-component&quot; /&gt;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 no longer renders a component in place of a built-in HTML, SVG, or MathML element with </span><span style=\"color: lightgreen;\"><strong>is</strong></span><span style=\"color: lightgreen;\">. It passes the attribute to the browser instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Prefix the value with </span><span style=\"color: lightgreen;\"><strong>vue:</strong></span><span style=\"color: lightgreen;\">, or use the </span><span style=\"color: lightgreen;\"><strong>&lt;component&gt;</strong></span><span style=\"color: lightgreen;\"> element to render a component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <div :is="currentComponent" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:8 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-html-element-is\">lint/nursery/noVueDeprecatedHtmlElementIs</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>is</strong></span><span style=\"color: Tomato;\"> attribute is used on a built-in element.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div :is=&quot;currentComponent&quot; /&gt;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 no longer renders a component in place of a built-in HTML, SVG, or MathML element with </span><span style=\"color: lightgreen;\"><strong>is</strong></span><span style=\"color: lightgreen;\">. It passes the attribute to the browser instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the </span><span style=\"color: lightgreen;\"><strong>&lt;component&gt;</strong></span><span style=\"color: lightgreen;\"> element to choose which component to render.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <div />
+  <div is="vue:my-component" />
+  <component is="my-component" />
+  <component :is="currentComponent" />
+  <MyComponent is="my-component" />
+</template>
+```
+
+## References
+
+- [Vue 3 Migration Guide: Custom Elements Interop](https://v3-migration.vuejs.org/breaking-changes/custom-elements-interop.html#customized-built-in-elements)
+- [Vue `is` attribute](https://vuejs.org/api/built-in-special-attributes.html#is)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_deprecated_html_element_is.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueDeprecatedHtmlElementIs)
+- <RulePlaygroundLink rule="noVueDeprecatedHtmlElementIs" category="lint" language="vue" code={"<template>\n  <div is=\"my-component\" />\n</template>\n"} />
+

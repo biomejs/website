@@ -1,0 +1,114 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDeprecatedEventsApi (JavaScript)
+description: JavaScript (and super languages) documentation for noVueDeprecatedEventsApi
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-deprecated-events-api/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueDeprecatedEventsApi`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/no-deprecated-events-api`](https://eslint.vuejs.org/rules/no-deprecated-events-api)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedEventsApi": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the Vue `$on`, `$off`, and `$once` instance methods.
+
+Vue 3 removed the `$on`, `$off`, and `$once` methods from component instances, so a component can no longer
+listen to its own events with them. Calling one of these methods throws an error, because the method doesn't exist.
+
+To react to an event that a child component emits, listen to it with `v-on` (or `@`) in the parent's template.
+To send events between components that aren't parent and child, use a small event library such as
+[mitt](https://github.com/developit/mitt) or [tiny-emitter](https://github.com/scottcorgan/tiny-emitter).
+
+This rule checks calls on `this`, and on variables declared with `const vm = this`, inside the options object
+of a component: the default export of a `.vue` file, or the object passed to `defineComponent()` or `createApp()`.
+Calls written as `this.$on?.()` are allowed, because they only run when the method exists.
+
+See the [Vue 3 migration guide](https://v3-migration.vuejs.org/breaking-changes/events-api.html) for more information.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  mounted() {
+    this.$on("start", () => {
+      console.log("start");
+    });
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:10 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-events-api\">lint/nursery/noVueDeprecatedEventsApi</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The Vue </span><span style=\"color: Tomato;\"><strong>$on</strong></span><span style=\"color: Tomato;\"> instance method was removed in Vue 3.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  mounted() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    this.$on(&quot;start&quot;, () =&gt; &#123;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>      console.log(&quot;start&quot;);<br />    <strong>6 │ </strong>    &#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Component instances no longer have this method, so calling it throws an error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Listen to a child component's events with </span><span style=\"color: lightgreen;\"><strong>v-on</strong></span><span style=\"color: lightgreen;\"> in the parent's template, or use an event library such as </span><span style=\"color: lightgreen;\"><strong>mitt</strong></span><span style=\"color: lightgreen;\">. See the </span><span style=\"color: lightgreen;\"><a href=\"https://v3-migration.vuejs.org/breaking-changes/events-api.html\">Vue 3 migration guide</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  beforeUnmount() {
+    this.$off("start");
+  },
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:5:10 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-events-api\">lint/nursery/noVueDeprecatedEventsApi</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The Vue </span><span style=\"color: Tomato;\"><strong>$off</strong></span><span style=\"color: Tomato;\"> instance method was removed in Vue 3.</span><br />  <br />    <strong>3 │ </strong>export default defineComponent(&#123;<br />    <strong>4 │ </strong>  beforeUnmount() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>    this.$off(&quot;start&quot;);<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>  &#125;,<br />    <strong>7 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Component instances no longer have this method, so calling it throws an error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Listen to a child component's events with </span><span style=\"color: lightgreen;\"><strong>v-on</strong></span><span style=\"color: lightgreen;\"> in the parent's template, or use an event library such as </span><span style=\"color: lightgreen;\"><strong>mitt</strong></span><span style=\"color: lightgreen;\">. See the </span><span style=\"color: lightgreen;\"><a href=\"https://v3-migration.vuejs.org/breaking-changes/events-api.html\">Vue 3 migration guide</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+import mitt from "mitt";
+
+const emitter = mitt();
+
+export default {
+  mounted() {
+    emitter.on("start", () => {
+      console.log("start");
+    });
+    this.$emit("ready");
+  },
+};
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_deprecated_events_api.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueDeprecatedEventsApi)
+- <RulePlaygroundLink rule="noVueDeprecatedEventsApi" category="lint" language="vue" code={"<script>\nexport default {\n  mounted() {\n    this.$on(\"start\", () => {\n      console.log(\"start\");\n    });\n  },\n};\n</script>\n"} />
+
