@@ -669,3 +669,116 @@ function countMembers<K extends keyof JsNodeByKind>(
 ```
 
 For token kind sets, use `K extends JsAstToken["kind"]` and `TokenKindSet<K>`.
+
+### Traversal APIs
+
+Many rules look for a few node kinds anywhere inside a node, often the whole file. You could walk the tree yourself with `children()`, but then every node in the file becomes a JavaScript object and goes through your code, even the ones you don't care about.
+
+`node.descendants()` and `node.walk()` take a [node kind set](#kind-sets) and do the search inside Biome. Biome only creates JavaScript objects and calls your code for the nodes whose kind is in the set, which is much faster than a `children()` walk.
+
+Here is a typical recursive walk that collects every call in a file:
+
+```js title="plugin.js"
+import { ast, defineRule, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+function findCalls(node, calls) {
+  for (const child of node.children()) {
+    if (child.kind === "JS_CALL_EXPRESSION") {
+      calls.push(child);
+    }
+    findCalls(child, calls);
+  }
+  return calls;
+}
+
+export const calls = defineRule({
+    query: ast("JS_MODULE"),
+    run(root) {
+      for (const call of findCalls(root, [])) {
+        registerDiagnostic(call, "information", "Found a call.")
+      }
+    }
+})
+```
+
+With `descendants()`, the helper goes away:
+
+```js title="plugin.js" ins='nodeKinds' ins='.descendants'
+import { ast, defineRule, nodeKinds, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+const CALLS = nodeKinds("JS_CALL_EXPRESSION");
+
+export const calls = defineRule({
+    query: ast("JS_MODULE"),
+    run(root) {
+      for (const call of root.descendants(CALLS)) {
+        registerDiagnostic(call, "information", "Found a call.")
+      }
+    }
+})
+```
+
+As with other kind sets, build each set once at module scope and reuse it in every `run()` call.
+
+Neither method includes or visits the node you call it on, even when its kind is in the set. There is no variant for tokens.
+
+#### `node.descendants`
+
+**Type**: `<K extends keyof JsNodeByKind>(kinds: NodeKindSet<K>) => readonly JsNodeByKind[K][]`
+
+Returns a new array with the nodes inside `node` whose kind is in `kinds`, in source order. Each call creates new node objects, so calling it twice returns different objects for the same nodes.
+
+`kinds` must be a set returned by `nodeKinds()`. A kind string, an array, or a set from `tokenKinds()` throws a `TypeError`:
+
+```text
+The kinds argument to node.descendants() is not a node kind set. Create one with nodeKinds(), such as nodeKinds("JS_CALL_EXPRESSION"), and pass it instead of a kind string or array.
+```
+
+In TypeScript, the result has the node types in the set. `root.descendants(nodeKinds("JS_CALL_EXPRESSION", "JS_NEW_EXPRESSION"))` returns a `readonly (JsCallExpression | JsNewExpression)[]`.
+
+#### `node.walk`
+
+**Type**: `<K extends keyof JsNodeByKind>(kinds: NodeKindSet<K>, enter: (node: JsNodeByKind[K]) => unknown, exit?: (node: JsNodeByKind[K]) => void) => void`
+
+Visits the nodes inside `node` whose kind is in `kinds`, in source order. Biome calls `enter(match)` before it visits the nodes inside a match, and `exit(match)` after them. `exit` receives the same object that `enter` received, and you can omit it.
+
+Use `walk()` instead of `descendants()` when you need to know how matches nest, for example to keep a stack of the enclosing functions or JSX elements. This rule reports each call along with the function it's in:
+
+```js title="plugin.js" ins='.walk'
+import { ast, defineRule, nodeKinds, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+const FUNCTIONS_AND_CALLS = nodeKinds("JS_FUNCTION_DECLARATION", "JS_FUNCTION_EXPRESSION", "JS_ARROW_FUNCTION_EXPRESSION", "JS_CALL_EXPRESSION");
+
+export const enclosingFunctions = defineRule({
+    query: ast("JS_MODULE"),
+    run(root) {
+      const functions = [];
+      root.walk(
+        FUNCTIONS_AND_CALLS,
+        (node) => {
+          if (node.kind === "JS_CALL_EXPRESSION") {
+            const enclosing = functions.at(-1) ?? "the module";
+            registerDiagnostic(node, "information", `${node.callee.text}() is called in ${enclosing}.`)
+          } else if (node.id?.text === "skipped") {
+            return false;
+          } else {
+            functions.push(node.id?.text ?? "an anonymous function");
+          }
+        },
+        (node) => {
+          if (node.kind !== "JS_CALL_EXPRESSION") {
+            functions.pop();
+          }
+        },
+      );
+    }
+})
+```
+
+If `enter` returns exactly `false`, Biome skips the nodes inside that match and doesn't call `exit` for it. In the example above, calls inside a function named `skipped` aren't reported. Any other return value, including `undefined`, `null`, and `0`, continues the walk.
+
+If `enter` or `exit` throws, the walk stops and the exception propagates to your code.
+
+`kinds` follows the same rules as in `descendants()`. `walk()` also throws a `TypeError` if `enter` isn't a function, or if `exit` is given and isn't a function.
+
+In TypeScript, `enter` and `exit` receive the node types in the set.
