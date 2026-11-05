@@ -327,8 +327,9 @@ unusually_long_identifier_that_cannot_fit_on_the_line
 
 Prettier formats a JSX tag that stands on a line of its own, but it keeps a tag inside a paragraph as written.
 
-Biome formats the JavaScript of the tags and expressions inside a paragraph too.
-When the formatted code would span several lines, Biome keeps the tag or the expression as written instead, because a line break inside a paragraph can change how MDX reads the document.
+Biome formats the JavaScript of the tags and expressions inside a paragraph too, and keeps each of them on one line, even when the line becomes longer than the configured `lineWidth`.
+A line break inside a paragraph can change how MDX reads the document.
+When the code needs a line break, for example after a `//` comment, Biome keeps the tag or the expression as written.
 
 Input
 
