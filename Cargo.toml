@@ -54,7 +54,7 @@ biome_yaml_syntax = { git = "https://github.com/biomejs/biome.git", rev = "fca5c
 bpaf = { version = "0.9.28", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes
 camino = "1.2.6"
-jiff-static = "0.2.38"
+jiff-static = "0.2.39"
 # Needed to fix some weird dependency
 lock_api = "0.4.14"
 ls-types = "=0.0.3"
