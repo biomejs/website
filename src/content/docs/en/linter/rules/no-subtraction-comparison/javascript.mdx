@@ -1,0 +1,112 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noSubtractionComparison (JavaScript)
+description: JavaScript (and super languages) documentation for noSubtractionComparison
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-subtraction-comparison/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noSubtractionComparison`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`unicorn/no-subtraction-comparison`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-subtraction-comparison.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSubtractionComparison": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow subtracting two values only to compare the result with `0`.
+
+Code such as `a - b > 0` subtracts one value from another, then checks whether the
+difference is above, below, or equal to `0`. Comparing the two values directly, as in
+`a > b`, is shorter and states the intent more clearly.
+
+This pattern often remains after code is copied from a sort comparison function such as
+`(a, b) => a - b`.
+
+The rule checks the operators `>`, `>=`, `<`, `<=`, `===`, `!==`, `==`, and `!=`, with
+`0` on either side. When `0` is on the left, the fix flips the operator, so `0 < a - b`
+becomes `a > b`.
+
+:::caution
+The fix gives the same result only when both values are numbers, so it is unsafe:
+
+- Strings are compared character by character instead of as numbers.
+`"10" - "5" > 0` is `true`, but `"10" > "5"` is `false`.
+- `===` and `!==` check whether two objects, such as two dates, are the same object.
+`start - end === 0` checks whether two dates hold the same time, but `start === end`
+checks whether they are the same date object.
+- `Infinity - Infinity` is `NaN` ("not a number"), and every comparison with `NaN` is
+`false`. `Infinity - Infinity >= 0` is `false`, but `Infinity >= Infinity` is `true`.
+:::
+
+## Examples
+
+### Invalid
+
+```js
+if (a - b > 0) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:5 <a href=\"https://biomejs.dev/linter/rules/no-subtraction-comparison\">lint/nursery/noSubtractionComparison</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This comparison subtracts two values and compares the difference with </span><span style=\"color: Orange;\"><strong>0</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (a - b &gt; 0) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Compare the two values directly instead, which is shorter and states the intent more clearly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Compare the values directly.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>-</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">b</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>&gt;</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><span style=\"color: Tomato;\">&#125;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">f</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>&gt;</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">b</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><span style=\"color: MediumSeaGreen;\">&#125;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```js
+if (a - b <= 0) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:5 <a href=\"https://biomejs.dev/linter/rules/no-subtraction-comparison\">lint/nursery/noSubtractionComparison</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This comparison subtracts two values and compares the difference with </span><span style=\"color: Orange;\"><strong>0</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (a - b &lt;= 0) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Compare the two values directly instead, which is shorter and states the intent more clearly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Compare the values directly.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>-</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>b</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><span style=\"color: Tomato;\">&#125;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">f</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>b</strong></span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><span style=\"color: MediumSeaGreen;\">&#125;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```js
+if (0 < a - b) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:5 <a href=\"https://biomejs.dev/linter/rules/no-subtraction-comparison\">lint/nursery/noSubtractionComparison</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This comparison subtracts two values and compares the difference with </span><span style=\"color: Orange;\"><strong>0</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (0 &lt; a - b) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Compare the two values directly instead, which is shorter and states the intent more clearly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Compare the values directly.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>&lt;</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>-</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">b</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><span style=\"color: Tomato;\">&#125;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">f</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>&gt;</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">b</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><span style=\"color: MediumSeaGreen;\">&#125;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```js
+if (a - b === 0) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:5 <a href=\"https://biomejs.dev/linter/rules/no-subtraction-comparison\">lint/nursery/noSubtractionComparison</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This comparison subtracts two values and compares the difference with </span><span style=\"color: Orange;\"><strong>0</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (a - b === 0) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Compare the two values directly instead, which is shorter and states the intent more clearly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Compare the values directly.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>-</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>b</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><span style=\"color: Tomato;\">&#125;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">f</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>b</strong></span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><span style=\"color: MediumSeaGreen;\">&#125;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+if (a > b) {}
+if (a - b > 1) {}
+if (a + b > 0) {}
+if (a - b > 0n) {}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_subtraction_comparison.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noSubtractionComparison)
+- <RulePlaygroundLink rule="noSubtractionComparison" category="lint" language="js" code={"if (a - b > 0) {}\n"} />
+
