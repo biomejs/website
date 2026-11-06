@@ -5661,7 +5661,7 @@ export function GET() {
           },
           "noArrayMethodsOnArguments": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "noArrayMethodsOnArguments",
             "link": "https://biomejs.dev/linter/rules/no-array-methods-on-arguments/javascript",
             "recommended": true,
@@ -5789,7 +5789,7 @@ export function GET() {
           },
           "noConstantComparisons": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "noConstantComparisons",
             "link": "https://biomejs.dev/linter/rules/no-constant-comparisons/javascript",
             "recommended": true,
@@ -5880,7 +5880,7 @@ export function GET() {
           },
           "noErasingOperation": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "noErasingOperation",
             "link": "https://biomejs.dev/linter/rules/no-erasing-operation/javascript",
             "recommended": true,
@@ -6136,7 +6136,7 @@ export function GET() {
           },
           "noNegatedArrayPredicate": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "noNegatedArrayPredicate",
             "link": "https://biomejs.dev/linter/rules/no-negated-array-predicate/javascript",
             "recommended": true,
@@ -6244,7 +6244,7 @@ export function GET() {
           },
           "noNumberArgumentOutOfRange": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "noNumberArgumentOutOfRange",
             "link": "https://biomejs.dev/linter/rules/no-number-argument-out-of-range/javascript",
             "recommended": true,
@@ -6506,7 +6506,7 @@ export function GET() {
           },
           "noSharedBranchCode": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "noSharedBranchCode",
             "link": "https://biomejs.dev/linter/rules/no-shared-branch-code/javascript",
             "recommended": false,
@@ -6540,7 +6540,7 @@ export function GET() {
           },
           "noSubtractionComparison": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "noSubtractionComparison",
             "link": "https://biomejs.dev/linter/rules/no-subtraction-comparison/javascript",
             "recommended": true,
@@ -6583,7 +6583,7 @@ export function GET() {
           },
           "noSvelteIgnoredUnsubscribe": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "noSvelteIgnoredUnsubscribe",
             "link": "https://biomejs.dev/linter/rules/no-svelte-ignored-unsubscribe/javascript",
             "recommended": false,
@@ -6771,7 +6771,7 @@ export function GET() {
           },
           "noUninvokedArrayCallback": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "noUninvokedArrayCallback",
             "link": "https://biomejs.dev/linter/rules/no-uninvoked-array-callback/javascript",
             "recommended": true,
@@ -12350,7 +12350,7 @@ export function GET() {
           },
           "usePackageJsonCpu": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "usePackageJsonCpu",
             "link": "https://biomejs.dev/linter/rules/use-package-json-cpu/json",
             "recommended": false,
@@ -12367,7 +12367,7 @@ export function GET() {
           },
           "usePackageJsonEngines": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "usePackageJsonEngines",
             "link": "https://biomejs.dev/linter/rules/use-package-json-engines/json",
             "recommended": false,
@@ -14047,7 +14047,7 @@ export function GET() {
           },
           "useNextScriptForGoogleAnalytics": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.6",
             "name": "useNextScriptForGoogleAnalytics",
             "link": "https://biomejs.dev/linter/rules/use-next-script-for-google-analytics/javascript",
             "recommended": false,

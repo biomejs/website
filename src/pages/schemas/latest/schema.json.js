@@ -3931,6 +3931,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoArrayMethodsOnArgumentsConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoArrayMethodsOnArgumentsOptions" },
+				],
+			},
+			NoArrayMethodsOnArgumentsOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoArraySortForMinMaxConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -4282,6 +4292,16 @@ export function GET() {
 				],
 			},
 			NoConstantBinaryExpressionsOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoConstantComparisonsConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoConstantComparisonsOptions" },
+				],
+			},
+			NoConstantComparisonsOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -4938,6 +4958,16 @@ export function GET() {
 				],
 			},
 			NoEqualsToNullOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoErasingOperationConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoErasingOperationOptions" },
+				],
+			},
+			NoErasingOperationOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -5986,6 +6016,16 @@ export function GET() {
 				additionalProperties: false,
 			},
 			NoNamespaceOptions: { type: "object", additionalProperties: false },
+			NoNegatedArrayPredicateConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoNegatedArrayPredicateOptions" },
+				],
+			},
+			NoNegatedArrayPredicateOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoNegationElseConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -6164,6 +6204,16 @@ export function GET() {
 				],
 			},
 			NoNullOptions: { type: "object", additionalProperties: false },
+			NoNumberArgumentOutOfRangeConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoNumberArgumentOutOfRangeOptions" },
+				],
+			},
+			NoNumberArgumentOutOfRangeOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoObjectConstructorConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -6906,6 +6956,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoSharedBranchCodeConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoSharedBranchCodeOptions" },
+				],
+			},
+			NoSharedBranchCodeOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoShortTimeValuesConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -7019,6 +7079,16 @@ export function GET() {
 				],
 			},
 			NoSubstrOptions: { type: "object", additionalProperties: false },
+			NoSubtractionComparisonConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoSubtractionComparisonOptions" },
+				],
+			},
+			NoSubtractionComparisonOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoSuspiciousSemicolonInJsxConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -7086,6 +7156,16 @@ export function GET() {
 				],
 			},
 			NoSvelteExportLetOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoSvelteIgnoredUnsubscribeConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoSvelteIgnoredUnsubscribeOptions" },
+				],
+			},
+			NoSvelteIgnoredUnsubscribeOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -7480,6 +7560,16 @@ export function GET() {
 						type: ["boolean", "null"],
 					},
 				},
+				additionalProperties: false,
+			},
+			NoUninvokedArrayCallbackConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoUninvokedArrayCallbackOptions" },
+				],
+			},
+			NoUninvokedArrayCallbackOptions: {
+				type: "object",
 				additionalProperties: false,
 			},
 			NoUnknownAtRulesConfiguration: {
@@ -9213,6 +9303,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noArrayMethodsOnArguments: {
+						description:
+							"Disallow calling array methods on the arguments object.\nSee https://biomejs.dev/linter/rules/no-array-methods-on-arguments",
+						anyOf: [
+							{ $ref: "#/$defs/NoArrayMethodsOnArgumentsConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noArraySortForMinMax: {
 						description:
 							"Disallow sorting an array only to read its smallest or largest value.\nSee https://biomejs.dev/linter/rules/no-array-sort-for-min-max",
@@ -9285,6 +9383,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noConstantComparisons: {
+						description:
+							"Disallow conditions that are always true, can never be true, or contain a check with no effect.\nSee https://biomejs.dev/linter/rules/no-constant-comparisons",
+						anyOf: [
+							{ $ref: "#/$defs/NoConstantComparisonsConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noDanglingUnderscore: {
 						description:
 							"Disallow names that start or end with an underscore.\nSee https://biomejs.dev/linter/rules/no-dangling-underscore",
@@ -9322,6 +9428,14 @@ export function GET() {
 							"Disallow .map() and .filter() calls in the header of for...of loops.\nSee https://biomejs.dev/linter/rules/no-eager-array-methods-in-loops",
 						anyOf: [
 							{ $ref: "#/$defs/NoEagerArrayMethodsInLoopsConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noErasingOperation: {
+						description:
+							"Disallow operations with zero that always result in zero.\nSee https://biomejs.dev/linter/rules/no-erasing-operation",
+						anyOf: [
+							{ $ref: "#/$defs/NoErasingOperationConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -9493,6 +9607,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noNegatedArrayPredicate: {
+						description:
+							"Disallow negating the result of Array#some() or Array#every().\nSee https://biomejs.dev/linter/rules/no-negated-array-predicate",
+						anyOf: [
+							{ $ref: "#/$defs/NoNegatedArrayPredicateConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noNegationInEqualityCheck: {
 						description:
 							"Disallow negated expressions on the left side of an equality check.\nSee https://biomejs.dev/linter/rules/no-negation-in-equality-check",
@@ -9537,6 +9659,14 @@ export function GET() {
 						description:
 							"Disallow the use of the null literal.\nSee https://biomejs.dev/linter/rules/no-null",
 						anyOf: [{ $ref: "#/$defs/NoNullConfiguration" }, { type: "null" }],
+					},
+					noNumberArgumentOutOfRange: {
+						description:
+							"Disallow number method arguments that are outside the range the method accepts.\nSee https://biomejs.dev/linter/rules/no-number-argument-out-of-range",
+						anyOf: [
+							{ $ref: "#/$defs/NoNumberArgumentOutOfRangeConfiguration" },
+							{ type: "null" },
+						],
 					},
 					noObjectConstructor: {
 						description:
@@ -9673,6 +9803,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noSharedBranchCode: {
+						description:
+							"Disallow the same code at the start or end of every branch of an if statement.\nSee https://biomejs.dev/linter/rules/no-shared-branch-code",
+						anyOf: [
+							{ $ref: "#/$defs/NoSharedBranchCodeConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noShortTimeValues: {
 						description:
 							"Disallow animation and transition times that are shorter than a configured minimum.\nSee https://biomejs.dev/linter/rules/no-short-time-values",
@@ -9686,6 +9824,14 @@ export function GET() {
 							"Disallow passing an array with a single element to Promise.all(), Promise.any(), or Promise.race().\nSee https://biomejs.dev/linter/rules/no-single-promise-in-promise-methods",
 						anyOf: [
 							{ $ref: "#/$defs/NoSinglePromiseInPromiseMethodsConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noSubtractionComparison: {
+						description:
+							"Disallow subtracting two values only to compare the result with 0.\nSee https://biomejs.dev/linter/rules/no-subtraction-comparison",
+						anyOf: [
+							{ $ref: "#/$defs/NoSubtractionComparisonConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -9736,6 +9882,14 @@ export function GET() {
 							"Disallow declaring Svelte component props with export let.\nSee https://biomejs.dev/linter/rules/no-svelte-export-let",
 						anyOf: [
 							{ $ref: "#/$defs/NoSvelteExportLetConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noSvelteIgnoredUnsubscribe: {
+						description:
+							"Disallow ignoring the function returned by a store's subscribe() method.\nSee https://biomejs.dev/linter/rules/no-svelte-ignored-unsubscribe",
+						anyOf: [
+							{ $ref: "#/$defs/NoSvelteIgnoredUnsubscribeConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -9864,6 +10018,14 @@ export function GET() {
 							"Disallow undeclared CSS custom properties in inline styles.\nSee https://biomejs.dev/linter/rules/no-undeclared-custom-properties",
 						anyOf: [
 							{ $ref: "#/$defs/NoUndeclaredCustomPropertiesConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noUninvokedArrayCallback: {
+						description:
+							"Disallow array methods with callbacks on arrays that only have empty slots.\nSee https://biomejs.dev/linter/rules/no-uninvoked-array-callback",
+						anyOf: [
+							{ $ref: "#/$defs/NoUninvokedArrayCallbackConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10735,6 +10897,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					useNextScriptForGoogleAnalytics: {
+						description:
+							"Enforce the use of the @next/third-parties/google components to load Google Analytics and Google Tag Manager.\nSee https://biomejs.dev/linter/rules/use-next-script-for-google-analytics",
+						anyOf: [
+							{ $ref: "#/$defs/UseNextScriptForGoogleAnalyticsConfiguration" },
+							{ type: "null" },
+						],
+					},
 					useNullishCoalescing: {
 						description:
 							"Enforce using the nullish coalescing operator (??) instead of logical or (||).\nSee https://biomejs.dev/linter/rules/use-nullish-coalescing",
@@ -10748,6 +10918,22 @@ export function GET() {
 							"Enforce using Object.fromEntries() to build an object from a list of key-value pairs.\nSee https://biomejs.dev/linter/rules/use-object-from-entries",
 						anyOf: [
 							{ $ref: "#/$defs/UseObjectFromEntriesConfiguration" },
+							{ type: "null" },
+						],
+					},
+					usePackageJsonCpu: {
+						description:
+							"Require the cpu field in package.json.\nSee https://biomejs.dev/linter/rules/use-package-json-cpu",
+						anyOf: [
+							{ $ref: "#/$defs/UsePackageJsonCpuConfiguration" },
+							{ type: "null" },
+						],
+					},
+					usePackageJsonEngines: {
+						description:
+							"Require the engines field in package.json.\nSee https://biomejs.dev/linter/rules/use-package-json-engines",
+						anyOf: [
+							{ $ref: "#/$defs/UsePackageJsonEnginesConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -12392,6 +12578,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoArrayMethodsOnArgumentsOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoArrayMethodsOnArgumentsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoArraySortForMinMaxOptions: {
 				type: "object",
 				properties: {
@@ -12766,6 +12961,15 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoConstantBinaryExpressionsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoConstantComparisonsOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoConstantComparisonsOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -13364,6 +13568,15 @@ export function GET() {
 					},
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoEqualsToNullOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoErasingOperationOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoErasingOperationOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -14298,6 +14511,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoNegatedArrayPredicateOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoNegatedArrayPredicateOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoNegationElseOptions: {
 				type: "object",
 				properties: {
@@ -14495,6 +14722,15 @@ export function GET() {
 					},
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoNullOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoNumberArgumentOutOfRangeOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoNumberArgumentOutOfRangeOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -15199,6 +15435,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoSharedBranchCodeOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoSharedBranchCodeOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoShortTimeValuesOptions: {
 				type: "object",
 				properties: {
@@ -15328,6 +15573,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoSubtractionComparisonOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoSubtractionComparisonOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoSuspiciousSemicolonInJsxOptions: {
 				type: "object",
 				properties: {
@@ -15404,6 +15663,15 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoSvelteExportLetOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoSvelteIgnoredUnsubscribeOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoSvelteIgnoredUnsubscribeOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -15695,6 +15963,15 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoUndeclaredVariablesOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoUninvokedArrayCallbackOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoUninvokedArrayCallbackOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -18701,6 +18978,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithUseNextScriptForGoogleAnalyticsOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseNextScriptForGoogleAnalyticsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithUseNodeAssertStrictOptions: {
 				type: "object",
 				properties: {
@@ -18837,6 +19123,24 @@ export function GET() {
 					},
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseOptionalChainOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUsePackageJsonCpuOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UsePackageJsonCpuOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUsePackageJsonEnginesOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UsePackageJsonEnginesOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -24719,6 +25023,16 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
+			UseNextScriptForGoogleAnalyticsConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseNextScriptForGoogleAnalyticsOptions" },
+				],
+			},
+			UseNextScriptForGoogleAnalyticsOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			UseNodeAssertStrictConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -24887,6 +25201,26 @@ export function GET() {
 				],
 			},
 			UseOptionalChainOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			UsePackageJsonCpuConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUsePackageJsonCpuOptions" },
+				],
+			},
+			UsePackageJsonCpuOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			UsePackageJsonEnginesConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUsePackageJsonEnginesOptions" },
+				],
+			},
+			UsePackageJsonEnginesOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
