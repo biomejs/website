@@ -1,0 +1,103 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useNextScriptForGoogleAnalytics (JavaScript)
+description: JavaScript (and super languages) documentation for useNextScriptForGoogleAnalytics
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-next-script-for-google-analytics/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useNextScriptForGoogleAnalytics`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`next`](/linter/domains#next)
+- Sources: 
+  - Inspired from [`@next/next/next-script-for-ga`](https://nextjs.org/docs/messages/next-script-for-ga)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useNextScriptForGoogleAnalytics": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce the use of the `@next/third-parties/google` components to load Google Analytics and Google Tag Manager.
+
+Adding the Google Analytics or Google Tag Manager script with a plain `<script>` element
+can slow down your page. The `GoogleAnalytics` and `GoogleTagManager` components from
+`@next/third-parties/google` load these scripts after the page becomes interactive.
+
+This rule reports `<script>` elements that load one of these scripts, either through
+the `src` attribute or through inline code in `dangerouslySetInnerHTML`.
+
+## Examples
+
+### Invalid
+
+```jsx
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XYZ" />
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:1 <a href=\"https://biomejs.dev/linter/rules/use-next-script-for-google-analytics\">lint/nursery/useNextScriptForGoogleAnalytics</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>script</strong></span><span style=\"color: Orange;\"> element loads Google Analytics.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;script async src=&quot;https://www.googletagmanager.com/gtag/js?id=G-XYZ&quot; /&gt;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Loading Google Analytics with a plain </span><span style=\"color: lightgreen;\"><strong>script</strong></span><span style=\"color: lightgreen;\"> element can slow down your page.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the </span><span style=\"color: lightgreen;\"><strong>GoogleAnalytics</strong></span><span style=\"color: lightgreen;\"> component from </span><span style=\"color: lightgreen;\"><strong>@next/third-parties/google</strong></span><span style=\"color: lightgreen;\"> instead, which loads the script after the page becomes interactive. See the </span><span style=\"color: lightgreen;\"><a href=\"https://nextjs.org/docs/messages/next-script-for-ga\">Next.js docs</a></span><span style=\"color: lightgreen;\"> for more details.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```jsx
+<script
+  dangerouslySetInnerHTML={{
+    __html: `
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-XYZ');
+    `,
+  }}
+/>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:1 <a href=\"https://biomejs.dev/linter/rules/use-next-script-for-google-analytics\">lint/nursery/useNextScriptForGoogleAnalytics</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>script</strong></span><span style=\"color: Orange;\"> element loads Google Tag Manager.</span><br />  <br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;script<br />    <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  dangerouslySetInnerHTML=&#123;&#123;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &#95;&#95;html: &#96;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>      (function(w,d,s,l,i)&#123;w[l]=w[l]||[];w[l].push(&#123;'gtm.start':<br />    <strong>    ...<br /></strong>   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>9 │ </strong>    &#96;,<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>10 │ </strong>  &#125;&#125;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>11 │ </strong>/&gt;<br />    <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>12 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Loading Google Tag Manager with a plain </span><span style=\"color: lightgreen;\"><strong>script</strong></span><span style=\"color: lightgreen;\"> element can slow down your page.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the </span><span style=\"color: lightgreen;\"><strong>GoogleTagManager</strong></span><span style=\"color: lightgreen;\"> component from </span><span style=\"color: lightgreen;\"><strong>@next/third-parties/google</strong></span><span style=\"color: lightgreen;\"> instead, which loads the script after the page becomes interactive. See the </span><span style=\"color: lightgreen;\"><a href=\"https://nextjs.org/docs/messages/next-script-for-ga\">Next.js docs</a></span><span style=\"color: lightgreen;\"> for more details.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```jsx
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <GoogleTagManager gtmId="GTM-XYZ" />
+      <body>{children}</body>
+      <GoogleAnalytics gaId="G-XYZ" />
+    </html>
+  );
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_next_script_for_google_analytics.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useNextScriptForGoogleAnalytics)
+- <RulePlaygroundLink rule="useNextScriptForGoogleAnalytics" category="lint" language="jsx" code={"<script async src=\"https://www.googletagmanager.com/gtag/js?id=G-XYZ\" />\n"} />
+

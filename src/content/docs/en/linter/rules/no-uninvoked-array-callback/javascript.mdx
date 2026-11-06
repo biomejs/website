@@ -1,0 +1,98 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUninvokedArrayCallback (JavaScript)
+description: JavaScript (and super languages) documentation for noUninvokedArrayCallback
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-uninvoked-array-callback/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noUninvokedArrayCallback`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Inspired from [`oxc/uninvoked-array-callback`](https://oxc.rs/docs/guide/usage/linter/rules/oxc/uninvoked-array-callback)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUninvokedArrayCallback": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow array methods with callbacks on arrays that only have empty slots.
+
+Calling `new Array(5)` or `Array(5)` with a single number doesn't create an array of five
+`undefined` values. It creates an array with a `length` of `5` and five empty slots, which
+hold no value at all. Methods such as `map()`, `filter()`, and `forEach()` skip empty slots,
+so the callback passed to them never runs. For example, `new Array(3).map(() => 0)` gives
+an array with three empty slots, not `[0, 0, 0]`.
+
+This rule reports calls to `every()`, `filter()`, `flatMap()`, `forEach()`, `map()`,
+`reduce()`, `reduceRight()`, `some()`, `sort()`, and `toSorted()` with a callback, directly
+on an array created by calling `Array` with a single number.
+
+To run the callback for every slot, fill the array first with `fill()`, or create it with
+`Array.from({ length: 5 }, callback)`.
+
+## Examples
+
+### Invalid
+
+```js
+const list = new Array(5).map(() => createElement());
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:27 <a href=\"https://biomejs.dev/linter/rules/no-uninvoked-array-callback\">lint/nursery/noUninvokedArrayCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The callback passed to </span><span style=\"color: Tomato;\"><strong>map()</strong></span><span style=\"color: Tomato;\"> is never called.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const list = new Array(5).map(() =&gt; createElement());<br />   <strong>   │ </strong>                          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This array only has empty slots.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const list = new Array(5).map(() =&gt; createElement());<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Calling </span><span style=\"color: lightgreen;\"><strong>Array</strong></span><span style=\"color: lightgreen;\"> with a single number creates an array with that many empty slots instead of </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> values. </span><span style=\"color: lightgreen;\"><strong>map()</strong></span><span style=\"color: lightgreen;\"> doesn't call its callback for empty slots.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Fill the array first, for example with </span><span style=\"color: lightgreen;\"><strong>new Array(length).fill()</strong></span><span style=\"color: lightgreen;\">, or create it with </span><span style=\"color: lightgreen;\"><strong>Array.from(&#123; length &#125;, callback)</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const list = Array(5).filter(function (item) {
+    return item !== undefined;
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:23 <a href=\"https://biomejs.dev/linter/rules/no-uninvoked-array-callback\">lint/nursery/noUninvokedArrayCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The callback passed to </span><span style=\"color: Tomato;\"><strong>filter()</strong></span><span style=\"color: Tomato;\"> is never called.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const list = Array(5).filter(function (item) &#123;<br />   <strong>   │ </strong>                      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    return item !== undefined;<br />    <strong>3 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This array only has empty slots.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const list = Array(5).filter(function (item) &#123;<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    return item !== undefined;<br />    <strong>3 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Calling </span><span style=\"color: lightgreen;\"><strong>Array</strong></span><span style=\"color: lightgreen;\"> with a single number creates an array with that many empty slots instead of </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> values. </span><span style=\"color: lightgreen;\"><strong>filter()</strong></span><span style=\"color: lightgreen;\"> doesn't call its callback for empty slots.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Fill the array first, for example with </span><span style=\"color: lightgreen;\"><strong>new Array(length).fill()</strong></span><span style=\"color: lightgreen;\">, or create it with </span><span style=\"color: lightgreen;\"><strong>Array.from(&#123; length &#125;, callback)</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+new Array(5).forEach((_, index) => console.log(index));
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:14 <a href=\"https://biomejs.dev/linter/rules/no-uninvoked-array-callback\">lint/nursery/noUninvokedArrayCallback</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The callback passed to </span><span style=\"color: Tomato;\"><strong>forEach()</strong></span><span style=\"color: Tomato;\"> is never called.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>new Array(5).forEach((&#95;, index) =&gt; console.log(index));<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This array only has empty slots.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>new Array(5).forEach((&#95;, index) =&gt; console.log(index));<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Calling </span><span style=\"color: lightgreen;\"><strong>Array</strong></span><span style=\"color: lightgreen;\"> with a single number creates an array with that many empty slots instead of </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> values. </span><span style=\"color: lightgreen;\"><strong>forEach()</strong></span><span style=\"color: lightgreen;\"> doesn't call its callback for empty slots.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Fill the array first, for example with </span><span style=\"color: lightgreen;\"><strong>new Array(length).fill()</strong></span><span style=\"color: lightgreen;\">, or create it with </span><span style=\"color: lightgreen;\"><strong>Array.from(&#123; length &#125;, callback)</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+const list = new Array(5).fill().map(() => createElement());
+const items = Array.from({ length: 5 }, () => createElement());
+const values = new Array(1, 2, 3).map((value) => value * 2);
+const index = new Array(5).findIndex((item) => item === undefined);
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_uninvoked_array_callback.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUninvokedArrayCallback)
+- <RulePlaygroundLink rule="noUninvokedArrayCallback" category="lint" language="js" code={"const list = new Array(5).map(() => createElement());\n"} />
+

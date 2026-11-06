@@ -1,0 +1,97 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noSvelteIgnoredUnsubscribe (JavaScript)
+description: JavaScript (and super languages) documentation for noSvelteIgnoredUnsubscribe
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-svelte-ignored-unsubscribe/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noSvelteIgnoredUnsubscribe`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`svelte`](/linter/domains#svelte)
+- Sources: 
+  - Same as [`svelte/no-ignored-unsubscribe`](https://sveltejs.github.io/eslint-plugin-svelte/rules/no-ignored-unsubscribe/)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSvelteIgnoredUnsubscribe": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow ignoring the function returned by a store's `subscribe()` method.
+
+Calling `subscribe()` on a Svelte store returns a function that stops the subscription.
+If you don't keep this function, you can never stop the subscription: the store keeps
+calling your callback and keeps it in memory after you no longer need it. This is a
+memory leak.
+
+The rule reports a `subscribe()` call when its result is not used, for example when it
+isn't saved in a variable, returned, or passed to another function.
+
+## Examples
+
+### Invalid
+
+```svelte
+<script>
+import { count } from "./stores.js";
+
+count.subscribe((value) => {
+    console.log(value);
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.svelte:4:7 <a href=\"https://biomejs.dev/linter/rules/no-svelte-ignored-unsubscribe\">lint/nursery/noSvelteIgnoredUnsubscribe</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The function returned by </span><span style=\"color: Orange;\"><strong>subscribe()</strong></span><span style=\"color: Orange;\"> is ignored.</span><br />  <br />    <strong>2 │ </strong>import &#123; count &#125; from &quot;./stores.js&quot;;<br />    <strong>3 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>count.subscribe((value) =&gt; &#123;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>    console.log(value);<br />    <strong>6 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without this function, the subscription can't be stopped, so the store keeps calling the callback and keeps it in memory after it's no longer needed.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Save the returned function and call it when you no longer need the subscription, for example when the component is destroyed.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```svelte
+<script>
+import { onDestroy } from "svelte";
+import { count } from "./stores.js";
+
+const unsubscribe = count.subscribe((value) => {
+    console.log(value);
+});
+
+onDestroy(unsubscribe);
+</script>
+```
+
+### References
+
+- [Svelte stores](https://svelte.dev/docs/svelte/stores)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_svelte_ignored_unsubscribe.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noSvelteIgnoredUnsubscribe)
+- <RulePlaygroundLink rule="noSvelteIgnoredUnsubscribe" category="lint" language="svelte" code={"<script>\nimport { count } from \"./stores.js\";\n\ncount.subscribe((value) => {\n    console.log(value);\n});\n</script>\n"} />
+

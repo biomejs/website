@@ -25,7 +25,7 @@ export function GET() {
                 }
               }
             ],
-            "docs": " Require a generic fallback in font-family lists.\n\n Generic families such as `serif`, `sans-serif`, and `monospace` let the browser choose an\n available fallback when named fonts cannot be loaded. This rule checks the `font` and\n `font-family` properties.\n\n A generic family may appear anywhere in the list. It is not required when:\n\n - the property uses a CSS-wide keyword such as `inherit` or `initial`;\n - the `font` shorthand uses a system-font value such as `caption` or `menu`;\n - the final family comes from a custom property through `var()`;\n - `font-family` appears inside an `@font-face` rule.\n\n ## SCSS limitations\n\n Font values that require SCSS evaluation, including variables, interpolation, and\n user-defined function results, are ignored because the emitted font family is unknown.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { font-family: Arial; }\n ```\n\n ```css,expect_diagnostic\n a { font: normal 14px/32px -apple-system, BlinkMacSystemFont; }\n ```\n\n ### Valid\n\n ```css\n a { font-family: \"Lucida Grande\", \"Arial\", sans-serif; }\n ```\n\n ```css\n a { font-family: inherit; }\n ```\n\n ```css\n a { font-family: sans-serif; }\n ```\n\n ```css\n a { font-family: var(--font); }\n ```\n\n ```css\n @font-face { font-family: Gentium; }\n ```\n\n"
+            "docs": " Require a generic fallback in font-family lists.\n\n Generic families such as `serif`, `sans-serif`, and `monospace` let the browser choose an\n available fallback when named fonts cannot be loaded. This rule checks the `font` and\n `font-family` properties.\n\n A generic family may appear anywhere in the list. It is not required when:\n\n - the property uses a CSS-wide keyword such as `inherit` or `initial`;\n - the `font` shorthand uses a system-font value such as `caption` or `menu`;\n - the final family comes from a custom property through `var()`;\n - `font-family` appears inside an `@font-face` or `@font-palette-values` rule, where it is a\n   descriptor that names font families rather than a fallback list.\n\n ## SCSS limitations\n\n Font values that require SCSS evaluation, including variables, interpolation, and\n user-defined function results, are ignored because the emitted font family is unknown.\n\n ## Examples\n\n ### Invalid\n\n ```css,expect_diagnostic\n a { font-family: Arial; }\n ```\n\n ```css,expect_diagnostic\n a { font: normal 14px/32px -apple-system, BlinkMacSystemFont; }\n ```\n\n ### Valid\n\n ```css\n a { font-family: \"Lucida Grande\", \"Arial\", sans-serif; }\n ```\n\n ```css\n a { font-family: inherit; }\n ```\n\n ```css\n a { font-family: sans-serif; }\n ```\n\n ```css\n a { font-family: var(--font); }\n ```\n\n ```css\n @font-face { font-family: Gentium; }\n ```\n\n ```css\n @font-palette-values --palette { font-family: Bixa; }\n ```\n\n"
           }
         },
         "complexity": {
@@ -5659,6 +5659,23 @@ export function GET() {
             ],
             "docs": " Disallow the `forEach()` method in favor of `for...of` loops.\n\n A `for...of` loop runs the same code for each item of an array, and it has several\n advantages over passing a function to `forEach()`:\n - `break` stops the loop early, and `continue` skips to the next item.\n - `return` and `await` apply to the surrounding function, so you can leave that function\n   or wait for a promise from inside the loop.\n - In TypeScript, a type checked before the loop is still known inside the loop,\n   because the loop body is not a separate function.\n\n Use `array.entries()` when you also need the index of each item:\n `for (const [index, item] of array.entries())`.\n\n This rule doesn't report calls when the value is known not to be an array,\n such as a `Map` or a `Set`, either because it is created with `new Map()`\n or because its type annotation says so.\n It also ignores `forEach()` from the following libraries,\n because they take the list as an argument instead of looping over the value they're called on:\n `React.Children`, `Children`, `R` (Ramda), `pIteration`, `Effect`,\n and namespace imports of `strict-callbag-basics`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n array.forEach((element) => {\n     bar(element);\n });\n ```\n\n ```js,expect_diagnostic\n array?.forEach((element) => {\n     bar(element);\n });\n ```\n\n ```js,expect_diagnostic\n array.forEach((element, index) => {\n     bar(element, index);\n });\n ```\n\n ### Valid\n\n ```ts\n for (const element of array) {\n     bar(element);\n }\n\n for (const [index, element] of array.entries()) {\n     bar(element, index);\n }\n\n const map = new Map();\n map.forEach((value, key) => bar(key, value));\n\n function log(set: Set<string>) {\n     set.forEach((value) => console.log(value));\n }\n ```\n\n ## See Also\n\n - [`noForEach`](https://biomejs.dev/linter/rules/no-for-each/) also reports `forEach()` calls,\n   but allows callbacks that use the index of each item.\n"
           },
+          "noArrayMethodsOnArguments": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noArrayMethodsOnArguments",
+            "link": "https://biomejs.dev/linter/rules/no-array-methods-on-arguments/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "oxc": "bad-array-method-on-arguments"
+                }
+              }
+            ],
+            "docs": " Disallow calling array methods on the `arguments` object.\n\n Inside a regular function, `arguments` holds the values the function was called with.\n It has a `length` and its values can be read by index, like an array, but it isn't an array.\n It doesn't have array methods such as `map()`, `filter()`, or `reduce()`,\n so calling one of them throws a `TypeError` when the code runs.\n\n Declare a rest parameter, such as `...args`, to receive the values as a real array.\n If you can't change the function's parameters, convert `arguments` to an array first,\n for example with `Array.from(arguments)`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function sum() {\n     return arguments.reduce((total, value) => total + value, 0);\n }\n ```\n\n ```js,expect_diagnostic\n function first() {\n     return arguments[\"at\"](0);\n }\n ```\n\n ### Valid\n\n ```js\n function sum(...values) {\n     return values.reduce((total, value) => total + value, 0);\n }\n\n function first() {\n     return Array.from(arguments).at(0);\n }\n\n function list() {\n     return Array.prototype.slice.call(arguments);\n }\n ```\n\n Outside strict mode, you can name a parameter or variable `arguments`.\n When it has a value, it replaces the `arguments` object, so the rule ignores it:\n\n ```cjs\n function count(arguments) {\n     return arguments.filter(Boolean).length;\n }\n ```\n\n A `var arguments;` declaration without a value doesn't replace the `arguments` object,\n so the rule still reports it:\n\n ```cjs,expect_diagnostic\n function count() {\n     var arguments;\n     return arguments.filter(Boolean).length;\n }\n ```\n\n ## See Also\n\n - To disallow the use of `arguments` entirely, see [`noArguments`](https://biomejs.dev/linter/rules/no-arguments/).\n\n"
+          },
           "noArraySortForMinMax": {
             "deprecated": false,
             "version": "2.6.3",
@@ -5770,6 +5787,23 @@ export function GET() {
             ],
             "docs": " Disallow leading and trailing spaces in `console` method arguments.\n\n `console.log()`, `console.debug()`, `console.info()`, `console.warn()`, and `console.error()`\n put a space between their arguments when printing them.\n A string argument that starts or ends with a space next to another argument\n prints two spaces instead of one.\n\n The first argument may start with a space, and the last argument may end with one,\n because nothing is printed before or after them.\n Strings that contain only one space, or that start or end with two or more spaces,\n are allowed because the extra spacing is likely intentional.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n console.log(\"abc \", \"def\");\n ```\n\n ```js,expect_diagnostic\n console.error(\"abc\", \" def\");\n ```\n\n ```js,expect_diagnostic\n console.warn(`abc `, \"def\");\n ```\n\n ### Valid\n\n ```js\n console.log(\"abc\", \"def\");\n console.log(\" abc\", \"def \");\n console.log(\"abc  \", \"def\");\n console.log(\"abc\\t\", \"def\");\n console.log(\"abc\", \" \", \"def\");\n ```\n\n"
           },
+          "noConstantComparisons": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noConstantComparisons",
+            "link": "https://biomejs.dev/linter/rules/no-constant-comparisons/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "oxc": "const-comparisons"
+                }
+              }
+            ],
+            "docs": " Disallow conditions that are always true, can never be true, or contain a check with no effect.\n\n The rule reports `&&` and `||` expressions in these cases:\n\n - Two comparisons of the same value against numbers can never both be true, as in\n   `x <= 400 && x > 500`.\n   The whole condition is always false.\n - One comparison already implies the other, as in `x < 200 && x <= 299`.\n   Every value below 200 is also at most 299, so the second comparison has no effect.\n - Both sides make the same check, as in `a === b && b === a` or `!done || !done`.\n - One side is the opposite of the other, as in `a === b && a !== b` or `ready || !ready`.\n   With `&&`, the condition can never be true. With `||`, it is always true.\n\n Such conditions are usually mistakes: a flipped comparison operator, a wrong number, or\n the wrong variable.\n\n The first two cases only apply to `&&`, and only to comparisons against numbers written\n directly in the code, such as `500` or `-1`. In a chain such as\n `x > 5 && isReady && x < 3`, the rule compares the last comparison with the earlier\n comparisons in the chain. It stops at a part of the chain that assigns a new value, such\n as `(x = 10)`, because the earlier comparisons may have checked another value.\n\n The rule treats two values as the same when they are the same variable, property, `this`,\n or literal. It never treats two function calls as the same value, because each call can\n return something different.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (statusCode <= 400 && statusCode > 500) {}\n ```\n\n ```js,expect_diagnostic\n if (statusCode < 200 && statusCode <= 299) {}\n ```\n\n ```js,expect_diagnostic\n if (statusCode > 500 && statusCode >= 500) {}\n ```\n\n ```js,expect_diagnostic\n if (a === b && b === a) {}\n ```\n\n ```js,expect_diagnostic\n if (a === b && a !== b) {}\n ```\n\n ```js,expect_diagnostic\n if (ready || !ready) {}\n ```\n\n ### Valid\n\n ```js\n if (statusCode >= 400 && statusCode < 500) {}\n if (500 <= statusCode && 600 > statusCode) {}\n if (statusCode >= 500 && statusCode <= 500) {}\n if (a === b && b === c) {}\n if (ready || !done) {}\n ```\n\n ## See Also\n\n - If you want to disallow comparing a value with itself, such as `a < a`, see\n   [`noSelfCompare`](https://biomejs.dev/linter/rules/no-self-compare/).\n\n"
+          },
           "noDanglingUnderscore": {
             "deprecated": false,
             "version": "2.6.3",
@@ -5843,6 +5877,29 @@ export function GET() {
               }
             ],
             "docs": " Disallow `.map()` and `.filter()` calls in the header of `for...of` loops.\n\n Calling `.map()` or `.filter()` on an array in the header of a `for...of` or\n `for await...of` loop goes through the items twice.\n The method visits every item to build a new array, and then the loop visits every item of that new array.\n Doing the same work inside the loop body avoids the extra array and the second pass.\n\n The rule only checks calls written directly in the loop header.\n It doesn't report an array that is stored in a variable before the loop.\n\n The rule ignores calls on iterators. An iterator is an object that produces its values one at a time,\n so its `.map()` and `.filter()` methods don't build an array.\n The rule treats the following as iterators:\n\n - The result of `.values()`, `.keys()`, or `.entries()` called without arguments, or of `.matchAll()`.\n - The result of `Iterator.from()`, `Iterator.concat()`, `Iterator.zip()`, or `Iterator.zipKeyed()`.\n - The result of calling `.map()`, `.filter()`, `.flatMap()`, `.take()`, or `.drop()` on an iterator.\n - The result of calling a generator function declared in the same file.\n - A `const` variable that is assigned one of the values above.\n - In TypeScript, a value whose type annotation or type assertion names a built-in iterator type,\n   such as `Iterator<string>` or `Generator<number>`, or a type alias for one.\n   This includes the result of calling a function declared in the same file with such a return type.\n\n :::caution\n Moving an asynchronous callback into the loop body changes when the work starts.\n `urls.map(async (url) => fetch(url))` starts every request before the loop begins,\n while `await fetch(url)` inside the loop body starts each request only after the previous one finishes.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n for (const name of users.map((user) => user.name)) {\n     console.log(name);\n }\n ```\n\n ```js,expect_diagnostic\n for (const user of users.filter((user) => user.isActive)) {\n     console.log(user);\n }\n ```\n\n ### Valid\n\n ```js\n for (const user of users) {\n     console.log(user.name);\n }\n\n for (const user of users) {\n     if (user.isActive) {\n         console.log(user);\n     }\n }\n\n // `.values()` returns an iterator, so `.map()` doesn't build an array.\n for (const name of users.values().map((user) => user.name)) {\n     console.log(name);\n }\n\n // The array is created before the loop.\n const names = users.map((user) => user.name);\n for (const name of names) {\n     console.log(name);\n }\n ```\n\n"
+          },
+          "noErasingOperation": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noErasingOperation",
+            "link": "https://biomejs.dev/linter/rules/no-erasing-operation/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "oxc": "erasing-op"
+                }
+              },
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "clippy": "erasing_op"
+                }
+              }
+            ],
+            "docs": " Disallow operations with zero that always result in zero.\n\n Multiplying a number by `0`, combining it with `0` using the bitwise AND operator (`&`),\n or dividing `0` by a number gives `0` no matter what the other number is. The other\n number has no effect on the result, so code like `x * 0` is most likely a mistake,\n such as a leftover from debugging or a typo. If the result should be zero, write `0`\n directly.\n\n A few special values produce a different result. For example, `NaN * 0` and\n `Infinity * 0` are both `NaN`, and `-5 * 0` is `-0`.\n\n The rule only reports a `0` that is written as a number, such as `0` or `0.0`. It\n doesn't report variables that contain zero, `0n` (a `BigInt` zero), or `0 / 0`,\n which results in `NaN` instead of zero.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const total = price * 0;\n ```\n\n ```js,expect_diagnostic\n const flags = options & 0;\n ```\n\n ```js,expect_diagnostic\n const ratio = 0 / count;\n ```\n\n ### Valid\n\n ```js\n const total = price * quantity;\n const flags = options | 0;\n const ratio = count / 0;\n const zero = 0;\n ```\n\n"
           },
           "noExcessiveNestedBlocks": {
             "deprecated": false,
@@ -6077,6 +6134,23 @@ export function GET() {
             ],
             "docs": " Disallow creating an error with `new` without throwing it.\n\n Writing `new Error()` as a statement, without using its result, creates\n an error object and then discards it. Nothing happens: the code keeps running as if no error\n occurred. This is almost always a mistake where the `throw` keyword was\n forgotten.\n\n The rule checks constructors whose name starts with an uppercase letter\n and ends with `Error`, such as `Error`, `TypeError`, or `ValidationError`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n function check(value) {\n     if (!value) {\n         new Error(\"Missing value\");\n     }\n }\n ```\n\n ```js,expect_diagnostic\n const fail = () => {\n     new TypeError(\"Unexpected type\");\n };\n ```\n\n ### Valid\n\n ```js\n function check(value) {\n     if (!value) {\n         throw new Error(\"Missing value\");\n     }\n }\n\n const createError = () => new Error(\"Something went wrong\");\n\n const error = new Error(\"Something went wrong\");\n\n reject(new Error(\"Something went wrong\"));\n ```\n\n"
           },
+          "noNegatedArrayPredicate": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNegatedArrayPredicate",
+            "link": "https://biomejs.dev/linter/rules/no-negated-array-predicate/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-negated-array-predicate"
+                }
+              }
+            ],
+            "docs": " Disallow negating the result of `Array#some()` or `Array#every()`.\n\n `!array.some(callback)` checks that no item passes the test, which is the same as checking\n that every item fails it: `array.every((item) => !callback(item))`. In the same way,\n `!array.every(callback)` is the same as `array.some((item) => !callback(item))`.\n\n Putting the `!` inside the callback function keeps the condition next to the test it changes,\n and two `!` operators that cancel each other out, as in `!array.some((item) => !item.done)`,\n can be removed entirely: `array.every((item) => item.done)`.\n\n The rule only reports calls whose callback function returns a single expression, either\n directly, as in `(item) => item.done`, or with one `return` statement.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const isMissing = !array.some((item) => isUnicorn(item));\n ```\n\n ```js,expect_diagnostic\n const isNotEveryUnicorn = !array.every((item) => isUnicorn(item));\n ```\n\n ```js,expect_diagnostic\n if (!array.some((item) => !isUnicorn(item))) {}\n ```\n\n ### Valid\n\n ```js\n const isMissing = array.every((item) => !isUnicorn(item));\n\n const isNotEveryUnicorn = array.some((item) => !isUnicorn(item));\n\n if (array.every((item) => isUnicorn(item))) {}\n\n // The callback function isn't written inline, so there's nothing to negate.\n if (!array.every(Boolean)) {}\n ```\n\n"
+          },
           "noNegationInEqualityCheck": {
             "deprecated": false,
             "version": "2.5.5",
@@ -6167,6 +6241,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow the use of the `null` literal.\n\n JavaScript has two values that mean \"no value\": `null` and `undefined`.\n Code that uses both has to check for both, and it's easy to forget one of them.\n Using only `undefined` keeps missing values consistent across a codebase.\n\n Strict comparisons such as `foo === null` are allowed, because code often needs to check for `null` values that come from other libraries or from APIs such as `JSON.parse()`.\n\n Some common APIs require `null` as an argument and are allowed:\n - `Object.create(null)`, which creates an object with no prototype.\n - `useRef(null)` and `React.useRef(null)`, the usual way to create a React ref for an element.\n - `parent.insertBefore(node, null)`, which adds `node` at the end of `parent`.\n\n The fix replaces `null` with `undefined`.\n It isn't applied automatically, because other code may check for `null` with `===`, and TypeScript types that include `null` may not accept `undefined`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n let foo = null;\n ```\n\n ```js,expect_diagnostic\n if (bar == null) {}\n ```\n\n ```js,expect_diagnostic\n function getUser() {\n     return null;\n }\n ```\n\n ```js,expect_diagnostic\n foo(null);\n ```\n\n ### Valid\n\n ```js\n let foo;\n if (bar == undefined) {}\n if (bar === null) {}\n const dictionary = Object.create(null);\n const ref = useRef(null);\n parent.insertBefore(node, null);\n ```\n\n ## See Also\n\n - To remove `undefined` that is assigned to a variable when it is declared, see [`noUselessUndefinedInitialization`](https://biomejs.dev/linter/rules/no-useless-undefined-initialization/).\n\n"
+          },
+          "noNumberArgumentOutOfRange": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noNumberArgumentOutOfRange",
+            "link": "https://biomejs.dev/linter/rules/no-number-argument-out-of-range/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "oxc": "number-arg-out-of-range"
+                }
+              }
+            ],
+            "docs": " Disallow number method arguments that are outside the range the method accepts.\n\n Some methods of numbers only accept a limited range of values as their first argument,\n and throw a `RangeError` when called with anything else:\n\n - [`toString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString) accepts a base (radix) between 2 and 36.\n - [`toFixed()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed) accepts between 0 and 100 digits after the decimal point.\n - [`toExponential()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toExponential) accepts between 0 and 100 digits after the decimal point.\n - [`toPrecision()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toPrecision) accepts between 1 and 100 significant digits.\n\n The fractional part of the argument is dropped before the range is checked,\n so `toString(36.5)` is the same as `toString(36)`.\n\n This rule only checks arguments written as number literals.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const binary = value.toString(1);\n ```\n\n ```js,expect_diagnostic\n const text = value.toString(64);\n ```\n\n ```js,expect_diagnostic\n const price = value.toFixed(-1);\n ```\n\n ```js,expect_diagnostic\n const rounded = value.toPrecision(0);\n ```\n\n ### Valid\n\n ```js\n const hex = value.toString(16);\n const price = value.toFixed(2);\n const scientific = value.toExponential(100);\n const rounded = value.toPrecision(3);\n const text = value.toString(base);\n ```\n\n ## Caveats\n\n This rule assumes that these methods are called on a number.\n It doesn't check the type of the value the method is called on.\n\n"
           },
           "noObjectConstructor": {
             "deprecated": false,
@@ -6413,6 +6504,23 @@ export function GET() {
             ],
             "docs": " Forbid a module from importing itself.\n\n A module that imports itself is almost always the result of a mistake\n made while refactoring. It creates a circular dependency on the module\n itself, which can leave the imported value `undefined` during evaluation\n and cause some bundlers to emit a warning or fail.\n\n This rule reports both static `import` statements and dynamic imports\n such as `import()` and `require()` calls that resolve to the file they\n appear in.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic,file=foo.js\n import foo from \"./foo.js\";\n ```\n\n ```js,expect_diagnostic,file=bar.js\n const bar = require(\"./bar.js\");\n ```\n\n ### Valid\n\n ```js,file=foo.js\n import bar from \"./bar.js\";\n ```\n"
           },
+          "noSharedBranchCode": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noSharedBranchCode",
+            "link": "https://biomejs.dev/linter/rules/no-shared-branch-code/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "oxc": "branches-sharing-code"
+                }
+              }
+            ],
+            "docs": " Disallow the same code at the start or end of every branch of an `if` statement.\n\n When every branch of an `if` statement starts or ends with the same code,\n that code runs no matter which branch is taken.\n Repeating it in each branch makes the code longer, and a later change to it has to be made in every copy.\n Move the shared code before or after the `if` statement instead.\n\n The rule only checks `if` statements that end with an `else` branch,\n including chains of `else if` branches, where every branch is a block wrapped in curly braces.\n The rule doesn't report shared code that can't be moved out of the branches without changing what it does:\n\n - shared code that uses a variable declared elsewhere in the same branch;\n - shared code at the start of the branches that assigns a variable, or a property of a variable, used in a condition of the `if` statement,\n   because moving it before the `if` statement changes the result of the condition.\n\n Moving shared code before the `if` statement makes it run before the conditions are checked, instead of after.\n When a condition calls a function, check that the function doesn't depend on the shared code before moving it.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (condition) {\n     console.log(\"Hello\");\n     doSomething();\n } else {\n     console.log(\"Hello\");\n     doSomethingElse();\n }\n ```\n\n ```js,expect_diagnostic\n if (condition) {\n     doSomething();\n     cleanup();\n } else {\n     doSomethingElse();\n     cleanup();\n }\n ```\n\n ### Valid\n\n ```js\n console.log(\"Hello\");\n if (condition) {\n     doSomething();\n } else {\n     doSomethingElse();\n }\n\n if (condition) {\n     doSomething();\n } else {\n     doSomethingElse();\n }\n cleanup();\n\n if (condition) {\n     const message = \"yes\";\n     console.log(message);\n } else {\n     const message = \"no\";\n     console.log(message);\n }\n ```\n\n"
+          },
           "noSinglePromiseInPromiseMethods": {
             "deprecated": false,
             "version": "2.6.5",
@@ -6429,6 +6537,23 @@ export function GET() {
               }
             ],
             "docs": " Disallow passing an array with a single element to `Promise.all()`, `Promise.any()`, or `Promise.race()`.\n\n `Promise.all()`, `Promise.any()`, and `Promise.race()` are meant to combine several promises into one.\n When the array contains only one element, there is nothing to combine.\n The array only makes the code harder to read, and it often means that another promise is missing from it.\n\n If the call is awaited, await the value directly.\n Otherwise, if you need a promise, pass the value to `Promise.resolve()`.\n `Promise.all()` is an exception, because it returns an array that holds the value.\n Await the value directly instead, and update the code that reads the array.\n\n The fix for `Promise.any()` changes the error that is thrown when the promise is rejected.\n `Promise.any()` rejects with an `AggregateError` that holds the original error in its `errors` property,\n while awaiting the value directly throws the original error.\n Check that no code depends on `AggregateError` before you apply the fix.\n\n `Promise.allSettled()` is not reported, because its result has a different shape than the promise it receives.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const foo = await Promise.all([promise]);\n ```\n\n ```js,expect_diagnostic\n const foo = await Promise.any([promise]);\n ```\n\n ```js,expect_diagnostic\n const foo = await Promise.race([promise]);\n ```\n\n ```js,expect_diagnostic\n const promise = Promise.race([nonPromise]);\n ```\n\n ### Valid\n\n ```js\n const foo = await promise;\n const promise = Promise.resolve(nonPromise);\n const foo = await Promise.all(promises);\n const foo = await Promise.any([promise, anotherPromise]);\n const [{ value: foo, reason: error }] = await Promise.allSettled([promise]);\n ```\n\n"
+          },
+          "noSubtractionComparison": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noSubtractionComparison",
+            "link": "https://biomejs.dev/linter/rules/no-subtraction-comparison/javascript",
+            "recommended": true,
+            "fixKind": "unsafe",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintUnicorn": "no-subtraction-comparison"
+                }
+              }
+            ],
+            "docs": " Disallow subtracting two values only to compare the result with `0`.\n\n Code such as `a - b > 0` subtracts one value from another, then checks whether the\n difference is above, below, or equal to `0`. Comparing the two values directly, as in\n `a > b`, is shorter and states the intent more clearly.\n\n This pattern often remains after code is copied from a sort comparison function such as\n `(a, b) => a - b`.\n\n The rule checks the operators `>`, `>=`, `<`, `<=`, `===`, `!==`, `==`, and `!=`, with\n `0` on either side. When `0` is on the left, the fix flips the operator, so `0 < a - b`\n becomes `a > b`.\n\n :::caution\n The fix gives the same result only when both values are numbers, so it is unsafe:\n\n - Strings are compared character by character instead of as numbers.\n   `\"10\" - \"5\" > 0` is `true`, but `\"10\" > \"5\"` is `false`.\n - `===` and `!==` check whether two objects, such as two dates, are the same object.\n   `start - end === 0` checks whether two dates hold the same time, but `start === end`\n   checks whether they are the same date object.\n - `Infinity - Infinity` is `NaN` (\"not a number\"), and every comparison with `NaN` is\n   `false`. `Infinity - Infinity >= 0` is `false`, but `Infinity >= Infinity` is `true`.\n :::\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n if (a - b > 0) {}\n ```\n\n ```js,expect_diagnostic\n if (a - b <= 0) {}\n ```\n\n ```js,expect_diagnostic\n if (0 < a - b) {}\n ```\n\n ```js,expect_diagnostic\n if (a - b === 0) {}\n ```\n\n ### Valid\n\n ```js\n if (a > b) {}\n if (a - b > 1) {}\n if (a + b > 0) {}\n if (a - b > 0n) {}\n ```\n\n"
           },
           "noSvelteAddEventListener": {
             "deprecated": false,
@@ -6455,6 +6580,23 @@ export function GET() {
             "recommended": true,
             "fixKind": "none",
             "docs": " Disallow declaring Svelte component props with `export let`.\n\n Svelte 5 declares component props with the `$props()` rune. Exporting a `let` or `var`\n binding from the instance `<script>` is the legacy way of declaring props: it opts the\n component into legacy mode, and it is a compile error in runes mode.\n\n Exports from a `<script module>` block are regular module exports, not props, so they\n are ignored.\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n <script>\n export let name;\n </script>\n ```\n\n ```svelte,expect_diagnostic\n <script>\n let className;\n export { className as class };\n </script>\n ```\n\n ### Valid\n\n ```svelte\n <script>\n let { name, class: className } = $props();\n </script>\n ```\n\n ```svelte\n <script module>\n export let count = 0;\n </script>\n ```\n\n ### References\n\n - [Svelte `$props`](https://svelte.dev/docs/svelte/$props)\n - [Svelte 5 migration guide](https://svelte.dev/docs/svelte/v5-migration-guide#Let-exports-become-$props)\n"
+          },
+          "noSvelteIgnoredUnsubscribe": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noSvelteIgnoredUnsubscribe",
+            "link": "https://biomejs.dev/linter/rules/no-svelte-ignored-unsubscribe/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintSvelte": "no-ignored-unsubscribe"
+                }
+              }
+            ],
+            "docs": " Disallow ignoring the function returned by a store's `subscribe()` method.\n\n Calling `subscribe()` on a Svelte store returns a function that stops the subscription.\n If you don't keep this function, you can never stop the subscription: the store keeps\n calling your callback and keeps it in memory after you no longer need it. This is a\n memory leak.\n\n The rule reports a `subscribe()` call when its result is not used, for example when it\n isn't saved in a variable, returned, or passed to another function.\n\n ## Examples\n\n ### Invalid\n\n ```svelte,expect_diagnostic\n <script>\n import { count } from \"./stores.js\";\n\n count.subscribe((value) => {\n     console.log(value);\n });\n </script>\n ```\n\n ### Valid\n\n ```svelte\n <script>\n import { onDestroy } from \"svelte\";\n import { count } from \"./stores.js\";\n\n const unsubscribe = count.subscribe((value) => {\n     console.log(value);\n });\n\n onDestroy(unsubscribe);\n </script>\n ```\n\n ### References\n\n - [Svelte stores](https://svelte.dev/docs/svelte/stores)\n"
           },
           "noSvelteInspect": {
             "deprecated": false,
@@ -6626,6 +6768,23 @@ export function GET() {
             "recommended": false,
             "fixKind": "none",
             "docs": " Reports custom properties used with `var()` that have no visible declaration.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <div style=\"color: var(--text-color)\" />\n ```\n\n ### Valid\n\n ```jsx\n <div style=\"--text-color: blue; color: var(--text-color)\" />\n ```\n\n"
+          },
+          "noUninvokedArrayCallback": {
+            "deprecated": false,
+            "version": "next",
+            "name": "noUninvokedArrayCallback",
+            "link": "https://biomejs.dev/linter/rules/no-uninvoked-array-callback/javascript",
+            "recommended": true,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "oxc": "uninvoked-array-callback"
+                }
+              }
+            ],
+            "docs": " Disallow array methods with callbacks on arrays that only have empty slots.\n\n Calling `new Array(5)` or `Array(5)` with a single number doesn't create an array of five\n `undefined` values. It creates an array with a `length` of `5` and five empty slots, which\n hold no value at all. Methods such as `map()`, `filter()`, and `forEach()` skip empty slots,\n so the callback passed to them never runs. For example, `new Array(3).map(() => 0)` gives\n an array with three empty slots, not `[0, 0, 0]`.\n\n This rule reports calls to `every()`, `filter()`, `flatMap()`, `forEach()`, `map()`,\n `reduce()`, `reduceRight()`, `some()`, `sort()`, and `toSorted()` with a callback, directly\n on an array created by calling `Array` with a single number.\n\n To run the callback for every slot, fill the array first with `fill()`, or create it with\n `Array.from({ length: 5 }, callback)`.\n\n ## Examples\n\n ### Invalid\n\n ```js,expect_diagnostic\n const list = new Array(5).map(() => createElement());\n ```\n\n ```js,expect_diagnostic\n const list = Array(5).filter(function (item) {\n     return item !== undefined;\n });\n ```\n\n ```js,expect_diagnostic\n new Array(5).forEach((_, index) => console.log(index));\n ```\n\n ### Valid\n\n ```js\n const list = new Array(5).fill().map(() => createElement());\n const items = Array.from({ length: 5 }, () => createElement());\n const values = new Array(1, 2, 3).map((value) => value * 2);\n const index = new Array(5).findIndex((item) => item === undefined);\n ```\n\n"
           },
           "noUnmodifiedLoopCondition": {
             "deprecated": false,
@@ -12189,6 +12348,40 @@ export function GET() {
             ],
             "docs": " Require or disallow a Unicode byte order mark at the beginning of a file.\n\n A byte order mark (BOM) is the invisible U+FEFF character at the start of a file.\n UTF-8 does not need a BOM, so this rule disallows it by default.\n Set `bom` to `\"always\"` if your tools require one.\n U+FEFF characters elsewhere in the file are not checked by this rule.\n Embedded JSON is checked through the containing file.\n\n ## Examples\n\n ### Invalid\n\n The following example starts with an invisible U+FEFF character.\n\n ```json,expect_diagnostic\n ﻿{\"value\": 1}\n ```\n\n ### Valid\n\n ```json\n {\"value\": 1}\n ```\n\n ## Options\n\n ### `bom`\n\n Type: `\"always\" | \"never\"`\n\n Default: `\"never\"`\n\n Whether files must start with a BOM.\n Use `\"always\"` to require a BOM, including in empty files.\n\n ```json,options\n { \"options\": { \"bom\": \"always\" } }\n ```\n\n #### Invalid\n\n ```json,expect_diagnostic,use_options\n {\"value\": 1}\n ```\n\n #### Valid\n\n The following example starts with an invisible U+FEFF character.\n\n ```json,use_options\n ﻿{\"value\": 1}\n ```\n\n"
           },
+          "usePackageJsonCpu": {
+            "deprecated": false,
+            "version": "next",
+            "name": "usePackageJsonCpu",
+            "link": "https://biomejs.dev/linter/rules/use-package-json-cpu/json",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPackageJson": "require-cpu"
+                }
+              }
+            ],
+            "docs": " Require the `cpu` field in `package.json`.\n\n The `cpu` field lists the processor types that a package can run on, such as `x64` or\n `arm64`. Package managers read it to avoid installing the package on a processor that the\n package doesn't support. Without the field, the package is installed on every processor,\n and a package that can't run there fails later, when it is used.\n\n This rule reports a `package.json` file whose outermost object has no `cpu` field. A `cpu`\n field inside another object doesn't count. The rule doesn't check the value of the field.\n\n ## Examples\n\n ### Invalid\n\n ```json,expect_diagnostic,file=package.json\n {\n     \"name\": \"my-package\",\n     \"version\": \"1.0.0\"\n }\n ```\n\n ### Valid\n\n ```json,file=package.json\n {\n     \"name\": \"my-package\",\n     \"version\": \"1.0.0\",\n     \"cpu\": [\"x64\", \"arm64\"]\n }\n ```\n\n"
+          },
+          "usePackageJsonEngines": {
+            "deprecated": false,
+            "version": "next",
+            "name": "usePackageJsonEngines",
+            "link": "https://biomejs.dev/linter/rules/use-package-json-engines/json",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "sameLogic",
+                "source": {
+                  "eslintPackageJson": "require-engines"
+                }
+              }
+            ],
+            "docs": " Require the `engines` field in `package.json`.\n\n The `engines` field lists the versions of Node.js and other tools that a package works\n with. Package managers such as npm read this field and warn when someone installs the\n package with a version outside that range. Without the field, nobody gets that warning,\n and the package can fail in ways that are hard to connect to an unsupported version.\n\n The rule only checks that the field exists at the top level of the file. It does not check\n what the field contains. It applies to every `package.json` file, including packages that\n set `\"private\": true`.\n\n ## Examples\n\n ### Invalid\n\n ```json,file=package.json,expect_diagnostic\n {\n     \"name\": \"my-package\",\n     \"version\": \"1.0.0\"\n }\n ```\n\n ### Valid\n\n ```json,file=package.json\n {\n     \"name\": \"my-package\",\n     \"version\": \"1.0.0\",\n     \"engines\": {\n         \"node\": \">=20\"\n     }\n }\n ```\n\n"
+          },
           "usePackageJsonValidCpu": {
             "deprecated": false,
             "version": "2.6.3",
@@ -13852,6 +14045,23 @@ export function GET() {
             ],
             "docs": " Enforce that interactive control elements have an accessible label.\n\n A control with no accessible label is announced by assistive technology\n as an anonymous control (e.g. just \"button\"), leaving its purpose\n unclear. A label can come from text content anywhere inside the\n control, `aria-label`, `aria-labelledby`, or `title` attribute.\n\n This rule checks native controls whose accessible name is expected to\n come from their own content or attributes (`button`, `menuitem`).\n Elements hidden from assistive technology with `aria-hidden` are\n skipped, as are elements that already require a text alternative under\n a dedicated rule (e.g. `area`, `img`, checked by `useAltText`).\n\n The search through the content of a control is permissive: anything\n whose rendered output cannot be determined statically, such as an\n expression, a spread, or a custom component, is assumed to provide a\n label.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <button />;\n ```\n\n ```jsx,expect_diagnostic\n <button></button>;\n ```\n\n An icon button whose content renders nothing announceable:\n\n ```jsx,expect_diagnostic\n <button><i className=\"icon-save\" /></button>;\n ```\n\n ### Valid\n\n ```jsx\n <button>Submit</button>;\n ```\n\n ```jsx\n <button aria-label=\"Close\" />;\n ```\n\n ```jsx\n <button><Icon /><span>Delete</span></button>;\n ```\n\n ```jsx\n <button><img src=\"save.png\" alt=\"Save\" /></button>;\n ```\n\n ## Accessibility guidelines\n\n - [WCAG 1.3.1](https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships)\n - [WCAG 3.3.2](https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions)\n - [WCAG 4.1.2](https://www.w3.org/WAI/WCAG21/Understanding/name-role-value)\n\n"
           },
+          "useNextScriptForGoogleAnalytics": {
+            "deprecated": false,
+            "version": "next",
+            "name": "useNextScriptForGoogleAnalytics",
+            "link": "https://biomejs.dev/linter/rules/use-next-script-for-google-analytics/javascript",
+            "recommended": false,
+            "fixKind": "none",
+            "sources": [
+              {
+                "kind": "inspired",
+                "source": {
+                  "eslintNext": "next-script-for-ga"
+                }
+              }
+            ],
+            "docs": " Enforce the use of the `@next/third-parties/google` components to load Google Analytics and Google Tag Manager.\n\n Adding the Google Analytics or Google Tag Manager script with a plain `<script>` element\n can slow down your page. The `GoogleAnalytics` and `GoogleTagManager` components from\n `@next/third-parties/google` load these scripts after the page becomes interactive.\n\n This rule reports `<script>` elements that load one of these scripts, either through\n the `src` attribute or through inline code in `dangerouslySetInnerHTML`.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-XYZ\" />\n ```\n\n ```jsx,expect_diagnostic\n <script\n   dangerouslySetInnerHTML={{\n     __html: `\n       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\n       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\n       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n       })(window,document,'script','dataLayer','GTM-XYZ');\n     `,\n   }}\n />\n ```\n\n ### Valid\n\n ```jsx\n import { GoogleAnalytics, GoogleTagManager } from \"@next/third-parties/google\";\n\n export default function RootLayout({ children }) {\n   return (\n     <html lang=\"en\">\n       <GoogleTagManager gtmId=\"GTM-XYZ\" />\n       <body>{children}</body>\n       <GoogleAnalytics gaId=\"G-XYZ\" />\n     </html>\n   );\n }\n ```\n\n"
+          },
           "useReactFunctionComponentDefinition": {
             "deprecated": false,
             "version": "2.5.0",
@@ -15312,7 +15522,7 @@ export function GET() {
         }
       }
     },
-    "numberOrRules": 827
+    "numberOrRules": 839
   },
   "syntax": {
     "languages": {
