@@ -117,6 +117,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [google-font-display](https://nextjs.org/docs/messages/google-font-display) |[useGoogleFontDisplay](/linter/rules/use-google-font-display/javascript) |
 | [google-font-preconnect](https://nextjs.org/docs/messages/google-font-preconnect) |[useGoogleFontPreconnect](/linter/rules/use-google-font-preconnect/javascript) |
 | [inline-script-id](https://nextjs.org/docs/messages/inline-script-id) |[useInlineScriptId](/linter/rules/use-inline-script-id/javascript) |
+| [next-script-for-ga](https://nextjs.org/docs/messages/next-script-for-ga) |[useNextScriptForGoogleAnalytics](/linter/rules/use-next-script-for-google-analytics/javascript) (inspired) |
 | [no-async-client-component](https://nextjs.org/docs/messages/no-async-client-component) |[noNextAsyncClientComponent](/linter/rules/no-next-async-client-component/javascript) |
 | [no-before-interactive-script-outside-document](https://nextjs.org/docs/messages/no-before-interactive-script-outside-document) |[noBeforeInteractiveScriptOutsideDocument](/linter/rules/no-before-interactive-script-outside-document/javascript) |
 | [no-document-import-in-page](https://nextjs.org/docs/messages/no-document-import-in-page) |[noDocumentImportInPage](/linter/rules/no-document-import-in-page/javascript) |
@@ -175,6 +176,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [collapsible_else_if](https://rust-lang.github.io/rust-clippy/master/#collapsible_else_if) |[useCollapsedElseIf](/linter/rules/use-collapsed-else-if/javascript) |
 | [collapsible_if](https://rust-lang.github.io/rust-clippy/master/#collapsible_if) |[useCollapsedIf](/linter/rules/use-collapsed-if/javascript) |
 | [eq_op](https://rust-lang.github.io/rust-clippy/master/#eq_op) |[noSelfCompare](/linter/rules/no-self-compare/javascript) |
+| [erasing_op](https://rust-lang.github.io/rust-clippy/master/#erasing_op) |[noErasingOperation](/linter/rules/no-erasing-operation/javascript) |
 | [flat_map_identity](https://rust-lang.github.io/rust-clippy/master/#flat_map_identity) |[noFlatMapIdentity](/linter/rules/no-flat-map-identity/javascript) |
 | [if_not_else](https://rust-lang.github.io/rust-clippy/master/#if_not_else) |[noNegationElse](/linter/rules/no-negation-else/javascript) |
 | [lossy_float_literal](https://rust-lang.github.io/rust-clippy/master/#lossy_float_literal) |[noPrecisionLoss](/linter/rules/no-precision-loss/javascript) |
@@ -392,14 +394,20 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### Oxlint
 | Oxlint Rules name | Biome Rules name |
 | ---- | ---- |
+| [bad-array-method-on-arguments](https://oxc.rs/docs/guide/usage/linter/rules/oxc/bad-array-method-on-arguments) |[noArrayMethodsOnArguments](/linter/rules/no-array-methods-on-arguments/javascript) |
 | [bad-bitwise-operator](https://oxc.rs/docs/guide/usage/linter/rules/oxc/bad-bitwise-operator) |[noAccidentalBitwiseOperators](/linter/rules/no-accidental-bitwise-operators/javascript) |
 | [bad-comparison-sequence](https://oxc.rs/docs/guide/usage/linter/rules/oxc/bad-comparison-sequence) |[noChainedComparison](/linter/rules/no-chained-comparison/javascript) (inspired) |
 | [bad-min-max-func](https://oxc.rs/docs/guide/usage/linter/rules/oxc/bad-min-max-func) |[noConstantMathMinMaxClamp](/linter/rules/no-constant-math-min-max-clamp/javascript) |
 | [bad-object-literal-comparison](https://oxc.rs/docs/guide/usage/linter/rules/oxc/bad-object-literal-comparison) |[noObjectLiteralComparison](/linter/rules/no-object-literal-comparison/javascript) |
+| [branches-sharing-code](https://oxc.rs/docs/guide/usage/linter/rules/oxc/branches-sharing-code) |[noSharedBranchCode](/linter/rules/no-shared-branch-code/javascript) (inspired) |
+| [const-comparisons](https://oxc.rs/docs/guide/usage/linter/rules/oxc/const-comparisons) |[noConstantComparisons](/linter/rules/no-constant-comparisons/javascript) (inspired) |
 | [double-comparisons](https://oxc.rs/docs/guide/usage/linter/rules/oxc/double-comparisons) |[noDoubleComparison](/linter/rules/no-double-comparison/javascript) |
+| [erasing-op](https://oxc.rs/docs/guide/usage/linter/rules/oxc/erasing-op) |[noErasingOperation](/linter/rules/no-erasing-operation/javascript) |
 | [missing-throw](https://oxc.rs/docs/guide/usage/linter/rules/oxc/missing-throw) |[noMissingThrow](/linter/rules/no-missing-throw/javascript) (inspired) |
 | [no-map-spread](https://oxc.rs/docs/guide/usage/linter/rules/oxc/no-map-spread) |[noMapSpread](/linter/rules/no-map-spread/javascript) |
+| [number-arg-out-of-range](https://oxc.rs/docs/guide/usage/linter/rules/oxc/number-arg-out-of-range) |[noNumberArgumentOutOfRange](/linter/rules/no-number-argument-out-of-range/javascript) (inspired) |
 | [only-used-in-recursion](https://oxc.rs/docs/guide/usage/linter/rules/oxc/only-used-in-recursion) |[noParametersOnlyUsedInRecursion](/linter/rules/no-parameters-only-used-in-recursion/javascript) |
+| [uninvoked-array-callback](https://oxc.rs/docs/guide/usage/linter/rules/oxc/uninvoked-array-callback) |[noUninvokedArrayCallback](/linter/rules/no-uninvoked-array-callback/javascript) (inspired) |
 ### eslint-plugin-astro
 | eslint-plugin-astro Rules name | Biome Rules name |
 | ---- | ---- |
@@ -712,6 +720,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | eslint-plugin-svelte Rules name | Biome Rules name |
 | ---- | ---- |
 | [no-add-event-listener](https://sveltejs.github.io/eslint-plugin-svelte/rules/no-add-event-listener/) |[noSvelteAddEventListener](/linter/rules/no-svelte-add-event-listener/javascript) |
+| [no-ignored-unsubscribe](https://sveltejs.github.io/eslint-plugin-svelte/rules/no-ignored-unsubscribe/) |[noSvelteIgnoredUnsubscribe](/linter/rules/no-svelte-ignored-unsubscribe/javascript) |
 | [no-inner-declarations](https://sveltejs.github.io/eslint-plugin-svelte/rules/no-inner-declarations/) |[noInnerDeclarations](/linter/rules/no-inner-declarations/javascript) |
 | [no-inspect](https://sveltejs.github.io/eslint-plugin-svelte/rules/no-inspect/) |[noSvelteInspect](/linter/rules/no-svelte-inspect/javascript) |
 | [no-navigation-without-resolve](https://sveltejs.github.io/eslint-plugin-svelte/rules/no-navigation-without-resolve/) |[useSvelteKitResolve](/linter/rules/use-svelte-kit-resolve/javascript) |
@@ -763,6 +772,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-lonely-if](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-lonely-if.md) |[useCollapsedIf](/linter/rules/use-collapsed-if/javascript) |
 | [no-magic-array-flat-depth](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-magic-array-flat-depth.md) |[noMagicArrayFlatDepth](/linter/rules/no-magic-array-flat-depth/javascript) |
 | [no-mismatched-map-key](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-mismatched-map-key.md) |[noMismatchedMapKey](/linter/rules/no-mismatched-map-key/javascript) (inspired) |
+| [no-negated-array-predicate](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-negated-array-predicate.md) |[noNegatedArrayPredicate](/linter/rules/no-negated-array-predicate/javascript) |
 | [no-negated-condition](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-negated-condition.md) |[noNegationElse](/linter/rules/no-negation-else/javascript) |
 | [no-negation-in-equality-check](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-negation-in-equality-check.md) |[noNegationInEqualityCheck](/linter/rules/no-negation-in-equality-check/javascript) |
 | [no-nested-ternary](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-nested-ternary.md) |[noNestedTernary](/linter/rules/no-nested-ternary/javascript) (inspired) |
@@ -771,6 +781,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-return-array-push](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-return-array-push.md) |[noReturnArrayPush](/linter/rules/no-return-array-push/javascript) |
 | [no-single-promise-in-promise-methods](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-single-promise-in-promise-methods.md) |[noSinglePromiseInPromiseMethods](/linter/rules/no-single-promise-in-promise-methods/javascript) |
 | [no-static-only-class](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-static-only-class.md) |[noStaticOnlyClass](/linter/rules/no-static-only-class/javascript) |
+| [no-subtraction-comparison](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-subtraction-comparison.md) |[noSubtractionComparison](/linter/rules/no-subtraction-comparison/javascript) |
 | [no-thenable](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-thenable.md) |[noThenProperty](/linter/rules/no-then-property/javascript) |
 | [no-this-outside-of-class](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-this-outside-of-class.md) |[noThisOutsideOfClass](/linter/rules/no-this-outside-of-class/javascript) |
 | [no-unnecessary-await](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-unnecessary-await.md) |[noUselessAwait](/linter/rules/no-useless-await/javascript) |
