@@ -221,9 +221,9 @@ export const noAssign = defineRule({
 
 ### Query APIs
 
-You use `query` to tell the plugin which nodes to inspect. In order to know which nodes to inspect, you have two options: use the command [`biome inspect file`](/reference/cli#biome-inspect-file) or the playground.
+You use `query` to tell the plugin which nodes to inspect. You can select nodes by their syntax kind with [`ast`](#ast-query) or [`semantic`](#semantic-query), or select them by matching a GritQL pattern with [`grit`](#grit-query).
 
-Each node has a name assigned by the Biome grammar, usually in all caps. For example, the name associated with the [`debugger` statement](https://biomejs.dev/playground/?lintRules=all&view=syntax&ruleDomains.project=all#code=ZABlAGIAdQBnAGcAZQByAA%3D%3D) is `JS_DEBUGGER_STATEMENT`, so you can import its interface called `JsDebuggerStatement` and use the `kind` field:
+To find the syntax kind of a node, use the command [`biome inspect file`](/reference/cli#biome-inspect-file) or the playground. Each node has a name assigned by the Biome grammar, usually in all caps. For example, the name associated with the [`debugger` statement](https://biomejs.dev/playground/?lintRules=all&view=syntax&ruleDomains.project=all#code=ZABlAGIAdQBnAGcAZQByAA%3D%3D) is `JS_DEBUGGER_STATEMENT`, so you can import its interface called `JsDebuggerStatement` and use the `kind` field:
 
 ```ts title="plugin.ts" ins='JsDebuggerStatement' ins='.kind'
 import { defineRule, ast, JsDebuggerStatement } from "@biomejs/runtime/plugin"
@@ -268,6 +268,51 @@ export const noAssign = defineRule({
     }
 })
 ```
+
+#### `grit` query
+
+**Type**: `string`, and an optional `{ semantic?: boolean }` options object
+
+It accepts a [GritQL pattern](/reference/gritql/) and selects the nodes and tokens that the pattern matches, instead of selecting them by syntax kind. This is useful when matching a snippet requires inspecting the shape of several AST nodes, which would otherwise take several checks in `run`.
+
+```ts title="plugin.ts" ins='grit'
+import { defineRule, grit, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+export const noConsole = defineRule({
+    query: grit("`console.log($args)`"),
+    run(node) {
+      registerDiagnostic(node, "error", "Unexpected console.log.")
+    }
+})
+```
+
+The pattern is executed against the analyzed file, and `run` is called once for each match. When a pattern matches a sequence of nodes, such as several sibling statements, `run` is called for each node in the sequence. The sequence must match exactly, so `` `foo(); bar()` `` doesn't match a list that also contains `baz();`:
+
+```ts title="plugin.ts" ins='grit'
+export const noFooThenBar = defineRule({
+    query: grit("`foo(); bar()`"),
+    run(node) {
+      registerDiagnostic(node, "error", "Don't call foo() immediately before bar().")
+    }
+})
+```
+
+A `grit` query can't contain a rewrite (`=>`), because the query only selects nodes and doesn't edit the source. Report violations from `run` instead. The plugin fails to load if the pattern is invalid or contains a rewrite. The pattern must target JavaScript; patterns that declare another target language are not yet supported.
+
+By default, `run` doesn't receive the semantic model. If your rule needs to inspect bindings or scopes, pass `{ semantic: true }` as the second argument to make [`ctx.model`](#ctxmodel) available, similar to a [`semantic`](#semantic-query) query:
+
+```ts title="plugin.ts" ins='grit'
+export const noConsole = defineRule({
+    query: grit("`console.log($args)`", { semantic: true }),
+    run(node, { model }) {
+      // Inspect the bindings of the logged arguments if needed.
+    }
+})
+```
+
+:::note
+Variables captured by a Grit pattern, such as `$args` in `` `console.log($args)` ``, aren't exposed to `run` yet.
+:::
 
 ### Run APIs
 
