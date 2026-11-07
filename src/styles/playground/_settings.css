@@ -86,13 +86,13 @@
 		border: 1px solid var(--sl-color-gray-5);
 		padding: 0 10px;
 
-		:root[data-theme="dark"] & {
+		:where(:root[data-theme="dark"]) & {
 			color: inherit;
 			background-color: transparent;
 		}
 
 		@media (prefers-color-scheme: dark) {
-			:root[data-theme="auto"] & {
+			:where(:root[data-theme="auto"]) & {
 				color: inherit;
 				background-color: transparent;
 			}
@@ -118,7 +118,7 @@
 			background: #dadfe4;
 		}
 
-		:root[data-theme="dark"] & {
+		:where(:root[data-theme="dark"]) & {
 			background: rgba(255, 255, 255, 0.1);
 
 			&:hover {
@@ -131,7 +131,7 @@
 		}
 
 		@media (prefers-color-scheme: dark) {
-			:root[data-theme="auto"] & {
+			:where(:root[data-theme="auto"]) & {
 				background: rgba(255, 255, 255, 0.1);
 
 				&:hover {

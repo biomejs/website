@@ -1,0 +1,99 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueBooleanPropTypeFirst (JavaScript)
+description: JavaScript (and super languages) documentation for useVueBooleanPropTypeFirst
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-boolean-prop-type-first/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueBooleanPropTypeFirst`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/prefer-prop-type-boolean-first`](https://eslint.vuejs.org/rules/prefer-prop-type-boolean-first)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueBooleanPropTypeFirst": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require `Boolean` to be the first type of Vue props that accept several types.
+
+A prop can accept several types by listing them in an array, such as
+`[Boolean, String]`. When a Boolean prop is written in a template without a value, as in
+`<MyComponent disabled />`, Vue sets it to `true`. However, if `String` comes before
+`Boolean` in the list, Vue sets the prop to an empty string instead. Writing `Boolean`
+first makes such a prop behave the same as a prop that only accepts `Boolean`.
+
+This rule checks props declared through the `props` option and `defineProps()`.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  props: {
+    disabled: [String, Boolean],
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:24 <a href=\"https://biomejs.dev/linter/rules/use-vue-boolean-prop-type-first\">lint/nursery/useVueBooleanPropTypeFirst</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\"><strong>Boolean</strong></span><span style=\"color: Orange;\"> isn't the first type of this prop.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  props: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    disabled: [String, Boolean],<br />   <strong>   │ </strong>                       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  &#125;,<br />    <strong>6 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When </span><span style=\"color: lightgreen;\"><strong>String</strong></span><span style=\"color: lightgreen;\"> comes before </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\">, a prop written in a template without a value, such as </span><span style=\"color: lightgreen;\"><strong>&lt;MyComponent disabled /&gt;</strong></span><span style=\"color: lightgreen;\">, is set to an empty string instead of </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\"> to the start of the list of types.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Move </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\"> to the start of the list.</span><br />  <br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  export default &#123;<br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>    props: &#123;<br />    <strong>4</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">b</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">[</span><span style=\"color: Tomato;\"><strong>S</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>g</strong></span><span style=\"color: Tomato;\">,</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>B</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>l</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>a</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\">]</span><span style=\"color: Tomato;\">,</span><br />      <strong>4</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">b</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">[</span><span style=\"color: MediumSeaGreen;\"><strong>B</strong></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>l</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>a</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\">,</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>S</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>r</strong></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>g</strong></span><span style=\"color: MediumSeaGreen;\">]</span><span style=\"color: MediumSeaGreen;\">,</span><br />    <strong>5</strong> <strong>5</strong><strong> │ </strong>    &#125;,<br />    <strong>6</strong> <strong>6</strong><strong> │ </strong>  &#125;;<br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+defineProps({
+  disabled: { type: [String, Number, Boolean] },
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:38 <a href=\"https://biomejs.dev/linter/rules/use-vue-boolean-prop-type-first\">lint/nursery/useVueBooleanPropTypeFirst</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\"><strong>Boolean</strong></span><span style=\"color: Orange;\"> isn't the first type of this prop.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />    <strong>2 │ </strong>defineProps(&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  disabled: &#123; type: [String, Number, Boolean] &#125;,<br />   <strong>   │ </strong>                                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;);<br />    <strong>5 │ </strong>&lt;/script&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When </span><span style=\"color: lightgreen;\"><strong>String</strong></span><span style=\"color: lightgreen;\"> comes before </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\">, a prop written in a template without a value, such as </span><span style=\"color: lightgreen;\"><strong>&lt;MyComponent disabled /&gt;</strong></span><span style=\"color: lightgreen;\">, is set to an empty string instead of </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\"> to the start of the list of types.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Move </span><span style=\"color: lightgreen;\"><strong>Boolean</strong></span><span style=\"color: lightgreen;\"> to the start of the list.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  &lt;script setup&gt;<br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  defineProps(&#123;<br />    <strong>3</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">b</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">y</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">[</span><span style=\"color: Tomato;\">S</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">,</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">N</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">b</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\"><strong>,</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>B</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>l</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>a</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\">]</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#125;</span><span style=\"color: Tomato;\">,</span><br />      <strong>3</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">b</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">y</span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">[</span><span style=\"color: MediumSeaGreen;\"><strong>B</strong></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>l</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>a</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>,</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\">S</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">,</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">N</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">b</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">]</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#125;</span><span style=\"color: MediumSeaGreen;\">,</span><br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  &#125;);<br />    <strong>5</strong> <strong>5</strong><strong> │ </strong>  &lt;/script&gt;<br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup>
+defineProps({
+  disabled: Boolean,
+  label: String,
+  loading: [Boolean, String],
+  size: { type: [Boolean, String, Number] },
+});
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_boolean_prop_type_first.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueBooleanPropTypeFirst)
+- <RulePlaygroundLink rule="useVueBooleanPropTypeFirst" category="lint" language="vue" code={"<script>\nexport default {\n  props: {\n    disabled: [String, Boolean],\n  },\n};\n</script>\n"} />
+

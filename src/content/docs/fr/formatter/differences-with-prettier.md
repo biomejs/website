@@ -132,7 +132,6 @@ a.?.b!
 L’analyseur de Prettier basé sur Babel pour JavaScript et TypeScript est très permissif et [permet à de multiples erreurs](https://github.com/prettier/prettier/blob/e4a74c05f4502dd4ec70495c3130ff08ab088e05/src/language-js/parse/babel.js#L177-L218) d’être ignorées.
 L’analyseur de Biome est intentionnellement plus strict que celui de Prettier.
 Il identifie correctement les erreurs de syntaxe suivantes&nbsp;:
-
 - une fonction ne peut avoir de modificateurs en doublon,
 - un ordre invalide des modificateurs de propriétés,
 - les déclarations de fonction ne sont pas autorisées à avoir un corps,

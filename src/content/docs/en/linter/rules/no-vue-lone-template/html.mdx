@@ -1,0 +1,158 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueLoneTemplate (HTML)
+description: HTML documentation for noVueLoneTemplate
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-lone-template/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueLoneTemplate`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-lone-template`](https://eslint.vuejs.org/rules/no-lone-template)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueLoneTemplate": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `<template>` elements in a Vue template that don't use `v-if`, `v-else-if`, `v-else`, `v-for`, or `v-slot`.
+
+Inside a Vue template, a `<template>` element is an invisible wrapper only
+when it has one of these directives. Without one, Vue renders it as a
+regular HTML `<template>` element, and the browser doesn't show its
+content on the page.
+
+The `<template>` at the top level of a `.vue` file isn't checked.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <template>
+    <p>Hello</p>
+  </template>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:3 <a href=\"https://biomejs.dev/linter/rules/no-vue-lone-template\">lint/nursery/noVueLoneTemplate</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> has no </span><span style=\"color: Tomato;\"><strong>v-if</strong></span><span style=\"color: Tomato;\">, </span><span style=\"color: Tomato;\"><strong>v-else-if</strong></span><span style=\"color: Tomato;\">, </span><span style=\"color: Tomato;\"><strong>v-else</strong></span><span style=\"color: Tomato;\">, </span><span style=\"color: Tomato;\"><strong>v-for</strong></span><span style=\"color: Tomato;\">, or </span><span style=\"color: Tomato;\"><strong>v-slot</strong></span><span style=\"color: Tomato;\"> directive.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;template&gt;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    &lt;p&gt;Hello&lt;/p&gt;<br />    <strong>4 │ </strong>  &lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without one of these directives, Vue renders a regular HTML </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element, and the browser doesn't show its content.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the directive you meant to use, or remove the </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> tags and keep their content.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <template class="greeting">
+    <p>Hello</p>
+  </template>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:3 <a href=\"https://biomejs.dev/linter/rules/no-vue-lone-template\">lint/nursery/noVueLoneTemplate</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> has no </span><span style=\"color: Tomato;\"><strong>v-if</strong></span><span style=\"color: Tomato;\">, </span><span style=\"color: Tomato;\"><strong>v-else-if</strong></span><span style=\"color: Tomato;\">, </span><span style=\"color: Tomato;\"><strong>v-else</strong></span><span style=\"color: Tomato;\">, </span><span style=\"color: Tomato;\"><strong>v-for</strong></span><span style=\"color: Tomato;\">, or </span><span style=\"color: Tomato;\"><strong>v-slot</strong></span><span style=\"color: Tomato;\"> directive.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;template class=&quot;greeting&quot;&gt;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    &lt;p&gt;Hello&lt;/p&gt;<br />    <strong>4 │ </strong>  &lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without one of these directives, Vue renders a regular HTML </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element, and the browser doesn't show its content.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the directive you meant to use, or remove the </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> tags and keep their content.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <template v-if="visible">
+    <p>Hello</p>
+  </template>
+  <template v-else>
+    <p>Goodbye</p>
+  </template>
+  <template v-for="item in items">
+    <p>{{ item }}</p>
+  </template>
+  <MyList>
+    <template #item>
+      <p>Item</p>
+    </template>
+  </MyList>
+</template>
+```
+
+## Options
+
+### `ignoreAccessible`
+
+Default: `false`
+
+When `true`, a `<template>` without one of these directives is allowed
+if it has an `id` or `ref` attribute, written plainly or bound with
+`v-bind`. Use this when your code reads the `<template>` element on purpose,
+for example to copy its content.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueLoneTemplate": {
+					"level": "on",
+					"options": {
+						"ignoreAccessible": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```vue
+<template>
+  <template class="row">
+    <p>Cell</p>
+  </template>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:3 <a href=\"https://biomejs.dev/linter/rules/no-vue-lone-template\">lint/nursery/noVueLoneTemplate</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> has no </span><span style=\"color: Tomato;\"><strong>v-if</strong></span><span style=\"color: Tomato;\">, </span><span style=\"color: Tomato;\"><strong>v-else-if</strong></span><span style=\"color: Tomato;\">, </span><span style=\"color: Tomato;\"><strong>v-else</strong></span><span style=\"color: Tomato;\">, </span><span style=\"color: Tomato;\"><strong>v-for</strong></span><span style=\"color: Tomato;\">, or </span><span style=\"color: Tomato;\"><strong>v-slot</strong></span><span style=\"color: Tomato;\"> directive.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;template class=&quot;row&quot;&gt;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    &lt;p&gt;Cell&lt;/p&gt;<br />    <strong>4 │ </strong>  &lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without one of these directives, Vue renders a regular HTML </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element, and the browser doesn't show its content.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the directive you meant to use, or remove the </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> tags and keep their content.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```vue
+<template>
+  <template id="row">
+    <p>Cell</p>
+  </template>
+  <template ref="rowTemplate">
+    <p>Cell</p>
+  </template>
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_lone_template.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueLoneTemplate)
+- <RulePlaygroundLink rule="noVueLoneTemplate" category="lint" language="vue" code={"<template>\n  <template>\n    <p>Hello</p>\n  </template>\n</template>\n"} />
+

@@ -1,0 +1,91 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noPseudoElementInFunctionalPseudoClass (CSS)
+description: CSS documentation for noPseudoElementInFunctionalPseudoClass
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-pseudo-element-in-functional-pseudo-class/css/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noPseudoElementInFunctionalPseudoClass`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noPseudoElementInFunctionalPseudoClass": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow pseudo-elements inside `:is()`, `:where()`, `:not()` and `:has()`.
+
+These pseudo-classes only accept selectors that match elements. A pseudo-element such as
+`::before` isn't allowed inside them, so browsers drop the selector that contains it:
+`:is()` and `:where()` ignore that argument, while `:not()` and `:has()` make the whole
+selector invalid. Either way, the styles never apply to the pseudo-element.
+
+The rule also checks the older `:matches()`, and reports the single-colon forms `:before`,
+`:after`, `:first-line` and `:first-letter`, because browsers treat them as pseudo-elements
+too.
+
+Other functional pseudo-classes and pseudo-elements, such as `:host()` and `::slotted()`, and
+pseudo-classes whose name uses SCSS interpolation, aren't checked.
+
+## Examples
+
+### Invalid
+
+```css
+.card:is(.featured::before) {
+  content: "";
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:19 <a href=\"https://biomejs.dev/linter/rules/no-pseudo-element-in-functional-pseudo-class\">lint/nursery/noPseudoElementInFunctionalPseudoClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This pseudo-element can't be used inside :is().</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>.card:is(.featured::before) &#123;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>  content: &quot;&quot;;<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pseudo-elements aren't valid inside :is(), :where(), :not() or :has(). Browsers drop the invalid selector, so these styles never apply to the pseudo-element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To style the pseudo-element, put it at the end of the selector, outside the pseudo-class, for example </span><span style=\"color: lightgreen;\"><strong>.card:is(.featured, .pinned)::before</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```css
+li:not(::marker) {
+  color: red;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:8 <a href=\"https://biomejs.dev/linter/rules/no-pseudo-element-in-functional-pseudo-class\">lint/nursery/noPseudoElementInFunctionalPseudoClass</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This pseudo-element can't be used inside :not().</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>li:not(::marker) &#123;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>  color: red;<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pseudo-elements aren't valid inside :is(), :where(), :not() or :has(). Browsers drop the invalid selector, so these styles never apply to the pseudo-element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To style the pseudo-element, put it at the end of the selector, outside the pseudo-class, for example </span><span style=\"color: lightgreen;\"><strong>.card:is(.featured, .pinned)::before</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```css
+.card:is(.featured, .pinned)::before {
+  content: "";
+}
+
+li:not(.done)::marker {
+  color: red;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_pseudo_element_in_functional_pseudo_class.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noPseudoElementInFunctionalPseudoClass)
+- <RulePlaygroundLink rule="noPseudoElementInFunctionalPseudoClass" category="lint" language="css" code={".card:is(.featured::before) {\n  content: \"\";\n}\n"} />
+

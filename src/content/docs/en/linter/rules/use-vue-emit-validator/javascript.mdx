@@ -1,0 +1,114 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueEmitValidator (JavaScript)
+description: JavaScript (and super languages) documentation for useVueEmitValidator
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-emit-validator/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueEmitValidator`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/require-emit-validator`](https://eslint.vuejs.org/rules/require-emit-validator)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueEmitValidator": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require a validator function for each event declared in the `emits` option or in `defineEmits()`.
+
+A component can declare the events it sends to its parent with the `emits` option, or with
+`defineEmits()` in `<script setup>`. When the events are declared as an object, each event
+can have a validator: a function that receives the values passed with the event, and returns
+`true` when they are valid. Vue warns during development when a validator returns `false`.
+
+A validator also documents which values the event sends. In TypeScript, the parameter
+types of the validator become the types that the `emit` function accepts for that event.
+
+This rule reports events that are declared without a validator, either because they are
+listed in an array of names, or because their value in the object is `null` or another
+value that isn't a function. A variable used as the value is accepted, because it may hold
+a function declared elsewhere.
+
+Events declared with a type, as in `defineEmits<{ change: [id: number] }>()`, already
+describe their values and are not reported.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  emits: ["change"],
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:11 <a href=\"https://biomejs.dev/linter/rules/use-vue-emit-validator\">lint/nursery/useVueEmitValidator</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The event </span><span style=\"color: Orange;\"><strong>change</strong></span><span style=\"color: Orange;\"> is declared without a validator function.</span><br />  <br />    <strong>1 │ </strong>&lt;script&gt;<br />    <strong>2 │ </strong>export default &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  emits: [&quot;change&quot;],<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;;<br />    <strong>5 │ </strong>&lt;/script&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A validator function checks the values passed with the event, and documents what the event sends. In TypeScript, its parameter types also become the types the </span><span style=\"color: lightgreen;\"><strong>emit</strong></span><span style=\"color: lightgreen;\"> function accepts for this event.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Declare the events in an object instead of an array, and give this event a function that receives its values and returns </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> when they are valid. If the event sends no values, use </span><span style=\"color: lightgreen;\"><strong>() =&gt; true</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+defineEmits({
+  change: null,
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:3 <a href=\"https://biomejs.dev/linter/rules/use-vue-emit-validator\">lint/nursery/useVueEmitValidator</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The event </span><span style=\"color: Orange;\"><strong>change</strong></span><span style=\"color: Orange;\"> is declared with a value that turns off validation.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />    <strong>2 │ </strong>defineEmits(&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  change: null,<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;);<br />    <strong>5 │ </strong>&lt;/script&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A validator function checks the values passed with the event, and documents what the event sends. In TypeScript, its parameter types also become the types the </span><span style=\"color: lightgreen;\"><strong>emit</strong></span><span style=\"color: lightgreen;\"> function accepts for this event.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace the value with a function that receives the event's values and returns </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> when they are valid. If the event sends no values, use </span><span style=\"color: lightgreen;\"><strong>() =&gt; true</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Replace it with a validator function that accepts no values.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  &lt;script setup&gt;<br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  defineEmits(&#123;<br />    <strong>3</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">h</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>l</strong></span><span style=\"color: Tomato;\"><strong>l</strong></span><span style=\"color: Tomato;\">,</span><br />      <strong>3</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">h</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>(</strong></span><span style=\"color: MediumSeaGreen;\"><strong>)</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><strong>=</strong></span><span style=\"color: MediumSeaGreen;\"><strong>&gt;</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>r</strong></span><span style=\"color: MediumSeaGreen;\"><strong>u</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\">,</span><br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  &#125;);<br />    <strong>5</strong> <strong>5</strong><strong> │ </strong>  &lt;/script&gt;<br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+import { isNumber } from "./validators";
+
+export default {
+  emits: {
+    change: (id) => typeof id === "number",
+    close: () => true,
+    select: isNumber,
+  },
+};
+</script>
+```
+
+```vue
+<script setup lang="ts">
+defineEmits<{ change: [id: number] }>();
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_emit_validator.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueEmitValidator)
+- <RulePlaygroundLink rule="useVueEmitValidator" category="lint" language="vue" code={"<script>\nexport default {\n  emits: [\"change\"],\n};\n</script>\n"} />
+

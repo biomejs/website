@@ -60,6 +60,14 @@ runs:
         CARGO_INCREMENTAL: "1"
         BIOME_VERSION: ${{ inputs.version }}
 
+    - name: Setup Biome
+      uses: biomejs/setup-biome@4c91541eaada48f67d7dbd7833600ce162b68f51 # v2.7.1
+
+    # Codegen doesn't format its output, so generated Markdown would fail `biome ci`.
+    - name: Format generated files
+      shell: bash
+      run: biome format --write
+
     - name: Clear old rust cache
       if: ${{ steps.cache-restore.outputs.cache-hit }}
       shell: bash

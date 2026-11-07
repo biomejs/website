@@ -49,7 +49,8 @@ Palette colors such as `pink-500` and `slate-950` tie styles to specific
 colors instead of the role those colors play. Design system color names such as `primary`
 or `muted` let a design system change its palette without editing each component.
 This rule checks color utilities, including variants and opacity modifiers.
-It allows custom color names, `black`, `white`, `transparent`, `current`, and `inherit`.
+It allows custom color names, `transparent`, `current`, and `inherit`.
+It also allows `black` and `white`, unless the `allowBlackAndWhite` option is turned off.
 This rule does not check arbitrary values such as `bg-[#ff00aa]`.
 Giving a default palette name another value in your Tailwind CSS theme
 does not exempt it.
@@ -131,6 +132,47 @@ and opacity modifiers; it does not allow other pink shades.
 
 ```html
 <div class="bg-pink-500 hover:text-pink-500/80 border-black"></div>
+```
+
+### allowBlackAndWhite
+
+Default: `true`
+
+Whether to allow `black` and `white`.
+Set it to `false` to report them like other palette colors, so that black and
+white also come from your design system, such as `bg-surface` instead of `bg-white`.
+You can still allow one of them with `allowedColors`, such as `["white"]`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindRawColors": {
+					"level": "on",
+					"options": {
+						"allowBlackAndWhite": false
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```html
+<div class="hover:bg-white/80"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:19 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-raw-colors\">lint/nursery/noTailwindRawColors</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This Tailwind CSS class uses a raw palette color.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;hover:bg-white/80&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Raw palette colors couple components to specific colors, making design-system changes harder.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a color from your design system. Check your Tailwind config for the available colors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule is still being actively worked on, so it may be missing features or have rough edges. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://github.com/biomejs/biome/issues/11342\">https://github.com/biomejs/biome/issues/11342</a></span><span style=\"color: lightgreen;\"> for more information or to report possible bugs.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```html
+<div class="bg-surface text-foreground border-transparent fill-current"></div>
 ```
 
 ## See Also

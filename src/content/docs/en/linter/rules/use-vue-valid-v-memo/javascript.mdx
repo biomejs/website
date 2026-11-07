@@ -1,0 +1,88 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueValidVMemo (JavaScript)
+description: JavaScript (and super languages) documentation for useVueValidVMemo
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-valid-v-memo/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-valid-v-memo/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/useVueValidVMemo`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/valid-v-memo`](https://eslint.vuejs.org/rules/valid-v-memo)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueValidVMemo": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce valid `v-memo` Vue directives.
+
+`v-memo` takes an array of values. Vue skips updating the element and its
+children until one of those values changes.
+
+This rule reports a `v-memo` value that can never be an array, such as an
+object, a string, a number, or a function. When the value is a condition,
+like `a ? b : c`, each possible result is checked.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+    <div v-memo="{ x }"></div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+    <div v-memo="selected ? [item.id] : item.id + 1"></div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+    <div v-memo="[valueA, valueB]"></div>
+    <div v-memo="dependencies"></div>
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_valid_v_memo.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueValidVMemo)
+- <RulePlaygroundLink rule="useVueValidVMemo" category="lint" language="vue" code={"<template>\n    <div v-memo=\"{ x }\"></div>\n</template>\n"} />
+

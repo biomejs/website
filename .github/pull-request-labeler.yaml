@@ -1,4 +1,4 @@
 A-Documentation:
   - changed-files:
-    - any-glob-to-any-file:
-      - src/content/docs/**
+      - any-glob-to-any-file:
+          - src/content/docs/**

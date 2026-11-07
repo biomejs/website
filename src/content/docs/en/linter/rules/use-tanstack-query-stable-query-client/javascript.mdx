@@ -1,0 +1,125 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useTanstackQueryStableQueryClient (JavaScript)
+description: JavaScript (and super languages) documentation for useTanstackQueryStableQueryClient
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-tanstack-query-stable-query-client/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useTanstackQueryStableQueryClient`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`react`](/linter/domains#react)
+  - [`tanstackQuery`](/linter/domains#tanstackquery)
+- Sources: 
+  - Same as [`@tanstack/query/stable-query-client`](https://tanstack.com/query/latest/docs/eslint/stable-query-client)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useTanstackQueryStableQueryClient": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require the TanStack Query `QueryClient` to be created once, not on every render.
+
+The `QueryClient` holds the cache that stores the results of your queries. A React
+component runs its function body again each time it renders. When the body creates the
+client with `new QueryClient()`, every render gets a new client with an empty cache, and
+the data that was already fetched is lost.
+
+Create the client outside of the component, or store it with `useState` so that React
+keeps the same client across renders.
+
+This rule checks `new QueryClient()` calls that are assigned to a variable inside a React
+component or a custom hook, when `QueryClient` is imported from `@tanstack/react-query`.
+A function counts as a component when its name starts with an uppercase letter, and as a
+hook when its name starts with `use` followed by an uppercase letter.
+
+Async components are allowed to create a client, because an async Server Component only
+runs once on the server for each request.
+
+The fix wraps the client in `React.useState`. It expects `React` to be available in the
+file.
+
+## Examples
+
+### Invalid
+
+```jsx
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+function App() {
+    const queryClient = new QueryClient();
+    return (
+        <QueryClientProvider client={queryClient}>
+            <Home />
+        </QueryClientProvider>
+    );
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:4:25 <a href=\"https://biomejs.dev/linter/rules/use-tanstack-query-stable-query-client\">lint/nursery/useTanstackQueryStableQueryClient</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>QueryClient</strong></span><span style=\"color: Tomato;\"> is created again each time the component renders.</span><br />  <br />    <strong>3 │ </strong>function App() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    const queryClient = new QueryClient();<br />   <strong>   │ </strong>                        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>    return (<br />    <strong>6 │ </strong>        &lt;QueryClientProvider client=&#123;queryClient&#125;&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Each new client starts with an empty cache, so the data that was already fetched is lost on every render.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Create the client outside of the component, or store it with </span><span style=\"color: lightgreen;\"><strong>useState</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Store the client with </span><span style=\"color: lightgreen;\"><strong>React.useState</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong>  4 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>const<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">[</span>queryClient<span style=\"color: MediumSeaGreen;\">]</span><span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">R</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">.</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">S</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"opacity: 0.8;\"><span style=\"color: MediumSeaGreen;\">·</span></span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&gt;</span><span style=\"opacity: 0.8;\"><span style=\"color: MediumSeaGreen;\">·</span></span>new<span style=\"opacity: 0.8;\">·</span>QueryClient()<span style=\"color: MediumSeaGreen;\">)</span>;<br />  <strong>    │ </strong>          <span style=\"color: MediumSeaGreen;\">+</span>           <span style=\"color: MediumSeaGreen;\">+</span>   <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>                 <span style=\"color: MediumSeaGreen;\">+</span> <br /></code></pre>"} />
+
+```js
+import { QueryClient } from "@tanstack/react-query";
+
+const useQueryClient = () => {
+    const queryClient = new QueryClient();
+    return queryClient;
+};
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:25 <a href=\"https://biomejs.dev/linter/rules/use-tanstack-query-stable-query-client\">lint/nursery/useTanstackQueryStableQueryClient</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>QueryClient</strong></span><span style=\"color: Tomato;\"> is created again each time the component renders.</span><br />  <br />    <strong>3 │ </strong>const useQueryClient = () =&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    const queryClient = new QueryClient();<br />   <strong>   │ </strong>                        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>    return queryClient;<br />    <strong>6 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Each new client starts with an empty cache, so the data that was already fetched is lost on every render.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Create the client outside of the component, or store it with </span><span style=\"color: lightgreen;\"><strong>useState</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Store the client with </span><span style=\"color: lightgreen;\"><strong>React.useState</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong>  4 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>const<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">[</span>queryClient<span style=\"color: MediumSeaGreen;\">]</span><span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">R</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">.</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">S</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"opacity: 0.8;\"><span style=\"color: MediumSeaGreen;\">·</span></span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&gt;</span><span style=\"opacity: 0.8;\"><span style=\"color: MediumSeaGreen;\">·</span></span>new<span style=\"opacity: 0.8;\">·</span>QueryClient()<span style=\"color: MediumSeaGreen;\">)</span>;<br />  <strong>    │ </strong>          <span style=\"color: MediumSeaGreen;\">+</span>           <span style=\"color: MediumSeaGreen;\">+</span>   <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>                 <span style=\"color: MediumSeaGreen;\">+</span> <br /></code></pre>"} />
+
+### Valid
+
+```jsx
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
+
+const sharedClient = new QueryClient();
+
+function App() {
+    const [queryClient] = useState(() => new QueryClient());
+    return (
+        <QueryClientProvider client={queryClient}>
+            <Home />
+        </QueryClientProvider>
+    );
+}
+
+async function ServerComponent() {
+    const queryClient = new QueryClient();
+    await queryClient.prefetchQuery(options);
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_tanstack_query_stable_query_client.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useTanstackQueryStableQueryClient)
+- <RulePlaygroundLink rule="useTanstackQueryStableQueryClient" category="lint" language="jsx" code={"import { QueryClient, QueryClientProvider } from \"@tanstack/react-query\";\n\nfunction App() {\n    const queryClient = new QueryClient();\n    return (\n        <QueryClientProvider client={queryClient}>\n            <Home />\n        </QueryClientProvider>\n    );\n}\n"} />
+

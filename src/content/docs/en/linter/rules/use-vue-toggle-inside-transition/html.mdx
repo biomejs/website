@@ -1,0 +1,103 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueToggleInsideTransition (HTML)
+description: HTML documentation for useVueToggleInsideTransition
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-toggle-inside-transition/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/useVueToggleInsideTransition`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/require-toggle-inside-transition`](https://eslint.vuejs.org/rules/require-toggle-inside-transition)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueToggleInsideTransition": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require the element inside a Vue `<Transition>` to be shown and hidden with `v-if` or `v-show`.
+
+A `<Transition>` plays its animation when the element inside it is added,
+removed, shown, or hidden. An element that is always shown never changes,
+so the animation never plays.
+
+The rule checks the first element inside each `<Transition>`. That element
+is accepted when one of the following is true:
+
+- it has a `v-if` or `v-show` directive;
+- it has a `key` bound with `:key` or `v-bind:key`, because Vue replaces the
+element when the key changes;
+- it is a component, a `<component>`, a `<slot>`, or an element with an `is`
+attribute, because the rule can't see what they render;
+- the `<Transition>` has the `appear` attribute, which plays the animation
+when the element is first shown. `:appear="false"` doesn't count.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <Transition>
+    <div>Content</div>
+  </Transition>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:5 <a href=\"https://biomejs.dev/linter/rules/use-vue-toggle-inside-transition\">lint/nursery/useVueToggleInsideTransition</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This element inside </span><span style=\"color: Orange;\"><strong>&lt;Transition&gt;</strong></span><span style=\"color: Orange;\"> is never shown or hidden.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;Transition&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;div&gt;Content&lt;/div&gt;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &lt;/Transition&gt;<br />    <strong>5 │ </strong>&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A transition only plays when the element inside it appears or disappears. This element is always present, so the transition never plays.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add </span><span style=\"color: lightgreen;\"><strong>v-if</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>v-show</strong></span><span style=\"color: lightgreen;\"> to the element, or bind a </span><span style=\"color: lightgreen;\"><strong>:key</strong></span><span style=\"color: lightgreen;\"> that changes when the content does.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <Transition>
+    <div v-if="visible">Content</div>
+  </Transition>
+  <Transition>
+    <div v-show="visible">Content</div>
+  </Transition>
+  <Transition>
+    <div :key="step">Content</div>
+  </Transition>
+  <Transition>
+    <MyComponent />
+  </Transition>
+  <Transition appear>
+    <div>Content</div>
+  </Transition>
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_toggle_inside_transition.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueToggleInsideTransition)
+- <RulePlaygroundLink rule="useVueToggleInsideTransition" category="lint" language="vue" code={"<template>\n  <Transition>\n    <div>Content</div>\n  </Transition>\n</template>\n"} />
+

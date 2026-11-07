@@ -1,0 +1,102 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noChainedComparison (JavaScript)
+description: JavaScript (and super languages) documentation for noChainedComparison
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-chained-comparison/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noChainedComparison`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Inspired from [`oxc/bad-comparison-sequence`](https://oxc.rs/docs/guide/usage/linter/rules/oxc/bad-comparison-sequence)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noChainedComparison": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow chaining comparisons, as in `a < b < c`.
+
+A comparison such as `a < b` always produces `true` or `false`. When you write
+`a < b < c`, JavaScript first compares `a` with `b`, and then compares that `true` or
+`false` with `c`. It never compares `b` with `c`. For example, `3 > 2 > 1` is `false`,
+because `3 > 2` is `true`, and `true > 1` is `false`.
+
+The same happens with equality checks: `a === b === c` compares `a` with `b`, and then
+compares the result with `c`. It doesn't check that all three values are equal.
+
+To compare each pair of values, join separate comparisons with `&&`, as in
+`a < b && b < c`.
+
+The rule reports two comparisons in a row that both use `<`, `>`, `<=`, or `>=`, or that
+both use `==`, `===`, `!=`, or `!==`. Parentheses don't change the result, so
+`(a === b) === c` is also reported.
+
+The rule ignores an equality check when the value on its right is also `true` or
+`false`: the `true` and `false` literals, another comparison, or an expression that
+starts with `!`. Checking whether two booleans are equal is usually intended, as in
+`(a === null) === (b === null)`.
+
+## Examples
+
+### Invalid
+
+```js
+if (a < b < c) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:5 <a href=\"https://biomejs.dev/linter/rules/no-chained-comparison\">lint/nursery/noChainedComparison</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This compares the result of another comparison with a value.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (a &lt; b &lt; c) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This comparison runs first and produces </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (a &lt; b &lt; c) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This value is then compared with that </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">, not with the values of the first comparison.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (a &lt; b &lt; c) &#123;&#125;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">For example, </span><span style=\"color: lightgreen;\"><strong>3 &gt; 2 &gt; 1</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">, because </span><span style=\"color: lightgreen;\"><strong>3 &gt; 2</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\">, and </span><span style=\"color: lightgreen;\"><strong>true &gt; 1</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To compare each pair of values, join separate comparisons with </span><span style=\"color: lightgreen;\"><strong>&amp;&amp;</strong></span><span style=\"color: lightgreen;\">, as in </span><span style=\"color: lightgreen;\"><strong>a &lt; b &amp;&amp; b &lt; c</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+if (a === b === c) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:5 <a href=\"https://biomejs.dev/linter/rules/no-chained-comparison\">lint/nursery/noChainedComparison</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This compares the result of another comparison with a value.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (a === b === c) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This comparison runs first and produces </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (a === b === c) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This value is then compared with that </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">, not with the values of the first comparison.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (a === b === c) &#123;&#125;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">For example, </span><span style=\"color: lightgreen;\"><strong>2 === 2 === 2</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">, because </span><span style=\"color: lightgreen;\"><strong>2 === 2</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\">, and </span><span style=\"color: lightgreen;\"><strong>true === 2</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To compare each pair of values, join separate comparisons with </span><span style=\"color: lightgreen;\"><strong>&amp;&amp;</strong></span><span style=\"color: lightgreen;\">, as in </span><span style=\"color: lightgreen;\"><strong>a === b &amp;&amp; b === c</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+if ((a == b) != c) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:5 <a href=\"https://biomejs.dev/linter/rules/no-chained-comparison\">lint/nursery/noChainedComparison</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This compares the result of another comparison with a value.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if ((a == b) != c) &#123;&#125;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This comparison runs first and produces </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if ((a == b) != c) &#123;&#125;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This value is then compared with that </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">, not with the values of the first comparison.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if ((a == b) != c) &#123;&#125;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">For example, </span><span style=\"color: lightgreen;\"><strong>2 === 2 === 2</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">, because </span><span style=\"color: lightgreen;\"><strong>2 === 2</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>true</strong></span><span style=\"color: lightgreen;\">, and </span><span style=\"color: lightgreen;\"><strong>true === 2</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To compare each pair of values, join separate comparisons with </span><span style=\"color: lightgreen;\"><strong>&amp;&amp;</strong></span><span style=\"color: lightgreen;\">, as in </span><span style=\"color: lightgreen;\"><strong>a === b &amp;&amp; b === c</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+if (a < b && b < c) {}
+if (a === b && b === c) {}
+if (a < b === c) {}
+if ((a === null) === (b === null)) {}
+if ((a === b) === false) {}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_chained_comparison.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noChainedComparison)
+- <RulePlaygroundLink rule="noChainedComparison" category="lint" language="js" code={"if (a < b < c) {}\n"} />
+

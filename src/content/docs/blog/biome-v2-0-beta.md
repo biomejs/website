@@ -32,7 +32,6 @@ Documentation for the upcoming release can be found at https://next.biomejs.dev/
 ## New features
 
 While the final 2.0 release may still have small changes in its final feature set, here's what you can expect in the beta:
-
 - **Plugins:** You can write custom lint rules using GritQL.
 - **Domains:** Domains help to group lint rules by technology, framework, or well, domain. Thanks to domains, your default set of recommended lint rules will only include those that are relevant to your project.
 - **Multi-file analysis:** Lint rules can now apply analysis based on information from other files, enabling rules such as `noImportCycles`.
@@ -53,11 +52,8 @@ Here is an example of a plugin that reports on all usages of `Object.assign()`:
 
 ```grit
 `$fn($args)` where {
-    $fn <: `Object.assign`,
-    register_diagnostic(
-        span = $fn,
-        message = "Prefer object spread instead of `Object.assign()`"
-    )
+	$fn <: `Object.assign`,
+	register_diagnostic(span=$fn, message="Prefer object spread instead of `Object.assign()`")
 }
 ```
 
@@ -68,7 +64,6 @@ It's a first step, but we have plenty of ideas for making them more powerful, an
 We've introduced a new linter feature: [Domains](https://next.biomejs.dev/linter/domains/).
 
 Domains are a new way to organise lint rules by technology, framework, or well, domain. Right now, we have identified four domains:
-
 - `next`: Rules related to Next.js.
 - `react`: Rules related to React.
 - `solid`: Rules related to Solid.js.
@@ -104,7 +99,6 @@ To accomplish this, we have added a _file scanner_ to Biome that scans all the f
 That said, this is a beta, and there are certainly more opportunities to improve our scanner and its performance. If you have a repository where you feel our performance became unacceptably slow, please reach out and [file an issue](https://github.com/biomejs/biome/issues/new?template=03_bug.yml).
 
 For now, we have a few interesting rules that can make use of our multi-file analysis:
-
 - [`noImportCycles`](https://next.biomejs.dev/linter/rules/no-import-cycles/) is able to look at import statements and detect cycles between them.
 - [`noPrivateImports`](https://next.biomejs.dev/linter/rules/no-private-imports/) is a new rule based on the `useImportRestrictions` nursery rule from Biome 1.x, and inspired by ESLint's [`plugin-import-access`](https://github.com/uhyo/eslint-plugin-import-access). It forbids importing symbols with an `@private` JSDoc tag from other modules, and forbids importing symbols with an `@package` tag if the importing file is not in the same folder or one of its subfolders.
 - [`useImportExtensions`](https://next.biomejs.dev/linter/rules/use-import-extensions/) has been improved because it can now determine the actual extension that needs to be used for an import, instead of guessing based on heuristics.
@@ -118,15 +112,16 @@ With Biome's linter we have always strived to provide a battery-included approac
 Biome has featured some rules from `typescript-eslint` for a while now, but we could never replace all rules, because they relied on type information for their analysis. And in order to get type information, `typescript-eslint` relies on `tsc` itself, which is rather slow and also complicates setup.
 
 This is about to change. With Biome 2.0, we're introducing a first version of the [`noFloatingPromises`](https://next.biomejs.dev/linter/rules/no-floating-promises) rule, one of the most-requested rules that relies on type information. In fairness, we should not consider it more than a proof-of-concept right now, because there are some notable limitations to its capabilities:
-
-* It doesn't understand complex types yet.
-* It cannot do type inference yet.
-* It can currently only analyse types that occur in the same file.
+- It doesn't understand complex types yet.
+- It cannot do type inference yet.
+- It can currently only analyse types that occur in the same file.
 
 Still, its capabilities are sufficient to catch some of the low-hanging fruit. Consider this small snippet:
 
 ```js title="example.js"
-async function returnsPromise() { /* ... */ }
+async function returnsPromise() {
+	/* ... */
+}
 
 returnsPromise().then(() => {});
 ```
@@ -152,8 +147,7 @@ As you can guess, we intend to expand this rule's capabilities over time. And wi
 ### Import Organizer Revamp
 
 In Biome 1.x, our Import Organizer had several limitations:
-
-* Groups of imports or exports would be considered separate _chunks_, meaning they would be sorted independently. This meant the following **didn't work** as expected:
+- Groups of imports or exports would be considered separate _chunks_, meaning they would be sorted independently. This meant the following **didn't work** as expected:
 
   ```js title="example.js"
   import { lib2 } from "library2";
@@ -181,7 +175,7 @@ In Biome 1.x, our Import Organizer had several limitations:
   import { util } from "./utils.js";
   ```
 
-* Separate imports from the same module wouldn't be merged. Consider the following example:
+- Separate imports from the same module wouldn't be merged. Consider the following example:
 
   ```js title="example.js"
   import { util1 } from "./utils.js";
@@ -194,7 +188,7 @@ In Biome 1.x, our Import Organizer had several limitations:
   import { util1, util2 } from "./utils.js";
   ```
 
-* No custom ordering could be configured. Maybe you didn't really like the default approach of ordering by "distance" from the source file that you're importing from. Maybe you wanted to organise like this:
+- No custom ordering could be configured. Maybe you didn't really like the default approach of ordering by "distance" from the source file that you're importing from. Maybe you wanted to organise like this:
 
   ```js title="organizer_v2.js"
   import { open } from "node:fs";
@@ -252,7 +246,6 @@ You can enable the HTML formatter by adding the following to your config file:
 ### New rules
 
 Several new rules have added since v1.9:
-
 - [`noAwaitInLoop`](https://next.biomejs.dev/linter/rules/no-await-in-loop)
 - [`noBitwiseOperators`](https://next.biomejs.dev/linter/rules/no-bitwise-operators/)
 - [`noDestructuredProps`](https://next.biomejs.dev/linter/rules/no-destructured-props/)

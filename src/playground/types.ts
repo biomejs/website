@@ -336,6 +336,7 @@ export interface PlaygroundProps {
 	setPlaygroundState: Dispatch<SetStateAction<PlaygroundState>>;
 	resetPlaygroundState: () => void;
 	playgroundState: PlaygroundState;
+	onEditorFocus: () => void;
 }
 
 export type Tree = ReturnType<typeof parser.parse>;

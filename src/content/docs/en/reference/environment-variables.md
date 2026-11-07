@@ -4,6 +4,7 @@
 title: Environment variables
 description: A list of the environment variables that configure Biome's behavior.
 ---
+
 The following environment variables configure Biome and its npm package.
 
 
@@ -157,4 +158,3 @@ RUST_BACKTRACE=1 biome check .
 :::note
 `RUST_BACKTRACE` is a Rust environment variable, not a Biome-specific option. Biome supports it because it is built with Rust and uses Rust's backtrace support when reporting a panic.
 :::
-

@@ -132,7 +132,6 @@ a.?.b!
 Parsowanie oparte na Babel w Prettier dla JavaScript i TypeScript jest bardzo luźne i [pozwala ignorować wiele błędów](https://github.com/prettier/prettier/blob/e4a74c05f4502dd4ec70495c3130ff08ab088e05/src/language-js/parse/babel.js#L177-L218).
 Parser Biome jest celowo bardziej restrykcyjny niż parser Prettier.
 Poprawnie identyfikuje następujące błędy składniowe:
-
 - Funkcja nie może mieć duplikatów modyfikatorów
 - nieprawidłowa kolejność modyfikatorów właściwości
 - Deklaracje funkcji nie mogą mieć ciał

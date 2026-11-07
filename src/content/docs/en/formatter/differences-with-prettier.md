@@ -136,7 +136,6 @@ a.?.b!
 Prettier's Babel-based parsing for JavaScript and TypeScript is very loose and [allows multiple errors](https://github.com/prettier/prettier/blob/e4a74c05f4502dd4ec70495c3130ff08ab088e05/src/language-js/parse/babel.js#L177-L218) to be ignored.
 Biome's parser is intentionally stricter than the Prettier parser.
 It correctly identifies the following syntax errors:
-
 - A function cannot have duplicate modifiers
 - invalid order of properties' modifiers
 - Function declarations are not allowed to have bodies
@@ -262,4 +261,3 @@ return (
   someVeryLongStringD
 );
 ```
-

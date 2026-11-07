@@ -1,0 +1,105 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueVModel (HTML)
+description: HTML documentation for useVueVModel
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-v-model/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/useVueVModel`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/prefer-v-model`](https://eslint.vuejs.org/rules/prefer-v-model)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueVModel": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce `v-model` instead of a prop binding paired with an `update:` listener that writes the value back.
+
+A component that supports [`v-model`](https://vuejs.org/guide/components/v-model.html)
+receives a prop, and emits an `update:` event with the new value when it changes. Binding
+the prop and writing the new value back by hand, as in
+`:title="title" @update:title="title = $event"`, does the same thing as
+`v-model:title="title"`. The `v-model` form is shorter, and the prop and its listener can't
+get out of sync.
+
+For the `modelValue` prop, the rule suggests the shorter `v-model="value"` form.
+
+The rule only checks components. It reports a pair when the listener does nothing but
+assign the new value to the bound expression, written either as `value = $event` or as
+`(newValue) => value = newValue`. Bindings and listeners with modifiers are ignored.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <MyComponent :modelValue="text" @update:modelValue="text = $event" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+  <MyComponent :title="title" @update:title="title = $event" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+  <MyComponent v-bind:title="title" v-on:update:title="(value) => title = value" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <MyComponent v-model="text" />
+  <MyComponent v-model:title="title" />
+  <MyComponent :title="title" @update:title="otherTitle = $event" />
+  <MyComponent :title="title" @update:title="setTitle($event)" />
+  <MyComponent :title="title" @update:title="title = $event; save()" />
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_v_model.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueVModel)
+- <RulePlaygroundLink rule="useVueVModel" category="lint" language="vue" code={"<template>\n  <MyComponent :modelValue=\"text\" @update:modelValue=\"text = $event\" />\n</template>\n"} />
+

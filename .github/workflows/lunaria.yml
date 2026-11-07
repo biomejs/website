@@ -4,8 +4,8 @@ on:
   # Trigger the workflow every time a pull request is opened or synchronized at the target `main` branch
   # Using a different branch name? Replace `main` with your branch’s name
   pull_request_target:
-    types: [ opened, synchronize ]
-    branches: [ main ]
+    types: [opened, synchronize]
+    branches: [main]
 
 # Allow this job to clone the repository and comment on the pull request
 permissions:

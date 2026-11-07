@@ -1,0 +1,193 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueUndeclaredProperties (JavaScript)
+description: JavaScript (and super languages) documentation for noVueUndeclaredProperties
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-undeclared-properties/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueUndeclaredProperties`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/no-undef-properties`](https://eslint.vuejs.org/rules/no-undef-properties)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueUndeclaredProperties": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow using properties that a Vue component doesn't declare.
+
+A component's template and its `this` can only use what the component declares: its
+props, data, computed properties, methods, injected values, the values its `setup()`
+function returns, and the variables of `<script setup>`. Using any other name gives
+`undefined`. This usually means the name has a typo, or the declaration was removed or
+never written.
+
+This rule reports such names in the template, in `this.name` inside the component's
+options, and in `props.name` when `props` is the object returned by `defineProps()` or
+passed to `setup()`. It also reports names written as strings in the `watch` and `expose`
+options, and members that a data property doesn't have when its value is an object
+written in place, such as `user.nmae` when `data()` returns `{ user: { name: "" } }`.
+
+Names that start with `$`, such as `$route` or `$t`, are never reported, because plugins
+commonly add properties with these names to every component.
+
+:::note
+In `.vue` files, this rule needs to read the template, which requires
+[`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)
+to be `true`. Without that setting, the rule only checks the script.
+:::
+
+The rule reports nothing for a component when it can't know everything the component
+declares. That is the case when:
+
+- the component uses `mixins` or `extends`;
+- an object is copied into the options with `...`, as in `computed: { ...mapState(["user"]) }`;
+- an option such as `data` or `setup` returns something other than an object written
+in place, as in `return toRefs(state)`;
+- the props are declared with a TypeScript type that is imported from another file;
+- the component has a `<script src>` block.
+
+## Examples
+
+### Invalid
+
+```js
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  data() {
+    return { count: 0 };
+  },
+  methods: {
+    increment() {
+      this.cnt++;
+    },
+  },
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:9:12 <a href=\"https://biomejs.dev/linter/rules/no-vue-undeclared-properties\">lint/nursery/noVueUndeclaredProperties</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\"><strong>cnt</strong></span><span style=\"color: Tomato;\"> isn't declared by this component.</span><br />  <br />     <strong>7 │ </strong>  methods: &#123;<br />     <strong>8 │ </strong>    increment() &#123;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>9 │ </strong>      this.cnt++;<br />    <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>10 │ </strong>    &#125;,<br />    <strong>11 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't track changes to it, so the page doesn't update when it changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This often means the name has a typo, or its declaration is missing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Fix the name, or declare it in the component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+const props = defineProps(["name"]);
+console.log(props.title);
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:19 <a href=\"https://biomejs.dev/linter/rules/no-vue-undeclared-properties\">lint/nursery/noVueUndeclaredProperties</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\"><strong>title</strong></span><span style=\"color: Tomato;\"> isn't declared as a prop of this component.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />    <strong>2 │ </strong>const props = defineProps([&quot;name&quot;]);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>console.log(props.title);<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&lt;/script&gt;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Its value is always </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This often means the name has a typo, or its declaration is missing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Fix the name, or declare it in the component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+const count = 0;
+</script>
+
+<template>
+  <p>{{ cnt }}</p>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+export default {
+  props: ["name"],
+  data() {
+    return { count: 0 };
+  },
+  methods: {
+    increment() {
+      this.count++;
+    },
+  },
+};
+</script>
+
+<template>
+  <button @click="increment">{{ name }}: {{ count }} {{ $t("clicks") }}</button>
+</template>
+```
+
+## Options
+
+### `ignore`
+
+A list of property names that are never reported. Use it for properties that a plugin
+adds to every component, when their names don't start with `$`.
+
+Default: `[]`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueUndeclaredProperties": {
+					"level": "on",
+					"options": {
+						"ignore": [
+							"i18n"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  methods: {
+    greet() {
+      return this.i18n.translate("hello");
+    },
+  },
+});
+```
+
+## See Also
+
+- [`noUndeclaredVariables`](https://biomejs.dev/linter/rules/no-undeclared-variables/)
+reports variables that are not declared anywhere, including in Vue templates.
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_undeclared_properties.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueUndeclaredProperties)
+- <RulePlaygroundLink rule="noVueUndeclaredProperties" category="lint" language="js" code={"import { defineComponent } from \"vue\";\n\nexport default defineComponent({\n  data() {\n    return { count: 0 };\n  },\n  methods: {\n    increment() {\n      this.cnt++;\n    },\n  },\n});\n"} />
+

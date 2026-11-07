@@ -1,0 +1,87 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDeprecatedVOnNativeModifier (HTML)
+description: HTML documentation for noVueDeprecatedVOnNativeModifier
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-deprecated-v-on-native-modifier/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueDeprecatedVOnNativeModifier`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-deprecated-v-on-native-modifier`](https://eslint.vuejs.org/rules/no-deprecated-v-on-native-modifier)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedVOnNativeModifier": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the `.native` modifier on Vue's `v-on` directive.
+
+In Vue 2, the `.native` modifier made `v-on` listen to an event on the
+root element of a component, instead of an event sent by the component itself.
+Vue 3 removed this modifier.
+A listener for an event that the component does not declare in its `emits`
+option is now added to the component's root element automatically,
+so the modifier is no longer needed.
+
+## Examples
+
+### Invalid
+
+```vue
+<MyComponent v-on:click.native="onClick" />
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:24 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-v-on-native-modifier\">lint/nursery/noVueDeprecatedVOnNativeModifier</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>.native</strong></span><span style=\"color: Tomato;\"> modifier on </span><span style=\"color: Tomato;\"><strong>v-on</strong></span><span style=\"color: Tomato;\"> is deprecated.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;MyComponent v-on:click.native=&quot;onClick&quot; /&gt;<br />   <strong>   │ </strong>                       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 removed this modifier. Listeners for events that a component does not declare in its </span><span style=\"color: lightgreen;\"><strong>emits</strong></span><span style=\"color: lightgreen;\"> option are added to its root element automatically.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>.native</strong></span><span style=\"color: lightgreen;\"> modifier.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<MyComponent @click.native="onClick" />
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:20 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-v-on-native-modifier\">lint/nursery/noVueDeprecatedVOnNativeModifier</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>.native</strong></span><span style=\"color: Tomato;\"> modifier on </span><span style=\"color: Tomato;\"><strong>v-on</strong></span><span style=\"color: Tomato;\"> is deprecated.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;MyComponent @click.native=&quot;onClick&quot; /&gt;<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 removed this modifier. Listeners for events that a component does not declare in its </span><span style=\"color: lightgreen;\"><strong>emits</strong></span><span style=\"color: lightgreen;\"> option are added to its root element automatically.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>.native</strong></span><span style=\"color: lightgreen;\"> modifier.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<MyComponent v-on:click="onClick" />
+<MyComponent @click="onClick" />
+<input @keyup.enter="submit" />
+```
+
+## References
+
+- [Vue 3 migration guide: `v-on.native` modifier removed](https://v3-migration.vuejs.org/breaking-changes/v-on-native-modifier-removed.html)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_deprecated_v_on_native_modifier.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueDeprecatedVOnNativeModifier)
+- <RulePlaygroundLink rule="noVueDeprecatedVOnNativeModifier" category="lint" language="vue" code={"<MyComponent v-on:click.native=\"onClick\" />\n"} />
+

@@ -41,6 +41,17 @@ ul.credits-people-list {
 		border-radius: 12px;
 		overflow: hidden;
 	}
+	img {
+		width: 220px;
+		height: 220px;
+		display: block;
+	}
+
+	span {
+		display: block;
+		margin: var(--unit) 0;
+	}
+
 	&.contributors {
 		li {
 			width: 57px;
@@ -93,16 +104,5 @@ ul.credits-people-list {
 		&:hover {
 			text-decoration: underline;
 		}
-	}
-
-	img {
-		width: 220px;
-		height: 220px;
-		display: block;
-	}
-
-	span {
-		display: block;
-		margin: var(--unit) 0;
 	}
 }

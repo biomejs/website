@@ -1,0 +1,101 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noPlaywrightUnsafeReferences (JavaScript)
+description: JavaScript (and super languages) documentation for noPlaywrightUnsafeReferences
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-playwright-unsafe-references/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noPlaywrightUnsafeReferences`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`playwright`](/linter/domains#playwright)
+- Sources: 
+  - Same as [`playwright/no-unsafe-references`](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-unsafe-references.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noPlaywrightUnsafeReferences": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow using variables from outside the function passed to `page.evaluate()` and `page.addInitScript()`.
+
+Playwright doesn't run the function passed to `page.evaluate()` or `page.addInitScript()`
+in your test. It converts the function to text, sends it to the browser page, and runs it there.
+Variables declared in your test file don't exist in the browser page,
+so using them inside the function throws an error when the test runs.
+
+To use a value from your test inside the function, pass it as the second argument
+of `page.evaluate()` or `page.addInitScript()`, and read it from the function's parameter.
+Playwright copies the value to the browser page for you.
+
+The rule only checks variables declared in the same file.
+It ignores global variables, such as `document` or `Promise`, and variables
+declared with TypeScript's `declare` keyword.
+
+## Examples
+
+### Invalid
+
+```js
+const x = 7;
+const y = 8;
+await page.evaluate(() => x * y);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:27 <a href=\"https://biomejs.dev/linter/rules/no-playwright-unsafe-references\">lint/nursery/noPlaywrightUnsafeReferences</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The variable </span><span style=\"color: Tomato;\"><strong>x</strong></span><span style=\"color: Tomato;\"> is declared outside the function passed to </span><span style=\"color: Tomato;\"><strong>evaluate()</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>1 │ </strong>const x = 7;<br />    <strong>2 │ </strong>const y = 8;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>await page.evaluate(() =&gt; x &#42; y);<br />   <strong>   │ </strong>                          <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The variable </span><span style=\"color: lightgreen;\"><strong>y</strong></span><span style=\"color: lightgreen;\"> is also declared outside the function.</span><br />  <br />    <strong>1 │ </strong>const x = 7;<br />    <strong>2 │ </strong>const y = 8;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>await page.evaluate(() =&gt; x &#42; y);<br />   <strong>   │ </strong>                              <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Playwright runs this function inside the browser page, where variables from your test don't exist. Using them throws an error when the test runs.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the values as the second argument of </span><span style=\"color: lightgreen;\"><strong>evaluate()</strong></span><span style=\"color: lightgreen;\">, and read them from the function's parameter.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Pass the variables as an argument.</span><br />  <br />  <strong>  3 │ </strong>await<span style=\"opacity: 0.8;\">·</span>page.evaluate((<span style=\"color: MediumSeaGreen;\">[</span><span style=\"color: MediumSeaGreen;\">x</span><span style=\"color: MediumSeaGreen;\">,</span><span style=\"opacity: 0.8;\"><span style=\"color: MediumSeaGreen;\">·</span></span><span style=\"color: MediumSeaGreen;\">y</span><span style=\"color: MediumSeaGreen;\">]</span>)<span style=\"opacity: 0.8;\">·</span>=&gt;<span style=\"opacity: 0.8;\">·</span>x<span style=\"opacity: 0.8;\">·</span>&#42;<span style=\"opacity: 0.8;\">·</span>y<span style=\"color: MediumSeaGreen;\">,</span><span style=\"opacity: 0.8;\"><span style=\"color: MediumSeaGreen;\">·</span></span><span style=\"color: MediumSeaGreen;\">[</span><span style=\"color: MediumSeaGreen;\">x</span><span style=\"color: MediumSeaGreen;\">,</span><span style=\"opacity: 0.8;\"><span style=\"color: MediumSeaGreen;\">·</span></span><span style=\"color: MediumSeaGreen;\">y</span><span style=\"color: MediumSeaGreen;\">]</span>);<br />  <strong>    │ </strong>                     <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>          <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>  <br /></code></pre>"} />
+
+```js
+const theme = "dark";
+await page.addInitScript(() => {
+    localStorage.setItem("theme", theme);
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:35 <a href=\"https://biomejs.dev/linter/rules/no-playwright-unsafe-references\">lint/nursery/noPlaywrightUnsafeReferences</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The variable </span><span style=\"color: Tomato;\"><strong>theme</strong></span><span style=\"color: Tomato;\"> is declared outside the function passed to </span><span style=\"color: Tomato;\"><strong>addInitScript()</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>1 │ </strong>const theme = &quot;dark&quot;;<br />    <strong>2 │ </strong>await page.addInitScript(() =&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    localStorage.setItem(&quot;theme&quot;, theme);<br />   <strong>   │ </strong>                                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;);<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Playwright runs this function inside the browser page, where variables from your test don't exist. Using them throws an error when the test runs.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the values as the second argument of </span><span style=\"color: lightgreen;\"><strong>addInitScript()</strong></span><span style=\"color: lightgreen;\">, and read them from the function's parameter.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Pass the variables as an argument.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  const theme = &quot;dark&quot;;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">w</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">I</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">S</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&gt;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">w</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">.</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">I</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">S</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\"><strong>[</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>h</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>m</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>]</strong></span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&gt;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>      localStorage.setItem(&quot;theme&quot;, theme);<br />    <strong>4</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">&#125;</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\">;</span><br />      <strong>4</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">&#125;</span><span style=\"color: MediumSeaGreen;\"><strong>,</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><strong>[</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>h</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>m</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>]</strong></span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>5</strong> <strong>5</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+const x = 7;
+const y = 8;
+await page.evaluate(([x, y]) => x * y, [x, y]);
+
+const theme = "dark";
+await page.addInitScript((theme) => {
+    localStorage.setItem("theme", theme);
+}, theme);
+
+await page.evaluate(() => document.title);
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_playwright_unsafe_references.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noPlaywrightUnsafeReferences)
+- <RulePlaygroundLink rule="noPlaywrightUnsafeReferences" category="lint" language="js" code={"const x = 7;\nconst y = 8;\nawait page.evaluate(() => x * y);\n"} />
+

@@ -1,0 +1,128 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: usePackageJsonValidCpu (JSON)
+description: JSON (and super languages) documentation for usePackageJsonValidCpu
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="json" languages={[{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/use-package-json-valid-cpu/json/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/usePackageJsonValidCpu`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`package-json/valid-cpu`](https://eslint-plugin-package-json.dev/rules/valid-properties/valid-cpu)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"usePackageJsonValidCpu": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require the `cpu` field in `package.json` to be a valid list of processor types.
+
+The `cpu` field lists the processor types that a package can run on, such as `x64` or
+`arm64`. Package managers compare the field with the processor type of the machine to
+decide whether the package can be installed there. A value that isn't a processor type
+never matches, so the package may be installed on, or refused by, the wrong machines.
+
+This rule checks the `cpu` field of the outermost object in a `package.json` file. It
+reports the field when its value isn't an array. It also reports each entry of the array
+that isn't one of the following processor types, written as a string:
+
+- `arm`
+- `arm64`
+- `ia32`
+- `loong64`
+- `mips`
+- `mipsel`
+- `ppc64`
+- `riscv64`
+- `s390`
+- `s390x`
+- `x64`
+
+An entry can start with `!` to exclude a processor type. For example, `"!arm"` means that
+the package can't run on `arm` processors. The rule accepts these entries.
+
+The rule doesn't report a `package.json` file that has no `cpu` field.
+
+## Examples
+
+### Invalid
+
+The value of the `cpu` field must be an array:
+
+```json title='package.json'
+{
+    "cpu": "x64"
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///package.json\">/package.json</a>:2:12 <a href=\"https://biomejs.dev/linter/rules/use-package-json-valid-cpu\">lint/nursery/usePackageJsonValidCpu</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The value of the </span><span style=\"color: Orange;\"><strong>cpu</strong></span><span style=\"color: Orange;\"> field isn't an array.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    &quot;cpu&quot;: &quot;x64&quot;<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Package managers expect a list of the processor types that the package supports. They compare the list with the processor type of the machine to decide whether the package can be installed there.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">List the supported processor types in an array, for example </span><span style=\"color: lightgreen;\"><strong>[&quot;x64&quot;, &quot;arm64&quot;]</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+Every entry must be a string:
+
+```json title='package.json'
+{
+    "cpu": ["x64", 64]
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///package.json\">/package.json</a>:2:20 <a href=\"https://biomejs.dev/linter/rules/use-package-json-valid-cpu\">lint/nursery/usePackageJsonValidCpu</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This entry of the </span><span style=\"color: Orange;\"><strong>cpu</strong></span><span style=\"color: Orange;\"> field isn't a string.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    &quot;cpu&quot;: [&quot;x64&quot;, 64]<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Package managers compare each entry with the processor type of the machine to decide whether the package can be installed there. An entry that isn't a processor type never matches, so the package may be installed on, or refused by, the wrong machines.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace the entry with one of the following processor types, in quotes. To exclude a processor type instead, add </span><span style=\"color: lightgreen;\"><strong>!</strong></span><span style=\"color: lightgreen;\"> before its name.</span><br />  <br />  - arm<br />  - arm64<br />  - ia32<br />  - loong64<br />  - mips<br />  - mipsel<br />  - ppc64<br />  - riscv64<br />  - s390<br />  - s390x<br />  - x64<br />  <br /></code></pre>"} />
+
+An entry can't be empty or contain only spaces:
+
+```json title='package.json'
+{
+    "cpu": ["x64", ""]
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///package.json\">/package.json</a>:2:20 <a href=\"https://biomejs.dev/linter/rules/use-package-json-valid-cpu\">lint/nursery/usePackageJsonValidCpu</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This entry of the </span><span style=\"color: Orange;\"><strong>cpu</strong></span><span style=\"color: Orange;\"> field is empty or contains only spaces.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    &quot;cpu&quot;: [&quot;x64&quot;, &quot;&quot;]<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Package managers compare each entry with the processor type of the machine to decide whether the package can be installed there. An entry that isn't a processor type never matches, so the package may be installed on, or refused by, the wrong machines.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace the entry with one of the following processor types, in quotes. To exclude a processor type instead, add </span><span style=\"color: lightgreen;\"><strong>!</strong></span><span style=\"color: lightgreen;\"> before its name.</span><br />  <br />  - arm<br />  - arm64<br />  - ia32<br />  - loong64<br />  - mips<br />  - mipsel<br />  - ppc64<br />  - riscv64<br />  - s390<br />  - s390x<br />  - x64<br />  <br /></code></pre>"} />
+
+Every entry must be one of the processor types listed above:
+
+```json title='package.json'
+{
+    "cpu": ["x86"]
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///package.json\">/package.json</a>:2:13 <a href=\"https://biomejs.dev/linter/rules/use-package-json-valid-cpu\">lint/nursery/usePackageJsonValidCpu</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This entry of the </span><span style=\"color: Orange;\"><strong>cpu</strong></span><span style=\"color: Orange;\"> field isn't a known processor type.</span><br />  <br />    <strong>1 │ </strong>&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    &quot;cpu&quot;: [&quot;x86&quot;]<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Package managers compare each entry with the processor type of the machine to decide whether the package can be installed there. An entry that isn't a processor type never matches, so the package may be installed on, or refused by, the wrong machines.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace the entry with one of the following processor types, in quotes. To exclude a processor type instead, add </span><span style=\"color: lightgreen;\"><strong>!</strong></span><span style=\"color: lightgreen;\"> before its name.</span><br />  <br />  - arm<br />  - arm64<br />  - ia32<br />  - loong64<br />  - mips<br />  - mipsel<br />  - ppc64<br />  - riscv64<br />  - s390<br />  - s390x<br />  - x64<br />  <br /></code></pre>"} />
+
+### Valid
+
+```json title='package.json'
+{
+    "cpu": ["x64", "arm64"]
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/src/lint/nursery/use_package_json_valid_cpu.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_json_analyze/tests/specs/nursery/usePackageJsonValidCpu)
+- <RulePlaygroundLink rule="usePackageJsonValidCpu" category="lint" language="json" code={"{\n    \"cpu\": \"x64\"\n}\n"} />
+

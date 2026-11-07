@@ -1,0 +1,111 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueDefaultExport (JavaScript)
+description: JavaScript (and super languages) documentation for useVueDefaultExport
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-default-export/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueDefaultExport`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/require-default-export`](https://eslint.vuejs.org/rules/require-default-export)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueDefaultExport": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require the `<script>` block of a Vue component to have a default export.
+
+When a `.vue` file has no `<script setup>` block, Vue builds the component from the
+default export of its `<script>` block. If the block has no default export, the
+component can't use anything the block declares, such as data, props, or methods.
+
+A file with a `<script setup>` block is not checked, because Vue builds the component
+from that block instead.
+
+:::note
+This rule needs to read every block of a `.vue` file, which requires
+[`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)
+to be `true`. Without that setting, the rule reports nothing.
+:::
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+const foo = "foo";
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<script>
+import { defineComponent } from "vue";
+
+export const component = defineComponent({});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+export default {
+  data() {
+    return {
+      foo: "foo",
+    };
+  },
+};
+</script>
+```
+
+```vue
+<script>
+export const foo = "foo";
+</script>
+
+<script setup>
+const bar = "bar";
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_default_export.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueDefaultExport)
+- <RulePlaygroundLink rule="useVueDefaultExport" category="lint" language="vue" code={"<script>\nconst foo = \"foo\";\n</script>\n"} />
+

@@ -1,0 +1,109 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueComputedPropertiesInData (JavaScript)
+description: JavaScript (and super languages) documentation for noVueComputedPropertiesInData
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-computed-properties-in-data/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noVueComputedPropertiesInData`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-computed-properties-in-data`](https://eslint.vuejs.org/rules/no-computed-properties-in-data)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueComputedPropertiesInData": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow using computed properties inside the `data` function of a Vue component.
+
+Vue runs the `data` function before it sets up the component's computed properties.
+Reading a computed property there through `this` gives `undefined` instead of the
+computed value.
+
+Only code written directly in `data` is checked. Code inside a function created in
+`data`, such as an arrow function stored as a data property, is not reported.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  data() {
+    return {
+      total: this.doubled,
+    };
+  },
+  computed: {
+    doubled() {
+      return 2;
+    },
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:5:14 <a href=\"https://biomejs.dev/linter/rules/no-vue-computed-properties-in-data\">lint/nursery/noVueComputedPropertiesInData</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The computed property </span><span style=\"color: Tomato;\"><strong>doubled</strong></span><span style=\"color: Tomato;\"> is used inside the </span><span style=\"color: Tomato;\"><strong>data</strong></span><span style=\"color: Tomato;\"> function.</span><br />  <br />    <strong>3 │ </strong>  data() &#123;<br />    <strong>4 │ </strong>    return &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>      total: this.doubled,<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>    &#125;;<br />    <strong>7 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The computed property is declared here.</span><br />  <br />     <strong>7 │ </strong>  &#125;,<br />     <strong>8 │ </strong>  computed: &#123;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>9 │ </strong>    doubled() &#123;<br />    <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>10 │ </strong>      return 2;<br />    <strong>11 │ </strong>    &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue runs the </span><span style=\"color: lightgreen;\"><strong>data</strong></span><span style=\"color: lightgreen;\"> function before it sets up computed properties, so this value is </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Compute the value from props or other data instead, or turn this data property into a computed property.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+export default {
+  props: ["initial"],
+  data() {
+    return {
+      count: this.initial,
+      label: this.formatLabel(),
+      read: () => this.doubled,
+    };
+  },
+  computed: {
+    doubled() {
+      return this.count * 2;
+    },
+  },
+  methods: {
+    formatLabel() {
+      return "Count";
+    },
+  },
+};
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_computed_properties_in_data.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueComputedPropertiesInData)
+- <RulePlaygroundLink rule="noVueComputedPropertiesInData" category="lint" language="vue" code={"<script>\nexport default {\n  data() {\n    return {\n      total: this.doubled,\n    };\n  },\n  computed: {\n    doubled() {\n      return 2;\n    },\n  },\n};\n</script>\n"} />
+

@@ -50,7 +50,6 @@ biome migrate --write
 We are thrilled to announce that Biome's CSS formatter and linter are now considered stable and are **enabled by default**. Do note that Biome only parses **standard CSS syntax** so far, and doesn't yet handle CSS dialects such as SCSS. As this is brand new functionality, you may also still run into some rough edges. Please report any problems you encounter!
 
 The CSS linter provides 15 stable lint rules that were ported from [stylelint](https://stylelint.io/):
-
 - [a11y/useGenericFontNames](https://biomejs.dev/linter/rules/use-generic-font-names/)
 - [correctness/noInvalidDirectionInLinearGradient](https://biomejs.dev/linter/rules/no-invalid-direction-in-linear-gradient/)
 - [correctness/noInvalidGridAreas](https://biomejs.dev/linter/rules/no-invalid-grid-areas/)
@@ -68,7 +67,6 @@ The CSS linter provides 15 stable lint rules that were ported from [stylelint](h
 - [suspicious/noShorthandPropertyOverrides](https://biomejs.dev/linter/rules/no-shorthand-property-overrides/)
 
 It also provides the following nursery lint rules:
-
 - [nursery/noDuplicateCustomProperties](https://biomejs.dev/linter/rules/no-duplicate-custom-properties/)
 - [nursery/noIrregularWhitespace](https://biomejs.dev/linter/rules/no-irregular-whitespace/)
 - [nursery/noUnknownPseudoClass](https://biomejs.dev/linter/rules/no-unknown-pseudo-class/)
@@ -105,7 +103,6 @@ Special thanks to [Denis Bezrukov @denbezrukov](https://github.com/denbezrukov),
 Another brand new feature: Biome now formats and lints [GraphQL](https://graphql.org/) files by default.
 
 For now, Biome provides only two nursery lint rules:
-
 - [nursery/noDuplicateFields](https://biomejs.dev/linter/rules/no-duplicate-fields/)
 - [nursery/useDeprecatedReason](https://biomejs.dev/linter/rules/use-deprecated-reason/)
 
@@ -190,17 +187,16 @@ We updated the JavaScript formatter to match [Prettier v3.3](https://github.com/
 
 ```js
 // Input
-foo ? bar ?? foo : baz;
+foo ? (bar ?? foo) : baz;
 
 // Biome 1.8.3 and Prettier 3.3.2
-foo ? bar ?? foo : baz;
+foo ? (bar ?? foo) : baz;
 
 // Biome 1.9 and Prettier 3.3.3
 foo ? (bar ?? foo) : baz;
 ```
 
 Regarding the linter, we stabilized the following lint rules:
-
 - [a11y/noLabelWithoutControl](https://biomejs.dev/linter/rules/no-label-without-control/)
 - [a11y/useFocusableInteractive](https://biomejs.dev/linter/rules/use-focusable-interactive/)
 - [accessibility/useSemanticElements](https://biomejs.dev/linter/rules/use-semantic-elements/)
@@ -227,7 +223,6 @@ Regarding the linter, we stabilized the following lint rules:
 - [suspicious/useNumberToFixedDigitsArgument](https://biomejs.dev/linter/rules/use-number-to-fixed-digits-argument/)
 
 We added the following new rules:
-
 - [nursery/noCommonJs](https://biomejs.dev/linter/rules/no-common-js/)
 - [nursery/noDuplicateCustomProperties](https://biomejs.dev/linter/rules/no-duplicate-custom-properties/)
 - [nursery/noDynamicNamespaceImportAccess](https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access/)
@@ -240,7 +235,6 @@ We added the following new rules:
 - [nursery/useTrimStartEnd](https://biomejs.dev/linter/rules/use-trim-start-end/)
 
 And we deprecated the following rules:
-
 - `correctness/noInvalidNewBuiltin`. Use [correctness/noInvalidBuiltinInstantiation](https://biomejs.dev/linter/rules/no-invalid-builtin-instantiation/) instead.
 - `style/useSingleCaseStatement`. Use [correctness/noSwitchDeclarations](https://biomejs.dev/linter/rules/no-switch-declarations/) instead.
 - `suspicious/noConsoleLog`. Use [suspicious/noConsole](https://biomejs.dev/linter/rules/no-console/) instead.

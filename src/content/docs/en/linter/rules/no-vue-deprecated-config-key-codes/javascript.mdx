@@ -1,0 +1,87 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDeprecatedConfigKeyCodes (JavaScript)
+description: JavaScript (and super languages) documentation for noVueDeprecatedConfigKeyCodes
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-deprecated-config-key-codes/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueDeprecatedConfigKeyCodes`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-deprecated-vue-config-keycodes`](https://eslint.vuejs.org/rules/no-deprecated-vue-config-keycodes)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedConfigKeyCodes": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the deprecated `Vue.config.keyCodes` option.
+
+In Vue 2, `Vue.config.keyCodes` defined custom names for keyboard keys, so that templates could use modifiers such as `@keyup.f1`.
+Vue 3 removed this option, because it relies on the deprecated `KeyboardEvent.keyCode` browser property.
+Setting or reading it has no effect in Vue 3.
+
+Use the key name in kebab-case as the modifier instead, such as `@keyup.page-down` for the `PageDown` key.
+
+See the [Vue 3 migration guide](https://v3-migration.vuejs.org/breaking-changes/keycode-modifiers.html) for more information.
+
+## Examples
+
+### Invalid
+
+```js
+Vue.config.keyCodes = {
+  f1: 112,
+};
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-config-key-codes\">lint/nursery/noVueDeprecatedConfigKeyCodes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>Vue.config.keyCodes</strong></span><span style=\"color: lightgreen;\"> option is deprecated and has no effect in Vue 3.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>Vue.config.keyCodes = &#123;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>  f1: 112,<br />    <strong>3 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 no longer supports custom key names, because they rely on the deprecated </span><span style=\"color: lightgreen;\"><strong>KeyboardEvent.keyCode</strong></span><span style=\"color: lightgreen;\"> browser property.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove this option, and use the key name in kebab-case as the modifier instead, such as </span><span style=\"color: lightgreen;\"><strong>@keyup.page-down</strong></span><span style=\"color: lightgreen;\">. See the </span><span style=\"color: lightgreen;\"><a href=\"https://v3-migration.vuejs.org/breaking-changes/keycode-modifiers.html\">Vue 3 migration guide</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import Vue from "vue";
+
+const keyCodes = Vue.config.keyCodes;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:18 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-config-key-codes\">lint/nursery/noVueDeprecatedConfigKeyCodes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>Vue.config.keyCodes</strong></span><span style=\"color: lightgreen;\"> option is deprecated and has no effect in Vue 3.</span><br />  <br />    <strong>1 │ </strong>import Vue from &quot;vue&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>const keyCodes = Vue.config.keyCodes;<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue 3 no longer supports custom key names, because they rely on the deprecated </span><span style=\"color: lightgreen;\"><strong>KeyboardEvent.keyCode</strong></span><span style=\"color: lightgreen;\"> browser property.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove this option, and use the key name in kebab-case as the modifier instead, such as </span><span style=\"color: lightgreen;\"><strong>@keyup.page-down</strong></span><span style=\"color: lightgreen;\">. See the </span><span style=\"color: lightgreen;\"><a href=\"https://v3-migration.vuejs.org/breaking-changes/keycode-modifiers.html\">Vue 3 migration guide</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+Vue.config.silent = true;
+config.keyCodes = {};
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_deprecated_config_key_codes.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueDeprecatedConfigKeyCodes)
+- <RulePlaygroundLink rule="noVueDeprecatedConfigKeyCodes" category="lint" language="js" code={"Vue.config.keyCodes = {\n  f1: 112,\n};\n"} />
+

@@ -1,0 +1,122 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueConsistentVForDelimiter (HTML)
+description: HTML documentation for useVueConsistentVForDelimiter
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-consistent-v-for-delimiter/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueConsistentVForDelimiter`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/v-for-delimiter-style`](https://eslint.vuejs.org/rules/v-for-delimiter-style)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentVForDelimiter": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce a consistent delimiter between the item and the list in `v-for` directives.
+
+In a `v-for` directive, Vue accepts both `in` and `of` between the item and the
+list, and treats them the same way: `item in items` and `item of items` render
+the same list. Using the same word everywhere makes templates easier to read
+and search.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <div v-for="item of items"></div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:20 <a href=\"https://biomejs.dev/linter/rules/use-vue-consistent-v-for-delimiter\">lint/nursery/useVueConsistentVForDelimiter</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>v-for</strong></span><span style=\"color: lightgreen;\"> uses </span><span style=\"color: lightgreen;\"><strong>of</strong></span><span style=\"color: lightgreen;\"> instead of </span><span style=\"color: lightgreen;\"><strong>in</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div v-for=&quot;item of items&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue treats </span><span style=\"color: lightgreen;\"><strong>in</strong></span><span style=\"color: lightgreen;\"> and </span><span style=\"color: lightgreen;\"><strong>of</strong></span><span style=\"color: lightgreen;\"> the same way in </span><span style=\"color: lightgreen;\"><strong>v-for</strong></span><span style=\"color: lightgreen;\">, so mixing them makes templates harder to read and search.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>in</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  &lt;template&gt;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>f</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">&gt;</span><span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">/</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">&gt;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">-</span><span style=\"color: MediumSeaGreen;\">f</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">&gt;</span><span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">/</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">&gt;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  &lt;/template&gt;<br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <div v-for="item in items"></div>
+  <div v-for="(item, index) in items"></div>
+</template>
+```
+
+## Options
+
+### `delimiter`
+
+The word to use between the item and the list: `"in"` or `"of"`.
+
+Default: `"in"`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentVForDelimiter": {
+					"level": "on",
+					"options": {
+						"delimiter": "of"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```vue
+<template>
+  <div v-for="item in items"></div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:20 <a href=\"https://biomejs.dev/linter/rules/use-vue-consistent-v-for-delimiter\">lint/nursery/useVueConsistentVForDelimiter</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>v-for</strong></span><span style=\"color: lightgreen;\"> uses </span><span style=\"color: lightgreen;\"><strong>in</strong></span><span style=\"color: lightgreen;\"> instead of </span><span style=\"color: lightgreen;\"><strong>of</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div v-for=&quot;item in items&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue treats </span><span style=\"color: lightgreen;\"><strong>in</strong></span><span style=\"color: lightgreen;\"> and </span><span style=\"color: lightgreen;\"><strong>of</strong></span><span style=\"color: lightgreen;\"> the same way in </span><span style=\"color: lightgreen;\"><strong>v-for</strong></span><span style=\"color: lightgreen;\">, so mixing them makes templates harder to read and search.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>of</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  &lt;template&gt;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">&gt;</span><span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">/</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">&gt;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">-</span><span style=\"color: MediumSeaGreen;\">f</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>f</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">&gt;</span><span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">/</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">&gt;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  &lt;/template&gt;<br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+#### Valid
+
+```vue
+<template>
+  <div v-for="item of items"></div>
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_consistent_v_for_delimiter.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueConsistentVForDelimiter)
+- <RulePlaygroundLink rule="useVueConsistentVForDelimiter" category="lint" language="vue" code={"<template>\n  <div v-for=\"item of items\"></div>\n</template>\n"} />
+

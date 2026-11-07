@@ -119,6 +119,10 @@ Since full support is still experimental, it must be enabled explicitly. The for
 }
 ```
 
+### Svelte support
+
+Biome's experimental Svelte support targets Svelte 5. Svelte 4 and earlier versions aren't supported.
+
 ### Linting HTML-ish languages
 
 If you **lint** `.svelte`, `.astro` or `.vue` files and `html.experimentalFullSupportEnabled` is `false`, it's advised to turn off a few additional rules to prevent false positive linting errors caused by our partial support. Use the option `overrides` for that:

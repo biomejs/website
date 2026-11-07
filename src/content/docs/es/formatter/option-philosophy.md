@@ -3,13 +3,13 @@ title: Filosofia de las Opciones de Formato
 description: Configuración de un formateador de opinión.
 ---
 
->💡 Biome sigue la misma [filosofía de opciones de Prettier](https://prettier.io/docs/en/option-philosophy). El conjunto actual de opciones de formato se considera estable y no es probable que se planteen nuevas opciones.
+> 💡 Biome sigue la misma [filosofía de opciones de Prettier](https://prettier.io/docs/en/option-philosophy). El conjunto actual de opciones de formato se considera estable y no es probable que se planteen nuevas opciones.
 >
->Este documento explica algo de historia sobre cómo y por qué Biome ha llegado a donde está hoy, y una perspectiva para el futuro.
+> Este documento explica algo de historia sobre cómo y por qué Biome ha llegado a donde está hoy, y una perspectiva para el futuro.
 
-Biome es un *formateador opinante*. En un mundo ideal, esto significa que Biome asume que sólo hay una forma correcta de formatear las cosas y aplicará ese estilo en todo momento. No importa el proyecto, no importa la configuración, el código formateado por Biome siempre tendrá el mismo aspecto. Desde otra perspectiva, Biome es su propia *guía de estilo automática*, no una herramienta para aplicar otras guías de estilo.
+Biome es un _formateador opinante_. En un mundo ideal, esto significa que Biome asume que sólo hay una forma correcta de formatear las cosas y aplicará ese estilo en todo momento. No importa el proyecto, no importa la configuración, el código formateado por Biome siempre tendrá el mismo aspecto. Desde otra perspectiva, Biome es su propia _guía de estilo automática_, no una herramienta para aplicar otras guías de estilo.
 
-Tener una opinión tan firme sobre el formato puede parecer pesado, pero las ventajas quedan claras rápidamente tras la adopción. Todas las discusiones sobre dónde deben ir los espacios, si una línea debe separarse, si una línea debe tener sangría, y tantas otras, simplemente *desaparecen*. [Discusiones triviales](https://en.wikipedia.org/wiki/Law_of_triviality) ya no distraen el enfoque de lo que realmente importa. Las revisiones del código se liberan de peticiones de reformateo y debates cíclicos. Todo lo que hace falta es confiar en que Biome hace todo lo posible por formatear el código de forma limpia, legible y coherente.
+Tener una opinión tan firme sobre el formato puede parecer pesado, pero las ventajas quedan claras rápidamente tras la adopción. Todas las discusiones sobre dónde deben ir los espacios, si una línea debe separarse, si una línea debe tener sangría, y tantas otras, simplemente _desaparecen_. [Discusiones triviales](https://en.wikipedia.org/wiki/Law_of_triviality) ya no distraen el enfoque de lo que realmente importa. Las revisiones del código se liberan de peticiones de reformateo y debates cíclicos. Todo lo que hace falta es confiar en que Biome hace todo lo posible por formatear el código de forma limpia, legible y coherente.
 
 Más allá de los beneficios dentro de los equipos y organizaciones individuales, la adopción de formateadores coherentes en todo el ecosistema web beneficia a todos, ya que facilita mantener la familiaridad al pasar de un proyecto a otro y ayuda a los recién llegados a aprender y reconocer patrones de forma más intuitiva y sin distracciones.
 
@@ -23,9 +23,9 @@ Biome comenzó con un estricto subconjunto de opciones de configuración, centra
 
 Apoyándose en la [filosofía de opciones de Prettier](https://prettier.io/docs/en/option-philosophy), Biome tenía la oportunidad de empezar de cero y evitar las trampas en las que Prettier había caído con sus otras opciones existentes, como `--bracket-same-line` y `--arrow-parens`:
 
-> …[estas] no son el tipo de opciones que nos complace tener. Provocan muchas discusiones en los equipos, y lo lamentamos. Difíciles de eliminar ahora, estas opciones existen como artefacto histórico y no deberían motivar la adición de más opciones ("Si *esas* opciones existen, ¿por qué no puede existir ésta?").
+> …[estas] no son el tipo de opciones que nos complace tener. Provocan muchas discusiones en los equipos, y lo lamentamos. Difíciles de eliminar ahora, estas opciones existen como artefacto histórico y no deberían motivar la adición de más opciones ("Si _esas_ opciones existen, ¿por qué no puede existir ésta?").
 
-Sin embargo, cuando el  [desafío de Prettier](https://console.algora.io/challenges/prettier) fue anunciado, Biome decidió aceptar el reto, lo que exigía aplicar todas las opciones de configuración que tenía Prettier para lograr una compatibilidad total.
+Sin embargo, cuando el [desafío de Prettier](https://console.algora.io/challenges/prettier) fue anunciado, Biome decidió aceptar el reto, lo que exigía aplicar todas las opciones de configuración que tenía Prettier para lograr una compatibilidad total.
 
 Biome sigue compartiendo la filosofía de Prettier sobre estas opciones y las considera una característica heredada por compatibilidad más que un conjunto de características básicas. Su existencia no indica que vayan a añadirse más opciones, ni deben utilizarse como justificación para apoyar la existencia de otras opciones en el futuro.
 

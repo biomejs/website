@@ -1,0 +1,109 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueTypedRef (JavaScript)
+description: JavaScript (and super languages) documentation for useVueTypedRef
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-typed-ref/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/useVueTypedRef`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/require-typed-ref`](https://eslint.vuejs.org/rules/require-typed-ref)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueTypedRef": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require a type for refs created with `ref()` or `shallowRef()` in TypeScript.
+
+When `ref()` or `shallowRef()` is called without a type argument and without an initial
+value, TypeScript gives the ref the `any` type. You can then put any value in the ref, and
+TypeScript won't report a mistake, even when
+[`noImplicitAny`](https://www.typescriptlang.org/tsconfig#noImplicitAny) is enabled.
+The same applies when the initial value is `null` or `undefined`: TypeScript can't tell
+which other values the ref is meant to hold.
+
+This rule reports these calls, unless the type of the ref is already written next to the
+call:
+
+- in a variable declaration, such as `const count: Ref<number | undefined> = ref()`;
+- in a class property declaration;
+- in an assignment to a variable or parameter that has a type;
+- with `as`, `satisfies` or `<Type>`;
+- as the default value of a parameter that has a type;
+- as an argument to a function declared in the same file, when the matching parameter has
+a type.
+
+The rule doesn't know the types of functions imported from other files, so a call passed
+to one of them is still reported.
+
+Only TypeScript files and Vue files with `<script lang="ts">` are checked.
+
+## Examples
+
+### Invalid
+
+```ts
+import { ref } from "vue";
+
+const count = ref();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:3:15 <a href=\"https://biomejs.dev/linter/rules/use-vue-typed-ref\">lint/nursery/useVueTypedRef</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>ref()</strong></span><span style=\"color: Orange;\"> call creates a ref without a type.</span><br />  <br />    <strong>1 │ </strong>import &#123; ref &#125; from &quot;vue&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>const count = ref();<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without a type argument, TypeScript can't tell which values the ref is meant to hold, so it can't catch mistakes when the ref is used.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add a type argument, for example </span><span style=\"color: lightgreen;\"><strong>ref&lt;number&gt;()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+import { shallowRef } from "vue";
+
+const user = shallowRef(null);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:3:14 <a href=\"https://biomejs.dev/linter/rules/use-vue-typed-ref\">lint/nursery/useVueTypedRef</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>shallowRef()</strong></span><span style=\"color: Orange;\"> call creates a ref without a type.</span><br />  <br />    <strong>1 │ </strong>import &#123; shallowRef &#125; from &quot;vue&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>const user = shallowRef(null);<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without a type argument, TypeScript can't tell which values the ref is meant to hold, so it can't catch mistakes when the ref is used.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add a type argument, for example </span><span style=\"color: lightgreen;\"><strong>shallowRef&lt;number&gt;()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```ts
+import { ref, type Ref } from "vue";
+
+const a = ref<number>();
+const b = ref(0);
+const c: Ref<number | undefined> = ref();
+const d = ref() as Ref<number | undefined>;
+
+function useCount(count: Ref<number | undefined>) {}
+useCount(ref());
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_typed_ref.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueTypedRef)
+- <RulePlaygroundLink rule="useVueTypedRef" category="lint" language="ts" code={"import { ref } from \"vue\";\n\nconst count = ref();\n"} />
+

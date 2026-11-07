@@ -47,7 +47,8 @@ A generic family may appear anywhere in the list. It is not required when:
 - the property uses a CSS-wide keyword such as `inherit` or `initial`;
 - the `font` shorthand uses a system-font value such as `caption` or `menu`;
 - the final family comes from a custom property through `var()`;
-- `font-family` appears inside an `@font-face` rule.
+- `font-family` appears inside an `@font-face` or `@font-palette-values` rule, where it is a
+descriptor that names font families rather than a fallback list.
 
 ## SCSS limitations
 
@@ -90,6 +91,10 @@ a { font-family: var(--font); }
 
 ```css
 @font-face { font-family: Gentium; }
+```
+
+```css
+@font-palette-values --palette { font-family: Bixa; }
 ```
 
 ## Related links

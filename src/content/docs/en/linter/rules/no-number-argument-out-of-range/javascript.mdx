@@ -1,0 +1,106 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noNumberArgumentOutOfRange (JavaScript)
+description: JavaScript (and super languages) documentation for noNumberArgumentOutOfRange
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-number-argument-out-of-range/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.6`
+- Diagnostic Category: [`lint/nursery/noNumberArgumentOutOfRange`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Inspired from [`oxc/number-arg-out-of-range`](https://oxc.rs/docs/guide/usage/linter/rules/oxc/number-arg-out-of-range)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noNumberArgumentOutOfRange": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow number method arguments that are outside the range the method accepts.
+
+Some methods of numbers only accept a limited range of values as their first argument,
+and throw a `RangeError` when called with anything else:
+
+- [`toString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString) accepts a base (radix) between 2 and 36.
+- [`toFixed()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed) accepts between 0 and 100 digits after the decimal point.
+- [`toExponential()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toExponential) accepts between 0 and 100 digits after the decimal point.
+- [`toPrecision()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toPrecision) accepts between 1 and 100 significant digits.
+
+The fractional part of the argument is dropped before the range is checked,
+so `toString(36.5)` is the same as `toString(36)`.
+
+This rule only checks arguments written as number literals.
+
+## Examples
+
+### Invalid
+
+```js
+const binary = value.toString(1);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:31 <a href=\"https://biomejs.dev/linter/rules/no-number-argument-out-of-range\">lint/nursery/noNumberArgumentOutOfRange</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The argument of </span><span style=\"color: Tomato;\"><strong>toString()</strong></span><span style=\"color: Tomato;\"> is out of range.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const binary = value.toString(1);<br />   <strong>   │ </strong>                              <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>toString()</strong></span><span style=\"color: lightgreen;\"> throws a </span><span style=\"color: lightgreen;\"><strong>RangeError</strong></span><span style=\"color: lightgreen;\"> when its first argument is not between 2 and 36.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass a number between 2 and 36.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const text = value.toString(64);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:29 <a href=\"https://biomejs.dev/linter/rules/no-number-argument-out-of-range\">lint/nursery/noNumberArgumentOutOfRange</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The argument of </span><span style=\"color: Tomato;\"><strong>toString()</strong></span><span style=\"color: Tomato;\"> is out of range.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const text = value.toString(64);<br />   <strong>   │ </strong>                            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>toString()</strong></span><span style=\"color: lightgreen;\"> throws a </span><span style=\"color: lightgreen;\"><strong>RangeError</strong></span><span style=\"color: lightgreen;\"> when its first argument is not between 2 and 36.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass a number between 2 and 36.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const price = value.toFixed(-1);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:29 <a href=\"https://biomejs.dev/linter/rules/no-number-argument-out-of-range\">lint/nursery/noNumberArgumentOutOfRange</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The argument of </span><span style=\"color: Tomato;\"><strong>toFixed()</strong></span><span style=\"color: Tomato;\"> is out of range.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const price = value.toFixed(-1);<br />   <strong>   │ </strong>                            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>toFixed()</strong></span><span style=\"color: lightgreen;\"> throws a </span><span style=\"color: lightgreen;\"><strong>RangeError</strong></span><span style=\"color: lightgreen;\"> when its first argument is not between 0 and 100.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass a number between 0 and 100.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const rounded = value.toPrecision(0);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:35 <a href=\"https://biomejs.dev/linter/rules/no-number-argument-out-of-range\">lint/nursery/noNumberArgumentOutOfRange</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The argument of </span><span style=\"color: Tomato;\"><strong>toPrecision()</strong></span><span style=\"color: Tomato;\"> is out of range.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const rounded = value.toPrecision(0);<br />   <strong>   │ </strong>                                  <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>toPrecision()</strong></span><span style=\"color: lightgreen;\"> throws a </span><span style=\"color: lightgreen;\"><strong>RangeError</strong></span><span style=\"color: lightgreen;\"> when its first argument is not between 1 and 100.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass a number between 1 and 100.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+const hex = value.toString(16);
+const price = value.toFixed(2);
+const scientific = value.toExponential(100);
+const rounded = value.toPrecision(3);
+const text = value.toString(base);
+```
+
+## Caveats
+
+This rule assumes that these methods are called on a number.
+It doesn't check the type of the value the method is called on.
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_number_argument_out_of_range.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noNumberArgumentOutOfRange)
+- <RulePlaygroundLink rule="noNumberArgumentOutOfRange" category="lint" language="js" code={"const binary = value.toString(1);\n"} />
+

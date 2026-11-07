@@ -4,8 +4,8 @@ use biome_service::workspace_types::methods;
 use serde_json::Value;
 use std::fs;
 
-const START_MARKER: &str = "\n[//]: # (Start-custom-methods)\n";
-const END_MARKER: &str = "\n[//]: # (End-custom-methods)";
+const START_MARKER: &str = "\n[//]: # \"Start-custom-methods\"\n";
+const END_MARKER: &str = "\n[//]: # \"End-custom-methods\"";
 
 pub fn generate_lsp_docs() -> Result<()> {
     let all_methods = methods();

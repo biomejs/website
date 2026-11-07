@@ -1,0 +1,103 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUselessAwait (JavaScript)
+description: JavaScript (and super languages) documentation for noUselessAwait
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-await/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noUselessAwait`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicorn/no-unnecessary-await`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-unnecessary-await.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessAwait": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `await` on values that are never promises.
+
+The `await` keyword waits for a promise to settle and returns its result.
+Values such as numbers, strings, arrays, functions, and the results of
+comparisons are never promises, so awaiting them returns the same value.
+The `await` still pauses the function until other pending work runs,
+which makes the code slower and suggests that the value is a promise when it isn't.
+
+Awaiting an array doesn't wait for the promises inside it.
+Use `Promise.all()` or `Promise.allSettled()` to wait for all of them.
+
+The rule only reports values that can be identified as non-promises from the code alone,
+such as literals, arrays, functions, classes, JSX, and the results of
+arithmetic, comparison, and unary operators.
+
+The fix is unsafe because removing `await` makes the code that follows it run earlier.
+Biome offers the fix only when the `await` is the last thing its function or module runs.
+
+## Examples
+
+### Invalid
+
+```js
+await 1;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/no-useless-await\">lint/nursery/noUselessAwait</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This value is never a promise, so </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\"> is unnecessary.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>await 1;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Awaiting a value that isn't a promise returns the same value, but still delays the code that follows it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\">. To wait for several promises, pass them to </span><span style=\"color: lightgreen;\"><strong>Promise.all()</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong>  1 │ </strong><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">w</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span>1;<br />  <strong>    │ </strong><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>  <br /></code></pre>"} />
+
+```js
+await [fetchUser(), fetchPosts()];
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/no-useless-await\">lint/nursery/noUselessAwait</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This value is never a promise, so </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\"> is unnecessary.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>await [fetchUser(), fetchPosts()];<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Awaiting a value that isn't a promise returns the same value, but still delays the code that follows it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\">. To wait for several promises, pass them to </span><span style=\"color: lightgreen;\"><strong>Promise.all()</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong>  1 │ </strong><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">w</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span>[fetchUser(),<span style=\"opacity: 0.8;\">·</span>fetchPosts()];<br />  <strong>    │ </strong><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>                            <br /></code></pre>"} />
+
+```js
+async function check(a, b) {
+    return await (a === b);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:12 <a href=\"https://biomejs.dev/linter/rules/no-useless-await\">lint/nursery/noUselessAwait</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This value is never a promise, so </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\"> is unnecessary.</span><br />  <br />    <strong>1 │ </strong>async function check(a, b) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    return await (a === b);<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Awaiting a value that isn't a promise returns the same value, but still delays the code that follows it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\">. To wait for several promises, pass them to </span><span style=\"color: lightgreen;\"><strong>Promise.all()</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong>  2 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>return<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">w</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span>(a<span style=\"opacity: 0.8;\">·</span>===<span style=\"opacity: 0.8;\">·</span>b);<br />  <strong>    │ </strong>           <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>          <br /></code></pre>"} />
+
+### Valid
+
+```js
+await fetchUser();
+await Promise.all([fetchUser(), fetchPosts()]);
+await (condition ? fetchUser() : fetchPosts());
+await new Promise((resolve) => setTimeout(resolve, 100));
+```
+
+## See Also
+
+- If you want to report `await` on any value that isn't a promise, using type information, see [`useAwaitThenable`](https://biomejs.dev/linter/rules/use-await-thenable/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_useless_await.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUselessAwait)
+- <RulePlaygroundLink rule="noUselessAwait" category="lint" language="js" code={"await 1;\n"} />
+

@@ -15,7 +15,7 @@ reviews:
   changed_files_summary: false
   auto_review:
     enabled: true
-    base_branches: [ "main", "next" ]
+    base_branches: ["main", "next"]
     drafts: false
   tools:
     biome:
@@ -32,6 +32,6 @@ tone_instructions: "Please keep it short and to the point. Be patient, especiall
 knowledge_base:
   code_guidelines:
     enabled: true
-    filePatterns: [ "**/CONTRIBUTING.md" ]
+    filePatterns: ["**/CONTRIBUTING.md"]
 chat:
   auto_reply: false

@@ -1,0 +1,132 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueSingleEventPayload (JavaScript)
+description: JavaScript (and super languages) documentation for useVueSingleEventPayload
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-single-event-payload/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueSingleEventPayload`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/prefer-single-event-payload`](https://eslint.vuejs.org/rules/prefer-single-event-payload)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueSingleEventPayload": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require Vue component events to carry at most one value.
+
+A component can send a value along with an event, as in `emit('change', value)`, and it
+can send several, as in `emit('change', value, extra)`. A parent that listens to the event
+with a handler written inline in its template, such as `@change="onChange($event)"`, can
+only read the first value through `$event`. The other values are silently lost.
+
+Put all the values in one object instead, as in `emit('change', { value, extra })`, so every
+listener receives all of them.
+
+This rule checks the calls that emit an event: `$emit()` in templates, `this.$emit()`, the
+`emit` function that `setup()` receives, and the function returned by `defineEmits()`.
+It also checks the events declared in the `emits` option and in `defineEmits()`, when the
+declaration lists the values the event carries.
+
+Calls whose event name is not written as a string, as in `emit(eventName, a, b)`, are not
+checked.
+
+:::note
+In `.vue` files, this rule needs to read the template to check the calls written there,
+which requires
+[`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)
+to be `true`.
+:::
+
+## Examples
+
+### Invalid
+
+```vue
+<script setup>
+const emit = defineEmits(["change"]);
+
+function onInput(value, extra) {
+  emit("change", value, extra);
+}
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:5:25 <a href=\"https://biomejs.dev/linter/rules/use-vue-single-event-payload\">lint/nursery/useVueSingleEventPayload</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The event </span><span style=\"color: Orange;\"><strong>change</strong></span><span style=\"color: Orange;\"> is emitted with more than one value.</span><br />  <br />    <strong>4 │ </strong>function onInput(value, extra) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>  emit(&quot;change&quot;, value, extra);<br />   <strong>   │ </strong>                        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>&#125;<br />    <strong>7 │ </strong>&lt;/script&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A listener written inline in a template, such as </span><span style=\"color: lightgreen;\"><strong>@change=&quot;onChange($event)&quot;</strong></span><span style=\"color: lightgreen;\">, can only read the first value through </span><span style=\"color: lightgreen;\"><strong>$event</strong></span><span style=\"color: lightgreen;\">. The other values are lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Put all the values in one object, and send that object instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script>
+export default {
+  emits: {
+    change: (value, extra) => value !== null,
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:21 <a href=\"https://biomejs.dev/linter/rules/use-vue-single-event-payload\">lint/nursery/useVueSingleEventPayload</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The event </span><span style=\"color: Orange;\"><strong>change</strong></span><span style=\"color: Orange;\"> is declared with more than one value.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  emits: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    change: (value, extra) =&gt; value !== null,<br />   <strong>   │ </strong>                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  &#125;,<br />    <strong>6 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A listener written inline in a template, such as </span><span style=\"color: lightgreen;\"><strong>@change=&quot;onChange($event)&quot;</strong></span><span style=\"color: lightgreen;\">, can only read the first value through </span><span style=\"color: lightgreen;\"><strong>$event</strong></span><span style=\"color: lightgreen;\">. The other values are lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Put all the values in one object, and send that object instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup lang="ts">
+defineEmits<{
+  change: [value: string, extra: number];
+}>();
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:27 <a href=\"https://biomejs.dev/linter/rules/use-vue-single-event-payload\">lint/nursery/useVueSingleEventPayload</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The event </span><span style=\"color: Orange;\"><strong>change</strong></span><span style=\"color: Orange;\"> is declared with more than one value.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup lang=&quot;ts&quot;&gt;<br />    <strong>2 │ </strong>defineEmits&lt;&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  change: [value: string, extra: number];<br />   <strong>   │ </strong>                          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;&gt;();<br />    <strong>5 │ </strong>&lt;/script&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A listener written inline in a template, such as </span><span style=\"color: lightgreen;\"><strong>@change=&quot;onChange($event)&quot;</strong></span><span style=\"color: lightgreen;\">, can only read the first value through </span><span style=\"color: lightgreen;\"><strong>$event</strong></span><span style=\"color: lightgreen;\">. The other values are lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Put all the values in one object, and send that object instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup lang="ts">
+const emit = defineEmits<{
+  change: [payload: { value: string; extra: number }];
+  close: [];
+}>();
+
+function onInput(value: string, extra: number) {
+  emit("change", { value, extra });
+}
+
+function onClose() {
+  emit("close");
+}
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_single_event_payload.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueSingleEventPayload)
+- <RulePlaygroundLink rule="useVueSingleEventPayload" category="lint" language="vue" code={"<script setup>\nconst emit = defineEmits([\"change\"]);\n\nfunction onInput(value, extra) {\n  emit(\"change\", value, extra);\n}\n</script>\n"} />
+

@@ -1,0 +1,94 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noPlaywrightNthMethods (JavaScript)
+description: JavaScript (and super languages) documentation for noPlaywrightNthMethods
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-playwright-nth-methods/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/noPlaywrightNthMethods`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`playwright`](/linter/domains#playwright)
+- Sources: 
+  - Same as [`playwright/no-nth-methods`](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-nth-methods.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noPlaywrightNthMethods": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow selecting Playwright elements by position with `first()`, `last()`, and `nth()`.
+
+In Playwright, a locator describes how to find elements on the page.
+When a locator matches several elements, `first()`, `last()`, and `nth()`
+pick one of them by its position.
+The position of an element can change when matching elements are added,
+removed, or reordered, so the test can end up acting on a different
+element without any error.
+A locator that matches only the element you want keeps working when the
+rest of the page changes.
+
+This rule reports every call to a method named `first`, `last`, or `nth`,
+whatever object the method is called on.
+
+## Examples
+
+### Invalid
+
+```js
+await page.locator("button").first().click();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:30 <a href=\"https://biomejs.dev/linter/rules/no-playwright-nth-methods\">lint/nursery/noPlaywrightNthMethods</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>first()</strong></span><span style=\"color: lightgreen;\"> selects an element by its position.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>await page.locator(&quot;button&quot;).first().click();<br />   <strong>   │ </strong>                             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When elements are added, removed, or reordered on the page, the test can act on a different element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a locator that matches only the element you want, such as </span><span style=\"color: lightgreen;\"><strong>getByRole()</strong></span><span style=\"color: lightgreen;\"> with a name or </span><span style=\"color: lightgreen;\"><strong>getByTestId()</strong></span><span style=\"color: lightgreen;\">, or narrow the matches with </span><span style=\"color: lightgreen;\"><strong>filter()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+await page.locator("button").last().click();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:30 <a href=\"https://biomejs.dev/linter/rules/no-playwright-nth-methods\">lint/nursery/noPlaywrightNthMethods</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>last()</strong></span><span style=\"color: lightgreen;\"> selects an element by its position.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>await page.locator(&quot;button&quot;).last().click();<br />   <strong>   │ </strong>                             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When elements are added, removed, or reordered on the page, the test can act on a different element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a locator that matches only the element you want, such as </span><span style=\"color: lightgreen;\"><strong>getByRole()</strong></span><span style=\"color: lightgreen;\"> with a name or </span><span style=\"color: lightgreen;\"><strong>getByTestId()</strong></span><span style=\"color: lightgreen;\">, or narrow the matches with </span><span style=\"color: lightgreen;\"><strong>filter()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+await page.locator("button").nth(3).click();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:30 <a href=\"https://biomejs.dev/linter/rules/no-playwright-nth-methods\">lint/nursery/noPlaywrightNthMethods</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>nth()</strong></span><span style=\"color: lightgreen;\"> selects an element by its position.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>await page.locator(&quot;button&quot;).nth(3).click();<br />   <strong>   │ </strong>                             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When elements are added, removed, or reordered on the page, the test can act on a different element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a locator that matches only the element you want, such as </span><span style=\"color: lightgreen;\"><strong>getByRole()</strong></span><span style=\"color: lightgreen;\"> with a name or </span><span style=\"color: lightgreen;\"><strong>getByTestId()</strong></span><span style=\"color: lightgreen;\">, or narrow the matches with </span><span style=\"color: lightgreen;\"><strong>filter()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+await page.getByRole("button", { name: "Submit" }).click();
+await page.getByTestId("submit-button").click();
+await page.getByRole("listitem").filter({ hasText: "Product 2" }).click();
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_playwright_nth_methods.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noPlaywrightNthMethods)
+- <RulePlaygroundLink rule="noPlaywrightNthMethods" category="lint" language="js" code={"await page.locator(\"button\").first().click();\n"} />
+

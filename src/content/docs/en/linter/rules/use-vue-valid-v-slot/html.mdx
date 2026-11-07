@@ -1,0 +1,157 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueValidVSlot (HTML)
+description: HTML documentation for useVueValidVSlot
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-valid-v-slot/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/useVueValidVSlot`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/valid-v-slot`](https://eslint.vuejs.org/rules/valid-v-slot)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueValidVSlot": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce valid `v-slot` directives in Vue templates.
+
+A `v-slot` directive (or its `#` shorthand) passes content to a slot of a component.
+Vue only accepts it in specific places, and a misplaced or duplicated `v-slot`
+is either rejected when the template is compiled or silently drops content.
+
+This rule reports `v-slot` directives in the following cases:
+
+- The directive isn't on a component, or on a `<template>` placed directly inside a component.
+For example, `<div v-slot="props"></div>`.
+- A named slot is written on the component itself instead of on a `<template>` inside it.
+For example, `<MyComponent v-slot:header></MyComponent>`.
+- The default slot is written on the component itself while the component also has
+`<template>` elements with `v-slot`.
+- An element has more than one `v-slot` directive.
+- Two `<template>` elements inside the same component fill the same slot.
+Elements in the same `v-if`, `v-else-if`, `v-else` sequence are allowed to fill the same slot,
+because only one of them is shown at a time.
+- A `<template>` with `v-for` fills a slot whose name doesn't change between repetitions.
+- The directive has modifiers, such as `v-slot.foo`.
+- The default slot is written on the component itself without a value.
+For example, `<MyComponent v-slot></MyComponent>`.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <div v-slot="{ item }">{{ item }}</div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:8 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-slot\">lint/nursery/useVueValidVSlot</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-slot</strong></span><span style=\"color: Tomato;\"> directive must be used on a component, but </span><span style=\"color: Tomato;\"><strong>&lt;div&gt;</strong></span><span style=\"color: Tomato;\"> is not a component.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div v-slot=&quot;&#123; item &#125;&quot;&gt;&#123;&#123; item &#125;&#125;&lt;/div&gt;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Slots belong to components. Vue rejects </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\"> anywhere else.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the directive to a component, or to a </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> placed directly inside a component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <MyComponent v-slot:header>Title</MyComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-slot\">lint/nursery/useVueValidVSlot</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Named slots must use a </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> inside the component.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;MyComponent v-slot:header&gt;Title&lt;/MyComponent&gt;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Only the default slot is meant to be written on the component itself. A named slot there is easy to mistake for the default slot.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Wrap the content in a </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> with this directive, and place it inside the component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <MyComponent v-slot="{ item }">
+    {{ item }}
+    <template #header>Title</template>
+  </MyComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-slot\">lint/nursery/useVueValidVSlot</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The default slot must use a </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> when the component has other </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> slots.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;MyComponent v-slot=&quot;&#123; item &#125;&quot;&gt;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    &#123;&#123; item &#125;&#125;<br />    <strong>4 │ </strong>    &lt;template #header&gt;Title&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't allow </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\"> on the component itself when </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> elements inside it also use </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the default slot content into a </span><span style=\"color: lightgreen;\"><strong>&lt;template #default&gt;</strong></span><span style=\"color: lightgreen;\"> inside the component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <MyComponent>
+    <template #header>First title</template>
+    <template #header>Second title</template>
+  </MyComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:15 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-slot\">lint/nursery/useVueValidVSlot</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This slot is already filled by another </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> in the same component.</span><br />  <br />    <strong>2 │ </strong>  &lt;MyComponent&gt;<br />    <strong>3 │ </strong>    &lt;template #header&gt;First title&lt;/template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    &lt;template #header&gt;Second title&lt;/template&gt;<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  &lt;/MyComponent&gt;<br />    <strong>6 │ </strong>&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The slot is first filled here.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;MyComponent&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;template #header&gt;First title&lt;/template&gt;<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    &lt;template #header&gt;Second title&lt;/template&gt;<br />    <strong>5 │ </strong>  &lt;/MyComponent&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A slot can receive content from only one </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove one of the </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> elements, or give it another slot name. If only one of them should be shown at a time, use </span><span style=\"color: lightgreen;\"><strong>v-if</strong></span><span style=\"color: lightgreen;\"> and </span><span style=\"color: lightgreen;\"><strong>v-else</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <MyComponent>
+    <template v-for="item in items" #header>{{ item }}</template>
+  </MyComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:37 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-slot\">lint/nursery/useVueValidVSlot</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> is repeated with </span><span style=\"color: Tomato;\"><strong>v-for</strong></span><span style=\"color: Tomato;\">, but every repetition fills the same slot.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;MyComponent&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;template v-for=&quot;item in items&quot; #header&gt;&#123;&#123; item &#125;&#125;&lt;/template&gt;<br />   <strong>   │ </strong>                                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &lt;/MyComponent&gt;<br />    <strong>5 │ </strong>&lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A slot can receive content from only one </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\">, so only one of the repetitions is shown.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a slot name that changes with each item, such as </span><span style=\"color: lightgreen;\"><strong>#[item.name]</strong></span><span style=\"color: lightgreen;\">, or remove </span><span style=\"color: lightgreen;\"><strong>v-for</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <MyComponent v-slot>Content</MyComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-slot\">lint/nursery/useVueValidVSlot</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-slot</strong></span><span style=\"color: Tomato;\"> directive on a component needs a value.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;MyComponent v-slot&gt;Content&lt;/MyComponent&gt;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without a value, the directive has no effect: the content of the component already goes to its default slot.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the slot props you want to use, such as </span><span style=\"color: lightgreen;\"><strong>v-slot=&quot;&#123; item &#125;&quot;</strong></span><span style=\"color: lightgreen;\">, or remove the directive.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <MyComponent v-slot="{ item }">{{ item }}</MyComponent>
+  <MyComponent>
+    <template #default="{ item }">{{ item }}</template>
+    <template #header>Title</template>
+  </MyComponent>
+  <MyComponent>
+    <template v-if="isAdmin" #header>Admin title</template>
+    <template v-else #header>Title</template>
+  </MyComponent>
+  <MyComponent>
+    <template v-for="item in items" #[item.slot]>{{ item.text }}</template>
+  </MyComponent>
+</template>
+```
+
+## References
+
+- [Vue slots](https://vuejs.org/guide/components/slots.html)
+- [Vue `v-slot` directive](https://vuejs.org/api/built-in-directives.html#v-slot)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_valid_v_slot.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueValidVSlot)
+- <RulePlaygroundLink rule="useVueValidVSlot" category="lint" language="vue" code={"<template>\n  <div v-slot=\"{ item }\">{{ item }}</div>\n</template>\n"} />
+

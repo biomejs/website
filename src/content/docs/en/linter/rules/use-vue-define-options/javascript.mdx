@@ -1,0 +1,117 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueDefineOptions (JavaScript)
+description: JavaScript (and super languages) documentation for useVueDefineOptions
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-define-options/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/useVueDefineOptions`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/prefer-define-options`](https://eslint.vuejs.org/rules/prefer-define-options)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueDefineOptions": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce `defineOptions()` instead of a default export in components that use `<script setup>`.
+
+A Vue single-file component can have two script blocks: a plain `<script>` block and a
+`<script setup>` block. Before Vue 3.3, options such as `name` or `inheritAttrs` could
+only be set with `export default { ... }` in the plain `<script>` block, so the component
+was split across both blocks.
+
+Since Vue 3.3, the `defineOptions()` macro sets these options directly inside
+`<script setup>`. A macro is a function that the Vue compiler handles at build time, so it
+doesn't need to be imported. Using it keeps the whole component in one block.
+
+This rule reports the default export of a plain `<script>` block when the same file also
+has a `<script setup>` block.
+
+:::note
+This rule needs to read every script block of a `.vue` file, which requires
+[`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)
+to be `true`. Without that setting, Biome only checks the first script block of the file,
+and this rule reports nothing.
+:::
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  name: "MyComponent",
+  inheritAttrs: false,
+};
+</script>
+
+<script setup>
+const props = defineProps(["title"]);
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup>
+defineOptions({
+  name: "MyComponent",
+  inheritAttrs: false,
+});
+
+const props = defineProps(["title"]);
+</script>
+```
+
+A component without `<script setup>` still uses a default export:
+
+```vue
+<script>
+export default {
+  name: "MyComponent",
+};
+</script>
+```
+
+## Resources
+
+- [`defineOptions()`](https://vuejs.org/api/sfc-script-setup.html#defineoptions)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_define_options.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueDefineOptions)
+- <RulePlaygroundLink rule="useVueDefineOptions" category="lint" language="vue" code={"<script>\nexport default {\n  name: \"MyComponent\",\n  inheritAttrs: false,\n};\n</script>\n\n<script setup>\nconst props = defineProps([\"title\"]);\n</script>\n"} />
+
