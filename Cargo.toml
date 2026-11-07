@@ -57,7 +57,7 @@ camino = "1.2.6"
 jiff-static = "0.2.39"
 # Needed to fix some weird dependency
 lock_api = "0.4.14"
-ls-types = "=0.0.3"
+ls-types = "=0.0.6"
 proc-macro2 = "=1.0.107"
 pulldown-cmark = "0.13.6"
 schemars = "1.2.2"
