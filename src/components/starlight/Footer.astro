@@ -41,4 +41,9 @@ const isPlayground = /^\/playground(?:\/|$)/.test(Astro.url.pathname);
 		display: none;
 	}
 }
+
+/* The home page already lists sponsors in its own card */
+:global(body:has(.sponsors-card)) .footer-sponsor {
+	display: none;
+}
 </style>
