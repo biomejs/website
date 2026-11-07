@@ -263,7 +263,7 @@ import { defineRule, semantic, registerDiagnostic } from "@biomejs/runtime/plugi
 export const noAssign = defineRule({
     query: semantic("JS_CALL_EXPRESSION", "JS_DEBUGGER"),
     run(node, ctx) {
-      let model = ctx.model();
+      let { model } = ctx;
       registerDiagnostic(node, "error", "Can't assign anything.")
     }
 })
@@ -304,9 +304,7 @@ By default, `run` doesn't receive the semantic model. If your rule needs to insp
 ```ts title="plugin.ts" ins='grit'
 export const noConsole = defineRule({
     query: grit("`console.log($args)`", { semantic: true }),
-    run(node, ctx) {
-      if (node.kind !== "JS_CALL_EXPRESSION") return;
-      const model = ctx.model();
+    run(node, { model }) {
       // Inspect the bindings of the logged arguments if needed.
     }
 })
