@@ -1,10 +1,9 @@
-import { unified } from "@astrojs/markdown-remark";
+import { satteri } from "@astrojs/markdown-satteri";
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import starlight from "@astrojs/starlight";
 import type { AstroIntegration } from "astro";
 import { defineConfig, fontProviders } from "astro/config";
-import rehypeSlug from "rehype-slug";
 import starlightBlog from "starlight-blog";
 import starlightChangelogs, {
 	makeChangelogsSidebarLinks,
@@ -1093,9 +1092,7 @@ export default defineConfig({
 	},
 
 	markdown: {
-		processor: unified({
-			rehypePlugins: [rehypeSlug],
-		}),
+		processor: satteri(),
 		syntaxHighlight: "shiki",
 		shikiConfig: {
 			langAlias: {
