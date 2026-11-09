@@ -445,6 +445,83 @@ Creates a default Biome configuration file in the current working directory.
 
 Creates `biome.jsonc` instead of `biome.json`.
 
+## `biome inspect`
+
+Inspects Biome state without modifying files.
+
+This command also accepts [global flags](#global-flags) and requires one of the following subcommands.
+
+<h3>Subcommands</h3>
+
+#### `biome inspect plugins`
+
+Lists the plugin rules enabled by the configuration, grouped by plugin.
+
+Each rule shows whether the configuration lists it directly or through a preset. Rules that apply only to some files are listed separately with their `includes` globs. Biome locates the plugin files but doesn't compile or run them, so this command doesn't report syntax errors or runtime failures.
+
+##### Flags
+
+###### `--path=PATH`
+
+Lists only the rules that apply to `PATH`, based on `overrides` and plugin `includes`. Nested configuration files and ignore files are not considered.
+
+```shell
+biome inspect plugins --path=src/app.ts
+```
+
+#### `biome inspect config`
+
+Shows the final, resolved configuration, including `extends` and matching `overrides`.
+
+Without `KEY`, this command prints the entire configuration. Provide a dotted configuration key to inspect a specific value or object.
+
+```shell
+biome inspect config
+biome inspect config formatter.lineWidth
+biome inspect config linter.rules.suspicious.noDebugger
+biome inspect config plugins.1
+```
+
+##### Arguments
+
+###### `KEY`
+
+An optional dotted configuration key, such as `formatter.lineWidth`. Use a number to access an array item.
+
+##### Flags
+
+###### `--path=PATH`
+
+Evaluates matching overrides for `PATH`.
+
+```shell
+biome inspect config --path=src/app.test.ts
+```
+
+#### `biome inspect file`
+
+Provides development information about a file. By default, it prints the concrete syntax tree (CST).
+
+`PATH` is required and must point to the file to inspect.
+
+```shell
+biome inspect file path/to/file.ts
+```
+
+##### Flags
+
+###### `--ast`
+
+Prints the abstract syntax tree (AST).
+
+###### `--ir`
+
+Prints the formatter intermediate representation (IR), if supported.
+
+###### `--semantic`
+
+Prints the semantic information for the file, if available.
+
 ## `biome lsp-proxy`
 
 Ensures that the Biome daemon server is running, then forwards Language Server Protocol messages between the daemon server and standard input and output.
