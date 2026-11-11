@@ -1,0 +1,99 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noScssNullComparison (CSS)
+description: CSS documentation for noScssNullComparison
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-scss-null-comparison/css/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noScssNullComparison`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`scss/at-if-no-null`](https://github.com/stylelint-scss/stylelint-scss/blob/master/src/rules/at-if-no-null/README.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noScssNullComparison": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow comparing values to `null` in Sass `@if` conditions.
+
+In Sass, `null` counts as false in a condition. Writing `$value == null` or `$value != null`
+in an `@if` condition is longer than needed: `not $value` and `$value` check the same thing
+in most cases.
+
+The rule checks the conditions of `@if` and `@else if`, including comparisons combined
+with `and`, `or` and `not`.
+
+A `!= null` check followed by `and`, as in `$value != null and $value > 1`, isn't reported.
+This is a common way to check that a value exists before using it in the rest of the
+condition.
+
+:::note
+`false` also counts as false in a condition. If a value can be `false` and your code needs
+to treat `false` differently from `null`, keep the comparison and suppress the rule for that
+line.
+:::
+
+## Examples
+
+### Invalid
+
+```scss
+a {
+  @if $value == null {}
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.scss:2:7 <a href=\"https://biomejs.dev/linter/rules/no-scss-null-comparison\">lint/nursery/noScssNullComparison</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This condition compares a value to </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  @if $value == null &#123;&#125;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">In Sass, </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\"> counts as false in a condition, so the comparison isn't needed.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Check the value with </span><span style=\"color: lightgreen;\"><strong>not</strong></span><span style=\"color: lightgreen;\"> instead, as in </span><span style=\"color: lightgreen;\"><strong>@if not $value</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```scss
+a {
+  @if $value != null {}
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.scss:2:7 <a href=\"https://biomejs.dev/linter/rules/no-scss-null-comparison\">lint/nursery/noScssNullComparison</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This condition compares a value to </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  @if $value != null &#123;&#125;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">In Sass, </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\"> counts as false in a condition, so the comparison isn't needed.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the value as the condition instead, as in </span><span style=\"color: lightgreen;\"><strong>@if $value</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```scss
+a {
+  @if $value {}
+  @if not $value {}
+  @if $value != null and $value > 1 {}
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_scss_null_comparison.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noScssNullComparison)
+- <RulePlaygroundLink rule="noScssNullComparison" category="lint" language="scss" code={"a {\n  @if $value == null {}\n}\n"} />
+

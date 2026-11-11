@@ -1,0 +1,146 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUselessSpread (JavaScript)
+description: JavaScript (and super languages) documentation for noUselessSpread
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-spread/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noUselessSpread`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicorn/no-useless-spread`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-spread.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessSpread": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow spread syntax that has no effect.
+
+Spread syntax (`...`) copies the items of an array, an object, or any other iterable value,
+such as a `Set` or a generator.
+In some places the copy is not needed:
+
+- Spreading an array literal into another array literal, or into the arguments of a call.
+Write the elements directly instead.
+- Spreading an object literal into another object literal.
+Write the properties directly instead.
+- Creating an object that only contains spread properties to pass it to `Object.assign()`.
+`Object.assign()` already copies the properties of each argument, so pass the values directly.
+- Spreading an iterable into the only argument of `new Map()`, `new WeakMap()`, `new Set()`, or `new WeakSet()`.
+These constructors read a single iterable, so each item becomes a separate argument and only the first one is used.
+- Converting an iterable to an array before passing it to something that accepts any iterable:
+a `for...of` loop, `yield*`, `new Map()`, `new WeakMap()`, `new Set()`, `new WeakSet()`, `Array.from()`,
+`Object.fromEntries()`, `Promise.all()`, `Promise.allSettled()`, `Promise.any()`, `Promise.race()`,
+and the `from()` method of typed arrays such as `Uint8Array.from()`.
+- Copying an array that was just created by a method such as `concat()`, `slice()`, `toSorted()`, or `Object.keys()`.
+
+The rule assumes that a method with one of these names returns a new array.
+It can't know whether a value such as `foo` in `foo.slice()` is an array or a string,
+so it doesn't offer a fix for `concat()` and `slice()`, which strings also have.
+
+The rule doesn't offer a fix for an object literal with a getter or a setter, such as `{ ...{ get value() {} } }`.
+Spreading the object reads the getter once and copies the value,
+while writing the getter in the outer object would run it every time the property is read.
+
+Spreading an array also turns empty slots into `undefined`.
+If your code relies on that, disable the rule where needed.
+
+## Examples
+
+### Invalid
+
+```js
+const array = [first, ...[second, third]];
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:23 <a href=\"https://biomejs.dev/linter/rules/no-useless-spread\">lint/nursery/noUselessSpread</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Spreading an array literal into another array literal is unnecessary.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const array = [first, ...[second, third]];<br />   <strong>   │ </strong>                      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write the elements directly in the surrounding array.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the spread and the square brackets.</span><br />  <br />  <strong>  1 │ </strong>const<span style=\"opacity: 0.8;\">·</span>array<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>[first,<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">[</span>second,<span style=\"opacity: 0.8;\">·</span>third<span style=\"color: Tomato;\">]</span>];<br />  <strong>    │ </strong>                      <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>             <span style=\"color: Tomato;\">-</span>  <br /></code></pre>"} />
+
+```js
+const object = { first, ...{ second } };
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:25 <a href=\"https://biomejs.dev/linter/rules/no-useless-spread\">lint/nursery/noUselessSpread</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Spreading an object literal into another object literal is unnecessary.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const object = &#123; first, ...&#123; second &#125; &#125;;<br />   <strong>   │ </strong>                        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write the properties directly in the surrounding object.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the spread and the curly braces.</span><br />  <br />  <strong>  1 │ </strong>const<span style=\"opacity: 0.8;\">·</span>object<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>&#123;<span style=\"opacity: 0.8;\">·</span>first,<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">&#123;</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span>second<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">&#125;</span><span style=\"opacity: 0.8;\">·</span>&#125;;<br />  <strong>    │ </strong>                        <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>      <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>   <br /></code></pre>"} />
+
+```js
+foo(first, ...[second]);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:12 <a href=\"https://biomejs.dev/linter/rules/no-useless-spread\">lint/nursery/noUselessSpread</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Spreading an array literal into the arguments of a call is unnecessary.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>foo(first, ...[second]);<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the elements directly as arguments.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the spread and the square brackets.</span><br />  <br />  <strong>  1 │ </strong>foo(first,<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">[</span>second<span style=\"color: Tomato;\">]</span>);<br />  <strong>    │ </strong>           <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>      <span style=\"color: Tomato;\">-</span>  <br /></code></pre>"} />
+
+```js
+Object.assign(target, { ...source });
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:23 <a href=\"https://biomejs.dev/linter/rules/no-useless-spread\">lint/nursery/noUselessSpread</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This object only copies the properties of other values before </span><span style=\"color: lightgreen;\"><strong>Object.assign()</strong></span><span style=\"color: lightgreen;\"> copies them again.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>Object.assign(target, &#123; ...source &#125;);<br />   <strong>   │ </strong>                      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>Object.assign()</strong></span><span style=\"color: lightgreen;\"> copies the properties of each argument, so pass the spread values as separate arguments.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Pass the spread values as separate arguments.</span><br />  <br />  <strong>  1 │ </strong>Object.assign(target,<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">&#123;</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span>source<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">&#125;</span>);<br />  <strong>    │ </strong>                      <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>       <span style=\"color: Tomato;\">-</span>  <br /></code></pre>"} />
+
+```js
+const set = new Set(...items);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:21 <a href=\"https://biomejs.dev/linter/rules/no-useless-spread\">lint/nursery/noUselessSpread</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Spreading into </span><span style=\"color: lightgreen;\"><strong>new Set()</strong></span><span style=\"color: lightgreen;\"> passes each item as a separate argument.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const set = new Set(...items);<br />   <strong>   │ </strong>                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The constructor reads a single iterable, so only the first item is used.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the iterable directly, without spreading it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const set = new Set([...items]);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:21 <a href=\"https://biomejs.dev/linter/rules/no-useless-spread\">lint/nursery/noUselessSpread</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Converting this iterable to an array is unnecessary, because </span><span style=\"color: lightgreen;\"><strong>new Set()</strong></span><span style=\"color: lightgreen;\"> accepts any iterable.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const set = new Set([...items]);<br />   <strong>   │ </strong>                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the iterable directly to avoid copying every item.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Pass the iterable directly.</span><br />  <br />  <strong>  1 │ </strong>const<span style=\"opacity: 0.8;\">·</span>set<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>new<span style=\"opacity: 0.8;\">·</span>Set(<span style=\"color: Tomato;\">[</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span>items<span style=\"color: Tomato;\">]</span>);<br />  <strong>    │ </strong>                    <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>     <span style=\"color: Tomato;\">-</span>  <br /></code></pre>"} />
+
+```js
+for (const item of [...items]) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:20 <a href=\"https://biomejs.dev/linter/rules/no-useless-spread\">lint/nursery/noUselessSpread</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Converting this iterable to an array is unnecessary, because </span><span style=\"color: lightgreen;\"><strong>for...of</strong></span><span style=\"color: lightgreen;\"> accepts any iterable.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>for (const item of [...items]) &#123;&#125;<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the iterable directly to avoid copying every item.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Keep the copy if the loop changes the iterable while it runs.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Pass the iterable directly.</span><br />  <br />  <strong>  1 │ </strong>for<span style=\"opacity: 0.8;\">·</span>(const<span style=\"opacity: 0.8;\">·</span>item<span style=\"opacity: 0.8;\">·</span>of<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">[</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span>items<span style=\"color: Tomato;\">]</span>)<span style=\"opacity: 0.8;\">·</span>&#123;&#125;<br />  <strong>    │ </strong>                   <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>     <span style=\"color: Tomato;\">-</span>    <br /></code></pre>"} />
+
+```js
+const keys = [...Object.keys(object)];
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:14 <a href=\"https://biomejs.dev/linter/rules/no-useless-spread\">lint/nursery/noUselessSpread</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This spread copies an array that was just created.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const keys = [...Object.keys(object)];<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The spread value is already a new array, so it can be used directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the copy.</span><br />  <br />  <strong>  1 │ </strong>const<span style=\"opacity: 0.8;\">·</span>keys<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">[</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">.</span>Object.keys(object)<span style=\"color: Tomato;\">]</span>;<br />  <strong>    │ </strong>             <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>                   <span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+### Valid
+
+```js
+const array = [first, ...rest];
+const object = { first, ...rest };
+foo(first, ...rest);
+Object.assign(target, source);
+const set = new Set(items);
+for (const item of items) {}
+const keys = Object.keys(object);
+const copy = [...array];
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_useless_spread.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUselessSpread)
+- <RulePlaygroundLink rule="noUselessSpread" category="lint" language="js" code={"const array = [first, ...[second, third]];\n"} />
+

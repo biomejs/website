@@ -54,6 +54,10 @@ The `v` flag was introduced in ES2024 and provides all `u` flag features plus:
 - String literals in character classes
 - Improved Unicode property escapes
 
+Some patterns that are valid without these flags become a syntax error
+in Unicode mode, for example `/{/` or `/\-/`. The rule still reports them,
+but no fix is offered because adding the `u` flag would break the code.
+
 ## Examples
 
 ### Invalid

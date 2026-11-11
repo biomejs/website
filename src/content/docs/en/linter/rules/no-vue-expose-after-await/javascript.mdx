@@ -1,0 +1,114 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueExposeAfterAwait (JavaScript)
+description: JavaScript (and super languages) documentation for noVueExposeAfterAwait
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-expose-after-await/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noVueExposeAfterAwait`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-expose-after-await`](https://eslint.vuejs.org/rules/no-expose-after-await)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueExposeAfterAwait": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow calling `expose()` or `defineExpose()` after an `await` in `setup()`.
+
+`expose()` and `defineExpose()` choose which properties of a component a parent component
+can use through a template ref. Vue expects them to be called before the component's setup
+code pauses at its first `await`. The setup code is the `setup()` function, or all the code
+in `<script setup>`. A call that comes after the pause runs too late, so the parent
+component might not receive the exposed properties.
+
+This rule reports these calls when they come after an `await`:
+
+- `expose()` from the second parameter of `setup()`, written as `setup(props, { expose })`
+or as `setup(props, context)` followed by `context.expose()`.
+- `defineExpose()` in `<script setup>`.
+
+An `await` inside a nested function doesn't count, because it doesn't pause the setup code.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  async setup(props, { expose }) {
+    await fetchUser();
+    expose({ reload });
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:5:5 <a href=\"https://biomejs.dev/linter/rules/no-vue-expose-after-await\">lint/nursery/noVueExposeAfterAwait</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>expose()</strong></span><span style=\"color: Tomato;\"> call comes after an </span><span style=\"color: Tomato;\"><strong>await</strong></span><span style=\"color: Tomato;\">, so it runs too late.</span><br />  <br />    <strong>3 │ </strong>  async setup(props, &#123; expose &#125;) &#123;<br />    <strong>4 │ </strong>    await fetchUser();<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>    expose(&#123; reload &#125;);<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>  &#125;,<br />    <strong>7 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The component's setup code pauses here. A parent component might not receive the exposed properties.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  async setup(props, &#123; expose &#125;) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    await fetchUser();<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>    expose(&#123; reload &#125;);<br />    <strong>6 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>expose()</strong></span><span style=\"color: lightgreen;\"> before the first </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+await fetchUser();
+defineExpose({ reload });
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:1 <a href=\"https://biomejs.dev/linter/rules/no-vue-expose-after-await\">lint/nursery/noVueExposeAfterAwait</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>defineExpose()</strong></span><span style=\"color: Tomato;\"> call comes after an </span><span style=\"color: Tomato;\"><strong>await</strong></span><span style=\"color: Tomato;\">, so it runs too late.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />    <strong>2 │ </strong>await fetchUser();<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>defineExpose(&#123; reload &#125;);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&lt;/script&gt;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The component's setup code pauses here. A parent component might not receive the exposed properties.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>await fetchUser();<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>defineExpose(&#123; reload &#125;);<br />    <strong>4 │ </strong>&lt;/script&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>defineExpose()</strong></span><span style=\"color: lightgreen;\"> before the first </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+export default {
+  async setup(props, { expose }) {
+    expose({ reload });
+    await fetchUser();
+  },
+};
+</script>
+```
+
+```vue
+<script setup>
+defineExpose({ reload });
+await fetchUser();
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_expose_after_await.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueExposeAfterAwait)
+- <RulePlaygroundLink rule="noVueExposeAfterAwait" category="lint" language="vue" code={"<script>\nexport default {\n  async setup(props, { expose }) {\n    await fetchUser();\n    expose({ reload });\n  },\n};\n</script>\n"} />
+

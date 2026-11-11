@@ -1,0 +1,226 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useConsistentBooleanName (JavaScript)
+description: JavaScript (and super languages) documentation for useConsistentBooleanName
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-consistent-boolean-name/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useConsistentBooleanName`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`unicorn/consistent-boolean-name`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/consistent-boolean-name.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentBooleanName": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require boolean names to start with a prefix such as `is` or `has`, and reserve those prefixes for booleans.
+
+A name like `isReady` or `hasAccess` tells the reader that the value is
+either `true` or `false`. When a boolean has a name like `ready`, readers
+have to look at the code to learn what kind of value it holds. When a
+name like `hasName` holds a string, it misleads readers.
+
+This rule checks variables, function parameters, and function names.
+It reports a name that holds a boolean, or a function that returns one,
+when the name doesn't start with a boolean prefix. It also reports a
+name that starts with a boolean prefix when its value isn't a boolean.
+
+The rule decides whether a value is a boolean from what the code shows:
+type annotations, literals like `true`, comparisons like `a === b`,
+negations like `!value`, calls like `Boolean(value)` or
+`Array.isArray(value)`, and the values that a function returns. When the
+rule can't tell whether a value is a boolean, it doesn't report the name.
+
+A prefix counts only when it's a separate word in the name. `isReady`,
+`is_ready`, `IS_READY`, and `_isReady` all start with the prefix `is`,
+but `island` doesn't. For React hooks, the rule checks the part of the
+name after `use`, so `useIsReady` is a boolean name.
+
+The default prefixes are `are`, `can`, `did`, `does`, `has`, `have`,
+`is`, `requires`, `should`, `was`, `were`, and `will`.
+
+Destructured variables, imports, class names, and `catch` parameters
+aren't checked. Object properties, class properties, and methods
+aren't checked either.
+
+## Examples
+
+### Invalid
+
+```js
+const completed = true;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:7 <a href=\"https://biomejs.dev/linter/rules/use-consistent-boolean-name\">lint/nursery/useConsistentBooleanName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>completed</strong></span><span style=\"color: lightgreen;\"> holds a boolean, but its name doesn't start with a boolean prefix.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const completed = true;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A boolean prefix tells readers that the value is either true or false.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename it so that its name starts with one of these prefixes: </span><span style=\"color: lightgreen;\"><strong>are</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>can</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>did</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>does</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>has</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>have</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>is</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>requires</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>should</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>was</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>were</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>will</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const completed = progress === 100;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:7 <a href=\"https://biomejs.dev/linter/rules/use-consistent-boolean-name\">lint/nursery/useConsistentBooleanName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>completed</strong></span><span style=\"color: lightgreen;\"> holds a boolean, but its name doesn't start with a boolean prefix.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const completed = progress === 100;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A boolean prefix tells readers that the value is either true or false.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename it so that its name starts with one of these prefixes: </span><span style=\"color: lightgreen;\"><strong>are</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>can</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>did</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>does</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>has</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>have</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>is</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>requires</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>should</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>was</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>were</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>will</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const hasName = "Sindre";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:7 <a href=\"https://biomejs.dev/linter/rules/use-consistent-boolean-name\">lint/nursery/useConsistentBooleanName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>hasName</strong></span><span style=\"color: lightgreen;\"> starts with the boolean prefix </span><span style=\"color: lightgreen;\"><strong>has</strong></span><span style=\"color: lightgreen;\">, but doesn't hold a boolean.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const hasName = &quot;Sindre&quot;;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Readers expect a name that starts with </span><span style=\"color: lightgreen;\"><strong>has</strong></span><span style=\"color: lightgreen;\"> to be either true or false.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename it so that it doesn't start with </span><span style=\"color: lightgreen;\"><strong>has</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+function hasTitle() {
+    return "Unicorn";
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:10 <a href=\"https://biomejs.dev/linter/rules/use-consistent-boolean-name\">lint/nursery/useConsistentBooleanName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>hasTitle</strong></span><span style=\"color: lightgreen;\"> starts with the boolean prefix </span><span style=\"color: lightgreen;\"><strong>has</strong></span><span style=\"color: lightgreen;\">, but doesn't return a boolean.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>function hasTitle() &#123;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    return &quot;Unicorn&quot;;<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Readers expect a name that starts with </span><span style=\"color: lightgreen;\"><strong>has</strong></span><span style=\"color: lightgreen;\"> to be either true or false.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename it so that it doesn't start with </span><span style=\"color: lightgreen;\"><strong>has</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+function completed() {
+    return true;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:10 <a href=\"https://biomejs.dev/linter/rules/use-consistent-boolean-name\">lint/nursery/useConsistentBooleanName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>completed</strong></span><span style=\"color: lightgreen;\"> returns a boolean, but its name doesn't start with a boolean prefix.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>function completed() &#123;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    return true;<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A boolean prefix tells readers that the value is either true or false.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename it so that its name starts with one of these prefixes: </span><span style=\"color: lightgreen;\"><strong>are</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>can</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>did</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>does</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>has</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>have</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>is</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>requires</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>should</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>was</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>were</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>will</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+function download(showProgress: boolean) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:19 <a href=\"https://biomejs.dev/linter/rules/use-consistent-boolean-name\">lint/nursery/useConsistentBooleanName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>showProgress</strong></span><span style=\"color: lightgreen;\"> holds a boolean, but its name doesn't start with a boolean prefix.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>function download(showProgress: boolean) &#123;&#125;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A boolean prefix tells readers that the value is either true or false.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename it so that its name starts with one of these prefixes: </span><span style=\"color: lightgreen;\"><strong>are</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>can</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>did</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>does</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>has</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>have</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>is</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>requires</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>should</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>was</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>were</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>will</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```ts
+const isCompleted = true;
+const hasCompleted = progress === 100;
+const name = "Sindre";
+function getTitle() {
+    return "Unicorn";
+}
+function isCompleted() {
+    return true;
+}
+function download(shouldShowProgress: boolean) {}
+const task = { completed: progress === 100 };
+```
+
+## Options
+
+### `prefixes`
+
+Default: `{}`
+
+Prefixes to add to the defaults, or to turn off. Set a prefix to `true`
+to accept it on boolean names and to require a boolean value for names
+that start with it. Set a prefix to `false` to turn it off: the rule no
+longer accepts it on boolean names, and no longer requires a boolean
+value for names that start with it.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentBooleanName": {
+					"level": "on",
+					"options": {
+						"prefixes": {
+							"needs": true,
+							"did": false
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```js
+const didUpdate = true;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:7 <a href=\"https://biomejs.dev/linter/rules/use-consistent-boolean-name\">lint/nursery/useConsistentBooleanName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>didUpdate</strong></span><span style=\"color: lightgreen;\"> holds a boolean, but its name doesn't start with a boolean prefix.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const didUpdate = true;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A boolean prefix tells readers that the value is either true or false.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename it so that its name starts with one of these prefixes: </span><span style=\"color: lightgreen;\"><strong>are</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>can</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>does</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>has</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>have</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>is</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>requires</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>should</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>was</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>were</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>will</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>needs</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const needsUpdate = "yes";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:7 <a href=\"https://biomejs.dev/linter/rules/use-consistent-boolean-name\">lint/nursery/useConsistentBooleanName</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>needsUpdate</strong></span><span style=\"color: lightgreen;\"> starts with the boolean prefix </span><span style=\"color: lightgreen;\"><strong>needs</strong></span><span style=\"color: lightgreen;\">, but doesn't hold a boolean.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const needsUpdate = &quot;yes&quot;;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Readers expect a name that starts with </span><span style=\"color: lightgreen;\"><strong>needs</strong></span><span style=\"color: lightgreen;\"> to be either true or false.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename it so that it doesn't start with </span><span style=\"color: lightgreen;\"><strong>needs</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```js
+const needsUpdate = true;
+const didUpdate = "yes";
+```
+
+### `ignore`
+
+Default: `[]`
+
+Names that the rule doesn't check. A name must match an entry exactly.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentBooleanName": {
+					"level": "on",
+					"options": {
+						"ignore": [
+							"value",
+							"completed"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+const value = true;
+const completed = true;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_consistent_boolean_name.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useConsistentBooleanName)
+- <RulePlaygroundLink rule="useConsistentBooleanName" category="lint" language="js" code={"const completed = true;\n"} />
+
