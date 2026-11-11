@@ -235,7 +235,7 @@ export const LINT_RULES = {
     noConsoleSpaces: "noConsoleSpaces",
     noConstantComparisons: "noConstantComparisons",
     noDanglingUnderscore: "noDanglingUnderscore",
-    noDisabledButton: "noDisabledButton",
+    noDisabledAttribute: "noDisabledAttribute",
     noDoubleComparison: "noDoubleComparison",
     noDuplicateTypeConstituents: "noDuplicateTypeConstituents",
     noDynamicDelete: "noDynamicDelete",
