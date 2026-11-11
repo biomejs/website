@@ -1,0 +1,112 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noSvelteAsyncStore (JavaScript)
+description: JavaScript (and super languages) documentation for noSvelteAsyncStore
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-svelte-async-store/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noSvelteAsyncStore`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`svelte`](/linter/domains#svelte)
+- Sources: 
+  - Same as [`svelte/no-store-async`](https://sveltejs.github.io/eslint-plugin-svelte/rules/no-store-async/)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSvelteAsyncStore": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow passing async functions to Svelte stores.
+
+The `writable()`, `readable()`, and `derived()` functions from `svelte/store` accept a
+function as their second argument, and Svelte uses the value that this function returns.
+An async function always returns a promise instead:
+
+- For `writable()` and `readable()`, Svelte calls the returned value when the store is no
+longer used, for example when a component that reads the store is removed from the page.
+Calling a promise throws an error.
+- For `derived()`, Svelte ignores the promise, so the cleanup never runs. If the function
+takes a single parameter, the store holds the promise instead of the result.
+
+To do async work, keep the function synchronous and start the work inside it, then call
+`set()` once the result is ready.
+
+## Examples
+
+### Invalid
+
+```js
+import { writable } from "svelte/store";
+const user = writable(null, async (set) => {
+    set(await fetchUser());
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:29 <a href=\"https://biomejs.dev/linter/rules/no-svelte-async-store\">lint/nursery/noSvelteAsyncStore</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This async function is passed to </span><span style=\"color: lightgreen;\"><strong>writable()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>import &#123; writable &#125; from &quot;svelte/store&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const user = writable(null, async (set) =&gt; &#123;<br />   <strong>   │ </strong>                            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    set(await fetchUser());<br />    <strong>4 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Svelte calls the value this function returns when the store is no longer used. An async function returns a promise, and calling a promise throws an error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Make the function synchronous, start the async work inside it, and call </span><span style=\"color: lightgreen;\"><strong>set()</strong></span><span style=\"color: lightgreen;\"> when the result is ready.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { readable } from "svelte/store";
+const time = readable(new Date(), async function (set) {
+    set(await fetchTime());
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:35 <a href=\"https://biomejs.dev/linter/rules/no-svelte-async-store\">lint/nursery/noSvelteAsyncStore</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This async function is passed to </span><span style=\"color: lightgreen;\"><strong>readable()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>import &#123; readable &#125; from &quot;svelte/store&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const time = readable(new Date(), async function (set) &#123;<br />   <strong>   │ </strong>                                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    set(await fetchTime());<br />    <strong>4 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Svelte calls the value this function returns when the store is no longer used. An async function returns a promise, and calling a promise throws an error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Make the function synchronous, start the async work inside it, and call </span><span style=\"color: lightgreen;\"><strong>set()</strong></span><span style=\"color: lightgreen;\"> when the result is ready.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { derived } from "svelte/store";
+const profile = derived(user, async ($user) => await fetchProfile($user));
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:31 <a href=\"https://biomejs.dev/linter/rules/no-svelte-async-store\">lint/nursery/noSvelteAsyncStore</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This async function is passed to </span><span style=\"color: lightgreen;\"><strong>derived()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>import &#123; derived &#125; from &quot;svelte/store&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const profile = derived(user, async ($user) =&gt; await fetchProfile($user));<br />   <strong>   │ </strong>                              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Svelte uses the value this function returns, either to clean up or as the value of the store. An async function returns a promise instead, so the cleanup never runs or the store holds the promise.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Make the function synchronous, start the async work inside it, and call </span><span style=\"color: lightgreen;\"><strong>set()</strong></span><span style=\"color: lightgreen;\"> when the result is ready.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+import { derived, writable } from "svelte/store";
+const user = writable(null, (set) => {
+    fetchUser().then(set);
+});
+const profile = derived(user, ($user, set) => {
+    fetchProfile($user).then(set);
+});
+```
+
+## References
+
+- [`svelte/store`](https://svelte.dev/docs/svelte/svelte-store)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_svelte_async_store.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noSvelteAsyncStore)
+- <RulePlaygroundLink rule="noSvelteAsyncStore" category="lint" language="js" code={"import { writable } from \"svelte/store\";\nconst user = writable(null, async (set) => {\n    set(await fetchUser());\n});\n"} />
+

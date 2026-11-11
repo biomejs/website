@@ -1,0 +1,105 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noReactDirectStateMutation (JavaScript)
+description: JavaScript (and super languages) documentation for noReactDirectStateMutation
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-react-direct-state-mutation/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noReactDirectStateMutation`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`react`](/linter/domains#react)
+- Sources: 
+  - Inspired from [`react/no-direct-mutation-state`](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-direct-mutation-state.md)
+  - Inspired from [`react-x/no-direct-mutation-state`](https://eslint-react.xyz/docs/rules/no-direct-mutation-state)
+  - Inspired from [`@eslint-react/no-direct-mutation-state`](https://eslint-react.xyz/docs/rules/no-direct-mutation-state)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noReactDirectStateMutation": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow mutating `this.state` directly in React class components.
+
+State should only be updated through `this.setState()` so React can correctly schedule a
+re-render and combine state updates.
+Writing to `this.state` is only allowed in the constructor of a class component, to set the
+initial state.
+This rule applies to classes that extend `Component` or `PureComponent`, including
+`React.Component` and `React.PureComponent`.
+
+## Examples
+
+### Invalid
+
+```jsx
+class Counter extends React.Component {
+  increment() {
+    this.state.count = this.state.count + 1;
+  }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:3:5 <a href=\"https://biomejs.dev/linter/rules/no-react-direct-state-mutation\">lint/nursery/noReactDirectStateMutation</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This code changes </span><span style=\"color: Tomato;\"><strong>this.state</strong></span><span style=\"color: Tomato;\"> directly.</span><br />  <br />    <strong>1 │ </strong>class Counter extends React.Component &#123;<br />    <strong>2 │ </strong>  increment() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    this.state.count = this.state.count + 1;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &#125;<br />    <strong>5 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">React does not render the component again after a direct change, and a later </span><span style=\"color: lightgreen;\"><strong>setState()</strong></span><span style=\"color: lightgreen;\"> call can overwrite it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>this.setState()</strong></span><span style=\"color: lightgreen;\"> instead. Only assign to </span><span style=\"color: lightgreen;\"><strong>this.state</strong></span><span style=\"color: lightgreen;\"> directly in the constructor, to set the initial state.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```jsx
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    loadCount((count) => {
+      this.state = { count };
+    });
+  }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:5:7 <a href=\"https://biomejs.dev/linter/rules/no-react-direct-state-mutation\">lint/nursery/noReactDirectStateMutation</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This code changes </span><span style=\"color: Tomato;\"><strong>this.state</strong></span><span style=\"color: Tomato;\"> directly.</span><br />  <br />    <strong>3 │ </strong>    super(props);<br />    <strong>4 │ </strong>    loadCount((count) =&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>      this.state = &#123; count &#125;;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>    &#125;);<br />    <strong>7 │ </strong>  &#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">React does not render the component again after a direct change, and a later </span><span style=\"color: lightgreen;\"><strong>setState()</strong></span><span style=\"color: lightgreen;\"> call can overwrite it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call </span><span style=\"color: lightgreen;\"><strong>this.setState()</strong></span><span style=\"color: lightgreen;\"> instead. Only assign to </span><span style=\"color: lightgreen;\"><strong>this.state</strong></span><span style=\"color: lightgreen;\"> directly in the constructor, to set the initial state.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```jsx
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+  }
+
+  increment() {
+    this.setState({ count: this.state.count + 1 });
+  }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_react_direct_state_mutation.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noReactDirectStateMutation)
+- <RulePlaygroundLink rule="noReactDirectStateMutation" category="lint" language="jsx" code={"class Counter extends React.Component {\n  increment() {\n    this.state.count = this.state.count + 1;\n  }\n}\n"} />
+

@@ -1,0 +1,92 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useGlobalRegexInReplaceAll (JavaScript)
+description: JavaScript (and super languages) documentation for useGlobalRegexInReplaceAll
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-global-regex-in-replace-all/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useGlobalRegexInReplaceAll`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`oxc/bad-replace-all-arg`](https://oxc.rs/docs/guide/usage/linter/rules/oxc/bad-replace-all-arg)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useGlobalRegexInReplaceAll": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require regular expressions passed to `replaceAll()` to use the global flag.
+
+When `String.prototype.replaceAll()` receives a regular expression, that regular
+expression must have the `g` (global) flag. Without it, `replaceAll()` throws a
+`TypeError` when the code runs, instead of replacing any text.
+
+This rule checks regular expression literals, such as `/\s+/`, and calls to
+`RegExp()` or `new RegExp()` whose flags are written directly in the code.
+It also follows variables that are initialized with one of these and never reassigned.
+
+## Examples
+
+### Invalid
+
+```js
+withSpaces.replaceAll(/\s+/, ",");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:23 <a href=\"https://biomejs.dev/linter/rules/use-global-regex-in-replace-all\">lint/nursery/useGlobalRegexInReplaceAll</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This regular expression passed to </span><span style=\"color: Tomato;\"><strong>replaceAll()</strong></span><span style=\"color: Tomato;\"> is missing the </span><span style=\"color: Tomato;\"><strong>g</strong></span><span style=\"color: Tomato;\"> flag.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>withSpaces.replaceAll(/&#92;s+/, &quot;,&quot;);<br />   <strong>   │ </strong>                      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When </span><span style=\"color: lightgreen;\"><strong>replaceAll()</strong></span><span style=\"color: lightgreen;\"> receives a regular expression without the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> (global) flag, it throws a </span><span style=\"color: lightgreen;\"><strong>TypeError</strong></span><span style=\"color: lightgreen;\"> instead of replacing text.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> flag to the regular expression, or use </span><span style=\"color: lightgreen;\"><strong>replace()</strong></span><span style=\"color: lightgreen;\"> to replace only the first match.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+withSpaces.replaceAll(new RegExp("\\s+", "i"), ",");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:23 <a href=\"https://biomejs.dev/linter/rules/use-global-regex-in-replace-all\">lint/nursery/useGlobalRegexInReplaceAll</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This regular expression passed to </span><span style=\"color: Tomato;\"><strong>replaceAll()</strong></span><span style=\"color: Tomato;\"> is missing the </span><span style=\"color: Tomato;\"><strong>g</strong></span><span style=\"color: Tomato;\"> flag.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>withSpaces.replaceAll(new RegExp(&quot;&#92;&#92;s+&quot;, &quot;i&quot;), &quot;,&quot;);<br />   <strong>   │ </strong>                      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When </span><span style=\"color: lightgreen;\"><strong>replaceAll()</strong></span><span style=\"color: lightgreen;\"> receives a regular expression without the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> (global) flag, it throws a </span><span style=\"color: lightgreen;\"><strong>TypeError</strong></span><span style=\"color: lightgreen;\"> instead of replacing text.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> flag to the regular expression, or use </span><span style=\"color: lightgreen;\"><strong>replace()</strong></span><span style=\"color: lightgreen;\"> to replace only the first match.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const spaces = /\s+/;
+withSpaces.replaceAll(spaces, ",");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:23 <a href=\"https://biomejs.dev/linter/rules/use-global-regex-in-replace-all\">lint/nursery/useGlobalRegexInReplaceAll</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This regular expression passed to </span><span style=\"color: Tomato;\"><strong>replaceAll()</strong></span><span style=\"color: Tomato;\"> is missing the </span><span style=\"color: Tomato;\"><strong>g</strong></span><span style=\"color: Tomato;\"> flag.</span><br />  <br />    <strong>1 │ </strong>const spaces = /&#92;s+/;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>withSpaces.replaceAll(spaces, &quot;,&quot;);<br />   <strong>   │ </strong>                      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The regular expression is created here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const spaces = /&#92;s+/;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>withSpaces.replaceAll(spaces, &quot;,&quot;);<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When </span><span style=\"color: lightgreen;\"><strong>replaceAll()</strong></span><span style=\"color: lightgreen;\"> receives a regular expression without the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> (global) flag, it throws a </span><span style=\"color: lightgreen;\"><strong>TypeError</strong></span><span style=\"color: lightgreen;\"> instead of replacing text.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> flag to the regular expression, or use </span><span style=\"color: lightgreen;\"><strong>replace()</strong></span><span style=\"color: lightgreen;\"> to replace only the first match.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+withSpaces.replaceAll(/\s+/g, ",");
+withSpaces.replaceAll(new RegExp("\\s+", "g"), ",");
+withSpaces.replaceAll(" ", ",");
+withSpaces.replace(/\s+/, ",");
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_global_regex_in_replace_all.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useGlobalRegexInReplaceAll)
+- <RulePlaygroundLink rule="useGlobalRegexInReplaceAll" category="lint" language="js" code={"withSpaces.replaceAll(/\\s+/, \",\");\n"} />
+

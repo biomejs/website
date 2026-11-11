@@ -1,0 +1,118 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUselessQualifier (JavaScript)
+description: JavaScript (and super languages) documentation for noUselessQualifier
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-qualifier/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noUselessQualifier`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`@typescript-eslint/no-unnecessary-qualifier`](https://typescript-eslint.io/rules/no-unnecessary-qualifier)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessQualifier": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow unnecessary namespace and enum qualifiers.
+
+The members of a TypeScript namespace or enum are usually accessed through
+the name of the namespace or enum, for example `Direction.Up`. The
+`Direction.` part is called a qualifier.
+
+Inside the namespace or enum itself, the members can be used by their name
+alone, so the qualifier only repeats what is already known.
+
+This rule doesn't report a qualifier when the member name alone would refer
+to something else, for example because a local variable has the same name.
+
+## Examples
+
+### Invalid
+
+```ts
+enum Direction {
+    Up,
+    Down = Direction.Up + 1,
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:3:12 <a href=\"https://biomejs.dev/linter/rules/no-useless-qualifier\">lint/nursery/noUselessQualifier</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The qualifier before </span><span style=\"color: lightgreen;\"><strong>Up</strong></span><span style=\"color: lightgreen;\"> is unnecessary.</span><br />  <br />    <strong>1 │ </strong>enum Direction &#123;<br />    <strong>2 │ </strong>    Up,<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    Down = Direction.Up + 1,<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Inside a namespace or an enum, its members can be used by their name alone, so the qualifier only repeats what is already known.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the qualifier.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  enum Direction &#123;<br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>      Up,<br />    <strong>3</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">D</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">w</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>D</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>c</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>.</strong></span><span style=\"color: Tomato;\"><strong>U</strong></span><span style=\"color: Tomato;\"><strong>p</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">+</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">1</span><span style=\"color: Tomato;\">,</span><br />      <strong>3</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">D</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">w</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>U</strong></span><span style=\"color: MediumSeaGreen;\"><strong>p</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">1</span><span style=\"color: MediumSeaGreen;\">,</span><br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  &#125;<br />    <strong>5</strong> <strong>5</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```ts
+namespace Shapes {
+    export type Point = { x: number; y: number };
+    const origin: Shapes.Point = { x: 0, y: 0 };
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:3:19 <a href=\"https://biomejs.dev/linter/rules/no-useless-qualifier\">lint/nursery/noUselessQualifier</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The qualifier before </span><span style=\"color: lightgreen;\"><strong>Point</strong></span><span style=\"color: lightgreen;\"> is unnecessary.</span><br />  <br />    <strong>1 │ </strong>namespace Shapes &#123;<br />    <strong>2 │ </strong>    export type Point = &#123; x: number; y: number &#125;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    const origin: Shapes.Point = &#123; x: 0, y: 0 &#125;;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Inside a namespace or an enum, its members can be used by their name alone, so the qualifier only repeats what is already known.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the qualifier.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  namespace Shapes &#123;<br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>      export type Point = &#123; x: number; y: number &#125;;<br />    <strong>3</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>S</strong></span><span style=\"color: Tomato;\"><strong>h</strong></span><span style=\"color: Tomato;\"><strong>a</strong></span><span style=\"color: Tomato;\"><strong>p</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>s</strong></span><span style=\"color: Tomato;\"><strong>.</strong></span><span style=\"color: Tomato;\"><strong>P</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">x</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">0</span><span style=\"color: Tomato;\">,</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">y</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">0</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#125;</span><span style=\"color: Tomato;\">;</span><br />      <strong>3</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>P</strong></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">x</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">0</span><span style=\"color: MediumSeaGreen;\">,</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">y</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">0</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#125;</span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  &#125;<br />    <strong>5</strong> <strong>5</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```ts
+namespace Config {
+    export const timeout = 1000;
+    export function getTimeout() {
+        return Config.timeout;
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:4:16 <a href=\"https://biomejs.dev/linter/rules/no-useless-qualifier\">lint/nursery/noUselessQualifier</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The qualifier before </span><span style=\"color: lightgreen;\"><strong>timeout</strong></span><span style=\"color: lightgreen;\"> is unnecessary.</span><br />  <br />    <strong>2 │ </strong>    export const timeout = 1000;<br />    <strong>3 │ </strong>    export function getTimeout() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>        return Config.timeout;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>    &#125;<br />    <strong>6 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Inside a namespace or an enum, its members can be used by their name alone, so the qualifier only repeats what is already known.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the qualifier.</span><br />  <br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>      export const timeout = 1000;<br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>      export function getTimeout() &#123;<br />    <strong>4</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>C</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>f</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>g</strong></span><span style=\"color: Tomato;\"><strong>.</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>m</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>o</strong></span><span style=\"color: Tomato;\"><strong>u</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\">;</span><br />      <strong>4</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>m</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>u</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>5</strong> <strong>5</strong><strong> │ </strong>      &#125;<br />    <strong>6</strong> <strong>6</strong><strong> │ </strong>  &#125;<br />  <br /></code></pre>"} />
+
+### Valid
+
+```ts
+enum Direction {
+    Up,
+    Down = Up + 1,
+}
+
+namespace Shapes {
+    export type Point = { x: number; y: number };
+    const origin: Point = { x: 0, y: 0 };
+}
+
+namespace Outer {
+    export type Id = number;
+    namespace Inner {
+        type Id = string;
+        // `Id` alone would refer to `Inner.Id`.
+        const id: Outer.Id = 0;
+    }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_useless_qualifier.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUselessQualifier)
+- <RulePlaygroundLink rule="noUselessQualifier" category="lint" language="ts" code={"enum Direction {\n    Up,\n    Down = Direction.Up + 1,\n}\n"} />
+

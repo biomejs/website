@@ -1,0 +1,85 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUselessFallbackInSpread (JavaScript)
+description: JavaScript (and super languages) documentation for noUselessFallbackInSpread
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-fallback-in-spread/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noUselessFallbackInSpread`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`unicorn/no-useless-fallback-in-spread`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-fallback-in-spread.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessFallbackInSpread": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow empty object fallbacks when spreading a value into an object.
+
+Spreading `null`, `undefined`, or another falsy value (a value treated as `false` in a
+condition, such as `false`, `0`, or `""`) into an object literal adds no properties.
+Writing `{...(value || {})}` or `{...(value ?? {})}` therefore gives the same result as
+`{...value}`, and the `{}` fallback only adds noise.
+
+This doesn't apply to arrays: spreading `null` or `undefined` into an array or a function
+call throws an error, so `[...(value || [])]` is allowed.
+
+## Examples
+
+### Invalid
+
+```js
+const object = { ...(options || {}) };
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:30 <a href=\"https://biomejs.dev/linter/rules/no-useless-fallback-in-spread\">lint/nursery/noUselessFallbackInSpread</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This empty object fallback is unnecessary.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const object = &#123; ...(options || &#123;&#125;) &#125;;<br />   <strong>   │ </strong>                             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Spreading </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">, or another falsy value such as </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>0</strong></span><span style=\"color: lightgreen;\">, or </span><span style=\"color: lightgreen;\"><strong>&quot;&quot;</strong></span><span style=\"color: lightgreen;\"> into an object adds no properties, so the fallback has no effect.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the fallback and spread the value directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the empty object fallback.</span><br />  <br />  <strong>  1 │ </strong>const<span style=\"opacity: 0.8;\">·</span>object<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>&#123;<span style=\"opacity: 0.8;\">·</span>...<span style=\"color: Tomato;\">(</span>options<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">|</span><span style=\"color: Tomato;\">|</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><span style=\"color: Tomato;\">&#125;</span><span style=\"color: Tomato;\">)</span><span style=\"opacity: 0.8;\">·</span>&#125;;<br />  <strong>    │ </strong>                    <span style=\"color: Tomato;\">-</span>       <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>   <br /></code></pre>"} />
+
+```js
+const object = { ...(options ?? {}) };
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:30 <a href=\"https://biomejs.dev/linter/rules/no-useless-fallback-in-spread\">lint/nursery/noUselessFallbackInSpread</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This empty object fallback is unnecessary.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const object = &#123; ...(options ?? &#123;&#125;) &#125;;<br />   <strong>   │ </strong>                             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Spreading </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">, or another falsy value such as </span><span style=\"color: lightgreen;\"><strong>false</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>0</strong></span><span style=\"color: lightgreen;\">, or </span><span style=\"color: lightgreen;\"><strong>&quot;&quot;</strong></span><span style=\"color: lightgreen;\"> into an object adds no properties, so the fallback has no effect.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the fallback and spread the value directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the empty object fallback.</span><br />  <br />  <strong>  1 │ </strong>const<span style=\"opacity: 0.8;\">·</span>object<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>&#123;<span style=\"opacity: 0.8;\">·</span>...<span style=\"color: Tomato;\">(</span>options<span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">?</span><span style=\"color: Tomato;\">?</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><span style=\"color: Tomato;\">&#125;</span><span style=\"color: Tomato;\">)</span><span style=\"opacity: 0.8;\">·</span>&#125;;<br />  <strong>    │ </strong>                    <span style=\"color: Tomato;\">-</span>       <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>   <br /></code></pre>"} />
+
+### Valid
+
+```js
+const object = { ...options };
+const withDefaults = { ...(options || { verbose: true }) };
+const conditional = { ...(enabled && {}) };
+const array = [...(items || [])];
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_useless_fallback_in_spread.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUselessFallbackInSpread)
+- <RulePlaygroundLink rule="noUselessFallbackInSpread" category="lint" language="js" code={"const object = { ...(options || {}) };\n"} />
+

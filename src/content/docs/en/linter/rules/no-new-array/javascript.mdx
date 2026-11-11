@@ -1,0 +1,97 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noNewArray (JavaScript)
+description: JavaScript (and super languages) documentation for noNewArray
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-new-array/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noNewArray`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Inspired from [`unicorn/no-new-array`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-new-array.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noNewArray": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `new Array()` with a single argument.
+
+`new Array()` with one argument does two different things depending on the argument.
+If the argument is a number, it creates an empty array of that length.
+Otherwise, it creates an array that holds the argument as its only item.
+Because of this, readers can't tell from the code alone which one was intended.
+
+Use an array literal, such as `[value]`, to create an array that holds a value.
+Use `Array.from({ length })` to create an array of a given length.
+Note that `new Array(length)` creates an array of empty slots,
+while `Array.from({ length })` creates an array filled with `undefined`.
+Some array methods, such as `forEach()` and `filter()`, skip empty slots.
+
+When the argument is never a number, such as a string or an object,
+Biome replaces the call with an array literal.
+Biome doesn't offer a fix when the call has comments that the fix would remove.
+
+## Examples
+
+### Invalid
+
+```js
+const length = 10;
+const array = new Array(length);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:15 <a href=\"https://biomejs.dev/linter/rules/no-new-array\">lint/nursery/noNewArray</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>new Array()</strong></span><span style=\"color: lightgreen;\"> call has a single argument, so its result depends on whether the argument is a number.</span><br />  <br />    <strong>1 │ </strong>const length = 10;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const array = new Array(length);<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">With a number, </span><span style=\"color: lightgreen;\"><strong>new Array()</strong></span><span style=\"color: lightgreen;\"> creates an empty array of that length. With any other value, it creates an array that holds the value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use an array literal such as </span><span style=\"color: lightgreen;\"><strong>[value]</strong></span><span style=\"color: lightgreen;\"> to create an array that holds the value, or </span><span style=\"color: lightgreen;\"><strong>Array.from(&#123; length &#125;)</strong></span><span style=\"color: lightgreen;\"> to create an array of a given length.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const array = new Array("value");
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:15 <a href=\"https://biomejs.dev/linter/rules/no-new-array\">lint/nursery/noNewArray</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>new Array()</strong></span><span style=\"color: lightgreen;\"> call has a single argument, so its result depends on whether the argument is a number.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const array = new Array(&quot;value&quot;);<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">With a number, </span><span style=\"color: lightgreen;\"><strong>new Array()</strong></span><span style=\"color: lightgreen;\"> creates an empty array of that length. With any other value, it creates an array that holds the value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use an array literal such as </span><span style=\"color: lightgreen;\"><strong>[value]</strong></span><span style=\"color: lightgreen;\"> to create an array that holds the value, or </span><span style=\"color: lightgreen;\"><strong>Array.from(&#123; length &#125;)</strong></span><span style=\"color: lightgreen;\"> to create an array of a given length.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use an array literal.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">y</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>w</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>A</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>a</strong></span><span style=\"color: Tomato;\"><strong>y</strong></span><span style=\"color: Tomato;\"><strong>(</strong></span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\"><strong>)</strong></span><span style=\"color: Tomato;\">;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">y</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>[</strong></span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\"><strong>]</strong></span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+const length = 10;
+const empty = Array.from({ length });
+const array = ["value"];
+const pair = new Array(1, 2);
+```
+
+## See Also
+
+- To use array literals instead of `Array()` with no arguments, several arguments, or a spread argument such as `new Array(...items)`, see [`useArrayLiterals`](https://biomejs.dev/linter/rules/use-array-literals/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_new_array.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noNewArray)
+- <RulePlaygroundLink rule="noNewArray" category="lint" language="js" code={"const length = 10;\nconst array = new Array(length);\n"} />
+

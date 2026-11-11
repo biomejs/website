@@ -1,0 +1,122 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noAsyncPromiseFinally (JavaScript)
+description: JavaScript (and super languages) documentation for noAsyncPromiseFinally
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-async-promise-finally/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noAsyncPromiseFinally`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`unicorn/no-async-promise-finally`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-async-promise-finally.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noAsyncPromiseFinally": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow async functions as `.finally()` callbacks.
+
+The function passed to a promise's `.finally()` method runs after the promise settles,
+whether it succeeded or failed. When this function is async, it returns a promise of its own.
+If that promise is rejected, the promise returned by `.finally()` is rejected with that new error,
+and the original value or error is lost.
+
+This rule reports async functions written directly inside `.finally()`,
+and names that refer to an async function declared in the same file,
+either with a `function` declaration or a `const` variable.
+Imported functions and functions accessed through an object are not checked.
+
+## Examples
+
+### Invalid
+
+The following code logs `cleanup` instead of `original`:
+
+```js
+try {
+    await Promise.reject(new Error("original")).finally(async () => {
+        throw new Error("cleanup");
+    });
+} catch (error) {
+    console.log(error.message); // "cleanup"
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:57 <a href=\"https://biomejs.dev/linter/rules/no-async-promise-finally\">lint/nursery/noAsyncPromiseFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>async</strong></span><span style=\"color: Orange;\"> function is passed to </span><span style=\"color: Orange;\"><strong>.finally()</strong></span><span style=\"color: Orange;\">.</span><br />  <br />    <strong>1 │ </strong>try &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    await Promise.reject(new Error(&quot;original&quot;)).finally(async () =&gt; &#123;<br />   <strong>   │ </strong>                                                        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        throw new Error(&quot;cleanup&quot;);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    &#125;);<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>&#125; catch (error) &#123;<br />    <strong>6 │ </strong>    console.log(error.message); // &quot;cleanup&quot;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">If this function fails, the promise returned by </span><span style=\"color: lightgreen;\"><strong>.finally()</strong></span><span style=\"color: lightgreen;\"> is rejected with its error, and the original result or error of the promise is lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a function that isn't </span><span style=\"color: lightgreen;\"><strong>async</strong></span><span style=\"color: lightgreen;\">. If the cleanup has to be asynchronous, handle its errors inside the function, for example with </span><span style=\"color: lightgreen;\"><strong>.catch()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+promise.finally(async () => {
+    await cleanup();
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:17 <a href=\"https://biomejs.dev/linter/rules/no-async-promise-finally\">lint/nursery/noAsyncPromiseFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>async</strong></span><span style=\"color: Orange;\"> function is passed to </span><span style=\"color: Orange;\"><strong>.finally()</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>promise.finally(async () =&gt; &#123;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    await cleanup();<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>&#125;);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">If this function fails, the promise returned by </span><span style=\"color: lightgreen;\"><strong>.finally()</strong></span><span style=\"color: lightgreen;\"> is rejected with its error, and the original result or error of the promise is lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a function that isn't </span><span style=\"color: lightgreen;\"><strong>async</strong></span><span style=\"color: lightgreen;\">. If the cleanup has to be asynchronous, handle its errors inside the function, for example with </span><span style=\"color: lightgreen;\"><strong>.catch()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+async function cleanup() {}
+
+promise.finally(cleanup);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:17 <a href=\"https://biomejs.dev/linter/rules/no-async-promise-finally\">lint/nursery/noAsyncPromiseFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>async</strong></span><span style=\"color: Orange;\"> function is passed to </span><span style=\"color: Orange;\"><strong>.finally()</strong></span><span style=\"color: Orange;\">.</span><br />  <br />    <strong>1 │ </strong>async function cleanup() &#123;&#125;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>promise.finally(cleanup);<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The function is declared </span><span style=\"color: lightgreen;\"><strong>async</strong></span><span style=\"color: lightgreen;\"> here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>async function cleanup() &#123;&#125;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />    <strong>3 │ </strong>promise.finally(cleanup);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">If this function fails, the promise returned by </span><span style=\"color: lightgreen;\"><strong>.finally()</strong></span><span style=\"color: lightgreen;\"> is rejected with its error, and the original result or error of the promise is lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a function that isn't </span><span style=\"color: lightgreen;\"><strong>async</strong></span><span style=\"color: lightgreen;\">. If the cleanup has to be asynchronous, handle its errors inside the function, for example with </span><span style=\"color: lightgreen;\"><strong>.catch()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const cleanup = async () => {};
+
+promise.finally(cleanup);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:17 <a href=\"https://biomejs.dev/linter/rules/no-async-promise-finally\">lint/nursery/noAsyncPromiseFinally</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>async</strong></span><span style=\"color: Orange;\"> function is passed to </span><span style=\"color: Orange;\"><strong>.finally()</strong></span><span style=\"color: Orange;\">.</span><br />  <br />    <strong>1 │ </strong>const cleanup = async () =&gt; &#123;&#125;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>promise.finally(cleanup);<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The function is declared </span><span style=\"color: lightgreen;\"><strong>async</strong></span><span style=\"color: lightgreen;\"> here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const cleanup = async () =&gt; &#123;&#125;;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />    <strong>3 │ </strong>promise.finally(cleanup);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">If this function fails, the promise returned by </span><span style=\"color: lightgreen;\"><strong>.finally()</strong></span><span style=\"color: lightgreen;\"> is rejected with its error, and the original result or error of the promise is lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a function that isn't </span><span style=\"color: lightgreen;\"><strong>async</strong></span><span style=\"color: lightgreen;\">. If the cleanup has to be asynchronous, handle its errors inside the function, for example with </span><span style=\"color: lightgreen;\"><strong>.catch()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+promise.finally(() => {
+    cleanupSynchronously();
+});
+
+function cleanup() {}
+promise.finally(cleanup);
+
+// If the cleanup has to be asynchronous, handle its errors so they can't replace the original result.
+promise.finally(() => {
+    return asyncCleanup().catch((error) => {
+        logCleanupError(error);
+    });
+});
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_async_promise_finally.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noAsyncPromiseFinally)
+- <RulePlaygroundLink rule="noAsyncPromiseFinally" category="lint" language="js" code={"try {\n    await Promise.reject(new Error(\"original\")).finally(async () => {\n        throw new Error(\"cleanup\");\n    });\n} catch (error) {\n    console.log(error.message); // \"cleanup\"\n}\n"} />
+

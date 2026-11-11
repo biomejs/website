@@ -1,0 +1,190 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noDuplicateTypeConstituents (JavaScript)
+description: JavaScript (and super languages) documentation for noDuplicateTypeConstituents
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-duplicate-type-constituents/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noDuplicateTypeConstituents`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Inspired from [`@typescript-eslint/no-duplicate-type-constituents`](https://typescript-eslint.io/rules/no-duplicate-type-constituents)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDuplicateTypeConstituents": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow duplicate types in union and intersection types.
+
+A union type (`A | B`) accepts a value of any of the listed types.
+An intersection type (`A & B`) requires a value to match all of the listed types.
+Listing the same type more than once has no effect in either case.
+A repeated type is usually a copy-paste mistake, and it makes the type harder to read.
+
+Two types are duplicates when they are written the same way.
+The rule ignores spaces, comments, quote styles, and parentheses around a listed type, so `"A" | ('A')` is reported.
+The rule also looks inside parenthesized groups of the same kind, so `A | (B | A)` is reported.
+The rule doesn't look up what a type name refers to, so `A | B` isn't reported even when `B` is another name for `A`.
+
+The rule also reports `undefined` in the type of an optional parameter (a parameter marked with `?`),
+because an optional parameter already accepts `undefined`.
+
+## Examples
+
+### Invalid
+
+```ts
+type T = string | number | string;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:28 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-type-constituents\">lint/nursery/noDuplicateTypeConstituents</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This type is already listed in the union type.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = string | number | string;<br />   <strong>   │ </strong>                           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">It is first listed here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = string | number | string;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Listing the same type more than once has no effect and makes the type harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the duplicate type, or replace it with the type you meant.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the duplicate type.</span><br />  <br />  <strong>  1 │ </strong>type<span style=\"opacity: 0.8;\">·</span>T<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>string<span style=\"opacity: 0.8;\">·</span>|<span style=\"opacity: 0.8;\">·</span>number<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">|</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">g</span>;<br />  <strong>    │ </strong>                         <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+```ts
+type T = "a" | "b" | "a";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:22 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-type-constituents\">lint/nursery/noDuplicateTypeConstituents</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This type is already listed in the union type.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = &quot;a&quot; | &quot;b&quot; | &quot;a&quot;;<br />   <strong>   │ </strong>                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">It is first listed here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = &quot;a&quot; | &quot;b&quot; | &quot;a&quot;;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Listing the same type more than once has no effect and makes the type harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the duplicate type, or replace it with the type you meant.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the duplicate type.</span><br />  <br />  <strong>  1 │ </strong>type<span style=\"opacity: 0.8;\">·</span>T<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>&quot;a&quot;<span style=\"opacity: 0.8;\">·</span>|<span style=\"opacity: 0.8;\">·</span>&quot;b&quot;<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">|</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">&quot;</span>;<br />  <strong>    │ </strong>                   <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+```ts
+type T = Foo & Bar & Foo;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:22 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-type-constituents\">lint/nursery/noDuplicateTypeConstituents</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This type is already listed in the intersection type.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = Foo &amp; Bar &amp; Foo;<br />   <strong>   │ </strong>                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">It is first listed here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = Foo &amp; Bar &amp; Foo;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Listing the same type more than once has no effect and makes the type harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the duplicate type, or replace it with the type you meant.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the duplicate type.</span><br />  <br />  <strong>  1 │ </strong>type<span style=\"opacity: 0.8;\">·</span>T<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>Foo<span style=\"opacity: 0.8;\">·</span>&amp;<span style=\"opacity: 0.8;\">·</span>Bar<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">&amp;</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">F</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">o</span>;<br />  <strong>    │ </strong>                   <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+```ts
+type T = (A | B) | (A | B);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:20 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-type-constituents\">lint/nursery/noDuplicateTypeConstituents</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This type is already listed in the union type.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = (A | B) | (A | B);<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">It is first listed here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = (A | B) | (A | B);<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Listing the same type more than once has no effect and makes the type harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the duplicate type, or replace it with the type you meant.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the duplicate type.</span><br />  <br />  <strong>  1 │ </strong>type<span style=\"opacity: 0.8;\">·</span>T<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>(A<span style=\"opacity: 0.8;\">·</span>|<span style=\"opacity: 0.8;\">·</span>B)<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">|</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">A</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">|</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">B</span><span style=\"color: Tomato;\">)</span>;<br />  <strong>    │ </strong>                 <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+```ts
+function f(a?: string | undefined) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:25 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-type-constituents\">lint/nursery/noDuplicateTypeConstituents</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>undefined</strong></span><span style=\"color: Orange;\"> is unnecessary because the parameter is optional.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>function f(a?: string | undefined) &#123;&#125;<br />   <strong>   │ </strong>                        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A parameter marked with </span><span style=\"color: lightgreen;\"><strong>?</strong></span><span style=\"color: lightgreen;\"> already accepts </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> from the parameter type.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong>  1 │ </strong>function<span style=\"opacity: 0.8;\">·</span>f(a?:<span style=\"opacity: 0.8;\">·</span>string<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">|</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">d</span>)<span style=\"opacity: 0.8;\">·</span>&#123;&#125;<br />  <strong>    │ </strong>                      <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span>    <br /></code></pre>"} />
+
+### Valid
+
+```ts
+type T1 = string | number;
+type T2 = "a" | "b";
+type T3 = Foo & Bar;
+type T4 = (A | B) | (A & B);
+type T5 = Set<string> | Set<number>;
+function f(a: string | undefined) {}
+```
+
+## Options
+
+### `ignoreIntersections`
+
+Default: `false`
+
+When set to `true`, the rule doesn't check intersection types.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDuplicateTypeConstituents": {
+					"level": "on",
+					"options": {
+						"ignoreIntersections": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+```ts
+type T = Foo & Foo;
+```
+
+#### Invalid
+
+```ts
+type T = Foo | Foo;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:16 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-type-constituents\">lint/nursery/noDuplicateTypeConstituents</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This type is already listed in the union type.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = Foo | Foo;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">It is first listed here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = Foo | Foo;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Listing the same type more than once has no effect and makes the type harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the duplicate type, or replace it with the type you meant.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the duplicate type.</span><br />  <br />  <strong>  1 │ </strong>type<span style=\"opacity: 0.8;\">·</span>T<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>Foo<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">|</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">F</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">o</span>;<br />  <strong>    │ </strong>             <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+### `ignoreUnions`
+
+Default: `false`
+
+When set to `true`, the rule doesn't check union types.
+This also turns off the check for `undefined` in the type of an optional parameter.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDuplicateTypeConstituents": {
+					"level": "on",
+					"options": {
+						"ignoreUnions": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+```ts
+type T = Foo | Foo;
+function f(a?: string | undefined) {}
+```
+
+#### Invalid
+
+```ts
+type T = Foo & Foo;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:16 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-type-constituents\">lint/nursery/noDuplicateTypeConstituents</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This type is already listed in the intersection type.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = Foo &amp; Foo;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">It is first listed here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type T = Foo &amp; Foo;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Listing the same type more than once has no effect and makes the type harder to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the duplicate type, or replace it with the type you meant.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the duplicate type.</span><br />  <br />  <strong>  1 │ </strong>type<span style=\"opacity: 0.8;\">·</span>T<span style=\"opacity: 0.8;\">·</span>=<span style=\"opacity: 0.8;\">·</span>Foo<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">&amp;</span><span style=\"opacity: 0.8;\"><span style=\"color: Tomato;\">·</span></span><span style=\"color: Tomato;\">F</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">o</span>;<br />  <strong>    │ </strong>             <span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_duplicate_type_constituents.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noDuplicateTypeConstituents)
+- <RulePlaygroundLink rule="noDuplicateTypeConstituents" category="lint" language="ts" code={"type T = string | number | string;\n"} />
+

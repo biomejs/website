@@ -1,0 +1,95 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noInvalidFetchOptions (JavaScript)
+description: JavaScript (and super languages) documentation for noInvalidFetchOptions
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-invalid-fetch-options/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noInvalidFetchOptions`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Inspired from [`unicorn/no-invalid-fetch-options`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-invalid-fetch-options.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noInvalidFetchOptions": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow a request body in `fetch()` and `new Request()` when the method is `GET` or `HEAD`.
+
+[`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/fetch) and
+[`new Request()`](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request)
+throw a `TypeError` when the options contain a `body` and the `method` is `GET` or `HEAD`.
+When the options don't contain a `method`, the request uses `GET`.
+
+The rule checks options written as an object directly in the call.
+It reports a `method` only when its value is known without running the code,
+for example a string, or a `const` variable that holds a string.
+A `body` set to `undefined` or `null` counts as no body.
+A spread, such as `...options`, placed after `body` or `method` can replace them,
+so the rule doesn't check those options.
+
+## Examples
+
+### Invalid
+
+```js
+await fetch("/", { body: "foo=bar" });
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:20 <a href=\"https://biomejs.dev/linter/rules/no-invalid-fetch-options\">lint/nursery/noInvalidFetchOptions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This request has a </span><span style=\"color: Tomato;\"><strong>body</strong></span><span style=\"color: Tomato;\">, but its method is </span><span style=\"color: Tomato;\"><strong>GET</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>await fetch(&quot;/&quot;, &#123; body: &quot;foo=bar&quot; &#125;);<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Requests that use the </span><span style=\"color: lightgreen;\"><strong>GET</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>HEAD</strong></span><span style=\"color: lightgreen;\"> method can't have a body, so this code throws a </span><span style=\"color: lightgreen;\"><strong>TypeError</strong></span><span style=\"color: lightgreen;\"> when it runs. A request without a </span><span style=\"color: lightgreen;\"><strong>method</strong></span><span style=\"color: lightgreen;\"> uses </span><span style=\"color: lightgreen;\"><strong>GET</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>body</strong></span><span style=\"color: lightgreen;\">, or use a method that allows one, such as </span><span style=\"color: lightgreen;\"><strong>POST</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+new Request("/", { method: "GET", body: "foo=bar" });
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:35 <a href=\"https://biomejs.dev/linter/rules/no-invalid-fetch-options\">lint/nursery/noInvalidFetchOptions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This request has a </span><span style=\"color: Tomato;\"><strong>body</strong></span><span style=\"color: Tomato;\">, but its method is </span><span style=\"color: Tomato;\"><strong>GET</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>new Request(&quot;/&quot;, &#123; method: &quot;GET&quot;, body: &quot;foo=bar&quot; &#125;);<br />   <strong>   │ </strong>                                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Requests that use the </span><span style=\"color: lightgreen;\"><strong>GET</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>HEAD</strong></span><span style=\"color: lightgreen;\"> method can't have a body, so this code throws a </span><span style=\"color: lightgreen;\"><strong>TypeError</strong></span><span style=\"color: lightgreen;\"> when it runs. A request without a </span><span style=\"color: lightgreen;\"><strong>method</strong></span><span style=\"color: lightgreen;\"> uses </span><span style=\"color: lightgreen;\"><strong>GET</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>body</strong></span><span style=\"color: lightgreen;\">, or use a method that allows one, such as </span><span style=\"color: lightgreen;\"><strong>POST</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+await fetch("/", { method: "HEAD", body: "foo=bar" });
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:36 <a href=\"https://biomejs.dev/linter/rules/no-invalid-fetch-options\">lint/nursery/noInvalidFetchOptions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This request has a </span><span style=\"color: Tomato;\"><strong>body</strong></span><span style=\"color: Tomato;\">, but its method is </span><span style=\"color: Tomato;\"><strong>HEAD</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>await fetch(&quot;/&quot;, &#123; method: &quot;HEAD&quot;, body: &quot;foo=bar&quot; &#125;);<br />   <strong>   │ </strong>                                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Requests that use the </span><span style=\"color: lightgreen;\"><strong>GET</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>HEAD</strong></span><span style=\"color: lightgreen;\"> method can't have a body, so this code throws a </span><span style=\"color: lightgreen;\"><strong>TypeError</strong></span><span style=\"color: lightgreen;\"> when it runs. A request without a </span><span style=\"color: lightgreen;\"><strong>method</strong></span><span style=\"color: lightgreen;\"> uses </span><span style=\"color: lightgreen;\"><strong>GET</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>body</strong></span><span style=\"color: lightgreen;\">, or use a method that allows one, such as </span><span style=\"color: lightgreen;\"><strong>POST</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+await fetch("/", { method: "HEAD" });
+await fetch("/", { method: "POST", body: "foo=bar" });
+new Request("/", { method: "POST", body: "foo=bar" });
+await fetch("/", { body: undefined });
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_invalid_fetch_options.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noInvalidFetchOptions)
+- <RulePlaygroundLink rule="noInvalidFetchOptions" category="lint" language="js" code={"await fetch(\"/\", { body: \"foo=bar\" });\n"} />
+

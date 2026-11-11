@@ -1,0 +1,603 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noExcessiveSelectorComplexity (CSS)
+description: CSS documentation for noExcessiveSelectorComplexity
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-excessive-selector-complexity/css/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noExcessiveSelectorComplexity`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`css/selector-complexity`](https://github.com/eslint/css/blob/main/docs/rules/selector-complexity.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Limit how complex selectors can be, and disallow chosen parts of selectors.
+
+Long selectors that mix many IDs, element names, attributes, and pseudo-classes are hard
+to read and hard to override. They also tie styles closely to the structure of the page,
+so small changes to the HTML can break them.
+
+This rule lets you set a maximum for each kind of selector part, and list combinators,
+pseudo-classes, pseudo-elements, attributes, and attribute operators that aren't
+allowed. The rule does nothing until at least one option is set.
+
+Each selector in a comma-separated list is checked on its own. For example, `#a, #b`
+contains two selectors with one ID each.
+
+Selectors inside a pseudo-class such as `:not()`, `:is()`, or `:has()` are checked as
+separate selectors, and don't count toward the selector that contains them. For example,
+`#a:not(#b)` contains two selectors with one ID each.
+
+Nested selectors are checked as written, without combining them with the selectors of
+their parent rules.
+
+## Examples
+
+### Invalid
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"maxIds": 1,
+						"disallowPseudoClasses": [
+							"hover"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```css
+#main #sidebar {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:1 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This selector has too many ID selectors: it has 2, but the limit is 1.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>#main #sidebar &#123;&#125;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Complex selectors are hard to read and override, and break easily when the page structure changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Simplify the selector, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```css
+button:hover {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:7 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The pseudo-class </span><span style=\"color: Orange;\"><strong>:hover</strong></span><span style=\"color: Orange;\"> isn't allowed.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>button:hover &#123;&#125;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The rule's configuration disallows this pseudo-class in selectors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rewrite the selector without it, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```css
+#main .sidebar,
+#footer {}
+
+#main:not(#sidebar) {}
+
+button:focus {}
+```
+
+## Options
+
+### `maxIds`
+
+Default: no limit
+
+The maximum number of ID selectors, such as `#main`, allowed in a single selector.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"maxIds": 1
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+#main > #sidebar {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:1 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This selector has too many ID selectors: it has 2, but the limit is 1.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>#main &gt; #sidebar &#123;&#125;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Complex selectors are hard to read and override, and break easily when the page structure changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Simplify the selector, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+#main .sidebar {}
+```
+
+### `maxTypes`
+
+Default: no limit
+
+The maximum number of type selectors allowed in a single selector. A type selector
+matches elements by their tag name, such as `div` or `a`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"maxTypes": 2
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+ul li a {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:1 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This selector has too many type selectors: it has 3, but the limit is 2.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>ul li a &#123;&#125;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Complex selectors are hard to read and override, and break easily when the page structure changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Simplify the selector, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+li.item a {}
+```
+
+### `maxAttributes`
+
+Default: no limit
+
+The maximum number of attribute selectors, such as `[type="text"]`, allowed in a single
+selector.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"maxAttributes": 1
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+[name="email"][type="text"] {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:1 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This selector has too many attribute selectors: it has 2, but the limit is 1.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>[name=&quot;email&quot;][type=&quot;text&quot;] &#123;&#125;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Complex selectors are hard to read and override, and break easily when the page structure changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Simplify the selector, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+input[type="text"] {}
+```
+
+### `maxPseudoClasses`
+
+Default: no limit
+
+The maximum number of pseudo-classes, such as `:hover` or `:first-child`, allowed in a
+single selector. Pseudo-elements such as `::before` don't count, including the older
+single-colon forms `:before`, `:after`, `:first-line`, and `:first-letter`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"maxPseudoClasses": 1
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+li:first-child:hover {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:1 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This selector has too many pseudo-classes: it has 2, but the limit is 1.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>li:first-child:hover &#123;&#125;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Complex selectors are hard to read and override, and break easily when the page structure changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Simplify the selector, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+a:hover::before {}
+```
+
+### `maxUniversals`
+
+Default: no limit
+
+The maximum number of universal selectors (`*`) allowed in a single selector.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"maxUniversals": 1
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+* > * {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:1 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This selector has too many universal selectors: it has 2, but the limit is 1.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&#42; &gt; &#42; &#123;&#125;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Complex selectors are hard to read and override, and break easily when the page structure changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Simplify the selector, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+.list > * {}
+```
+
+### `maxCompounds`
+
+Default: no limit
+
+The maximum number of compound selectors allowed in a single selector. A compound
+selector is a group of selectors written together without spaces or combinators. For
+example, `nav a.link:hover` has two compound selectors: `nav` and `a.link:hover`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"maxCompounds": 2
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+nav ul a {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:1 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This selector has too many compound selectors: it has 3, but the limit is 2.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>nav ul a &#123;&#125;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Complex selectors are hard to read and override, and break easily when the page structure changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Simplify the selector, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+nav a.link:hover {}
+```
+
+### `maxCombinators`
+
+Default: no limit
+
+The maximum number of combinators allowed in a single selector. A combinator is the
+symbol between two compound selectors: a space, `>`, `+`, `~`, or `||`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"maxCombinators": 1
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+.menu > .item > a {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:1 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This selector has too many combinators: it has 2, but the limit is 1.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>.menu &gt; .item &gt; a &#123;&#125;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Complex selectors are hard to read and override, and break easily when the page structure changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Simplify the selector, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+.menu > .item {}
+```
+
+### `disallowCombinators`
+
+Default: `[]`
+
+Combinators that aren't allowed. Accepted values are `" "` (a space, which selects
+elements inside another element), `">"`, `"+"`, `"~"`, and `"||"`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"disallowCombinators": [
+							">"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+.menu > .item {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:7 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The combinator </span><span style=\"color: Orange;\"><strong>&gt;</strong></span><span style=\"color: Orange;\"> isn't allowed.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>.menu &gt; .item &#123;&#125;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The rule's configuration disallows this combinator in selectors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rewrite the selector without it, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+.menu .item {}
+```
+
+### `disallowPseudoClasses`
+
+Default: `[]`
+
+Pseudo-classes that aren't allowed, written without the leading colon. Names are compared
+without regard to letter case.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"disallowPseudoClasses": [
+							"hover"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+a:not(.active):hover {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:15 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The pseudo-class </span><span style=\"color: Orange;\"><strong>:hover</strong></span><span style=\"color: Orange;\"> isn't allowed.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>a:not(.active):hover &#123;&#125;<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The rule's configuration disallows this pseudo-class in selectors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rewrite the selector without it, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+a:not(.active) {}
+```
+
+### `disallowPseudoElements`
+
+Default: `[]`
+
+Pseudo-elements that aren't allowed, written without the leading colons. Names are
+compared without regard to letter case. The older single-colon forms `:before`,
+`:after`, `:first-line`, and `:first-letter` are checked as well.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"disallowPseudoElements": [
+							"before"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+a:before {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:2 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The pseudo-element </span><span style=\"color: Orange;\"><strong>:before</strong></span><span style=\"color: Orange;\"> isn't allowed.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>a:before &#123;&#125;<br />   <strong>   │ </strong> <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The rule's configuration disallows this pseudo-element in selectors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rewrite the selector without it, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+input::placeholder {}
+```
+
+### `disallowAttributes`
+
+Default: `[]`
+
+Attribute names that aren't allowed in attribute selectors. Names must match exactly,
+including letter case.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"disallowAttributes": [
+							"class"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+[class*="button"] {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:2 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The attribute </span><span style=\"color: Orange;\"><strong>class</strong></span><span style=\"color: Orange;\"> isn't allowed.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>[class&#42;=&quot;button&quot;] &#123;&#125;<br />   <strong>   │ </strong> <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The rule's configuration disallows this attribute in selectors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rewrite the selector without it, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+input[type="text"] {}
+```
+
+### `disallowAttributeMatchers`
+
+Default: `[]`
+
+Operators that aren't allowed in attribute selectors. Accepted values are `"="`, `"~="`,
+`"|="`, `"^="`, `"$="`, and `"*="`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveSelectorComplexity": {
+					"level": "on",
+					"options": {
+						"disallowAttributeMatchers": [
+							"*="
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+[class*="button"] {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:7 <a href=\"https://biomejs.dev/linter/rules/no-excessive-selector-complexity\">lint/nursery/noExcessiveSelectorComplexity</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The attribute operator </span><span style=\"color: Orange;\"><strong>&#42;=</strong></span><span style=\"color: Orange;\"> isn't allowed.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>[class&#42;=&quot;button&quot;] &#123;&#125;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The rule's configuration disallows this attribute operator in selectors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rewrite the selector without it, for example by giving the element a class and selecting it directly.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+[class="button"] {}
+```
+
+## See Also
+
+- To limit the number of classes in a selector, see [`noExcessiveSelectorClasses`](https://biomejs.dev/linter/rules/no-excessive-selector-classes/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_excessive_selector_complexity.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noExcessiveSelectorComplexity)
+- <RulePlaygroundLink rule="noExcessiveSelectorComplexity" category="lint" language="css" code={"#main #sidebar {}\n"} />
+

@@ -1,0 +1,165 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noRedundantTypeConstituents (JavaScript)
+description: JavaScript (and super languages) documentation for noRedundantTypeConstituents
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-redundant-type-constituents/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noRedundantTypeConstituents`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Inspired from [`@typescript-eslint/no-redundant-type-constituents`](https://typescript-eslint.io/rules/no-redundant-type-constituents)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noRedundantTypeConstituents": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow members of union and intersection types that have no effect.
+
+A union type (`A | B`) accepts a value if it matches any of its members.
+An intersection type (`A & B`) accepts a value only if it matches all of its members.
+Some members make the others pointless, or are pointless themselves:
+
+- In a union, `any` and `unknown` accept every value, so the other members have no effect.
+- In a union, `never` accepts no value, so it has no effect.
+It's allowed when the union is the return type of a function.
+- In a union, a literal type such as `"a"` or `1` has no effect when the union also includes
+its primitive type, such as `string` or `number`.
+- In an intersection, `any` and `never` replace the whole type, so the other members have no effect.
+- In an intersection, `unknown` has no effect.
+- In an intersection, a primitive type such as `string` has no effect when the intersection
+also includes one of its literal types, such as `"a"`.
+
+These members usually point to a mistake, such as a type that is wider than intended.
+
+This rule only looks at the types written directly in the union or intersection.
+It doesn't follow type aliases or other named types.
+
+## Examples
+
+### Invalid
+
+```ts
+type UnionAny = any | "foo";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:17 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>any</strong></span><span style=\"color: Orange;\"> type makes every other member of this union redundant.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type UnionAny = any | &quot;foo&quot;;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This union is always </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">, whatever its other members are.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">If the type should be </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">, replace the whole union with </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">. Otherwise, remove </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+type UnionUnknown = unknown | "foo";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:21 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>unknown</strong></span><span style=\"color: Orange;\"> type makes every other member of this union redundant.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type UnionUnknown = unknown | &quot;foo&quot;;<br />   <strong>   │ </strong>                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This union is always </span><span style=\"color: lightgreen;\"><strong>unknown</strong></span><span style=\"color: lightgreen;\">, whatever its other members are.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">If the type should be </span><span style=\"color: lightgreen;\"><strong>unknown</strong></span><span style=\"color: lightgreen;\">, replace the whole union with </span><span style=\"color: lightgreen;\"><strong>unknown</strong></span><span style=\"color: lightgreen;\">. Otherwise, remove </span><span style=\"color: lightgreen;\"><strong>unknown</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+type UnionNever = never | "foo";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:19 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>never</strong></span><span style=\"color: Orange;\"> type has no effect in this union.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type UnionNever = never | &quot;foo&quot;;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This union accepts the same values with or without </span><span style=\"color: lightgreen;\"><strong>never</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>never</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+type UnionBooleanLiteral = boolean | false;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:38 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This literal type is redundant because the union also includes </span><span style=\"color: Orange;\"><strong>boolean</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type UnionBooleanLiteral = boolean | false;<br />   <strong>   │ </strong>                                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Every value of this literal type is already a </span><span style=\"color: lightgreen;\"><strong>boolean</strong></span><span style=\"color: lightgreen;\">, so the union accepts the same values without it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the literal type, or remove </span><span style=\"color: lightgreen;\"><strong>boolean</strong></span><span style=\"color: lightgreen;\"> if only specific values should be accepted.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+type UnionNumberLiteral = number | 1;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:36 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This literal type is redundant because the union also includes </span><span style=\"color: Orange;\"><strong>number</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type UnionNumberLiteral = number | 1;<br />   <strong>   │ </strong>                                   <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Every value of this literal type is already a </span><span style=\"color: lightgreen;\"><strong>number</strong></span><span style=\"color: lightgreen;\">, so the union accepts the same values without it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the literal type, or remove </span><span style=\"color: lightgreen;\"><strong>number</strong></span><span style=\"color: lightgreen;\"> if only specific values should be accepted.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+type UnionStringLiteral = string | "foo";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:36 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This literal type is redundant because the union also includes </span><span style=\"color: Orange;\"><strong>string</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type UnionStringLiteral = string | &quot;foo&quot;;<br />   <strong>   │ </strong>                                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Every value of this literal type is already a </span><span style=\"color: lightgreen;\"><strong>string</strong></span><span style=\"color: lightgreen;\">, so the union accepts the same values without it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the literal type, or remove </span><span style=\"color: lightgreen;\"><strong>string</strong></span><span style=\"color: lightgreen;\"> if only specific values should be accepted.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+type IntersectionAny = any & "foo";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:24 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>any</strong></span><span style=\"color: Orange;\"> type makes every other member of this intersection redundant.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type IntersectionAny = any &amp; &quot;foo&quot;;<br />   <strong>   │ </strong>                       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This intersection is always </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">, whatever its other members are.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">If the type should be </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">, replace the whole intersection with </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">. Otherwise, remove </span><span style=\"color: lightgreen;\"><strong>any</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+type IntersectionUnknown = string & unknown;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:37 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>unknown</strong></span><span style=\"color: Orange;\"> type has no effect in this intersection.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type IntersectionUnknown = string &amp; unknown;<br />   <strong>   │ </strong>                                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This intersection accepts the same values with or without </span><span style=\"color: lightgreen;\"><strong>unknown</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>unknown</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+type IntersectionNever = string & never;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:35 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>never</strong></span><span style=\"color: Orange;\"> type makes every other member of this intersection redundant.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type IntersectionNever = string &amp; never;<br />   <strong>   │ </strong>                                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This intersection is always </span><span style=\"color: lightgreen;\"><strong>never</strong></span><span style=\"color: lightgreen;\">, whatever its other members are.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">If the type should be </span><span style=\"color: lightgreen;\"><strong>never</strong></span><span style=\"color: lightgreen;\">, replace the whole intersection with </span><span style=\"color: lightgreen;\"><strong>never</strong></span><span style=\"color: lightgreen;\">. Otherwise, remove </span><span style=\"color: lightgreen;\"><strong>never</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+type IntersectionBooleanLiteral = boolean & false;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:35 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>boolean</strong></span><span style=\"color: Orange;\"> type is redundant because the intersection also includes a </span><span style=\"color: Orange;\"><strong>boolean</strong></span><span style=\"color: Orange;\"> literal type.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type IntersectionBooleanLiteral = boolean &amp; false;<br />   <strong>   │ </strong>                                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The literal type already limits the values to specific </span><span style=\"color: lightgreen;\"><strong>boolean</strong></span><span style=\"color: lightgreen;\"> values, so </span><span style=\"color: lightgreen;\"><strong>boolean</strong></span><span style=\"color: lightgreen;\"> doesn't change the result.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>boolean</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+type IntersectionNumberLiteral = number & 1;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:34 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>number</strong></span><span style=\"color: Orange;\"> type is redundant because the intersection also includes a </span><span style=\"color: Orange;\"><strong>number</strong></span><span style=\"color: Orange;\"> literal type.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type IntersectionNumberLiteral = number &amp; 1;<br />   <strong>   │ </strong>                                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The literal type already limits the values to specific </span><span style=\"color: lightgreen;\"><strong>number</strong></span><span style=\"color: lightgreen;\"> values, so </span><span style=\"color: lightgreen;\"><strong>number</strong></span><span style=\"color: lightgreen;\"> doesn't change the result.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>number</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts
+type IntersectionStringLiteral = string & "foo";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.ts:1:34 <a href=\"https://biomejs.dev/linter/rules/no-redundant-type-constituents\">lint/nursery/noRedundantTypeConstituents</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>string</strong></span><span style=\"color: Orange;\"> type is redundant because the intersection also includes a </span><span style=\"color: Orange;\"><strong>string</strong></span><span style=\"color: Orange;\"> literal type.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>type IntersectionStringLiteral = string &amp; &quot;foo&quot;;<br />   <strong>   │ </strong>                                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The literal type already limits the values to specific </span><span style=\"color: lightgreen;\"><strong>string</strong></span><span style=\"color: lightgreen;\"> values, so </span><span style=\"color: lightgreen;\"><strong>string</strong></span><span style=\"color: lightgreen;\"> doesn't change the result.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>string</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```ts
+type UnionAny = any;
+type UnionUnknown = unknown;
+type UnionNever = never;
+type UnionBooleanLiteral = boolean;
+type UnionNumberLiteral = number;
+type UnionStringLiteral = string;
+type IntersectionAny = any;
+type IntersectionUnknown = string;
+type IntersectionNever = never;
+type IntersectionBooleanLiteral = false;
+type IntersectionNumberLiteral = 1;
+type IntersectionStringLiteral = "foo";
+declare function fail(): string | never;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_redundant_type_constituents.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noRedundantTypeConstituents)
+- <RulePlaygroundLink rule="noRedundantTypeConstituents" category="lint" language="ts" code={"type UnionAny = any | \"foo\";\n"} />
+

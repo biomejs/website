@@ -1,0 +1,105 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUnresolvedDefaultImport (JavaScript)
+description: JavaScript (and super languages) documentation for noUnresolvedDefaultImport
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unresolved-default-import/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/noUnresolvedDefaultImport`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+- Sources: 
+  - Same as [`import/default`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/default.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUnresolvedDefaultImport": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow default imports from modules that have no default export.
+
+A default import such as `import foo from "./foo.js"` only works when
+`./foo.js` has a default export. Otherwise, the import fails when the
+code runs, or `foo` ends up `undefined`, depending on the tool that
+loads the code. This usually happens when the module only has named
+exports, for example after a refactor that removed its default export.
+
+This rule only checks modules that use `import` or `export` syntax.
+Imports of CommonJS modules, such as files that assign
+`module.exports`, aren't reported, because those modules have no
+default export that Biome can check.
+
+Imports of TypeScript declaration files, such as `.d.ts` files, aren't
+reported either. A declaration file often describes a CommonJS module,
+so its default export can exist even if the file doesn't declare one.
+
+Imports that Biome can't resolve to a file aren't reported.
+
+## Examples
+
+### Invalid
+
+```js title='foo.js'
+export function foo() {}
+```
+
+```js title='bar.js'
+import foo from "./foo.js";
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///bar.js\">/bar.js</a>:1:8 <a href=\"https://biomejs.dev/linter/rules/no-unresolved-default-import\">lint/nursery/noUnresolvedDefaultImport</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The module </span><span style=\"color: Tomato;\"><strong>./foo.js</strong></span><span style=\"color: Tomato;\"> has no default export.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>import foo from &quot;./foo.js&quot;;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This import fails when the code runs, or the imported value is </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">, depending on the tool that loads the code.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Import one of the named exports of the module instead, or add a default export to the module.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js title='foo.js'
+export default function foo() {}
+export function bar() {}
+```
+
+```js title='baz.js'
+import foo, { bar } from "./foo.js";
+```
+
+## See Also
+
+- To report imports of names that a module doesn't export, and imports
+that can't be resolved, see
+[`noUnresolvedImports`](https://biomejs.dev/linter/rules/no-unresolved-imports/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_unresolved_default_import.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUnresolvedDefaultImport)
+- <RulePlaygroundLink rule="noUnresolvedDefaultImport" category="lint" language="js" code={"import foo from \"./foo.js\";\n"} />
+

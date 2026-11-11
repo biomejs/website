@@ -1,0 +1,91 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useGlobalRegexInMatchAll (JavaScript)
+description: JavaScript (and super languages) documentation for useGlobalRegexInMatchAll
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-global-regex-in-match-all/javascript/"}]} />
+
+:::note
+This rule has been implemented but not released yet. It will be available in the next release.
+:::
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Diagnostic Category: [`lint/nursery/useGlobalRegexInMatchAll`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`oxc/bad-match-all-arg`](https://oxc.rs/docs/guide/usage/linter/rules/oxc/bad-match-all-arg)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useGlobalRegexInMatchAll": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require regular expressions passed to `matchAll()` to have the `g` flag.
+
+`String#matchAll()` finds every match of a regular expression in a string.
+It only works with regular expressions that have the `g` (global) flag, such as `/pattern/g`.
+When it receives a regular expression without this flag, it throws a `TypeError` instead of returning the matches.
+
+This rule checks regular expression literals, such as `/pattern/`, and regular expressions created with
+`new RegExp()` or `RegExp()` when their flags are written as a string.
+It also follows `const` variables to the regular expression they hold.
+
+## Examples
+
+### Invalid
+
+```js
+text.matchAll(/pattern/);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:15 <a href=\"https://biomejs.dev/linter/rules/use-global-regex-in-match-all\">lint/nursery/useGlobalRegexInMatchAll</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The regular expression passed to </span><span style=\"color: Tomato;\"><strong>matchAll()</strong></span><span style=\"color: Tomato;\"> is missing the </span><span style=\"color: Tomato;\"><strong>g</strong></span><span style=\"color: Tomato;\"> flag.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>text.matchAll(/pattern/);<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>matchAll()</strong></span><span style=\"color: lightgreen;\"> throws a </span><span style=\"color: lightgreen;\"><strong>TypeError</strong></span><span style=\"color: lightgreen;\"> when it receives a regular expression without the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> (global) flag.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> flag to the regular expression.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+text.matchAll(new RegExp("pattern", "i"));
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:15 <a href=\"https://biomejs.dev/linter/rules/use-global-regex-in-match-all\">lint/nursery/useGlobalRegexInMatchAll</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The regular expression passed to </span><span style=\"color: Tomato;\"><strong>matchAll()</strong></span><span style=\"color: Tomato;\"> is missing the </span><span style=\"color: Tomato;\"><strong>g</strong></span><span style=\"color: Tomato;\"> flag.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>text.matchAll(new RegExp(&quot;pattern&quot;, &quot;i&quot;));<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>matchAll()</strong></span><span style=\"color: lightgreen;\"> throws a </span><span style=\"color: lightgreen;\"><strong>TypeError</strong></span><span style=\"color: lightgreen;\"> when it receives a regular expression without the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> (global) flag.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> flag to the regular expression.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const pattern = /pattern/u;
+text.matchAll(pattern);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:15 <a href=\"https://biomejs.dev/linter/rules/use-global-regex-in-match-all\">lint/nursery/useGlobalRegexInMatchAll</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The regular expression passed to </span><span style=\"color: Tomato;\"><strong>matchAll()</strong></span><span style=\"color: Tomato;\"> is missing the </span><span style=\"color: Tomato;\"><strong>g</strong></span><span style=\"color: Tomato;\"> flag.</span><br />  <br />    <strong>1 │ </strong>const pattern = /pattern/u;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>text.matchAll(pattern);<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The regular expression is created here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const pattern = /pattern/u;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>text.matchAll(pattern);<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>matchAll()</strong></span><span style=\"color: lightgreen;\"> throws a </span><span style=\"color: lightgreen;\"><strong>TypeError</strong></span><span style=\"color: lightgreen;\"> when it receives a regular expression without the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> (global) flag.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the </span><span style=\"color: lightgreen;\"><strong>g</strong></span><span style=\"color: lightgreen;\"> flag to the regular expression.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+text.matchAll(/pattern/g);
+text.matchAll(new RegExp("pattern", "gi"));
+text.matchAll("pattern");
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_global_regex_in_match_all.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useGlobalRegexInMatchAll)
+- <RulePlaygroundLink rule="useGlobalRegexInMatchAll" category="lint" language="js" code={"text.matchAll(/pattern/);\n"} />
+
