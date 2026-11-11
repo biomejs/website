@@ -320,7 +320,7 @@ export function GET() {
           },
           "noExcessiveSelectorComplexity": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noExcessiveSelectorComplexity",
             "link": "https://biomejs.dev/linter/rules/no-excessive-selector-complexity/css",
             "recommended": false,
@@ -372,7 +372,7 @@ export function GET() {
           },
           "noScssNullComparison": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noScssNullComparison",
             "link": "https://biomejs.dev/linter/rules/no-scss-null-comparison/css",
             "recommended": true,
@@ -450,7 +450,7 @@ export function GET() {
           },
           "useConsistentFontWeightNotation": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "useConsistentFontWeightNotation",
             "link": "https://biomejs.dev/linter/rules/use-consistent-font-weight-notation/css",
             "recommended": false,
@@ -2266,14 +2266,14 @@ export function GET() {
             ],
             "docs": " Disallow the use of Astro's `set:html` directive.\n\n `set:html` renders HTML without escaping it. Using `set:html` can introduce cross-site scripting vulnerabilities.\n When raw HTML is required, sanitize the value before passing it to `set:html`, then suppress the diagnostic with an explanation.\n\n ## Examples\n\n ### Invalid\n\n ```astro,expect_diagnostic\n <div set:html={content} />\n ```\n\n ### Valid\n\n ```astro\n <div>{content}</div>\n ```\n\n ## References\n\n - [Astro `set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml)\n - [OWASP HTML sanitization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#html-sanitization)\n"
           },
-          "noDisabledButton": {
+          "noDisabledAttribute": {
             "deprecated": false,
-            "version": "next",
-            "name": "noDisabledButton",
-            "link": "https://biomejs.dev/linter/rules/no-disabled-button/html",
+            "version": "2.6.7",
+            "name": "noDisabledAttribute",
+            "link": "https://biomejs.dev/linter/rules/no-disabled-attribute/html",
             "recommended": false,
             "fixKind": "unsafe",
-            "docs": " Discourages `disabled` on elements that act as buttons.\n\n This is an opinionated usability rule, not a Web Content Accessibility Guidelines (WCAG)\n requirement. Native `disabled` controls are removed from sequential focus navigation and\n suppress activation. Keeping an unavailable button focusable can make it easier to discover\n with a keyboard or assistive technology.\n\n The rule reports native `button` elements, `input` elements with the `button`, `submit`,\n `reset`, or `image` type, and built-in elements whose first valid explicit role is\n `button`. A native `button` is still reported when another role is assigned because\n `disabled` continues to change its native behavior.\n\n The unsafe fix replaces `disabled` with `aria-disabled`. The ARIA attribute only exposes\n the disabled state to assistive technology. It does not prevent pointer or keyboard\n activation, change form submission or validation, omit values from submitted data, or add\n disabled styling. Implement those behaviors and provide disabled styling, including for\n forced-colors mode.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <button disabled>Save</button>\n ```\n\n ```html,expect_diagnostic\n <div role=\"button\" disabled>Save</div>\n ```\n\n ### Valid\n\n ```html\n <button aria-disabled=\"true\">Save</button>\n ```\n\n ## References\n\n - [MDN: `aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-disabled)\n - [Making Disabled Buttons More Inclusive](https://css-tricks.com/making-disabled-buttons-more-inclusive/)\n"
+            "docs": " Discourages the `disabled` attribute on form controls and on elements that act as buttons.\n\n This is an opinionated usability rule, not a Web Content Accessibility Guidelines (WCAG)\n requirement. A form control with the native `disabled` attribute can't receive keyboard\n focus, so people who move through a page with the Tab key skip over it. Keeping an\n unavailable control focusable can make it easier to discover with a keyboard or assistive\n technology.\n\n The rule reports the following elements when `disabled` is set:\n\n - Buttons: `button` elements, and `input` elements with the `button`, `submit`, `reset`,\n   or `image` type. A `button` is still reported when a role other than `button` is\n   assigned, because `disabled` continues to change its native behavior.\n - Fields that support the `readonly` attribute: `textarea` elements, and `input` elements\n   whose type accepts typed input, such as `text`, `email`, `number`, or `date`. An `input`\n   with no `type`, or with a `type` that browsers don't recognize, is a text field.\n - Other form controls: `select` elements, and `input` elements with the `checkbox`,\n   `radio`, `range`, `color`, or `file` type.\n - `fieldset` elements, because a disabled `fieldset` disables every form control inside it.\n - Built-in elements that aren't form controls and whose first valid explicit role is\n   `button`. The `disabled` attribute has no effect on these elements.\n\n The rule doesn't report `option` and `optgroup` elements, `input` elements with the\n `hidden` type, or `input` elements whose `type` is a dynamic expression or can come from\n a spread attribute.\n\n ## Replacing `disabled`\n\n The unsafe fix depends on the reported element:\n\n - For fields that support it, the fix replaces `disabled` with `readonly`. A read-only\n   field can receive focus and can't be edited. Unlike a disabled field, its value is\n   still submitted with the form, and browsers don't apply disabled styling to it.\n - For buttons, other form controls, and elements with the `button` role, the fix replaces\n   `disabled` with `aria-disabled`. The ARIA attribute only exposes the disabled state to\n   assistive technology. It does not prevent pointer or keyboard activation, change form\n   submission or validation, omit values from submitted data, or add disabled styling.\n   Implement those behaviors and provide disabled styling, including for forced-colors\n   mode.\n - A `fieldset` has no fix. Mark each form control inside it instead. Disabling a\n   `fieldset` can be appropriate when the whole group doesn't apply to the user, for\n   example the details of a second applicant when there is only one applicant. In that\n   case, suppress the diagnostic.\n\n ## Examples\n\n ### Invalid\n\n ```html,expect_diagnostic\n <button disabled>Save</button>\n ```\n\n ```html,expect_diagnostic\n <input type=\"email\" disabled>\n ```\n\n ```html,expect_diagnostic\n <select disabled><option>Monthly</option></select>\n ```\n\n ```html,expect_diagnostic\n <fieldset disabled><input type=\"text\"></fieldset>\n ```\n\n ```html,expect_diagnostic\n <div role=\"button\" disabled>Save</div>\n ```\n\n ### Valid\n\n ```html\n <button aria-disabled=\"true\">Save</button>\n <input type=\"email\" readonly>\n <select aria-disabled=\"true\"><option>Monthly</option></select>\n <input type=\"hidden\" disabled>\n ```\n\n ## References\n\n - [MDN: `aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-disabled)\n - [MDN: `readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/readonly)\n - [Making Disabled Buttons More Inclusive](https://css-tricks.com/making-disabled-buttons-more-inclusive/)\n"
           },
           "noInvalidFileInputAccept": {
             "deprecated": false,
@@ -5761,7 +5761,7 @@ export function GET() {
           },
           "noAsyncPromiseFinally": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noAsyncPromiseFinally",
             "link": "https://biomejs.dev/linter/rules/no-async-promise-finally/javascript",
             "recommended": true,
@@ -6066,7 +6066,7 @@ export function GET() {
           },
           "noInvalidFetchOptions": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noInvalidFetchOptions",
             "link": "https://biomejs.dev/linter/rules/no-invalid-fetch-options/javascript",
             "recommended": true,
@@ -6304,7 +6304,7 @@ export function GET() {
           },
           "noNewArray": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noNewArray",
             "link": "https://biomejs.dev/linter/rules/no-new-array/javascript",
             "recommended": false,
@@ -6538,7 +6538,7 @@ export function GET() {
           },
           "noReactDirectStateMutation": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noReactDirectStateMutation",
             "link": "https://biomejs.dev/linter/rules/no-react-direct-state-mutation/javascript",
             "recommended": false,
@@ -6720,7 +6720,7 @@ export function GET() {
           },
           "noSvelteAsyncStore": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noSvelteAsyncStore",
             "link": "https://biomejs.dev/linter/rules/no-svelte-async-store/javascript",
             "recommended": true,
@@ -7019,7 +7019,7 @@ export function GET() {
           },
           "noUnresolvedDefaultImport": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noUnresolvedDefaultImport",
             "link": "https://biomejs.dev/linter/rules/no-unresolved-default-import/javascript",
             "recommended": true,
@@ -7161,7 +7161,7 @@ export function GET() {
           },
           "noUselessFallbackInSpread": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noUselessFallbackInSpread",
             "link": "https://biomejs.dev/linter/rules/no-useless-fallback-in-spread/javascript",
             "recommended": true,
@@ -7229,7 +7229,7 @@ export function GET() {
           },
           "noUselessSpread": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noUselessSpread",
             "link": "https://biomejs.dev/linter/rules/no-useless-spread/javascript",
             "recommended": true,
@@ -7450,7 +7450,7 @@ export function GET() {
           },
           "noVueExposeAfterAwait": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noVueExposeAfterAwait",
             "link": "https://biomejs.dev/linter/rules/no-vue-expose-after-await/javascript",
             "recommended": true,
@@ -7782,7 +7782,7 @@ export function GET() {
           },
           "useAtomicUpdates": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "useAtomicUpdates",
             "link": "https://biomejs.dev/linter/rules/use-atomic-updates/javascript",
             "recommended": false,
@@ -7884,7 +7884,7 @@ export function GET() {
           },
           "useCatchErrorName": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "useCatchErrorName",
             "link": "https://biomejs.dev/linter/rules/use-catch-error-name/javascript",
             "recommended": false,
@@ -7901,7 +7901,7 @@ export function GET() {
           },
           "useConsistentBooleanName": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "useConsistentBooleanName",
             "link": "https://biomejs.dev/linter/rules/use-consistent-boolean-name/javascript",
             "recommended": false,
@@ -8041,7 +8041,7 @@ export function GET() {
           },
           "useGlobalRegexInMatchAll": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "useGlobalRegexInMatchAll",
             "link": "https://biomejs.dev/linter/rules/use-global-regex-in-match-all/javascript",
             "recommended": true,
@@ -8058,7 +8058,7 @@ export function GET() {
           },
           "useGlobalRegexInReplaceAll": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "useGlobalRegexInReplaceAll",
             "link": "https://biomejs.dev/linter/rules/use-global-regex-in-replace-all/javascript",
             "recommended": true,
@@ -8560,7 +8560,7 @@ export function GET() {
           },
           "useValidCharacterComparison": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "useValidCharacterComparison",
             "link": "https://biomejs.dev/linter/rules/use-valid-character-comparison/javascript",
             "recommended": true,
@@ -14196,14 +14196,14 @@ export function GET() {
             ],
             "docs": " Disallow the use of Astro's `set:html` directive.\n\n `set:html` renders HTML without escaping it. Using `set:html` can introduce cross-site scripting vulnerabilities.\n When raw HTML is required, sanitize the value before passing it to `set:html`, then suppress the diagnostic with an explanation.\n\n ## Examples\n\n ### Invalid\n\n ```astro,expect_diagnostic,ignore\n {show && <span set:html={content} />}\n ```\n\n ### Valid\n\n ```astro,ignore\n {show && <span>{content}</span>}\n ```\n\n ## References\n\n - [Astro `set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml)\n - [OWASP HTML sanitization guidance](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html#html-sanitization)\n"
           },
-          "noDisabledButton": {
+          "noDisabledAttribute": {
             "deprecated": false,
-            "version": "next",
-            "name": "noDisabledButton",
-            "link": "https://biomejs.dev/linter/rules/no-disabled-button/javascript",
+            "version": "2.6.7",
+            "name": "noDisabledAttribute",
+            "link": "https://biomejs.dev/linter/rules/no-disabled-attribute/javascript",
             "recommended": false,
             "fixKind": "unsafe",
-            "docs": " Discourages `disabled` on elements that act as buttons.\n\n This is an opinionated usability rule, not a Web Content Accessibility Guidelines (WCAG)\n requirement. Native `disabled` controls are removed from sequential focus navigation and\n suppress activation. Keeping an unavailable button focusable can make it easier to discover\n with a keyboard or assistive technology.\n\n The rule reports native `button` elements, `input` elements with the `button`, `submit`,\n `reset`, or `image` type, and built-in elements whose first valid explicit role is\n `button`. A native `button` is still reported when another role is assigned because\n `disabled` continues to change its native behavior.\n\n The unsafe fix replaces `disabled` with `aria-disabled`. The ARIA attribute only exposes\n the disabled state to assistive technology. It does not prevent pointer or keyboard\n activation, change form submission or validation, omit values from submitted data, or add\n disabled styling. Implement those behaviors and provide disabled styling, including for\n forced-colors mode.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <button disabled>Save</button>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"button\" disabled>Save</div>\n ```\n\n ### Valid\n\n ```jsx\n <button aria-disabled=\"true\">Save</button>\n ```\n\n ## References\n\n - [MDN: `aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-disabled)\n - [Making Disabled Buttons More Inclusive](https://css-tricks.com/making-disabled-buttons-more-inclusive/)\n\n"
+            "docs": " Discourages the `disabled` attribute on form controls and on elements that act as buttons.\n\n This is an opinionated usability rule, not a Web Content Accessibility Guidelines (WCAG)\n requirement. A form control with the native `disabled` attribute can't receive keyboard\n focus, so people who move through a page with the Tab key skip over it. Keeping an\n unavailable control focusable can make it easier to discover with a keyboard or assistive\n technology.\n\n The rule reports the following elements when `disabled` is set:\n\n - Buttons: `button` elements, and `input` elements with the `button`, `submit`, `reset`,\n   or `image` type. A `button` is still reported when a role other than `button` is\n   assigned, because `disabled` continues to change its native behavior.\n - Fields that support the `readOnly` attribute: `textarea` elements, and `input` elements\n   whose type accepts typed input, such as `text`, `email`, `number`, or `date`. An `input`\n   with no `type`, or with a `type` that browsers don't recognize, is a text field.\n - Other form controls: `select` elements, and `input` elements with the `checkbox`,\n   `radio`, `range`, `color`, or `file` type.\n - `fieldset` elements, because a disabled `fieldset` disables every form control inside it.\n - Built-in elements that aren't form controls and whose first valid explicit role is\n   `button`. The `disabled` attribute has no effect on these elements.\n\n The rule doesn't report `option` and `optgroup` elements, `input` elements with the\n `hidden` type, or `input` elements whose `type` is a dynamic expression or can come from\n a spread attribute.\n\n ## Replacing `disabled`\n\n The unsafe fix depends on the reported element:\n\n - For fields that support it, the fix replaces `disabled` with `readOnly`. A read-only\n   field can receive focus and can't be edited. Unlike a disabled field, its value is\n   still submitted with the form, and browsers don't apply disabled styling to it.\n - For buttons, other form controls, and elements with the `button` role, the fix replaces\n   `disabled` with `aria-disabled`. The ARIA attribute only exposes the disabled state to\n   assistive technology. It does not prevent pointer or keyboard activation, change form\n   submission or validation, omit values from submitted data, or add disabled styling.\n   Implement those behaviors and provide disabled styling, including for forced-colors\n   mode.\n - A `fieldset` has no fix. Mark each form control inside it instead. Disabling a\n   `fieldset` can be appropriate when the whole group doesn't apply to the user, for\n   example the details of a second applicant when there is only one applicant. In that\n   case, suppress the diagnostic.\n\n ## Examples\n\n ### Invalid\n\n ```jsx,expect_diagnostic\n <button disabled>Save</button>\n ```\n\n ```jsx,expect_diagnostic\n <input type=\"email\" disabled />\n ```\n\n ```jsx,expect_diagnostic\n <select disabled><option>Monthly</option></select>\n ```\n\n ```jsx,expect_diagnostic\n <fieldset disabled><input type=\"text\" /></fieldset>\n ```\n\n ```jsx,expect_diagnostic\n <div role=\"button\" disabled>Save</div>\n ```\n\n ### Valid\n\n ```jsx\n <>\n     <button aria-disabled=\"true\">Save</button>\n     <input type=\"email\" readOnly />\n     <select aria-disabled=\"true\"><option>Monthly</option></select>\n     <input type=\"hidden\" disabled />\n </>\n ```\n\n ## References\n\n - [MDN: `aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-disabled)\n - [MDN: `readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/readonly)\n - [Making Disabled Buttons More Inclusive](https://css-tricks.com/making-disabled-buttons-more-inclusive/)\n\n"
           },
           "noInvalidFileInputAccept": {
             "deprecated": false,
@@ -15143,7 +15143,7 @@ export function GET() {
         "nursery": {
           "noDuplicateTypeConstituents": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noDuplicateTypeConstituents",
             "link": "https://biomejs.dev/linter/rules/no-duplicate-type-constituents/javascript",
             "recommended": true,
@@ -15203,7 +15203,7 @@ export function GET() {
           },
           "noRedundantTypeConstituents": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noRedundantTypeConstituents",
             "link": "https://biomejs.dev/linter/rules/no-redundant-type-constituents/javascript",
             "recommended": true,
@@ -15246,7 +15246,7 @@ export function GET() {
           },
           "noUselessParameterPropertyAssignment": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noUselessParameterPropertyAssignment",
             "link": "https://biomejs.dev/linter/rules/no-useless-parameter-property-assignment/javascript",
             "recommended": false,
@@ -15263,7 +15263,7 @@ export function GET() {
           },
           "noUselessQualifier": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "noUselessQualifier",
             "link": "https://biomejs.dev/linter/rules/no-useless-qualifier/javascript",
             "recommended": false,
@@ -15297,7 +15297,7 @@ export function GET() {
           },
           "useConsistentTupleLabels": {
             "deprecated": false,
-            "version": "next",
+            "version": "2.6.7",
             "name": "useConsistentTupleLabels",
             "link": "https://biomejs.dev/linter/rules/use-consistent-tuple-labels/javascript",
             "recommended": false,
