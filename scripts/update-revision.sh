@@ -18,29 +18,20 @@ biome_crates=$(
     | awk '{print $1}'
 )
 
+# Cargo ignores the lockfile of git dependencies, so start from Biome's own
+# Cargo.lock at the new revision. Cargo keeps the entries we still need and
+# resolves only what is missing, which keeps us on the versions Biome uses.
+curl --fail --silent --show-error --location \
+  --output Cargo.lock \
+  "https://raw.githubusercontent.com/biomejs/biome/$new_rev/Cargo.lock"
+
 # Point each biome crate to the new revision
-update_biome_crates() {
+if [ -n "$biome_crates" ]; then
   # shellcheck disable=SC2086
   cargo add \
     --git https://github.com/biomejs/biome.git \
     --rev "$new_rev" \
     $biome_crates
-}
-
-if [ -n "$biome_crates" ]; then
-  if ! update_biome_crates; then
-    # The new revision may require newer versions of crates than the ones
-    # locked in Cargo.lock Refresh the lockfile to the latest
-    # semver-compatible versions and try again.
-    echo "Failed to update the biome crates, refreshing Cargo.lock and retrying..."
-    cargo update
-
-    if ! update_biome_crates; then
-      echo "Failed to update the biome crates even after refreshing Cargo.lock."
-      echo "A dependency in Cargo.toml is probably pinned to a version that is incompatible with $new_rev."
-      exit 1
-    fi
-  fi
 fi
 
 # Update the biome-revision file
