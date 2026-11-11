@@ -1,0 +1,166 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueComputedPropertyReturn (JavaScript)
+description: JavaScript (and super languages) documentation for useVueComputedPropertyReturn
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-computed-property-return/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueComputedPropertyReturn`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/return-in-computed-property`](https://eslint.vuejs.org/rules/return-in-computed-property)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueComputedPropertyReturn": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require computed properties in Vue components to return a value.
+
+The value of a computed property is whatever its getter function returns. When the
+getter can finish without returning a value, the computed property is `undefined`,
+which is almost always a mistake, such as a forgotten `return` keyword or a missing
+`else` branch.
+
+This rule checks the getters of properties in the `computed` option, and the getters
+passed to `computed()` at the top level of `<script setup>`. A `return` statement
+without a value is reported too, because it also makes the computed property
+`undefined`.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  computed: {
+    fullName() {
+      this.firstName + " " + this.lastName;
+    },
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:5 <a href=\"https://biomejs.dev/linter/rules/use-vue-computed-property-return\">lint/nursery/useVueComputedPropertyReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The computed property </span><span style=\"color: Tomato;\"><strong>fullName</strong></span><span style=\"color: Tomato;\"> doesn't always return a value.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  computed: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    fullName() &#123;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>      this.firstName + &quot; &quot; + this.lastName;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>    &#125;,<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>  &#125;,<br />    <strong>8 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue uses the value the getter returns as the value of the computed property. When the getter ends without a </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> statement, the computed property is </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Make sure that every path through the getter ends with a </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> statement that returns a value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script>
+export default {
+  computed: {
+    label() {
+      if (this.count > 0) {
+        return `${this.count} items`;
+      }
+    },
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:5 <a href=\"https://biomejs.dev/linter/rules/use-vue-computed-property-return\">lint/nursery/useVueComputedPropertyReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The computed property </span><span style=\"color: Tomato;\"><strong>label</strong></span><span style=\"color: Tomato;\"> doesn't always return a value.</span><br />  <br />     <strong>2 │ </strong>export default &#123;<br />     <strong>3 │ </strong>  computed: &#123;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    label() &#123;<br />    <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>      if (this.count &gt; 0) &#123;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>        return &#96;$&#123;this.count&#125; items&#96;;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>7 │ </strong>      &#125;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>8 │ </strong>    &#125;,<br />    <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><br />     <strong>9 │ </strong>  &#125;,<br />    <strong>10 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue uses the value the getter returns as the value of the computed property. When the getter ends without a </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> statement, the computed property is </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Make sure that every path through the getter ends with a </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> statement that returns a value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+import { computed, ref } from "vue";
+
+const count = ref(0);
+const double = computed(() => {
+  count.value * 2;
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:5:25 <a href=\"https://biomejs.dev/linter/rules/use-vue-computed-property-return\">lint/nursery/useVueComputedPropertyReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The computed property </span><span style=\"color: Tomato;\"><strong>double</strong></span><span style=\"color: Tomato;\"> doesn't always return a value.</span><br />  <br />    <strong>4 │ </strong>const count = ref(0);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>const double = computed(() =&gt; &#123;<br />   <strong>   │ </strong>                        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>  count.value &#42; 2;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>7 │ </strong>&#125;);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>8 │ </strong>&lt;/script&gt;<br />    <strong>9 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue uses the value the getter returns as the value of the computed property. When the getter ends without a </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> statement, the computed property is </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Make sure that every path through the getter ends with a </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> statement that returns a value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+import { computed, ref } from "vue";
+
+const count = ref(0);
+const double = computed(() => {
+  if (count.value > 0) {
+    return;
+  }
+  return count.value * 2;
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:7:5 <a href=\"https://biomejs.dev/linter/rules/use-vue-computed-property-return\">lint/nursery/useVueComputedPropertyReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>return</strong></span><span style=\"color: Tomato;\"> statement in the computed property </span><span style=\"color: Tomato;\"><strong>double</strong></span><span style=\"color: Tomato;\"> doesn't return a value.</span><br />  <br />    <strong>5 │ </strong>const double = computed(() =&gt; &#123;<br />    <strong>6 │ </strong>  if (count.value &gt; 0) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>7 │ </strong>    return;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>8 │ </strong>  &#125;<br />    <strong>9 │ </strong>  return count.value &#42; 2;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A </span><span style=\"color: lightgreen;\"><strong>return</strong></span><span style=\"color: lightgreen;\"> statement without a value makes the computed property </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Return the value of the computed property from this statement.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+export default {
+  computed: {
+    fullName() {
+      return this.firstName + " " + this.lastName;
+    },
+    label: {
+      get() {
+        return this.count > 0 ? `${this.count} items` : "empty";
+      },
+      set(value) {
+        this.count = Number.parseInt(value);
+      },
+    },
+  },
+};
+</script>
+```
+
+```vue
+<script setup>
+import { computed, ref } from "vue";
+
+const count = ref(0);
+const double = computed(() => count.value * 2);
+const label = computed(() => {
+  if (count.value > 0) {
+    return `${count.value} items`;
+  }
+  return "empty";
+});
+</script>
+```
+
+## See Also
+
+- To require `get` accessors of classes and objects to return a value, see [`useGetterReturn`](https://biomejs.dev/linter/rules/use-getter-return/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_computed_property_return.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueComputedPropertyReturn)
+- <RulePlaygroundLink rule="useVueComputedPropertyReturn" category="lint" language="vue" code={"<script>\nexport default {\n  computed: {\n    fullName() {\n      this.firstName + \" \" + this.lastName;\n    },\n  },\n};\n</script>\n"} />
+

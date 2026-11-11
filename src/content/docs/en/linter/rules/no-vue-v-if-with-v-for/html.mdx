@@ -22,6 +22,7 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
   - [`vue`](/linter/domains#vue)
 - Sources: 
   - Same as [`vue/no-use-v-if-with-v-for`](https://eslint.vuejs.org/rules/no-use-v-if-with-v-for)
+  - Same as [`vue/no-use-v-else-with-v-for`](https://eslint.vuejs.org/rules/no-use-v-else-with-v-for)
 
 ## How to configure
 ```json title="biome.json"
@@ -37,12 +38,16 @@ import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
 
 ```
 ## Description
-Disallow using `v-if` and `v-for` directives on the same element.
+Disallow using `v-if`, `v-else-if`, or `v-else` and `v-for` directives on the same element.
 
-There are two common cases where this can be tempting:
+There are two common cases where `v-if` and `v-for` on the same element can be tempting:
 
 - To filter items in a list (e.g. `v-for="user in users" v-if="user.isActive"`). In these cases, replace users with a new computed property that returns your filtered list (e.g. activeUsers).
 - To avoid rendering a list if it should be hidden (e.g. `v-for="user in users" v-if="shouldShowUsers"`). In these cases, move the v-if to a container element.
+
+Putting `v-else-if` or `v-else` on the same element as `v-for` works, but the condition
+is checked before the loop runs, which is hard to tell when reading the template.
+Move the `v-else-if` or `v-else` to a wrapper element, such as a `<template>`.
 
 ## Examples
 
@@ -58,6 +63,13 @@ There are two common cases where this can be tempting:
 
 <Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:5 <a href=\"https://biomejs.dev/linter/rules/no-vue-v-if-with-v-for\">lint/correctness/noVueVIfWithVFor</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Using </span><span style=\"color: Tomato;\"><strong>v-if</strong></span><span style=\"color: Tomato;\"> and </span><span style=\"color: Tomato;\"><strong>v-for</strong></span><span style=\"color: Tomato;\"> on the same element is discouraged.</span><br />  <br />    <strong>1 │ </strong>&lt;TodoItem<br />    <strong>2 │ </strong>    v-if=&quot;complete&quot;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    v-for=&quot;todo in todos&quot;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    :todo=&quot;todo&quot;<br />    <strong>5 │ </strong>/&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>v-if</strong></span><span style=\"color: lightgreen;\"> should be moved to the wrapper element, or you should use a computed property to filter the list instead.</span><br />  <br />    <strong>1 │ </strong>&lt;TodoItem<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    v-if=&quot;complete&quot;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    v-for=&quot;todo in todos&quot;<br />    <strong>4 │ </strong>    :todo=&quot;todo&quot;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Using </span><span style=\"color: lightgreen;\"><strong>v-if</strong></span><span style=\"color: lightgreen;\"> and </span><span style=\"color: lightgreen;\"><strong>v-for</strong></span><span style=\"color: lightgreen;\"> on the same element can lead to unexpected behavior and performance issues.</span><br />  <br /></code></pre>"} />
 
+```vue
+<div v-if="loading">Loading...</div>
+<TodoItem v-else v-for="todo in todos" :todo="todo" />
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:18 <a href=\"https://biomejs.dev/linter/rules/no-vue-v-if-with-v-for\">lint/correctness/noVueVIfWithVFor</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Using </span><span style=\"color: Tomato;\"><strong>v-else</strong></span><span style=\"color: Tomato;\"> and </span><span style=\"color: Tomato;\"><strong>v-for</strong></span><span style=\"color: Tomato;\"> on the same element is discouraged.</span><br />  <br />    <strong>1 │ </strong>&lt;div v-if=&quot;loading&quot;&gt;Loading...&lt;/div&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>&lt;TodoItem v-else v-for=&quot;todo in todos&quot; :todo=&quot;todo&quot; /&gt;<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move this </span><span style=\"color: lightgreen;\"><strong>v-else</strong></span><span style=\"color: lightgreen;\"> to a wrapper element, such as a </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>&lt;div v-if=&quot;loading&quot;&gt;Loading...&lt;/div&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>&lt;TodoItem v-else v-for=&quot;todo in todos&quot; :todo=&quot;todo&quot; /&gt;<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>v-else</strong></span><span style=\"color: lightgreen;\"> is checked before the </span><span style=\"color: lightgreen;\"><strong>v-for</strong></span><span style=\"color: lightgreen;\"> loop runs, which is hard to tell when reading the template.</span><br />  <br /></code></pre>"} />
+
 ### Valid
 
 ```vue
@@ -67,6 +79,10 @@ There are two common cases where this can be tempting:
         :todo="todo"
     />
 </ul>
+<div v-if="loading">Loading...</div>
+<template v-else>
+    <TodoItem v-for="todo in todos" :todo="todo" />
+</template>
 ```
 
 ## Related links

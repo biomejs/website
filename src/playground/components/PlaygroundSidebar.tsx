@@ -343,13 +343,13 @@ const LANGUAGE_LABELS: Record<Language, string> = {
 	[LANGUAGE.GraphQL]: "GraphQL",
 	[LANGUAGE.Grit]: "Grit",
 	[LANGUAGE.CSS]: "CSS",
-	[LANGUAGE.SCSS]: "SCSS (unstable)",
+	[LANGUAGE.SCSS]: "SCSS",
 	[LANGUAGE.HTML]: "HTML",
 	[LANGUAGE.Vue]: "Vue",
 	[LANGUAGE.Svelte]: "Svelte",
 	[LANGUAGE.Astro]: "Astro",
-	[LANGUAGE.Markdown]: "Markdown (unstable)",
-	[LANGUAGE.YAML]: "YAML (unstable)",
+	[LANGUAGE.Markdown]: "Markdown",
+	[LANGUAGE.YAML]: "YAML",
 };
 
 function buildTree(filenames: string[]): DirectoryNode {

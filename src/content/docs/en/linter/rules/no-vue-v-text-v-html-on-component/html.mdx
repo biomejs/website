@@ -1,0 +1,121 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueVTextVHtmlOnComponent (HTML)
+description: HTML documentation for noVueVTextVHtmlOnComponent
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-v-text-v-html-on-component/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/noVueVTextVHtmlOnComponent`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-v-text-v-html-on-component`](https://eslint.vuejs.org/rules/no-v-text-v-html-on-component)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueVTextVHtmlOnComponent": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `v-text` and `v-html` on components.
+
+When `v-text` or `v-html` is used on a component, Vue doesn't put the value in the
+component's slot. Instead, it replaces everything inside the component's root element.
+Anything the component renders inside that element, such as icons, wrappers, or other
+components, is lost. If the component has more than one root element, Vue drops the
+value and shows a warning.
+
+To pass content to a component, put it between the component's opening and closing
+tags. To use `v-text` or `v-html`, put the directive on an HTML element inside them.
+
+This rule treats an element as a component when its name isn't a known HTML, SVG, or
+MathML element, for example `<MyComponent>`, `<my-component>`, or `<component>`. An
+element with an `is` attribute that starts with `vue:`, such as
+`<tr is="vue:my-row">`, is also a component.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <MyComponent v-text="content"></MyComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/no-vue-v-text-v-html-on-component\">lint/nursery/noVueVTextVHtmlOnComponent</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-text</strong></span><span style=\"color: Tomato;\"> directive is used on a component.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;MyComponent v-text=&quot;content&quot;&gt;&lt;/MyComponent&gt;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't put the value in the component's slot. It replaces everything inside the component's root element, so the component's own content is lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Put the content between the component's opening and closing tags, or move </span><span style=\"color: lightgreen;\"><strong>v-text</strong></span><span style=\"color: lightgreen;\"> to an HTML element inside them.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <MyComponent v-html="html"></MyComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:16 <a href=\"https://biomejs.dev/linter/rules/no-vue-v-text-v-html-on-component\">lint/nursery/noVueVTextVHtmlOnComponent</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-html</strong></span><span style=\"color: Tomato;\"> directive is used on a component.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;MyComponent v-html=&quot;html&quot;&gt;&lt;/MyComponent&gt;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't put the value in the component's slot. It replaces everything inside the component's root element, so the component's own content is lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Put the content between the component's opening and closing tags, or move </span><span style=\"color: lightgreen;\"><strong>v-html</strong></span><span style=\"color: lightgreen;\"> to an HTML element inside them.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <component :is="tag" v-text="content"></component>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:24 <a href=\"https://biomejs.dev/linter/rules/no-vue-v-text-v-html-on-component\">lint/nursery/noVueVTextVHtmlOnComponent</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-text</strong></span><span style=\"color: Tomato;\"> directive is used on a component.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;component :is=&quot;tag&quot; v-text=&quot;content&quot;&gt;&lt;/component&gt;<br />   <strong>   │ </strong>                       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't put the value in the component's slot. It replaces everything inside the component's root element, so the component's own content is lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Put the content between the component's opening and closing tags, or move </span><span style=\"color: lightgreen;\"><strong>v-text</strong></span><span style=\"color: lightgreen;\"> to an HTML element inside them.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <tr is="vue:my-row" v-text="content"></tr>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:23 <a href=\"https://biomejs.dev/linter/rules/no-vue-v-text-v-html-on-component\">lint/nursery/noVueVTextVHtmlOnComponent</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-text</strong></span><span style=\"color: Tomato;\"> directive is used on a component.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;tr is=&quot;vue:my-row&quot; v-text=&quot;content&quot;&gt;&lt;/tr&gt;<br />   <strong>   │ </strong>                      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't put the value in the component's slot. It replaces everything inside the component's root element, so the component's own content is lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Put the content between the component's opening and closing tags, or move </span><span style=\"color: lightgreen;\"><strong>v-text</strong></span><span style=\"color: lightgreen;\"> to an HTML element inside them.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <div v-text="content"></div>
+  <div v-html="html"></div>
+  <svg><text v-text="content" /></svg>
+  <math><mi v-text="content" /></math>
+  <MyComponent>{{ content }}</MyComponent>
+  <MyComponent><span v-html="html"></span></MyComponent>
+</template>
+```
+
+## References
+
+- [Vue `v-text` directive](https://vuejs.org/api/built-in-directives.html#v-text)
+- [Vue `v-html` directive](https://vuejs.org/api/built-in-directives.html#v-html)
+- [Vue fallthrough attributes](https://vuejs.org/guide/components/attrs.html)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_v_text_v_html_on_component.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueVTextVHtmlOnComponent)
+- <RulePlaygroundLink rule="noVueVTextVHtmlOnComponent" category="lint" language="vue" code={"<template>\n  <MyComponent v-text=\"content\"></MyComponent>\n</template>\n"} />
+

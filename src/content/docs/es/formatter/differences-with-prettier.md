@@ -98,7 +98,7 @@ Diff
 ## Prettier tiene un comportamiento incoherente con las cadenas opcionales entre paréntesis no declaradas nulas
 
 En _TypeScript_, tel operador de aserción no nulo `!` permite afirmar que un valor no es nulo.
-Cuando se aplica sobre una cadena opcional, la aserción se aplica a toda la cadena independientemente de la presencia de paréntesis, haciendo equivalente  `(a.?.b)!` y `a.?.b!`.
+Cuando se aplica sobre una cadena opcional, la aserción se aplica a toda la cadena independientemente de la presencia de paréntesis, haciendo equivalente `(a.?.b)!` y `a.?.b!`.
 
 Los ejemplos de código anteriores ya están bien formateados, según Prettier.
 Prettier se utiliza para imponer la presencia o ausencia de paréntesis.
@@ -131,7 +131,6 @@ a.?.b!
 El análisis sintáctico basado en Babel de Prettier para JavaScript y TypeScript es muy laxo y [permite múltiples errores](https://github.com/prettier/prettier/blob/e4a74c05f4502dd4ec70495c3130ff08ab088e05/src/language-js/parse/babel.js#L177-L218) que sean ignorados.
 El analizador sintáctico de Biome es intencionadamente más estricto que el de Prettier.
 Identifica correctamente los siguientes errores de sintaxis:
-
 - Una función no puede tener modificadores duplicados
 - orden no válido de los modificadores de las propiedades
 - Las declaraciones de funciones no pueden tener cuerpos
@@ -293,7 +292,7 @@ class C {
 
 ## Prettier presenta incoherencias entre el análisis sintáctico de TypeScript y Babel
 
-Prettier admite distintos analizadores sintácticos de código JavaScript y TypeScript, todos ellos compatibles con el lenguaje de programación  [`estree` spec](https://github.com/estree/estree). La mayor parte del tiempo, Prettier utiliza Babel como analizador por defecto para el código JavaScript, pero cuando analiza TypeScript, intentará utilizar primero el analizador propio de TypeScript y sólo volverá a Babel con TypeScript activado después. Aunque el analizador sintáctico de TypeScript es generalmente compatible con `estree`, no es exacto, y [esto puede llevar a algunas inconsistencias](https://github.com/prettier/prettier/issues/15785) que afectan a la salida que Prettier crea. En general, estos se consideran fallos en el propio Prettier, ya que la salida debería ser la misma independientemente del analizador sintáctico que se utilice.
+Prettier admite distintos analizadores sintácticos de código JavaScript y TypeScript, todos ellos compatibles con el lenguaje de programación [`estree` spec](https://github.com/estree/estree). La mayor parte del tiempo, Prettier utiliza Babel como analizador por defecto para el código JavaScript, pero cuando analiza TypeScript, intentará utilizar primero el analizador propio de TypeScript y sólo volverá a Babel con TypeScript activado después. Aunque el analizador sintáctico de TypeScript es generalmente compatible con `estree`, no es exacto, y [esto puede llevar a algunas inconsistencias](https://github.com/prettier/prettier/issues/15785) que afectan a la salida que Prettier crea. En general, estos se consideran fallos en el propio Prettier, ya que la salida debería ser la misma independientemente del analizador sintáctico que se utilice.
 
 Biome implementa su propio análisis sintáctico que maneja todas las formas de código JavaScript y TypeScript, lo que significa que no debería haber ninguna incoherencia entre los dos. Sin embargo, al migrar una base de código TypeScript de Prettier a Biome, es posible que algunos formatos parezcan haber cambiado debido a esas discrepancias entre los analizadores sintácticos de Prettier.
 

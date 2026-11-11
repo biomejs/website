@@ -221,9 +221,9 @@ export const noAssign = defineRule({
 
 ### Query APIs
 
-You use `query` to tell the plugin which nodes to inspect. In order to know which nodes to inspect, you have two options: use the command [`biome inspect file`](/reference/cli#biome-inspect-file) or the playground.
+You use `query` to tell the plugin which nodes to inspect. You can select nodes by their syntax kind with [`ast`](#ast-query) or [`semantic`](#semantic-query), or select them by matching a GritQL pattern with [`grit`](#grit-query).
 
-Each node has a name assigned by the Biome grammar, usually in all caps. For example, the name associated with the [`debugger` statement](https://biomejs.dev/playground/?lintRules=all&view=syntax&ruleDomains.project=all#code=ZABlAGIAdQBnAGcAZQByAA%3D%3D) is `JS_DEBUGGER_STATEMENT`, so you can import its interface called `JsDebuggerStatement` and use the `kind` field:
+To find the syntax kind of a node, use the command [`biome inspect file`](/reference/cli#biome-inspect-file) or the playground. Each node has a name assigned by the Biome grammar, usually in all caps. For example, the name associated with the [`debugger` statement](https://biomejs.dev/playground/?lintRules=all&view=syntax&ruleDomains.project=all#code=ZABlAGIAdQBnAGcAZQByAA%3D%3D) is `JS_DEBUGGER_STATEMENT`, so you can import its interface called `JsDebuggerStatement` and use the `kind` field:
 
 ```ts title="plugin.ts" ins='JsDebuggerStatement' ins='.kind'
 import { defineRule, ast, JsDebuggerStatement } from "@biomejs/runtime/plugin"
@@ -250,17 +250,62 @@ export const noAssign = defineRule({
 })
 ```
 
-```ts title="plugin.ts" ins='semantic: true' ins='ctx.model()'
+```ts title="plugin.ts" ins='semantic: true' ins='ctx.model'
 import { defineRule, ast, registerDiagnostic } from "@biomejs/runtime/plugin"
 
 export const noAssign = defineRule({
     query: ast("JS_CALL_EXPRESSION", "JS_DEBUGGER", { semantic: true }),
     run(node, ctx) {
-      let model = ctx.model();
+      const model = ctx.model;
       registerDiagnostic(node, "error", "Can't assign anything.")
     }
 })
 ```
+
+#### `grit` query
+
+**Type**: `string`, and an optional `{ semantic?: boolean }` options object
+
+It accepts a [GritQL pattern](/reference/gritql/) and selects the nodes and tokens that the pattern matches, instead of selecting them by syntax kind. This is useful when matching a snippet requires inspecting the shape of several AST nodes, which would otherwise take several checks in `run`.
+
+```ts title="plugin.ts" ins='grit'
+import { defineRule, grit, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+export const noConsole = defineRule({
+    query: grit("`console.log($args)`"),
+    run(node) {
+      registerDiagnostic(node, "error", "Unexpected console.log.")
+    }
+})
+```
+
+The pattern is executed against the analyzed file, and `run` is called once for each match. When a pattern matches a sequence of nodes, such as several sibling statements, `run` is called for each node in the sequence. The sequence must match exactly, so `` `foo(); bar()` `` doesn't match a list that also contains `baz();`:
+
+```ts title="plugin.ts" ins='grit'
+export const noFooThenBar = defineRule({
+    query: grit("`foo(); bar()`"),
+    run(node) {
+      registerDiagnostic(node, "error", "Don't call foo() immediately before bar().")
+    }
+})
+```
+
+A `grit` query can't contain a rewrite (`=>`), because the query only selects nodes and doesn't edit the source. Report violations from `run` instead. The plugin fails to load if the pattern is invalid or contains a rewrite. The pattern must target JavaScript; patterns that declare another target language are not yet supported.
+
+By default, `run` doesn't receive the semantic model. If your rule needs to inspect bindings or scopes, pass `{ semantic: true }` as the second argument to make [`ctx.model`](#ctxmodel) available, similar to a [`semantic`](#semantic-query) query:
+
+```ts title="plugin.ts" ins='grit'
+export const noConsole = defineRule({
+    query: grit("`console.log($args)`", { semantic: true }),
+    run(node, { model }) {
+      // Inspect the bindings of the logged arguments if needed.
+    }
+})
+```
+
+:::note
+Variables captured by a Grit pattern, such as `$args` in `` `console.log($args)` ``, aren't exposed to `run` yet.
+:::
 
 ### Run APIs
 
@@ -532,3 +577,246 @@ Returns whether the model classifies this global reference as a write.
 **Type**: `() => AnyJsIdentifierReference`
 
 Returns the identifier node whose name could not be resolved.
+
+### Kind sets
+
+A common operation in lint rules is checking the kind of a syntax node or token. Sometimes, you want to check for multiple kinds at a time.
+
+```js
+if (node.kind === "JS_CALL_EXPRESSION" || node.kind === "JS_NEW_EXPRESSION") { ... }
+```
+
+However, there is a performance cost when you check this way. It results in multiple string comparisons. To avoid most of this cost, we provide these "kind sets" APIs that can check for any number of kinds in constant time.
+
+Build each set once at module scope, then reuse it in every `run()` call:
+
+```ts title="plugin.ts" ins='nodeKinds' ins='tokenKinds' ins='.has'
+import { ast, defineRule, nodeKinds, registerDiagnostic, tokenKinds } from "@biomejs/runtime/plugin"
+
+const CALLS = nodeKinds("JS_CALL_EXPRESSION", "JS_NEW_EXPRESSION");
+const LOOSE_EQUALITY = tokenKinds("EQ2", "NEQ");
+
+export const kindSets = defineRule({
+    query: ast("JS_EXPRESSION_STATEMENT"),
+    run(statement, ctx) {
+      const expression = statement.expression;
+      if (!expression) return;
+      if (CALLS.has(expression)) {
+        registerDiagnostic(expression, "information", `${expression.kind} is in CALLS.`)
+      }
+      for (const element of expression.childrenWithTokens()) {
+        if (LOOSE_EQUALITY.has(element)) {
+          registerDiagnostic(expression, "warning", `${element.text} is in LOOSE_EQUALITY.`)
+        }
+      }
+    }
+})
+```
+
+#### `nodeKinds`
+
+**Type**: `<K extends keyof JsNodeByKind>(...kinds: K[]) => NodeKindSet<K>`
+
+Creates a set of node kinds. It accepts the same names as [`ast`](#ast-query), such as `"JS_CALL_EXPRESSION"`. Pass each kind as a separate argument, not as an array. `nodeKinds()` with no arguments returns an empty set, which matches nothing.
+
+It throws a `TypeError` for an unknown name or a token kind. For a token kind, the message names the function to use instead:
+
+```text
+nodeKinds() received the token kind "IDENT", but it only accepts node kinds. Create a set of token kinds with tokenKinds("IDENT") instead.
+```
+
+#### `tokenKinds`
+
+**Type**: `<K extends JsAstToken["kind"]>(...kinds: K[]) => TokenKindSet<K>`
+
+Creates a set of token kinds. It accepts any name that `token.kind` can return, such as `"IDENT"` or `"LET_KW"`. This includes `"EOF"`, `"ERROR_TOKEN"`, and trivia kinds such as `"WHITESPACE"` and `"COMMENT"`.
+
+Like `nodeKinds`, it throws a `TypeError` if a name is unknown or is a node kind.
+
+#### `NodeKindSet.has`
+
+**Type**: `(element: JsAstElement | undefined) => boolean`
+
+Returns whether `element` is a node whose kind is in the set. It returns `false` for tokens and for `undefined`, so you can pass optional fields and the results of `childrenWithTokens()` directly.
+
+It throws a `TypeError` for anything that isn't a node, a token, or `undefined`. That includes kind strings and `null`, so `CALLS.has("JS_CALL_EXPRESSION")` throws.
+
+In TypeScript, a `true` result narrows `element` to the node types in the set. After `CALLS.has(element)`, `element` is a `JsCallExpression | JsNewExpression`.
+
+#### `TokenKindSet.has`
+
+**Type**: `(element: JsAstElement | undefined) => boolean`
+
+Returns whether `element` is a token whose kind is in the set. It returns `false` for nodes and for `undefined`, and throws a `TypeError` for anything else.
+
+In TypeScript, a `true` result narrows `element` to a token with one of the set's kinds. After `LOOSE_EQUALITY.has(element)`, `element.kind` is `"EQ2" | "NEQ"`.
+
+#### `NodeKindSet.union`
+
+**Type**: `(other: NodeKindSet) => NodeKindSet`
+
+Returns a new set with the kinds of both sets. Neither set changes, so you can share a base set and extend it in several places:
+
+```ts title="plugin.ts" ins='.union'
+import { nodeKinds } from "@biomejs/runtime/plugin"
+
+const CALLS = nodeKinds("JS_CALL_EXPRESSION", "JS_NEW_EXPRESSION");
+const CALLS_AND_IMPORTS = CALLS.union(nodeKinds("JS_IMPORT_CALL_EXPRESSION"));
+```
+
+`other` must be a set returned by `nodeKinds()`. Passing a token kind set throws a `TypeError` that says so:
+
+```text
+set.union() received a token kind set, but this is a node kind set. Pass a set returned by nodeKinds() instead.
+```
+
+It also throws for a kind name, an array, or anything else that isn't a node kind set, and when you pass zero or more than one argument. To add a single kind, wrap it in a set first, as in `CALLS.union(nodeKinds("JS_IMPORT_CALL_EXPRESSION"))`.
+
+In TypeScript, the result's type has the kinds of both sets, so `has()` on it narrows to any of them. After `CALLS_AND_IMPORTS.has(element)`, `element` is a `JsCallExpression | JsNewExpression | JsImportCallExpression`.
+
+#### `TokenKindSet.union`
+
+**Type**: `(other: TokenKindSet) => TokenKindSet`
+
+Returns a new set with the kinds of both sets. Neither set changes.
+
+```ts title="plugin.ts" ins='.union'
+import { tokenKinds } from "@biomejs/runtime/plugin"
+
+const EQUALITY = tokenKinds("EQ2", "EQ3", "NEQ", "NEQ2");
+const COMPARISON = EQUALITY.union(tokenKinds("L_ANGLE", "R_ANGLE", "LTEQ", "GTEQ"));
+```
+
+`other` must be a set returned by `tokenKinds()`. Like `NodeKindSet.union`, it throws a `TypeError` for a node kind set, a kind name, an array, or the wrong number of arguments.
+
+#### `NodeKindSet` and `TokenKindSet` types
+
+The two set types are separate. You can't pass a node kind set where a token kind set is expected, or the other way around. That includes `union`: TypeScript rejects `CALLS.union(LOOSE_EQUALITY)`, and it throws at runtime.
+
+Each set's type records exactly the kinds it was built with. `nodeKinds("JS_CALL_EXPRESSION", "JS_NEW_EXPRESSION")` has the type `NodeKindSet<"JS_CALL_EXPRESSION" | "JS_NEW_EXPRESSION">`, and you can't assign it to a `NodeKindSet` with any other kinds, whether fewer, more, or a plain `NodeKindSet`. A helper that accepts any set must be generic over its kinds:
+
+```ts title="plugin.ts"
+import type { AnyJsAstNode, JsNodeByKind, NodeKindSet } from "@biomejs/runtime/plugin"
+
+function countMembers<K extends keyof JsNodeByKind>(
+    set: NodeKindSet<K>,
+    nodes: readonly AnyJsAstNode[],
+): number {
+    return nodes.filter((node) => set.has(node)).length;
+}
+```
+
+For token kind sets, use `K extends JsAstToken["kind"]` and `TokenKindSet<K>`.
+
+### Traversal APIs
+
+Many rules look for a few node kinds anywhere inside a node, often the whole file. You could walk the tree yourself with `children()`, but then every node in the file becomes a JavaScript object and goes through your code, even the ones you don't care about.
+
+`node.descendants()` and `node.walk()` take a [node kind set](#kind-sets) and do the search inside Biome. Biome only creates JavaScript objects and calls your code for the nodes whose kind is in the set, which is much faster than a `children()` walk.
+
+Here is a typical recursive walk that collects every call in a file:
+
+```js title="plugin.js"
+import { ast, defineRule, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+function findCalls(node, calls) {
+  for (const child of node.children()) {
+    if (child.kind === "JS_CALL_EXPRESSION") {
+      calls.push(child);
+    }
+    findCalls(child, calls);
+  }
+  return calls;
+}
+
+export const calls = defineRule({
+    query: ast("JS_MODULE"),
+    run(root) {
+      for (const call of findCalls(root, [])) {
+        registerDiagnostic(call, "information", "Found a call.")
+      }
+    }
+})
+```
+
+With `descendants()`, the helper goes away:
+
+```js title="plugin.js" ins='nodeKinds' ins='.descendants'
+import { ast, defineRule, nodeKinds, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+const CALLS = nodeKinds("JS_CALL_EXPRESSION");
+
+export const calls = defineRule({
+    query: ast("JS_MODULE"),
+    run(root) {
+      for (const call of root.descendants(CALLS)) {
+        registerDiagnostic(call, "information", "Found a call.")
+      }
+    }
+})
+```
+
+As with other kind sets, build each set once at module scope and reuse it in every `run()` call.
+
+Neither method includes or visits the node you call it on, even when its kind is in the set. There is no variant for tokens.
+
+#### `node.descendants`
+
+**Type**: `<K extends keyof JsNodeByKind>(kinds: NodeKindSet<K>) => readonly JsNodeByKind[K][]`
+
+Returns a new array with the nodes inside `node` whose kind is in `kinds`, in source order. Each call creates new node objects, so calling it twice returns different objects for the same nodes.
+
+`kinds` must be a set returned by `nodeKinds()`. A kind string, an array, or a set from `tokenKinds()` throws a `TypeError`:
+
+```text
+The kinds argument to node.descendants() is not a node kind set. Create one with nodeKinds(), such as nodeKinds("JS_CALL_EXPRESSION"), and pass it instead of a kind string or array.
+```
+
+In TypeScript, the result has the node types in the set. `root.descendants(nodeKinds("JS_CALL_EXPRESSION", "JS_NEW_EXPRESSION"))` returns a `readonly (JsCallExpression | JsNewExpression)[]`.
+
+#### `node.walk`
+
+**Type**: `<K extends keyof JsNodeByKind>(kinds: NodeKindSet<K>, enter: (node: JsNodeByKind[K]) => unknown, exit?: (node: JsNodeByKind[K]) => void) => void`
+
+Visits the nodes inside `node` whose kind is in `kinds`, in source order. Biome calls `enter(match)` before it visits the nodes inside a match, and `exit(match)` after them. `exit` receives the same object that `enter` received, and you can omit it.
+
+Use `walk()` instead of `descendants()` when you need to know how matches nest, for example to keep a stack of the enclosing functions or JSX elements. This rule reports each call along with the function it's in:
+
+```js title="plugin.js" ins='.walk'
+import { ast, defineRule, nodeKinds, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+const FUNCTIONS_AND_CALLS = nodeKinds("JS_FUNCTION_DECLARATION", "JS_FUNCTION_EXPRESSION", "JS_ARROW_FUNCTION_EXPRESSION", "JS_CALL_EXPRESSION");
+
+export const enclosingFunctions = defineRule({
+    query: ast("JS_MODULE"),
+    run(root) {
+      const functions = [];
+      root.walk(
+        FUNCTIONS_AND_CALLS,
+        (node) => {
+          if (node.kind === "JS_CALL_EXPRESSION") {
+            const enclosing = functions.at(-1) ?? "the module";
+            registerDiagnostic(node, "information", `${node.callee.text}() is called in ${enclosing}.`)
+          } else if (node.id?.text === "skipped") {
+            return false;
+          } else {
+            functions.push(node.id?.text ?? "an anonymous function");
+          }
+        },
+        (node) => {
+          if (node.kind !== "JS_CALL_EXPRESSION") {
+            functions.pop();
+          }
+        },
+      );
+    }
+})
+```
+
+If `enter` returns exactly `false`, Biome skips the nodes inside that match and doesn't call `exit` for it. In the example above, calls inside a function named `skipped` aren't reported. Any other return value, including `undefined`, `null`, and `0`, continues the walk.
+
+If `enter` or `exit` throws, the walk stops and the exception propagates to your code.
+
+`kinds` follows the same rules as in `descendants()`. `walk()` also throws a `TypeError` if `enter` isn't a function, or if `exit` is given and isn't a function.
+
+In TypeScript, `enter` and `exit` receive the node types in the set.

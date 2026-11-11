@@ -139,6 +139,7 @@ Rules that belong to the domain:
 - [useExhaustiveDependencies](/linter/rules/use-exhaustive-dependencies/javascript) (recommended)
 - [useHookAtTopLevel](/linter/rules/use-hook-at-top-level/javascript) (recommended)
 - [useInlineScriptId](/linter/rules/use-inline-script-id/javascript) (recommended)
+- [useNextScriptForGoogleAnalytics](/linter/rules/use-next-script-for-google-analytics/javascript) [(nursery)](/linter/#nursery)
 - [noImgElement](/linter/rules/no-img-element/javascript) (recommended)
 - [noSyncScripts](/linter/rules/no-sync-scripts/javascript)
 - [noUnwantedPolyfillio](/linter/rules/no-unwanted-polyfillio/javascript) (recommended)
@@ -193,6 +194,8 @@ Rules that belong to the domain:
 - [noPlaywrightUselessAwait](/linter/rules/no-playwright-useless-await/javascript)
 - [noPlaywrightMissingAwait](/linter/rules/no-playwright-missing-await/javascript) (recommended)
 - [usePlaywrightValidDescribeCallback](/linter/rules/use-playwright-valid-describe-callback/javascript) (recommended)
+- [noPlaywrightNthMethods](/linter/rules/no-playwright-nth-methods/javascript) [(nursery)](/linter/#nursery)
+- [noPlaywrightUnsafeReferences](/linter/rules/no-playwright-unsafe-references/javascript) [(nursery)](/linter/#nursery)
 - [noPlaywrightElementHandle](/linter/rules/no-playwright-element-handle/javascript)
 - [noPlaywrightEval](/linter/rules/no-playwright-eval/javascript)
 - [noPlaywrightWaitForSelector](/linter/rules/no-playwright-wait-for-selector/javascript)
@@ -357,6 +360,7 @@ Rules that belong to the domain:
 - [useReactCompiler](/linter/rules/use-react-compiler/javascript) [(nursery)](/linter/#nursery)
 - [useReactFunctionComponentDefinition](/linter/rules/use-react-function-component-definition/javascript) [(nursery)](/linter/#nursery)
 - [useReactNamingConvention](/linter/rules/use-react-naming-convention/javascript) [(nursery)](/linter/#nursery)
+- [useTanstackQueryStableQueryClient](/linter/rules/use-tanstack-query-stable-query-client/javascript) [(nursery)](/linter/#nursery)
 - [noJsxPropsBind](/linter/rules/no-jsx-props-bind/javascript)
 - [noSyncScripts](/linter/rules/no-sync-scripts/javascript)
 - [noDangerouslySetInnerHtml](/linter/rules/no-dangerously-set-inner-html/javascript) (recommended)
@@ -378,7 +382,7 @@ Enable the **recommended, non-nursery** rules of the domain:
 {
 	"linter": {
 		"domains": {
-			"reactnative": "recommended"
+			"reactNative": "recommended"
 		}
 	}
 }
@@ -388,7 +392,7 @@ Enabled the **all** rules of the domain:
 {
 	"linter": {
 		"domains": {
-			"reactnative": "all"
+			"reactNative": "all"
 		}
 	}
 }
@@ -398,7 +402,7 @@ Enabled the **all** rules of the domain:
 {
 	"linter": {
 		"domains": {
-			"reactnative": "none"
+			"reactNative": "none"
 		}
 	}
 }
@@ -411,6 +415,7 @@ Enabled when the following dependencies are declared:
 Rules that belong to the domain:
 - [noReactNativeRawText](/linter/rules/no-react-native-raw-text/javascript) (recommended)
 - [useReactNativePlatformComponents](/linter/rules/use-react-native-platform-components/javascript) (recommended)
+- [useReactNativeValidPlatformColors](/linter/rules/use-react-native-valid-platform-colors/javascript) [(nursery)](/linter/#nursery)
 - [noReactNativeLiteralColors](/linter/rules/no-react-native-literal-colors/javascript)
 - [noReactNativeDeepImports](/linter/rules/no-react-native-deep-imports/javascript) (recommended)
 ## Solid
@@ -501,15 +506,20 @@ Enabled when the following dependencies are declared:
 Rules that belong to the domain:
 - [noSvelteAddEventListener](/linter/rules/no-svelte-add-event-listener/javascript) [(nursery)](/linter/#nursery)
 - [noSvelteExportLet](/linter/rules/no-svelte-export-let/javascript) [(nursery)](/linter/#nursery)
+- [noSvelteIgnoredUnsubscribe](/linter/rules/no-svelte-ignored-unsubscribe/javascript) [(nursery)](/linter/#nursery)
 - [noSvelteInspect](/linter/rules/no-svelte-inspect/javascript) [(nursery)](/linter/#nursery)
+- [noSvelteInternal](/linter/rules/no-svelte-internal/javascript) [(nursery)](/linter/#nursery)
 - [noSvelteObjectInTextMustaches](/linter/rules/no-svelte-object-in-text-mustaches/javascript) [(nursery)](/linter/#nursery)
 - [noSvelteUnnecessaryStateWrap](/linter/rules/no-svelte-unnecessary-state-wrap/javascript) [(nursery)](/linter/#nursery)
 - [noSvelteUselessDerivedBy](/linter/rules/no-svelte-useless-derived-by/javascript) [(nursery)](/linter/#nursery)
+- [useSvelteEventDispatcherTypes](/linter/rules/use-svelte-event-dispatcher-types/javascript) [(nursery)](/linter/#nursery)
 - [useSvelteKitResolve](/linter/rules/use-svelte-kit-resolve/javascript) [(nursery)](/linter/#nursery)
 - [useSvelteKitRuneImports](/linter/rules/use-svelte-kit-rune-imports/javascript) [(nursery)](/linter/#nursery)
 - [useSvelteReactiveClasses](/linter/rules/use-svelte-reactive-classes/javascript) [(nursery)](/linter/#nursery)
+- [useSvelteStoreInitialValue](/linter/rules/use-svelte-store-initial-value/javascript) [(nursery)](/linter/#nursery)
 - [noSvelteAtDebugTags](/linter/rules/no-svelte-at-debug-tags/html) [(nursery)](/linter/#nursery)
 - [noSvelteAtHtmlTags](/linter/rules/no-svelte-at-html-tags/html) [(nursery)](/linter/#nursery)
+- [noSvelteBindValueOnCheckableInputs](/linter/rules/no-svelte-bind-value-on-checkable-inputs/html) [(nursery)](/linter/#nursery)
 - [noSvelteClassDirective](/linter/rules/no-svelte-class-directive/html) [(nursery)](/linter/#nursery)
 - [noSvelteLegacyConst](/linter/rules/no-svelte-legacy-const/html) [(nursery)](/linter/#nursery)
 - [useConsistentBlockLang](/linter/rules/use-consistent-block-lang/html) [(nursery)](/linter/#nursery)
@@ -566,6 +576,7 @@ Rules that belong to the domain:
 - [useTailwindShorthandClasses](/linter/rules/use-tailwind-shorthand-classes/javascript) [(nursery)](/linter/#nursery)
 - [useTailwindSortedClasses](/linter/rules/use-tailwind-sorted-classes/javascript) [(nursery)](/linter/#nursery)
 - [useTailwindStaticClassStrings](/linter/rules/use-tailwind-static-class-strings/javascript) [(nursery)](/linter/#nursery)
+- [useTailwindVariablesShorthand](/linter/rules/use-tailwind-variables-shorthand/javascript) [(nursery)](/linter/#nursery)
 - [noTailwindArbitraryValue](/linter/rules/no-tailwind-arbitrary-value/html) [(nursery)](/linter/#nursery)
 - [noTailwindLegacyUtilities](/linter/rules/no-tailwind-legacy-utilities/html) [(nursery)](/linter/#nursery)
 - [noTailwindRawColors](/linter/rules/no-tailwind-raw-colors/html) [(nursery)](/linter/#nursery)
@@ -573,6 +584,58 @@ Rules that belong to the domain:
 - [useTailwindShorthandClasses](/linter/rules/use-tailwind-shorthand-classes/html) [(nursery)](/linter/#nursery)
 - [useTailwindSortedClasses](/linter/rules/use-tailwind-sorted-classes/html) [(nursery)](/linter/#nursery)
 - [useTailwindStaticClassStrings](/linter/rules/use-tailwind-static-class-strings/html) [(nursery)](/linter/#nursery)
+- [useTailwindVariablesShorthand](/linter/rules/use-tailwind-variables-shorthand/html) [(nursery)](/linter/#nursery)
+## TanstackQuery
+Use this domain inside projects that use TanStack Query. This domain enables rules that are specific to TanStack Query.
+### TanstackQuery activation
+Enable the **recommended, non-nursery** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"tanstackQuery": "recommended"
+		}
+	}
+}
+```
+
+:::note[No recommended rules]
+Since all rules in this domain are nursery rules, no rules will be activated when enabling the domain. You need to enable the single rules.
+:::
+Enabled the **all** rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"tanstackQuery": "all"
+		}
+	}
+}
+```
+**Disable** all rules of the domain:
+```json title="biome.json" ins={3-5}
+{
+	"linter": {
+		"domains": {
+			"tanstackQuery": "none"
+		}
+	}
+}
+```
+### TanstackQuery dependencies
+Enabled when the following dependencies are declared:
+- `@tanstack/react-query`: `>=4.0.0`
+- `@tanstack/preact-query`: `>=5.0.0`
+- `@tanstack/solid-query`: `>=4.0.0`
+- `@tanstack/svelte-query`: `>=4.0.0`
+- `@tanstack/vue-query`: `>=4.0.0`
+
+### TanstackQuery rules
+Rules that belong to the domain:
+- [noTanstackQueryRestDestructuring](/linter/rules/no-tanstack-query-rest-destructuring/javascript) [(nursery)](/linter/#nursery)
+- [noTanstackQueryVoidQueryFn](/linter/rules/no-tanstack-query-void-query-fn/javascript) [(nursery)](/linter/#nursery)
+- [useTanstackQueryInfiniteQueryPropertyOrder](/linter/rules/use-tanstack-query-infinite-query-property-order/javascript) [(nursery)](/linter/#nursery)
+- [useTanstackQueryStableQueryClient](/linter/rules/use-tanstack-query-stable-query-client/javascript) [(nursery)](/linter/#nursery)
 ## Test
 Use this domain when linting test files. It enables a set of rules that are library agnostic, and can help to catch possible misuse of the test APIs.
 ### Test activation
@@ -641,6 +704,7 @@ When enabled, the following global bindings are recognised by Biome:
 ### Test rules
 Rules that belong to the domain:
 - [noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites/javascript)
+- [useExpectToContain](/linter/rules/use-expect-to-contain/javascript) [(nursery)](/linter/#nursery)
 - [useLowercaseTestTitle](/linter/rules/use-lowercase-test-title/javascript) [(nursery)](/linter/#nursery)
 - [useValidTestTitle](/linter/rules/use-valid-test-title/javascript) [(nursery)](/linter/#nursery)
 - [useConsistentTestIt](/linter/rules/use-consistent-test-it/javascript)
@@ -734,8 +798,11 @@ Rules that belong to the domain:
 - [noMeaninglessVoidOperator](/linter/rules/no-meaningless-void-operator/javascript) [(nursery)](/linter/#nursery)
 - [noMisleadingReturnType](/linter/rules/no-misleading-return-type/javascript) [(nursery)](/linter/#nursery)
 - [noMisusedPromises](/linter/rules/no-misused-promises/javascript) [(nursery)](/linter/#nursery)
+- [noTanstackQueryVoidQueryFn](/linter/rules/no-tanstack-query-void-query-fn/javascript) [(nursery)](/linter/#nursery)
 - [noUnsafePlusOperands](/linter/rules/no-unsafe-plus-operands/javascript) [(nursery)](/linter/#nursery)
+- [noUnsafeReturn](/linter/rules/no-unsafe-return/javascript) [(nursery)](/linter/#nursery)
 - [noUnsafeUnaryMinus](/linter/rules/no-unsafe-unary-minus/javascript) [(nursery)](/linter/#nursery)
+- [noUselessTypeAssertion](/linter/rules/no-useless-type-assertion/javascript) [(nursery)](/linter/#nursery)
 - [noUselessTypeConversion](/linter/rules/no-useless-type-conversion/javascript) [(nursery)](/linter/#nursery)
 - [useAwaitThenable](/linter/rules/use-await-thenable/javascript) [(nursery)](/linter/#nursery)
 - [useDisposables](/linter/rules/use-disposables/javascript) [(nursery)](/linter/#nursery)
@@ -795,12 +862,61 @@ Rules that belong to the domain:
 - [noVueReservedProps](/linter/rules/no-vue-reserved-props/javascript) (recommended)
 - [noVueSetupPropsReactivityLoss](/linter/rules/no-vue-setup-props-reactivity-loss/javascript)
 - [noVueBooleanDefault](/linter/rules/no-vue-boolean-default/javascript) [(nursery)](/linter/#nursery)
+- [noVueComputedPropertiesInData](/linter/rules/no-vue-computed-properties-in-data/javascript) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedConfigKeyCodes](/linter/rules/no-vue-deprecated-config-key-codes/javascript) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedDeleteSet](/linter/rules/no-vue-deprecated-delete-set/javascript) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedDestroyedLifecycle](/linter/rules/no-vue-deprecated-destroyed-lifecycle/javascript) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedEventsApi](/linter/rules/no-vue-deprecated-events-api/javascript) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedListeners](/linter/rules/no-vue-deprecated-listeners/javascript) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedModelDefinition](/linter/rules/no-vue-deprecated-model-definition/javascript) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedPropsDefaultThis](/linter/rules/no-vue-deprecated-props-default-this/javascript) [(nursery)](/linter/#nursery)
 - [noVueDeprecatedScopedSlots](/linter/rules/no-vue-deprecated-scoped-slots/javascript) [(nursery)](/linter/#nursery)
+- [noVueExcessiveProps](/linter/rules/no-vue-excessive-props/javascript) [(nursery)](/linter/#nursery)
 - [noVueLifecycleAfterAwait](/linter/rules/no-vue-lifecycle-after-await/javascript) [(nursery)](/linter/#nursery)
+- [noVueMixin](/linter/rules/no-vue-mixin/javascript) [(nursery)](/linter/#nursery)
+- [noVueMultipleObjectsInClass](/linter/rules/no-vue-multiple-objects-in-class/javascript) [(nursery)](/linter/#nursery)
+- [noVueMultipleSlotArgs](/linter/rules/no-vue-multiple-slot-args/javascript) [(nursery)](/linter/#nursery)
+- [noVueMutatingProps](/linter/rules/no-vue-mutating-props/javascript) [(nursery)](/linter/#nursery)
+- [noVueRefObjectReactivityLoss](/linter/rules/no-vue-ref-object-reactivity-loss/javascript) [(nursery)](/linter/#nursery)
 - [noVueRequiredPropWithDefault](/linter/rules/no-vue-required-prop-with-default/javascript) [(nursery)](/linter/#nursery)
+- [noVueRestrictedCallAfterAwait](/linter/rules/no-vue-restricted-call-after-await/javascript) [(nursery)](/linter/#nursery)
 - [noVueShadowNativeEvents](/linter/rules/no-vue-shadow-native-events/javascript) [(nursery)](/linter/#nursery)
+- [noVueSideEffectsInComputed](/linter/rules/no-vue-side-effects-in-computed/javascript) [(nursery)](/linter/#nursery)
+- [noVueThisInBeforeRouteEnter](/linter/rules/no-vue-this-in-before-route-enter/javascript) [(nursery)](/linter/#nursery)
+- [noVueThisInTemplate](/linter/rules/no-vue-this-in-template/javascript) [(nursery)](/linter/#nursery)
+- [noVueUndeclaredEmits](/linter/rules/no-vue-undeclared-emits/javascript) [(nursery)](/linter/#nursery)
+- [noVueUndeclaredProperties](/linter/rules/no-vue-undeclared-properties/javascript) [(nursery)](/linter/#nursery)
+- [noVueUnusedEmitDeclarations](/linter/rules/no-vue-unused-emit-declarations/javascript) [(nursery)](/linter/#nursery)
+- [noVueWatchAfterAwait](/linter/rules/no-vue-watch-after-await/javascript) [(nursery)](/linter/#nursery)
 - [useVueBaseImport](/linter/rules/use-vue-base-import/javascript) [(nursery)](/linter/#nursery)
+- [useVueBooleanPropTypeFirst](/linter/rules/use-vue-boolean-prop-type-first/javascript) [(nursery)](/linter/#nursery)
+- [useVueComputedPropertyReturn](/linter/rules/use-vue-computed-property-return/javascript) [(nursery)](/linter/#nursery)
+- [useVueConsistentDefineEmitsDeclaration](/linter/rules/use-vue-consistent-define-emits-declaration/javascript) [(nursery)](/linter/#nursery)
+- [useVueConsistentPropNameCasing](/linter/rules/use-vue-consistent-prop-name-casing/javascript) [(nursery)](/linter/#nursery)
+- [useVueDefaultExport](/linter/rules/use-vue-default-export/javascript) [(nursery)](/linter/#nursery)
+- [useVueDefaultProp](/linter/rules/use-vue-default-prop/javascript) [(nursery)](/linter/#nursery)
+- [useVueDefineOptions](/linter/rules/use-vue-define-options/javascript) [(nursery)](/linter/#nursery)
+- [useVueDefinePropsDestructuring](/linter/rules/use-vue-define-props-destructuring/javascript) [(nursery)](/linter/#nursery)
+- [useVueEmitValidator](/linter/rules/use-vue-emit-validator/javascript) [(nursery)](/linter/#nursery)
+- [useVueEmitsValidatorReturn](/linter/rules/use-vue-emits-validator-return/javascript) [(nursery)](/linter/#nursery)
+- [useVueMacroVariableName](/linter/rules/use-vue-macro-variable-name/javascript) [(nursery)](/linter/#nursery)
 - [useVueMatchingComponentFileName](/linter/rules/use-vue-matching-component-file-name/javascript) [(nursery)](/linter/#nursery)
+- [useVueOneComponentPerFile](/linter/rules/use-vue-one-component-per-file/javascript) [(nursery)](/linter/#nursery)
+- [useVuePropTypeConstructor](/linter/rules/use-vue-prop-type-constructor/javascript) [(nursery)](/linter/#nursery)
+- [useVueRenderReturn](/linter/rules/use-vue-render-return/javascript) [(nursery)](/linter/#nursery)
+- [useVueSeparateStaticClass](/linter/rules/use-vue-separate-static-class/javascript) [(nursery)](/linter/#nursery)
+- [useVueSingleEventPayload](/linter/rules/use-vue-single-event-payload/javascript) [(nursery)](/linter/#nursery)
+- [useVueSlotsAsFunctions](/linter/rules/use-vue-slots-as-functions/javascript) [(nursery)](/linter/#nursery)
+- [useVueTemplateRef](/linter/rules/use-vue-template-ref/javascript) [(nursery)](/linter/#nursery)
+- [useVueTypedObjectProps](/linter/rules/use-vue-typed-object-props/javascript) [(nursery)](/linter/#nursery)
+- [useVueTypedProps](/linter/rules/use-vue-typed-props/javascript) [(nursery)](/linter/#nursery)
+- [useVueTypedRef](/linter/rules/use-vue-typed-ref/javascript) [(nursery)](/linter/#nursery)
+- [useVueValidDefaultProp](/linter/rules/use-vue-valid-default-prop/javascript) [(nursery)](/linter/#nursery)
+- [useVueValidDefineEmits](/linter/rules/use-vue-valid-define-emits/javascript) [(nursery)](/linter/#nursery)
+- [useVueValidDefineOptions](/linter/rules/use-vue-valid-define-options/javascript) [(nursery)](/linter/#nursery)
+- [useVueValidDefineProps](/linter/rules/use-vue-valid-define-props/javascript) [(nursery)](/linter/#nursery)
+- [useVueValidNextTick](/linter/rules/use-vue-valid-next-tick/javascript) [(nursery)](/linter/#nursery)
+- [useVueValidVMemo](/linter/rules/use-vue-valid-v-memo/javascript) [(nursery)](/linter/#nursery)
 - [noVueOptionsApi](/linter/rules/no-vue-options-api/javascript)
 - [useVueConsistentDefinePropsDeclaration](/linter/rules/use-vue-consistent-define-props-declaration/javascript)
 - [useVueDefineMacrosOrder](/linter/rules/use-vue-define-macros-order/javascript)
@@ -822,12 +938,48 @@ Rules that belong to the domain:
 - [useVueValidVOnce](/linter/rules/use-vue-valid-v-once/html) (recommended)
 - [useVueValidVPre](/linter/rules/use-vue-valid-v-pre/html) (recommended)
 - [useVueValidVText](/linter/rules/use-vue-valid-v-text/html) (recommended)
+- [noVueChildContent](/linter/rules/no-vue-child-content/html) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedFunctionalTemplate](/linter/rules/no-vue-deprecated-functional-template/html) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedHtmlElementIs](/linter/rules/no-vue-deprecated-html-element-is/html) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedInlineTemplate](/linter/rules/no-vue-deprecated-inline-template/html) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedRouterLinkTagProp](/linter/rules/no-vue-deprecated-router-link-tag-prop/html) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedScopeAttribute](/linter/rules/no-vue-deprecated-scope-attribute/html) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedSlotAttribute](/linter/rules/no-vue-deprecated-slot-attribute/html) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedSlotScope](/linter/rules/no-vue-deprecated-slot-scope/html) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedVBindSync](/linter/rules/no-vue-deprecated-v-bind-sync/html) [(nursery)](/linter/#nursery)
+- [noVueDeprecatedVOnNativeModifier](/linter/rules/no-vue-deprecated-v-on-native-modifier/html) [(nursery)](/linter/#nursery)
+- [noVueLoneTemplate](/linter/rules/no-vue-lone-template/html) [(nursery)](/linter/#nursery)
+- [noVueRestrictedVOn](/linter/rules/no-vue-restricted-v-on/html) [(nursery)](/linter/#nursery)
 - [noVueRootVIf](/linter/rules/no-vue-root-v-if/html) [(nursery)](/linter/#nursery)
+- [noVueTemplateKey](/linter/rules/no-vue-template-key/html) [(nursery)](/linter/#nursery)
+- [noVueTemplateShadow](/linter/rules/no-vue-template-shadow/html) [(nursery)](/linter/#nursery)
+- [noVueTextareaMustache](/linter/rules/no-vue-textarea-mustache/html) [(nursery)](/linter/#nursery)
 - [noVueUndeclaredDirectives](/linter/rules/no-vue-undeclared-directives/html) [(nursery)](/linter/#nursery)
+- [noVueUndeclaredSlots](/linter/rules/no-vue-undeclared-slots/html) [(nursery)](/linter/#nursery)
+- [noVueUnusedRefs](/linter/rules/no-vue-unused-refs/html) [(nursery)](/linter/#nursery)
+- [noVueUselessTemplateAttributes](/linter/rules/no-vue-useless-template-attributes/html) [(nursery)](/linter/#nursery)
+- [noVueUselessVBind](/linter/rules/no-vue-useless-v-bind/html) [(nursery)](/linter/#nursery)
+- [noVueVForTemplateKeyOnChild](/linter/rules/no-vue-v-for-template-key-on-child/html) [(nursery)](/linter/#nursery)
 - [noVueVHtml](/linter/rules/no-vue-v-html/html) [(nursery)](/linter/#nursery)
 - [noVueVText](/linter/rules/no-vue-v-text/html) [(nursery)](/linter/#nursery)
+- [noVueVTextVHtmlOnComponent](/linter/rules/no-vue-v-text-v-html-on-component/html) [(nursery)](/linter/#nursery)
 - [useConsistentBlockLang](/linter/rules/use-consistent-block-lang/html) [(nursery)](/linter/#nursery)
+- [useVueBlockOrder](/linter/rules/use-vue-block-order/html) [(nursery)](/linter/#nursery)
+- [useVueComponentIs](/linter/rules/use-vue-component-is/html) [(nursery)](/linter/#nursery)
+- [useVueConsistentBooleanPropStyle](/linter/rules/use-vue-consistent-boolean-prop-style/html) [(nursery)](/linter/#nursery)
 - [useVueConsistentEventHyphenation](/linter/rules/use-vue-consistent-event-hyphenation/html) [(nursery)](/linter/#nursery)
+- [useVueConsistentVForDelimiter](/linter/rules/use-vue-consistent-v-for-delimiter/html) [(nursery)](/linter/#nursery)
+- [useVueConsistentVSlotStyle](/linter/rules/use-vue-consistent-v-slot-style/html) [(nursery)](/linter/#nursery)
+- [useVueSlotNameCasing](/linter/rules/use-vue-slot-name-casing/html) [(nursery)](/linter/#nursery)
+- [useVueToggleInsideTransition](/linter/rules/use-vue-toggle-inside-transition/html) [(nursery)](/linter/#nursery)
+- [useVueVModel](/linter/rules/use-vue-v-model/html) [(nursery)](/linter/#nursery)
+- [useVueVOnExact](/linter/rules/use-vue-v-on-exact/html) [(nursery)](/linter/#nursery)
+- [useVueValidAttributeName](/linter/rules/use-vue-valid-attribute-name/html) [(nursery)](/linter/#nursery)
+- [useVueValidVIs](/linter/rules/use-vue-valid-v-is/html) [(nursery)](/linter/#nursery)
+- [useVueValidVMemo](/linter/rules/use-vue-valid-v-memo/html) [(nursery)](/linter/#nursery)
+- [useVueValidVModel](/linter/rules/use-vue-valid-v-model/html) [(nursery)](/linter/#nursery)
+- [useVueValidVShow](/linter/rules/use-vue-valid-v-show/html) [(nursery)](/linter/#nursery)
+- [useVueValidVSlot](/linter/rules/use-vue-valid-v-slot/html) [(nursery)](/linter/#nursery)
 - [useVueVapor](/linter/rules/use-vue-vapor/html)
 - [useVueConsistentVBindStyle](/linter/rules/use-vue-consistent-v-bind-style/html) (recommended)
 - [useVueConsistentVOnStyle](/linter/rules/use-vue-consistent-v-on-style/html) (recommended)

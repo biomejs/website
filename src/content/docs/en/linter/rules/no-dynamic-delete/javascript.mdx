@@ -1,0 +1,109 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noDynamicDelete (JavaScript)
+description: JavaScript (and super languages) documentation for noDynamicDelete
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-dynamic-delete/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noDynamicDelete`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`@typescript-eslint/no-dynamic-delete`](https://typescript-eslint.io/rules/no-dynamic-delete)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDynamicDelete": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow using the `delete` operator with a property name that is computed at runtime.
+
+The `delete` operator removes a property from an object. When the property name
+is written inside square brackets and comes from a variable, a function call, or
+another expression, the code is using a plain object to store a changing set of keys.
+It is hard to tell which property gets removed just by reading the code.
+
+A [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
+or a [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
+is built for this use. Both have a `delete()` method for removing entries.
+
+This rule allows square brackets that contain a string literal, a number literal,
+or a negative number literal, because the property name is fixed in the code.
+
+In Node.js, `process.env` holds the environment variables of the running program,
+and it can't be replaced with a `Map`. The rule still reports `delete process.env[name]`,
+and suggests deleting each environment variable by its name instead.
+
+## Examples
+
+### Invalid
+
+```js
+const name = "name";
+delete container[name];
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:18 <a href=\"https://biomejs.dev/linter/rules/no-dynamic-delete\">lint/nursery/noDynamicDelete</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Avoid using </span><span style=\"color: lightgreen;\"><strong>delete</strong></span><span style=\"color: lightgreen;\"> with a property name that is computed at runtime.</span><br />  <br />    <strong>1 │ </strong>const name = &quot;name&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>delete container[name];<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Removing properties by a changing name makes it hard to tell which property gets removed.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a </span><span style=\"color: lightgreen;\"><strong>Map</strong></span><span style=\"color: lightgreen;\"> or a </span><span style=\"color: lightgreen;\"><strong>Set</strong></span><span style=\"color: lightgreen;\"> and call its </span><span style=\"color: lightgreen;\"><strong>delete()</strong></span><span style=\"color: lightgreen;\"> method instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+delete container[name.toUpperCase()];
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:18 <a href=\"https://biomejs.dev/linter/rules/no-dynamic-delete\">lint/nursery/noDynamicDelete</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Avoid using </span><span style=\"color: lightgreen;\"><strong>delete</strong></span><span style=\"color: lightgreen;\"> with a property name that is computed at runtime.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>delete container[name.toUpperCase()];<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Removing properties by a changing name makes it hard to tell which property gets removed.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a </span><span style=\"color: lightgreen;\"><strong>Map</strong></span><span style=\"color: lightgreen;\"> or a </span><span style=\"color: lightgreen;\"><strong>Set</strong></span><span style=\"color: lightgreen;\"> and call its </span><span style=\"color: lightgreen;\"><strong>delete()</strong></span><span style=\"color: lightgreen;\"> method instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const variable = "API_KEY";
+delete process.env[variable];
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:20 <a href=\"https://biomejs.dev/linter/rules/no-dynamic-delete\">lint/nursery/noDynamicDelete</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Avoid using </span><span style=\"color: lightgreen;\"><strong>delete</strong></span><span style=\"color: lightgreen;\"> with an environment variable name that is computed at runtime.</span><br />  <br />    <strong>1 │ </strong>const variable = &quot;API&#95;KEY&quot;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>delete process.env[variable];<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Removing environment variables by a changing name makes it hard to tell which variables get removed.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Delete each environment variable by its name instead, for example </span><span style=\"color: lightgreen;\"><strong>delete process.env.API&#95;KEY</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+delete container.aaa;
+delete container[7];
+delete container[-1];
+delete container["aaa"];
+delete container["Infinity"];
+
+const map = new Map();
+map.delete(name);
+
+delete process.env.API_KEY;
+```
+
+## See Also
+
+- If you want to disallow the `delete` operator on fixed property names, see [`noDelete`](https://biomejs.dev/linter/rules/no-delete/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_dynamic_delete.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noDynamicDelete)
+- <RulePlaygroundLink rule="noDynamicDelete" category="lint" language="js" code={"const name = \"name\";\ndelete container[name];\n"} />
+

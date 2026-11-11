@@ -74,7 +74,7 @@ impl DocDomains {
             writeln!(buffer, "## {name}")?;
             writeln!(buffer, "{}", domain.as_description())?;
 
-            Self::write_activation(name.as_str(), rules.as_slice(), buffer)?;
+            Self::write_activation(name.as_str(), domain.as_str(), rules.as_slice(), buffer)?;
             Self::write_dependencies(domain, name.as_str(), buffer)?;
             Self::write_globals(domain, name.as_str(), buffer)?;
             Self::write_rules(rules.as_slice(), name.as_str(), buffer)?
@@ -136,15 +136,17 @@ impl DocDomains {
         Ok(())
     }
 
+    /// `config_key` is the domain name as written in `linter.domains`, e.g. `tanstackQuery`.
     fn write_activation(
         name: &str,
+        config_key: &str,
         rules: &[(String, RuleMetadata)],
         buffer: &mut Vec<u8>,
     ) -> anyhow::Result<()> {
         writeln!(buffer, "### {name} activation")?;
         let recommended = format_node(
             JsonFormatOptions::default().with_expand(Expand::Always),
-            make_config_json(Case::Lower.convert(name).as_str(), "recommended").syntax(),
+            make_config_json(config_key, "recommended").syntax(),
         )?
         .print()?;
 
@@ -168,7 +170,7 @@ impl DocDomains {
 
         let all = format_node(
             JsonFormatOptions::default().with_expand(Expand::Always),
-            make_config_json(Case::Lower.convert(name).as_str(), "all").syntax(),
+            make_config_json(config_key, "all").syntax(),
         )?
         .print()?;
 
@@ -179,7 +181,7 @@ impl DocDomains {
 
         let none = format_node(
             JsonFormatOptions::default().with_expand(Expand::Always),
-            make_config_json(Case::Lower.convert(name).as_str(), "none").syntax(),
+            make_config_json(config_key, "none").syntax(),
         )?
         .print()?;
 

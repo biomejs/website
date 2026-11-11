@@ -1,0 +1,123 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVuePropTypeConstructor (JavaScript)
+description: JavaScript (and super languages) documentation for useVuePropTypeConstructor
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-prop-type-constructor/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVuePropTypeConstructor`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/require-prop-type-constructor`](https://eslint.vuejs.org/rules/require-prop-type-constructor)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVuePropTypeConstructor": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require the type of a Vue prop to be a constructor.
+
+Vue checks the value passed to a prop against the type the prop declares. That type must be
+a constructor, such as `String`, `Number` or a class, or an array of constructors. A common
+mistake is to write the name of the type as a string, as in `type: 'String'`. Vue can't
+check values against a string, so the prop loses the checks and the behavior of its type.
+For example, a prop declared with `type: 'Boolean'` isn't set to `true` when the attribute
+is written without a value.
+
+This rule reports prop types written as a string, a template string, a number, a boolean, a
+regular expression, a binary operation such as `Foo + ''`, or an increment or decrement such
+as `i++`. `null` is allowed, because Vue treats it as "any type". It checks props declared
+through the `props` option and through `defineProps()`.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  props: {
+    size: 'Number',
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:11 <a href=\"https://biomejs.dev/linter/rules/use-vue-prop-type-constructor\">lint/nursery/useVuePropTypeConstructor</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The type of the prop </span><span style=\"color: Tomato;\"><strong>size</strong></span><span style=\"color: Tomato;\"> is not a constructor.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  props: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    size: 'Number',<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  &#125;,<br />    <strong>6 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue uses the type of a prop to check the values passed to it. It can only do that with a constructor, such as </span><span style=\"color: lightgreen;\"><strong>String</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>Number</strong></span><span style=\"color: lightgreen;\">, or with an array of constructors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace this value with the constructor of the type the prop accepts.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use the constructor </span><span style=\"color: lightgreen;\"><strong>Number</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong>  4 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>size:<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">'</span>Number<span style=\"color: Tomato;\">'</span>,<br />  <strong>    │ </strong>          <span style=\"color: Tomato;\">-</span>      <span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+```vue
+<script>
+export default {
+  props: {
+    value: ['Number', String],
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:13 <a href=\"https://biomejs.dev/linter/rules/use-vue-prop-type-constructor\">lint/nursery/useVuePropTypeConstructor</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The type of the prop </span><span style=\"color: Tomato;\"><strong>value</strong></span><span style=\"color: Tomato;\"> is not a constructor.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  props: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    value: ['Number', String],<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  &#125;,<br />    <strong>6 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue uses the type of a prop to check the values passed to it. It can only do that with a constructor, such as </span><span style=\"color: lightgreen;\"><strong>String</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>Number</strong></span><span style=\"color: lightgreen;\">, or with an array of constructors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace this value with the constructor of the type the prop accepts.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use the constructor </span><span style=\"color: lightgreen;\"><strong>Number</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong>  4 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>value:<span style=\"opacity: 0.8;\">·</span>[<span style=\"color: Tomato;\">'</span>Number<span style=\"color: Tomato;\">'</span>,<span style=\"opacity: 0.8;\">·</span>String],<br />  <strong>    │ </strong>            <span style=\"color: Tomato;\">-</span>      <span style=\"color: Tomato;\">-</span>          <br /></code></pre>"} />
+
+```vue
+<script setup>
+defineProps({
+  options: {
+    type: 'Object',
+    default: () => ({}),
+  },
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:11 <a href=\"https://biomejs.dev/linter/rules/use-vue-prop-type-constructor\">lint/nursery/useVuePropTypeConstructor</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The type of the prop </span><span style=\"color: Tomato;\"><strong>options</strong></span><span style=\"color: Tomato;\"> is not a constructor.</span><br />  <br />    <strong>2 │ </strong>defineProps(&#123;<br />    <strong>3 │ </strong>  options: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    type: 'Object',<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>    default: () =&gt; (&#123;&#125;),<br />    <strong>6 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue uses the type of a prop to check the values passed to it. It can only do that with a constructor, such as </span><span style=\"color: lightgreen;\"><strong>String</strong></span><span style=\"color: lightgreen;\"> or </span><span style=\"color: lightgreen;\"><strong>Number</strong></span><span style=\"color: lightgreen;\">, or with an array of constructors.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace this value with the constructor of the type the prop accepts.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use the constructor </span><span style=\"color: lightgreen;\"><strong>Object</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong>  4 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>type:<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">'</span>Object<span style=\"color: Tomato;\">'</span>,<br />  <strong>    │ </strong>          <span style=\"color: Tomato;\">-</span>      <span style=\"color: Tomato;\">-</span> <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+export default {
+  props: {
+    size: Number,
+    value: [Number, String],
+    options: {
+      type: Object,
+      default: () => ({}),
+    },
+    anything: null,
+  },
+};
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_prop_type_constructor.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVuePropTypeConstructor)
+- <RulePlaygroundLink rule="useVuePropTypeConstructor" category="lint" language="vue" code={"<script>\nexport default {\n  props: {\n    size: 'Number',\n  },\n};\n</script>\n"} />
+

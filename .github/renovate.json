@@ -21,7 +21,12 @@
     },
     {
       "matchManagers": ["npm"],
-      "matchDepNames": ["@codemirror/*"],
+      "matchDepNames": ["@codemirror/*", "@lezer/*"],
+      "postUpdateOptions": ["pnpmDedupe"]
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchDepNames": ["@expressive-code/*"],
       "postUpdateOptions": ["pnpmDedupe"]
     }
   ]

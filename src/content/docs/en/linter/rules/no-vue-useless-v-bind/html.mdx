@@ -1,0 +1,181 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueUselessVBind (HTML)
+description: HTML documentation for noVueUselessVBind
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-useless-v-bind/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueUselessVBind`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/no-useless-v-bind`](https://eslint.vuejs.org/rules/no-useless-v-bind)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueUselessVBind": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `v-bind` directives whose value is a fixed string.
+
+A `v-bind` directive, written as `v-bind:name` or `:name`, sets an attribute to the result of
+a JavaScript expression. When that expression is a fixed string, such as `'foo'`, the
+directive always produces the same value. A plain attribute like `id="foo"` does the same
+thing and is easier to read.
+
+The rule doesn't report directives with modifiers, such as `:id.prop="'foo'"`, because
+modifiers change how Vue applies the value. It also skips elements inside a `v-pre`
+element, where Vue leaves the template as written.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <div :id="'foo'" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:8 <a href=\"https://biomejs.dev/linter/rules/no-vue-useless-v-bind\">lint/nursery/noVueUselessVBind</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\"> directive binds a fixed string.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div :id=&quot;'foo'&quot; /&gt;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A plain attribute gives the same result without </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\">, and is easier to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\"> and write the string as the attribute value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Replace the directive with a plain attribute.</span><br />  <br />  <strong>  2 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>&lt;div<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">:</span>id=&quot;<span style=\"color: Tomato;\">'</span>foo<span style=\"color: Tomato;\">'</span>&quot;<span style=\"opacity: 0.8;\">·</span>/&gt;<br />  <strong>    │ </strong>       <span style=\"color: Tomato;\">-</span>    <span style=\"color: Tomato;\">-</span>   <span style=\"color: Tomato;\">-</span>    <br /></code></pre>"} />
+
+```vue
+<template>
+  <div v-bind:title="`Hello`" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:8 <a href=\"https://biomejs.dev/linter/rules/no-vue-useless-v-bind\">lint/nursery/noVueUselessVBind</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\"> directive binds a fixed string.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div v-bind:title=&quot;&#96;Hello&#96;&quot; /&gt;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A plain attribute gives the same result without </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\">, and is easier to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\"> and write the string as the attribute value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Replace the directive with a plain attribute.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  &lt;template&gt;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>v</strong></span><span style=\"color: Tomato;\"><strong>-</strong></span><span style=\"color: Tomato;\"><strong>b</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>:</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>l</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\"><strong>&#96;</strong></span><span style=\"color: Tomato;\">H</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\"><strong>&#96;</strong></span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">/</span><span style=\"color: Tomato;\">&gt;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>l</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">H</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">/</span><span style=\"color: MediumSeaGreen;\">&gt;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  &lt;/template&gt;<br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <div id="foo" />
+  <div :id="foo" />
+  <div :id="'foo' + bar" />
+  <div :id="`foo-${bar}`" />
+  <div :id.prop="'foo'" />
+</template>
+```
+
+## Options
+
+### `ignoreComments`
+
+Default: `false`
+
+When `true`, the rule doesn't report a directive whose value contains a comment.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueUselessVBind": {
+					"level": "on",
+					"options": {
+						"ignoreComments": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```vue
+<template>
+  <div :id="'foo'" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:8 <a href=\"https://biomejs.dev/linter/rules/no-vue-useless-v-bind\">lint/nursery/noVueUselessVBind</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\"> directive binds a fixed string.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div :id=&quot;'foo'&quot; /&gt;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A plain attribute gives the same result without </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\">, and is easier to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\"> and write the string as the attribute value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Replace the directive with a plain attribute.</span><br />  <br />  <strong>  2 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>&lt;div<span style=\"opacity: 0.8;\">·</span><span style=\"color: Tomato;\">:</span>id=&quot;<span style=\"color: Tomato;\">'</span>foo<span style=\"color: Tomato;\">'</span>&quot;<span style=\"opacity: 0.8;\">·</span>/&gt;<br />  <strong>    │ </strong>       <span style=\"color: Tomato;\">-</span>    <span style=\"color: Tomato;\">-</span>   <span style=\"color: Tomato;\">-</span>    <br /></code></pre>"} />
+
+#### Valid
+
+```vue
+<template>
+  <div :id="'foo' /* used by the tests */" />
+</template>
+```
+
+### `ignoreStringEscapes`
+
+Default: `false`
+
+When `true`, the rule doesn't report a directive whose string contains an escape sequence
+for a special character, such as `\n` for a line break or `\x41` for a character code. A
+plain attribute can't contain these escape sequences.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueUselessVBind": {
+					"level": "on",
+					"options": {
+						"ignoreStringEscapes": true
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```vue
+<template>
+  <div :title="'It\'s here'" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:8 <a href=\"https://biomejs.dev/linter/rules/no-vue-useless-v-bind\">lint/nursery/noVueUselessVBind</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\"> directive binds a fixed string.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div :title=&quot;'It&#92;'s here'&quot; /&gt;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A plain attribute gives the same result without </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\">, and is easier to read.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\"> and write the string as the attribute value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Replace the directive with a plain attribute.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  &lt;template&gt;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>:</strong></span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\"><strong>'</strong></span><span style=\"color: Tomato;\"><strong>I</strong></span><span style=\"color: Tomato;\"><strong>t</strong></span><span style=\"color: Tomato;\"><strong>&#92;</strong></span><span style=\"color: Tomato;\"><strong>'</strong></span><span style=\"color: Tomato;\"><strong>s</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">h</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\"><strong>'</strong></span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">/</span><span style=\"color: Tomato;\">&gt;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\"><strong>I</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>'</strong></span><span style=\"color: MediumSeaGreen;\"><strong>s</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">h</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">/</span><span style=\"color: MediumSeaGreen;\">&gt;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  &lt;/template&gt;<br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+#### Valid
+
+```vue
+<template>
+  <div :title="'Line 1\nLine 2'" />
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_useless_v_bind.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueUselessVBind)
+- <RulePlaygroundLink rule="noVueUselessVBind" category="lint" language="vue" code={"<template>\n  <div :id=\"'foo'\" />\n</template>\n"} />
+

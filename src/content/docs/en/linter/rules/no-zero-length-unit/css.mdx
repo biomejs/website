@@ -1,0 +1,120 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noZeroLengthUnit (CSS)
+description: CSS documentation for noZeroLengthUnit
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-zero-length-unit/css/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/noZeroLengthUnit`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`length-zero-no-unit`](https://github.com/stylelint/stylelint/blob/main/lib/rules/length-zero-no-unit/README.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noZeroLengthUnit": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow units on zero lengths.
+
+A length of zero is the same distance in every unit, so `0px`, `0em`, and `0rem` all mean the same as `0`.
+CSS allows a zero length to be written without a unit, which is shorter and keeps zero values consistent.
+
+This rule checks length units, such as `px`, `em`, `rem`, `vw`, and `cm`.
+It doesn't report zeros with other kinds of units, such as `0s`, `0deg`, `0%`, and `0fr`, because only lengths can be written without a unit.
+
+The rule also doesn't report a zero length in the following places, where removing the unit changes the meaning of the value or makes it invalid:
+
+- Inside math functions, such as `calc()`, `min()`, `max()`, and `clamp()`.
+- In the `line-height` and `flex` properties, and in the line height of the `font` property, which is the value after the `/`.
+In these places, a `0` without a unit is read as a plain number instead of a length.
+- In the value of a Sass variable, such as `$gap: 0px`.
+
+## Custom properties
+
+The rule reports zero lengths in custom properties, such as `--gap: 0px`, but the fix is unsafe there.
+Removing the unit can break a `calc()` that uses the custom property:
+`calc(var(--gap) + 1px)` is valid when `--gap` is `0px`, and invalid when `--gap` is `0`.
+For the same reason, the fix is unsafe for values passed to or returned from custom functions, which are functions defined with `@function`.
+
+The fix is also unsafe in SCSS files, because Sass calculations treat `0px` and `0` differently.
+
+## Examples
+
+### Invalid
+
+```css
+a {
+  top: 0px;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:2:9 <a href=\"https://biomejs.dev/linter/rules/no-zero-length-unit\">lint/nursery/noZeroLengthUnit</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The unit </span><span style=\"color: lightgreen;\"><strong>px</strong></span><span style=\"color: lightgreen;\"> is unnecessary on a zero length.</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  top: 0px;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A length of zero is the same in every unit, so </span><span style=\"color: lightgreen;\"><strong>0</strong></span><span style=\"color: lightgreen;\"> is enough.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the unit.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  a &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\"><strong>p</strong></span><span style=\"color: Tomato;\"><strong>x</strong></span><span style=\"color: Tomato;\">;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>0</strong></span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  &#125;<br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```css
+a {
+  margin: 0.0em auto;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:2:14 <a href=\"https://biomejs.dev/linter/rules/no-zero-length-unit\">lint/nursery/noZeroLengthUnit</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The unit </span><span style=\"color: lightgreen;\"><strong>em</strong></span><span style=\"color: lightgreen;\"> is unnecessary on a zero length.</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  margin: 0.0em auto;<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A length of zero is the same in every unit, so </span><span style=\"color: lightgreen;\"><strong>0</strong></span><span style=\"color: lightgreen;\"> is enough.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the unit.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  a &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\"><strong>.</strong></span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>m</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>0</strong></span><span style=\"color: MediumSeaGreen;\"><strong>.</strong></span><span style=\"color: MediumSeaGreen;\"><strong>0</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  &#125;<br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```css
+@media (min-width: 0px) {}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:21 <a href=\"https://biomejs.dev/linter/rules/no-zero-length-unit\">lint/nursery/noZeroLengthUnit</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The unit </span><span style=\"color: lightgreen;\"><strong>px</strong></span><span style=\"color: lightgreen;\"> is unnecessary on a zero length.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>@media (min-width: 0px) &#123;&#125;<br />   <strong>   │ </strong>                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A length of zero is the same in every unit, so </span><span style=\"color: lightgreen;\"><strong>0</strong></span><span style=\"color: lightgreen;\"> is enough.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the unit.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">@</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">w</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">h</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\"><strong>p</strong></span><span style=\"color: Tomato;\"><strong>x</strong></span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><span style=\"color: Tomato;\">&#125;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">@</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">-</span><span style=\"color: MediumSeaGreen;\">w</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">h</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>0</strong></span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><span style=\"color: MediumSeaGreen;\">&#125;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```css
+a {
+  --gap: 0px;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:2:11 <a href=\"https://biomejs.dev/linter/rules/no-zero-length-unit\">lint/nursery/noZeroLengthUnit</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The unit </span><span style=\"color: lightgreen;\"><strong>px</strong></span><span style=\"color: lightgreen;\"> is unnecessary on a zero length.</span><br />  <br />    <strong>1 │ </strong>a &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  --gap: 0px;<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A length of zero is the same in every unit, so </span><span style=\"color: lightgreen;\"><strong>0</strong></span><span style=\"color: lightgreen;\"> is enough.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Here, </span><span style=\"color: lightgreen;\"><strong>0</strong></span><span style=\"color: lightgreen;\"> and a zero length aren't always interchangeable. For example, CSS can copy this value into a </span><span style=\"color: lightgreen;\"><strong>calc()</strong></span><span style=\"color: lightgreen;\">, where a zero without a unit can't be added to or subtracted from a length. Check how the value is used before removing the unit.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the unit.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  a &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\"><strong>p</strong></span><span style=\"color: Tomato;\"><strong>x</strong></span><span style=\"color: Tomato;\">;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">-</span><span style=\"color: MediumSeaGreen;\">-</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>0</strong></span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>3</strong> <strong>3</strong><strong> │ </strong>  &#125;<br />    <strong>4</strong> <strong>4</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```css
+a {
+  top: 0;
+  left: 2px;
+  transition-delay: 0s;
+  width: calc(0px + 100%);
+  line-height: 0px;
+  flex: 1 1 0px;
+  font: 16px/0px sans-serif;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_zero_length_unit.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noZeroLengthUnit)
+- <RulePlaygroundLink rule="noZeroLengthUnit" category="lint" language="css" code={"a {\n  top: 0px;\n}\n"} />
+

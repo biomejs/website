@@ -1,0 +1,145 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueDefaultProp (JavaScript)
+description: JavaScript (and super languages) documentation for useVueDefaultProp
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-default-prop/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueDefaultProp`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/require-default-prop`](https://eslint.vuejs.org/rules/require-default-prop)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueDefaultProp": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require a default value for optional props in Vue components.
+
+When a parent component doesn't pass an optional prop, Vue sets it to `undefined`. Code
+that uses the prop then has to handle `undefined` every time, and it's easy to forget.
+A default value says what the component should use when the prop is left out.
+
+This rule reports props that are neither required nor given a default value. Props that
+only accept `Boolean` are not reported, because Vue already sets them to `false` when they
+are left out.
+
+Props declared with a type, as in `defineProps<{ size?: number }>()`, are only checked
+when the component gives defaults through `withDefaults()` or by destructuring the props.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  props: {
+    size: Number,
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:5 <a href=\"https://biomejs.dev/linter/rules/use-vue-default-prop\">lint/nursery/useVueDefaultProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The optional prop </span><span style=\"color: Orange;\"><strong>size</strong></span><span style=\"color: Orange;\"> has no default value.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  props: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    size: Number,<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  &#125;,<br />    <strong>6 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When a parent component doesn't pass this prop, its value is </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">, which the component has to handle everywhere it uses the prop.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Give the prop a default value, or mark it as required if parent components must always pass it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+defineProps({
+  size: {
+    type: Number,
+    required: false,
+  },
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:3 <a href=\"https://biomejs.dev/linter/rules/use-vue-default-prop\">lint/nursery/useVueDefaultProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The optional prop </span><span style=\"color: Orange;\"><strong>size</strong></span><span style=\"color: Orange;\"> has no default value.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />    <strong>2 │ </strong>defineProps(&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  size: &#123;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    type: Number,<br />    <strong>5 │ </strong>    required: false,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When a parent component doesn't pass this prop, its value is </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">, which the component has to handle everywhere it uses the prop.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Give the prop a default value, or mark it as required if parent components must always pass it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup lang="ts">
+withDefaults(defineProps<{ size?: number; label?: string }>(), {
+  label: "Button",
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:28 <a href=\"https://biomejs.dev/linter/rules/use-vue-default-prop\">lint/nursery/useVueDefaultProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The optional prop </span><span style=\"color: Orange;\"><strong>size</strong></span><span style=\"color: Orange;\"> has no default value.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup lang=&quot;ts&quot;&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>withDefaults(defineProps&lt;&#123; size?: number; label?: string &#125;&gt;(), &#123;<br />   <strong>   │ </strong>                           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>  label: &quot;Button&quot;,<br />    <strong>4 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When a parent component doesn't pass this prop, its value is </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">, which the component has to handle everywhere it uses the prop.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Give the prop a default value, or mark it as required if parent components must always pass it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup lang="ts">
+const { size } = defineProps<{ size?: number }>();
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:32 <a href=\"https://biomejs.dev/linter/rules/use-vue-default-prop\">lint/nursery/useVueDefaultProp</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The optional prop </span><span style=\"color: Orange;\"><strong>size</strong></span><span style=\"color: Orange;\"> has no default value.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup lang=&quot;ts&quot;&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const &#123; size &#125; = defineProps&lt;&#123; size?: number &#125;&gt;();<br />   <strong>   │ </strong>                               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/script&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When a parent component doesn't pass this prop, its value is </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">, which the component has to handle everywhere it uses the prop.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Give the prop a default value, or mark it as required if parent components must always pass it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup lang="ts">
+const { size = 1, label, disabled } = defineProps<{
+  size?: number;
+  label: string;
+  disabled?: boolean;
+}>();
+</script>
+```
+
+```vue
+<script>
+export default {
+  props: {
+    size: {
+      type: Number,
+      default: 1,
+    },
+    label: {
+      type: String,
+      required: true,
+    },
+    disabled: Boolean,
+  },
+};
+</script>
+```
+
+## See Also
+
+- If you want to disallow default values for `Boolean` props, see [`noVueBooleanDefault`](https://biomejs.dev/linter/rules/no-vue-boolean-default/).
+- If you want to disallow required props that also have a default value, see [`noVueRequiredPropWithDefault`](https://biomejs.dev/linter/rules/no-vue-required-prop-with-default/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_default_prop.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueDefaultProp)
+- <RulePlaygroundLink rule="useVueDefaultProp" category="lint" language="vue" code={"<script>\nexport default {\n  props: {\n    size: Number,\n  },\n};\n</script>\n"} />
+

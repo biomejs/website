@@ -80,9 +80,51 @@ pub(crate) fn generate_cli_command_index() -> anyhow::Result<()> {
 
     let command_index = render_command_index(&biome_command().render_markdown("biome"))?;
     cli_doc_content.replace_range(start_index..end_index, &command_index);
+    validate_command_sections(&command_index, &cli_doc_content)?;
     fs::write(cli_doc_path, &cli_doc_content)?;
 
     Ok(())
+}
+
+fn command_name_from_index_line(line: &str) -> Option<&str> {
+    let link = line.trim_start().strip_prefix("* [`")?;
+    let (command, _) = link.split_once("`](#")?;
+    command.starts_with("biome ").then_some(command)
+}
+
+fn command_name_from_heading(line: &str) -> Option<&str> {
+    let line = line.trim_start();
+    let heading_level = line.bytes().take_while(|byte| *byte == b'#').count();
+    if !(2..=6).contains(&heading_level) {
+        return None;
+    }
+
+    let command = line[heading_level..]
+        .trim()
+        .strip_prefix('`')?
+        .strip_suffix('`')?;
+    command.starts_with("biome ").then_some(command)
+}
+
+fn validate_command_sections(command_index: &str, cli_doc_content: &str) -> anyhow::Result<()> {
+    let documented_commands = cli_doc_content
+        .lines()
+        .filter_map(command_name_from_heading)
+        .collect::<std::collections::HashSet<_>>();
+    let missing_commands = command_index
+        .lines()
+        .filter_map(command_name_from_index_line)
+        .filter(|command| !documented_commands.contains(command))
+        .collect::<Vec<_>>();
+
+    if missing_commands.is_empty() {
+        Ok(())
+    } else {
+        anyhow::bail!(
+            "CLI command index links to missing sections: {}",
+            missing_commands.join(", ")
+        )
+    }
 }
 
 fn render_command_index(markdown: &str) -> anyhow::Result<String> {

@@ -1,0 +1,175 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueSlotNameCasing (HTML)
+description: HTML documentation for useVueSlotNameCasing
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-slot-name-casing/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueSlotNameCasing`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/slot-name-casing`](https://eslint.vuejs.org/rules/slot-name-casing)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueSlotNameCasing": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce a consistent casing for the names of Vue slots.
+
+A component declares its slots with `<slot name="...">` elements, and the parent fills
+them with `v-slot:name` or `#name`. Vue doesn't convert slot names between camelCase and
+kebab-case, so the parent must spell the name exactly as the component does. Using one
+casing for every slot name makes the names easier to remember and to search for.
+
+Only `<slot>` elements with a static `name` attribute are checked. Dynamic names, such as
+`:name="slotName"`, are ignored.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <slot name="foo-bar" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:14 <a href=\"https://biomejs.dev/linter/rules/use-vue-slot-name-casing\">lint/nursery/useVueSlotNameCasing</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The slot name </span><span style=\"color: lightgreen;\"><strong>foo-bar</strong></span><span style=\"color: lightgreen;\"> isn't in camelCase.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;slot name=&quot;foo-bar&quot; /&gt;<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't convert slot names between casings, so components that fill this slot must use the exact same name. Using one casing for every slot name keeps them consistent.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the slot so that it is in camelCase, and update the components that fill it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <slot name="foo_bar" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:14 <a href=\"https://biomejs.dev/linter/rules/use-vue-slot-name-casing\">lint/nursery/useVueSlotNameCasing</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The slot name </span><span style=\"color: lightgreen;\"><strong>foo&#95;bar</strong></span><span style=\"color: lightgreen;\"> isn't in camelCase.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;slot name=&quot;foo&#95;bar&quot; /&gt;<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't convert slot names between casings, so components that fill this slot must use the exact same name. Using one casing for every slot name keeps them consistent.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the slot so that it is in camelCase, and update the components that fill it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <slot name="foo" />
+  <slot name="fooBar" />
+  <slot :name="slotName" />
+</template>
+```
+
+## Options
+
+### `casing`
+
+Default: `"camelCase"`
+
+The casing that slot names must follow:
+
+- `"camelCase"`: slot names must be in camelCase, such as `fooBar`.
+- `"kebab-case"`: slot names must be in kebab-case, such as `foo-bar`.
+- `"singleword"`: slot names must only contain lowercase letters from `a` to `z`, such as `foo`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueSlotNameCasing": {
+					"level": "on",
+					"options": {
+						"casing": "kebab-case"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```vue
+<template>
+  <slot name="fooBar" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:14 <a href=\"https://biomejs.dev/linter/rules/use-vue-slot-name-casing\">lint/nursery/useVueSlotNameCasing</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The slot name </span><span style=\"color: lightgreen;\"><strong>fooBar</strong></span><span style=\"color: lightgreen;\"> isn't in kebab-case.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;slot name=&quot;fooBar&quot; /&gt;<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't convert slot names between casings, so components that fill this slot must use the exact same name. Using one casing for every slot name keeps them consistent.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the slot so that it is in kebab-case, and update the components that fill it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```vue
+<template>
+  <slot name="foo" />
+  <slot name="foo-bar" />
+</template>
+```
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueSlotNameCasing": {
+					"level": "on",
+					"options": {
+						"casing": "singleword"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```vue
+<template>
+  <slot name="fooBar" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:14 <a href=\"https://biomejs.dev/linter/rules/use-vue-slot-name-casing\">lint/nursery/useVueSlotNameCasing</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The slot name </span><span style=\"color: lightgreen;\"><strong>fooBar</strong></span><span style=\"color: lightgreen;\"> isn't a single word made only of the lowercase letters a to z.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;slot name=&quot;fooBar&quot; /&gt;<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't convert slot names between casings, so components that fill this slot must use the exact same name. Using one casing for every slot name keeps them consistent.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the slot so that it is a single word made only of the lowercase letters a to z, and update the components that fill it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```vue
+<template>
+  <slot name="foo" />
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_slot_name_casing.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueSlotNameCasing)
+- <RulePlaygroundLink rule="useVueSlotNameCasing" category="lint" language="vue" code={"<template>\n  <slot name=\"foo-bar\" />\n</template>\n"} />
+

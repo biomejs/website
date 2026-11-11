@@ -1,0 +1,118 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useConsistentUnicodeBom (HTML)
+description: HTML documentation for useConsistentUnicodeBom
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"css","label":"CSS","href":"/linter/rules/use-consistent-unicode-bom/css/"},{"id":"graphql","label":"GraphQL","href":"/linter/rules/use-consistent-unicode-bom/graphql/"},{"id":"html","label":"HTML","href":"/linter/rules/use-consistent-unicode-bom/html/"},{"id":"json","label":"JSON (and super languages)","href":"/linter/rules/use-consistent-unicode-bom/json/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-consistent-unicode-bom/javascript/"},{"id":"markdown","label":"Markdown","href":"/linter/rules/use-consistent-unicode-bom/markdown/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/useConsistentUnicodeBom`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicode-bom`](https://eslint.org/docs/latest/rules/unicode-bom)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentUnicodeBom": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require or disallow a Unicode byte order mark at the beginning of a file.
+
+A byte order mark (BOM) is the invisible U+FEFF character at the start of a file.
+UTF-8 does not need a BOM, so this rule disallows it by default.
+Set `bom` to `"always"` if your tools require one.
+U+FEFF characters elsewhere in the file are not checked by this rule.
+
+## Examples
+
+### Invalid
+
+The following example starts with an invisible U+FEFF character.
+
+```html
+﻿<div>text</div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:1 <a href=\"https://biomejs.dev/linter/rules/use-consistent-unicode-bom\">lint/nursery/useConsistentUnicodeBom</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This file starts with a Unicode byte order mark (BOM).</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>﻿&lt;div&gt;text&lt;/div&gt;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">UTF-8 does not require a byte order mark.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Remove the Unicode byte order mark.</span><br />  <br />  <strong>  1 │ </strong><span style=\"color: Tomato;\">﻿</span>&lt;div&gt;text&lt;/div&gt;<br />  <strong>    │ </strong><span style=\"color: Tomato;\">-</span>               <br /></code></pre>"} />
+
+### Valid
+
+```html
+<div>text</div>
+```
+
+## Options
+
+### `bom`
+
+Type: `"always" | "never"`
+
+Default: `"never"`
+
+Whether files must start with a BOM.
+Use `"always"` to require a BOM, including in empty files.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentUnicodeBom": {
+					"level": "on",
+					"options": {
+						"bom": "always"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```html
+<div>text</div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:1 <a href=\"https://biomejs.dev/linter/rules/use-consistent-unicode-bom\">lint/nursery/useConsistentUnicodeBom</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This file is missing a Unicode byte order mark (BOM).</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div&gt;text&lt;/div&gt;<br />   <strong>   │ </strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The configured BOM policy requires files to start with U+FEFF.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Insert a Unicode byte order mark.</span><br />  <br />  <strong>  1 │ </strong><span style=\"color: MediumSeaGreen;\">﻿</span>&lt;div&gt;text&lt;/div&gt;<br />  <strong>    │ </strong><span style=\"color: MediumSeaGreen;\">+</span>               <br /></code></pre>"} />
+
+#### Valid
+
+The following example starts with an invisible U+FEFF character.
+
+```html
+﻿<div>text</div>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_consistent_unicode_bom.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useConsistentUnicodeBom)
+- <RulePlaygroundLink rule="useConsistentUnicodeBom" category="lint" language="html" code={"﻿<div>text</div>\n"} />
+

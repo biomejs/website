@@ -1,0 +1,153 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueMutatingProps (JavaScript)
+description: JavaScript (and super languages) documentation for noVueMutatingProps
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-mutating-props/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noVueMutatingProps`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-mutating-props`](https://eslint.vuejs.org/rules/no-mutating-props)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueMutatingProps": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow changing the props of a Vue component.
+
+Props pass data from a parent component down to a child. The parent owns that data, so the
+child should treat its props as read-only. Vue refuses to assign a new value to a prop and
+warns about it. Changing an object or array prop in place, for example by setting one of
+its properties or calling `push()` on it, does work, but it changes the parent's data
+without the parent knowing, which makes the data flow of the application hard to follow.
+
+Instead, emit an event so the parent changes the value itself, or copy the prop into a
+local `ref()` or computed property when the child needs a value of its own.
+
+This rule reports props that are assigned, incremented, deleted, bound with `v-model`, or
+changed in place with an array method such as `push()` or `sort()`, in the script and in
+the template.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  props: {
+    count: Number,
+  },
+  methods: {
+    increment() {
+      this.count++;
+    },
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:8:12 <a href=\"https://biomejs.dev/linter/rules/no-vue-mutating-props\">lint/nursery/noVueMutatingProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This changes the prop </span><span style=\"color: Tomato;\"><strong>count</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />     <strong>6 │ </strong>  methods: &#123;<br />     <strong>7 │ </strong>    increment() &#123;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>8 │ </strong>      this.count++;<br />    <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />     <strong>9 │ </strong>    &#125;,<br />    <strong>10 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A prop belongs to the parent component. Changing it from the child either fails, or changes the parent's data without the parent knowing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Emit an event so the parent can change the value, or copy the prop into a local </span><span style=\"color: lightgreen;\"><strong>ref()</strong></span><span style=\"color: lightgreen;\"> or computed property.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+const props = defineProps({
+  items: Array,
+});
+
+function addItem() {
+  props.items.push("new item");
+}
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:7:9 <a href=\"https://biomejs.dev/linter/rules/no-vue-mutating-props\">lint/nursery/noVueMutatingProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This changes the prop </span><span style=\"color: Tomato;\"><strong>items</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>6 │ </strong>function addItem() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>7 │ </strong>  props.items.push(&quot;new item&quot;);<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>8 │ </strong>&#125;<br />    <strong>9 │ </strong>&lt;/script&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A prop belongs to the parent component. Changing it from the child either fails, or changes the parent's data without the parent knowing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Emit an event so the parent can change the value, or copy the prop into a local </span><span style=\"color: lightgreen;\"><strong>ref()</strong></span><span style=\"color: lightgreen;\"> or computed property.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  props: {
+    user: Object,
+  },
+  setup(props) {
+    props.user.name = "Alice";
+  },
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:8:11 <a href=\"https://biomejs.dev/linter/rules/no-vue-mutating-props\">lint/nursery/noVueMutatingProps</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This changes the prop </span><span style=\"color: Tomato;\"><strong>user</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />     <strong>6 │ </strong>  &#125;,<br />     <strong>7 │ </strong>  setup(props) &#123;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>8 │ </strong>    props.user.name = &quot;Alice&quot;;<br />    <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />     <strong>9 │ </strong>  &#125;,<br />    <strong>10 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A prop belongs to the parent component. Changing it from the child either fails, or changes the parent's data without the parent knowing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Emit an event so the parent can change the value, or copy the prop into a local </span><span style=\"color: lightgreen;\"><strong>ref()</strong></span><span style=\"color: lightgreen;\"> or computed property.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+defineProps({
+  value: String,
+});
+</script>
+
+<template>
+  <input v-model="value" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup>
+import { ref } from "vue";
+
+const props = defineProps({
+  count: Number,
+});
+const emit = defineEmits(["update:count"]);
+
+const localCount = ref(props.count);
+
+function increment() {
+  localCount.value++;
+  emit("update:count", props.count + 1);
+}
+</script>
+
+<template>
+  <input :value="count" @input="emit('update:count', $event.target.value)" />
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_mutating_props.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueMutatingProps)
+- <RulePlaygroundLink rule="noVueMutatingProps" category="lint" language="vue" code={"<script>\nexport default {\n  props: {\n    count: Number,\n  },\n  methods: {\n    increment() {\n      this.count++;\n    },\n  },\n};\n</script>\n"} />
+

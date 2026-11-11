@@ -1,0 +1,110 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDeprecatedPropsDefaultThis (JavaScript)
+description: JavaScript (and super languages) documentation for noVueDeprecatedPropsDefaultThis
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-deprecated-props-default-this/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueDeprecatedPropsDefaultThis`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-deprecated-props-default-this`](https://eslint.vuejs.org/rules/no-deprecated-props-default-this)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedPropsDefaultThis": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `this` in the default value function of a Vue prop.
+
+When a prop expects an object or an array, its default value is written as a function
+that returns that value. Vue doesn't give this function access to the component, so `this`
+doesn't point to the component inside it. Reading another prop with `this.name` fails.
+The function receives the props passed to the component as its first argument, so read
+other props from that argument instead.
+
+Props whose `type` is `Function` aren't checked, because Vue uses their default value as
+the function itself instead of calling it.
+
+See the [Vue 3 migration guide](https://v3-migration.vuejs.org/breaking-changes/props-default-this.html)
+for more information.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  props: {
+    size: Number,
+    sizes: {
+      type: Array,
+      default() {
+        return [this.size];
+      },
+    },
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:8:17 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-props-default-this\">lint/nursery/noVueDeprecatedPropsDefaultThis</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\"><strong>this</strong></span><span style=\"color: Tomato;\"> is used in the default value function of a prop.</span><br />  <br />     <strong>6 │ </strong>      type: Array,<br />     <strong>7 │ </strong>      default() &#123;<br />   <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>8 │ </strong>        return [this.size];<br />    <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />     <strong>9 │ </strong>      &#125;,<br />    <strong>10 │ </strong>    &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue doesn't give this function access to the component, so </span><span style=\"color: lightgreen;\"><strong>this</strong></span><span style=\"color: lightgreen;\"> doesn't point to the component.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Read other props from the first argument of the function instead, for example </span><span style=\"color: lightgreen;\"><strong>default(props) &#123; return props.size &#125;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+export default {
+  props: {
+    size: Number,
+    sizes: {
+      type: Array,
+      default(props) {
+        return [props.size];
+      },
+    },
+    onSelect: {
+      type: Function,
+      default() {
+        console.log(this.size);
+      },
+    },
+  },
+};
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_deprecated_props_default_this.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueDeprecatedPropsDefaultThis)
+- <RulePlaygroundLink rule="noVueDeprecatedPropsDefaultThis" category="lint" language="vue" code={"<script>\nexport default {\n  props: {\n    size: Number,\n    sizes: {\n      type: Array,\n      default() {\n        return [this.size];\n      },\n    },\n  },\n};\n</script>\n"} />
+

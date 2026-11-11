@@ -3,13 +3,13 @@ title: Filosofia das Opções de Formatação
 description: Configuração de um formatador com convicções fortes.
 ---
 
->💡 O Biome segue a mesma [filosofia de opções do Prettier](https://prettier.io/docs/en/option-philosophy). O conjunto existente de opções para formatação é considerado estável, e não é provável que novas opções sejam consideradas.
+> 💡 O Biome segue a mesma [filosofia de opções do Prettier](https://prettier.io/docs/en/option-philosophy). O conjunto existente de opções para formatação é considerado estável, e não é provável que novas opções sejam consideradas.
 >
->Este documento explica um pouco da história sobre como e por que o Biome chegou onde está hoje e uma perspectiva para o futuro.
+> Este documento explica um pouco da história sobre como e por que o Biome chegou onde está hoje e uma perspectiva para o futuro.
 
-O Biome é um *formatador com convicções fortes*. Em um mundo ideal, isso significa que o Biome assume que existe apenas uma maneira correta de formatar as coisas e aplicará esse estilo em todos os momentos. Não importa o projeto, não importa a configuração, o código formatado pelo Biome sempre terá a mesma aparência. Falando de outra forma, o Biome é o seu próprio *guia de estilo automático*, não uma ferramenta para implementar outros guias de estilo.
+O Biome é um _formatador com convicções fortes_. Em um mundo ideal, isso significa que o Biome assume que existe apenas uma maneira correta de formatar as coisas e aplicará esse estilo em todos os momentos. Não importa o projeto, não importa a configuração, o código formatado pelo Biome sempre terá a mesma aparência. Falando de outra forma, o Biome é o seu próprio _guia de estilo automático_, não uma ferramenta para implementar outros guias de estilo.
 
-Ter uma opinião tão forte sobre a formatação pode parecer severo demais, mas os benefícios rapidamente se tornam claros após a adoção. Todas as discussões sobre onde os espaços devem ir, se uma linha deve ser quebrada, se uma linha deve ser recuada e muitas outras simplesmente *desaparecem*. [Discussões triviais e desgastantes](https://pt.wikipedia.org/wiki/Lei_da_trivialidade) não tiram mais o foco do que realmente importa. As revisões de código ficam livres de solicitações de reformatação e debates cíclicos. Basta confiar que o Biome faz o melhor possível para formatar o código de forma limpa, legível e consistente.
+Ter uma opinião tão forte sobre a formatação pode parecer severo demais, mas os benefícios rapidamente se tornam claros após a adoção. Todas as discussões sobre onde os espaços devem ir, se uma linha deve ser quebrada, se uma linha deve ser recuada e muitas outras simplesmente _desaparecem_. [Discussões triviais e desgastantes](https://pt.wikipedia.org/wiki/Lei_da_trivialidade) não tiram mais o foco do que realmente importa. As revisões de código ficam livres de solicitações de reformatação e debates cíclicos. Basta confiar que o Biome faz o melhor possível para formatar o código de forma limpa, legível e consistente.
 
 Além dos benefícios dentro de organizações e equipes individuais, a adoção de formatadores consistentes em todo o ecossistema web beneficia a todos, preservando a familiaridade ao alternar entre projetos e ajudando os recém-chegados a aprender e reconhecer padrões de forma mais intuitiva, sem distrações.
 
@@ -19,11 +19,11 @@ O Biome se orgulha de ter alcançado uma compatibilidade tão alta com o Prettie
 
 ## Opções Existentes
 
-O Biome começou com um subconjunto restrito de opções de configuração, visando às diretrizes de estilo mais comuns e controversas no ecossistema JavaScript: tipo de identação (tabulações vs. espaços), larguras da identação (2 espaços para igualar uma tabulação ou 4?) e pontos-e-vírgulas obrigatórios.  Adicionar opções para esses pontos foi considerado suficiente para atender às necessidades da maioria das pessoas, e não houve nenhuma consideração forte para adicionar mais outros.
+O Biome começou com um subconjunto restrito de opções de configuração, visando às diretrizes de estilo mais comuns e controversas no ecossistema JavaScript: tipo de identação (tabulações vs. espaços), larguras da identação (2 espaços para igualar uma tabulação ou 4?) e pontos-e-vírgulas obrigatórios. Adicionar opções para esses pontos foi considerado suficiente para atender às necessidades da maioria das pessoas, e não houve nenhuma consideração forte para adicionar mais outros.
 
 Tomando por base [a filosofia de opções do Prettier](https://prettier.io/docs/en/option-philosophy), Biome tinha a oportunidade de começar do zero e evitar as armadilhas nas quais o Prettier havia caído com algumas de suas opções existentes, como `--bracket-same-line` e `--arrow-parens`:
 
-> …[essas] não são opções que gostamos de oferecer. Elas causam muitas discussões inúteis nas equipes, e lamentamos por isso. Difíceis de remover agora, essas opções existem como um artefato histórico e não devem motivar a adição de mais opções ("Se *essas* opções existem, por que esta não pode existir também?").
+> …[essas] não são opções que gostamos de oferecer. Elas causam muitas discussões inúteis nas equipes, e lamentamos por isso. Difíceis de remover agora, essas opções existem como um artefato histórico e não devem motivar a adição de mais opções ("Se _essas_ opções existem, por que esta não pode existir também?").
 
 No entanto, quando o [Desafio do Prettier foi anunciado](https://console.algora.io/challenges/prettier), o Biome decidiu aceitar o desafio, o que exigia a implementação de todas as opções de configuração que o Prettier já oferecia para obter compatibilidade total.
 

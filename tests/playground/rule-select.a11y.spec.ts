@@ -115,7 +115,7 @@ test.describe("rule select accessibility", () => {
 			await page.keyboard.type("nconsl");
 			await expect(await activeOption(page)).toHaveText(/^noConsole/);
 			await page.keyboard.press("ArrowDown");
-			await expect(await activeOption(page)).toHaveText(/^noConfusingLabels/);
+			await expect(await activeOption(page)).toHaveText(/^noConsoleSpaces/);
 			await page.keyboard.press("ArrowUp");
 			await expect(await activeOption(page)).toHaveText(/^noConsole/);
 			await page.keyboard.press("ArrowDown");
@@ -125,7 +125,7 @@ test.describe("rule select accessibility", () => {
 			await expect(lintRules).toBeFocused();
 			await expect(lintRules).toHaveAttribute("aria-expanded", "false");
 			await expect(lintRules).toMatchAriaSnapshot(
-				`- combobox "Lint Rules": noConfusingLabels`,
+				`- combobox "Lint Rules": noConsoleSpaces`,
 			);
 		});
 

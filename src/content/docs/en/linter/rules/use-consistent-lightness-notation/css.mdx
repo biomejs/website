@@ -1,0 +1,125 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useConsistentLightnessNotation (CSS)
+description: CSS documentation for useConsistentLightnessNotation
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/use-consistent-lightness-notation/css/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/useConsistentLightnessNotation`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`lightness-notation`](https://github.com/stylelint/stylelint/blob/main/lib/rules/lightness-notation/README.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentLightnessNotation": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce a consistent notation for the lightness of colors.
+
+The `lab()`, `lch()`, `oklab()`, and `oklch()` color functions accept their first value,
+the lightness, either as a percentage or as a number. Both notations describe the same
+color: `oklch(85% 0.17 88)` and `oklch(0.85 0.17 88)` are equal. Writing lightness the same
+way everywhere makes colors easier to read and compare.
+
+For `oklab()` and `oklch()`, the number `1` equals `100%`. For `lab()` and `lch()`, the
+number `100` equals `100%`.
+
+## Examples
+
+### Invalid
+
+```css
+a { color: oklch(0.85 0.17 88); }
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:18 <a href=\"https://biomejs.dev/linter/rules/use-consistent-lightness-notation\">lint/nursery/useConsistentLightnessNotation</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This lightness is written as a number instead of a percentage.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>a &#123; color: oklch(0.85 0.17 88); &#125;<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Writing lightness the same way in every color makes colors easier to read and compare.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>85%</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">k</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">h</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\"><strong>.</strong></span><span style=\"color: Tomato;\"><strong>8</strong></span><span style=\"color: Tomato;\"><strong>5</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">0</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">1</span><span style=\"color: Tomato;\">7</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">8</span><span style=\"color: Tomato;\">8</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\">;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#125;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">k</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">h</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\"><strong>8</strong></span><span style=\"color: MediumSeaGreen;\"><strong>5</strong></span><span style=\"color: MediumSeaGreen;\"><strong>%</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">0</span><span style=\"color: MediumSeaGreen;\">.</span><span style=\"color: MediumSeaGreen;\">1</span><span style=\"color: MediumSeaGreen;\">7</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">8</span><span style=\"color: MediumSeaGreen;\">8</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\">;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#125;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```css
+a { color: lab(86 -40 30); }
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:16 <a href=\"https://biomejs.dev/linter/rules/use-consistent-lightness-notation\">lint/nursery/useConsistentLightnessNotation</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This lightness is written as a number instead of a percentage.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>a &#123; color: lab(86 -40 30); &#125;<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Writing lightness the same way in every color makes colors easier to read and compare.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>86%</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong>  1 │ </strong>a<span style=\"opacity: 0.8;\">·</span>&#123;<span style=\"opacity: 0.8;\">·</span>color:<span style=\"opacity: 0.8;\">·</span>lab(86<span style=\"color: MediumSeaGreen;\">%</span><span style=\"opacity: 0.8;\">·</span>-40<span style=\"opacity: 0.8;\">·</span>30);<span style=\"opacity: 0.8;\">·</span>&#125;<br />  <strong>    │ </strong>                 <span style=\"color: MediumSeaGreen;\">+</span>           <br /></code></pre>"} />
+
+### Valid
+
+```css
+a { color: oklch(85% 0.17 88); }
+a { color: oklab(86% -0.2 0.15); }
+a { color: lch(85% 60 88); }
+a { color: lab(86% -40 30); }
+a { color: oklch(from red 50% c h); }
+```
+
+## Options
+
+### `notation`
+
+Default: `"percentage"`
+
+Whether lightness is written as a percentage (`"percentage"`) or as a number (`"number"`).
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useConsistentLightnessNotation": {
+					"level": "on",
+					"options": {
+						"notation": "number"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```css
+a { color: oklch(85% 0.17 88); }
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:1:18 <a href=\"https://biomejs.dev/linter/rules/use-consistent-lightness-notation\">lint/nursery/useConsistentLightnessNotation</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This lightness is written as a percentage instead of a number.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>a &#123; color: oklch(85% 0.17 88); &#125;<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Writing lightness the same way in every color makes colors easier to read and compare.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>0.85</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">k</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">h</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\"><strong>8</strong></span><span style=\"color: Tomato;\"><strong>5</strong></span><span style=\"color: Tomato;\"><strong>%</strong></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">0</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">1</span><span style=\"color: Tomato;\">7</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">8</span><span style=\"color: Tomato;\">8</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\">;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#125;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">k</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">h</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\"><strong>0</strong></span><span style=\"color: MediumSeaGreen;\"><strong>.</strong></span><span style=\"color: MediumSeaGreen;\"><strong>8</strong></span><span style=\"color: MediumSeaGreen;\"><strong>5</strong></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">0</span><span style=\"color: MediumSeaGreen;\">.</span><span style=\"color: MediumSeaGreen;\">1</span><span style=\"color: MediumSeaGreen;\">7</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">8</span><span style=\"color: MediumSeaGreen;\">8</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\">;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#125;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+#### Valid
+
+```css
+a { color: oklch(0.85 0.17 88); }
+a { color: lab(86 -40 30); }
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/use_consistent_lightness_notation.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/useConsistentLightnessNotation)
+- <RulePlaygroundLink rule="useConsistentLightnessNotation" category="lint" language="css" code={"a { color: oklch(0.85 0.17 88); }\n"} />
+

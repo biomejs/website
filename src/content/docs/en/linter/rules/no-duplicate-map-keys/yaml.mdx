@@ -1,0 +1,86 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noDuplicateMapKeys (YAML)
+description: YAML documentation for noDuplicateMapKeys
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="yaml" languages={[{"id":"yaml","label":"YAML","href":"/linter/rules/no-duplicate-map-keys/yaml/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.0`
+- Diagnostic Category: [`lint/nursery/noDuplicateMapKeys`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDuplicateMapKeys": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow two keys with the same name inside YAML maps.
+
+The YAML specification requires mapping keys to be unique. When a key is
+repeated, the document becomes ambiguous: tooling disagree on which value
+wins, with some keeping the first entry, some the last, and others
+rejecting the document entirely. Duplicate keys are therefore usually a
+mistake, such as a copy-paste error or an unintended override.
+
+Keys are compared by their resolved scalar value, so quoted and unquoted
+forms of the same key are treated as duplicates.
+
+## Examples
+
+### Invalid
+
+```yaml
+person:
+  name: John Doe
+  'name': Jane Doe
+  "name": John Smith
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:2:3 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-map-keys\">lint/nursery/noDuplicateMapKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The key </span><span style=\"color: Tomato;\"><strong>name</strong></span><span style=\"color: Tomato;\"> was already declared.</span><br />  <br />    <strong>1 │ </strong>person:<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  name: John Doe<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>  'name': Jane Doe<br />    <strong>4 │ </strong>  &quot;name&quot;: John Smith<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This is where a duplicated key was declared again.</span><br />  <br />    <strong>1 │ </strong>person:<br />    <strong>2 │ </strong>  name: John Doe<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  'name': Jane Doe<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  &quot;name&quot;: John Smith<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This is where a duplicated key was declared again.</span><br />  <br />    <strong>2 │ </strong>  name: John Doe<br />    <strong>3 │ </strong>  'name': Jane Doe<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>  &quot;name&quot;: John Smith<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Duplicate keys make the mapping ambiguous, and tools disagree on which value wins.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove or rename the duplicate keys.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```yaml
+person: { name: John Doe, name: Jane Doe }
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:1:11 <a href=\"https://biomejs.dev/linter/rules/no-duplicate-map-keys\">lint/nursery/noDuplicateMapKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The key </span><span style=\"color: Tomato;\"><strong>name</strong></span><span style=\"color: Tomato;\"> was already declared.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>person: &#123; name: John Doe, name: Jane Doe &#125;<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This is where a duplicated key was declared again.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>person: &#123; name: John Doe, name: Jane Doe &#125;<br />   <strong>   │ </strong>                          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Duplicate keys make the mapping ambiguous, and tools disagree on which value wins.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove or rename the duplicate keys.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```yaml
+person:
+  name: John Doe
+```
+
+```yaml
+person: { name: John Doe }
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_yaml_analyze/src/lint/nursery/no_duplicate_map_keys.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_yaml_analyze/tests/specs/nursery/noDuplicateMapKeys)
+- <RulePlaygroundLink rule="noDuplicateMapKeys" category="lint" language="yaml" code={"person:\n  name: John Doe\n  'name': Jane Doe\n  \"name\": John Smith\n"} />
+

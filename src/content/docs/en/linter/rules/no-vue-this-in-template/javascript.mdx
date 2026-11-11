@@ -1,0 +1,103 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueThisInTemplate (JavaScript)
+description: JavaScript (and super languages) documentation for noVueThisInTemplate
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-this-in-template/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueThisInTemplate`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/this-in-template`](https://eslint.vuejs.org/rules/this-in-template)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueThisInTemplate": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `this` in Vue templates.
+
+Vue templates can read the properties of the component directly. Writing `this.count`
+in a template does the same thing as writing `count`, so `this` only adds noise.
+
+The rule doesn't report `this.name` when writing `name` alone would mean something else,
+for example when a `v-for` or `v-slot` variable, or a function parameter, has the same name.
+
+:::note
+This rule reads Vue templates, which requires
+[`html.experimentalFullSupportEnabled`](https://biomejs.dev/reference/configuration/#htmlexperimentalfullsupportenabled)
+to be `true`. Without that setting, the rule reports nothing.
+:::
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <a :href="this.url">{{ text }}</a>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+  <p>{{ this.text }}</p>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+  <button @click="this.count++">Add</button>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <a :href="url">{{ text }}</a>
+  <button @click="count++">Add</button>
+  <!-- `item` alone would be the `v-for` variable. -->
+  <p v-for="item in items">{{ this.item }}</p>
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_this_in_template.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueThisInTemplate)
+- <RulePlaygroundLink rule="noVueThisInTemplate" category="lint" language="vue" code={"<template>\n  <a :href=\"this.url\">{{ text }}</a>\n</template>\n"} />
+

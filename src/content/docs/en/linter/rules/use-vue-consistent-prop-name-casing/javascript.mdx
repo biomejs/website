@@ -1,0 +1,194 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueConsistentPropNameCasing (JavaScript)
+description: JavaScript (and super languages) documentation for useVueConsistentPropNameCasing
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-consistent-prop-name-casing/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueConsistentPropNameCasing`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/prop-name-casing`](https://eslint.vuejs.org/rules/prop-name-casing)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentPropNameCasing": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce a consistent casing style for prop names in Vue components.
+
+Vue converts prop names between camelCase and kebab-case automatically, so a prop
+declared as `greetingText` can be passed in a template as `greeting-text`. The
+[Vue style guide](https://vuejs.org/style-guide/rules-strongly-recommended.html#prop-name-casing)
+recommends declaring prop names in camelCase, the usual naming style for JavaScript
+variables. Mixing naming styles makes props harder to find and to use.
+
+The rule checks props declared with the `props` option, `defineProps()`, and
+TypeScript types passed to `defineProps()`.
+
+Names written only with characters from writing systems without uppercase and
+lowercase letters, such as `漢字`, are accepted in both styles. Names that mix
+those characters with Latin letters are reported. Names that start with `_` or `$`,
+or that contain other symbols, don't follow either style.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  props: {
+    greeting_text: String,
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:5 <a href=\"https://biomejs.dev/linter/rules/use-vue-consistent-prop-name-casing\">lint/nursery/useVueConsistentPropNameCasing</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The prop name </span><span style=\"color: lightgreen;\"><strong>greeting&#95;text</strong></span><span style=\"color: lightgreen;\"> isn't in camelCase.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  props: &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    greeting&#95;text: String,<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  &#125;,<br />    <strong>6 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Using one naming style for all props makes them easier to find and to use.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the prop to camelCase.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+defineProps(["greeting-text"]);
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:14 <a href=\"https://biomejs.dev/linter/rules/use-vue-consistent-prop-name-casing\">lint/nursery/useVueConsistentPropNameCasing</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The prop name </span><span style=\"color: lightgreen;\"><strong>greeting-text</strong></span><span style=\"color: lightgreen;\"> isn't in camelCase.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>defineProps([&quot;greeting-text&quot;]);<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/script&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Using one naming style for all props makes them easier to find and to use.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the prop to camelCase.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup lang="ts">
+defineProps<{ GreetingText: string }>();
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:15 <a href=\"https://biomejs.dev/linter/rules/use-vue-consistent-prop-name-casing\">lint/nursery/useVueConsistentPropNameCasing</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The prop name </span><span style=\"color: lightgreen;\"><strong>GreetingText</strong></span><span style=\"color: lightgreen;\"> isn't in camelCase.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup lang=&quot;ts&quot;&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>defineProps&lt;&#123; GreetingText: string &#125;&gt;();<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/script&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Using one naming style for all props makes them easier to find and to use.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the prop to camelCase.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script setup lang="ts">
+defineProps<{ greetingText: string; size: number }>();
+</script>
+```
+
+## Options
+
+### `casing`
+
+Default: `"camelCase"`
+
+The casing that prop names must follow: `"camelCase"` or `"snake_case"`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentPropNameCasing": {
+					"level": "on",
+					"options": {
+						"casing": "snake_case"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```vue
+<script setup>
+defineProps({
+  greetingText: String,
+});
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:3 <a href=\"https://biomejs.dev/linter/rules/use-vue-consistent-prop-name-casing\">lint/nursery/useVueConsistentPropNameCasing</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The prop name </span><span style=\"color: lightgreen;\"><strong>greetingText</strong></span><span style=\"color: lightgreen;\"> isn't in snake&#95;case.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />    <strong>2 │ </strong>defineProps(&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  greetingText: String,<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;);<br />    <strong>5 │ </strong>&lt;/script&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Using one naming style for all props makes them easier to find and to use.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the prop to snake&#95;case.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```vue
+<script setup>
+defineProps({
+  greeting_text: String,
+});
+</script>
+```
+
+### `ignore`
+
+Default: `[]`
+
+A list of prop names that aren't checked. Names are matched exactly.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentPropNameCasing": {
+					"level": "on",
+					"options": {
+						"ignore": [
+							"greeting_text"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Valid
+
+```vue
+<script setup>
+defineProps({
+  greeting_text: String,
+});
+</script>
+```
+
+## See Also
+
+- If you want to enforce hyphenated prop names in templates, see [`useVueHyphenatedAttributes`](https://biomejs.dev/linter/rules/use-vue-hyphenated-attributes/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_consistent_prop_name_casing.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueConsistentPropNameCasing)
+- <RulePlaygroundLink rule="useVueConsistentPropNameCasing" category="lint" language="vue" code={"<script>\nexport default {\n  props: {\n    greeting_text: String,\n  },\n};\n</script>\n"} />
+

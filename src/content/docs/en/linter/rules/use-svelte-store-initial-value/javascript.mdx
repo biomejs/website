@@ -1,0 +1,119 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useSvelteStoreInitialValue (JavaScript)
+description: JavaScript (and super languages) documentation for useSvelteStoreInitialValue
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-svelte-store-initial-value/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useSvelteStoreInitialValue`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`svelte`](/linter/domains#svelte)
+- Sources: 
+  - Same as [`svelte/require-stores-init`](https://sveltejs.github.io/eslint-plugin-svelte/rules/require-stores-init/)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useSvelteStoreInitialValue": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require Svelte stores to be created with an initial value.
+
+A store created without an initial value holds `undefined` until it is set for the
+first time. Code that reads the store, such as a component that displays its value,
+then has to handle `undefined` in addition to the values the store is meant to hold.
+Passing an initial value makes the first value of the store explicit.
+
+This rule checks calls to the following functions imported from `svelte/store`:
+
+- `writable()` and `readable()`, which take the initial value as their first argument.
+- `derived()`, which takes the initial value as its third argument. The store holds
+this value until its callback sets one. This matters most for a callback that sets
+the value later, for example after a timer or a network request.
+
+Calls that spread an array into their arguments, such as `derived(...args)`, are not
+reported, because the rule can't tell how many arguments they pass.
+
+## Examples
+
+### Invalid
+
+```js
+import { writable } from "svelte/store";
+
+export const count = writable();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:22 <a href=\"https://biomejs.dev/linter/rules/use-svelte-store-initial-value\">lint/nursery/useSvelteStoreInitialValue</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>writable()</strong></span><span style=\"color: lightgreen;\"> store is created without an initial value.</span><br />  <br />    <strong>1 │ </strong>import &#123; writable &#125; from &quot;svelte/store&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>export const count = writable();<br />   <strong>   │ </strong>                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without an initial value, the store holds </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> until it is set for the first time, which code that reads the store may not expect.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the initial value as the first argument.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { readable } from "svelte/store";
+
+export const time = readable();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:21 <a href=\"https://biomejs.dev/linter/rules/use-svelte-store-initial-value\">lint/nursery/useSvelteStoreInitialValue</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>readable()</strong></span><span style=\"color: lightgreen;\"> store is created without an initial value.</span><br />  <br />    <strong>1 │ </strong>import &#123; readable &#125; from &quot;svelte/store&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>export const time = readable();<br />   <strong>   │ </strong>                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without an initial value, the store holds </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> until it is set for the first time, which code that reads the store may not expect.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the initial value as the first argument.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { derived } from "svelte/store";
+import { count } from "./count.js";
+
+export const delayed = derived(count, ($count, set) => {
+    setTimeout(() => set($count), 1000);
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:24 <a href=\"https://biomejs.dev/linter/rules/use-svelte-store-initial-value\">lint/nursery/useSvelteStoreInitialValue</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>derived()</strong></span><span style=\"color: lightgreen;\"> store is created without an initial value.</span><br />  <br />    <strong>2 │ </strong>import &#123; count &#125; from &quot;./count.js&quot;;<br />    <strong>3 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>export const delayed = derived(count, ($count, set) =&gt; &#123;<br />   <strong>   │ </strong>                       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>    setTimeout(() =&gt; set($count), 1000);<br />    <strong>6 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without an initial value, the store holds </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\"> until its callback sets a value, which code that reads the store may not expect.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the initial value as the third argument.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+import { derived, readable, writable } from "svelte/store";
+
+export const count = writable(0);
+export const time = readable(new Date());
+export const delayed = derived(
+    count,
+    ($count, set) => {
+        setTimeout(() => set($count), 1000);
+    },
+    0,
+);
+```
+
+### References
+
+- [Svelte stores](https://svelte.dev/docs/svelte/stores)
+- [`svelte/store`](https://svelte.dev/docs/svelte/svelte-store)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_svelte_store_initial_value.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useSvelteStoreInitialValue)
+- <RulePlaygroundLink rule="useSvelteStoreInitialValue" category="lint" language="js" code={"import { writable } from \"svelte/store\";\n\nexport const count = writable();\n"} />
+

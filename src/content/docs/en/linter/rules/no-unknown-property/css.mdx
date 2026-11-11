@@ -48,6 +48,11 @@ Custom properties such as `--custom-property` and vendor-prefixed properties suc
 Property names containing SCSS interpolation are ignored because the emitted name cannot be
 determined statically.
 
+SCSS lets you write properties that share a prefix inside a block named after that prefix,
+such as `border: { radius: 4px; }`. These nested properties are checked by the full name
+Sass emits for them, so `radius` here is checked as `border-radius`. If the name of a
+surrounding block contains interpolation, the properties inside that block are ignored.
+
 ## Examples
 
 ### Invalid

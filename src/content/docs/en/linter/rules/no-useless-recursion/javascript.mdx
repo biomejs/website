@@ -1,0 +1,108 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUselessRecursion (JavaScript)
+description: JavaScript (and super languages) documentation for noUselessRecursion
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-useless-recursion/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noUselessRecursion`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicorn/no-useless-recursion`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-useless-recursion.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUselessRecursion": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow functions that return a call to themselves when a loop can do the same work.
+
+A recursive function is a function that calls itself.
+Each of these calls uses a bit more memory until it finishes,
+so a function that calls itself too many times in a row crashes the program with a "Maximum call stack size exceeded" error.
+When the function only returns the result of calling itself again,
+a loop such as `while` can do the same work without that limit, and is often easier to follow.
+
+This rule only reports `return name(...)` inside a function declared with the `function` keyword
+and a name, where `name` is that function's own name.
+It doesn't report other kinds of recursion, such as calls whose result is used in a larger expression,
+calls inside methods or arrow functions, or calls inside `function*` functions.
+
+It also doesn't report calls in these places, because code there runs after each call finishes,
+so a loop can't replace the call directly:
+
+- inside a `try` statement;
+- after a `using` or `await using` declaration in the same block, or in a block that contains the call;
+- inside a `for` or `for...of` loop that declares its variable with `using` or `await using`, such as `for (using file of files)`.
+
+## Examples
+
+### Invalid
+
+```js
+function findRoot(node) {
+    if (node.parent) {
+        return findRoot(node.parent);
+    }
+
+    return node;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:16 <a href=\"https://biomejs.dev/linter/rules/no-useless-recursion\">lint/nursery/noUselessRecursion</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This function returns a call to itself, which can be replaced with a loop.</span><br />  <br />    <strong>1 │ </strong>function findRoot(node) &#123;<br />    <strong>2 │ </strong>    if (node.parent) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        return findRoot(node.parent);<br />   <strong>   │ </strong>               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    &#125;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Each nested call uses more memory, and too many nested calls crash the program with a stack overflow error.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use a loop, such as </span><span style=\"color: lightgreen;\"><strong>while</strong></span><span style=\"color: lightgreen;\">, that updates the values on each step instead of calling the function again.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+function findRoot(node) {
+    while (node.parent) {
+        node = node.parent;
+    }
+
+    return node;
+}
+
+function flatten(value) {
+    if (Array.isArray(value)) {
+        return value.flatMap((item) => flatten(item));
+    }
+
+    return [value];
+}
+
+function sum(list) {
+    return list.length === 0 ? 0 : list[0] + sum(list.slice(1));
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_useless_recursion.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUselessRecursion)
+- <RulePlaygroundLink rule="noUselessRecursion" category="lint" language="js" code={"function findRoot(node) {\n    if (node.parent) {\n        return findRoot(node.parent);\n    }\n\n    return node;\n}\n"} />
+

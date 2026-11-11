@@ -1,0 +1,81 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noMagicArrayFlatDepth (JavaScript)
+description: JavaScript (and super languages) documentation for noMagicArrayFlatDepth
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-magic-array-flat-depth/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noMagicArrayFlatDepth`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicorn/no-magic-array-flat-depth`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-magic-array-flat-depth.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noMagicArrayFlatDepth": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow unexplained numbers as the depth argument of `Array.prototype.flat()`.
+
+The depth passed to [`flat()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
+is usually `1` (the default) or `Infinity`.
+Any other number doesn't say why the array needs to be flattened to that exact depth.
+Store the depth in a variable with a descriptive name, or add a comment inside the parentheses that explains it.
+
+## Examples
+
+### Invalid
+
+```js
+const items = array.flat(2);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:26 <a href=\"https://biomejs.dev/linter/rules/no-magic-array-flat-depth\">lint/nursery/noMagicArrayFlatDepth</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The depth passed to </span><span style=\"color: lightgreen;\"><strong>flat()</strong></span><span style=\"color: lightgreen;\"> is an unexplained number.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const items = array.flat(2);<br />   <strong>   │ </strong>                         <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A bare number doesn't say why the array needs to be flattened to this depth.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Store the depth in a variable with a descriptive name, or add a comment inside the parentheses that explains it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const items = array.flat(99);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:26 <a href=\"https://biomejs.dev/linter/rules/no-magic-array-flat-depth\">lint/nursery/noMagicArrayFlatDepth</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The depth passed to </span><span style=\"color: lightgreen;\"><strong>flat()</strong></span><span style=\"color: lightgreen;\"> is an unexplained number.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const items = array.flat(99);<br />   <strong>   │ </strong>                         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A bare number doesn't say why the array needs to be flattened to this depth.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Store the depth in a variable with a descriptive name, or add a comment inside the parentheses that explains it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+const items = array.flat();
+const allItems = array.flat(Infinity);
+const allValues = array.flat(Number.POSITIVE_INFINITY);
+const rows = array.flat(depth);
+const cells = array.flat(/* The grid is always two levels deep. */ 2);
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_magic_array_flat_depth.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noMagicArrayFlatDepth)
+- <RulePlaygroundLink rule="noMagicArrayFlatDepth" category="lint" language="js" code={"const items = array.flat(2);\n"} />
+

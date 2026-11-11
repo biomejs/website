@@ -1,9 +1,15 @@
 .community-links {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.75rem;
+	margin-top: 1.2rem;
+
 	> a {
 		display: flex;
-		margin-top: 1.2rem;
-		margin-bottom: 1.2rem;
+		margin: 0;
 		align-items: center;
+		justify-content: center;
 		gap: 0.6rem;
 		text-decoration: none;
 		width: fit-content;
@@ -74,37 +80,42 @@
 }
 
 .community {
-	height: 44rem;
-	margin-top: 9.4rem !important;
-	position: relative;
+	width: 68rem;
+	max-width: 100%;
+	margin: 9.4rem auto 5rem !important;
+	padding: 3.5rem 2rem 4rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 1.5rem;
+	overflow: hidden;
+	background:
+		radial-gradient(
+			ellipse at 50% 0%,
+			var(--sl-color-blue-low),
+			transparent 60%
+		),
+		radial-gradient(
+			ellipse at 50% 120%,
+			hsla(var(--sl-hue-red), 68%, 52%, 12%),
+			transparent 55%
+		);
 
-	.community-grid {
-		z-index: -1;
-		position: absolute;
-		content: "";
-		inset: 0;
-		background-image:
-			linear-gradient(to right, var(--sl-color-gray-6) 1px, transparent 1px),
-			linear-gradient(to bottom, var(--sl-color-gray-6) 1px, transparent 1px);
-		background-position: top center;
-		background-size: 20px 20px;
-		-webkit-mask-image: radial-gradient(circle at 100%, white, transparent 80%);
-		mask-image: radial-gradient(circle at 100%, white, transparent 80%);
+	.head {
+		margin-top: 0;
 	}
 }
 
 .connect {
-	gap: 1.2rem;
-	width: 31rem;
-	position: absolute;
-	right: -10rem;
-	top: 2rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1rem;
+	max-width: 44rem;
+	margin: 2.5rem auto 0;
 }
 
 .contributor-row {
-	display: flex;
-	justify-content: end;
-	gap: 1.2rem;
+	/* Generated rows have uneven lengths, so let the avatars wrap as one grid */
+	display: contents;
 
 	.contributor-avatar {
 		margin: 0rem;
@@ -112,6 +123,20 @@
 		height: 4.4rem;
 		border-radius: 50rem;
 		object-fit: cover;
+		box-shadow: 0 0 0 3px var(--sl-color-bg);
+		transition: box-shadow 0.15s;
+	}
+
+	.contributor-link {
+		display: block;
+		line-height: 0;
+		border-radius: 50rem;
+		outline: none;
+
+		&:hover .contributor-avatar,
+		&:focus-visible .contributor-avatar {
+			box-shadow: 0 0 0 3px rgb(37 175 244);
+		}
 	}
 }
 
@@ -126,50 +151,28 @@
 	}
 }
 
-@media only screen and (max-width: 1200px) {
-	.community {
-		height: 60rem;
-	}
-
-	.connect {
-		z-index: -1;
-		opacity: 0.2;
-		right: 0;
-	}
-}
-
 @media only screen and (max-width: 700px) {
-	div > img.contributor-avatar {
+	.contributor-row .contributor-avatar {
 		width: 3.4rem;
 		height: 3.4rem;
 	}
 
 	div.community {
-		height: 56rem;
+		padding: 2.5rem 1rem 3rem;
+	}
+
+	.community-links {
+		gap: 0.5rem;
 	}
 
 	div.connect {
-		right: 1rem;
+		gap: 0.75rem;
 	}
 }
 
 @media only screen and (max-width: 600px) {
-	div > img.contributor-avatar {
+	.contributor-row .contributor-avatar {
 		width: 3rem;
 		height: 3rem;
-	}
-
-	div.connect {
-		right: 0rem;
-	}
-}
-
-@media only screen and (max-width: 550px) {
-	div.community {
-		height: 40rem;
-	}
-
-	.connect {
-		display: none;
 	}
 }

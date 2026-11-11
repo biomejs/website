@@ -1,0 +1,97 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useSvelteEventDispatcherTypes (JavaScript)
+description: JavaScript (and super languages) documentation for useSvelteEventDispatcherTypes
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-svelte-event-dispatcher-types/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/useSvelteEventDispatcherTypes`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`svelte`](/linter/domains#svelte)
+- Sources: 
+  - Same as [`svelte/require-event-dispatcher-types`](https://sveltejs.github.io/eslint-plugin-svelte/rules/require-event-dispatcher-types/)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useSvelteEventDispatcherTypes": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require `createEventDispatcher` calls to declare the types of their events.
+
+`createEventDispatcher` returns a function that a Svelte component uses to send
+events to its parent. In TypeScript, the events are described between angle
+brackets: `createEventDispatcher<{ save: string }>()` declares one event named
+`save` that carries a `string`.
+
+When that description is missing, TypeScript accepts any event name with any
+data. A misspelled event name or the wrong kind of data is not reported, and the
+parent component doesn't know what its event handlers receive.
+
+This rule only checks Svelte components whose script uses TypeScript
+(`<script lang="ts">`), and only calls to the `createEventDispatcher` function
+imported from `svelte`.
+
+`createEventDispatcher` is how components send events in Svelte 3 and Svelte 4.
+Svelte 5 deprecates it: there, a component receives functions from its parent
+and calls them instead of sending events.
+
+## Examples
+
+### Invalid
+
+```svelte
+<script lang="ts">
+import { createEventDispatcher } from "svelte";
+
+const dispatch = createEventDispatcher();
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.svelte:4:18 <a href=\"https://biomejs.dev/linter/rules/use-svelte-event-dispatcher-types\">lint/nursery/useSvelteEventDispatcherTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>createEventDispatcher</strong></span><span style=\"color: lightgreen;\"> call doesn't declare the types of its events.</span><br />  <br />    <strong>2 │ </strong>import &#123; createEventDispatcher &#125; from &quot;svelte&quot;;<br />    <strong>3 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const dispatch = createEventDispatcher();<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>&lt;/script&gt;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Without them, TypeScript accepts any event name with any data, so mistakes in the events this component sends aren't reported.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Describe the events between angle brackets, for example </span><span style=\"color: lightgreen;\"><strong>createEventDispatcher&lt;&#123; save: string &#125;&gt;()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```svelte
+<script lang="ts">
+import { createEventDispatcher } from "svelte";
+
+const dispatch = createEventDispatcher<{ save: string; close: null }>();
+</script>
+```
+
+### References
+
+- [Svelte `createEventDispatcher`](https://svelte.dev/docs/svelte/svelte#createEventDispatcher)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_svelte_event_dispatcher_types.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useSvelteEventDispatcherTypes)
+- <RulePlaygroundLink rule="useSvelteEventDispatcherTypes" category="lint" language="svelte" code={"<script lang=\"ts\">\nimport { createEventDispatcher } from \"svelte\";\n\nconst dispatch = createEventDispatcher();\n</script>\n"} />
+

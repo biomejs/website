@@ -9,7 +9,6 @@ You may use AI for coding tasks, which must be disclosed when opening a PR.
 ## Install tools
 
 Website is divided into two projects:
-
 - the website itself inside `src/`
 - the codegen created using Rust, inside `codegen/`
 
@@ -45,7 +44,6 @@ BIOME_VERSION=2.0.0 pnpm codegen all
 ## Synchronization workflows
 
 Codegen and playground updates use separate workflows:
-
 - **Synchronize** (`.github/workflows/synchronize.yaml`) runs automatically when
   `biomejs/biome` publishes a release and can also be started manually. It
   updates the Rust dependencies and generates the lint rule documentation using
@@ -70,6 +68,5 @@ When **adding** a new locale that doesn't exist in the dashboard, send a PR to u
 `astro.config.ts` and `lunaria.config.ts`.
 
 When sending a PR for a new page:
-
 - Make sure the website compiles by using `pnpm build:no-og`.
 - Make sure that links are reachable, this means that if a translated page doesn't exist yet, point to the english version.

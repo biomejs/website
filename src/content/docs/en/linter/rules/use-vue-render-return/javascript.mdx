@@ -1,0 +1,108 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueRenderReturn (JavaScript)
+description: JavaScript (and super languages) documentation for useVueRenderReturn
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-render-return/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueRenderReturn`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/require-render-return`](https://eslint.vuejs.org/rules/require-render-return)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueRenderReturn": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require the `render` function of a Vue component to return a value.
+
+A `render` function describes what a component displays, and Vue uses the value it
+returns. When the function ends without a `return` statement, or uses `return;` without
+a value, the component renders nothing.
+
+The rule reports a `render` function when at least one way through the function
+ends without returning a value.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+import { h } from "vue";
+
+export default {
+  render() {
+    if (this.visible) {
+      return h("div", "hello");
+    }
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:5:3 <a href=\"https://biomejs.dev/linter/rules/use-vue-render-return\">lint/nursery/useVueRenderReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>render</strong></span><span style=\"color: Tomato;\"> function doesn't always return a value.</span><br />  <br />    <strong>4 │ </strong>export default &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>  render() &#123;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>    if (this.visible) &#123;<br />    <strong>7 │ </strong>      return h(&quot;div&quot;, &quot;hello&quot;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue displays what the </span><span style=\"color: lightgreen;\"><strong>render</strong></span><span style=\"color: lightgreen;\"> function returns. When the function ends without returning a value, the component displays nothing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Return a value at the end of every path through the function. Return </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\"> if the component should display nothing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script>
+export default {
+  render: function () {
+    return;
+  },
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:3 <a href=\"https://biomejs.dev/linter/rules/use-vue-render-return\">lint/nursery/useVueRenderReturn</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>render</strong></span><span style=\"color: Tomato;\"> function doesn't always return a value.</span><br />  <br />    <strong>1 │ </strong>&lt;script&gt;<br />    <strong>2 │ </strong>export default &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  render: function () &#123;<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    return;<br />    <strong>5 │ </strong>  &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue displays what the </span><span style=\"color: lightgreen;\"><strong>render</strong></span><span style=\"color: lightgreen;\"> function returns. When the function ends without returning a value, the component displays nothing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Return a value at the end of every path through the function. Return </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\"> if the component should display nothing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+import { h } from "vue";
+
+export default {
+  render() {
+    if (this.visible) {
+      return h("div", "hello");
+    }
+    return null;
+  },
+};
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_render_return.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueRenderReturn)
+- <RulePlaygroundLink rule="useVueRenderReturn" category="lint" language="vue" code={"<script>\nimport { h } from \"vue\";\n\nexport default {\n  render() {\n    if (this.visible) {\n      return h(\"div\", \"hello\");\n    }\n  },\n};\n</script>\n"} />
+

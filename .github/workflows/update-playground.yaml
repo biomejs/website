@@ -7,7 +7,7 @@ on:
         required: true
         type: string
   repository_dispatch:
-    types: [ biome-push-on-main-event, biome-release-cli-event ]
+    types: [biome-push-on-main-event, biome-release-cli-event]
 
 permissions:
   contents: write

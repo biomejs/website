@@ -1,0 +1,96 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDeprecatedScopeAttribute (HTML)
+description: HTML documentation for noVueDeprecatedScopeAttribute
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-vue-deprecated-scope-attribute/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noVueDeprecatedScopeAttribute`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-deprecated-scope-attribute`](https://eslint.vuejs.org/rules/no-deprecated-scope-attribute)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDeprecatedScopeAttribute": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow the `scope` attribute on `<template>` elements in Vue templates.
+
+Old versions of Vue used the `scope` attribute to receive the values that a component
+passes to its slot, also called slot props.
+Current versions of Vue don't support this attribute: they ignore it, so the names it
+declares are never defined inside the `<template>`.
+
+Use the `v-slot` directive, or its `#` shorthand, to receive slot props instead.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <ListComponent>
+    <template scope="props">
+      {{ props.title }}
+    </template>
+  </ListComponent>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:15 <a href=\"https://biomejs.dev/linter/rules/no-vue-deprecated-scope-attribute\">lint/nursery/noVueDeprecatedScopeAttribute</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">Unexpected </span><span style=\"color: Tomato;\"><strong>scope</strong></span><span style=\"color: Tomato;\"> attribute on a </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> element.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;ListComponent&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    &lt;template scope=&quot;props&quot;&gt;<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>      &#123;&#123; props.title &#125;&#125;<br />    <strong>5 │ </strong>    &lt;/template&gt;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue no longer supports the </span><span style=\"color: lightgreen;\"><strong>scope</strong></span><span style=\"color: lightgreen;\"> attribute, so the slot props it names are never defined.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the </span><span style=\"color: lightgreen;\"><strong>v-slot</strong></span><span style=\"color: lightgreen;\"> directive instead, like </span><span style=\"color: lightgreen;\"><strong>&lt;template v-slot=&quot;props&quot;&gt;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <ListComponent>
+    <template v-slot="props">
+      {{ props.title }}
+    </template>
+  </ListComponent>
+  <ListComponent>
+    <template #item="{ title }">
+      {{ title }}
+    </template>
+  </ListComponent>
+</template>
+```
+
+## References
+
+- [Vue scoped slots](https://vuejs.org/guide/components/slots.html#scoped-slots)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_vue_deprecated_scope_attribute.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noVueDeprecatedScopeAttribute)
+- <RulePlaygroundLink rule="noVueDeprecatedScopeAttribute" category="lint" language="vue" code={"<template>\n  <ListComponent>\n    <template scope=\"props\">\n      {{ props.title }}\n    </template>\n  </ListComponent>\n</template>\n"} />
+

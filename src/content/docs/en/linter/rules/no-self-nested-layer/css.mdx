@@ -1,0 +1,98 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noSelfNestedLayer (CSS)
+description: CSS documentation for noSelfNestedLayer
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-self-nested-layer/css/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.3`
+- Diagnostic Category: [`lint/nursery/noSelfNestedLayer`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noSelfNestedLayer": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow nesting a cascade layer inside a layer with the same name.
+
+A layer name written inside an `@layer` block is relative to that block. Writing the
+enclosing layer's name again doesn't add styles to that layer: it creates a sublayer. For
+example, `@layer base { @layer base { ... } }` creates `base.base`, which has its own place in
+the cascade order. The styles still apply, so the mistake is easy to miss.
+
+The rule also reports names that start with an enclosing layer's name, such as `@layer base.reset`
+inside `@layer base`, which creates `base.base.reset` instead of `base.reset`.
+
+In SCSS, a name that uses interpolation only matches the same interpolation, such as
+`@layer #{$name}` inside `@layer #{$name}`.
+
+## Examples
+
+### Invalid
+
+```css
+@layer components {
+  @layer components {
+    .button {
+      color: red;
+    }
+  }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:2:10 <a href=\"https://biomejs.dev/linter/rules/no-self-nested-layer\">lint/nursery/noSelfNestedLayer</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This layer repeats the name of an enclosing layer.</span><br />  <br />    <strong>1 │ </strong>@layer components &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  @layer components &#123;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    .button &#123;<br />    <strong>4 │ </strong>      color: red;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The enclosing layer is declared here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>@layer components &#123;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>  @layer components &#123;<br />    <strong>3 │ </strong>    .button &#123;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Layer names inside a layer block are relative to it, so this creates a sublayer instead of adding to the enclosing layer. A sublayer has its own place in the cascade order.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the layer, or remove the nested </span><span style=\"color: lightgreen;\"><strong>@layer</strong></span><span style=\"color: lightgreen;\"> if you didn't mean to create a sublayer.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```css
+@layer base {
+  @layer base.reset {
+    * {
+      margin: 0;
+    }
+  }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.css:2:10 <a href=\"https://biomejs.dev/linter/rules/no-self-nested-layer\">lint/nursery/noSelfNestedLayer</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This layer repeats the name of an enclosing layer.</span><br />  <br />    <strong>1 │ </strong>@layer base &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  @layer base.reset &#123;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    &#42; &#123;<br />    <strong>4 │ </strong>      margin: 0;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The enclosing layer is declared here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>@layer base &#123;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>  @layer base.reset &#123;<br />    <strong>3 │ </strong>    &#42; &#123;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Layer names inside a layer block are relative to it, so this creates a sublayer instead of adding to the enclosing layer. A sublayer has its own place in the cascade order.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Rename the layer, or remove the nested </span><span style=\"color: lightgreen;\"><strong>@layer</strong></span><span style=\"color: lightgreen;\"> if you didn't mean to create a sublayer.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```css
+@layer base {
+  @layer reset {
+    * {
+      margin: 0;
+    }
+  }
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_self_nested_layer.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noSelfNestedLayer)
+- <RulePlaygroundLink rule="noSelfNestedLayer" category="lint" language="css" code={"@layer components {\n  @layer components {\n    .button {\n      color: red;\n    }\n  }\n}\n"} />
+

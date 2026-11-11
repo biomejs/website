@@ -1,0 +1,129 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueRefObjectReactivityLoss (JavaScript)
+description: JavaScript (and super languages) documentation for noVueRefObjectReactivityLoss
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-ref-object-reactivity-loss/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noVueRefObjectReactivityLoss`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Inspired from [`vue/no-ref-object-reactivity-loss`](https://eslint.vuejs.org/rules/no-ref-object-reactivity-loss)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueRefObjectReactivityLoss": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow reading the value of a Vue ref in a place where the read runs only once.
+
+A ref is a Vue object that holds a value that can change, such as the result of `ref()`,
+`shallowRef()`, `computed()`, `customRef()`, `toRef()`, `toRefs()`, `useTemplateRef()`, or
+`defineModel()`. Its current value is stored in its `.value` property.
+
+Reading `.value` gives you a copy of the value at that moment. When the read happens in the
+same function that created the ref, for example directly inside `<script setup>` or
+`setup()`, it runs only once. The copy keeps its first value and does not update when the
+ref changes later. This is called losing reactivity.
+
+The rule reports these reads of a ref's value:
+
+- reading `.value`, as in `const total = count.value`;
+- destructuring `value`, as in `const { value } = count`.
+
+Reads inside a nested function, such as a `computed()` getter, a `watch()` callback, or an
+event handler, are allowed, because Vue runs that function again when the ref changes.
+A function that is called right where it is defined, such as `(() => { ... })()`, runs
+right away, so reads inside it are reported too. Async functions and generator functions
+called this way are not reported.
+
+Writing to `.value`, as in `count.value = 1` or `count.value++`, is allowed.
+
+## Examples
+
+### Invalid
+
+```js
+import { ref } from "vue";
+
+const count = ref(0);
+const doubled = count.value * 2;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:17 <a href=\"https://biomejs.dev/linter/rules/no-vue-ref-object-reactivity-loss\">lint/nursery/noVueRefObjectReactivityLoss</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This reads the value of a ref only once, so it won't update when the ref changes.</span><br />  <br />    <strong>3 │ </strong>const count = ref(0);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const doubled = count.value &#42; 2;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This code runs only once, together with the code that creates the ref. The value read here is a copy, and Vue does not update it when the ref changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Read </span><span style=\"color: lightgreen;\"><strong>.value</strong></span><span style=\"color: lightgreen;\"> inside a function, such as a </span><span style=\"color: lightgreen;\"><strong>computed()</strong></span><span style=\"color: lightgreen;\"> getter, or pass the ref itself instead of its value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { ref } from "vue";
+
+const count = ref(0);
+const { value } = count;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:7 <a href=\"https://biomejs.dev/linter/rules/no-vue-ref-object-reactivity-loss\">lint/nursery/noVueRefObjectReactivityLoss</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This reads the value of a ref only once, so it won't update when the ref changes.</span><br />  <br />    <strong>3 │ </strong>const count = ref(0);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const &#123; value &#125; = count;<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This code runs only once, together with the code that creates the ref. The value read here is a copy, and Vue does not update it when the ref changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Read </span><span style=\"color: lightgreen;\"><strong>.value</strong></span><span style=\"color: lightgreen;\"> inside a function, such as a </span><span style=\"color: lightgreen;\"><strong>computed()</strong></span><span style=\"color: lightgreen;\"> getter, or pass the ref itself instead of its value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { toRefs } from "vue";
+
+const { title } = toRefs(props);
+console.log(title.value);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:13 <a href=\"https://biomejs.dev/linter/rules/no-vue-ref-object-reactivity-loss\">lint/nursery/noVueRefObjectReactivityLoss</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This reads the value of a ref only once, so it won't update when the ref changes.</span><br />  <br />    <strong>3 │ </strong>const &#123; title &#125; = toRefs(props);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>console.log(title.value);<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This code runs only once, together with the code that creates the ref. The value read here is a copy, and Vue does not update it when the ref changes.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Read </span><span style=\"color: lightgreen;\"><strong>.value</strong></span><span style=\"color: lightgreen;\"> inside a function, such as a </span><span style=\"color: lightgreen;\"><strong>computed()</strong></span><span style=\"color: lightgreen;\"> getter, or pass the ref itself instead of its value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+import { computed, ref, watch } from "vue";
+
+const count = ref(0);
+const doubled = computed(() => count.value * 2);
+
+watch(count, () => {
+    console.log(count.value);
+});
+
+function increment() {
+    count.value++;
+}
+
+count.value = 10;
+```
+
+## See Also
+
+- To find refs used without `.value`, see [`noVueRefAsOperand`](https://biomejs.dev/linter/rules/no-vue-ref-as-operand/).
+- To find destructured `props` in `setup()`, see [`noVueSetupPropsReactivityLoss`](https://biomejs.dev/linter/rules/no-vue-setup-props-reactivity-loss/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_ref_object_reactivity_loss.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueRefObjectReactivityLoss)
+- <RulePlaygroundLink rule="noVueRefObjectReactivityLoss" category="lint" language="js" code={"import { ref } from \"vue\";\n\nconst count = ref(0);\nconst doubled = count.value * 2;\n"} />
+

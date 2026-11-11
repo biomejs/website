@@ -1,0 +1,103 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueMultipleSlotArgs (JavaScript)
+description: JavaScript (and super languages) documentation for noVueMultipleSlotArgs
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-multiple-slot-args/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/noVueMultipleSlotArgs`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-multiple-slot-args`](https://eslint.vuejs.org/rules/no-multiple-slot-args)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueMultipleSlotArgs": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow passing more than one argument to a Vue slot.
+
+In a render function, `this.$slots.name(...)` renders the content that the parent component provides for the slot called `name`.
+When the parent writes that content in a template, it receives only the first argument as its slot props, so any other arguments are lost.
+Pass a single object that holds all the values instead.
+
+Spreading an array into a slot call, as in `this.$slots.default(...items)`, is also reported, because each item becomes a separate argument.
+
+The rule checks calls on `this.$slots`, or on a `const` variable that holds `this`, inside components defined with `export default { ... }` in a `.vue` file, `defineComponent()`, or `createApp()`.
+It also checks calls through a variable that holds a slot, such as `const item = this.$slots.item`.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+export default {
+  render() {
+    return this.$slots.default(item, index);
+  }
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:38 <a href=\"https://biomejs.dev/linter/rules/no-vue-multiple-slot-args\">lint/nursery/noVueMultipleSlotArgs</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This slot is called with more than one argument.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  render() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    return this.$slots.default(item, index);<br />   <strong>   │ </strong>                                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  &#125;<br />    <strong>6 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Slot content written in a template receives only the first argument, so the other arguments are lost.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass a single object that holds all the values, for example </span><span style=\"color: lightgreen;\"><strong>this.$slots.default(&#123; item, index &#125;)</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script>
+export default {
+  render() {
+    return this.$slots.default(...items);
+  }
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:32 <a href=\"https://biomejs.dev/linter/rules/no-vue-multiple-slot-args\">lint/nursery/noVueMultipleSlotArgs</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This slot is called with a spread argument.</span><br />  <br />    <strong>2 │ </strong>export default &#123;<br />    <strong>3 │ </strong>  render() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    return this.$slots.default(...items);<br />   <strong>   │ </strong>                               <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>  &#125;<br />    <strong>6 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Spreading passes each item as a separate argument, but slot content written in a template receives only the first one.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass a single object that holds all the values, for example </span><span style=\"color: lightgreen;\"><strong>this.$slots.default(&#123; item, index &#125;)</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+export default {
+  render() {
+    this.$slots.header();
+    this.$slots.footer(item);
+    return this.$slots.default({ item, index });
+  }
+};
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_multiple_slot_args.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueMultipleSlotArgs)
+- <RulePlaygroundLink rule="noVueMultipleSlotArgs" category="lint" language="vue" code={"<script>\nexport default {\n  render() {\n    return this.$slots.default(item, index);\n  }\n};\n</script>\n"} />
+

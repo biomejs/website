@@ -1,0 +1,106 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noMismatchedMapKey (JavaScript)
+description: JavaScript (and super languages) documentation for noMismatchedMapKey
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-mismatched-map-key/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noMismatchedMapKey`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Inspired from [`unicorn/no-mismatched-map-key`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-mismatched-map-key.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noMismatchedMapKey": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow checking a map for one key and then using a different key.
+
+After `map.has(key)` checks whether a key exists, the code that runs because
+of that check usually reads or writes the same key with `map.get(key)` or
+`map.set(key, value)`. Using a different key there is almost always a copy-paste
+mistake.
+
+This rule checks the branches of `if` statements, `while` loops, ternaries
+(`? :`), and the right side of `&&` and `||` that run because of a `has()` check.
+It only reports simple cases where the keys are clearly different: two different
+literal values, or two different variables or properties.
+
+A branch that is a block with more than one statement isn't checked.
+A branch that assigns a new value to the map isn't checked either, because the
+`get()` or `set()` call may use a different map.
+
+## Examples
+
+### Invalid
+
+```js
+const value = map.has(key) ? map.get(otherKey) : fallback;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:38 <a href=\"https://biomejs.dev/linter/rules/no-mismatched-map-key\">lint/nursery/noMismatchedMapKey</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>get()</strong></span><span style=\"color: Orange;\"> call uses a different key than the </span><span style=\"color: Orange;\"><strong>has()</strong></span><span style=\"color: Orange;\"> check before it.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const value = map.has(key) ? map.get(otherKey) : fallback;<br />   <strong>   │ </strong>                                     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The map is checked for this key.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>const value = map.has(key) ? map.get(otherKey) : fallback;<br />   <strong>   │ </strong>                      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Checking one key and then using another is usually a copy-paste mistake, so this call may use the wrong entry.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the same key in both calls.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+if (!map.has(key)) {
+    map.set(otherKey, value);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:13 <a href=\"https://biomejs.dev/linter/rules/no-mismatched-map-key\">lint/nursery/noMismatchedMapKey</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>set()</strong></span><span style=\"color: Orange;\"> call uses a different key than the </span><span style=\"color: Orange;\"><strong>has()</strong></span><span style=\"color: Orange;\"> check before it.</span><br />  <br />    <strong>1 │ </strong>if (!map.has(key)) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    map.set(otherKey, value);<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The map is checked for this key.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>if (!map.has(key)) &#123;<br />   <strong>   │ </strong>             <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    map.set(otherKey, value);<br />    <strong>3 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Checking one key and then using another is usually a copy-paste mistake, so this call may use the wrong entry.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the same key in both calls.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+function getUser(cache) {
+    if (cache.has("user")) {
+        return cache.get("users");
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:26 <a href=\"https://biomejs.dev/linter/rules/no-mismatched-map-key\">lint/nursery/noMismatchedMapKey</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>get()</strong></span><span style=\"color: Orange;\"> call uses a different key than the </span><span style=\"color: Orange;\"><strong>has()</strong></span><span style=\"color: Orange;\"> check before it.</span><br />  <br />    <strong>1 │ </strong>function getUser(cache) &#123;<br />    <strong>2 │ </strong>    if (cache.has(&quot;user&quot;)) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        return cache.get(&quot;users&quot;);<br />   <strong>   │ </strong>                         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    &#125;<br />    <strong>5 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The map is checked for this key.</span><br />  <br />    <strong>1 │ </strong>function getUser(cache) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    if (cache.has(&quot;user&quot;)) &#123;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>        return cache.get(&quot;users&quot;);<br />    <strong>4 │ </strong>    &#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Checking one key and then using another is usually a copy-paste mistake, so this call may use the wrong entry.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the same key in both calls.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+const value = map.has(key) ? map.get(key) : fallback;
+
+if (!map.has(key)) {
+    map.set(key, value);
+}
+
+if (map.has(key)) {
+    otherMap.get(otherKey);
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_mismatched_map_key.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noMismatchedMapKey)
+- <RulePlaygroundLink rule="noMismatchedMapKey" category="lint" language="js" code={"const value = map.has(key) ? map.get(otherKey) : fallback;\n"} />
+

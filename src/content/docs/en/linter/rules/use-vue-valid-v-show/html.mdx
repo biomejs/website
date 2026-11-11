@@ -1,0 +1,102 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueValidVShow (HTML)
+description: HTML documentation for useVueValidVShow
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-valid-v-show/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/useVueValidVShow`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/valid-v-show`](https://eslint.vuejs.org/rules/valid-v-show)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueValidVShow": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce valid `v-show` directives.
+
+The `v-show` directive shows or hides an element depending on whether its value is true or false.
+It takes only a value, and it must be placed on an element that appears on the page.
+
+This rule reports `v-show` directives in the following cases:
+
+- The directive has an argument. E.g. `<div v-show:aaa="foo"></div>`
+- The directive has a modifier. E.g. `<div v-show.bbb="foo"></div>`
+- The directive does not have a value. E.g. `<div v-show></div>`
+- The directive is on a `<template>` element. E.g. `<template v-show="foo"></template>`
+
+## Examples
+
+### Invalid
+
+```vue
+<div v-show:aaa="foo"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:12 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-show\">lint/nursery/useVueValidVShow</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-show</strong></span><span style=\"color: Tomato;\"> directive doesn't accept an argument.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-show:aaa=&quot;foo&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>v-show</strong></span><span style=\"color: lightgreen;\"> only uses its value to decide whether to show the element, so the argument does nothing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the argument, like </span><span style=\"color: lightgreen;\"><strong>v-show=&quot;isVisible&quot;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<div v-show.bbb="foo"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:12 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-show\">lint/nursery/useVueValidVShow</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-show</strong></span><span style=\"color: Tomato;\"> directive doesn't accept modifiers.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-show.bbb=&quot;foo&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>v-show</strong></span><span style=\"color: lightgreen;\"> has no modifiers, so this modifier does nothing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the modifier, like </span><span style=\"color: lightgreen;\"><strong>v-show=&quot;isVisible&quot;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<div v-show></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:6 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-show\">lint/nursery/useVueValidVShow</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-show</strong></span><span style=\"color: Tomato;\"> directive is missing a value.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div v-show&gt;&lt;/div&gt;<br />   <strong>   │ </strong>     <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>v-show</strong></span><span style=\"color: lightgreen;\"> needs a value to decide whether to show or hide the element.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add a condition, like </span><span style=\"color: lightgreen;\"><strong>v-show=&quot;isVisible&quot;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template v-show="foo"><div></div></template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:1:11 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-show\">lint/nursery/useVueValidVShow</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-show</strong></span><span style=\"color: Tomato;\"> directive can't be used on a </span><span style=\"color: Tomato;\"><strong>&lt;template&gt;</strong></span><span style=\"color: Tomato;\"> element.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;template v-show=&quot;foo&quot;&gt;&lt;div&gt;&lt;/div&gt;&lt;/template&gt;<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>v-show</strong></span><span style=\"color: lightgreen;\"> hides an element by changing its CSS </span><span style=\"color: lightgreen;\"><strong>display</strong></span><span style=\"color: lightgreen;\"> style. A </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> element doesn't appear on the page, so there is nothing for </span><span style=\"color: lightgreen;\"><strong>v-show</strong></span><span style=\"color: lightgreen;\"> to hide.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>v-if</strong></span><span style=\"color: lightgreen;\"> on the </span><span style=\"color: lightgreen;\"><strong>&lt;template&gt;</strong></span><span style=\"color: lightgreen;\"> instead, or move </span><span style=\"color: lightgreen;\"><strong>v-show</strong></span><span style=\"color: lightgreen;\"> to an element inside it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<div v-show="isVisible"></div>
+<template v-if="isVisible"><div></div></template>
+```
+
+## References
+
+- [Vue `v-show` directive](https://vuejs.org/api/built-in-directives.html#v-show)
+- [Conditional rendering with `v-show`](https://vuejs.org/guide/essentials/conditional.html#v-show)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_valid_v_show.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueValidVShow)
+- <RulePlaygroundLink rule="useVueValidVShow" category="lint" language="vue" code={"<div v-show:aaa=\"foo\"></div>\n"} />
+

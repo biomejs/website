@@ -1,0 +1,122 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueSlotsAsFunctions (JavaScript)
+description: JavaScript (and super languages) documentation for useVueSlotsAsFunctions
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-slots-as-functions/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/useVueSlotsAsFunctions`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/require-slots-as-functions`](https://eslint.vuejs.org/rules/require-slots-as-functions)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueSlotsAsFunctions": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require the slots in `this.$slots` to be called as functions.
+
+In Vue 3, each property of `$slots` is a function that returns the content of the slot.
+Code that treats a slot as the content itself, for example by reading its `length`,
+calling array methods on it, or spreading it into an array, doesn't work.
+Call the slot to get its content instead.
+
+See the [Vue documentation](https://vuejs.org/api/component-instance.html#slots) for more information.
+
+## Examples
+
+### Invalid
+
+```vue
+<script>
+import { h } from "vue";
+
+export default {
+  render() {
+    return h("div", this.$slots.default.filter(isVisible));
+  }
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:6:33 <a href=\"https://biomejs.dev/linter/rules/use-vue-slots-as-functions\">lint/nursery/useVueSlotsAsFunctions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This slot is used as its content instead of being called.</span><br />  <br />    <strong>4 │ </strong>export default &#123;<br />    <strong>5 │ </strong>  render() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>    return h(&quot;div&quot;, this.$slots.default.filter(isVisible));<br />   <strong>   │ </strong>                                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>  &#125;<br />    <strong>8 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">In Vue 3, each property of </span><span style=\"color: lightgreen;\"><strong>$slots</strong></span><span style=\"color: lightgreen;\"> is a function that returns the content of the slot, so reading or iterating it directly doesn't work.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call the slot to get its content, for example </span><span style=\"color: lightgreen;\"><strong>this.$slots.default()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script>
+import { h } from "vue";
+
+export default {
+  render() {
+    return h("div", [...this.$slots.default]);
+  }
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:6:37 <a href=\"https://biomejs.dev/linter/rules/use-vue-slots-as-functions\">lint/nursery/useVueSlotsAsFunctions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This slot is used as its content instead of being called.</span><br />  <br />    <strong>4 │ </strong>export default &#123;<br />    <strong>5 │ </strong>  render() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>    return h(&quot;div&quot;, [...this.$slots.default]);<br />   <strong>   │ </strong>                                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>  &#125;<br />    <strong>8 │ </strong>&#125;;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">In Vue 3, each property of </span><span style=\"color: lightgreen;\"><strong>$slots</strong></span><span style=\"color: lightgreen;\"> is a function that returns the content of the slot, so reading or iterating it directly doesn't work.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call the slot to get its content, for example </span><span style=\"color: lightgreen;\"><strong>this.$slots.default()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script>
+import { h } from "vue";
+
+export default {
+  render() {
+    const children = this.$slots.default;
+    return h("div", children.length);
+  }
+};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:6:34 <a href=\"https://biomejs.dev/linter/rules/use-vue-slots-as-functions\">lint/nursery/useVueSlotsAsFunctions</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This slot is used as its content instead of being called.</span><br />  <br />    <strong>4 │ </strong>export default &#123;<br />    <strong>5 │ </strong>  render() &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>    const children = this.$slots.default;<br />   <strong>   │ </strong>                                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>    return h(&quot;div&quot;, children.length);<br />    <strong>8 │ </strong>  &#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">In Vue 3, each property of </span><span style=\"color: lightgreen;\"><strong>$slots</strong></span><span style=\"color: lightgreen;\"> is a function that returns the content of the slot, so reading or iterating it directly doesn't work.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Call the slot to get its content, for example </span><span style=\"color: lightgreen;\"><strong>this.$slots.default()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script>
+import { h } from "vue";
+
+export default {
+  render() {
+    const children = this.$slots.default();
+    const header = this.$slots.header && this.$slots.header();
+    return h("div", [header, children]);
+  }
+};
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_slots_as_functions.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueSlotsAsFunctions)
+- <RulePlaygroundLink rule="useVueSlotsAsFunctions" category="lint" language="vue" code={"<script>\nimport { h } from \"vue\";\n\nexport default {\n  render() {\n    return h(\"div\", this.$slots.default.filter(isVisible));\n  }\n};\n</script>\n"} />
+

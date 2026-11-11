@@ -1,0 +1,150 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noMissingScssInterpolation (CSS)
+description: CSS documentation for noMissingScssInterpolation
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="css" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-missing-scss-interpolation/css/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noMissingScssInterpolation`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Inspired from [`scss/dollar-variable-no-missing-interpolation`](https://github.com/stylelint-scss/stylelint-scss/blob/master/src/rules/dollar-variable-no-missing-interpolation/README.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noMissingScssInterpolation": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow Sass variables and function calls in custom property values without `#{}` interpolation.
+
+Sass doesn't evaluate the value of a custom property (a property whose name starts with
+`--`), except for the parts wrapped in `#{}`. A variable or function call written there
+without interpolation is copied into the CSS as plain text, so the browser receives `$gap`
+instead of the variable's value, or `darken(#fff, 10%)` instead of a color. Sass reports no
+error.
+
+This applies wherever custom properties appear, including `@supports` and
+`@container style()` conditions. The rule only checks SCSS files.
+
+The rule reports these function calls:
+
+- module functions, such as `math.div()`;
+- Sass built-in functions, such as `darken()` and `map-get()`;
+- functions declared with `@function` in the same file, even when CSS has a function of the
+same name, such as `rem()`;
+- `if()` calls with a `sass()` condition, such as `if(sass($flag): 1; else: 2)`.
+
+A reported call covers the variables inside it, so they aren't reported again. Other calls
+aren't reported, because they can be CSS functions or text that JavaScript reads, such as
+`spring(1, 100, 10)`. Variables inside them are still reported.
+
+Inside `url()`, only a variable at the start of the URL is reported, such as `url($path)`. A
+`$` elsewhere in a URL is treated as part of the address.
+
+The fix wraps a variable in `#{}`. It isn't offered for function calls, for a variable that
+starts a URL, such as `url($path)`, or for a variable in an `if()` condition. It also isn't
+offered for a variable inside a call that is neither a known CSS function nor reported by the
+rule, such as `bpx($size)`, because that call could be a Sass function from another file, and
+then the whole call needs `#{}`.
+
+:::note
+Sass built-in functions that share their name with a CSS function, such as `saturate()`,
+`invert()`, `min()` and `max()`, aren't reported, because the rule can't tell the two apart.
+Call them through their module, such as `math.max()`, so the rule can check them.
+
+Functions from other files that are called without a module name, after `@use ... as *` or
+`@import`, aren't reported either, because the rule only reads the current file.
+:::
+
+## Examples
+
+### Invalid
+
+```scss
+$gap: 8px;
+
+:root {
+  --gap: $gap;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.scss:4:10 <a href=\"https://biomejs.dev/linter/rules/no-missing-scss-interpolation\">lint/nursery/noMissingScssInterpolation</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The Sass variable </span><span style=\"color: Tomato;\"><strong>$gap</strong></span><span style=\"color: Tomato;\"> isn't interpolated, so Sass outputs it unchanged.</span><br />  <br />    <strong>3 │ </strong>:root &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>  --gap: $gap;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Sass only evaluates </span><span style=\"color: lightgreen;\"><strong>#&#123;...&#125;</strong></span><span style=\"color: lightgreen;\"> inside custom property values, so the browser receives the text </span><span style=\"color: lightgreen;\"><strong>$gap</strong></span><span style=\"color: lightgreen;\"> instead of the variable's value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Wrap the variable in interpolation.</span><br />  <br />  <strong>  4 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>--gap:<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">#</span><span style=\"color: MediumSeaGreen;\">&#123;</span>$gap<span style=\"color: MediumSeaGreen;\">&#125;</span>;<br />  <strong>    │ </strong>         <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>    <span style=\"color: MediumSeaGreen;\">+</span> <br /></code></pre>"} />
+
+```scss
+@use "sass:math";
+
+:root {
+  --pi: math.$pi;
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.scss:4:9 <a href=\"https://biomejs.dev/linter/rules/no-missing-scss-interpolation\">lint/nursery/noMissingScssInterpolation</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The Sass variable </span><span style=\"color: Tomato;\"><strong>math.$pi</strong></span><span style=\"color: Tomato;\"> isn't interpolated, so Sass outputs it unchanged.</span><br />  <br />    <strong>3 │ </strong>:root &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>  --pi: math.$pi;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Sass only evaluates </span><span style=\"color: lightgreen;\"><strong>#&#123;...&#125;</strong></span><span style=\"color: lightgreen;\"> inside custom property values, so the browser receives the text </span><span style=\"color: lightgreen;\"><strong>math.$pi</strong></span><span style=\"color: lightgreen;\"> instead of the variable's value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Wrap the variable in interpolation.</span><br />  <br />  <strong>  4 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>--pi:<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">#</span><span style=\"color: MediumSeaGreen;\">&#123;</span>math.$pi<span style=\"color: MediumSeaGreen;\">&#125;</span>;<br />  <strong>    │ </strong>        <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>        <span style=\"color: MediumSeaGreen;\">+</span> <br /></code></pre>"} />
+
+```scss
+:root {
+  --muted: darken(#fff, 10%);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.scss:2:12 <a href=\"https://biomejs.dev/linter/rules/no-missing-scss-interpolation\">lint/nursery/noMissingScssInterpolation</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The function </span><span style=\"color: Tomato;\"><strong>darken()</strong></span><span style=\"color: Tomato;\"> isn't interpolated, so Sass outputs it unchanged.</span><br />  <br />    <strong>1 │ </strong>:root &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  --muted: darken(#fff, 10%);<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Sass only evaluates </span><span style=\"color: lightgreen;\"><strong>#&#123;...&#125;</strong></span><span style=\"color: lightgreen;\"> inside custom property values, so the browser receives this call as plain text instead of its result.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Wrap the call in </span><span style=\"color: lightgreen;\"><strong>#&#123;...&#125;</strong></span><span style=\"color: lightgreen;\"> so Sass evaluates it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```scss
+@use "sass:math";
+
+:root {
+  --half: math.div(8px, 2);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.scss:4:11 <a href=\"https://biomejs.dev/linter/rules/no-missing-scss-interpolation\">lint/nursery/noMissingScssInterpolation</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The function </span><span style=\"color: Tomato;\"><strong>math.div()</strong></span><span style=\"color: Tomato;\"> isn't interpolated, so Sass outputs it unchanged.</span><br />  <br />    <strong>3 │ </strong>:root &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>  --half: math.div(8px, 2);<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>&#125;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Sass only evaluates </span><span style=\"color: lightgreen;\"><strong>#&#123;...&#125;</strong></span><span style=\"color: lightgreen;\"> inside custom property values, so the browser receives this call as plain text instead of its result.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Wrap the call in </span><span style=\"color: lightgreen;\"><strong>#&#123;...&#125;</strong></span><span style=\"color: lightgreen;\"> so Sass evaluates it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```scss
+@use "sass:math";
+
+$gap: 8px;
+
+:root {
+  --gap: #{$gap};
+  --half: #{math.div(8px, 2)};
+  --label: "$gap";
+  --width: calc(100% - var(--gutter));
+}
+
+a {
+  margin: $gap;
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/src/lint/nursery/no_missing_scss_interpolation.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_css_analyze/tests/specs/nursery/noMissingScssInterpolation)
+- <RulePlaygroundLink rule="noMissingScssInterpolation" category="lint" language="scss" code={"$gap: 8px;\n\n:root {\n  --gap: $gap;\n}\n"} />
+

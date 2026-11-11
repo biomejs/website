@@ -1,0 +1,162 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noExcessiveNestedBlocks (JavaScript)
+description: JavaScript (and super languages) documentation for noExcessiveNestedBlocks
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"css","label":"CSS","href":"/linter/rules/no-excessive-nested-blocks/css/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-excessive-nested-blocks/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.5`
+- Diagnostic Category: [`lint/nursery/noExcessiveNestedBlocks`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`max-depth`](https://eslint.org/docs/latest/rules/max-depth)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveNestedBlocks": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce a maximum depth that blocks can be nested.
+
+Deeply nested code is difficult to read and follow, because every level adds another
+condition the reader has to keep in mind. This rule reports `if`, `switch`, `try`, and
+loop statements nested beyond the configured limit.
+
+An `else if` doesn't add a level of nesting. Each function, method, and `static {}` block
+in a class starts counting from zero again.
+
+Only the outermost statement exceeding the limit is reported: statements nested inside it
+aren't reported again.
+
+## Examples
+
+### Invalid
+
+```js
+function foo() {
+    for (const item of items) {
+        if (item.enabled) {
+            while (item.next()) {
+                try {
+                    if (item.done) {
+                        break;
+                    }
+                } catch {}
+            }
+        }
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:6:21 <a href=\"https://biomejs.dev/linter/rules/no-excessive-nested-blocks\">lint/nursery/noExcessiveNestedBlocks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This block is nested too deeply.</span><br />  <br />    <strong>4 │ </strong>            while (item.next()) &#123;<br />    <strong>5 │ </strong>                try &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>                    if (item.done) &#123;<br />   <strong>   │ </strong>                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>                        break;<br />    <strong>8 │ </strong>                    &#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Blocks nested 5 levels deep are hard to read and maintain. The configured maximum is 4.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Return early or extract the nested code into a separate function to reduce nesting.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+function foo() {
+    for (const item of items) {
+        if (!item.enabled) {
+            continue;
+        }
+        processItem(item);
+    }
+}
+
+function processItem(item) {
+    while (item.next()) {
+        try {
+            if (item.done) {
+                break;
+            }
+        } catch {}
+    }
+}
+
+if (a) {
+    if (b) {
+        if (c) {
+            if (d) {
+            } else if (e) {
+            } else if (f) {
+            }
+        }
+    }
+}
+```
+
+## Options
+
+### max
+
+Default: 4
+
+The maximum block nesting depth allowed.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noExcessiveNestedBlocks": {
+					"level": "on",
+					"options": {
+						"max": 2
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```js
+if (a) {
+    if (b) {
+        if (c) {}
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:9 <a href=\"https://biomejs.dev/linter/rules/no-excessive-nested-blocks\">lint/nursery/noExcessiveNestedBlocks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This block is nested too deeply.</span><br />  <br />    <strong>1 │ </strong>if (a) &#123;<br />    <strong>2 │ </strong>    if (b) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        if (c) &#123;&#125;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    &#125;<br />    <strong>5 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Blocks nested 3 levels deep are hard to read and maintain. The configured maximum is 2.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Return early or extract the nested code into a separate function to reduce nesting.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```js
+if (a) {
+    if (b) {}
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_excessive_nested_blocks.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noExcessiveNestedBlocks)
+- <RulePlaygroundLink rule="noExcessiveNestedBlocks" category="lint" language="js" code={"function foo() {\n    for (const item of items) {\n        if (item.enabled) {\n            while (item.next()) {\n                try {\n                    if (item.done) {\n                        break;\n                    }\n                } catch {}\n            }\n        }\n    }\n}\n"} />
+

@@ -1,0 +1,144 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueValidVModel (HTML)
+description: HTML documentation for useVueValidVModel
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/use-vue-valid-v-model/html/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.4`
+- Diagnostic Category: [`lint/nursery/useVueValidVModel`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/valid-v-model`](https://eslint.vuejs.org/rules/valid-v-model)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueValidVModel": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce valid `v-model` directives.
+
+`v-model` keeps a form field and a variable in sync: when the user
+types, Vue writes the new value back to the variable. This only works
+in some places, and only with a value that Vue can write to.
+
+This rule reports `v-model` directives that:
+
+- are placed on an element other than `<input>`, `<select>`,
+`<textarea>`, or a component, such as `<div v-model="foo">`;
+- are placed on a file input, such as `<input type="file" v-model="foo">`;
+the browser doesn't let code set the file of a file input;
+- have an argument on a native element, such as `<input v-model:foo="bar">`;
+only components accept an argument;
+- have a modifier other than `.lazy`, `.number`, or `.trim` on a native
+element, such as `<input v-model.foo="bar">`;
+- have no value, such as `<input v-model>`;
+- have a value that can't be assigned to, such as `<input v-model="foo + bar">`;
+- read their value with optional chaining (`?.`), such as `<input v-model="foo?.bar">`;
+- read a property of a value that may be `null` or `undefined`, such as
+`<input v-model="(foo?.bar).baz">`;
+- write to a variable of a `v-for` or `v-slot`, such as
+`<input v-for="item in items" v-model="item">`; a new value for these
+variables wouldn't reach the list or the slot data they were read from.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <div v-model="foo"></div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:8 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-model\">lint/nursery/useVueValidVModel</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-model</strong></span><span style=\"color: Tomato;\"> directive can't be used on </span><span style=\"color: Tomato;\"><strong>&lt;div&gt;</strong></span><span style=\"color: Tomato;\"> elements.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;div v-model=&quot;foo&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue can only keep </span><span style=\"color: lightgreen;\"><strong>&lt;input&gt;</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>&lt;select&gt;</strong></span><span style=\"color: lightgreen;\">, </span><span style=\"color: lightgreen;\"><strong>&lt;textarea&gt;</strong></span><span style=\"color: lightgreen;\">, and components in sync with a variable.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move the directive to a form field or a component, or bind the value with </span><span style=\"color: lightgreen;\"><strong>v-bind</strong></span><span style=\"color: lightgreen;\"> and listen for changes with </span><span style=\"color: lightgreen;\"><strong>v-on</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <input v-model:foo="bar" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:17 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-model\">lint/nursery/useVueValidVModel</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The </span><span style=\"color: Tomato;\"><strong>v-model</strong></span><span style=\"color: Tomato;\"> directive doesn't accept an argument on native elements.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;input v-model:foo=&quot;bar&quot; /&gt;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Only components accept an argument, which names the prop to keep in sync.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the argument.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <input v-model />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:10 <a href=\"https://biomejs.dev/linter/rules/use-vue-valid-v-model\">lint/nursery/useVueValidVModel</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This </span><span style=\"color: Tomato;\"><strong>v-model</strong></span><span style=\"color: Tomato;\"> directive is missing a value.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>  &lt;input v-model /&gt;<br />   <strong>   │ </strong>         <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/template&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The value names the variable that Vue keeps in sync with the field.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add a value to the directive, e.g. </span><span style=\"color: lightgreen;\"><strong>v-model=&quot;message&quot;</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <input v-model="foo + bar" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+  <input v-model="foo?.bar" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+  <div v-for="todo in todos">
+    <input v-model="todo" />
+  </div>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <input v-model="foo" />
+  <input v-model.lazy="foo" />
+  <textarea v-model="foo"></textarea>
+  <MyComponent v-model="foo" />
+  <MyComponent v-model:propName.modifier="foo" />
+  <div v-for="todo in todos">
+    <input v-model="todo.name" />
+  </div>
+</template>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/use_vue_valid_v_model.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/useVueValidVModel)
+- <RulePlaygroundLink rule="useVueValidVModel" category="lint" language="vue" code={"<template>\n  <div v-model=\"foo\"></div>\n</template>\n"} />
+
