@@ -2006,6 +2006,41 @@ Controls whether formatted files end with a newline.
 Setting this option to `false` is strongly discouraged. Files without a final newline can cause [compatibility issues](https://thoughtbot.com/blog/no-newline-at-end-of-file) with [text-processing tools](https://unix.stackexchange.com/questions/345548/how-to-cat-files-together-adding-missing-newlines-at-end-of-some-files) and produce [confusing version-control output](https://callmeryan.medium.com/no-newline-at-end-of-file-navigating-gits-warning-for-android-developers-af14e73dd804).
 :::
 
+### `markdown.formatter.unorderedListMarker`
+
+**Type:** `"dash" | "asterisk" | "plus"`<br />
+**Default:** `"dash"`
+
+Selects the marker of unordered list items:
+
+- `"dash"`: Uses `-`.
+- `"asterisk"`: Uses `*`.
+- `"plus"`: Uses `+`.
+
+For example, with `"asterisk"`, Biome formats the following list:
+
+```diff title="file.md"
+-- First item
+-- Second item
++* First item
++* Second item
+```
+
+Nested lists and lists inside block quotes use the same marker.
+
+Markdown merges lists that are separated only by blank lines and use the same marker, so Biome alternates the marker of such lists with `*` for `"dash"`, or `-` for `"asterisk"` and `"plus"`.
+
+For example, with `"asterisk"`:
+
+```md title="file.md"
+* First list
+
+- Second list
+```
+
+To use the same marker for both lists, separate them with another block, such as a paragraph
+or an HTML comment.
+
 ### `markdown.linter.enabled`
 
 **Type:** `boolean`<br />
