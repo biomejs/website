@@ -483,6 +483,44 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
+			AttributeMatcherOperator: {
+				description:
+					"An operator that compares an attribute's value in an attribute selector.",
+				oneOf: [
+					{
+						description: "`=`: the value is exactly the given text.",
+						type: "string",
+						const: "=",
+					},
+					{
+						description:
+							"`~=`: the value is a space-separated list that contains the given word.",
+						type: "string",
+						const: "~=",
+					},
+					{
+						description:
+							"`|=`: the value is the given text, or starts with the given text followed by `-`.",
+						type: "string",
+						const: "|=",
+					},
+					{
+						description: "`^=`: the value starts with the given text.",
+						type: "string",
+						const: "^=",
+					},
+					{
+						description: "`$=`: the value ends with the given text.",
+						type: "string",
+						const: "$=",
+					},
+					{
+						description: "`*=`: the value contains the given text.",
+						type: "string",
+						const: "*=",
+					},
+				],
+			},
 			AttributePosition: {
 				description: "Controls attribute placement in HTML-like languages.",
 				oneOf: [
@@ -2441,6 +2479,22 @@ export function GET() {
 					},
 				],
 			},
+			FontWeightNotation: {
+				oneOf: [
+					{
+						description:
+							"Write font weights as numbers, such as `font-weight: 700`.",
+						type: "string",
+						const: "numeric",
+					},
+					{
+						description:
+							"Write font weights as the keywords `normal` and `bold` instead of `400` and `700`, the only\nnumbers that have a keyword.",
+						type: "string",
+						const: "namedWherePossible",
+					},
+				],
+			},
 			Format: {
 				description: "Supported cases.",
 				type: "string",
@@ -3991,6 +4045,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoAsyncPromiseFinallyConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoAsyncPromiseFinallyOptions" },
+				],
+			},
+			NoAsyncPromiseFinallyOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoAutofocusConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -4445,6 +4509,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoDisabledAttributeConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoDisabledAttributeOptions" },
+				],
+			},
+			NoDisabledAttributeOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoDistractingElementsConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -4811,6 +4885,28 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoDuplicateTypeConstituentsConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoDuplicateTypeConstituentsOptions" },
+				],
+			},
+			NoDuplicateTypeConstituentsOptions: {
+				type: "object",
+				properties: {
+					ignoreIntersections: {
+						description:
+							"Whether to skip checking intersection types (`A & B`).",
+						type: ["boolean", "null"],
+					},
+					ignoreUnions: {
+						description:
+							"Whether to skip checking union types (`A | B`), including `undefined` in\nthe type of an optional parameter.",
+						type: ["boolean", "null"],
+					},
+				},
+				additionalProperties: false,
+			},
 			NoDuplicateVariableNamesConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -5140,6 +5236,104 @@ export function GET() {
 					maxClasses: {
 						description:
 							"The maximum number of class selectors allowed in a single selector.\n\nThis option is required to enable the rule.\nUse `0` to disallow class selectors entirely.",
+						type: ["integer", "null"],
+						format: "uint16",
+						maximum: 65535,
+						minimum: 0,
+					},
+				},
+				additionalProperties: false,
+			},
+			NoExcessiveSelectorComplexityConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoExcessiveSelectorComplexityOptions" },
+				],
+			},
+			NoExcessiveSelectorComplexityOptions: {
+				type: "object",
+				properties: {
+					disallowAttributeMatchers: {
+						description:
+							'Attribute selector operators that aren\'t allowed.\n\nAccepted values are `"="`, `"~="`, `"|="`, `"^="`, `"$="`, and `"*="`.',
+						type: ["array", "null"],
+						items: { $ref: "#/$defs/AttributeMatcherOperator" },
+					},
+					disallowAttributes: {
+						description:
+							'Attribute names that aren\'t allowed in attribute selectors, such as `"class"`.\nNames must match exactly, including letter case.',
+						type: ["array", "null"],
+						items: { type: "string" },
+					},
+					disallowCombinators: {
+						description:
+							'Combinators that aren\'t allowed in selectors.\n\nAccepted values are `" "` (a space, which selects descendants), `">"`, `"+"`, `"~"`,\nand `"||"`.',
+						type: ["array", "null"],
+						items: { $ref: "#/$defs/SelectorCombinator" },
+					},
+					disallowPseudoClasses: {
+						description:
+							'Pseudo-classes that aren\'t allowed in selectors, written without the leading colon,\nsuch as `"hover"`. Names are compared without regard to letter case.',
+						type: ["array", "null"],
+						items: { type: "string" },
+					},
+					disallowPseudoElements: {
+						description:
+							'Pseudo-elements that aren\'t allowed in selectors, written without the leading colons,\nsuch as `"before"`. Names are compared without regard to letter case.\n\nThe older single-colon forms `:before`, `:after`, `:first-line`, and `:first-letter`\ncount as pseudo-elements.',
+						type: ["array", "null"],
+						items: { type: "string" },
+					},
+					maxAttributes: {
+						description:
+							'The maximum number of attribute selectors, such as `[type="text"]`, allowed in a single\nselector.\n\nWhen this option isn\'t set, any number of attribute selectors is allowed.',
+						type: ["integer", "null"],
+						format: "uint16",
+						maximum: 65535,
+						minimum: 0,
+					},
+					maxCombinators: {
+						description:
+							"The maximum number of combinators allowed in a single selector.\n\nA combinator joins two compound selectors: a space, `>`, `+`, `~`, or `||`.\n\nWhen this option isn't set, any number of combinators is allowed.",
+						type: ["integer", "null"],
+						format: "uint16",
+						maximum: 65535,
+						minimum: 0,
+					},
+					maxCompounds: {
+						description:
+							"The maximum number of compound selectors allowed in a single selector.\n\nA compound selector is a group of selectors written together without spaces or\ncombinators, such as `a.link:hover`.\n\nWhen this option isn't set, any number of compound selectors is allowed.",
+						type: ["integer", "null"],
+						format: "uint16",
+						maximum: 65535,
+						minimum: 0,
+					},
+					maxIds: {
+						description:
+							"The maximum number of ID selectors, such as `#main`, allowed in a single selector.\n\nWhen this option isn't set, any number of ID selectors is allowed.",
+						type: ["integer", "null"],
+						format: "uint16",
+						maximum: 65535,
+						minimum: 0,
+					},
+					maxPseudoClasses: {
+						description:
+							"The maximum number of pseudo-classes, such as `:hover`, allowed in a single selector.\n\nWhen this option isn't set, any number of pseudo-classes is allowed.",
+						type: ["integer", "null"],
+						format: "uint16",
+						maximum: 65535,
+						minimum: 0,
+					},
+					maxTypes: {
+						description:
+							"The maximum number of type selectors, such as `div` or `a`, allowed in a single selector.\n\nWhen this option isn't set, any number of type selectors is allowed.",
+						type: ["integer", "null"],
+						format: "uint16",
+						maximum: 65535,
+						minimum: 0,
+					},
+					maxUniversals: {
+						description:
+							"The maximum number of universal selectors (`*`) allowed in a single selector.\n\nWhen this option isn't set, any number of universal selectors is allowed.",
 						type: ["integer", "null"],
 						format: "uint16",
 						maximum: 65535,
@@ -5593,6 +5787,16 @@ export function GET() {
 				],
 			},
 			NoInvalidDirectionInLinearGradientOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoInvalidFetchOptionsConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoInvalidFetchOptionsOptions" },
+				],
+			},
+			NoInvalidFetchOptionsOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -6096,6 +6300,13 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoNewArrayConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoNewArrayOptions" },
+				],
+			},
+			NoNewArrayOptions: { type: "object", additionalProperties: false },
 			NoNewRequireConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -6571,6 +6782,16 @@ export function GET() {
 				],
 			},
 			NoReExportAllOptions: { type: "object", additionalProperties: false },
+			NoReactDirectStateMutationConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoReactDirectStateMutationOptions" },
+				],
+			},
+			NoReactDirectStateMutationOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoReactForwardRefConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -6701,6 +6922,16 @@ export function GET() {
 						items: { type: "string" },
 					},
 				},
+				additionalProperties: false,
+			},
+			NoRedundantTypeConstituentsConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoRedundantTypeConstituentsOptions" },
+				],
+			},
+			NoRedundantTypeConstituentsOptions: {
+				type: "object",
 				additionalProperties: false,
 			},
 			NoRedundantUseStrictConfiguration: {
@@ -6864,6 +7095,16 @@ export function GET() {
 				],
 			},
 			NoScriptUrlOptions: { type: "object", additionalProperties: false },
+			NoScssNullComparisonConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoScssNullComparisonOptions" },
+				],
+			},
+			NoScssNullComparisonOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoSecretsConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -7106,6 +7347,16 @@ export function GET() {
 				],
 			},
 			NoSvelteAddEventListenerOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoSvelteAsyncStoreConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoSvelteAsyncStoreOptions" },
+				],
+			},
+			NoSvelteAsyncStoreOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -7789,6 +8040,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoUnresolvedDefaultImportConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoUnresolvedDefaultImportOptions" },
+				],
+			},
+			NoUnresolvedDefaultImportOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoUnresolvedImportsConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -8219,6 +8480,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoUselessFallbackInSpreadConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoUselessFallbackInSpreadOptions" },
+				],
+			},
+			NoUselessFallbackInSpreadOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoUselessFragmentsConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -8256,6 +8527,28 @@ export function GET() {
 				],
 			},
 			NoUselessLoneBlockStatementsOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoUselessParameterPropertyAssignmentConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{
+						$ref: "#/$defs/RuleWithNoUselessParameterPropertyAssignmentOptions",
+					},
+				],
+			},
+			NoUselessParameterPropertyAssignmentOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoUselessQualifierConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoUselessQualifierOptions" },
+				],
+			},
+			NoUselessQualifierOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -8306,6 +8599,16 @@ export function GET() {
 				],
 			},
 			NoUselessSpliceOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoUselessSpreadConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoUselessSpreadOptions" },
+				],
+			},
+			NoUselessSpreadOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -8727,6 +9030,16 @@ export function GET() {
 						minimum: 1,
 					},
 				},
+				additionalProperties: false,
+			},
+			NoVueExposeAfterAwaitConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoVueExposeAfterAwaitOptions" },
+				],
+			},
+			NoVueExposeAfterAwaitOptions: {
+				type: "object",
 				additionalProperties: false,
 			},
 			NoVueImportCompilerMacrosConfiguration: {
@@ -9335,6 +9648,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noAsyncPromiseFinally: {
+						description:
+							"Disallow async functions as .finally() callbacks.\nSee https://biomejs.dev/linter/rules/no-async-promise-finally",
+						anyOf: [
+							{ $ref: "#/$defs/NoAsyncPromiseFinallyConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noAwaitInPromiseMethods: {
 						description:
 							"Disallow using await inside the array passed to Promise.all(), Promise.allSettled(), Promise.any(), or Promise.race().\nSee https://biomejs.dev/linter/rules/no-await-in-promise-methods",
@@ -9399,6 +9720,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noDisabledAttribute: {
+						description:
+							"Discourages the disabled attribute on form controls and on elements that act as buttons.\nSee https://biomejs.dev/linter/rules/no-disabled-attribute",
+						anyOf: [
+							{ $ref: "#/$defs/NoDisabledAttributeConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noDoubleComparison: {
 						description:
 							"Disallow two comparisons of the same values that can be combined into one.\nSee https://biomejs.dev/linter/rules/no-double-comparison",
@@ -9412,6 +9741,14 @@ export function GET() {
 							"Disallow two keys with the same name inside YAML maps.\nSee https://biomejs.dev/linter/rules/no-duplicate-map-keys",
 						anyOf: [
 							{ $ref: "#/$defs/NoDuplicateMapKeysConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noDuplicateTypeConstituents: {
+						description:
+							"Disallow duplicate types in union and intersection types.\nSee https://biomejs.dev/linter/rules/no-duplicate-type-constituents",
+						anyOf: [
+							{ $ref: "#/$defs/NoDuplicateTypeConstituentsConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -9447,6 +9784,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noExcessiveSelectorComplexity: {
+						description:
+							"Limit how complex selectors can be, and disallow chosen parts of selectors.\nSee https://biomejs.dev/linter/rules/no-excessive-selector-complexity",
+						anyOf: [
+							{ $ref: "#/$defs/NoExcessiveSelectorComplexityConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noExcessiveStatementsPerFunction: {
 						description:
 							"Enforce a maximum number of statements allowed in a function.\nSee https://biomejs.dev/linter/rules/no-excessive-statements-per-function",
@@ -9476,6 +9821,14 @@ export function GET() {
 							"Disallow the use of eval()-like methods.\nSee https://biomejs.dev/linter/rules/no-implied-eval",
 						anyOf: [
 							{ $ref: "#/$defs/NoImpliedEvalConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noInvalidFetchOptions: {
+						description:
+							"Disallow a request body in fetch() and new Request() when the method is GET or HEAD.\nSee https://biomejs.dev/linter/rules/no-invalid-fetch-options",
+						anyOf: [
+							{ $ref: "#/$defs/NoInvalidFetchOptionsConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -9639,6 +9992,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noNewArray: {
+						description:
+							"Disallow new Array() with a single argument.\nSee https://biomejs.dev/linter/rules/no-new-array",
+						anyOf: [
+							{ $ref: "#/$defs/NoNewArrayConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noNewRequire: {
 						description:
 							"Disallow calling require with the new operator.\nSee https://biomejs.dev/linter/rules/no-new-require",
@@ -9755,11 +10116,27 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noReactDirectStateMutation: {
+						description:
+							"Disallow mutating this.state directly in React class components.\nSee https://biomejs.dev/linter/rules/no-react-direct-state-mutation",
+						anyOf: [
+							{ $ref: "#/$defs/NoReactDirectStateMutationConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noReactObjectTypeAsDefaultProp: {
 						description:
 							"Disallow array, object, and function values as default props in React components.\nSee https://biomejs.dev/linter/rules/no-react-object-type-as-default-prop",
 						anyOf: [
 							{ $ref: "#/$defs/NoReactObjectTypeAsDefaultPropConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noRedundantTypeConstituents: {
+						description:
+							"Disallow members of union and intersection types that have no effect.\nSee https://biomejs.dev/linter/rules/no-redundant-type-constituents",
+						anyOf: [
+							{ $ref: "#/$defs/NoRedundantTypeConstituentsConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -9784,6 +10161,14 @@ export function GET() {
 							"Disallow return statements in Promise.prototype.finally() callbacks.\nSee https://biomejs.dev/linter/rules/no-return-in-finally",
 						anyOf: [
 							{ $ref: "#/$defs/NoReturnInFinallyConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noScssNullComparison: {
+						description:
+							"Disallow comparing values to null in Sass @if conditions.\nSee https://biomejs.dev/linter/rules/no-scss-null-comparison",
+						anyOf: [
+							{ $ref: "#/$defs/NoScssNullComparisonConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -9840,6 +10225,14 @@ export function GET() {
 							"Disallow addEventListener in Svelte files.\nSee https://biomejs.dev/linter/rules/no-svelte-add-event-listener",
 						anyOf: [
 							{ $ref: "#/$defs/NoSvelteAddEventListenerConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noSvelteAsyncStore: {
+						description:
+							"Disallow passing async functions to Svelte stores.\nSee https://biomejs.dev/linter/rules/no-svelte-async-store",
+						anyOf: [
+							{ $ref: "#/$defs/NoSvelteAsyncStoreConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10061,6 +10454,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noUnresolvedDefaultImport: {
+						description:
+							"Disallow default imports from modules that have no default export.\nSee https://biomejs.dev/linter/rules/no-unresolved-default-import",
+						anyOf: [
+							{ $ref: "#/$defs/NoUnresolvedDefaultImportConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noUnsafeIframeSandbox: {
 						description:
 							"Disallow allow-scripts together with allow-same-origin in an iframe sandbox.\nSee https://biomejs.dev/linter/rules/no-unsafe-iframe-sandbox",
@@ -10141,11 +10542,37 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noUselessFallbackInSpread: {
+						description:
+							"Disallow empty object fallbacks when spreading a value into an object.\nSee https://biomejs.dev/linter/rules/no-useless-fallback-in-spread",
+						anyOf: [
+							{ $ref: "#/$defs/NoUselessFallbackInSpreadConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noUselessLengthCheck: {
 						description:
 							"Disallow checking the length of an array when the result doesn't depend on it.\nSee https://biomejs.dev/linter/rules/no-useless-length-check",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessLengthCheckConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noUselessParameterPropertyAssignment: {
+						description:
+							"Disallow assigning a parameter property to itself in the constructor.\nSee https://biomejs.dev/linter/rules/no-useless-parameter-property-assignment",
+						anyOf: [
+							{
+								$ref: "#/$defs/NoUselessParameterPropertyAssignmentConfiguration",
+							},
+							{ type: "null" },
+						],
+					},
+					noUselessQualifier: {
+						description:
+							"Disallow unnecessary namespace and enum qualifiers.\nSee https://biomejs.dev/linter/rules/no-useless-qualifier",
+						anyOf: [
+							{ $ref: "#/$defs/NoUselessQualifierConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10162,6 +10589,14 @@ export function GET() {
 							"Disallow splice() calls that have a simpler alternative.\nSee https://biomejs.dev/linter/rules/no-useless-splice",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessSpliceConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noUselessSpread: {
+						description:
+							"Disallow spread syntax that has no effect.\nSee https://biomejs.dev/linter/rules/no-useless-spread",
+						anyOf: [
+							{ $ref: "#/$defs/NoUselessSpreadConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10350,6 +10785,14 @@ export function GET() {
 							"Limit the number of props a Vue component can declare.\nSee https://biomejs.dev/linter/rules/no-vue-excessive-props",
 						anyOf: [
 							{ $ref: "#/$defs/NoVueExcessivePropsConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noVueExposeAfterAwait: {
+						description:
+							"Disallow calling expose() or defineExpose() after an await in setup().\nSee https://biomejs.dev/linter/rules/no-vue-expose-after-await",
+						anyOf: [
+							{ $ref: "#/$defs/NoVueExposeAfterAwaitConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10649,6 +11092,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					useAtomicUpdates: {
+						description:
+							"Disallow assignments that can be based on outdated values because of await or yield.\nSee https://biomejs.dev/linter/rules/use-atomic-updates",
+						anyOf: [
+							{ $ref: "#/$defs/UseAtomicUpdatesConfiguration" },
+							{ type: "null" },
+						],
+					},
 					useAwaitThenable: {
 						description:
 							"Enforce that await is only used on Promise values.\nSee https://biomejs.dev/linter/rules/use-await-thenable",
@@ -10689,11 +11140,35 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					useCatchErrorName: {
+						description:
+							"Require a specific name for caught errors.\nSee https://biomejs.dev/linter/rules/use-catch-error-name",
+						anyOf: [
+							{ $ref: "#/$defs/UseCatchErrorNameConfiguration" },
+							{ type: "null" },
+						],
+					},
 					useConsistentBlockLang: {
 						description:
 							"Enforce which languages the top-level blocks of Vue and Svelte components use.\nSee https://biomejs.dev/linter/rules/use-consistent-block-lang",
 						anyOf: [
 							{ $ref: "#/$defs/UseConsistentBlockLangConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useConsistentBooleanName: {
+						description:
+							"Require boolean names to start with a prefix such as is or has, and reserve those prefixes for booleans.\nSee https://biomejs.dev/linter/rules/use-consistent-boolean-name",
+						anyOf: [
+							{ $ref: "#/$defs/UseConsistentBooleanNameConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useConsistentFontWeightNotation: {
+						description:
+							"Enforce a consistent notation for font weights.\nSee https://biomejs.dev/linter/rules/use-consistent-font-weight-notation",
+						anyOf: [
+							{ $ref: "#/$defs/UseConsistentFontWeightNotationConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10734,6 +11209,14 @@ export function GET() {
 							"Enforce JSON keys with consistent Unicode representation.\nSee https://biomejs.dev/linter/rules/use-consistent-object-keys",
 						anyOf: [
 							{ $ref: "#/$defs/UseConsistentObjectKeysConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useConsistentTupleLabels: {
+						description:
+							"Require either all or none of the elements of a tuple type to have labels.\nSee https://biomejs.dev/linter/rules/use-consistent-tuple-labels",
+						anyOf: [
+							{ $ref: "#/$defs/UseConsistentTupleLabelsConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10806,6 +11289,22 @@ export function GET() {
 							"Prefer flat Math.min() and Math.max() calls over nested calls of the same method.\nSee https://biomejs.dev/linter/rules/use-flat-math-min-max",
 						anyOf: [
 							{ $ref: "#/$defs/UseFlatMathMinMaxConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useGlobalRegexInMatchAll: {
+						description:
+							"Require regular expressions passed to matchAll() to have the g flag.\nSee https://biomejs.dev/linter/rules/use-global-regex-in-match-all",
+						anyOf: [
+							{ $ref: "#/$defs/UseGlobalRegexInMatchAllConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useGlobalRegexInReplaceAll: {
+						description:
+							"Require regular expressions passed to replaceAll() to use the global flag.\nSee https://biomejs.dev/linter/rules/use-global-regex-in-replace-all",
+						anyOf: [
+							{ $ref: "#/$defs/UseGlobalRegexInReplaceAllConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -11166,6 +11665,14 @@ export function GET() {
 							"Enforce the use of the unary minus operator over multiplying or dividing by -1.\nSee https://biomejs.dev/linter/rules/use-unary-minus",
 						anyOf: [
 							{ $ref: "#/$defs/UseUnaryMinusConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useValidCharacterComparison: {
+						description:
+							"Disallow comparing a single character with a string that has more than one character.\nSee https://biomejs.dev/linter/rules/use-valid-character-comparison",
+						anyOf: [
+							{ $ref: "#/$defs/UseValidCharacterComparisonConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -12637,6 +13144,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoAsyncPromiseFinallyOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoAsyncPromiseFinallyOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoAutofocusOptions: {
 				type: "object",
 				properties: {
@@ -13117,6 +13633,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoDisabledAttributeOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoDisabledAttributeOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoDistractingElementsOptions: {
 				type: "object",
 				properties: {
@@ -13427,6 +13957,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoDuplicateTypeConstituentsOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoDuplicateTypeConstituentsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoDuplicateVariableNamesOptions: {
 				type: "object",
 				properties: {
@@ -13658,6 +14202,15 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoExcessiveSelectorClassesOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoExcessiveSelectorComplexityOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoExcessiveSelectorComplexityOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -14120,6 +14673,15 @@ export function GET() {
 					options: {
 						$ref: "#/$defs/NoInvalidDirectionInLinearGradientOptions",
 					},
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoInvalidFetchOptionsOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoInvalidFetchOptionsOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -14594,6 +15156,20 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoNestedTernaryOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoNewArrayOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoNewArrayOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -15117,6 +15693,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoReactDirectStateMutationOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoReactDirectStateMutationOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoReactForwardRefOptions: {
 				type: "object",
 				properties: {
@@ -15240,6 +15825,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoRedundantTypeConstituentsOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoRedundantTypeConstituentsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoRedundantUseStrictOptions: {
 				type: "object",
 				properties: {
@@ -15359,6 +15953,15 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoScriptUrlOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoScssNullComparisonOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoScssNullComparisonOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -15606,6 +16209,15 @@ export function GET() {
 					},
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoSvelteAddEventListenerOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoSvelteAsyncStoreOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoSvelteAsyncStoreOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -16153,6 +16765,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoUnresolvedDefaultImportOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoUnresolvedDefaultImportOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoUnresolvedImportsOptions: {
 				type: "object",
 				properties: {
@@ -16535,6 +17156,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoUselessFallbackInSpreadOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoUselessFallbackInSpreadOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoUselessFragmentsOptions: {
 				type: "object",
 				properties: {
@@ -16587,6 +17222,31 @@ export function GET() {
 					},
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoUselessLoneBlockStatementsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoUselessParameterPropertyAssignmentOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: {
+						$ref: "#/$defs/NoUselessParameterPropertyAssignmentOptions",
+					},
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoUselessQualifierOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoUselessQualifierOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -16647,6 +17307,20 @@ export function GET() {
 					},
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoUselessSpliceOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoUselessSpreadOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoUselessSpreadOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -17087,6 +17761,15 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoVueExcessivePropsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoVueExposeAfterAwaitOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoVueExposeAfterAwaitOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -17698,6 +18381,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithUseAtomicUpdatesOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseAtomicUpdatesOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithUseAwaitOptions: {
 				type: "object",
 				properties: {
@@ -17813,6 +18505,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithUseCatchErrorNameOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseCatchErrorNameOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithUseCollapsedElseIfOptions: {
 				type: "object",
 				properties: {
@@ -17892,6 +18598,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithUseConsistentBooleanNameOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseConsistentBooleanNameOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithUseConsistentBuiltinInstantiationOptions: {
 				type: "object",
 				properties: {
@@ -17927,6 +18642,20 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseConsistentEnumValueTypeOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseConsistentFontWeightNotationOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseConsistentFontWeightNotationOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -18047,6 +18776,15 @@ export function GET() {
 					},
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseConsistentTestItOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseConsistentTupleLabelsOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseConsistentTupleLabelsOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -18461,6 +19199,24 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseGetterReturnOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseGlobalRegexInMatchAllOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseGlobalRegexInMatchAllOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseGlobalRegexInReplaceAllOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseGlobalRegexInReplaceAllOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -19978,6 +20734,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithUseValidCharacterComparisonOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseValidCharacterComparisonOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithUseValidForDirectionOptions: {
 				type: "object",
 				properties: {
@@ -20907,6 +21672,40 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
+			SelectorCombinator: {
+				description: "A symbol that joins two compound selectors.",
+				oneOf: [
+					{
+						description:
+							"A space, as in `nav a`. Selects elements inside another element.",
+						type: "string",
+						const: " ",
+					},
+					{
+						description: "`>`, as in `ul > li`. Selects direct children.",
+						type: "string",
+						const: ">",
+					},
+					{
+						description:
+							"`+`, as in `h1 + p`. Selects the element right after another element.",
+						type: "string",
+						const: "+",
+					},
+					{
+						description:
+							"`~`, as in `h1 ~ p`. Selects any later element with the same parent.",
+						type: "string",
+						const: "~",
+					},
+					{
+						description:
+							"`||`, as in `col || td`. Selects cells that belong to a table column.",
+						type: "string",
+						const: "||",
+					},
+				],
+			},
 			SelfCloseVoidElements: {
 				description:
 					"Controls whether HTML void elements such as `<img>` and `<input>` include a slash before `>`.",
@@ -21091,7 +21890,7 @@ export function GET() {
 					},
 					useSortedProperties: {
 						description:
-							"Sort CSS properties and nested rules into a consistent order.\nSee https://biomejs.dev/assist/actions/use-sorted-properties",
+							"Sort CSS properties into a consistent order.\nSee https://biomejs.dev/assist/actions/use-sorted-properties",
 						anyOf: [
 							{ $ref: "#/$defs/UseSortedPropertiesConfiguration" },
 							{ type: "null" },
@@ -23484,6 +24283,16 @@ export function GET() {
 				],
 			},
 			UseAtIndexOptions: { type: "object", additionalProperties: false },
+			UseAtomicUpdatesConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseAtomicUpdatesOptions" },
+				],
+			},
+			UseAtomicUpdatesOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			UseAwaitConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -23625,6 +24434,28 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			UseCatchErrorNameConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseCatchErrorNameOptions" },
+				],
+			},
+			UseCatchErrorNameOptions: {
+				type: "object",
+				properties: {
+					ignore: {
+						description: "Names that are always allowed.",
+						type: ["array", "null"],
+						items: { type: "string" },
+					},
+					name: {
+						description:
+							"The required name of caught errors.\nDefaults to `error`.",
+						type: ["string", "null"],
+					},
+				},
+				additionalProperties: false,
+			},
 			UseCollapsedElseIfConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -23749,6 +24580,30 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
+			UseConsistentBooleanNameConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseConsistentBooleanNameOptions" },
+				],
+			},
+			UseConsistentBooleanNameOptions: {
+				description: "Options for the `useConsistentBooleanName` rule.",
+				type: "object",
+				properties: {
+					ignore: {
+						description: "Names that the rule doesn't check.",
+						type: ["array", "null"],
+						items: { type: "string" },
+					},
+					prefixes: {
+						description:
+							"Prefixes to enable or disable, merged with the default prefixes.\n\nA prefix set to `true` is accepted on boolean names, and names that\nstart with it must be booleans. A prefix set to `false` is disabled.",
+						type: ["object", "null"],
+						additionalProperties: { type: "boolean" },
+					},
+				},
+				additionalProperties: false,
+			},
 			UseConsistentBuiltinInstantiationConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -23777,6 +24632,28 @@ export function GET() {
 			},
 			UseConsistentEnumValueTypeOptions: {
 				type: "object",
+				additionalProperties: false,
+			},
+			UseConsistentFontWeightNotationConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseConsistentFontWeightNotationOptions" },
+				],
+			},
+			UseConsistentFontWeightNotationOptions: {
+				type: "object",
+				properties: {
+					ignoreRelative: {
+						description:
+							'Whether to allow the relative keywords `bolder` and `lighter` when `notation` is `"numeric"`.\n\nDefault: `false`',
+						type: ["boolean", "null"],
+					},
+					notation: {
+						description:
+							'Whether font weights should be written as numbers, or as keywords where a keyword exists.\n\nDefault: `"numeric"`',
+						anyOf: [{ $ref: "#/$defs/FontWeightNotation" }, { type: "null" }],
+					},
+				},
 				additionalProperties: false,
 			},
 			UseConsistentFunctionStyleConfiguration: {
@@ -23962,6 +24839,16 @@ export function GET() {
 						anyOf: [{ $ref: "#/$defs/TestFunctionKind" }, { type: "null" }],
 					},
 				},
+				additionalProperties: false,
+			},
+			UseConsistentTupleLabelsConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseConsistentTupleLabelsOptions" },
+				],
+			},
+			UseConsistentTupleLabelsOptions: {
+				type: "object",
 				additionalProperties: false,
 			},
 			UseConsistentTypeDefinitionsConfiguration: {
@@ -24438,6 +25325,26 @@ export function GET() {
 				],
 			},
 			UseGetterReturnOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			UseGlobalRegexInMatchAllConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseGlobalRegexInMatchAllOptions" },
+				],
+			},
+			UseGlobalRegexInMatchAllOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			UseGlobalRegexInReplaceAllConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseGlobalRegexInReplaceAllOptions" },
+				],
+			},
+			UseGlobalRegexInReplaceAllOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -26180,6 +27087,16 @@ export function GET() {
 						items: { type: "string" },
 					},
 				},
+				additionalProperties: false,
+			},
+			UseValidCharacterComparisonConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseValidCharacterComparisonOptions" },
+				],
+			},
+			UseValidCharacterComparisonOptions: {
+				type: "object",
 				additionalProperties: false,
 			},
 			UseValidForDirectionConfiguration: {
