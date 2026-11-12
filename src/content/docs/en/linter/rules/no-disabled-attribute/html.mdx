@@ -1,0 +1,138 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noDisabledAttribute (HTML)
+description: HTML documentation for noDisabledAttribute
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-disabled-attribute/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-disabled-attribute/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.7`
+- Diagnostic Category: [`lint/nursery/noDisabledAttribute`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDisabledAttribute": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Discourages the `disabled` attribute on form controls and on elements that act as buttons.
+
+This is an opinionated usability rule, not a Web Content Accessibility Guidelines (WCAG)
+requirement. A form control with the native `disabled` attribute can't receive keyboard
+focus, so people who move through a page with the Tab key skip over it. Keeping an
+unavailable control focusable can make it easier to discover with a keyboard or assistive
+technology.
+
+The rule reports the following elements when `disabled` is set:
+
+- Buttons: `button` elements, and `input` elements with the `button`, `submit`, `reset`,
+or `image` type. A `button` is still reported when a role other than `button` is
+assigned, because `disabled` continues to change its native behavior.
+- Fields that support the `readonly` attribute: `textarea` elements, and `input` elements
+whose type accepts typed input, such as `text`, `email`, `number`, or `date`. An `input`
+with no `type`, or with a `type` that browsers don't recognize, is a text field.
+- Other form controls: `select` elements, and `input` elements with the `checkbox`,
+`radio`, `range`, `color`, or `file` type.
+- `fieldset` elements, because a disabled `fieldset` disables every form control inside it.
+- Built-in elements that aren't form controls and whose first valid explicit role is
+`button`. The `disabled` attribute has no effect on these elements.
+
+The rule doesn't report `option` and `optgroup` elements, `input` elements with the
+`hidden` type, or `input` elements whose `type` is a dynamic expression or can come from
+a spread attribute.
+
+## Replacing `disabled`
+
+The unsafe fix depends on the reported element:
+
+- For fields that support it, the fix replaces `disabled` with `readonly`. A read-only
+field can receive focus and can't be edited. Unlike a disabled field, its value is
+still submitted with the form, and browsers don't apply disabled styling to it.
+- For buttons, other form controls, and elements with the `button` role, the fix replaces
+`disabled` with `aria-disabled`. The ARIA attribute only exposes the disabled state to
+assistive technology. It does not prevent pointer or keyboard activation, change form
+submission or validation, omit values from submitted data, or add disabled styling.
+Implement those behaviors and provide disabled styling, including for forced-colors
+mode.
+- A `fieldset` has no fix. Mark each form control inside it instead. Disabling a
+`fieldset` can be appropriate when the whole group doesn't apply to the user, for
+example the details of a second applicant when there is only one applicant. In that
+case, suppress the diagnostic.
+
+## Examples
+
+### Invalid
+
+```html
+<button disabled>Save</button>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:9 <a href=\"https://biomejs.dev/linter/rules/no-disabled-attribute\">lint/nursery/noDisabledAttribute</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Avoid the native </span><span style=\"color: Orange;\"><strong>disabled</strong></span><span style=\"color: Orange;\"> attribute on this button.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;button disabled&gt;Save&lt;/button&gt;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A disabled form control can't receive keyboard focus, so it can't be reached with the Tab key.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace it with </span><span style=\"color: lightgreen;\"><strong>aria-disabled</strong></span><span style=\"color: lightgreen;\">, which only exposes the disabled state to assistive technology. It does not suppress pointer or keyboard activation, form submission or validation, or apply disabled styling. Implement those behaviors, including forced-colors styling.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>aria-disabled</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong>  1 │ </strong>&lt;button<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">-</span>disabled<span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">&quot;</span>&gt;Save&lt;/button&gt;<br />  <strong>    │ </strong>        <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>        <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>              <br /></code></pre>"} />
+
+```html
+<input type="email" disabled>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:21 <a href=\"https://biomejs.dev/linter/rules/no-disabled-attribute\">lint/nursery/noDisabledAttribute</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Avoid the native </span><span style=\"color: Orange;\"><strong>disabled</strong></span><span style=\"color: Orange;\"> attribute on this field.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;input type=&quot;email&quot; disabled&gt;<br />   <strong>   │ </strong>                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A disabled form control can't receive keyboard focus, so it can't be reached with the Tab key.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace it with </span><span style=\"color: lightgreen;\"><strong>readonly</strong></span><span style=\"color: lightgreen;\">, which keeps the field focusable and prevents edits. Unlike a disabled field, a read-only field is still submitted with its form and doesn't get disabled styling.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>readonly</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">n</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">u</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">y</span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\"><strong>i</strong></span><span style=\"color: Tomato;\"><strong>s</strong></span><span style=\"color: Tomato;\"><strong>a</strong></span><span style=\"color: Tomato;\"><strong>b</strong></span><span style=\"color: Tomato;\"><strong>l</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>d</strong></span><span style=\"color: Tomato;\">&gt;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">n</span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">y</span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>r</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>a</strong></span><span style=\"color: MediumSeaGreen;\"><strong>d</strong></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>l</strong></span><span style=\"color: MediumSeaGreen;\"><strong>y</strong></span><span style=\"color: MediumSeaGreen;\">&gt;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```html
+<select disabled><option>Monthly</option></select>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:9 <a href=\"https://biomejs.dev/linter/rules/no-disabled-attribute\">lint/nursery/noDisabledAttribute</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Avoid the native </span><span style=\"color: Orange;\"><strong>disabled</strong></span><span style=\"color: Orange;\"> attribute on this form control.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;select disabled&gt;&lt;option&gt;Monthly&lt;/option&gt;&lt;/select&gt;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A disabled form control can't receive keyboard focus, so it can't be reached with the Tab key.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace it with </span><span style=\"color: lightgreen;\"><strong>aria-disabled</strong></span><span style=\"color: lightgreen;\">, which only exposes the disabled state to assistive technology. It does not suppress pointer or keyboard activation, form submission or validation, or apply disabled styling. Implement those behaviors, including forced-colors styling.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>aria-disabled</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong>  1 │ </strong>&lt;select<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">-</span>disabled<span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">&quot;</span>&gt;&lt;option&gt;Monthly&lt;/option&gt;&lt;/select&gt;<br />  <strong>    │ </strong>        <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>        <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>                                  <br /></code></pre>"} />
+
+```html
+<fieldset disabled><input type="text"></fieldset>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:11 <a href=\"https://biomejs.dev/linter/rules/no-disabled-attribute\">lint/nursery/noDisabledAttribute</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">Avoid the native </span><span style=\"color: Orange;\"><strong>disabled</strong></span><span style=\"color: Orange;\"> attribute on this fieldset.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;fieldset disabled&gt;&lt;input type=&quot;text&quot;&gt;&lt;/fieldset&gt;<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A disabled fieldset disables every form control inside it, so none of them can be reached with the Tab key.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Mark each form control inside the fieldset instead: use </span><span style=\"color: lightgreen;\"><strong>readonly</strong></span><span style=\"color: lightgreen;\"> on fields that support it and </span><span style=\"color: lightgreen;\"><strong>aria-disabled</strong></span><span style=\"color: lightgreen;\"> on other controls.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```html
+<div role="button" disabled>Save</div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:20 <a href=\"https://biomejs.dev/linter/rules/no-disabled-attribute\">lint/nursery/noDisabledAttribute</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The </span><span style=\"color: Orange;\"><strong>disabled</strong></span><span style=\"color: Orange;\"> attribute has no effect on this element.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div role=&quot;button&quot; disabled&gt;Save&lt;/div&gt;<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>button</strong></span><span style=\"color: lightgreen;\"> role changes accessibility semantics but does not add native button behavior.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Replace it with </span><span style=\"color: lightgreen;\"><strong>aria-disabled</strong></span><span style=\"color: lightgreen;\">, which only exposes the disabled state to assistive technology. It does not suppress pointer or keyboard activation, form submission or validation, or apply disabled styling. Implement those behaviors, including forced-colors styling.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>aria-disabled</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong>  1 │ </strong>&lt;div<span style=\"opacity: 0.8;\">·</span>role=&quot;button&quot;<span style=\"opacity: 0.8;\">·</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">-</span>disabled<span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">u</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">&quot;</span>&gt;Save&lt;/div&gt;<br />  <strong>    │ </strong>                   <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>        <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>           <br /></code></pre>"} />
+
+### Valid
+
+```html
+<button aria-disabled="true">Save</button>
+<input type="email" readonly>
+<select aria-disabled="true"><option>Monthly</option></select>
+<input type="hidden" disabled>
+```
+
+## References
+
+- [MDN: `aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-disabled)
+- [MDN: `readonly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/readonly)
+- [Making Disabled Buttons More Inclusive](https://css-tricks.com/making-disabled-buttons-more-inclusive/)
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_disabled_attribute.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noDisabledAttribute)
+- <RulePlaygroundLink rule="noDisabledAttribute" category="lint" language="html" code={"<button disabled>Save</button>\n"} />
+

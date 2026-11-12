@@ -34,6 +34,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [no-invalid-named-grid-areas](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-named-grid-areas.md) |[noInvalidGridAreas](/linter/rules/no-invalid-grid-areas/css) |
 | [no-invalid-properties](https://github.com/eslint/css/blob/main/docs/rules/no-invalid-properties.md) |[noUnknownProperty](/linter/rules/no-unknown-property/css) (inspired) |
 | [no-unmatchable-selectors](https://github.com/eslint/css/blob/main/docs/rules/no-unmatchable-selectors.md) |[noUnmatchableAnbSelector](/linter/rules/no-unmatchable-anb-selector/css) (inspired) |
+| [selector-complexity](https://github.com/eslint/css/blob/main/docs/rules/selector-complexity.md) |[noExcessiveSelectorComplexity](/linter/rules/no-excessive-selector-complexity/css) |
 | [use-baseline](https://github.com/eslint/css/blob/main/docs/rules/use-baseline.md) |[useBaseline](/linter/rules/use-baseline/css) (inspired) |
 | [use-layers](https://github.com/eslint/css/blob/main/docs/rules/use-layers.md) |[useLayeredStyles](/linter/rules/use-layered-styles/css) (inspired) |
 ### @html-eslint/eslint-plugin
@@ -58,6 +59,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 | [declaration-no-important](https://github.com/stylelint/stylelint/blob/main/lib/rules/declaration-no-important/README.md) |[noImportantStyles](/linter/rules/no-important-styles/css) |
 | [font-family-no-duplicate-names](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-duplicate-names/README.md) |[noDuplicateFontNames](/linter/rules/no-duplicate-font-names/css) |
 | [font-family-no-missing-generic-family-keyword](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-family-no-missing-generic-family-keyword/README.md) |[useGenericFontNames](/linter/rules/use-generic-font-names/css) |
+| [font-weight-notation](https://github.com/stylelint/stylelint/blob/main/lib/rules/font-weight-notation/README.md) |[useConsistentFontWeightNotation](/linter/rules/use-consistent-font-weight-notation/css) |
 | [function-linear-gradient-no-nonstandard-direction](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-linear-gradient-no-nonstandard-direction/README.md) |[noInvalidDirectionInLinearGradient](/linter/rules/no-invalid-direction-in-linear-gradient/css) |
 | [function-no-unknown](https://github.com/stylelint/stylelint/blob/main/lib/rules/function-no-unknown/README.md) |[noUnknownFunction](/linter/rules/no-unknown-function/css) |
 | [keyframe-block-no-duplicate-selectors](https://github.com/stylelint/stylelint/blob/main/lib/rules/keyframe-block-no-duplicate-selectors/README.md) |[noDuplicateSelectorsKeyframeBlock](/linter/rules/no-duplicate-selectors-keyframe-block/css) |
@@ -86,6 +88,7 @@ Some **Biome** rules might **not** have options, compared to the original rule.
 ### stylelint-scss
 | stylelint-scss Rules name | Biome Rules name |
 | ---- | ---- |
+| [at-if-no-null](https://github.com/stylelint-scss/stylelint-scss/blob/master/src/rules/at-if-no-null/README.md) |[noScssNullComparison](/linter/rules/no-scss-null-comparison/css) (inspired) |
 | [dollar-variable-no-missing-interpolation](https://github.com/stylelint-scss/stylelint-scss/blob/master/src/rules/dollar-variable-no-missing-interpolation/README.md) |[noMissingScssInterpolation](/linter/rules/no-missing-scss-interpolation/css) (inspired) |
 
 Missing a rule? Help us by [contributing](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md) to the [analyzer](https://github.com/biomejs/biome/blob/main/crates/biome_analyze/CONTRIBUTING.md) or create a rule suggestion [here](https://github.com/biomejs/biome/discussions/categories/rule-suggestion).
