@@ -8,6 +8,7 @@
       "!**/redirects.js",
       "!**/src/components/generated",
       "!**/src/playground/generated",
+      "!**/src/grammars/*.tmLanguage.json",
       "!!*.svg",
       "!!pnpm-lock.yaml"
     ]
