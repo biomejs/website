@@ -12,6 +12,7 @@ import type { ViewUpdate } from "@codemirror/view";
 import { svelte } from "@replit/codemirror-lang-svelte";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import { graphql } from "cm6-graphql";
+import { gritql } from "codemirror-lang-gritql";
 import * as codeMirrorLangBiomeAst from "codemirror-lang-rome-ast";
 import {
 	ChevronDown,
@@ -50,6 +51,7 @@ import {
 	getFileState,
 	isCssFilename,
 	isGraphqlFilename,
+	isGritFilename,
 	isHtmlFilename,
 	isJsonFilename,
 	isJsxFilename,
@@ -127,6 +129,7 @@ export default function Playground({
 		if (isCssFilename(playgroundState.currentFile)) return [css()];
 		if (isScssFilename(playgroundState.currentFile)) return [sass()];
 		if (isGraphqlFilename(playgroundState.currentFile)) return [graphql()];
+		if (isGritFilename(playgroundState.currentFile)) return [gritql()];
 		if (isHtmlFilename(playgroundState.currentFile)) return [html()];
 		if (isVueFilename(playgroundState.currentFile)) return [vue()];
 		if (isSvelteFilename(playgroundState.currentFile)) return [svelte()];

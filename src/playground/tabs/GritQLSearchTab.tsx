@@ -1,11 +1,14 @@
 import type { SearchLanguage } from "@biomejs/wasm-web";
 import { EditorSelection } from "@codemirror/state";
 import type { ReactCodeMirrorRef } from "@uiw/react-codemirror";
+import { gritql } from "codemirror-lang-gritql";
 import type { RefObject } from "react";
 import { useCallback } from "react";
 import CodeMirror from "@/playground/CodeMirror";
 import Resizable from "@/playground/components/Resizable";
 import { spanInBytesToSpanInCodeUnits } from "@/playground/utils";
+
+const gritqlExtensions = [gritql()];
 
 interface Props {
 	editorRef: RefObject<ReactCodeMirrorRef | null>;
@@ -72,7 +75,7 @@ export default function GritQLSearchTab({
 				value={gritQuery}
 				onChange={onGritQueryChange}
 				placeholder="Enter GritQL query, e.g., `console.log($message)`"
-				extensions={[]}
+				extensions={gritqlExtensions}
 				autoFocus={true}
 			/>
 

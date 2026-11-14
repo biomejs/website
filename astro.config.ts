@@ -18,6 +18,20 @@ import { version as prettierVersion } from "./node_modules/prettier/package.json
 	type: "json",
 };
 import redirects from "./redirects.js";
+import gritqlGrammar from "./src/grammars/gritql.tmLanguage.json" with {
+	type: "json",
+};
+
+const gritqlLanguage = {
+	...gritqlGrammar,
+	name: "gritql",
+	displayName: "GritQL",
+	aliases: ["grit"],
+	// The grammar embeds `source.js` in foreign function bodies. This has to be
+	// lazy: Expressive Code only loads `embeddedLangsLazy` alongside the
+	// grammar, while `embeddedLangs` must already be loaded.
+	embeddedLangsLazy: ["javascript"],
+};
 
 /**
  * `@astrojs/compiler-binding` only ships a native Node entry point, but
@@ -170,11 +184,11 @@ export default defineConfig({
 			plugins,
 			expressiveCode: {
 				shiki: {
+					langs: [gritqlLanguage],
 					langAlias: {
 						block: "txt",
 						cjs: "javascript",
 						editorconfig: "ini",
-						grit: "txt",
 						"js,expect_diagnostic": "javascript",
 						svg: "html",
 						"ts,expect_diagnostic": "typescript",
@@ -1095,9 +1109,9 @@ export default defineConfig({
 		processor: satteri(),
 		syntaxHighlight: "shiki",
 		shikiConfig: {
+			langs: [gritqlLanguage],
 			langAlias: {
 				cjs: "javascript",
-				grit: "txt",
 				cts: "javascript",
 				block: "txt",
 			},

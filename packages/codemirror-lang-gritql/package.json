@@ -1,0 +1,20 @@
+{
+  "name": "codemirror-lang-gritql",
+  "private": true,
+  "type": "module",
+  "description": "GritQL syntax highlighting for CodeMirror 6",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "peerDependencies": {
+    "@codemirror/language": "^6.0.0",
+    "@lezer/highlight": "^1.0.0"
+  },
+  "devDependencies": {
+    "@codemirror/language": "6.13.1",
+    "@lezer/highlight": "1.2.3"
+  }
+}

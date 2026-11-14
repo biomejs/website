@@ -1,0 +1,318 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "GritQL",
+  "scopeName": "source.gritql",
+  "fileTypes": ["grit"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#engine-declaration" },
+    { "include": "#language-declaration" },
+    { "include": "#definition" },
+    { "include": "#foreign-function-body" },
+    { "include": "#expression" }
+  ],
+  "repository": {
+    "expression": {
+      "patterns": [
+        { "include": "#comments" },
+        { "include": "#language-declaration" },
+        { "include": "#raw-snippet" },
+        { "include": "#regex-snippet" },
+        { "include": "#regex" },
+        { "include": "#language-snippet" },
+        { "include": "#backtick-snippet" },
+        { "include": "#string" },
+        { "include": "#annotation" },
+        { "include": "#metavariable" },
+        { "include": "#number" },
+        { "include": "#map-key" },
+        { "include": "#named-argument" },
+        { "include": "#constant" },
+        { "include": "#builtin-call" },
+        { "include": "#call" },
+        { "include": "#keyword" },
+        { "include": "#property-access" },
+        { "include": "#operator" },
+        { "include": "#punctuation" }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.gritql",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "beginCaptures": { "0": { "name": "punctuation.definition.comment.begin.gritql" } },
+          "endCaptures": { "0": { "name": "punctuation.definition.comment.end.gritql" } }
+        },
+        {
+          "name": "comment.line.double-slash.gritql",
+          "begin": "//",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "punctuation.definition.comment.gritql" } }
+        }
+      ]
+    },
+    "engine-declaration": {
+      "comment": "engine biome(1.0) / engine marzano(0.1); the parts may be split across lines",
+      "begin": "\\b(engine)\\b",
+      "beginCaptures": { "1": { "name": "keyword.control.directive.engine.gritql" } },
+      "end": "(?<=\\))|(?=[`$\"]|\\b(?:language|pattern|predicate|function|private|sequential|multifile)\\b)",
+      "patterns": [
+        { "include": "#comments" },
+        { "match": "[A-Za-z_][A-Za-z0-9_]*", "name": "support.constant.engine.gritql" },
+        { "match": "\\(", "name": "punctuation.section.parens.begin.gritql" },
+        { "match": "[0-9]+(?:\\.[0-9]+)?", "name": "constant.numeric.float.gritql" },
+        { "match": "\\)", "name": "punctuation.section.parens.end.gritql" }
+      ]
+    },
+    "language-declaration": {
+      "comment": "language js / language js(typescript, jsx);",
+      "match": "\\b(language)\\s+([A-Za-z_][A-Za-z0-9_]*)(?:\\s*(\\()([^()]*)(\\)))?(?:\\s*(;))?",
+      "captures": {
+        "1": { "name": "keyword.control.directive.language.gritql" },
+        "2": { "name": "support.constant.language.gritql" },
+        "3": { "name": "punctuation.section.parens.begin.gritql" },
+        "4": {
+          "patterns": [
+            { "match": "[A-Za-z_][A-Za-z0-9_]*", "name": "support.constant.language-flavor.gritql" },
+            { "match": ",", "name": "punctuation.separator.comma.gritql" }
+          ]
+        },
+        "5": { "name": "punctuation.section.parens.end.gritql" },
+        "6": { "name": "punctuation.terminator.statement.gritql" }
+      }
+    },
+    "definition": {
+      "comment": "pattern foo($a, $b) { ... } / predicate / function, optionally private",
+      "begin": "\\b(?:(private)\\s+)?(pattern|predicate|function)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*(\\()",
+      "beginCaptures": {
+        "1": { "name": "storage.modifier.gritql" },
+        "2": { "name": "storage.type.function.gritql" },
+        "3": { "name": "entity.name.function.gritql" },
+        "4": { "name": "punctuation.section.parens.begin.gritql" }
+      },
+      "end": "\\)",
+      "endCaptures": { "0": { "name": "punctuation.section.parens.end.gritql" } },
+      "name": "meta.definition.gritql",
+      "patterns": [
+        { "include": "#comments" },
+        { "match": "\\$[A-Za-z0-9_]+", "name": "variable.parameter.gritql" },
+        { "match": ",", "name": "punctuation.separator.comma.gritql" }
+      ]
+    },
+    "foreign-function-body": {
+      "comment": "function foo($a) js { ...JavaScript... }",
+      "begin": "\\b(js)\\s*(\\{)",
+      "beginCaptures": {
+        "1": { "name": "support.constant.language.gritql" },
+        "2": { "name": "punctuation.section.embedded.begin.gritql" }
+      },
+      "end": "\\}",
+      "endCaptures": { "0": { "name": "punctuation.section.embedded.end.gritql" } },
+      "contentName": "meta.embedded.block.javascript",
+      "patterns": [
+        { "include": "source.js" },
+        { "include": "#comments" },
+        { "include": "#foreign-function-braces" }
+      ]
+    },
+    "foreign-function-braces": {
+      "comment": "Fallback brace balancing for embedded JavaScript when source.js is unavailable",
+      "begin": "\\{",
+      "end": "\\}",
+      "patterns": [{ "include": "#comments" }, { "include": "#foreign-function-braces" }]
+    },
+    "backtick-snippet": {
+      "name": "string.quoted.other.snippet.gritql",
+      "begin": "`",
+      "end": "`",
+      "beginCaptures": { "0": { "name": "punctuation.definition.string.begin.gritql" } },
+      "endCaptures": { "0": { "name": "punctuation.definition.string.end.gritql" } },
+      "patterns": [{ "include": "#snippet-content" }]
+    },
+    "raw-snippet": {
+      "name": "string.quoted.other.snippet.raw.gritql",
+      "begin": "\\b(raw)(`)",
+      "end": "`",
+      "beginCaptures": {
+        "1": { "name": "storage.type.string.gritql" },
+        "2": { "name": "punctuation.definition.string.begin.gritql" }
+      },
+      "endCaptures": { "0": { "name": "punctuation.definition.string.end.gritql" } },
+      "patterns": [{ "include": "#snippet-content" }]
+    },
+    "language-snippet": {
+      "comment": "Language-annotated snippet such as js\"foo($x)\"",
+      "name": "string.quoted.other.snippet.gritql",
+      "begin": "\\b(ast|cpp|csharp|c|css|elixir|go|grit|hcl|html|java|json|js|kotlin|markdown|php|python|ruby|rust|solidity|sol|sql|toml|universal|vue|xml|yaml|zig)(\")",
+      "end": "\"",
+      "beginCaptures": {
+        "1": { "name": "storage.type.string.gritql" },
+        "2": { "name": "punctuation.definition.string.begin.gritql" }
+      },
+      "endCaptures": { "0": { "name": "punctuation.definition.string.end.gritql" } },
+      "patterns": [
+        { "match": "\\\\(?:u[0-9A-Fa-f]{4}|.)", "name": "constant.character.escape.gritql" },
+        { "include": "#snippet-metavariable" }
+      ]
+    },
+    "snippet-content": {
+      "patterns": [
+        { "match": "\\\\.", "name": "constant.character.escape.gritql" },
+        { "include": "#snippet-metavariable" }
+      ]
+    },
+    "snippet-metavariable": {
+      "patterns": [
+        {
+          "match": "(\\$\\[)([A-Za-z_][A-Za-z0-9_]*)(\\])",
+          "name": "variable.other.gritql",
+          "captures": {
+            "1": { "name": "punctuation.definition.variable.begin.gritql" },
+            "3": { "name": "punctuation.definition.variable.end.gritql" }
+          }
+        },
+        { "match": "\\$\\.\\.\\.", "name": "variable.language.spread.gritql" },
+        { "match": "\\$_(?![A-Za-z0-9_])", "name": "variable.language.anonymous.gritql" },
+        { "match": "\\$[A-Za-z_][A-Za-z0-9_]*", "name": "variable.other.gritql" }
+      ]
+    },
+    "regex": {
+      "name": "string.regexp.gritql",
+      "begin": "\\b(r)(\")",
+      "end": "\"",
+      "beginCaptures": {
+        "1": { "name": "storage.type.string.gritql" },
+        "2": { "name": "punctuation.definition.string.begin.gritql" }
+      },
+      "endCaptures": { "0": { "name": "punctuation.definition.string.end.gritql" } },
+      "patterns": [{ "match": "\\\\.", "name": "constant.character.escape.gritql" }]
+    },
+    "regex-snippet": {
+      "comment": "r`...` regexes may interpolate metavariables",
+      "name": "string.regexp.gritql",
+      "begin": "\\b(r)(`)",
+      "end": "`",
+      "beginCaptures": {
+        "1": { "name": "storage.type.string.gritql" },
+        "2": { "name": "punctuation.definition.string.begin.gritql" }
+      },
+      "endCaptures": { "0": { "name": "punctuation.definition.string.end.gritql" } },
+      "patterns": [{ "include": "#snippet-content" }]
+    },
+    "string": {
+      "name": "string.quoted.double.gritql",
+      "begin": "\"",
+      "end": "\"|$",
+      "beginCaptures": { "0": { "name": "punctuation.definition.string.begin.gritql" } },
+      "endCaptures": { "0": { "name": "punctuation.definition.string.end.gritql" } },
+      "patterns": [
+        { "match": "\\\\(?:u[0-9A-Fa-f]{4}|.)", "name": "constant.character.escape.gritql" }
+      ]
+    },
+    "annotation": {
+      "match": "@[A-Za-z][A-Za-z0-9]*",
+      "name": "storage.type.annotation.gritql"
+    },
+    "metavariable": {
+      "patterns": [
+        { "match": "\\$\\.\\.\\.", "name": "variable.language.spread.gritql" },
+        { "match": "\\$_(?![A-Za-z0-9_])", "name": "variable.language.anonymous.gritql" },
+        { "match": "[$^][A-Za-z0-9_]+", "name": "variable.other.gritql" }
+      ]
+    },
+    "number": {
+      "patterns": [
+        {
+          "match": "(?<![A-Za-z0-9_$.])-?[0-9]+(?:\\.[0-9]+(?:[eE][+-]?[0-9]+)?|[eE][+-]?[0-9]+)(?![A-Za-z0-9_])",
+          "name": "constant.numeric.float.gritql"
+        },
+        {
+          "match": "(?<![A-Za-z0-9_$.])-?[0-9]+(?![A-Za-z0-9_])",
+          "name": "constant.numeric.integer.gritql"
+        }
+      ]
+    },
+    "constant": {
+      "patterns": [
+        { "match": "\\b(?:true|false)\\b", "name": "constant.language.boolean.gritql" },
+        { "match": "\\bundefined\\b", "name": "constant.language.undefined.gritql" },
+        { "match": "\\b(?:Top|Bottom)\\b", "name": "constant.language.gritql" }
+      ]
+    },
+    "builtin-call": {
+      "match": "\\b(capitalize|distinct|join|length|log|lowercase|random|range|register_diagnostic|resolve|shuffle|spit|split|text|todo|trim|uppercase)\\s*(?=\\()",
+      "captures": { "1": { "name": "support.function.builtin.gritql" } }
+    },
+    "call": {
+      "comment": "Pattern/predicate/function calls and AST node patterns: foo(...), JsCallExpression(...), call_expression(...)",
+      "match": "\\b(?!(?:after|and|any|as|before|bubble|contains|else|engine|every|false|if|includes|language|like|limit|maybe|multifile|not|or|orelse|pattern|predicate|private|return|sequential|some|true|undefined|until|where|within)\\b)([A-Za-z_][A-Za-z0-9_]*)\\s*(?=\\()",
+      "captures": { "1": { "name": "entity.name.function.gritql" } }
+    },
+    "keyword": {
+      "patterns": [
+        { "match": "\\b(?:if|else)\\b", "name": "keyword.control.conditional.gritql" },
+        { "match": "\\breturn\\b", "name": "keyword.control.flow.gritql" },
+        {
+          "match": "\\b(?:where|until|limit|bubble|sequential|multifile)\\b",
+          "name": "keyword.control.gritql"
+        },
+        {
+          "match": "\\b(?:and|or|orelse|any|not|maybe|some|every|contains|within|after|before|includes|like|as)\\b",
+          "name": "keyword.operator.word.gritql"
+        },
+        { "match": "\\bprivate\\b", "name": "storage.modifier.gritql" },
+        { "match": "\\b(?:pattern|predicate|function)\\b", "name": "storage.type.function.gritql" },
+        { "match": "\\b(?:language|engine)\\b", "name": "keyword.control.directive.gritql" }
+      ]
+    },
+    "map-key": {
+      "match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\s*(:)",
+      "captures": {
+        "1": { "name": "support.type.property-name.gritql" },
+        "2": { "name": "punctuation.separator.key-value.gritql" }
+      }
+    },
+    "named-argument": {
+      "match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\s*(=)(?![=>])",
+      "captures": {
+        "1": { "name": "variable.parameter.gritql" },
+        "2": { "name": "keyword.operator.assignment.gritql" }
+      }
+    },
+    "property-access": {
+      "match": "(\\.)([A-Za-z_][A-Za-z0-9_]*)",
+      "captures": {
+        "1": { "name": "punctuation.accessor.gritql" },
+        "2": { "name": "variable.other.property.gritql" }
+      }
+    },
+    "operator": {
+      "patterns": [
+        { "match": "=>", "name": "keyword.operator.rewrite.gritql" },
+        { "match": "<:", "name": "keyword.operator.match.gritql" },
+        { "match": "\\+=", "name": "keyword.operator.assignment.compound.gritql" },
+        { "match": "==|!=|<=|>=|<|>", "name": "keyword.operator.comparison.gritql" },
+        { "match": "=", "name": "keyword.operator.assignment.gritql" },
+        { "match": "!", "name": "keyword.operator.logical.gritql" },
+        { "match": "\\.\\.\\.", "name": "keyword.operator.spread.gritql" },
+        { "match": "\\.", "name": "keyword.operator.gritql" },
+        { "match": "[-+*/%]", "name": "keyword.operator.arithmetic.gritql" }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        { "match": "\\{", "name": "punctuation.section.braces.begin.gritql" },
+        { "match": "\\}", "name": "punctuation.section.braces.end.gritql" },
+        { "match": "\\(", "name": "punctuation.section.parens.begin.gritql" },
+        { "match": "\\)", "name": "punctuation.section.parens.end.gritql" },
+        { "match": "\\[", "name": "punctuation.section.brackets.begin.gritql" },
+        { "match": "\\]", "name": "punctuation.section.brackets.end.gritql" },
+        { "match": ",", "name": "punctuation.separator.comma.gritql" },
+        { "match": ";", "name": "punctuation.terminator.statement.gritql" },
+        { "match": ":", "name": "punctuation.separator.key-value.gritql" }
+      ]
+    }
+  }
+}

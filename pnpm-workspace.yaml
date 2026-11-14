@@ -12,6 +12,7 @@ overrides:
   satteri: 0.10.5
 packages:
   - "scripts"
+  - "packages/*"
   - "./"
 supportedArchitectures:
   cpu:
