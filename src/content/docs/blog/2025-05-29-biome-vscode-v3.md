@@ -14,6 +14,7 @@ socialImage: "@/assets/social-logo.png"
 We're excited to announce that version 3 of the Biome VS Code extension is now
 available! This release includes a range of new features and improvements to
 make your development experience even better:
+
 - 🗄️ Support for multi-root workspaces
 - 📝 Support for single-file mode
 - 👻 Support for unsaved files

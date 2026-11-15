@@ -38,7 +38,6 @@ const obj = {
 };
 ```
 
-
 ## Prettierは計算プロパティでの代入で一貫性のない挙動を示します
 
 PrettierとBiomeは、特に条件文などで代入式を括弧で囲みます。
@@ -122,12 +121,12 @@ a.?.b!
 a.?.b!
 ```
 
-
 ## Prettierは無効な構文をフォーマットします
 
 JavaScriptおよびTypeScriptのためにPrettierで利用されているBabelパーサの解析は厳密なものではなく、[いくつかの構文エラーを無視](https://github.com/prettier/prettier/blob/e4a74c05f4502dd4ec70495c3130ff08ab088e05/src/language-js/parse/babel.js#L177-L218) することがあります。
 Biomeのパーサは、Prettierのパーサよりも厳密に構文を解析します。
 たとえば、以下の構文エラーを正確に識別します：
+
 - 関数には重複する修飾子を持つことはできません
 - プロパティの修飾子を無効な順序で指定することはできません
 - 関数宣言では関数の処理を定義することができません
@@ -277,7 +276,6 @@ class C {
 ```
 
 差分
-
 
 ```ts title="example.js" del={2} add={3}
 class C {

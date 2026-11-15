@@ -36,7 +36,6 @@ const obj = {
 };
 ```
 
-
 ## Prettier tiene un comportamiento inconsistente para la asignación en claves computadas
 
 Prettier y Biome encierran algunas expresiones de asignación entre paréntesis, particularmente en condicionales.
@@ -74,7 +73,6 @@ class C {
 Para ser coherentes, hemos decidido divergir y omitir los paréntesis.
 Alternativamente, podríamos encerrar cualquier asignación en una clave computada de un objeto o de una clase.
 
-
 ## Prettier añade una coma final a los parámetros de tipo de las funciones de flecha incluso cuando no es necesario
 
 En algunos casos específicos, una lista de parámetros de tipo de una función de flecha requiere una coma final para distinguirla de un elemento JSX.
@@ -93,7 +91,6 @@ Diff
 <T = unknown,>() => {};
 <T = unknown>() => {};
 ```
-
 
 ## Prettier tiene un comportamiento incoherente con las cadenas opcionales entre paréntesis no declaradas nulas
 
@@ -125,12 +122,12 @@ a.?.b!
 a.?.b!
 ```
 
-
 ## Prettier formatea sintaxis inválidas
 
 El análisis sintáctico basado en Babel de Prettier para JavaScript y TypeScript es muy laxo y [permite múltiples errores](https://github.com/prettier/prettier/blob/e4a74c05f4502dd4ec70495c3130ff08ab088e05/src/language-js/parse/babel.js#L177-L218) que sean ignorados.
 El analizador sintáctico de Biome es intencionadamente más estricto que el de Prettier.
 Identifica correctamente los siguientes errores de sintaxis:
+
 - Una función no puede tener modificadores duplicados
 - orden no válido de los modificadores de las propiedades
 - Las declaraciones de funciones no pueden tener cuerpos
@@ -282,7 +279,6 @@ class C {
 
 Diff
 
-
 ```ts title="example.js" del={2} add={3}
 class C {
   abstract f(): number;
@@ -312,7 +308,6 @@ function someFunctionName(
 ```
 
 Diff
-
 
 ```ts title="example.js" del={5} ins={6,7,8,9}
 function someFunctionName(

@@ -7,7 +7,6 @@ description: A list of the environment variables that configure Biome's behavior
 
 The following environment variables configure Biome and its npm package.
 
-
 ## `BIOME_DISTRIBUTION`
 
 Overrides the installation source detected by `biome upgrade`.

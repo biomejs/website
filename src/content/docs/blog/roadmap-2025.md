@@ -17,6 +17,7 @@ Today we're happy to share our plans for Biome 2.0 as well as the rest of our ro
 ## 🎆 Recap: Biome in 2024
 
 2024 was a great year for Biome. Let's see what happened:
+
 - We released 4 new "minor" Biome versions, from 1.6 through 1.9, with plenty of useful features:
   - New `biome search` and `biome explain` commands, while the `biome migrate` command was significantly expanded to help users coming from ESLint and Prettier.
   - Added support for **CSS** and **GraphQL** formatting and linting.
@@ -40,6 +41,7 @@ One more thing that we are happy to announce is that as of January 2025, we are 
 ## ⏭️ Biome 2.0
 
 Right now our team is busy preparing for the Biome 2.0 release. Because our project is still run by volunteer contributors, we do not have an ETA for you. But we can share some of the goodies that will be coming:
+
 - **Plugins**. A long-requested feature, we started the development of Biome plugins after an [RFC process](https://github.com/biomejs/biome/discussions/1762) that started in January 2024. Biome 2.0 will feature the first fruits of this labor: Users will be able to create their own lint rules using [GritQL](https://docs.grit.io/language/overview).
 - **Domains**. [Domains](https://github.com/biomejs/biome/blob/main/.changeset/introduce_the_domains_linter_feature.md) are a configuration feature that makes it easy for users to enable or disable all rules related to a specific domain, such as React, Next.js or testing frameworks. It also allows Biome to automatically enable recommended domain-specific rules based on the dependencies listed in your `package.json`.
 - **Monorepo Support**. While support for monorepos was already improved with our `extends` feature in `biome.json`, many weak spots remained. Biome 2.0 has an improved architecture based on an internal `ProjectLayout` that should resolve most of these.
@@ -51,6 +53,7 @@ Right now our team is busy preparing for the Biome 2.0 release. Because our proj
 Again, we should preface a disclaimer here: We're a community-driven project, so we cannot promise to deliver any of the features below. But that doesn't mean we don't have a wishlist of things we would like to work on in 2025 😉
 
 This year we will focus on:
+
 - [**HTML support**](https://github.com/biomejs/biome/issues/4726). No toolchain for the web is complete without it, and we're already working on it!
 - [**Embedded languages**](https://github.com/biomejs/biome/issues/3334). CSS or GraphQL snippets inside a template literal in a JavaScript file? JavaScript or CSS inside an HTML file? Biome should be able to handle these as well, and we'll try to make it happen. This should also lead to better support for **Astro**, **Svelte**, and **Vue** than we have today.
 - [**Type inference**](https://github.com/biomejs/biome/issues/3187). This was already a wish for 2024, and we're busy filling in the prerequisites such as multi-file analysis. There's even an [early proof-of-concept](https://github.com/biomejs/biome/pull/4911) for a `noFloatingPromises` rule. This year we want to ship a real version of `noFloatingPromises`, and hopefully dabble further into type inference.
@@ -64,6 +67,7 @@ This year we will focus on:
 We would like to thank our users and sponsors alike for their amazing support in 2024! Without you, this project would not be what it is today.
 
 Hopefully we can also count on your support for the coming year. If you would like to help out, you can:
+
 - [Become a contributor](https://github.com/biomejs/biome/blob/main/CONTRIBUTING.md). Please help us to build those features!
 - [Sponsor us](https://github.com/biomejs/biome/tree/main#funding). Ask your company to sponsor us: Biome is so fast that it can reduce your company's CI times, improve developer productivity, and save money. Sponsorships also create exposure for your company.
 - [Hire us](https://biomejs.dev/enterprise/). Is Biome missing anything that prevents your company from adopting it? You can make it happen by hiring us! Any company that hires a contributor to work on Biome for 3 months or more automatically applies for sponsorship benefits.

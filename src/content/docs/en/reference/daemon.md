@@ -748,5 +748,4 @@ interface DropPatternParams {
 
 Returns `void`.
 
-
 [//]: # "End-custom-methods"

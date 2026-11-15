@@ -40,7 +40,6 @@ const obj = {
 };
 ```
 
-
 ## Prettier has an inconsistent behavior for assignment in computed keys.
 
 Prettier and Biome enclose some assignment expressions between parentheses, particularly in conditionals.
@@ -78,7 +77,6 @@ class C {
 To be consistent, we decided to diverge and omit the parentheses.
 Alternatively, we could enclose any assignment in a computed key of an object or of a class.
 
-
 ## Prettier adds a trailing comma to type parameters of arrow functions even when it is not required.
 
 In some specific cases, a type parameter list of an arrow function requires a trailing comma to distinguish it from a JSX element.
@@ -97,7 +95,6 @@ Diff
 <T = unknown,>() => {};
 <T = unknown>() => {};
 ```
-
 
 ## Prettier has an inconsistent behavior for parenthesized non-null-asserted optional chains
 
@@ -130,12 +127,12 @@ a.?.b!
 a.?.b!
 ```
 
-
 ## Prettier formats invalid syntaxes
 
 Prettier's Babel-based parsing for JavaScript and TypeScript is very loose and [allows multiple errors](https://github.com/prettier/prettier/blob/e4a74c05f4502dd4ec70495c3130ff08ab088e05/src/language-js/parse/babel.js#L177-L218) to be ignored.
 Biome's parser is intentionally stricter than the Prettier parser.
 It correctly identifies the following syntax errors:
+
 - A function cannot have duplicate modifiers
 - invalid order of properties' modifiers
 - Function declarations are not allowed to have bodies

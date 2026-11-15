@@ -36,6 +36,7 @@ Merit of challenge that was launched by [Christopher Chedeau](http://blog.vjeux.
 The challenge attracted the attention of many people, and some of them decided to contribute to Biome to claim part of the bounty. I did see something amazing: contributors had an amazing coordination, they took ownership of the tasks and delivered the solution in a matter of hours.
 
 I believe the main factors that made this possible are three:
+
 1. Money. It's a fact, and it's completely fine if someone decides to contribute only for earning a small stipend out of it.
 2. Communication. We used [GitHub](https://github.com/biomejs/biome/issues/720) as only medium of coordination. We provided information, instructions and help on how to deliver.
 3. Infrastructure. Biome relies on a solid testing infrastructure, built by [previous](https://github.com/MichaReiser) Rome Tools [employees](https://github.com/ematipico) and [contributors](https://github.com/IWANABETHATGUY/). It's able to catch every reformat bug, provide granular diffs and warn the user if the emitted output is the different from the one emitted by Prettier.
@@ -57,6 +58,7 @@ If there's a divergence that isn't documented in our website, you should conside
 #### New formatting options
 
 With this challenge, we added new options to the formatter:
+
 - [`lineEnding`](/reference/configuration#formatterlineending)
 
   Use this option to match the line endings of your OS. We support `lf` (line feed - `\n`), `cr` (carriage return -
@@ -383,17 +385,20 @@ The rule is replaced by [correctness/noInvalidNewBuiltin](/linter/rules/no-inval
 Since Biome was forked, new people joined the project. They have been helping with in so many ways that you can't even imagine: new features, side projects, engaging with the community, support, documentation, and more. OSS is not just about coding.
 
 Thank you to:
+
 - [Madeline Gurriarán @SuperchupuDev](https://github.com/SuperchupuDev)
 - [Nicolas Hedger @nhedger](https://github.com/nhedger)
 - [Victor Teles @victor-teles](https://github.com/victor-teles)
 
 And a big welcome to our new joined maintainer:
+
 - [Jon Egeland @faultyserver](https://github.com/faultyserver)
 - [Takayuki Maeda @TaKO8Ki](https://github.com/TaKO8Ki)
 
 ## New sponsors
 
 Last but not least, we are proud to announce that we have two new sponsors:
+
 - Gold: Shiguredō (https://shiguredo.jp/)
 - Bronze: KANAME (https://www.kanamekey.com/)
 
@@ -404,6 +409,7 @@ If you want to economically contribute to the project and help it to ship more f
 The project is thriving, with more people curious about the project and contributors that want to be involved.
 
 In the next months we will focus on:
+
 - Publishing a Roadmap. **Keep an eye on it**, it will involve a lot of **interesting** work.
 - Rebranding the website with a new logo.
 - Translate the website in Japanese.

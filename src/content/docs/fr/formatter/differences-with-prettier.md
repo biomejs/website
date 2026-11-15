@@ -36,7 +36,6 @@ const obj = {
 };
 ```
 
-
 ## Prettier a un comportement incohérent pour l’assignation dans les clés calculées
 
 Prettier et Biome entourent de parenthèses certaines expressions d’assignation, en particulier dans les expressions conditionnelles,
@@ -74,7 +73,6 @@ class C {
 Pour être cohérents, nous avons décidé de diverger et d’omettre les parenthèses.
 Ou bien nous pourrions entourer de parenthèses toute assignation dans une clé calculée d’un objet ou d’une classe.
 
-
 ## Prettier ajoute une virgule de fin aux paramètres de type des fonctions fléchées, même quand ce n’est pas obligatoire
 
 Dans certains cas spécifiques, une liste de paramètres de type d’une fonction fléchée requiert une virgule de fin pour la distinguer d’un élément JSX.
@@ -93,7 +91,6 @@ Diff
 <T = unknown,>() => {};
 <T = unknown>() => {};
 ```
-
 
 ## Prettier a un comportement incohérent pour les chaînes facultatives non nulles entre parenthèses
 
@@ -126,12 +123,12 @@ a.?.b!
 a.?.b!
 ```
 
-
 ## Prettier formate des syntaxes invalides
 
 L’analyseur de Prettier basé sur Babel pour JavaScript et TypeScript est très permissif et [permet à de multiples erreurs](https://github.com/prettier/prettier/blob/e4a74c05f4502dd4ec70495c3130ff08ab088e05/src/language-js/parse/babel.js#L177-L218) d’être ignorées.
 L’analyseur de Biome est intentionnellement plus strict que celui de Prettier.
 Il identifie correctement les erreurs de syntaxe suivantes&nbsp;:
+
 - une fonction ne peut avoir de modificateurs en doublon,
 - un ordre invalide des modificateurs de propriétés,
 - les déclarations de fonction ne sont pas autorisées à avoir un corps,
@@ -283,7 +280,6 @@ class C {
 
 Diff
 
-
 ```ts title="example.js" del={2} add={3}
 class C {
   abstract f(): number;
@@ -313,7 +309,6 @@ function someFunctionName(
 ```
 
 Diff
-
 
 ```ts title="example.js" del={5} ins={6,7,8,9}
 function someFunctionName(
