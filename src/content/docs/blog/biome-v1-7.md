@@ -243,6 +243,7 @@ Since _Biome
 v1.6_, we added several new rules. New rules are incubated in the nursery group. Nursery rules are exempt from semantic versioning.
 
 The new rules are:
+
 - [nursery/noConstantMathMinMaxClamp](/linter/rules/no-constant-math-min-max-clamp/)
 - [nursery/noDoneCallback](/linter/rules/no-done-callback/)
 - [nursery/noDuplicateElseIf](/linter/rules/no-duplicate-else-if/)
@@ -253,6 +254,7 @@ The new rules are:
 ### Promoted rules
 
 Once stable, a nursery rule is promoted to a stable group. The following rules are promoted:
+
 - [complexity/noExcessiveNestedTestSuites](/linter/rules/no-excessive-nested-test-suites)
 - [complexity/noUselessTernary](/linter/rules/no-useless-ternary/)
 - [correctness/useJsxKeyInIterable](/linter/rules/use-jsx-key-in-iterable/)

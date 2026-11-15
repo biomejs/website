@@ -36,7 +36,6 @@ const obj = {
 };
 ```
 
-
 ## Prettier ma niespójne zachowanie dla przypisań w obliczanych kluczach.
 
 Prettier i Biome otaczają niektóre wyrażenia przypisania nawiasami, szczególnie w warunkach.
@@ -74,7 +73,6 @@ class C {
 Aby być spójnymi, zdecydowaliśmy się rozejść i pominąć nawiasy.
 Alternatywnie moglibyśmy otoczyć dowolne przypisanie w obliczanym kluczu obiektu lub klasy.
 
-
 ## Prettier dodaje końcowy przecinek do parametrów typu funkcji strzałkowych, nawet gdy nie jest to wymagane.
 
 W niektórych szczególnych przypadkach lista parametrów typu funkcji strzałkowej wymaga końcowego przecinka, aby odróżnić ją od elementu JSX.
@@ -93,7 +91,6 @@ Różnica
 <T = unknown,>() => {};
 <T = unknown>() => {};
 ```
-
 
 ## Prettier ma niespójne zachowanie dla nawiasowanych łańcuchów opcjonalnych z asercją nie-null
 
@@ -126,12 +123,12 @@ a.?.b!
 a.?.b!
 ```
 
-
 ## Prettier formatuje nieprawidłowe składnie
 
 Parsowanie oparte na Babel w Prettier dla JavaScript i TypeScript jest bardzo luźne i [pozwala ignorować wiele błędów](https://github.com/prettier/prettier/blob/e4a74c05f4502dd4ec70495c3130ff08ab088e05/src/language-js/parse/babel.js#L177-L218).
 Parser Biome jest celowo bardziej restrykcyjny niż parser Prettier.
 Poprawnie identyfikuje następujące błędy składniowe:
+
 - Funkcja nie może mieć duplikatów modyfikatorów
 - nieprawidłowa kolejność modyfikatorów właściwości
 - Deklaracje funkcji nie mogą mieć ciał
@@ -283,7 +280,6 @@ class C {
 
 Różnica
 
-
 ```ts title="example.js" del={2} add={3}
 class C {
   abstract f(): number;
@@ -313,7 +309,6 @@ function someFunctionName(
 ```
 
 Różnica
-
 
 ```ts title="example.js" del={5} ins={6,7,8,9}
 function someFunctionName(

@@ -55,6 +55,7 @@ Later last year, we announced the experimental full support of Vue, Svelte, and 
 ## 2026 roadmap
 
 I can't stress enough that Biome is a community-driven project, all the features we want to implement are driven by our passions and needs. We can't promise that all of these features will be implemented. Alas, we will try our best to stay aligned and deliver what's listed below.
+
 - **JavaScript embedded languages**: improve the DX of the embedded languages in JavaScript, such as CSS and GraphQL.
 - **Stabilize everything around HTML**
   - Improve HTML formatting so that its formatting matches Prettier's as much as possible.

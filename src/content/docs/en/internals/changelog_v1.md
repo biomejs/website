@@ -215,6 +215,7 @@ New entries must be placed in a section entitled
 - [useNamingConvention](https://biomejs.dev/linter/rules/use-naming-convention/) now allows configuring conventions for readonly index signatures.
 
 Contributed by @sepruko
+
 - [noDuplicateCustomProperties](https://biomejs.dev/linter/rules/no-duplicate-custom-properties/) now correctly handles custom properties and ignores non-custom properties. Previously, the rule incorrectly reported duplicates for all properties, including non-custom ones. Contributed by @togami2864
 
 ### Parser
@@ -842,6 +843,7 @@ Contributed by @sepruko
 New rules are incubated in the nursery group. Once stable, we promote them to a stable group.
 
 The following CSS rules are promoted:
+
 - [a11y/useGenericFontNames](https://biomejs.dev/linter/rules/use-generic-font-names/)
 - [correctness/noInvalidDirectionInLinearGradient](https://biomejs.dev/linter/rules/no-invalid-direction-in-linear-gradient/)
 - [correctness/noInvalidGridAreas](https://biomejs.dev/linter/rules/no-invalid-grid-areas/)
@@ -859,6 +861,7 @@ The following CSS rules are promoted:
 - [suspicious/noShorthandPropertyOverrides](https://biomejs.dev/linter/rules/no-shorthand-property-overrides/)
 
 The following JavaScript rules are promoted:
+
 - [a11y/noLabelWithoutControl](https://biomejs.dev/linter/rules/no-label-without-control/)
 - [a11y/useFocusableInteractive](https://biomejs.dev/linter/rules/use-focusable-interactive/)
 - [a11y/useSemanticElements](https://biomejs.dev/linter/rules/use-semantic-elements/)
@@ -1833,6 +1836,7 @@ The following JavaScript rules are promoted:
 #### Promoted rules
 
 New rules are incubated in the nursery group. Once stable, we promote them to a stable group. The following rules are promoted:
+
 - [useImportRestrictions](https://biomejs.dev/linter/rules/use-import-restrictions/)
 - [noNodejsModules](https://biomejs.dev/linter/rules/no-nodejs-modules/)
 - [useArrayLiterals](https://biomejs.dev/linter/rules/use-array-literals/)
@@ -2642,7 +2646,7 @@ z.object({})
 
 - Biome extension is now able to parse the JSX syntax in files that associated with the
   `javascript` [language identifier](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocumentItem). This is an ad hoc fix, because [in the React world,
-  `.js` files are allowed to include JSX syntax](https://github.com/facebook/create-react-app/issues/87#issuecomment-234627904), and these files are often associated with the
+`.js` files are allowed to include JSX syntax](https://github.com/facebook/create-react-app/issues/87#issuecomment-234627904), and these files are often associated with the
   `javascript` language identifier in most of the editors. Plus, [some editor extensions](https://github.com/michaelgmcd/vscode-language-babel/blob/8b3a472748ad07c99dc022b66795c9eb46be4ccb/package.json#L63-L80) will also associate
   `.jsx` files with the
   `javascript` language identifier. Relative links: [discussion](https://github.com/biomejs/biome/discussions/838#discussioncomment-9047539), [#2085](https://github.com/biomejs/biome/issues/2085). Contributed by @Sec-ant
@@ -2660,6 +2664,7 @@ z.object({})
 #### Promoted rules
 
 New rules are incubated in the nursery group. Once stable, we promote them to a stable group. The following rules are promoted:
+
 - [complecity/noExcessiveNestedTestSuites](https://biomejs.dev/linter/rules/no-excessive-nested-test-suites)
 - [complexity/noUselessTernary](https://biomejs.dev/linter/rules/no-useless-ternary)
 - [correctness/useJsxKeyInIterable](https://biomejs.dev/linter/rules/use-jsx-key-in-iterable)
@@ -3371,6 +3376,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 #### Promoted rules
 
 New rules are incubated in the nursery group. Once stable, we promote them to a stable group. The following rules are promoted:
+
 - [complexity/noEmptyTypeParameters](https://biomejs.dev/linter/rules/no-empty-type-parameters)
 - [complexity/noUselessLoneBlockStatements](https://biomejs.dev/linter/rules/no-useless-lone-block-statements)
 - [correctness/noInvalidUseBeforeDeclaration](https://biomejs.dev/linter/rules/no-invalid-use-before-declaration)
@@ -3392,6 +3398,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 - [suspicious/useAwait](https://biomejs.dev/linter/rules/use-await)
 
 Additionally, the following rules are now recommended:
+
 - [suspicious/noApproximativeNumericConstant](https://biomejs.dev/linter/rules/no-approximative-numeric-constant)
 - [suspicious/noMisrefactoredShorthandAssign](https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign)
 
@@ -3781,6 +3788,7 @@ Additionally, the following rules are now recommended:
 
 Fix [#1575](https://github.com/biomejs/biome/issues/1575). [noArrayIndexKey](https://biomejs.dev/linter/rules/no-array-index-key/)
 now captures array index value inside template literals and with string concatenation. Contributed by @vasucp1207
+
 - Linter rules that inspect regexes now handle multibyte characters correctly ([#1522](https://github.com/biomejs/biome/issues/1522)).
 
   Previously, [noMisleadingCharacterClass](https://biomejs.dev/linter/no-misleading-character-class), [noMultipleSpacesInRegularExpressionLiterals](https://biomejs.dev/linter/no-multiple-spaces-in-regular-expression-literals), and [noEmptyCharacterClassInRegex](https://biomejs.dev/linter/no-empty-character-class-in-regex) made Biome errors on multi-bytes characters. Multibyte characters are now handled correctly.
@@ -3978,6 +3986,7 @@ now captures array index value inside template literals and with string concaten
 
 Fix [#1335](https://github.com/biomejs/biome/issues/1335). [noUselessFragments](https://biomejs.dev/linter/rules/no-useless-fragments/)
 now ignores code action on component props when the fragment is empty. Contributed by @vasucp1207
+
 - [useConsistentArrayType](https://biomejs.dev/linter/rules/use-consistent-array-type) was accidentally placed in the
   `style` rule group instead of the `nursery` group. It is now correctly placed under `nursery`.
 
@@ -4151,6 +4160,7 @@ Biome now scores 97% compatibility with Prettier and features more than 180 lint
 #### Promoted rules
 
 New rules are incubated in the nursery group. Once stable, we promote them to a stable group. The following rules are promoted:
+
 - [a11y/noAriaHiddenOnFocusable](https://www.biomejs.dev/linter/rules/no-aria-hidden-on-focusable)
 - [a11y/useValidAriaRole](https://www.biomejs.dev/linter/rules/use-valid-aria-role)
 - [complexity/useRegexLiterals](https://www.biomejs.dev/linter/rules/use-regex-literals)
@@ -4308,6 +4318,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 - `<svg>` element is now considered as a non-interactive HTML element ([#1095](https://github.com/biomejs/biome/issues/1095)). Contributed by @chansuke
 
 This affects the following rules: - [noAriaHiddenOnFocusable](https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable) - [noInteractiveElementToNoninteractiveRole](https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role) - [noNoninteractiveElementToInteractiveRole](https://biomejs.dev/linter/rules/no-noninteractive-element-to-interactive-role) - [noNoninteractiveTabindex](https://biomejs.dev/linter/rules/no-noninteractive-tabindex) - [useAriaActivedescendantWithTabindex](https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex)
+
 - [noMultipleSpacesInRegularExpressionLiterals](https://biomejs.dev/linter/rules/no-multiple-spaces-in-regular-expression-literals/)
   has a safe code fix. Contributed by @Conaclos
 
@@ -4452,6 +4463,7 @@ It now proposes a fix that adds the needed parentheses:
 
 Fix [#696](https://github.com/biomejs/biome/issues/696). [useHookAtTopLevel](https://biomejs.dev/linter/rules/use-hook-at-top-level)
 now correctly detects early returns before the calls to the hook.
+
 - The code fix of [noUselessTypeCOnstraint](https://biomejs.dev/linter/rules/no-useless-type-constraint) now adds a trailing comma when needed to disambiguate a type parameter list from a JSX element. COntributed by @Conaclos
 
 -
@@ -4583,6 +4595,7 @@ now ignores `<svg>` element with `aria-hidden="true"`. COntributed by @vasucp120
 
 Fix [#918](https://github.com/biomejs/biome/issues/918). [useSimpleNumberKeys](https://biomejs.dev/linter/rules/use-simple-number-keys)
 no longer reports false positive on comments. Contributed by @kalleep
+
 - Fix [#953](https://github.com/biomejs/biome/issues/953). [noRedeclare](https://biomejs.dev/linter/rules/no-redeclare)
   no longer reports type parameters with the same name in different mapped types as redeclarations. Contributed by @Conaclos
 
@@ -4658,11 +4671,13 @@ no longer reports missing dependencies for React hooks without dependency array.
 - [suspicious/noMisrefactoredShorthandAssign](https://biomejs.dev/linter/rules/no-misrefactored-shorthand-assign)
 
 The following rules are now recommended:
+
 - [a11y/noAccessKey](https://biomejs.dev/linter/rules/no-access-key)
 - [a11y/useHeadingContent](https://biomejs.dev/linter/rules/use-heading-content)
 - [complexity/useSimpleNumberKeys](https://biomejs.dev/linter/rules/use-simple-number-keys)
 
 The following rules are now deprecated:
+
 - [correctness/noNewSymbol](https://biomejs.dev/linter/rules/no-new-symbol)
   The rule is replaced by [correctness/noInvalidNewBuiltin](https://biomejs.dev/linter/rules/no-invalid-new-builtin)
 
@@ -4698,6 +4713,7 @@ The following rules are now deprecated:
 
 Fix [#653](https://github.com/biomejs/biome/issues/653). [noUnusedImports](https://biomejs.dev/linter/rules/no-unused-imports)
 now correctly removes the entire line where the unused `import` is. Contributed by @Conaclos
+
 - Fix [#607](https://github.com/biomejs/biome/issues/609)
   `useExhaustiveDependencies`, ignore optional chaining, Contributed by @msdlisper
 
@@ -4714,6 +4730,7 @@ now correctly keeps type annotations when the initialization expression is `null
 
 Fix [#784](https://github.com/biomejs/biome/issues/784), [noSvgWithoutTitle](https://biomejs.dev/linter/rules/no-svg-without-title)
 fixes false-positives to `aria-label` and reports svg's role attribute is implicit. Contributed by @unvalley
+
 - Fix [#834](https://github.com/biomejs/biome/issues/834) that made [noUselessLoneBlockStatements](https://biomejs.dev/linter/rules/no-useless-lone-block-statements) reports block statements of switch clauses. Contributed by @vasucp1207
 
 - Fix [#783](https://github.com/biomejs/biome/issues/834) that made [noUselessLoneBlockStatements](https://biomejs.dev/linter/rules/no-useless-lone-block-statements) reports block statements of
@@ -4874,7 +4891,7 @@ fixes false-positives to `aria-label` and reports svg's role attribute is implic
   `check --apply-unsafe`.
 
 - Import sorting now handles Bun imports `bun:<name>`, absolute path imports `/<path>`, and [Node's subpath imports
-  `#<name>`](https://nodejs.org/api/packages.html#subpath-imports). See [our documentation](https://biomejs.dev/analyzer/) for more details. Contributed by @Conaclos
+`#<name>`](https://nodejs.org/api/packages.html#subpath-imports). See [our documentation](https://biomejs.dev/analyzer/) for more details. Contributed by @Conaclos
 
 ### CLI
 
@@ -5045,6 +5062,7 @@ fixes false-positives to `aria-label` and reports svg's role attribute is implic
 - [suspicious/useIsArray](https://biomejs.dev/linter/rules/use-is-array)
 
 The following rules are now recommended:
+
 - [noAccumulatingSpread](https://biomejs.dev/linter/rules/)
 - [noConfusingVoidType](https://biomejs.dev/linter/rules/no-confusing-void-type)
 - [noFallthroughSwitchClause](https://biomejs.dev/linter/rules/no-fallthrough-switch-clause)
@@ -5079,6 +5097,7 @@ The following rules are now recommended:
 
 Add [noInteractiveElementToNoninteractiveRole](https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role)
 rule. The rule enforces the non-interactive ARIA roles are not assigned to interactive HTML elements. Contributed by @nissy-dev
+
 - Add [useAriaActivedescendantWithTabindex](https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex)
   rule. The rule enforces that `tabIndex` is assigned to non-interactive HTML elements with
   `aria-activedescendant`. Contributed by @nissy-dev
@@ -5138,6 +5157,7 @@ now provides correct code fixes when consecutive spaces are followed by a quanti
 
 Fix [#397](https://github.com/biomejs/biome/issues/397). [useNumericLiterals](https://biomejs.dev/linter/rules/use-numeric-literals)
 now provides correct code fixes for signed numbers. Contributed by @Conaclos
+
 - Fix [452](https://github.com/biomejs/biome/pull/452). The linter panicked when it met a malformed regex (a regex not ending with a slash).
 
 - Fix [#104](https://github.com/biomejs/biome/issues/104). We now correctly handle types and values with the same name.
@@ -5223,6 +5243,7 @@ now provides correct code fixes for signed numbers. Contributed by @Conaclos
 #### Promoted rules
 
 New rules are incubated in the nursery group. Once stable, we promote them to a stable group. The following rules are promoted:
+
 - [a11y/noAriaUnsupportedElements](https://www.biomejs.dev/linter/rules/no-aria-unsupported-elements/)
 - [a11y/noNoninteractiveTabindex](https://www.biomejs.dev/linter/rules/no-noninteractive-tabindex/)
 - [a11y/noRedundantRoles](https://www.biomejs.dev/linter/rules/no-redundant-roles/)
@@ -5802,6 +5823,7 @@ New rules are incubated in the nursery group. Once stable, we promote them to a 
 #### Promoted rules
 
 New rules are promoted, please check [#4750](https://github.com/rome/tools/discussions/4750) for more details:
+
 - [a11y/useHeadingContent](https://biomejs.dev/linter/rules/use-heading-content/)
 - [complexity/noForEach](https://biomejs.dev/linter/rules/no-for-each/)
 - [complexity/useLiteralKeys](https://biomejs.dev/linter/rules/use-literal-keys/)
@@ -5813,6 +5835,7 @@ New rules are promoted, please check [#4750](https://github.com/rome/tools/discu
 The following rules are now recommended:
 
 \*\*- [noUselessFragments](https://biomejs.dev/linter/rules/no-useless-fragments/)
+
 - [noRedundantUseStrict](https://biomejs.dev/linter/rules/no-redundant-use-strict/)
 - [useExponentiationOperator](https://biomejs.dev/linter/rules/use-exponentiation-operator/)\*\*
 

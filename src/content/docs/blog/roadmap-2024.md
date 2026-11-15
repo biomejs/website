@@ -17,6 +17,7 @@ We are thrilled to share what the Core Contributors and Maintainers would like t
 We want to remind you that Biome is a community-driven project, so we can only promise that some of the ideas outlined below will be shipped.
 
 However, if you're excited about some aspects of the project, and you want to see some of them developed faster than others, you can help us in many ways:
+
 - [**Be involved in the project and the community**](https://github.com/biomejs). Please help us to build those features.
 - [**Sponsor us**](https://opencollective.com/biome). Ask your company to sponsor us. Biome is so fast that it can reduce your company's CI times and save money. Performance is part of our mission. Plus, sponsorship is a good medium of
   _advertisement_ for your company.
@@ -76,6 +77,7 @@ With project resolution, we will be able to provide more lint rules, some of whi
 With dependency resolution, we can - for example - detect dependencies that aren't used inside a project.
 
 With this infrastructure, our LSP is going to be more powerful and provide more features, for example:
+
 - rename variables across a project;
 - auto-complete for imports;
 - in-line types
@@ -91,6 +93,7 @@ Once we have something we can rely on, we can slowly widen the capabilities of o
 ### CLI
 
 More features for the command line tool, such as:
+
 - Add the `explain` command for offline documentation;
 - Allow the output to be exported in different formats (JSON, etc.)
 - Auto-completion for other shells such as `zsh`;
@@ -104,6 +107,7 @@ We will explore plugins and come up with a design that fits Biome. Biome is diff
 We don't know yet what a Biome's plugin will look like, although a plugin should be able to tap all the tools that Biome offers.
 
 Some ideas that we will consider:
+
 - DSL
 - WASM
 - A Runtime
