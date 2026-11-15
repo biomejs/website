@@ -1,0 +1,128 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useValidNamespaceImports (JavaScript)
+description: JavaScript (and super languages) documentation for useValidNamespaceImports
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-valid-namespace-imports/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Rule available since: `v2.6.8`
+- Diagnostic Category: [`lint/nursery/useValidNamespaceImports`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`project`](/linter/domains#project)
+- Sources: 
+  - Same as [`import/namespace`](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/namespace.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useValidNamespaceImports": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require that names read from a namespace import are exported by the imported module.
+
+A namespace import, such as `import * as utils from "./utils.js"`, puts every export of a
+module into one object. Reading a name that the module doesn't export gives `undefined`,
+which usually means the name has a typo, or the export was renamed or removed.
+
+This rule reports:
+
+- reading a name from a namespace import that the imported module doesn't export,
+including names read through destructuring, such as `const { name } = utils`, and
+JSX elements, such as `<Components.Button />`;
+- assigning a value to a member of a namespace import, which throws an error at runtime
+because namespace imports are read-only;
+- namespace imports and `export * as name from` statements of a module that has no exports.
+
+The rule also follows namespaces that a module exports, such as
+`export * as helpers from "./helpers.js"`, so `utils.helpers.missing` is checked as well.
+
+The rule only checks modules that use `import` or `export` statements. It skips CommonJS
+modules and TypeScript modules that use `export =`, because their exports can't be
+determined reliably.
+
+Note that if you use TypeScript, you probably don't need this rule, since TypeScript
+already reports these mistakes.
+
+## Examples
+
+### Invalid
+
+```js title='utils.js'
+export const add = (a, b) => a + b;
+```
+
+```js title='invalid-read.js'
+import * as utils from "./utils.js";
+
+utils.subtract(2, 1);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-read.js\">/invalid-read.js</a>:3:7 <a href=\"https://biomejs.dev/linter/rules/use-valid-namespace-imports\">lint/nursery/useValidNamespaceImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The namespace </span><span style=\"color: Tomato;\"><strong>utils</strong></span><span style=\"color: Tomato;\"> has no export named </span><span style=\"color: Tomato;\"><strong>subtract</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>1 │ </strong>import &#42; as utils from &quot;./utils.js&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>utils.subtract(2, 1);<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Reading a name that a module doesn't export gives </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Check the spelling of the name, or export it from the module.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js title='invalid-destructuring.js'
+import * as utils from "./utils.js";
+
+const { subtract } = utils;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-destructuring.js\">/invalid-destructuring.js</a>:3:9 <a href=\"https://biomejs.dev/linter/rules/use-valid-namespace-imports\">lint/nursery/useValidNamespaceImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The namespace </span><span style=\"color: Tomato;\"><strong>utils</strong></span><span style=\"color: Tomato;\"> has no export named </span><span style=\"color: Tomato;\"><strong>subtract</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>1 │ </strong>import &#42; as utils from &quot;./utils.js&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>const &#123; subtract &#125; = utils;<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Reading a name that a module doesn't export gives </span><span style=\"color: lightgreen;\"><strong>undefined</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Check the spelling of the name, or export it from the module.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js title='invalid-assignment.js'
+import * as utils from "./utils.js";
+
+utils.add = () => 0;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-assignment.js\">/invalid-assignment.js</a>:3:1 <a href=\"https://biomejs.dev/linter/rules/use-valid-namespace-imports\">lint/nursery/useValidNamespaceImports</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">The members of the namespace </span><span style=\"color: Tomato;\"><strong>utils</strong></span><span style=\"color: Tomato;\"> can't be reassigned.</span><br />  <br />    <strong>1 │ </strong>import &#42; as utils from &quot;./utils.js&quot;;<br />    <strong>2 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>utils.add = () =&gt; 0;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Namespace imports are read-only, so this assignment throws an error at runtime.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To change a value that a module exports, export a function from that module that changes it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js title='utils.js'
+export const add = (a, b) => a + b;
+```
+
+```js title='valid.js'
+import * as utils from "./utils.js";
+
+utils.add(2, 1);
+const { add } = utils;
+```
+
+## See Also
+
+- If you want to report imports of names that a module doesn't export, see [`noUnresolvedImports`](https://biomejs.dev/linter/rules/no-unresolved-imports/).
+- If you want to report reading a namespace import with a computed key, such as `utils[name]`, see [`noDynamicNamespaceImportAccess`](https://biomejs.dev/linter/rules/no-dynamic-namespace-import-access/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_valid_namespace_imports.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useValidNamespaceImports)
+- <RulePlaygroundLink rule="useValidNamespaceImports" category="lint" language="js" code={"import * as utils from \"./utils.js\";\n\nutils.subtract(2, 1);\n"} />
+

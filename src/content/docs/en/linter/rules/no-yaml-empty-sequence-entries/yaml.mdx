@@ -1,0 +1,88 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noYamlEmptySequenceEntries (YAML)
+description: YAML documentation for noYamlEmptySequenceEntries
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="yaml" languages={[{"id":"yaml","label":"YAML","href":"/linter/rules/no-yaml-empty-sequence-entries/yaml/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.8`
+- Diagnostic Category: [`lint/nursery/noYamlEmptySequenceEntries`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Same as [`yml/no-empty-sequence-entry`](https://ota-meshi.github.io/eslint-plugin-yml/rules/no-empty-sequence-entry.html)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noYamlEmptySequenceEntries": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow empty items in YAML lists.
+
+In YAML, each item of a list written on separate lines starts with a `-`.
+A `-` with nothing after it adds an item with no value, which YAML reads as `null`.
+This usually happens by mistake, when a value is forgotten or a `-` is left behind.
+
+An item that has only a tag (such as `!!str`) or an anchor (such as `&name`), and no value, is also empty.
+
+If the item is meant to have no value, write `null` or `~` to make that clear.
+
+## Examples
+
+### Invalid
+
+```yaml
+fruits:
+  - apple
+  -
+  - banana
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:3:3 <a href=\"https://biomejs.dev/linter/rules/no-yaml-empty-sequence-entries\">lint/nursery/noYamlEmptySequenceEntries</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This list item is empty.</span><br />  <br />    <strong>1 │ </strong>fruits:<br />    <strong>2 │ </strong>  - apple<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  -<br />   <strong>   │ </strong>  <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>  - banana<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">An item with no value is read as </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\">, and is often left by mistake.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add a value to the item, or remove the item. If the item is meant to have no value, write </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```yaml
+- &item
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:1:1 <a href=\"https://biomejs.dev/linter/rules/no-yaml-empty-sequence-entries\">lint/nursery/noYamlEmptySequenceEntries</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This list item is empty.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>- &amp;item<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">An item with no value is read as </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\">, and is often left by mistake.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add a value to the item, or remove the item. If the item is meant to have no value, write </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```yaml
+fruits:
+  - apple
+  - banana
+  - null
+  - ~
+empty: []
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_yaml_analyze/src/lint/nursery/no_yaml_empty_sequence_entries.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_yaml_analyze/tests/specs/nursery/noYamlEmptySequenceEntries)
+- <RulePlaygroundLink rule="noYamlEmptySequenceEntries" category="lint" language="yaml" code={"fruits:\n  - apple\n  -\n  - banana\n"} />
+

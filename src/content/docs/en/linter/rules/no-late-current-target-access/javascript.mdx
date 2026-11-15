@@ -1,0 +1,114 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noLateCurrentTargetAccess (JavaScript)
+description: JavaScript (and super languages) documentation for noLateCurrentTargetAccess
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-late-current-target-access/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.8`
+- Diagnostic Category: [`lint/nursery/noLateCurrentTargetAccess`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- Sources: 
+  - Inspired from [`unicorn/no-late-current-target-access`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-late-current-target-access.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noLateCurrentTargetAccess": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow reading `event.currentTarget` after the browser has finished handling the event.
+
+`event.currentTarget` is the element that the event handler was added to. The browser
+only sets it while it runs the event handlers for the event, one after another. When a
+handler pauses, the browser moves on without waiting for it and resets `currentTarget`
+to `null`. Reading `currentTarget` afterwards gives `null` instead of the element.
+
+Code in a handler reads `currentTarget` too late in these cases:
+
+- The code comes after an `await`, a `yield`, or a `for await` loop in the handler.
+- The code is in a function nested inside the handler, such as a `setTimeout()` or `.then()` callback. The nested function can run after the handler has finished.
+
+Save `event.currentTarget` to a variable before the handler pauses, and use that variable instead.
+
+The rule checks a function parameter whose name looks like an event, such as `e`,
+`event`, `evt`, or a camelCase name ending with `Event` like `clickEvent`. In TypeScript,
+it also checks parameters with an event type, such as `MouseEvent` or React's
+`SyntheticEvent`, and ignores parameters with a type that isn't an event, such as `string`.
+
+The rule has these limitations:
+
+- Every `currentTarget` read inside a nested function is reported, even when the nested function runs right away, like the callback of `array.map()`. Save `currentTarget` to a variable in the handler to make it clear that it's read in time.
+- The rule doesn't follow the order in which code runs. A read is reported when an `await` appears earlier in the handler, even if the `await` is in a branch that never runs together with the read.
+- When the event is passed to another function, reads inside that function are not checked.
+
+## Examples
+
+### Invalid
+
+```js
+element.addEventListener("click", async (event) => {
+    await save();
+    event.currentTarget.disabled = false;
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:5 <a href=\"https://biomejs.dev/linter/rules/no-late-current-target-access\">lint/nursery/noLateCurrentTargetAccess</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\"><strong>event.currentTarget</strong></span><span style=\"color: Orange;\"> is read after the event handler pauses.</span><br />  <br />    <strong>1 │ </strong>element.addEventListener(&quot;click&quot;, async (event) =&gt; &#123;<br />    <strong>2 │ </strong>    await save();<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    event.currentTarget.disabled = false;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&#125;);<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The event handler pauses here.</span><br />  <br />    <strong>1 │ </strong>element.addEventListener(&quot;click&quot;, async (event) =&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    await save();<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>    event.currentTarget.disabled = false;<br />    <strong>4 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">When the handler pauses, the browser finishes handling the event and sets </span><span style=\"color: lightgreen;\"><strong>currentTarget</strong></span><span style=\"color: lightgreen;\"> to </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Save </span><span style=\"color: lightgreen;\"><strong>event.currentTarget</strong></span><span style=\"color: lightgreen;\"> to a variable before the event handler pauses, and use that variable instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+element.addEventListener("click", (event) => {
+    setTimeout(() => {
+        event.currentTarget.focus();
+    });
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:9 <a href=\"https://biomejs.dev/linter/rules/no-late-current-target-access\">lint/nursery/noLateCurrentTargetAccess</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\"><strong>event.currentTarget</strong></span><span style=\"color: Orange;\"> is read inside a function nested in the event handler.</span><br />  <br />    <strong>1 │ </strong>element.addEventListener(&quot;click&quot;, (event) =&gt; &#123;<br />    <strong>2 │ </strong>    setTimeout(() =&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>        event.currentTarget.focus();<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>    &#125;);<br />    <strong>5 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The nested function may run after the browser finishes handling the event, when </span><span style=\"color: lightgreen;\"><strong>currentTarget</strong></span><span style=\"color: lightgreen;\"> is </span><span style=\"color: lightgreen;\"><strong>null</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Save </span><span style=\"color: lightgreen;\"><strong>event.currentTarget</strong></span><span style=\"color: lightgreen;\"> to a variable in the event handler, and use that variable in the nested function.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+element.addEventListener("click", async (event) => {
+    const button = event.currentTarget;
+    button.disabled = true;
+    await save();
+    button.disabled = false;
+});
+
+element.addEventListener("click", (event) => {
+    const { currentTarget } = event;
+    setTimeout(() => {
+        currentTarget.focus();
+    });
+});
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_late_current_target_access.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noLateCurrentTargetAccess)
+- <RulePlaygroundLink rule="noLateCurrentTargetAccess" category="lint" language="js" code={"element.addEventListener(\"click\", async (event) => {\n    await save();\n    event.currentTarget.disabled = false;\n});\n"} />
+

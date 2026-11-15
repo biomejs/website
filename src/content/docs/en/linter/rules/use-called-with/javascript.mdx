@@ -1,0 +1,102 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useCalledWith (JavaScript)
+description: JavaScript (and super languages) documentation for useCalledWith
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-called-with/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.8`
+- Diagnostic Category: [`lint/nursery/useCalledWith`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`test`](/linter/domains#test)
+- Sources: 
+  - Same as [`jest/prefer-called-with`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/prefer-called-with.md)
+  - Same as [`vitest/prefer-called-with`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-called-with.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useCalledWith": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce using `toHaveBeenCalledWith()` to check the arguments of a function call.
+
+`toHaveBeenCalled()` and its alias `toBeCalled()` only check that a mock function
+(a fake function that records how it is called) was called at least once.
+The test still passes when the function receives the wrong arguments.
+`toHaveBeenCalledWith()` also checks the arguments, so the test catches more mistakes.
+
+When the value of an argument is hard to predict, pass a placeholder such as
+`expect.anything()` or `expect.any(Date)`. The test then still checks the number
+and the position of the arguments. When the function is expected to be called
+without arguments, use `toHaveBeenCalledWith()` without arguments.
+
+This rule also reports `toHaveBeenCalledOnce()` from Vitest, which has
+`toHaveBeenCalledExactlyOnceWith()` as the equivalent that checks the arguments.
+
+Assertions that use `.not` are ignored. For example,
+`expect(sendEmail).not.toHaveBeenCalled()` checks that the function was never called,
+so there are no arguments to check.
+
+## Examples
+
+### Invalid
+
+```js
+expect(sendEmail).toHaveBeenCalled();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:19 <a href=\"https://biomejs.dev/linter/rules/use-called-with\">lint/nursery/useCalledWith</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>toHaveBeenCalled()</strong></span><span style=\"color: lightgreen;\"> doesn't check the arguments that the function was called with.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>expect(sendEmail).toHaveBeenCalled();<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The test passes even when the function receives the wrong arguments.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>toHaveBeenCalledWith()</strong></span><span style=\"color: lightgreen;\"> and pass the expected arguments. For an argument that is hard to predict, pass </span><span style=\"color: lightgreen;\"><strong>expect.anything()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+expect(sendEmail).toBeCalled();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:19 <a href=\"https://biomejs.dev/linter/rules/use-called-with\">lint/nursery/useCalledWith</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>toBeCalled()</strong></span><span style=\"color: lightgreen;\"> doesn't check the arguments that the function was called with.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>expect(sendEmail).toBeCalled();<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The test passes even when the function receives the wrong arguments.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>toBeCalledWith()</strong></span><span style=\"color: lightgreen;\"> and pass the expected arguments. For an argument that is hard to predict, pass </span><span style=\"color: lightgreen;\"><strong>expect.anything()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+expect(sendEmail).toHaveBeenCalledOnce();
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:19 <a href=\"https://biomejs.dev/linter/rules/use-called-with\">lint/nursery/useCalledWith</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>toHaveBeenCalledOnce()</strong></span><span style=\"color: lightgreen;\"> doesn't check the arguments that the function was called with.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>expect(sendEmail).toHaveBeenCalledOnce();<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The test passes even when the function receives the wrong arguments.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>toHaveBeenCalledExactlyOnceWith()</strong></span><span style=\"color: lightgreen;\"> and pass the expected arguments. For an argument that is hard to predict, pass </span><span style=\"color: lightgreen;\"><strong>expect.anything()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+expect(sendEmail).toHaveBeenCalledWith("user@example.com", expect.anything());
+expect(sendEmail).toHaveBeenCalledExactlyOnceWith("user@example.com");
+expect(refresh).toHaveBeenCalledWith();
+expect(sendEmail).toHaveBeenCalledTimes(1);
+expect(sendEmail).not.toHaveBeenCalled();
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_called_with.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useCalledWith)
+- <RulePlaygroundLink rule="useCalledWith" category="lint" language="js" code={"expect(sendEmail).toHaveBeenCalled();\n"} />
+

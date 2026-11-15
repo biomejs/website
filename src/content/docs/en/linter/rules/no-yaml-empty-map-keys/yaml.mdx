@@ -1,0 +1,98 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noYamlEmptyMapKeys (YAML)
+description: YAML documentation for noYamlEmptyMapKeys
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="yaml" languages={[{"id":"yaml","label":"YAML","href":"/linter/rules/no-yaml-empty-map-keys/yaml/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.8`
+- Diagnostic Category: [`lint/nursery/noYamlEmptyMapKeys`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`yml/no-empty-key`](https://ota-meshi.github.io/eslint-plugin-yml/rules/no-empty-key.html)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noYamlEmptyMapKeys": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow empty keys in YAML maps.
+
+A key is empty when a map entry has no key, as in `: value`.
+A key is also empty when it has only a tag (a type marker that starts with `!`, such as `!!str`)
+or an anchor (a name that starts with `&`, used to reuse a value elsewhere), as in `&name : value`.
+
+An empty key is usually a mistake, such as a key name that was deleted or forgotten.
+Tools that read the file can reject an empty key, or read it as null or as empty text.
+
+Keys written as empty quoted text, such as `""`, are not reported.
+
+## Examples
+
+### Invalid
+
+```yaml
+: value
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:1:1 <a href=\"https://biomejs.dev/linter/rules/no-yaml-empty-map-keys\">lint/nursery/noYamlEmptyMapKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This map entry has an empty key.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>: value<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">An empty key is usually a mistake. Tools that read this file can reject it, or read it as null or as empty text.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write a key for this entry, or remove the entry.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```yaml
+?
+: value
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:1:1 <a href=\"https://biomejs.dev/linter/rules/no-yaml-empty-map-keys\">lint/nursery/noYamlEmptyMapKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This map entry has an empty key.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>?<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>: value<br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">An empty key is usually a mistake. Tools that read this file can reject it, or read it as null or as empty text.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write a key for this entry, or remove the entry.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```yaml
+settings: { : value }
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:1:13 <a href=\"https://biomejs.dev/linter/rules/no-yaml-empty-map-keys\">lint/nursery/noYamlEmptyMapKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This map entry has an empty key.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>settings: &#123; : value &#125;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">An empty key is usually a mistake. Tools that read this file can reject it, or read it as null or as empty text.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write a key for this entry, or remove the entry.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```yaml
+!!str : value
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.yaml:1:7 <a href=\"https://biomejs.dev/linter/rules/no-yaml-empty-map-keys\">lint/nursery/noYamlEmptyMapKeys</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This map entry has an empty key.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>!!str : value<br />   <strong>   │ </strong>      <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">An empty key is usually a mistake. Tools that read this file can reject it, or read it as null or as empty text.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write a key for this entry, or remove the entry.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```yaml
+name: value
+"": empty text
+? key
+: value
+settings: { name: value }
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_yaml_analyze/src/lint/nursery/no_yaml_empty_map_keys.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_yaml_analyze/tests/specs/nursery/noYamlEmptyMapKeys)
+- <RulePlaygroundLink rule="noYamlEmptyMapKeys" category="lint" language="yaml" code={": value\n"} />
+
