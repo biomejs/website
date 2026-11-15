@@ -1,0 +1,133 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noMisusedSpread (JavaScript)
+description: JavaScript (and super languages) documentation for noMisusedSpread
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-misused-spread/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the types domain. This means that its activation will activate the Biome Scanner to scan the files of your project, and enable the type inference engine. Read more about it in the [documentation page](/linter/domains#types)
+:::
+## Summary
+- Rule available since: `v2.6.8`
+- Diagnostic Category: [`lint/nursery/noMisusedSpread`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`types`](/linter/domains#types)
+- Sources: 
+  - Same as [`@typescript-eslint/no-misused-spread`](https://typescript-eslint.io/rules/no-misused-spread)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noMisusedSpread": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow spreading values in ways that can cause unexpected results.
+
+The spread syntax (`...`) copies values into a new array, object, or
+list of arguments. For some values the copy doesn't contain what you
+might expect:
+
+- Spreading a string into an array, as in `[...text]`, splits it into
+Unicode code points. Characters made of several code points, such as
+many emoji, end up split into separate pieces.
+- Spreading a `Promise` into an object copies nothing. The value it
+resolves to is only available after awaiting it.
+- Spreading a function into an object copies nothing, unless the
+function has properties of its own.
+- Spreading a `Map` into an object creates an empty object, because the
+entries of a map aren't properties.
+- Spreading an array into an object creates properties named after its
+indexes, such as `0` and `1`.
+- Spreading another iterable value, such as a `Set`, into an object
+doesn't copy the values it contains.
+- Spreading a class instance into an object creates a plain object
+without the methods and getters of the class.
+- Spreading a class into an object only copies its static properties.
+
+This rule uses type information to find these values.
+
+## Examples
+
+### Invalid
+
+```ts title='invalid-string.ts'
+declare const text: string;
+const characters = [...text];
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-string.ts\">/invalid-string.ts</a>:2:24 <a href=\"https://biomejs.dev/linter/rules/no-misused-spread\">lint/nursery/noMisusedSpread</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Spreading a string splits it into code points, which can break characters apart.</span><br />  <br />    <strong>1 │ </strong>declare const text: string;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const characters = [...text];<br />   <strong>   │ </strong>                       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Characters made of several code points, such as many emoji and some letters with accents, are split into separate pieces.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>Intl.Segmenter</strong></span><span style=\"color: lightgreen;\"> to split the string into the characters that a reader sees. If the string only contains simple characters, suppress this diagnostic.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts title='invalid-promise.ts'
+declare function getUser(): Promise<{ name: string }>;
+const user = { ...getUser() };
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-promise.ts\">/invalid-promise.ts</a>:2:19 <a href=\"https://biomejs.dev/linter/rules/no-misused-spread\">lint/nursery/noMisusedSpread</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Spreading a </span><span style=\"color: lightgreen;\"><strong>Promise</strong></span><span style=\"color: lightgreen;\"> into an object copies nothing.</span><br />  <br />    <strong>1 │ </strong>declare function getUser(): Promise&lt;&#123; name: string &#125;&gt;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const user = &#123; ...getUser() &#125;;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The value of a </span><span style=\"color: lightgreen;\"><strong>Promise</strong></span><span style=\"color: lightgreen;\"> is only available after it resolves.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Did you forget to </span><span style=\"color: lightgreen;\"><strong>await</strong></span><span style=\"color: lightgreen;\"> it?</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts title='invalid-map.ts'
+declare const scores: Map<string, number>;
+const copy = { ...scores };
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-map.ts\">/invalid-map.ts</a>:2:19 <a href=\"https://biomejs.dev/linter/rules/no-misused-spread\">lint/nursery/noMisusedSpread</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Spreading a map into an object creates an empty object.</span><br />  <br />    <strong>1 │ </strong>declare const scores: Map&lt;string, number&gt;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>const copy = &#123; ...scores &#125;;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The entries of a map aren't properties, so they aren't copied.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">To turn the entries of a </span><span style=\"color: lightgreen;\"><strong>Map</strong></span><span style=\"color: lightgreen;\"> into properties, use </span><span style=\"color: lightgreen;\"><strong>Object.fromEntries()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```ts title='invalid-class-instance.ts'
+class Point {
+    constructor(public x: number, public y: number) {}
+    length() {
+        return Math.hypot(this.x, this.y);
+    }
+}
+const copy = { ...new Point(1, 2) };
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"><a href=\"file:///invalid-class-instance.ts\">/invalid-class-instance.ts</a>:7:19 <a href=\"https://biomejs.dev/linter/rules/no-misused-spread\">lint/nursery/noMisusedSpread</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Spreading a class instance into an object loses the methods of its class.</span><br />  <br />    <strong>5 │ </strong>    &#125;<br />    <strong>6 │ </strong>&#125;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>7 │ </strong>const copy = &#123; ...new Point(1, 2) &#125;;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>8 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Only the own properties of the instance are copied into a plain object. Methods and getters of the class aren't.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Keep using the instance, or create a new one with the class.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```ts title='valid.ts'
+declare const text: string;
+const words = text.split(" ");
+
+declare const items: number[];
+const copy = [...items];
+
+declare function getUser(): Promise<{ name: string }>;
+async function loadUser() {
+    return { ...(await getUser()) };
+}
+
+declare const scores: Map<string, number>;
+const entries = Object.fromEntries(scores);
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_misused_spread.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noMisusedSpread)
+- <RulePlaygroundLink rule="noMisusedSpread" category="lint" language="ts" code={"declare const text: string;\nconst characters = [...text];\n"} />
+

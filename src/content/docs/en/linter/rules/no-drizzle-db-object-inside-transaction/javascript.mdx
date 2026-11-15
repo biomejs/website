@@ -1,0 +1,99 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noDrizzleDbObjectInsideTransaction (JavaScript)
+description: JavaScript (and super languages) documentation for noDrizzleDbObjectInsideTransaction
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-drizzle-db-object-inside-transaction/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.8`
+- Diagnostic Category: [`lint/nursery/noDrizzleDbObjectInsideTransaction`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`drizzle`](/linter/domains#drizzle)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDrizzleDbObjectInsideTransaction": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow using a Drizzle ORM instance inside its own transaction callback.
+
+Inside `db.transaction(async (tx) => { ... })`, queries must use the transaction object `tx`.
+Queries made with `db` run outside the transaction: they aren't rolled back when the
+transaction fails, they don't see its uncommitted changes, and they can wait forever for
+rows that the transaction has locked.
+
+## Options
+
+Use the `drizzleObjectName` option to specify the variable names that represent Drizzle
+ORM instances. This option has no default value, and the rule reports nothing until it's set.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noDrizzleDbObjectInsideTransaction": {
+					"level": "on",
+					"options": {
+						"drizzleObjectName": [
+							"db"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+## Examples
+
+### Invalid
+
+```js
+await db.transaction(async (tx) => {
+    await db.insert(users).values({ name: "John" });
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:11 <a href=\"https://biomejs.dev/linter/rules/no-drizzle-db-object-inside-transaction\">lint/nursery/noDrizzleDbObjectInsideTransaction</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\"><strong>db</strong></span><span style=\"color: lightgreen;\"> is used inside </span><span style=\"color: lightgreen;\"><strong>db.transaction()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>await db.transaction(async (tx) =&gt; &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    await db.insert(users).values(&#123; name: &quot;John&quot; &#125;);<br />   <strong>   │ </strong>          <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;);<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Queries made with </span><span style=\"color: lightgreen;\"><strong>db</strong></span><span style=\"color: lightgreen;\"> run outside the transaction, so they aren't rolled back with it and can deadlock waiting for its locks.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the transaction object passed to the callback instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+await db.transaction(async (tx) => {
+    await tx.insert(users).values({ name: "John" });
+});
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_drizzle_db_object_inside_transaction.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noDrizzleDbObjectInsideTransaction)
+- <RulePlaygroundLink rule="noDrizzleDbObjectInsideTransaction" category="lint" language="js" code={"await db.transaction(async (tx) => {\n    await db.insert(users).values({ name: \"John\" });\n});\n"} />
+

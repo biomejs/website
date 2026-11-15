@@ -1,0 +1,256 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noTailwindRestrictedClasses (JavaScript)
+description: JavaScript (and super languages) documentation for noTailwindRestrictedClasses
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-tailwind-restricted-classes/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-tailwind-restricted-classes/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Rule available since: `v2.6.8`
+- Diagnostic Category: [`lint/nursery/noTailwindRestrictedClasses`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`tailwind`](/linter/domains#tailwind)
+  - [`project`](/linter/domains#project)
+- Sources: 
+  - Inspired from [`better-tailwindcss/no-restricted-classes`](https://github.com/schoero/eslint-plugin-better-tailwindcss/blob/main/docs/rules/no-restricted-classes.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindRestrictedClasses": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow Tailwind CSS classes and variants that your project doesn't allow.
+
+Teams often agree to avoid some Tailwind CSS classes, for example raw colors
+that have a named replacement in their design system, or layout utilities
+such as `float-left` that they've replaced with flexbox or grid.
+This rule reports the classes and variants that you list in its options,
+and shows the message you configure for each of them.
+Without any classes or variants configured, this rule doesn't report anything.
+
+## Examples
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindRestrictedClasses": {
+					"level": "on",
+					"options": {
+						"classes": {
+							"text-green-500": "Use the success color from the design system.",
+							"float-*": "Use flexbox or grid for layout."
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+### Invalid
+
+```jsx
+<div className="text-green-500" />;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:17 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-restricted-classes\">lint/nursery/noTailwindRestrictedClasses</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The Tailwind CSS class </span><span style=\"color: lightgreen;\"><strong>text-green-500</strong></span><span style=\"color: lightgreen;\"> isn't allowed in this project.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div className=&quot;text-green-500&quot; /&gt;;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the success color from the design system.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```jsx
+<div className="md:float-left" />;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:20 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-restricted-classes\">lint/nursery/noTailwindRestrictedClasses</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The Tailwind CSS class </span><span style=\"color: lightgreen;\"><strong>float-left</strong></span><span style=\"color: lightgreen;\"> isn't allowed in this project.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div className=&quot;md:float-left&quot; /&gt;;<br />   <strong>   │ </strong>                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use flexbox or grid for layout.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```jsx
+<div className="text-success flex" />;
+```
+
+## How classes and variants are matched
+
+A class is matched without its variants, its `!`, or its modifier, which is the
+part after a `/`, such as `/50` in `bg-red-500/50`.
+So restricting `bg-red-500` also reports `hover:bg-red-500/50!`.
+To match the modifier as well, include it in the key, such as `bg-red-500/50`.
+A fraction such as `1/2` in `w-1/2` is part of the class, so restricting `w-1` doesn't report `w-1/2`.
+
+A key matches a negative value only when the key starts with `-`.
+So restricting `mt-4` doesn't report `-mt-4`.
+
+## Wildcards
+
+In a key, `*` stands for a whole part of a class, not for any characters.
+A class such as `bg-red-500` has a utility name, `bg`, and a value, `red-500`.
+
+- `bg-*` matches every value of the `bg` utility, such as `bg-red-500` and `bg-[#fff]`.
+- `*-md` matches every utility whose value is `md`, such as `shadow-md` and `max-w-md`.
+- `[color:*]` matches every value of the `color` property written as an arbitrary property,
+such as `[color:red]`.
+
+Since the value of `bg-red-500` is `red-500`, the key `bg-red-*` doesn't match it.
+To restrict a color in every utility, use `*-red-500`.
+
+In a variant key, `*` stands for one or more parts separated by `-`:
+
+- `group-*` matches variants that start with `group-`, such as `group-hover` and `group-focus`.
+- `*-hover` matches variants that end with `-hover`, such as `group-hover` and `peer-hover`.
+- `[*]` matches every arbitrary variant, such as `[&_p]`.
+
+Biome reports a configuration error for a `*` used in any other way, such as in `bg-*-500`.
+
+Biome splits a class into its utility name and value using the utilities that Tailwind CSS
+provides by default. When the
+[`tailwind.stylesheet`](https://biomejs.dev/reference/configuration/#tailwindstylesheet)
+option points at the CSS file that holds your Tailwind CSS configuration, Biome also uses
+the utilities defined there with `@utility`. For example, with `@utility slide-in-from-top-*`,
+the key `slide-in-from-top-*` matches `slide-in-from-top-4`.
+
+Biome scans your project when this rule is enabled, so that it can read the
+stylesheet and the files it imports.
+
+When several keys match the same class or variant, the rule uses the first one.
+
+## Recognized class strings
+
+This rule checks the attributes and functions recognized by the top-level
+[`tailwind` configuration](https://biomejs.dev/reference/configuration/#tailwind).
+
+## Options
+
+### `classes`
+
+Default: `{}`
+
+The classes to report. Each key is a class, written without variants or `!`.
+Each value is the message to show, or an object with these optional fields:
+
+- `message`: the message to show.
+- `use`: the class to use instead. When the key doesn't contain `*`,
+the rule offers a fix that replaces the class with this value and keeps its variants, `!`, and modifier.
+The rule doesn't offer the fix when this value is also restricted.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindRestrictedClasses": {
+					"level": "on",
+					"options": {
+						"classes": {
+							"bg-green-500": {
+								"message": "Use the success color from the design system.",
+								"use": "bg-success"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```jsx
+<div className="hover:bg-green-500/50" />;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:23 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-restricted-classes\">lint/nursery/noTailwindRestrictedClasses</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The Tailwind CSS class </span><span style=\"color: lightgreen;\"><strong>bg-green-500</strong></span><span style=\"color: lightgreen;\"> isn't allowed in this project.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div className=&quot;hover:bg-green-500/50&quot; /&gt;;<br />   <strong>   │ </strong>                      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use the success color from the design system.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>bg-success</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use </span><span style=\"color: lightgreen;\"><strong>bg-success</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />    <strong>1</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\">&lt;</span><span style=\"color: Tomato;\">d</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">l</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">N</span><span style=\"color: Tomato;\">a</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">=</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\">h</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">:</span><span style=\"color: Tomato;\">b</span><span style=\"color: Tomato;\">g</span><span style=\"color: Tomato;\">-</span><span style=\"color: Tomato;\"><strong>g</strong></span><span style=\"color: Tomato;\"><strong>r</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>e</strong></span><span style=\"color: Tomato;\"><strong>n</strong></span><span style=\"color: Tomato;\"><strong>-</strong></span><span style=\"color: Tomato;\"><strong>5</strong></span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\"><strong>0</strong></span><span style=\"color: Tomato;\">/</span><span style=\"color: Tomato;\">5</span><span style=\"color: Tomato;\">0</span><span style=\"color: Tomato;\">&quot;</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">/</span><span style=\"color: Tomato;\">&gt;</span><span style=\"color: Tomato;\">;</span><br />      <strong>1</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\">&lt;</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">l</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">N</span><span style=\"color: MediumSeaGreen;\">a</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">=</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\">h</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">:</span><span style=\"color: MediumSeaGreen;\">b</span><span style=\"color: MediumSeaGreen;\">g</span><span style=\"color: MediumSeaGreen;\">-</span><span style=\"color: MediumSeaGreen;\"><strong>s</strong></span><span style=\"color: MediumSeaGreen;\"><strong>u</strong></span><span style=\"color: MediumSeaGreen;\"><strong>c</strong></span><span style=\"color: MediumSeaGreen;\"><strong>c</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>s</strong></span><span style=\"color: MediumSeaGreen;\"><strong>s</strong></span><span style=\"color: MediumSeaGreen;\">/</span><span style=\"color: MediumSeaGreen;\">5</span><span style=\"color: MediumSeaGreen;\">0</span><span style=\"color: MediumSeaGreen;\">&quot;</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">/</span><span style=\"color: MediumSeaGreen;\">&gt;</span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+#### Valid
+
+```jsx
+<div className="hover:bg-success/50 bg-green-600" />;
+```
+
+### `variants`
+
+Default: `{}`
+
+The variants to report, such as `dark` or `group-hover`.
+Each key is a variant, written without the `:` that follows it.
+A variant is matched without its modifier, so `group-hover` also matches `group-hover/menu`.
+The values work the same way as in `classes`.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindRestrictedClasses": {
+					"level": "on",
+					"options": {
+						"variants": {
+							"dark": "This project doesn't support dark mode.",
+							"[*]": "Add a named variant to the Tailwind CSS configuration instead."
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```jsx
+<div className="dark:bg-black" />;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:17 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-restricted-classes\">lint/nursery/noTailwindRestrictedClasses</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The Tailwind CSS variant </span><span style=\"color: lightgreen;\"><strong>dark</strong></span><span style=\"color: lightgreen;\"> isn't allowed in this project.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div className=&quot;dark:bg-black&quot; /&gt;;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This project doesn't support dark mode.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```jsx
+<div className="[&_p]:mt-2" />;
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.jsx:1:17 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-restricted-classes\">lint/nursery/noTailwindRestrictedClasses</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The Tailwind CSS variant </span><span style=\"color: lightgreen;\"><strong>[&amp;&#95;p]</strong></span><span style=\"color: lightgreen;\"> isn't allowed in this project.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div className=&quot;[&amp;&#95;p]:mt-2&quot; /&gt;;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add a named variant to the Tailwind CSS configuration instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```jsx
+<div className="hover:bg-black md:mt-2" />;
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_tailwind_restricted_classes.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noTailwindRestrictedClasses)
+- <RulePlaygroundLink rule="noTailwindRestrictedClasses" category="lint" language="jsx" code={"<div className=\"text-green-500\" />;\n"} />
+

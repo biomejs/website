@@ -1,0 +1,265 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useVueConsistentVOnHandlerStyle (JavaScript)
+description: JavaScript (and super languages) documentation for useVueConsistentVOnHandlerStyle
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-vue-consistent-v-on-handler-style/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.8`
+- Diagnostic Category: [`lint/nursery/useVueConsistentVOnHandlerStyle`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/v-on-handler-style`](https://eslint.vuejs.org/rules/v-on-handler-style)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentVOnHandlerStyle": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Enforce a consistent style for event handlers in Vue `v-on` directives.
+
+Vue accepts three styles of event handler in `v-on` directives, also written as `@`:
+
+- A method handler is the name of a function, such as `@click="save"`. Vue calls the
+function with the arguments of the event.
+- An inline handler is code that Vue runs when the event happens, such as
+`@click="save()"` or `@click="count++"`. The code can read the first argument of the
+event as `$event`.
+- An inline function is a function written in the template, such as
+`@click="() => save()"`. Vue calls it with the arguments of the event.
+
+Mixing these styles makes templates harder to read. This rule reports event handlers
+that don't use the configured style.
+
+An inline handler or inline function that only calls a function by its name, and passes
+it the same arguments it receives, can be replaced by the name of that function. The fix
+for this is only offered when the function is declared in the `methods` option of the
+component with the same number of parameters, because otherwise Vue could pass the event
+to a parameter that the handler left empty.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <button @click="save()">Save</button>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+  <button @click="() => save()">Save</button>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+  <button @click="count++">Add</button>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <button @click="save">Save</button>
+  <button v-for="item in items" @click="() => remove(item)">Remove</button>
+</template>
+```
+
+## Options
+
+### `style`
+
+Default: `"methodOrInlineFunction"`
+
+The handler style to enforce.
+
+- `"methodOrInlineFunction"`: use a method handler. Where a method handler can't be used,
+such as when the handler passes a variable of `v-for` to a function, use an inline
+function.
+- `"methodOrInline"`: use a method handler. Where a method handler can't be used, use an
+inline handler.
+- `"inlineFunction"`: use an inline function.
+- `"inline"`: use an inline handler.
+
+The rule doesn't report handlers that call a method of an object by name, such as
+`@click="form.submit"`.
+
+#### `"methodOrInline"`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentVOnHandlerStyle": {
+					"level": "on",
+					"options": {
+						"style": "methodOrInline"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+##### Invalid
+
+```vue
+<template>
+  <button v-for="item in items" @click="() => remove(item)">Remove</button>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+##### Valid
+
+```vue
+<template>
+  <button @click="save">Save</button>
+  <button v-for="item in items" @click="remove(item)">Remove</button>
+</template>
+```
+
+#### `"inlineFunction"`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentVOnHandlerStyle": {
+					"level": "on",
+					"options": {
+						"style": "inlineFunction"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+##### Invalid
+
+```vue
+<template>
+  <button @click="save">Save</button>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+  <button @click="save()">Save</button>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+##### Valid
+
+```vue
+<template>
+  <button @click="() => save()">Save</button>
+  <button @click="() => count++">Add</button>
+</template>
+```
+
+#### `"inline"`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useVueConsistentVOnHandlerStyle": {
+					"level": "on",
+					"options": {
+						"style": "inline"
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+##### Invalid
+
+```vue
+<template>
+  <button @click="save">Save</button>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+```vue
+<template>
+  <button @click="() => save()">Save</button>
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\"></code></pre>"} />
+
+##### Valid
+
+```vue
+<template>
+  <button @click="save()">Save</button>
+  <button @click="save($event)">Save</button>
+  <button @click="count++">Add</button>
+</template>
+```
+
+## See Also
+
+- To enforce a consistent way of writing the `v-on` directive itself, see [`useVueConsistentVOnStyle`](https://biomejs.dev/linter/rules/use-vue-consistent-v-on-style/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_vue_consistent_v_on_handler_style.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useVueConsistentVOnHandlerStyle)
+- <RulePlaygroundLink rule="useVueConsistentVOnHandlerStyle" category="lint" language="vue" code={"<template>\n  <button @click=\"save()\">Save</button>\n</template>\n"} />
+

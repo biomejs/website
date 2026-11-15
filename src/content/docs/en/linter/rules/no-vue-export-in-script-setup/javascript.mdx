@@ -1,0 +1,109 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueExportInScriptSetup (JavaScript)
+description: JavaScript (and super languages) documentation for noVueExportInScriptSetup
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-export-in-script-setup/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.8`
+- Diagnostic Category: [`lint/nursery/noVueExportInScriptSetup`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-export-in-script-setup`](https://eslint.vuejs.org/rules/no-export-in-script-setup)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueExportInScriptSetup": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow `export` in `<script setup>`.
+
+Everything declared at the top level of `<script setup>` is already available to the
+component's template, so there is nothing to export. Vue fails to compile a component
+whose `<script setup>` block exports a value.
+
+To share values with other modules, export them from a separate, regular `<script>` block
+in the same file. To expose values to a parent component, use `defineExpose()`.
+
+TypeScript type exports, such as `export type` and `export interface`, are allowed,
+because they are removed when the code is compiled. TypeScript's `export =` and
+`export as namespace` forms are also allowed.
+
+## Examples
+
+### Invalid
+
+```vue
+<script setup>
+export const message = "Hello";
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:1 <a href=\"https://biomejs.dev/linter/rules/no-vue-export-in-script-setup\">lint/nursery/noVueExportInScriptSetup</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\"><strong>&lt;script setup&gt;</strong></span><span style=\"color: Tomato;\"> can't contain exports.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>export const message = &quot;Hello&quot;;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/script&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue fails to compile a component when its </span><span style=\"color: lightgreen;\"><strong>&lt;script setup&gt;</strong></span><span style=\"color: lightgreen;\"> block exports a value. Top-level declarations are already available to the template.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>export</strong></span><span style=\"color: lightgreen;\">. To share the value with other modules, move the export to a regular </span><span style=\"color: lightgreen;\"><strong>&lt;script&gt;</strong></span><span style=\"color: lightgreen;\"> block. To expose it to a parent component, use </span><span style=\"color: lightgreen;\"><strong>defineExpose()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+export default {};
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:2:1 <a href=\"https://biomejs.dev/linter/rules/no-vue-export-in-script-setup\">lint/nursery/noVueExportInScriptSetup</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\"><strong>&lt;script setup&gt;</strong></span><span style=\"color: Tomato;\"> can't contain exports.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>export default &#123;&#125;;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&lt;/script&gt;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue fails to compile a component when its </span><span style=\"color: lightgreen;\"><strong>&lt;script setup&gt;</strong></span><span style=\"color: lightgreen;\"> block exports a value. Top-level declarations are already available to the template.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>export</strong></span><span style=\"color: lightgreen;\">. To share the value with other modules, move the export to a regular </span><span style=\"color: lightgreen;\"><strong>&lt;script&gt;</strong></span><span style=\"color: lightgreen;\"> block. To expose it to a parent component, use </span><span style=\"color: lightgreen;\"><strong>defineExpose()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<script setup>
+const count = 1;
+export { count };
+</script>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:1 <a href=\"https://biomejs.dev/linter/rules/no-vue-export-in-script-setup\">lint/nursery/noVueExportInScriptSetup</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\"><strong>&lt;script setup&gt;</strong></span><span style=\"color: Tomato;\"> can't contain exports.</span><br />  <br />    <strong>1 │ </strong>&lt;script setup&gt;<br />    <strong>2 │ </strong>const count = 1;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>export &#123; count &#125;;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&lt;/script&gt;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Vue fails to compile a component when its </span><span style=\"color: lightgreen;\"><strong>&lt;script setup&gt;</strong></span><span style=\"color: lightgreen;\"> block exports a value. Top-level declarations are already available to the template.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the </span><span style=\"color: lightgreen;\"><strong>export</strong></span><span style=\"color: lightgreen;\">. To share the value with other modules, move the export to a regular </span><span style=\"color: lightgreen;\"><strong>&lt;script&gt;</strong></span><span style=\"color: lightgreen;\"> block. To expose it to a parent component, use </span><span style=\"color: lightgreen;\"><strong>defineExpose()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<script lang="ts">
+export const message = "Hello";
+</script>
+<script setup lang="ts">
+export type Size = "small" | "large";
+export interface Props {
+  size: Size;
+}
+
+const count = 1;
+defineExpose({ count });
+</script>
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_export_in_script_setup.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueExportInScriptSetup)
+- <RulePlaygroundLink rule="noVueExportInScriptSetup" category="lint" language="vue" code={"<script setup>\nexport const message = \"Hello\";\n</script>\n"} />
+
