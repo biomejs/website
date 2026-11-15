@@ -820,3 +820,144 @@ If `enter` or `exit` throws, the walk stops and the exception propagates to your
 `kinds` follows the same rules as in `descendants()`. `walk()` also throws a `TypeError` if `enter` isn't a function, or if `exit` is given and isn't a function.
 
 In TypeScript, `enter` and `exit` receive the node types in the set.
+
+### Trivia APIs
+
+Comments, whitespace, and line breaks are called _trivia_: text that doesn't affect how a program runs. In Biome, trivia is attached to individual tokens:
+
+- A token's **leading trivia** is everything between the previous token's trailing trivia and the token.
+- A token's **trailing trivia** is everything after the token, up to but not including the next line break. Line breaks inside a block comment don't count, so a block comment that starts on the token's line is trailing trivia even if it spans several lines.
+
+This means a comment on its own line is leading trivia of the token that follows it, and a comment at the end of a line is trailing trivia of the token before it:
+
+```js title="example.js"
+// Adds two numbers.
+export function add(a, b) {
+  return a + b; // fast path
+}
+```
+
+Here, `// Adds two numbers.` is leading trivia of the `export` keyword, and `// fast path` is trailing trivia of the `;` after `a + b`.
+
+`token.text` never includes trivia. `node.text` leaves out the trivia before the node's first token and after its last token, but keeps the trivia between its tokens. To read the trivia around a node or a token, call `leadingTrivia()` or `trailingTrivia()`. To read only the comments around a token, call `leadingComments()` or `trailingComments()`. This rule reports every `export` statement that isn't preceded by a JSDoc comment:
+
+```js title="plugin.js" ins='.leadingComments'
+import { ast, defineRule, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+export const requireJsdoc = defineRule({
+    query: ast("JS_EXPORT"),
+    run(node) {
+      const exportToken = node.token("exportToken");
+      const hasJsdoc = exportToken
+        .leadingComments()
+        .some((comment) => comment.text.startsWith("/**"));
+      if (!hasJsdoc) {
+        registerDiagnostic(exportToken, "warning", "Document this export with a JSDoc comment.")
+      }
+    }
+})
+```
+
+Each call returns a new array, and each piece is a new object, so calling it twice returns different objects for the same trivia.
+
+#### `node.leadingTrivia`
+
+**Type**: `() => readonly TriviaPiece[]`
+
+Returns a new array with the leading trivia of the first token of `node`, in source order. A node without tokens, such as an empty list, returns an empty array.
+
+#### `node.trailingTrivia`
+
+**Type**: `() => readonly TriviaPiece[]`
+
+Returns a new array with the trailing trivia of the last token of `node`, in source order. A node without tokens returns an empty array.
+
+#### `token.leadingTrivia`
+
+**Type**: `() => readonly TriviaPiece[]`
+
+Returns a new array with the trivia before `token`, in source order. Use it on tokens returned by `node.token(field)` or `node.childrenWithTokens()`. Tokens created with `factory.token()` have no trivia.
+
+#### `token.trailingTrivia`
+
+**Type**: `() => readonly TriviaPiece[]`
+
+Returns a new array with the trivia after `token`, up to but not including the next line break outside a comment, in source order.
+
+#### `token.leadingComments`
+
+**Type**: `() => readonly TriviaPiece[]`
+
+Returns a new array with the comments in the leading trivia of `token`, in source order. It returns the same pieces as `leadingTrivia()`, without the whitespace and line breaks. Tokens created with `factory.token()` return an empty array.
+
+This rule reports `TODO` comments right before the `var`, `let`, or `const` keyword of a variable statement:
+
+```js title="plugin.js" ins='.leadingComments'
+import { ast, defineRule, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+export const noTodo = defineRule({
+    query: ast("JS_VARIABLE_STATEMENT"),
+    run(statement) {
+      const keyword = statement.declaration.token("kindToken");
+      for (const comment of keyword.leadingComments()) {
+        if (comment.text.includes("TODO")) {
+          registerDiagnostic(comment, "warning", "Resolve this TODO.")
+        }
+      }
+    }
+})
+```
+
+On this input, the rule reports only `// TODO: rename`:
+
+```js title="example.js"
+function f() {
+  // TODO: rename
+  const x = 1; // TODO: not leading
+}
+```
+
+The second comment is trailing trivia of the `;`, so it isn't in the leading comments of `const`.
+
+Nodes don't have `leadingComments()` or `trailingComments()`. To find the comments before or after a node, call them on one of its tokens, such as one returned by `node.token(field)`.
+
+#### `token.trailingComments`
+
+**Type**: `() => readonly TriviaPiece[]`
+
+Returns a new array with the comments in the trailing trivia of `token`, in source order. These are the comments after `token` and before the next line break outside a comment. A block comment that starts on the same line as `token` is included, even if it spans several lines. Tokens created with `factory.token()` return an empty array.
+
+#### `TriviaPiece`
+
+A piece of trivia has three read-only properties and one method:
+
+- `kind`: a `TriviaKind`, which is one of `"newline"`, `"whitespace"`, `"singleLineComment"`, and `"multiLineComment"`.
+- `text`: the source text of the piece. Comments include their delimiters, such as `//`.
+- `token`: the `JsAstToken` whose leading or trailing trivia contains the piece.
+- `isComment()`: returns `true` if `kind` is `"singleLineComment"` or `"multiLineComment"`, and `false` otherwise. In TypeScript, it narrows `kind` to those two kinds.
+
+Comments are classified by whether they contain a line break, not by their syntax. A `//` comment and a block comment that fits on one line are both `"singleLineComment"`, and only a block comment that spans several lines is a `"multiLineComment"`. To check whether a piece is a comment of either kind, call `piece.isComment()`. To get only the comments of a token, call `leadingComments()` or `trailingComments()`.
+
+In files with syntax errors, the text that the parser skipped isn't included in the trivia.
+
+#### Report diagnostics on tokens and trivia
+
+`registerDiagnostic` also accepts a token or a trivia piece in place of a node. Biome then highlights only that token or piece, instead of the whole node. This rule highlights `TODO` comments after the semicolon of a variable statement, instead of the whole statement:
+
+```js title="plugin.js" ins='registerDiagnostic(comment'
+import { ast, defineRule, registerDiagnostic } from "@biomejs/runtime/plugin"
+
+export const noTrailingTodo = defineRule({
+    query: ast("JS_VARIABLE_STATEMENT"),
+    run(statement) {
+      const semicolon = statement.token("semicolonToken");
+      for (const comment of semicolon?.trailingComments() ?? []) {
+        if (comment.text.includes("TODO")) {
+          registerDiagnostic(comment, "warning", "Resolve this TODO.")
+        }
+      }
+    }
+})
+```
+
+The token or `piece` must come from the file being analyzed. Passing a token created with `factory.token()`, or a token or piece read from a node returned by a `withX()` method, throws a `TypeError`.
