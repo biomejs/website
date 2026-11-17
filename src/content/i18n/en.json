@@ -9,5 +9,10 @@
   "home.video.label": "Biome in 90 seconds: what it is, what it does, and how it works",
   "home.video.play": "Play video",
   "home.video.pause": "Pause video",
-  "home.video.fullscreen": "Full screen"
+  "home.video.fullscreen": "Full screen",
+  "home.sponsors.description": "Biome is free and open source, made possible by our sponsors",
+  "home.sponsors.cta": "Become a sponsor",
+  "home.sponsors.platinum": "Platinum",
+  "home.sponsors.gold": "Gold",
+  "home.sponsors.hostedBy": "Hosted by"
 }
