@@ -59,7 +59,7 @@
     "@lunariajs/core": "0.2.1",
     "@playwright/test": "1.64.1",
     "@replit/codemirror-lang-svelte": "6.0.0",
-    "@types/node": "24.19.2",
+    "@types/node": "26.6.6",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@uiw/react-codemirror": "4.25.12",
