@@ -11,10 +11,10 @@
   },
   "peerDependencies": {
     "@codemirror/language": "^6.13.1",
-    "@lezer/highlight": "^1.0.0"
+    "@lezer/highlight": "^1.2.5"
   },
   "devDependencies": {
     "@codemirror/language": "6.13.1",
-    "@lezer/highlight": "1.2.3"
+    "@lezer/highlight": "1.2.5"
   }
 }
