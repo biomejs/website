@@ -10,7 +10,7 @@
     "test": "node --test"
   },
   "peerDependencies": {
-    "@codemirror/language": "^6.0.0",
+    "@codemirror/language": "^6.13.1",
     "@lezer/highlight": "^1.0.0"
   },
   "devDependencies": {
