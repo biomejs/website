@@ -37,7 +37,7 @@
     "@astrojs/starlight": "0.42.11",
     "@axe-core/playwright": "4.13.0",
     "@base-ui/react": "1.8.0",
-    "@biomejs/biome": "2.6.7",
+    "@biomejs/biome": "2.6.8",
     "@biomejs/version-utils": "0.4.0",
     "@biomejs/wasm-web": "https://pkg.pr.new/@biomejs/wasm-web@a0acfd5",
     "@codemirror/lang-css": "6.3.1",
