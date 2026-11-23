@@ -339,8 +339,8 @@ importers:
         specifier: 0.30.2
         version: 0.30.2(@astrojs/markdown-satteri@0.4.10)(@astrojs/starlight@0.42.11(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2)(typescript@5.9.3))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2)(typescript@5.9.3)
       starlight-changelogs:
-        specifier: 0.7.1
-        version: 0.7.1(@astrojs/starlight@0.42.11(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2)(typescript@5.9.3))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2)
+        specifier: 0.7.2
+        version: 0.7.2(@astrojs/starlight@0.42.11(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2)(typescript@5.9.3))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2)
       starlight-links-validator:
         specifier: 0.27.0
         version: 0.27.0(@astrojs/starlight@0.42.11(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2)(typescript@5.9.3))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2)
@@ -5993,8 +5993,8 @@ packages:
     peerDependencies:
       '@astrojs/starlight': '>=0.42.0'
 
-  starlight-changelogs@0.7.1:
-    resolution: {integrity: sha512-JKuNEzq9HbiM+Uhu5vQmFuyM3LA6ZlrWRQn2DJ8ubFRvbbeexL9G8sAA7DZcjXxCrDwn6V/oK042uCD0PnNhJw==}
+  starlight-changelogs@0.7.2:
+    resolution: {integrity: sha512-fGz7EbNZMHQlApXVLegNPAwZyahlXYGgO8zen5xajd0TwsCbxe/+/tW6iYycR789k934IHEQgvNJK/wKYHa9uw==}
     peerDependencies:
       '@astrojs/starlight': '>=0.38.0'
 
@@ -13550,14 +13550,15 @@ snapshots:
       - supports-color
       - typescript
 
-  starlight-changelogs@0.7.1(@astrojs/starlight@0.42.11(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2)(typescript@5.9.3))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2):
+  starlight-changelogs@0.7.2(@astrojs/starlight@0.42.11(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2)(typescript@5.9.3))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2):
     dependencies:
       '@ascorbic/loader-utils': 1.0.2(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))
       '@astrojs/starlight': 0.42.11(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(astro@7.4.13(@astrojs/markdown-remark@7.3.5(supports-color@10.2.2))(@netlify/blobs@11.1.4(supports-color@10.2.2))(@types/node@24.19.2)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.1))(supports-color@10.2.2)(typescript@5.9.3)
       github-slugger: 2.0.0
       mdast-util-from-markdown: 2.0.3(supports-color@10.2.2)
-      mdast-util-to-markdown: 2.1.2
+      mdast-util-gfm: 3.1.0(supports-color@10.2.2)
       mdast-util-to-string: 4.0.0
+      micromark-extension-gfm: 3.0.0
       unist-util-visit: 5.1.0
     transitivePeerDependencies:
       - astro
