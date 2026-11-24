@@ -268,9 +268,9 @@ return (
 
 When [`markdown.formatter.proseWrap`](/reference/configuration/#markdownformatterprosewrap) is set to `"always"`, Prettier treats the JavaScript inside an MDX expression, such as `{formatCurrency(price)}`, as ordinary text.
 It can break the expression across lines, and it escapes characters that have a meaning in Markdown, such as `*`.
-The escaped character may change the semantics of the JavaScript code: `price \* item.quantity` is no longer valid code.
+The escape changes the JavaScript code: `item.price \* item.quantity` is no longer valid JavaScript.
 
-Biome never breaks an MDX expression inside a paragraph to wrap the paragraph.
+When Biome wraps a paragraph, it never breaks an MDX expression across lines.
 The expression stays on one line, even when that line is longer than the configured `lineWidth`.
 
 Input
@@ -288,13 +288,13 @@ Total: {formatCurrency(order.items.reduce((sum, item) => sum + item.price * item
 ```
 
 
-## Prettier can leave an MDX tag or expression alone on a line
+## Prettier can leave a JSX tag or an MDX expression alone on a line
 
-In MDX, a line that contains only JSX tags or JSX expressions is block. See the [interleaving](https://mdxjs.com/docs/what-is-mdx/#interleaving) section.
+In MDX, a line that contains only JSX tags or MDX expressions is parsed as a block, not as part of a paragraph (see [interleaving](https://mdxjs.com/docs/what-is-mdx/#interleaving) in the MDX documentation).
 When Prettier wraps a paragraph with `proseWrap` set to `"always"`, it can move a tag or an expression to a line of its own.
 That turns the tag or the expression into a block, and splits the paragraph in two.
 
-Biome never leaves JSX tags and JSX expressions alone on a line, so they stay inside the paragraph.
+Biome never leaves a JSX tag or an MDX expression alone on a line, so it stays inside the paragraph.
 If a tag or an expression doesn't fit at the end of a line, Biome moves it to the next line together with the word that comes before it.
 If a paragraph starts with a tag or an expression, Biome keeps it on the same line as the word that comes after it.
 As a result, a line can be longer than the configured `lineWidth`.
@@ -327,8 +327,8 @@ unusually_long_identifier_that_cannot_fit_on_the_line
 
 Prettier formats a JSX tag that stands on a line of its own, but it keeps a tag inside a paragraph as written.
 
-Biome formats the JavaScript of the tags and expressions inside a paragraph too, and keeps each of them on one line, even when the line becomes longer than the configured `lineWidth`.
-A line break inside a paragraph can change how MDX reads the document.
+Biome also formats the JSX tags and MDX expressions inside a paragraph.
+It keeps each of them on one line, even when the line becomes longer than the configured `lineWidth`, because a line break inside a paragraph can change how MDX parses the document.
 When the code needs a line break, for example after a `//` comment, Biome keeps the tag or the expression as written.
 
 Input
@@ -337,7 +337,7 @@ Input
 A short one: <Badge   color='green' /> and {  value  }.
 ```
 
-Diff, with `proseWrap` set to `"always"`
+Diff
 
 ```mdx title="example.mdx" del={1} ins={2}
 A short one: <Badge   color='green' /> and { value }.
