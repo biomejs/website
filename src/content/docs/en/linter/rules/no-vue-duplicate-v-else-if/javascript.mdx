@@ -1,0 +1,127 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noVueDuplicateVElseIf (JavaScript)
+description: JavaScript (and super languages) documentation for noVueDuplicateVElseIf
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-vue-duplicate-v-else-if/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.9`
+- Diagnostic Category: [`lint/nursery/noVueDuplicateVElseIf`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`vue`](/linter/domains#vue)
+- Sources: 
+  - Same as [`vue/no-dupe-v-else-if`](https://eslint.vuejs.org/rules/no-dupe-v-else-if)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noVueDuplicateVElseIf": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow duplicate conditions in `v-if` / `v-else-if` chains.
+
+Vue renders only the first element of a `v-if` / `v-else-if` chain whose condition is
+true. When a `v-else-if` repeats a condition from earlier in the same chain, its element
+can never be rendered: whenever its condition is true, the earlier one is true too. This
+is almost always a copy-paste mistake.
+
+The rule also understands `||` and `&&`, so it reports conditions that earlier
+conditions already cover, even when they aren't written the same way. For example,
+`v-else-if="a"` can never be reached after `v-if="a || b"`, and `v-else-if="a && b"`
+can never be reached after `v-if="a"`.
+
+The rule assumes that evaluating a condition twice gives the same result both times.
+A condition that calls a function returning a different value on every call, such as
+`Math.random() > 0.5`, can be reported even though its element can be rendered.
+
+## Examples
+
+### Invalid
+
+```vue
+<template>
+  <div v-if="isSomething(x)" />
+  <div v-else-if="isSomething(x)" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:19 <a href=\"https://biomejs.dev/linter/rules/no-vue-duplicate-v-else-if\">lint/nursery/noVueDuplicateVElseIf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This condition is a duplicate of, or is covered by, earlier conditions in the </span><span style=\"color: Tomato;\"><strong>v-if</strong></span><span style=\"color: Tomato;\"> / </span><span style=\"color: Tomato;\"><strong>v-else-if</strong></span><span style=\"color: Tomato;\"> chain.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;div v-if=&quot;isSomething(x)&quot; /&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  &lt;div v-else-if=&quot;isSomething(x)&quot; /&gt;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&lt;/template&gt;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Whenever this condition is true, an earlier condition of the chain is true too, so this element is never rendered.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove this element, or change its condition to the one you meant.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <div v-if="n === 1" />
+  <div v-else-if="n === 2" />
+  <div v-else-if="n === 1" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:4:19 <a href=\"https://biomejs.dev/linter/rules/no-vue-duplicate-v-else-if\">lint/nursery/noVueDuplicateVElseIf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This condition is a duplicate of, or is covered by, earlier conditions in the </span><span style=\"color: Tomato;\"><strong>v-if</strong></span><span style=\"color: Tomato;\"> / </span><span style=\"color: Tomato;\"><strong>v-else-if</strong></span><span style=\"color: Tomato;\"> chain.</span><br />  <br />    <strong>2 │ </strong>  &lt;div v-if=&quot;n === 1&quot; /&gt;<br />    <strong>3 │ </strong>  &lt;div v-else-if=&quot;n === 2&quot; /&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>  &lt;div v-else-if=&quot;n === 1&quot; /&gt;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>&lt;/template&gt;<br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Whenever this condition is true, an earlier condition of the chain is true too, so this element is never rendered.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove this element, or change its condition to the one you meant.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <div v-if="a || b" />
+  <div v-else-if="a" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:19 <a href=\"https://biomejs.dev/linter/rules/no-vue-duplicate-v-else-if\">lint/nursery/noVueDuplicateVElseIf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This condition is a duplicate of, or is covered by, earlier conditions in the </span><span style=\"color: Tomato;\"><strong>v-if</strong></span><span style=\"color: Tomato;\"> / </span><span style=\"color: Tomato;\"><strong>v-else-if</strong></span><span style=\"color: Tomato;\"> chain.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;div v-if=&quot;a || b&quot; /&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  &lt;div v-else-if=&quot;a&quot; /&gt;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&lt;/template&gt;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Whenever this condition is true, an earlier condition of the chain is true too, so this element is never rendered.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove this element, or change its condition to the one you meant.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```vue
+<template>
+  <div v-if="a" />
+  <div v-else-if="a && b" />
+</template>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.vue:3:19 <a href=\"https://biomejs.dev/linter/rules/no-vue-duplicate-v-else-if\">lint/nursery/noVueDuplicateVElseIf</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This condition is a duplicate of, or is covered by, earlier conditions in the </span><span style=\"color: Tomato;\"><strong>v-if</strong></span><span style=\"color: Tomato;\"> / </span><span style=\"color: Tomato;\"><strong>v-else-if</strong></span><span style=\"color: Tomato;\"> chain.</span><br />  <br />    <strong>1 │ </strong>&lt;template&gt;<br />    <strong>2 │ </strong>  &lt;div v-if=&quot;a&quot; /&gt;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>  &lt;div v-else-if=&quot;a &amp;&amp; b&quot; /&gt;<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>&lt;/template&gt;<br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Whenever this condition is true, an earlier condition of the chain is true too, so this element is never rendered.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove this element, or change its condition to the one you meant.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```vue
+<template>
+  <div v-if="isSomething(x)" />
+  <div v-else-if="isSomethingElse(x)" />
+
+  <div v-if="n === 1" />
+  <div v-else-if="n === 2" />
+  <div v-else-if="n === 3" />
+
+  <div v-if="a && b" />
+  <div v-else-if="a" />
+</template>
+```
+
+## See Also
+
+- For the same check on `if` statements in JavaScript, see [`noDuplicateElseIf`](https://biomejs.dev/linter/rules/no-duplicate-else-if/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_vue_duplicate_v_else_if.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noVueDuplicateVElseIf)
+- <RulePlaygroundLink rule="noVueDuplicateVElseIf" category="lint" language="vue" code={"<template>\n  <div v-if=\"isSomething(x)\" />\n  <div v-else-if=\"isSomething(x)\" />\n</template>\n"} />
+

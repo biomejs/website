@@ -3123,6 +3123,21 @@ export function GET() {
 				maximum: 24,
 				minimum: 0,
 			},
+			IndexedObjectStyle: {
+				oneOf: [
+					{
+						description: "Prefer the `Record` type: `Record<string, unknown>`",
+						type: "string",
+						const: "record",
+					},
+					{
+						description:
+							"Prefer index signatures: `{ [key: string]: unknown }`",
+						type: "string",
+						const: "indexSignature",
+					},
+				],
+			},
 			JsAssistConfiguration: {
 				description: "Assist options specific to the JavaScript assist",
 				type: "object",
@@ -3965,6 +3980,13 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoArrayDeleteConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoArrayDeleteOptions" },
+				],
+			},
+			NoArrayDeleteOptions: { type: "object", additionalProperties: false },
 			NoArrayForEachConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -4012,6 +4034,16 @@ export function GET() {
 				],
 			},
 			NoAssignInExpressionsOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoAstroComponentDefaultExportConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoAstroComponentDefaultExportOptions" },
+				],
+			},
+			NoAstroComponentDefaultExportOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -4202,6 +4234,16 @@ export function GET() {
 				],
 			},
 			NoBunModulesOptions: { type: "object", additionalProperties: false },
+			NoCanvasToImageConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoCanvasToImageOptions" },
+				],
+			},
+			NoCanvasToImageOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoCatchAssignConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -5422,6 +5464,16 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
+			NoExpectToHaveBeenCalledOnceConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoExpectToHaveBeenCalledOnceOptions" },
+				],
+			},
+			NoExpectToHaveBeenCalledOnceOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoExplicitAnyConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -5665,6 +5717,16 @@ export function GET() {
 				],
 			},
 			NoImgElementOptions: { type: "object", additionalProperties: false },
+			NoImmediateMutationConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoImmediateMutationOptions" },
+				],
+			},
+			NoImmediateMutationOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoImplicitAnyLetConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -5929,6 +5991,16 @@ export function GET() {
 				],
 			},
 			NoIrregularWhitespaceOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoJasmineGlobalsConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoJasmineGlobalsOptions" },
+				],
+			},
+			NoJasmineGlobalsOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -7145,6 +7217,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoReturnInTestConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoReturnInTestOptions" },
+				],
+			},
+			NoReturnInTestOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoRootTypeConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -7643,6 +7725,16 @@ export function GET() {
 				},
 				additionalProperties: false,
 			},
+			NoTailwindConflictingClassesConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoTailwindConflictingClassesOptions" },
+				],
+			},
+			NoTailwindConflictingClassesOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoTailwindLegacyUtilitiesConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -7756,6 +7848,20 @@ export function GET() {
 				],
 			},
 			NoTernaryOptions: { type: "object", additionalProperties: false },
+			NoTestGlobalsConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoTestGlobalsOptions" },
+				],
+			},
+			NoTestGlobalsOptions: { type: "object", additionalProperties: false },
+			NoTestHooksConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoTestHooksOptions" },
+				],
+			},
+			NoTestHooksOptions: { type: "object", additionalProperties: false },
 			NoThenPropertyConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -8265,6 +8371,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoUnsafeSqliteInterpolationConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoUnsafeSqliteInterpolationOptions" },
+				],
+			},
+			NoUnsafeSqliteInterpolationOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoUnsafeTypeAssertionConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -8519,6 +8635,13 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoUselessBindConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoUselessBindOptions" },
+				],
+			},
+			NoUselessBindOptions: { type: "object", additionalProperties: false },
 			NoUselessCallConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -8575,6 +8698,16 @@ export function GET() {
 				],
 			},
 			NoUselessDateGetTimeOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoUselessDefaultAssignmentConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoUselessDefaultAssignmentOptions" },
+				],
+			},
+			NoUselessDefaultAssignmentOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -8665,6 +8798,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoUselessNestedTernaryConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoUselessNestedTernaryOptions" },
+				],
+			},
+			NoUselessNestedTernaryOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoUselessParameterPropertyAssignmentConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -8724,6 +8867,16 @@ export function GET() {
 				],
 			},
 			NoUselessReturnOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoUselessSetConstructionConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoUselessSetConstructionOptions" },
+				],
+			},
+			NoUselessSetConstructionOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -9196,6 +9349,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			NoVueDuplicateVElseIfConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoVueDuplicateVElseIfOptions" },
+				],
+			},
+			NoVueDuplicateVElseIfOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			NoVueExcessivePropsConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -9306,6 +9469,16 @@ export function GET() {
 				],
 			},
 			NoVueMutatingPropsOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			NoVueNegationElseConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithNoVueNegationElseOptions" },
+				],
+			},
+			NoVueNegationElseOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -9831,6 +10004,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noArrayDelete: {
+						description:
+							"Disallow using the delete operator on array elements.\nSee https://biomejs.dev/linter/rules/no-array-delete",
+						anyOf: [
+							{ $ref: "#/$defs/NoArrayDeleteConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noArrayForEach: {
 						description:
 							"Disallow the forEach() method in favor of for...of loops.\nSee https://biomejs.dev/linter/rules/no-array-for-each",
@@ -9852,6 +10033,14 @@ export function GET() {
 							"Disallow sorting an array only to read its smallest or largest value.\nSee https://biomejs.dev/linter/rules/no-array-sort-for-min-max",
 						anyOf: [
 							{ $ref: "#/$defs/NoArraySortForMinMaxConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noAstroComponentDefaultExport: {
+						description:
+							"Disallow runtime default exports in Astro component frontmatter.\nSee https://biomejs.dev/linter/rules/no-astro-component-default-export",
+						anyOf: [
+							{ $ref: "#/$defs/NoAstroComponentDefaultExportConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -9916,6 +10105,14 @@ export function GET() {
 							"Forbid the use of Bun builtin modules.\nSee https://biomejs.dev/linter/rules/no-bun-modules",
 						anyOf: [
 							{ $ref: "#/$defs/NoBunModulesConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noCanvasToImage: {
+						description:
+							"Disallow converting a canvas to an image only to draw it onto another canvas.\nSee https://biomejs.dev/linter/rules/no-canvas-to-image",
+						anyOf: [
+							{ $ref: "#/$defs/NoCanvasToImageConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10057,6 +10254,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noExpectToHaveBeenCalledOnce: {
+						description:
+							"Disallow toHaveBeenCalledOnce() in favor of toHaveBeenCalledTimes(1).\nSee https://biomejs.dev/linter/rules/no-expect-to-have-been-called-once",
+						anyOf: [
+							{ $ref: "#/$defs/NoExpectToHaveBeenCalledOnceConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noExtendNative: {
 						description:
 							"Disallow extending the prototype of built-in objects.\nSee https://biomejs.dev/linter/rules/no-extend-native",
@@ -10070,6 +10275,14 @@ export function GET() {
 							"Require Promise-like statements to be handled appropriately.\nSee https://biomejs.dev/linter/rules/no-floating-promises",
 						anyOf: [
 							{ $ref: "#/$defs/NoFloatingPromisesConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noImmediateMutation: {
+						description:
+							"Disallow changing a value right after it is created.\nSee https://biomejs.dev/linter/rules/no-immediate-mutation",
+						anyOf: [
+							{ $ref: "#/$defs/NoImmediateMutationConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10118,6 +10331,14 @@ export function GET() {
 							"Disallow this in places where it is undefined.\nSee https://biomejs.dev/linter/rules/no-invalid-this",
 						anyOf: [
 							{ $ref: "#/$defs/NoInvalidThisConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noJasmineGlobals: {
+						description:
+							"Disallow Jasmine globals in Jest tests.\nSee https://biomejs.dev/linter/rules/no-jasmine-globals",
+						anyOf: [
+							{ $ref: "#/$defs/NoJasmineGlobalsConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10437,6 +10658,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noReturnInTest: {
+						description:
+							"Disallow return statements in tests.\nSee https://biomejs.dev/linter/rules/no-return-in-test",
+						anyOf: [
+							{ $ref: "#/$defs/NoReturnInTestConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noScssNullComparison: {
 						description:
 							"Disallow comparing values to null in Sass @if conditions.\nSee https://biomejs.dev/linter/rules/no-scss-null-comparison",
@@ -10623,6 +10852,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noTailwindConflictingClasses: {
+						description:
+							"Disallow Tailwind CSS classes that set the same CSS properties on an element.\nSee https://biomejs.dev/linter/rules/no-tailwind-conflicting-classes",
+						anyOf: [
+							{ $ref: "#/$defs/NoTailwindConflictingClassesConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noTailwindLegacyUtilities: {
 						description:
 							"Disallow Tailwind CSS utility classes that Tailwind CSS only keeps for backward compatibility.\nSee https://biomejs.dev/linter/rules/no-tailwind-legacy-utilities",
@@ -10668,6 +10905,22 @@ export function GET() {
 							"Disallow TanStack Query functions that don't return any data.\nSee https://biomejs.dev/linter/rules/no-tanstack-query-void-query-fn",
 						anyOf: [
 							{ $ref: "#/$defs/NoTanstackQueryVoidQueryFnConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noTestGlobals: {
+						description:
+							"Disallow using test APIs as global variables.\nSee https://biomejs.dev/linter/rules/no-test-globals",
+						anyOf: [
+							{ $ref: "#/$defs/NoTestGlobalsConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noTestHooks: {
+						description:
+							"Disallow setup and teardown hooks in tests.\nSee https://biomejs.dev/linter/rules/no-test-hooks",
+						anyOf: [
+							{ $ref: "#/$defs/NoTestHooksConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10775,6 +11028,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noUnsafeSqliteInterpolation: {
+						description:
+							"Disallow inserting values into SQL strings passed to the exec() and prepare() methods of node:sqlite databases.\nSee https://biomejs.dev/linter/rules/no-unsafe-sqlite-interpolation",
+						anyOf: [
+							{ $ref: "#/$defs/NoUnsafeSqliteInterpolationConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noUnsafeTypeAssertion: {
 						description:
 							"Disallow TypeScript type assertions other than const assertions.\nSee https://biomejs.dev/linter/rules/no-unsafe-type-assertion",
@@ -10815,6 +11076,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noUselessBind: {
+						description:
+							"Disallow unnecessary .bind() calls on functions.\nSee https://biomejs.dev/linter/rules/no-useless-bind",
+						anyOf: [
+							{ $ref: "#/$defs/NoUselessBindConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noUselessCall: {
 						description:
 							"Disallow unnecessary .call() and .apply().\nSee https://biomejs.dev/linter/rules/no-useless-call",
@@ -10831,6 +11100,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noUselessDefaultAssignment: {
+						description:
+							"Disallow default values that can never be used.\nSee https://biomejs.dev/linter/rules/no-useless-default-assignment",
+						anyOf: [
+							{ $ref: "#/$defs/NoUselessDefaultAssignmentConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noUselessFallbackInSpread: {
 						description:
 							"Disallow empty object fallbacks when spreading a value into an object.\nSee https://biomejs.dev/linter/rules/no-useless-fallback-in-spread",
@@ -10844,6 +11121,14 @@ export function GET() {
 							"Disallow checking the length of an array when the result doesn't depend on it.\nSee https://biomejs.dev/linter/rules/no-useless-length-check",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessLengthCheckConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noUselessNestedTernary: {
+						description:
+							"Disallow nested ternary expressions that can be merged into one.\nSee https://biomejs.dev/linter/rules/no-useless-nested-ternary",
+						anyOf: [
+							{ $ref: "#/$defs/NoUselessNestedTernaryConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -10870,6 +11155,14 @@ export function GET() {
 							"Disallow functions that return a call to themselves when a loop can do the same work.\nSee https://biomejs.dev/linter/rules/no-useless-recursion",
 						anyOf: [
 							{ $ref: "#/$defs/NoUselessRecursionConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noUselessSetConstruction: {
+						description:
+							"Disallow creating a Set that a Set method such as union() doesn't need.\nSee https://biomejs.dev/linter/rules/no-useless-set-construction",
+						anyOf: [
+							{ $ref: "#/$defs/NoUselessSetConstructionConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -11101,6 +11394,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					noVueDuplicateVElseIf: {
+						description:
+							"Disallow duplicate conditions in v-if / v-else-if chains.\nSee https://biomejs.dev/linter/rules/no-vue-duplicate-v-else-if",
+						anyOf: [
+							{ $ref: "#/$defs/NoVueDuplicateVElseIfConfiguration" },
+							{ type: "null" },
+						],
+					},
 					noVueExcessiveProps: {
 						description:
 							"Limit the number of props a Vue component can declare.\nSee https://biomejs.dev/linter/rules/no-vue-excessive-props",
@@ -11170,6 +11471,14 @@ export function GET() {
 							"Disallow changing the props of a Vue component.\nSee https://biomejs.dev/linter/rules/no-vue-mutating-props",
 						anyOf: [
 							{ $ref: "#/$defs/NoVueMutatingPropsConfiguration" },
+							{ type: "null" },
+						],
+					},
+					noVueNegationElse: {
+						description:
+							"Disallow negated conditions in v-if and v-else-if when a v-else branch follows.\nSee https://biomejs.dev/linter/rules/no-vue-negation-else",
+						anyOf: [
+							{ $ref: "#/$defs/NoVueNegationElseConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -11477,6 +11786,22 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					useBiomeKindSets: {
+						description:
+							"Require kind sets instead of comparing kind names one by one in Biome JS plugins.\nSee https://biomejs.dev/linter/rules/use-biome-kind-sets",
+						anyOf: [
+							{ $ref: "#/$defs/UseBiomeKindSetsConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useBiomeTopLevelTypes: {
+						description:
+							"Require kind sets in Biome JS plugins to be created at the top level of the module.\nSee https://biomejs.dev/linter/rules/use-biome-top-level-types",
+						anyOf: [
+							{ $ref: "#/$defs/UseBiomeTopLevelTypesConfiguration" },
+							{ type: "null" },
+						],
+					},
 					useBlockStatementOverIife: {
 						description:
 							"Prefer block statements over functions that are called immediately only to create a scope.\nSee https://biomejs.dev/linter/rules/use-block-statement-over-iife",
@@ -11549,6 +11874,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					useConsistentIndexedObjectStyle: {
+						description:
+							"Require a consistent style for object types with arbitrary keys.\nSee https://biomejs.dev/linter/rules/use-consistent-indexed-object-style",
+						anyOf: [
+							{ $ref: "#/$defs/UseConsistentIndexedObjectStyleConfiguration" },
+							{ type: "null" },
+						],
+					},
 					useConsistentJsonFileRead: {
 						description:
 							"Enforce a consistent way of reading JSON files before passing them to JSON.parse().\nSee https://biomejs.dev/linter/rules/use-consistent-json-file-read",
@@ -11597,6 +11930,14 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					useDescribeFunctionTitle: {
+						description:
+							"Require passing an imported function as a test suite title instead of a string with its name.\nSee https://biomejs.dev/linter/rules/use-describe-function-title",
+						anyOf: [
+							{ $ref: "#/$defs/UseDescribeFunctionTitleConfiguration" },
+							{ type: "null" },
+						],
+					},
 					useDisposables: {
 						description:
 							"Detects a disposable object assigned to a variable without using or await using syntax.\nSee https://biomejs.dev/linter/rules/use-disposables",
@@ -11605,11 +11946,27 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					useEarlyContinue: {
+						description:
+							"Require an early continue instead of an if statement that wraps the rest of a loop body.\nSee https://biomejs.dev/linter/rules/use-early-continue",
+						anyOf: [
+							{ $ref: "#/$defs/UseEarlyContinueConfiguration" },
+							{ type: "null" },
+						],
+					},
 					useExhaustiveSwitchCases: {
 						description:
 							"Require switch-case statements to be exhaustive.\nSee https://biomejs.dev/linter/rules/use-exhaustive-switch-cases",
 						anyOf: [
 							{ $ref: "#/$defs/UseExhaustiveSwitchCasesConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useExpectEqualityMatcher: {
+						description:
+							"Enforce using an equality matcher instead of comparing values with === or !== inside expect().\nSee https://biomejs.dev/linter/rules/use-expect-equality-matcher",
+						anyOf: [
+							{ $ref: "#/$defs/UseExpectEqualityMatcherConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -11634,6 +11991,22 @@ export function GET() {
 							"Enforce using toHaveBeenCalledTimes() to check how many times a mock function was called.\nSee https://biomejs.dev/linter/rules/use-expect-to-have-been-called-times",
 						anyOf: [
 							{ $ref: "#/$defs/UseExpectToHaveBeenCalledTimesConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useExpectToHaveLength: {
+						description:
+							"Enforce using toHaveLength() to check the length of an array or string.\nSee https://biomejs.dev/linter/rules/use-expect-to-have-length",
+						anyOf: [
+							{ $ref: "#/$defs/UseExpectToHaveLengthConfiguration" },
+							{ type: "null" },
+						],
+					},
+					useExpectToStrictEqual: {
+						description:
+							"Enforce using toStrictEqual() instead of toEqual() to compare values in tests.\nSee https://biomejs.dev/linter/rules/use-expect-to-strict-equal",
+						anyOf: [
+							{ $ref: "#/$defs/UseExpectToStrictEqualConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -12025,12 +12398,32 @@ export function GET() {
 							{ type: "null" },
 						],
 					},
+					useTanstackQueryExhaustiveDependencies: {
+						description:
+							"Require query keys to include every value that the query function uses.\nSee https://biomejs.dev/linter/rules/use-tanstack-query-exhaustive-dependencies",
+						anyOf: [
+							{
+								$ref: "#/$defs/UseTanstackQueryExhaustiveDependenciesConfiguration",
+							},
+							{ type: "null" },
+						],
+					},
 					useTanstackQueryInfiniteQueryPropertyOrder: {
 						description:
 							"Enforce a consistent property order in the options of TanStack Query infinite query functions.\nSee https://biomejs.dev/linter/rules/use-tanstack-query-infinite-query-property-order",
 						anyOf: [
 							{
 								$ref: "#/$defs/UseTanstackQueryInfiniteQueryPropertyOrderConfiguration",
+							},
+							{ type: "null" },
+						],
+					},
+					useTanstackQueryMutationPropertyOrder: {
+						description:
+							"Enforce that onMutate comes before onError and onSettled in the options of TanStack Query mutations.\nSee https://biomejs.dev/linter/rules/use-tanstack-query-mutation-property-order",
+						anyOf: [
+							{
+								$ref: "#/$defs/UseTanstackQueryMutationPropertyOrderConfiguration",
 							},
 							{ type: "null" },
 						],
@@ -12042,6 +12435,14 @@ export function GET() {
 							{
 								$ref: "#/$defs/UseTanstackQueryStableQueryClientConfiguration",
 							},
+							{ type: "null" },
+						],
+					},
+					useTopLevelDescribe: {
+						description:
+							"Require tests and hooks to be inside a describe block.\nSee https://biomejs.dev/linter/rules/use-top-level-describe",
+						anyOf: [
+							{ $ref: "#/$defs/UseTopLevelDescribeConfiguration" },
 							{ type: "null" },
 						],
 					},
@@ -13336,6 +13737,8 @@ export function GET() {
 				type: "object",
 				properties: {
 					astro: { $ref: "#/$defs/RuleDomainValue" },
+					biomePlugin: { $ref: "#/$defs/RuleDomainValue" },
+					convex: { $ref: "#/$defs/RuleDomainValue" },
 					drizzle: { $ref: "#/$defs/RuleDomainValue" },
 					next: { $ref: "#/$defs/RuleDomainValue" },
 					playwright: { $ref: "#/$defs/RuleDomainValue" },
@@ -13516,6 +13919,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoArrayDeleteOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoArrayDeleteOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoArrayForEachOptions: {
 				type: "object",
 				properties: {
@@ -13562,6 +13979,15 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoAssignInExpressionsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoAstroComponentDefaultExportOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoAstroComponentDefaultExportOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -13747,6 +14173,15 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoBunModulesOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoCanvasToImageOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoCanvasToImageOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -14716,6 +15151,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoExpectToHaveBeenCalledOnceOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoExpectToHaveBeenCalledOnceOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoExplicitAnyOptions: {
 				type: "object",
 				properties: {
@@ -14986,6 +15435,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoImmediateMutationOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoImmediateMutationOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoImplicitAnyLetOptions: {
 				type: "object",
 				properties: {
@@ -15251,6 +15714,20 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoIrregularWhitespaceOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoJasmineGlobalsOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoJasmineGlobalsOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -16449,6 +16926,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoReturnInTestOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoReturnInTestOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoRootTypeOptions: {
 				type: "object",
 				properties: {
@@ -16912,6 +17398,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoTailwindConflictingClassesOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoTailwindConflictingClassesOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoTailwindLegacyUtilitiesOptions: {
 				type: "object",
 				properties: {
@@ -16990,6 +17485,29 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoTernaryOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoTestGlobalsOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoTestGlobalsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoTestHooksOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoTestHooksOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -17384,6 +17902,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoUnsafeSqliteInterpolationOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoUnsafeSqliteInterpolationOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoUnsafeTypeAssertionOptions: {
 				type: "object",
 				properties: {
@@ -17554,6 +18081,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoUselessBindOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoUselessBindOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoUselessCallOptions: {
 				type: "object",
 				properties: {
@@ -17629,6 +18170,20 @@ export function GET() {
 					},
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoUselessDateGetTimeOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoUselessDefaultAssignmentOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoUselessDefaultAssignmentOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -17759,6 +18314,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoUselessNestedTernaryOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoUselessNestedTernaryOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoUselessParameterPropertyAssignmentOptions: {
 				type: "object",
 				properties: {
@@ -17826,6 +18395,20 @@ export function GET() {
 					},
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoUselessReturnOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoUselessSetConstructionOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoUselessSetConstructionOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -18325,6 +18908,15 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithNoVueDuplicateVElseIfOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoVueDuplicateVElseIfOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithNoVueExcessivePropsOptions: {
 				type: "object",
 				properties: {
@@ -18411,6 +19003,20 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/NoVueMutatingPropsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithNoVueNegationElseOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/NoVueNegationElseOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -19064,6 +19670,24 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithUseBiomeKindSetsOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseBiomeKindSetsOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseBiomeTopLevelTypesOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseBiomeTopLevelTypesOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithUseBlockStatementOverIifeOptions: {
 				type: "object",
 				properties: {
@@ -19301,6 +19925,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithUseConsistentIndexedObjectStyleOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseConsistentIndexedObjectStyleOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithUseConsistentJsonFileReadOptions: {
 				type: "object",
 				properties: {
@@ -19518,6 +20156,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithUseDescribeFunctionTitleOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseDescribeFunctionTitleOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithUseDestructuringOptions: {
 				type: "object",
 				properties: {
@@ -19565,6 +20217,20 @@ export function GET() {
 					},
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseDomQuerySelectorOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseEarlyContinueOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseEarlyContinueOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -19629,6 +20295,20 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithUseExpectEqualityMatcherOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseExpectEqualityMatcherOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithUseExpectOptions: {
 				type: "object",
 				properties: {
@@ -19676,6 +20356,34 @@ export function GET() {
 					},
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseExpectToHaveBeenCalledTimesOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseExpectToHaveLengthOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseExpectToHaveLengthOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseExpectToStrictEqualOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseExpectToStrictEqualOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -21165,6 +21873,22 @@ export function GET() {
 				additionalProperties: false,
 				required: ["level"],
 			},
+			RuleWithUseTanstackQueryExhaustiveDependenciesOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: {
+						$ref: "#/$defs/UseTanstackQueryExhaustiveDependenciesOptions",
+					},
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
 			RuleWithUseTanstackQueryInfiniteQueryPropertyOrderOptions: {
 				type: "object",
 				properties: {
@@ -21176,6 +21900,22 @@ export function GET() {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: {
 						$ref: "#/$defs/UseTanstackQueryInfiniteQueryPropertyOrderOptions",
+					},
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseTanstackQueryMutationPropertyOrderOptions: {
+				type: "object",
+				properties: {
+					fix: {
+						description:
+							"Controls the applicability of the rule's fix. `none` suppresses the fix, while `safe` and `unsafe` reclassify its applicability. This setting does not change the fix itself.",
+						anyOf: [{ $ref: "#/$defs/FixKind" }, { type: "null" }],
+					},
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: {
+						$ref: "#/$defs/UseTanstackQueryMutationPropertyOrderOptions",
 					},
 				},
 				additionalProperties: false,
@@ -21257,6 +21997,15 @@ export function GET() {
 				properties: {
 					level: { $ref: "#/$defs/RulePlainConfiguration" },
 					options: { $ref: "#/$defs/UseThrowOnlyErrorOptions" },
+				},
+				additionalProperties: false,
+				required: ["level"],
+			},
+			RuleWithUseTopLevelDescribeOptions: {
+				type: "object",
+				properties: {
+					level: { $ref: "#/$defs/RulePlainConfiguration" },
+					options: { $ref: "#/$defs/UseTopLevelDescribeOptions" },
 				},
 				additionalProperties: false,
 				required: ["level"],
@@ -25167,6 +25916,26 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			UseBiomeKindSetsConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseBiomeKindSetsOptions" },
+				],
+			},
+			UseBiomeKindSetsOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			UseBiomeTopLevelTypesConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseBiomeTopLevelTypesOptions" },
+				],
+			},
+			UseBiomeTopLevelTypesOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			UseBlockStatementOverIifeConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -25493,6 +26262,23 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			UseConsistentIndexedObjectStyleConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseConsistentIndexedObjectStyleOptions" },
+				],
+			},
+			UseConsistentIndexedObjectStyleOptions: {
+				type: "object",
+				properties: {
+					style: {
+						description:
+							"The style that object types with arbitrary keys must use.",
+						anyOf: [{ $ref: "#/$defs/IndexedObjectStyle" }, { type: "null" }],
+					},
+				},
+				additionalProperties: false,
+			},
 			UseConsistentJsonFileReadConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -25739,6 +26525,16 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			UseDescribeFunctionTitleConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseDescribeFunctionTitleOptions" },
+				],
+			},
+			UseDescribeFunctionTitleOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			UseDestructuringConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -25791,6 +26587,26 @@ export function GET() {
 							"A list of receiver identifiers to ignore.\n\nIn the expression `document.querySelector('div')`, the receiver is `document`.",
 						type: ["array", "null"],
 						items: { type: "string" },
+					},
+				},
+				additionalProperties: false,
+			},
+			UseEarlyContinueConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseEarlyContinueOptions" },
+				],
+			},
+			UseEarlyContinueOptions: {
+				type: "object",
+				properties: {
+					maximumStatements: {
+						description:
+							"The largest number of statements that an `if` statement at the end of a loop body can\ncontain before the rule reports it (default: 1).",
+						type: ["integer", "null"],
+						format: "uint16",
+						maximum: 65535,
+						minimum: 0,
 					},
 				},
 				additionalProperties: false,
@@ -25885,6 +26701,16 @@ export function GET() {
 					{ $ref: "#/$defs/RuleWithUseExpectOptions" },
 				],
 			},
+			UseExpectEqualityMatcherConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseExpectEqualityMatcherOptions" },
+				],
+			},
+			UseExpectEqualityMatcherOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
 			UseExpectOptions: { type: "object", additionalProperties: false },
 			UseExpectToContainConfiguration: {
 				oneOf: [
@@ -25913,6 +26739,26 @@ export function GET() {
 				],
 			},
 			UseExpectToHaveBeenCalledTimesOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			UseExpectToHaveLengthConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseExpectToHaveLengthOptions" },
+				],
+			},
+			UseExpectToHaveLengthOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			UseExpectToStrictEqualConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseExpectToStrictEqualOptions" },
+				],
+			},
+			UseExpectToStrictEqualOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -27643,6 +28489,32 @@ export function GET() {
 				type: "object",
 				additionalProperties: false,
 			},
+			UseTanstackQueryExhaustiveDependenciesConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{
+						$ref: "#/$defs/RuleWithUseTanstackQueryExhaustiveDependenciesOptions",
+					},
+				],
+			},
+			UseTanstackQueryExhaustiveDependenciesOptions: {
+				type: "object",
+				properties: {
+					ignoredTypes: {
+						description:
+							"Names of TypeScript types. The query function can use a variable or parameter declared\nwith one of these types, such as `client: ApiClient`, without adding it to the query key.",
+						type: ["array", "null"],
+						items: { type: "string" },
+					},
+					ignoredVariables: {
+						description:
+							"Names of variables that the query function can use without adding them to the query\nkey. This also covers the properties read from these variables.",
+						type: ["array", "null"],
+						items: { type: "string" },
+					},
+				},
+				additionalProperties: false,
+			},
 			UseTanstackQueryInfiniteQueryPropertyOrderConfiguration: {
 				oneOf: [
 					{ $ref: "#/$defs/RulePlainConfiguration" },
@@ -27652,6 +28524,18 @@ export function GET() {
 				],
 			},
 			UseTanstackQueryInfiniteQueryPropertyOrderOptions: {
+				type: "object",
+				additionalProperties: false,
+			},
+			UseTanstackQueryMutationPropertyOrderConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{
+						$ref: "#/$defs/RuleWithUseTanstackQueryMutationPropertyOrderOptions",
+					},
+				],
+			},
+			UseTanstackQueryMutationPropertyOrderOptions: {
 				type: "object",
 				additionalProperties: false,
 			},
@@ -27742,6 +28626,26 @@ export function GET() {
 			},
 			UseThrowOnlyErrorOptions: {
 				type: "object",
+				additionalProperties: false,
+			},
+			UseTopLevelDescribeConfiguration: {
+				oneOf: [
+					{ $ref: "#/$defs/RulePlainConfiguration" },
+					{ $ref: "#/$defs/RuleWithUseTopLevelDescribeOptions" },
+				],
+			},
+			UseTopLevelDescribeOptions: {
+				type: "object",
+				properties: {
+					maxTopLevelDescribes: {
+						description:
+							"The maximum number of `describe` blocks allowed at the top level of a file.\n\nWhen this option isn't set, any number of top-level `describe` blocks is allowed.",
+						type: ["integer", "null"],
+						format: "uint16",
+						maximum: 65535,
+						minimum: 1,
+					},
+				},
 				additionalProperties: false,
 			},
 			UseTopLevelHeadingConfiguration: {

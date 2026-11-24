@@ -1,0 +1,124 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noTailwindConflictingClasses (HTML)
+description: HTML documentation for noTailwindConflictingClasses
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="html" languages={[{"id":"html","label":"HTML","href":"/linter/rules/no-tailwind-conflicting-classes/html/"},{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-tailwind-conflicting-classes/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+:::note
+This rule belongs to the project domain. This means that its activation will activate the Biome Scanner to scan the files of your project. Read more about it in the [documentation page](/linter/domains#project)
+:::
+## Summary
+- Rule available since: `v2.6.9`
+- Diagnostic Category: [`lint/nursery/noTailwindConflictingClasses`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`tailwind`](/linter/domains#tailwind)
+  - [`project`](/linter/domains#project)
+- Sources: 
+  - Same as [`better-tailwindcss/no-conflicting-classes`](https://github.com/schoero/eslint-plugin-better-tailwindcss/blob/main/docs/rules/no-conflicting-classes.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTailwindConflictingClasses": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow Tailwind CSS classes that set the same CSS properties on an element.
+
+When two classes in a class list set the same CSS properties, only one of them takes effect.
+The other class does nothing, and it hides which style you meant to apply.
+In a `class` attribute, Tailwind CSS decides which class wins from the order of the styles
+it generates, so changing the order of the classes doesn't change the result.
+
+Two classes only conflict when they have the same variants.
+For example, `flex` and `md:grid` don't conflict, because `md:grid` only applies on wider screens.
+A class that sets some of the properties of another class doesn't conflict with it either,
+so you can write `p-2 px-4` to change the horizontal padding.
+
+To make the rule aware of your own theme values and variants, point the
+[`tailwind.stylesheet`](https://biomejs.dev/reference/configuration/#tailwindstylesheet)
+option at the CSS file that holds your Tailwind CSS configuration. Without it, the rule
+only knows the default configuration, and skips classes that use your own theme values
+or variants.
+
+Biome scans your project when this rule is enabled, so that it can read the stylesheet
+and the files it imports. The scan happens even if `tailwind.stylesheet` isn't set,
+although the rule then only uses the default configuration.
+
+## Examples
+
+### Invalid
+
+```html
+<div class="flex grid"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:18 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-conflicting-classes\">lint/nursery/noTailwindConflictingClasses</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The Tailwind CSS class </span><span style=\"color: Orange;\"><strong>grid</strong></span><span style=\"color: Orange;\"> sets the same CSS properties as </span><span style=\"color: Orange;\"><strong>flex</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;flex grid&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The other class is here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;flex grid&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Only one of these classes takes effect, so the other one does nothing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the class that you don't need.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```html
+<div class="p-2 hover:text-red-500 hover:text-blue-500"></div>
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.html:1:36 <a href=\"https://biomejs.dev/linter/rules/no-tailwind-conflicting-classes\">lint/nursery/noTailwindConflictingClasses</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">The Tailwind CSS class </span><span style=\"color: Orange;\"><strong>hover:text-blue-500</strong></span><span style=\"color: Orange;\"> sets the same CSS properties as </span><span style=\"color: Orange;\"><strong>hover:text-red-500</strong></span><span style=\"color: Orange;\">.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;p-2 hover:text-red-500 hover:text-blue-500&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                                   <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The other class is here.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>&lt;div class=&quot;p-2 hover:text-red-500 hover:text-blue-500&quot;&gt;&lt;/div&gt;<br />   <strong>   │ </strong>                <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Only one of these classes takes effect, so the other one does nothing.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Remove the class that you don't need.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```html
+<div class="flex w-full"></div>
+<div class="flex md:grid"></div>
+<div class="p-2 px-4"></div>
+<div class="text-lg text-red-500"></div>
+```
+
+## Recognized class strings
+
+This rule checks the attributes and functions recognized by the top-level
+[`tailwind` configuration](https://biomejs.dev/reference/configuration/#tailwind).
+
+## Known limitations
+
+This rule compares the classes of one string at a time.
+It doesn't report classes that conflict across strings:
+
+```svelte
+<div class={clsx("flex", isGrid && "grid")}></div>
+```
+
+It only checks a class that your stylesheet declares with `@utility` when the
+`@utility` rule holds nothing but declarations, and the declarations that apply to
+the class each set a different property. It skips a class whose rule nests other
+rules or uses `@apply`, and a class that more than one utility defines, such as a
+name that two `@utility` rules declare.
+
+It doesn't compare classes whose variants are written in a different order,
+such as `sm:hover:flex` and `hover:sm:grid`.
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/src/lint/nursery/no_tailwind_conflicting_classes.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_html_analyze/tests/specs/nursery/noTailwindConflictingClasses)
+- <RulePlaygroundLink rule="noTailwindConflictingClasses" category="lint" language="html" code={"<div class=\"flex grid\"></div>\n"} />
+

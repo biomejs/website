@@ -47,7 +47,11 @@ the cascade easier to read.
 
 The rule reports likely conflicts between selectors that end with the same target under the
 same surrounding rules, such as `@media` or `@layer`. It cannot determine every case where
-two selectors match the same element.
+two selectors match the same element. Nested selectors are combined with their parent
+selectors before comparison, so `nav { a { &:hover {} } }` behaves like `nav a:hover {}`.
+
+Rules without declarations, such as a rule that only contains a comment or nested rules,
+are ignored. These rules set no styles, so their position doesn't matter.
 
 ## SCSS limitations
 
@@ -55,6 +59,10 @@ This rule does not evaluate SCSS. It compares statically written selectors withi
 SCSS block, but not selectors across mixin or include boundaries, or across mutually exclusive
 control-flow branches. Selectors containing interpolation or placeholders are ignored because
 their emitted selector and specificity depend on SCSS evaluation.
+
+In SCSS, an `@include` inserts the contents of a mixin. The rule can't see what the mixin
+contains, so it treats every `@include` as a declaration. Stylelint does this only for an
+`@include` with a `{ ... }` block, so this rule can report selectors that Stylelint doesn't.
 
 ## Examples
 
@@ -118,8 +126,8 @@ a {
 ```
 
 ```css
-a:hover { color: red; }
 a { color: red; }
+a:hover { color: red; }
 ```
 
 ```css

@@ -1,0 +1,129 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noUnsafeSqliteInterpolation (JavaScript)
+description: JavaScript (and super languages) documentation for noUnsafeSqliteInterpolation
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-unsafe-sqlite-interpolation/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.9`
+- Diagnostic Category: [`lint/nursery/noUnsafeSqliteInterpolation`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- Sources: 
+  - Same as [`unicorn/no-unsafe-sqlite-interpolation`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-unsafe-sqlite-interpolation.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noUnsafeSqliteInterpolation": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow inserting values into SQL strings passed to the `exec()` and `prepare()` methods of `node:sqlite` databases.
+
+The `DatabaseSync` class of the built-in `node:sqlite` module runs SQL code with its `exec()` and `prepare()` methods.
+When a template literal inserts a value with `${}`, the value becomes part of the SQL code itself.
+A value that contains SQL, such as text typed by a user, can then change what the query does.
+This is called SQL injection, and it can leak or destroy data.
+Even harmless values can break the query, for example a name that contains a quote.
+
+The rule also reports tagged templates, such as ``String.raw`SELECT 1` ``, passed to these methods.
+The tag function turns the template into a plain string before the method receives it,
+so the inserted values are never sent separately from the SQL code.
+
+Instead, write a `?` placeholder in the SQL string and pass the values when you run the prepared statement:
+
+```js
+import { DatabaseSync } from "node:sqlite";
+
+const database = new DatabaseSync(":memory:");
+const query = database.prepare("SELECT * FROM users WHERE id = ?");
+query.get(id);
+```
+
+Starting from Node.js 24.9.0, you can also use the tagged templates of `createTagStore()`.
+They send each inserted value separately from the SQL code:
+
+```js
+import { DatabaseSync } from "node:sqlite";
+
+const database = new DatabaseSync(":memory:");
+const sql = database.createTagStore();
+sql.get`SELECT * FROM users WHERE id = ${id}`;
+```
+
+The rule only checks databases created with `new` from the `DatabaseSync` class imported from `node:sqlite` with an `import` statement.
+It follows variables declared with `const`, such as `const sql = ...; database.exec(sql)`,
+but not variables declared with `let` or `var`, values returned by functions, or modules loaded with `require()`.
+It doesn't report SQL strings joined with `+`.
+
+## Examples
+
+### Invalid
+
+```js
+import { DatabaseSync } from "node:sqlite";
+
+const database = new DatabaseSync(":memory:");
+database.exec(`SELECT * FROM users WHERE id = ${id}`);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:15 <a href=\"https://biomejs.dev/linter/rules/no-unsafe-sqlite-interpolation\">lint/nursery/noUnsafeSqliteInterpolation</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This SQL string passed to </span><span style=\"color: Tomato;\"><strong>exec()</strong></span><span style=\"color: Tomato;\"> inserts values with </span><span style=\"color: Tomato;\"><strong>$&#123;&#125;</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>3 │ </strong>const database = new DatabaseSync(&quot;:memory:&quot;);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>database.exec(&#96;SELECT &#42; FROM users WHERE id = $&#123;id&#125;&#96;);<br />   <strong>   │ </strong>              <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Inserted values become part of the SQL code, so a value that contains SQL can change what the query does. This is called SQL injection.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write a </span><span style=\"color: lightgreen;\"><strong>?</strong></span><span style=\"color: lightgreen;\"> placeholder in the SQL string, and pass the values when you run the prepared statement, for example </span><span style=\"color: lightgreen;\"><strong>database.prepare(&quot;SELECT &#42; FROM users WHERE id = ?&quot;).get(id)</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { DatabaseSync } from "node:sqlite";
+
+const database = new DatabaseSync(":memory:");
+const sql = `SELECT * FROM users WHERE id = ${id}`;
+database.prepare(sql);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:5:18 <a href=\"https://biomejs.dev/linter/rules/no-unsafe-sqlite-interpolation\">lint/nursery/noUnsafeSqliteInterpolation</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This SQL string passed to </span><span style=\"color: Tomato;\"><strong>prepare()</strong></span><span style=\"color: Tomato;\"> inserts values with </span><span style=\"color: Tomato;\"><strong>$&#123;&#125;</strong></span><span style=\"color: Tomato;\">.</span><br />  <br />    <strong>3 │ </strong>const database = new DatabaseSync(&quot;:memory:&quot;);<br />    <strong>4 │ </strong>const sql = &#96;SELECT &#42; FROM users WHERE id = $&#123;id&#125;&#96;;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>database.prepare(sql);<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The SQL string is built here.</span><br />  <br />    <strong>3 │ </strong>const database = new DatabaseSync(&quot;:memory:&quot;);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>const sql = &#96;SELECT &#42; FROM users WHERE id = $&#123;id&#125;&#96;;<br />   <strong>   │ </strong>            <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>database.prepare(sql);<br />    <strong>6 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Inserted values become part of the SQL code, so a value that contains SQL can change what the query does. This is called SQL injection.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write a </span><span style=\"color: lightgreen;\"><strong>?</strong></span><span style=\"color: lightgreen;\"> placeholder in the SQL string, and pass the values when you run the prepared statement, for example </span><span style=\"color: lightgreen;\"><strong>database.prepare(&quot;SELECT &#42; FROM users WHERE id = ?&quot;).get(id)</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { DatabaseSync } from "node:sqlite";
+
+const database = new DatabaseSync(":memory:");
+database.prepare(String.raw`SELECT * FROM users WHERE id = ${id}`);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:18 <a href=\"https://biomejs.dev/linter/rules/no-unsafe-sqlite-interpolation\">lint/nursery/noUnsafeSqliteInterpolation</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This SQL string passed to </span><span style=\"color: Tomato;\"><strong>prepare()</strong></span><span style=\"color: Tomato;\"> is built by a tagged template.</span><br />  <br />    <strong>3 │ </strong>const database = new DatabaseSync(&quot;:memory:&quot;);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>database.prepare(String.raw&#96;SELECT &#42; FROM users WHERE id = $&#123;id&#125;&#96;);<br />   <strong>   │ </strong>                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The tag function turns the template into a plain string before the database receives it, so the inserted values become part of the SQL code. A value that contains SQL can change what the query does. This is called SQL injection.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Write a </span><span style=\"color: lightgreen;\"><strong>?</strong></span><span style=\"color: lightgreen;\"> placeholder in the SQL string, and pass the values when you run the prepared statement, for example </span><span style=\"color: lightgreen;\"><strong>database.prepare(&quot;SELECT &#42; FROM users WHERE id = ?&quot;).get(id)</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+import { DatabaseSync } from "node:sqlite";
+
+const database = new DatabaseSync(":memory:");
+database.exec("CREATE TABLE users (id INTEGER)");
+database.exec(`SELECT 1`);
+database.prepare("SELECT * FROM users WHERE id = ?").get(id);
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_unsafe_sqlite_interpolation.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noUnsafeSqliteInterpolation)
+- <RulePlaygroundLink rule="noUnsafeSqliteInterpolation" category="lint" language="js" code={"import { DatabaseSync } from \"node:sqlite\";\n\nconst database = new DatabaseSync(\":memory:\");\ndatabase.exec(`SELECT * FROM users WHERE id = ${id}`);\n"} />
+

@@ -481,6 +481,13 @@ export function GET() {
 					"required": ["eslintDrizzle"]
 				},
 				{
+					"description": "Rules from [Convex ESLint Plugin](https://docs.convex.dev/linting/eslint)",
+					"type": "object",
+					"properties": { "eslintConvex": { "type": "string" } },
+					"additionalProperties": false,
+					"required": ["eslintConvex"]
+				},
+				{
 					"description": "Action for https://github.com/keithamus/sort-package-json",
 					"type": "string",
 					"const": "sortPackageJson"

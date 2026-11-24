@@ -1,0 +1,160 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useTopLevelDescribe (JavaScript)
+description: JavaScript (and super languages) documentation for useTopLevelDescribe
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-top-level-describe/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.9`
+- Diagnostic Category: [`lint/nursery/useTopLevelDescribe`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`test`](/linter/domains#test)
+- Sources: 
+  - Same as [`jest/require-top-level-describe`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/require-top-level-describe.md)
+  - Same as [`vitest/require-top-level-describe`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/require-top-level-describe.md)
+  - Same as [`playwright/require-top-level-describe`](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/require-top-level-describe.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useTopLevelDescribe": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require tests and hooks to be inside a `describe` block.
+
+A `describe` block gives a group of tests a shared name and keeps their
+hooks next to them. A hook is a function such as `beforeEach` or
+`afterAll` that runs before or after tests. Tests and hooks written
+outside of any `describe` block have no such group, which makes a test
+file harder to navigate as it grows.
+
+This rule reports calls that declare a test, such as `test` and `it`,
+and calls that declare a hook, when they are not inside a `describe`
+block. It can also limit how many `describe` blocks a file has at its
+top level.
+
+Tests and hooks are recognized by the name of the function, such as
+`test`, `it`, `beforeEach`, or `after`. The rule doesn't check where
+that function comes from, so an unrelated function with one of these
+names is reported as well.
+
+## Examples
+
+### Invalid
+
+```js
+test("adds two numbers", () => {});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/use-top-level-describe\">lint/nursery/useTopLevelDescribe</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This test is not inside a </span><span style=\"color: lightgreen;\"><strong>describe</strong></span><span style=\"color: lightgreen;\"> block.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>test(&quot;adds two numbers&quot;, () =&gt; &#123;&#125;);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A test outside of a </span><span style=\"color: lightgreen;\"><strong>describe</strong></span><span style=\"color: lightgreen;\"> block isn't grouped with related tests under a shared name, which makes the file harder to navigate as it grows.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move this test into a </span><span style=\"color: lightgreen;\"><strong>describe</strong></span><span style=\"color: lightgreen;\"> block.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+beforeEach(() => {});
+
+describe("calculator", () => {
+    test("adds two numbers", () => {});
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/use-top-level-describe\">lint/nursery/useTopLevelDescribe</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This hook is not inside a </span><span style=\"color: lightgreen;\"><strong>describe</strong></span><span style=\"color: lightgreen;\"> block.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>beforeEach(() =&gt; &#123;&#125;);<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong><br />    <strong>3 │ </strong>describe(&quot;calculator&quot;, () =&gt; &#123;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A hook outside of a </span><span style=\"color: lightgreen;\"><strong>describe</strong></span><span style=\"color: lightgreen;\"> block isn't tied to a named group of tests, which makes it harder to tell which tests depend on it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move this hook into the </span><span style=\"color: lightgreen;\"><strong>describe</strong></span><span style=\"color: lightgreen;\"> block that contains the tests it applies to.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+describe("calculator", () => {
+    beforeEach(() => {});
+
+    test("adds two numbers", () => {});
+
+    describe("division", () => {
+        test("divides two numbers", () => {});
+    });
+});
+```
+
+## Options
+
+### `maxTopLevelDescribes`
+
+Default: no limit
+
+The maximum number of `describe` blocks allowed at the top level of a file.
+A `describe` block that is inside another `describe` block doesn't count
+towards this limit.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useTopLevelDescribe": {
+					"level": "on",
+					"options": {
+						"maxTopLevelDescribes": 1
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```js
+describe("addition", () => {
+    test("adds two numbers", () => {});
+});
+
+describe("division", () => {
+    test("divides two numbers", () => {});
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:5:1 <a href=\"https://biomejs.dev/linter/rules/use-top-level-describe\">lint/nursery/useTopLevelDescribe</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This top-level </span><span style=\"color: lightgreen;\"><strong>describe</strong></span><span style=\"color: lightgreen;\"> block exceeds the maximum of 1 allowed in a file.</span><br />  <br />    <strong>3 │ </strong>&#125;);<br />    <strong>4 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>describe(&quot;division&quot;, () =&gt; &#123;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>    test(&quot;divides two numbers&quot;, () =&gt; &#123;&#125;);<br />    <strong>7 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">A file with many top-level </span><span style=\"color: lightgreen;\"><strong>describe</strong></span><span style=\"color: lightgreen;\"> blocks is harder to navigate than a file that groups them under a shared name.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move this block into another </span><span style=\"color: lightgreen;\"><strong>describe</strong></span><span style=\"color: lightgreen;\"> block, or move it to a separate file.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+#### Valid
+
+```js
+describe("calculator", () => {
+    describe("addition", () => {
+        test("adds two numbers", () => {});
+    });
+
+    describe("division", () => {
+        test("divides two numbers", () => {});
+    });
+});
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_top_level_describe.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useTopLevelDescribe)
+- <RulePlaygroundLink rule="useTopLevelDescribe" category="lint" language="js" code={"test(\"adds two numbers\", () => {});\n"} />
+
