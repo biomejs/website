@@ -10,6 +10,11 @@ minimumReleaseAgeExclude:
   - "@biomejs/*"
 overrides:
   satteri: 0.10.5
+packageExtensions:
+  "@astrojs/astro2tsx@0.1.3":
+    dependencies:
+      # Match the @emnapi/core version used by astro2tsx.
+      "@emnapi/runtime": 1.11.3
 packages:
   - "scripts"
   - "packages/*"
