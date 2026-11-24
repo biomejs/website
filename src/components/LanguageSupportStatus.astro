@@ -1,0 +1,56 @@
+---
+import { Icon } from "@astrojs/starlight/components";
+
+type StatusId = "supported" | "experimental" | "inProgress" | "notStarted";
+
+interface Props {
+	status: StatusId;
+	label?: string;
+	decorative?: boolean;
+}
+
+const statuses = {
+	supported: {
+		icon: "approve-check-circle",
+		color: "var(--sl-color-green-high)",
+		label: "Supported",
+	},
+	experimental: {
+		icon: "warning",
+		color: "var(--sl-color-orange-high)",
+		label: "Experimental",
+	},
+	inProgress: {
+		icon: "clock",
+		color: "var(--sl-color-blue-high)",
+		label: "In progress",
+	},
+	notStarted: {
+		icon: "close",
+		color: "var(--sl-color-red-high)",
+		label: "Not started",
+	},
+} as const;
+
+const { status, label, decorative = false } = Astro.props;
+const statusDetails = statuses[status];
+const accessibilityProps = decorative
+	? {}
+	: { label: label ?? statusDetails.label };
+---
+
+<span class="language-support-status">
+	<Icon
+		name={statusDetails.icon}
+		color={statusDetails.color}
+		size="1.1em"
+		{...accessibilityProps}
+	/>
+</span>
+
+<style>
+.language-support-status {
+	display: inline-flex;
+	vertical-align: middle;
+}
+</style>

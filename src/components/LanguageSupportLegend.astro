@@ -1,17 +1,12 @@
 ---
+import LanguageSupportStatus from "./LanguageSupportStatus.astro";
+
 type StatusId = "supported" | "experimental" | "inProgress" | "notStarted";
 
 interface Props {
 	title?: string;
 	labels?: Partial<Record<StatusId, string>>;
 }
-
-const icons: Record<StatusId, string> = {
-	supported: "✅",
-	experimental: "🟡",
-	inProgress: "⌛️",
-	notStarted: "🚫",
-};
 
 const defaultLabels: Record<StatusId, string> = {
 	supported: "Supported",
@@ -22,16 +17,16 @@ const defaultLabels: Record<StatusId, string> = {
 
 const { title = "Legend", labels = {} } = Astro.props;
 
-const statuses = (Object.keys(icons) as StatusId[]).map((id) => ({
-	icon: icons[id],
+const statuses = (Object.keys(defaultLabels) as StatusId[]).map((id) => ({
+	id,
 	label: labels[id] ?? defaultLabels[id],
 }));
 ---
 
 <ul class="language-support-legend not-content" aria-label={title}>
-	{statuses.map(({ icon, label }) => (
+	{statuses.map(({ id, label }) => (
 		<li>
-			<span aria-hidden="true">{icon}</span>
+			<LanguageSupportStatus status={id} decorative />
 			<span class="label">{label}</span>
 		</li>
 	))}

@@ -11,18 +11,18 @@ localized: false
 
 import { Icon } from "@astrojs/starlight/components";
 
-Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
-- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle" label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
-- The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
-- The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
-- The icon <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" /></span> indicates that the rule has been implemented and scheduled for the next release.
+Below the list of rules supported by Biome, divided by group. Here's a legend of the icons:
+- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle" label="This rule is recommended" color="var(--sl-color-green-high)" /></span> indicates that the rule is part of the recommended rules.
+- The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" color="var(--sl-color-blue-high)" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
+- The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" color="var(--sl-color-orange-high)" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
+- The icon <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" color="var(--sl-color-purple-high)" /></span> indicates that the rule has been implemented and scheduled for the next release.
 
 ## `nursery`
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
 | [useConsistentHeadingLevel](/linter/rules/use-consistent-heading-level/markdown) | Enforce that all heading levels are consistent and ordered. |  |
-| [useConsistentUnicodeBom](/linter/rules/use-consistent-unicode-bom/markdown) | Require or disallow a Unicode byte order mark at the beginning of a file. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useConsistentUnicodeBom](/linter/rules/use-consistent-unicode-bom/markdown) | Require or disallow a Unicode byte order mark at the beginning of a file. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem" color="var(--sl-color-blue-high)" /></span> |
 | [useFencedCodeLanguage](/linter/rules/use-fenced-code-language/markdown) | Enforce that fenced code blocks specify a code tag (language). |  |
 | [useSingleTopLevelHeading](/linter/rules/use-single-top-level-heading/markdown) | Enforce that a Markdown document has a single top-level heading. |  |
 | [useTopLevelHeading](/linter/rules/use-top-level-heading/markdown) | Require Markdown documents to start with a top-level heading. |  |
