@@ -535,11 +535,11 @@ fn generate_language_page(
         r#"
 import {{ Icon }} from "@astrojs/starlight/components";
 
-Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
-- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle" label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
-- The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
-- The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
-- The icon <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" /></span> indicates that the rule has been implemented and scheduled for the next release.
+Below the list of rules supported by Biome, divided by group. Here's a legend of the icons:
+- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle" label="This rule is recommended" color="var(--sl-color-green-high)" /></span> indicates that the rule is part of the recommended rules.
+- The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" color="var(--sl-color-blue-high)" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
+- The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" color="var(--sl-color-orange-high)" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
+- The icon <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" color="var(--sl-color-purple-high)" /></span> indicates that the rule has been implemented and scheduled for the next release.
 "#
     )?;
 
@@ -619,21 +619,21 @@ fn generate_group(
 
             let mut properties = String::new();
             if is_recommended {
-                properties.push_str("<span class='inline-icon' title=\"This rule is recommended\" ><Icon name=\"approve-check-circle\" size=\"1.2rem\" label=\"This rule is recommended\" /></span>");
+                properties.push_str("<span class='inline-icon' title=\"This rule is recommended\" ><Icon name=\"approve-check-circle\" size=\"1.2rem\" label=\"This rule is recommended\" color=\"var(--sl-color-green-high)\" /></span>");
             }
 
             match meta.fix_kind {
                 FixKind::Safe => {
-                    properties.push_str("<span class='inline-icon' title='The rule has a safe fix.'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\"  /></span>");
+                    properties.push_str("<span class='inline-icon' title='The rule has a safe fix.'><Icon name=\"seti:config\" label=\"The rule has a safe fix\" size=\"1.2rem\" color=\"var(--sl-color-blue-high)\" /></span>");
                 }
                 FixKind::Unsafe => {
-                    properties.push_str("<span class='inline-icon' title=\"The rule has an unsafe fix\" ><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" /></span>");
+                    properties.push_str("<span class='inline-icon' title=\"The rule has an unsafe fix\" ><Icon name=\"warning\" label=\"The rule has an unsafe fix\" size=\"1.2rem\" color=\"var(--sl-color-orange-high)\" /></span>");
                 }
                 FixKind::None => {}
             }
 
             if meta.version == "next" {
-                properties.push_str("<span class='inline-icon' title=\"This rule is not released yet\"><Icon name=\"moon\" label=\"This rule is not released yet\" size=\"1.2rem\" /></span>");
+                properties.push_str("<span class='inline-icon' title=\"This rule is not released yet\"><Icon name=\"moon\" label=\"This rule is not released yet\" size=\"1.2rem\" color=\"var(--sl-color-purple-high)\" /></span>");
             }
 
             let summary_html = extract_summary_from_rule(meta.docs);

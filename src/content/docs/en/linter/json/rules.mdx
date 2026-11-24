@@ -11,11 +11,11 @@ localized: false
 
 import { Icon } from "@astrojs/starlight/components";
 
-Below the list of rules supported by Biome, divided by group. Here's a legend of the emojis:
-- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle" label="This rule is recommended" /></span> indicates that the rule is part of the recommended rules.
-- The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
-- The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
-- The icon <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" /></span> indicates that the rule has been implemented and scheduled for the next release.
+Below the list of rules supported by Biome, divided by group. Here's a legend of the icons:
+- The icon <span class='inline-icon' title="This rule is recommended"><Icon name="approve-check-circle" label="This rule is recommended" color="var(--sl-color-green-high)" /></span> indicates that the rule is part of the recommended rules.
+- The icon <span class='inline-icon' title="This rule has a safe fix"><Icon name="seti:config" label="The rule has a safe fix" color="var(--sl-color-blue-high)" /></span> indicates that the rule provides a code action (fix) that is **safe** to apply.
+- The icon <span class='inline-icon' title="This rule has an unsafe fix"><Icon name="warning" label="The rule has an unsafe fix" color="var(--sl-color-orange-high)" /></span> indicates that the rule provides a code action (fix) that is **unsafe** to apply.
+- The icon <span class='inline-icon' title="This rule is not released yet"><Icon name="moon" label="This rule is not released yet" color="var(--sl-color-purple-high)" /></span> indicates that the rule has been implemented and scheduled for the next release.
 
 ## `nursery`
 
@@ -23,8 +23,8 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | --- | --- | --- |
 | [noJsonUnsafeValues](/linter/rules/no-json-unsafe-values/json) | Disallow unsafe JSON values that may cause interoperability issues. |  |
 | [noRestrictedDependencies](/linter/rules/no-restricted-dependencies/json) | Disallow dependencies that are known to have better alternatives. |  |
-| [useConsistentObjectKeys](/linter/rules/use-consistent-object-keys/json) | Enforce JSON keys with consistent Unicode representation. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
-| [useConsistentUnicodeBom](/linter/rules/use-consistent-unicode-bom/json) | Require or disallow a Unicode byte order mark at the beginning of a file. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useConsistentObjectKeys](/linter/rules/use-consistent-object-keys/json) | Enforce JSON keys with consistent Unicode representation. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" color="var(--sl-color-orange-high)" /></span> |
+| [useConsistentUnicodeBom](/linter/rules/use-consistent-unicode-bom/json) | Require or disallow a Unicode byte order mark at the beginning of a file. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem" color="var(--sl-color-blue-high)" /></span> |
 | [usePackageJsonCpu](/linter/rules/use-package-json-cpu/json) | Require the `cpu` field in `package.json`. |  |
 | [usePackageJsonEngines](/linter/rules/use-package-json-engines/json) | Require the `engines` field in `package.json`. |  |
 | [usePackageJsonValidCpu](/linter/rules/use-package-json-valid-cpu/json) | Require the `cpu` field in `package.json` to be a valid list of processor types. |  |
@@ -41,13 +41,13 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 
 | Rule name | Description | Properties |
 | --- | --- | --- |
-| [noBiomeFirstException](/linter/rules/no-biome-first-exception/json) | Disallow ineffective ordering in `files.includes` patterns. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [noBiomeFirstException](/linter/rules/no-biome-first-exception/json) | Disallow ineffective ordering in `files.includes` patterns. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" color="var(--sl-color-green-high)" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem" color="var(--sl-color-blue-high)" /></span> |
 | [noDuplicateDependencies](/linter/rules/no-duplicate-dependencies/json) | Disallow duplicate dependencies in `package.json`. |  |
-| [noDuplicateObjectKeys](/linter/rules/no-duplicate-object-keys/json) | Disallow duplicate keys in JSON objects. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span> |
+| [noDuplicateObjectKeys](/linter/rules/no-duplicate-object-keys/json) | Disallow duplicate keys in JSON objects. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" color="var(--sl-color-green-high)" /></span> |
 | [noEmptyObjectKeys](/linter/rules/no-empty-object-keys/json) | Disallow empty keys in JSON objects. |  |
-| [noQuickfixBiome](/linter/rules/no-quickfix-biome/json) | Disallow `quickfix.biome` in supported editor settings. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [noQuickfixBiome](/linter/rules/no-quickfix-biome/json) | Disallow `quickfix.biome` in supported editor settings. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" color="var(--sl-color-green-high)" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem" color="var(--sl-color-blue-high)" /></span> |
 | [noUntrustedLicenses](/linter/rules/no-untrusted-licenses/json) | Disallow dependencies with untrusted licenses. |  |
-| [useBiomeIgnoreFolder](/linter/rules/use-biome-ignore-folder/json) | Prefer folder exclusions that prevent Biome from scanning the folder. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
+| [useBiomeIgnoreFolder](/linter/rules/use-biome-ignore-folder/json) | Prefer folder exclusions that prevent Biome from scanning the folder. | <span class='inline-icon' title="This rule is recommended" ><Icon name="approve-check-circle" size="1.2rem" label="This rule is recommended" color="var(--sl-color-green-high)" /></span><span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem" color="var(--sl-color-blue-high)" /></span> |
 | [useRequiredScripts](/linter/rules/use-required-scripts/json) | Require configured scripts in `package.json`. |  |
 ## Recommended rules 
 - [noBiomeFirstException](/linter/rules/no-biome-first-exception/json) (Severity: [error](/reference/diagnostics#error))
