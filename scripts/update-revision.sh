@@ -25,6 +25,16 @@ curl --fail --silent --show-error --location \
   --output Cargo.lock \
   "https://raw.githubusercontent.com/biomejs/biome/$new_rev/Cargo.lock"
 
+# Use the same Rust toolchain as Biome, so we can compile it
+biome_channel=$(
+  curl --fail --silent --show-error --location \
+    "https://raw.githubusercontent.com/biomejs/biome/$new_rev/rust-toolchain.toml" \
+    | sed -n 's/^channel = "\(.*\)"/\1/p'
+)
+if [ -n "$biome_channel" ]; then
+  sed -i "s/^channel = \".*\"/channel = \"$biome_channel\"/" rust-toolchain.toml
+fi
+
 # Point each biome crate to the new revision
 if [ -n "$biome_crates" ]; then
   # shellcheck disable=SC2086
