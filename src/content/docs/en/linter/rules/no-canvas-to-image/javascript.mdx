@@ -1,0 +1,100 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noCanvasToImage (JavaScript)
+description: JavaScript (and super languages) documentation for noCanvasToImage
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-canvas-to-image/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.9`
+- Diagnostic Category: [`lint/nursery/noCanvasToImage`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicorn/no-canvas-to-image`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/no-canvas-to-image.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noCanvasToImage": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow converting a canvas to an image only to draw it onto another canvas.
+
+[`drawImage()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage)
+accepts a canvas as the image to draw.
+Turning a canvas into a data URL and loading that URL as an image does extra work
+that `drawImage()` doesn't need: the browser encodes the pixels into an image file
+and then decodes the file back into pixels.
+Copying pixels with `getImageData()` and writing them back with `putImageData()` also
+copies every pixel through JavaScript, when `drawImage()` can copy them directly.
+
+The rule reports two patterns:
+
+- the first argument of `drawImage()` is the result of `loadImage(canvas.toDataURL())`.
+The rule only checks a `toDataURL()` call on a variable or property whose name contains `canvas`,
+in any letter case, such as `canvas`, `sourceCanvas`, or `this.canvas`.
+- the first argument of `putImageData()` is the result of a `getImageData()` call.
+
+The result can be passed directly, after `await`, or through a `const` variable that
+is declared before the call and used only once.
+The rule recognizes these patterns by their names; it doesn't check whether the objects
+really are canvases.
+
+## Examples
+
+### Invalid
+
+```js
+const image = await loadImage(canvas.toDataURL());
+context.drawImage(image, 0, 0);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:19 <a href=\"https://biomejs.dev/linter/rules/no-canvas-to-image\">lint/nursery/noCanvasToImage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This image is loaded from a canvas only to be drawn with </span><span style=\"color: lightgreen;\"><strong>drawImage()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>const image = await loadImage(canvas.toDataURL());<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>context.drawImage(image, 0, 0);<br />   <strong>   │ </strong>                  <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Converting the canvas to a data URL and loading it as an image encodes and decodes every pixel, but </span><span style=\"color: lightgreen;\"><strong>drawImage()</strong></span><span style=\"color: lightgreen;\"> accepts the canvas itself.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the canvas to </span><span style=\"color: lightgreen;\"><strong>drawImage()</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+const imageData = sourceContext.getImageData(0, 0, width, height);
+targetContext.putImageData(imageData, 0, 0);
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:28 <a href=\"https://biomejs.dev/linter/rules/no-canvas-to-image\">lint/nursery/noCanvasToImage</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">These pixels are copied from a canvas with </span><span style=\"color: lightgreen;\"><strong>getImageData()</strong></span><span style=\"color: lightgreen;\"> only to be written to a canvas with </span><span style=\"color: lightgreen;\"><strong>putImageData()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />    <strong>1 │ </strong>const imageData = sourceContext.getImageData(0, 0, width, height);<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>targetContext.putImageData(imageData, 0, 0);<br />   <strong>   │ </strong>                           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Copying pixels through </span><span style=\"color: lightgreen;\"><strong>getImageData()</strong></span><span style=\"color: lightgreen;\"> is slower than drawing one canvas onto another with </span><span style=\"color: lightgreen;\"><strong>drawImage()</strong></span><span style=\"color: lightgreen;\">.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Pass the source canvas to </span><span style=\"color: lightgreen;\"><strong>drawImage()</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+context.drawImage(canvas, 0, 0);
+targetContext.drawImage(sourceCanvas, 0, 0);
+
+// The pixels are changed before they're written back.
+const imageData = context.getImageData(0, 0, width, height);
+imageData.data[0] = 0;
+context.putImageData(imageData, 0, 0);
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_canvas_to_image.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noCanvasToImage)
+- <RulePlaygroundLink rule="noCanvasToImage" category="lint" language="js" code={"const image = await loadImage(canvas.toDataURL());\ncontext.drawImage(image, 0, 0);\n"} />
+

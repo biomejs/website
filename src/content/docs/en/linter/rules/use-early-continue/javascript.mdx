@@ -1,0 +1,202 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useEarlyContinue (JavaScript)
+description: JavaScript (and super languages) documentation for useEarlyContinue
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-early-continue/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.9`
+- Diagnostic Category: [`lint/nursery/useEarlyContinue`](/reference/diagnostics#diagnostic-category)
+- This rule has a [**safe**](/linter/#safe-fixes) fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- Sources: 
+  - Same as [`unicorn/prefer-continue`](https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prefer-continue.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useEarlyContinue": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require an early `continue` instead of an `if` statement that wraps the rest of a loop body.
+
+When a loop body ends with an `if` statement that holds most of the work, the main code
+of the loop sits one level deeper than it needs to. Skipping the iterations you don't care
+about first, with `if (...) { continue; }`, keeps that code at the top level of the loop and
+makes it easier to follow.
+
+The rule reports an `if` statement without an `else` branch when it's the last statement
+of a loop body wrapped in braces, and it contains more statements than the
+`maximumStatements` option allows. Other statements can come before the `if` statement.
+The rule doesn't report an `if` statement whose last statement already leaves the iteration
+with `return`, `break`, `continue`, or `throw`, because an early `continue` wouldn't remove
+any nesting.
+
+The fix reverses the condition, adds a `continue` statement, and moves the content of the
+`if` statement after it. The fix isn't offered when:
+
+- the `if` statement contains a function, a class, a `using` declaration, or a TypeScript
+declaration such as a type or an interface;
+- the `if` statement contains a `let` or `const` declaration, and either other statements
+come before the `if` statement in the loop body, or the condition uses a variable with
+the same name;
+- comments are attached to the braces of the `if` statement.
+
+## Examples
+
+### Invalid
+
+```js
+for (const item of items) {
+    if (item.isActive) {
+        process(item);
+        save(item);
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:5 <a href=\"https://biomejs.dev/linter/rules/use-early-continue\">lint/nursery/useEarlyContinue</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>if</strong></span><span style=\"color: lightgreen;\"> statement wraps the rest of the loop body.</span><br />  <br />    <strong>1 │ </strong>for (const item of items) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    if (item.isActive) &#123;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>        process(item);<br />    <strong>4 │ </strong>        save(item);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The main code of the loop is nested one level deeper than it needs to be, which makes it harder to follow.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Skip the iteration early with </span><span style=\"color: lightgreen;\"><strong>continue</strong></span><span style=\"color: lightgreen;\"> when the condition isn't met, then write the rest of the code after it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use an early </span><span style=\"color: lightgreen;\"><strong>continue</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  for (const item of items) &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">A</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><br />    <strong>3</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\">;</span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">f</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\"><strong>!</strong></span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">.</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">A</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><br />      <strong>3</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>c</strong></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>u</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>;</strong></span><br />      <strong>4</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><strong>&#125;</strong></span><br />      <strong>5</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>4</strong> <strong>6</strong><strong> │ </strong>          save(item);<br />    <strong>5</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>&#125;</strong></span><br />    <strong>6</strong> <strong>7</strong><strong> │ </strong>  &#125;<br />    <strong>7</strong> <strong>8</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+```js
+while (queue.length > 0) {
+    const item = queue.shift();
+    if (item.isActive) {
+        process(item);
+        save(item);
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:3:5 <a href=\"https://biomejs.dev/linter/rules/use-early-continue\">lint/nursery/useEarlyContinue</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>if</strong></span><span style=\"color: lightgreen;\"> statement wraps the rest of the loop body.</span><br />  <br />    <strong>1 │ </strong>while (queue.length &gt; 0) &#123;<br />    <strong>2 │ </strong>    const item = queue.shift();<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>3 │ </strong>    if (item.isActive) &#123;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>4 │ </strong>        process(item);<br />    <strong>5 │ </strong>        save(item);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The main code of the loop is nested one level deeper than it needs to be, which makes it harder to follow.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Skip the iteration early with </span><span style=\"color: lightgreen;\"><strong>continue</strong></span><span style=\"color: lightgreen;\"> when the condition isn't met, then write the rest of the code after it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use an early </span><span style=\"color: lightgreen;\"><strong>continue</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  while (queue.length &gt; 0) &#123;<br />    <strong>2</strong> <strong>2</strong><strong> │ </strong>      const item = queue.shift();<br />    <strong>3</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">A</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><br />    <strong>4</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\">;</span><br />      <strong>3</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">f</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\"><strong>!</strong></span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">.</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">A</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><br />      <strong>4</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>c</strong></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>u</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>;</strong></span><br />      <strong>5</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><strong>&#125;</strong></span><br />      <strong>6</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>5</strong> <strong>7</strong><strong> │ </strong>          save(item);<br />    <strong>6</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>&#125;</strong></span><br />    <strong>7</strong> <strong>8</strong><strong> │ </strong>  &#125;<br />    <strong>8</strong> <strong>9</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+for (const item of items) {
+    if (!item.isActive) {
+        continue;
+    }
+    process(item);
+    save(item);
+}
+
+for (const item of items) {
+    if (item.isActive) {
+        process(item);
+    }
+}
+
+for (const item of items) {
+    if (item.isActive) {
+        process(item);
+        save(item);
+    }
+    finish(item);
+}
+
+for (const item of items) {
+    if (item.isActive) {
+        process(item);
+        save(item);
+    } else {
+        skip(item);
+    }
+}
+
+function findActive(items) {
+    for (const item of items) {
+        if (item.isActive) {
+            process(item);
+            return item;
+        }
+    }
+}
+```
+
+## Options
+
+### `maximumStatements`
+
+Type: `number`
+
+Default: `1`
+
+The largest number of statements that an `if` statement at the end of a loop body can
+contain before the rule reports it. Empty statements (a lone `;`) aren't counted. Set it
+to `0` to report any `if` statement at the end of a loop body that contains at least one
+statement.
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useEarlyContinue": {
+					"level": "on",
+					"options": {
+						"maximumStatements": 0
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+#### Invalid
+
+```js
+for (const item of items) {
+    if (item.isActive) {
+        process(item);
+    }
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:5 <a href=\"https://biomejs.dev/linter/rules/use-early-continue\">lint/nursery/useEarlyContinue</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This </span><span style=\"color: lightgreen;\"><strong>if</strong></span><span style=\"color: lightgreen;\"> statement wraps the rest of the loop body.</span><br />  <br />    <strong>1 │ </strong>for (const item of items) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    if (item.isActive) &#123;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>        process(item);<br />    <strong>4 │ </strong>    &#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The main code of the loop is nested one level deeper than it needs to be, which makes it harder to follow.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Skip the iteration early with </span><span style=\"color: lightgreen;\"><strong>continue</strong></span><span style=\"color: lightgreen;\"> when the condition isn't met, then write the rest of the code after it.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Safe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Use an early </span><span style=\"color: lightgreen;\"><strong>continue</strong></span><span style=\"color: lightgreen;\"> instead.</span><br />  <br />    <strong>1</strong> <strong>1</strong><strong> │ </strong>  for (const item of items) &#123;<br />    <strong>2</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">f</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">.</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">A</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">v</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">&#123;</span><br />    <strong>3</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: Tomato;\">p</span><span style=\"color: Tomato;\">r</span><span style=\"color: Tomato;\">o</span><span style=\"color: Tomato;\">c</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">s</span><span style=\"color: Tomato;\">(</span><span style=\"color: Tomato;\">i</span><span style=\"color: Tomato;\">t</span><span style=\"color: Tomato;\">e</span><span style=\"color: Tomato;\">m</span><span style=\"color: Tomato;\">)</span><span style=\"color: Tomato;\">;</span><br />    <strong>4</strong>  <strong> │ </strong><span style=\"color: Tomato;\">-</span> <span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: Tomato;\"><strong>&#125;</strong></span><br />      <strong>2</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">f</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\"><strong>!</strong></span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">.</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">A</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">v</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\">&#123;</span><br />      <strong>3</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\">·</span></span><span style=\"color: MediumSeaGreen;\"><strong>c</strong></span><span style=\"color: MediumSeaGreen;\"><strong>o</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>t</strong></span><span style=\"color: MediumSeaGreen;\"><strong>i</strong></span><span style=\"color: MediumSeaGreen;\"><strong>n</strong></span><span style=\"color: MediumSeaGreen;\"><strong>u</strong></span><span style=\"color: MediumSeaGreen;\"><strong>e</strong></span><span style=\"color: MediumSeaGreen;\"><strong>;</strong></span><br />      <strong>4</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><strong>&#125;</strong></span><br />      <strong>5</strong><strong> │ </strong><span style=\"color: MediumSeaGreen;\">+</span> <span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\"><span style=\"opacity: 0.8;\"><strong>·</strong></span></span><span style=\"color: MediumSeaGreen;\">p</span><span style=\"color: MediumSeaGreen;\">r</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">c</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">s</span><span style=\"color: MediumSeaGreen;\">(</span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">e</span><span style=\"color: MediumSeaGreen;\">m</span><span style=\"color: MediumSeaGreen;\">)</span><span style=\"color: MediumSeaGreen;\">;</span><br />    <strong>5</strong> <strong>6</strong><strong> │ </strong>  &#125;<br />    <strong>6</strong> <strong>7</strong><strong> │ </strong>  <br />  <br /></code></pre>"} />
+
+#### Valid
+
+```js
+for (const item of items) {
+    if (!item.isActive) {
+        continue;
+    }
+    process(item);
+}
+```
+
+## See Also
+
+- The [`noContinue`](https://biomejs.dev/linter/rules/no-continue/) rule enforces the
+opposite style. Don't enable both rules.
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_early_continue.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useEarlyContinue)
+- <RulePlaygroundLink rule="useEarlyContinue" category="lint" language="js" code={"for (const item of items) {\n    if (item.isActive) {\n        process(item);\n        save(item);\n    }\n}\n"} />
+

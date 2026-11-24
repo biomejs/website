@@ -1,0 +1,201 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useTanstackQueryExhaustiveDependencies (JavaScript)
+description: JavaScript (and super languages) documentation for useTanstackQueryExhaustiveDependencies
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-tanstack-query-exhaustive-dependencies/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.9`
+- Diagnostic Category: [`lint/nursery/useTanstackQueryExhaustiveDependencies`](/reference/diagnostics#diagnostic-category)
+- This rule has an [**unsafe**](/linter/#unsafe-fixes) fix.
+- The default severity of this rule is [**error**](/reference/diagnostics#error).
+- This rule belongs to the following domains:
+  - [`tanstackQuery`](/linter/domains#tanstackquery)
+- Sources: 
+  - Same as [`@tanstack/query/exhaustive-deps`](https://tanstack.com/query/latest/docs/eslint/exhaustive-deps)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useTanstackQueryExhaustiveDependencies": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require query keys to include every value that the query function uses.
+
+TanStack Query saves the data returned by a query function under the query key, and
+fetches the data again when the key changes. When the query function uses a value that
+the key doesn't include, changing that value doesn't fetch new data. The query keeps
+returning the data that belongs to the old value, and queries that use different values
+share the same saved data.
+
+This rule checks objects that have both a `queryKey` and a `queryFn` property, such as
+the options passed to `useQuery` or `queryOptions`. It reports the variables that the
+query function reads but the query key doesn't include.
+
+The rule only checks variables declared inside the function that contains the query
+options, such as a component, a hook, or a function that creates query options. It
+doesn't report:
+
+- variables declared outside that function, such as imports and top-level constants;
+- functions that the query function calls, such as `fetchTodo` in `fetchTodo(id)`;
+- objects whose methods the query function calls, such as `api` in `api.getTodo(id)`;
+- classes used with `new` or `instanceof`.
+
+When a property of a variable is in the query key, such as `todo.id`, the query function
+can read that property. When the whole variable is in the query key, the query function
+can read any of its properties.
+
+In Vue files, the rule also checks variables declared at the top level of the script,
+except imports.
+
+When `queryFn` chooses between a function and `skipToken`, such as
+`enabled ? () => fetchTodo(id) : skipToken`, the rule only checks the function.
+
+## Examples
+
+### Invalid
+
+```js
+import { useQuery } from "@tanstack/react-query";
+
+function Todo({ todoId }) {
+    const query = useQuery({
+        queryKey: ["todo"],
+        queryFn: () => fetchTodo(todoId),
+    });
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:5:9 <a href=\"https://biomejs.dev/linter/rules/use-tanstack-query-exhaustive-dependencies\">lint/nursery/useTanstackQueryExhaustiveDependencies</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This query key doesn't include all the values that the query function uses.</span><br />  <br />    <strong>3 │ </strong>function Todo(&#123; todoId &#125;) &#123;<br />    <strong>4 │ </strong>    const query = useQuery(&#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>        queryKey: [&quot;todo&quot;],<br />   <strong>   │ </strong>        <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>        queryFn: () =&gt; fetchTodo(todoId),<br />    <strong>7 │ </strong>    &#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The query function uses </span><span style=\"color: lightgreen;\"><strong>todoId</strong></span><span style=\"color: lightgreen;\"> here, but the query key doesn't include it.</span><br />  <br />    <strong>4 │ </strong>    const query = useQuery(&#123;<br />    <strong>5 │ </strong>        queryKey: [&quot;todo&quot;],<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>6 │ </strong>        queryFn: () =&gt; fetchTodo(todoId),<br />   <strong>   │ </strong>                                 <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>7 │ </strong>    &#125;);<br />    <strong>8 │ </strong>&#125;<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">TanStack Query saves the result of a query under its key, and fetches the data again when the key changes. When one of these values changes, the query doesn't fetch new data and keeps returning the data that belongs to the old value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the missing values to the query key.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Add the missing values to the query key.</span><br />  <br />  <strong>  5 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>queryKey:<span style=\"opacity: 0.8;\">·</span>[&quot;todo&quot;<span style=\"color: MediumSeaGreen;\">,</span><span style=\"opacity: 0.8;\"><span style=\"color: MediumSeaGreen;\">·</span></span><span style=\"color: MediumSeaGreen;\">t</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">d</span><span style=\"color: MediumSeaGreen;\">o</span><span style=\"color: MediumSeaGreen;\">I</span><span style=\"color: MediumSeaGreen;\">d</span>],<br />  <strong>    │ </strong>                         <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>  <br /></code></pre>"} />
+
+```js
+const todoQueries = {
+    detail: (id) => ({ queryKey: ["todo"], queryFn: () => fetchTodo(id) }),
+};
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:2:24 <a href=\"https://biomejs.dev/linter/rules/use-tanstack-query-exhaustive-dependencies\">lint/nursery/useTanstackQueryExhaustiveDependencies</a> <span style=\"color: #000; background-color: #ddd;\"> FIXABLE </span> ━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Tomato;\">✖</span></strong> <span style=\"color: Tomato;\">This query key doesn't include all the values that the query function uses.</span><br />  <br />    <strong>1 │ </strong>const todoQueries = &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    detail: (id) =&gt; (&#123; queryKey: [&quot;todo&quot;], queryFn: () =&gt; fetchTodo(id) &#125;),<br />   <strong>   │ </strong>                       <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The query function uses </span><span style=\"color: lightgreen;\"><strong>id</strong></span><span style=\"color: lightgreen;\"> here, but the query key doesn't include it.</span><br />  <br />    <strong>1 │ </strong>const todoQueries = &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>2 │ </strong>    detail: (id) =&gt; (&#123; queryKey: [&quot;todo&quot;], queryFn: () =&gt; fetchTodo(id) &#125;),<br />   <strong>   │ </strong>                                                                    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>3 │ </strong>&#125;;<br />    <strong>4 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">TanStack Query saves the result of a query under its key, and fetches the data again when the key changes. When one of these values changes, the query doesn't fetch new data and keeps returning the data that belongs to the old value.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Add the missing values to the query key.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Unsafe fix</span><span style=\"color: lightgreen;\">: </span><span style=\"color: lightgreen;\">Add the missing values to the query key.</span><br />  <br />  <strong>  2 │ </strong><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span><span style=\"opacity: 0.8;\">·</span>detail:<span style=\"opacity: 0.8;\">·</span>(id)<span style=\"opacity: 0.8;\">·</span>=&gt;<span style=\"opacity: 0.8;\">·</span>(&#123;<span style=\"opacity: 0.8;\">·</span>queryKey:<span style=\"opacity: 0.8;\">·</span>[&quot;todo&quot;<span style=\"color: MediumSeaGreen;\">,</span><span style=\"opacity: 0.8;\"><span style=\"color: MediumSeaGreen;\">·</span></span><span style=\"color: MediumSeaGreen;\">i</span><span style=\"color: MediumSeaGreen;\">d</span>],<span style=\"opacity: 0.8;\">·</span>queryFn:<span style=\"opacity: 0.8;\">·</span>()<span style=\"opacity: 0.8;\">·</span>=&gt;<span style=\"opacity: 0.8;\">·</span>fetchTodo(id)<span style=\"opacity: 0.8;\">·</span>&#125;),<br />  <strong>    │ </strong>                                        <span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span><span style=\"color: MediumSeaGreen;\">+</span>                                   <br /></code></pre>"} />
+
+### Valid
+
+```js
+import { useQuery } from "@tanstack/react-query";
+
+function Todo({ todoId }) {
+    const todos = useTodos();
+    const query = useQuery({
+        queryKey: ["todo", todoId],
+        queryFn: () => todos.getTodo(todoId),
+    });
+}
+
+const todoQueries = {
+    detail: (id) => ({ queryKey: ["todo", id], queryFn: () => fetchTodo(id) }),
+};
+```
+
+## Options
+
+### `ignoredVariables`
+
+Names of variables that the query function can use without adding them to the query key.
+The query function can also read any property of these variables.
+
+Default: `[]`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useTanstackQueryExhaustiveDependencies": {
+					"level": "on",
+					"options": {
+						"ignoredVariables": [
+							"config"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```js
+function useTodo(todoId, config) {
+    return useQuery({
+        queryKey: ["todo", todoId],
+        queryFn: () => fetchTodo(todoId, config.baseUrl),
+    });
+}
+```
+
+### `ignoredTypes`
+
+Names of TypeScript types. The query function can use a variable or parameter declared
+with one of these types without adding it to the query key. The rule reads the type
+written after the name of the variable or parameter, such as `config: Config`. It also
+finds the type inside unions, intersections, arrays, and tuples, such as
+`config: Config | undefined`.
+
+Default: `[]`
+
+```json title='biome.json'
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useTanstackQueryExhaustiveDependencies": {
+					"level": "on",
+					"options": {
+						"ignoredTypes": [
+							"Config"
+						]
+					}
+				}
+			}
+		}
+	}
+}
+
+```
+
+```ts
+function useTodo(todoId: string, config: Config) {
+    return useQuery({
+        queryKey: ["todo", todoId],
+        queryFn: () => fetchTodo(todoId, config.baseUrl),
+    });
+}
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_tanstack_query_exhaustive_dependencies.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useTanstackQueryExhaustiveDependencies)
+- <RulePlaygroundLink rule="useTanstackQueryExhaustiveDependencies" category="lint" language="js" code={"import { useQuery } from \"@tanstack/react-query\";\n\nfunction Todo({ todoId }) {\n    const query = useQuery({\n        queryKey: [\"todo\"],\n        queryFn: () => fetchTodo(todoId),\n    });\n}\n"} />
+

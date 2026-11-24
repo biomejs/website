@@ -99,6 +99,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noSvelteClassDirective](/linter/rules/no-svelte-class-directive/html) | Disallow Svelte's `class:` directive. |  |
 | [noSvelteLegacyConst](/linter/rules/no-svelte-legacy-const/html) | Disallow legacy Svelte `{@const}` tags. |  |
 | [noTailwindArbitraryValue](/linter/rules/no-tailwind-arbitrary-value/html) | Disallow arbitrary values in Tailwind CSS utility classes. |  |
+| [noTailwindConflictingClasses](/linter/rules/no-tailwind-conflicting-classes/html) | Disallow Tailwind CSS classes that set the same CSS properties on an element. |  |
 | [noTailwindLegacyUtilities](/linter/rules/no-tailwind-legacy-utilities/html) | Disallow Tailwind CSS utility classes that Tailwind CSS only keeps for backward compatibility. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noTailwindRawColors](/linter/rules/no-tailwind-raw-colors/html) | Disallow Tailwind CSS utility classes that use raw palette colors. |  |
 | [noTailwindRestrictedClasses](/linter/rules/no-tailwind-restricted-classes/html) | Disallow Tailwind CSS classes and variants that your project doesn't allow. | <span class='inline-icon' title="The rule has an unsafe fix" ><Icon name="warning" label="The rule has an unsafe fix" size="1.2rem" /></span> |
@@ -118,6 +119,7 @@ Below the list of rules supported by Biome, divided by group. Here's a legend of
 | [noVueDeprecatedVIs](/linter/rules/no-vue-deprecated-v-is/html) | Disallow the deprecated Vue `v-is` directive. |  |
 | [noVueDeprecatedVOnNativeModifier](/linter/rules/no-vue-deprecated-v-on-native-modifier/html) | Disallow the `.native` modifier on Vue's `v-on` directive. |  |
 | [noVueLoneTemplate](/linter/rules/no-vue-lone-template/html) | Disallow `<template>` elements in a Vue template that don't use `v-if`, `v-else-if`, `v-else`, `v-for`, or `v-slot`. |  |
+| [noVueNegationElse](/linter/rules/no-vue-negation-else/html) | Disallow negated conditions in `v-if` and `v-else-if` when a `v-else` branch follows. | <span class='inline-icon' title='The rule has a safe fix.'><Icon name="seti:config" label="The rule has a safe fix" size="1.2rem"  /></span> |
 | [noVueRestrictedVOn](/linter/rules/no-vue-restricted-v-on/html) | Disallow configured event listeners in `v-on` directives. |  |
 | [noVueRootVIf](/linter/rules/no-vue-root-v-if/html) | Disallow `v-if` on the root element of a Vue component template. |  |
 | [noVueTemplateKey](/linter/rules/no-vue-template-key/html) | Disallow the `key` attribute on `<template>` elements in Vue. |  |

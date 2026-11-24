@@ -1,0 +1,116 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: noTestHooks (JavaScript)
+description: JavaScript (and super languages) documentation for noTestHooks
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/no-test-hooks/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.9`
+- Diagnostic Category: [`lint/nursery/noTestHooks`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**information**](/reference/diagnostics#information).
+- This rule belongs to the following domains:
+  - [`test`](/linter/domains#test)
+- Sources: 
+  - Same as [`jest/no-hooks`](https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-hooks.md)
+  - Same as [`vitest/no-hooks`](https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/no-hooks.md)
+  - Same as [`playwright/no-hooks`](https://github.com/playwright-community/eslint-plugin-playwright/blob/main/docs/rules/no-hooks.md)
+
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"noTestHooks": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Disallow setup and teardown hooks in tests.
+
+Test frameworks provide hooks, which are functions that run code before or after tests:
+`beforeAll`, `beforeEach`, `afterEach` and `afterAll`, and the `before` and `after` hooks of `node:test` and Mocha.
+
+Hooks usually prepare variables that several tests share.
+To understand one test, the reader has to find every hook that runs around it.
+A test can also pass or fail depending on what an earlier test left in the shared variables.
+Calling the setup code inside each test keeps the test complete on its own.
+
+The rule reports a hook that is called as a function, such as `beforeEach()`, when the hook is
+a global function or when the file loads it from `@jest/globals`, `bun:test`, `mocha`, `node:test` or `vitest`.
+A hook that the file loads under another name is reported too.
+A function that has the name of a hook but comes from anywhere else, such as a function
+that the file declares, is not reported.
+
+The rule also reports `beforeAll`, `beforeEach`, `afterEach` and `afterAll` when they are called
+on `test`, `it`, `describe` or `suite`, such as `test.beforeEach()`.
+
+## Examples
+
+### Invalid
+
+```js
+describe("cart", () => {
+    let cart;
+
+    beforeEach(() => {
+        cart = createCart();
+    });
+
+    it("starts empty", () => {
+        expect(cart.items).toHaveLength(0);
+    });
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:4:5 <a href=\"https://biomejs.dev/linter/rules/no-test-hooks\">lint/nursery/noTestHooks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>beforeEach</strong></span><span style=\"color: lightgreen;\"> hook is not allowed.</span><br />  <br />    <strong>2 │ </strong>    let cart;<br />    <strong>3 │ </strong><br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>4 │ </strong>    beforeEach(() =&gt; &#123;<br />   <strong>   │ </strong>    <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>5 │ </strong>        cart = createCart();<br />    <strong>6 │ </strong>    &#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Hooks run code away from the tests that depend on it, and they encourage tests to share variables. This makes a test harder to understand on its own, and lets one test change the result of another.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move this code into the tests that need it, for example by calling a helper function at the start of each test.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+test.afterAll(async () => {
+    await server.close();
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:1:1 <a href=\"https://biomejs.dev/linter/rules/no-test-hooks\">lint/nursery/noTestHooks</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">The </span><span style=\"color: lightgreen;\"><strong>afterAll</strong></span><span style=\"color: lightgreen;\"> hook is not allowed.</span><br />  <br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>1 │ </strong>test.afterAll(async () =&gt; &#123;<br />   <strong>   │ </strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>2 │ </strong>    await server.close();<br />    <strong>3 │ </strong>&#125;);<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Hooks run code away from the tests that depend on it, and they encourage tests to share variables. This makes a test harder to understand on its own, and lets one test change the result of another.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Move this code into the tests that need it, for example by calling a helper function at the start of each test.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+describe("cart", () => {
+    it("starts empty", () => {
+        const cart = createCart();
+        expect(cart.items).toHaveLength(0);
+    });
+});
+
+// This function is declared in the file, so it isn't a hook.
+function before(message) {
+    console.log(message);
+}
+before("starting");
+```
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/no_test_hooks.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/noTestHooks)
+- <RulePlaygroundLink rule="noTestHooks" category="lint" language="js" code={"describe(\"cart\", () => {\n    let cart;\n\n    beforeEach(() => {\n        cart = createCart();\n    });\n\n    it(\"starts empty\", () => {\n        expect(cart.items).toHaveLength(0);\n    });\n});\n"} />
+
