@@ -55,9 +55,10 @@ because this usually means `push()` is a custom method that returns something ot
 The rule also ignores `push()` calls on objects that are commonly not arrays:
 `stream`, `router`, `this`, `this.stream`, `this.router`, `this.$router`,
 `process.stdin`, `process.stdout`, and `process.stderr`.
-It ignores `push()` and `unshift()` calls on values that are written in a way that shows they
-aren't arrays: objects (`{}`), functions, classes, template strings, and `new` expressions
-other than `new Array()`.
+It ignores `push()` and `unshift()` calls on values that are known not to be arrays:
+literals such as strings, objects (`{}`), functions, classes, template strings,
+`new` expressions other than `new Array()` and typed arrays such as `new Uint8Array()`,
+and variables whose type annotation or `const` value is one of those, such as a `Map` or a `Set`.
 
 ## Examples
 

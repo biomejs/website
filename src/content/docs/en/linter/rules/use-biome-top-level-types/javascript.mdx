@@ -1,0 +1,113 @@
+---
+# Don't modify this file manually. This file is auto generated from source, and you will lose your changes next time the website is built.
+# Head to the `biomejs/biome` repository, and modify the source code in there.
+editUrl: false
+
+title: useBiomeTopLevelTypes (JavaScript)
+description: JavaScript (and super languages) documentation for useBiomeTopLevelTypes
+localized: false
+---
+import RuleLanguageLinks from "@/components/RuleLanguageLinks.astro";
+import RulePlaygroundLink from "@/components/RulePlaygroundLink.astro";
+
+<RuleLanguageLinks current="javascript" languages={[{"id":"javascript","label":"JavaScript (and super languages)","href":"/linter/rules/use-biome-top-level-types/javascript/"}]} />
+
+:::caution
+This rule is part of the [nursery](/linter/#nursery) group. This means that it is experimental and the behavior can change at any time.
+:::
+## Summary
+- Rule available since: `v2.6.9`
+- Diagnostic Category: [`lint/nursery/useBiomeTopLevelTypes`](/reference/diagnostics#diagnostic-category)
+- This rule doesn't have a fix.
+- The default severity of this rule is [**warning**](/reference/diagnostics#warning).
+- This rule belongs to the following domains:
+  - [`biomePlugin`](/linter/domains#biomeplugin)
+## How to configure
+```json title="biome.json"
+{
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useBiomeTopLevelTypes": "error"
+			}
+		}
+	}
+}
+
+```
+## Description
+Require kind sets in Biome JS plugins to be created at the top level of the module.
+
+In a [Biome JS plugin](https://biomejs.dev/linter/plugins/), `nodeKinds()` and
+`tokenKinds()` from `@biomejs/runtime/plugin` create kind sets, and the `union()` method
+of a kind set creates a new set from two sets. Creating a set takes time.
+
+Code inside a function, such as the `run()` function of a rule, can run many times, for
+example once for every matching node in every file. Creating the same set again on each
+call repeats that work. Create each set once, in a constant at the top level of the
+plugin, and reuse it.
+
+This rule reports calls to `nodeKinds()`, `tokenKinds()`, and `union()` inside functions,
+and in class fields that aren't `static`, because those fields are set again for every new
+instance of the class. The rule only checks `nodeKinds()` and `tokenKinds()` when they're
+imported from `@biomejs/runtime/plugin`, and `union()` when it's called on a kind set that
+the rule can see being created.
+
+## Examples
+
+### Invalid
+
+```js
+import { defineRule, nodeKinds } from "@biomejs/runtime/plugin";
+
+export const rule = defineRule({
+    run(node) {
+        const CALLS = nodeKinds("JS_CALL_EXPRESSION", "JS_NEW_EXPRESSION");
+        return CALLS.has(node.parent);
+    },
+});
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:5:23 <a href=\"https://biomejs.dev/linter/rules/use-biome-top-level-types\">lint/nursery/useBiomeTopLevelTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>nodeKinds()</strong></span><span style=\"color: Orange;\"> call creates a new kind set every time it runs.</span><br />  <br />    <strong>3 │ </strong>export const rule = defineRule(&#123;<br />    <strong>4 │ </strong>    run(node) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>5 │ </strong>        const CALLS = nodeKinds(&quot;JS&#95;CALL&#95;EXPRESSION&quot;, &quot;JS&#95;NEW&#95;EXPRESSION&quot;);<br />   <strong>   │ </strong>                      <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>6 │ </strong>        return CALLS.has(node.parent);<br />    <strong>7 │ </strong>    &#125;,<br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This code can run many times, for example once for every node that the </span><span style=\"color: lightgreen;\"><strong>run()</strong></span><span style=\"color: lightgreen;\"> function of a rule checks, or once for every new instance of a class, so the same set is created again each time.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Create the set once in a top-level constant, and use that constant here.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+```js
+import { nodeKinds } from "@biomejs/runtime/plugin";
+
+const CALLS = nodeKinds("JS_CALL_EXPRESSION", "JS_NEW_EXPRESSION");
+const IMPORTS = nodeKinds("JS_IMPORT_CALL_EXPRESSION");
+
+function isCallOrImport(node) {
+    return CALLS.union(IMPORTS).has(node);
+}
+```
+
+<Fragment set:html={"<pre class=\"language-text\"><code class=\"language-text\">code-block.js:7:12 <a href=\"https://biomejs.dev/linter/rules/use-biome-top-level-types\">lint/nursery/useBiomeTopLevelTypes</a> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br /><br />  <strong><span style=\"color: Orange;\">⚠</span></strong> <span style=\"color: Orange;\">This </span><span style=\"color: Orange;\"><strong>union()</strong></span><span style=\"color: Orange;\"> call creates a new kind set every time it runs.</span><br />  <br />    <strong>6 │ </strong>function isCallOrImport(node) &#123;<br />  <strong><span style=\"color: Tomato;\">&gt;</span></strong> <strong>7 │ </strong>    return CALLS.union(IMPORTS).has(node);<br />   <strong>   │ </strong>           <strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><strong><span style=\"color: Tomato;\">^</span></strong><br />    <strong>8 │ </strong>&#125;<br />    <strong>9 │ </strong><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This code can run many times, for example once for every node that the </span><span style=\"color: lightgreen;\"><strong>run()</strong></span><span style=\"color: lightgreen;\"> function of a rule checks, or once for every new instance of a class, so the same set is created again each time.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">Create the set once in a top-level constant, and use that constant here.</span><br />  <br />  <strong><span style=\"color: lightgreen;\">ℹ</span></strong> <span style=\"color: lightgreen;\">This rule belongs to the nursery group, which means it is not yet stable and may change in the future. Visit </span><span style=\"color: lightgreen;\"><a href=\"https://biomejs.dev/linter/#nursery\">https://biomejs.dev/linter/#nursery</a></span><span style=\"color: lightgreen;\"> for more information.</span><br />  <br /></code></pre>"} />
+
+### Valid
+
+```js
+import { defineRule, nodeKinds } from "@biomejs/runtime/plugin";
+
+const CALLS = nodeKinds("JS_CALL_EXPRESSION", "JS_NEW_EXPRESSION");
+const CALLS_AND_IMPORTS = CALLS.union(nodeKinds("JS_IMPORT_CALL_EXPRESSION"));
+
+export const rule = defineRule({
+    run(node) {
+        return CALLS_AND_IMPORTS.has(node.parent);
+    },
+});
+```
+
+## See Also
+
+- To use kind sets instead of comparing kind names one by one, see [`useBiomeKindSets`](https://biomejs.dev/linter/rules/use-biome-kind-sets/).
+
+## Related links
+
+- [Disable a rule](/linter/#disable-a-rule)
+- [Configure the code fix](/linter#configure-the-code-fix)
+- [Rule options](/linter/#rule-options)
+- [Source Code (Edit this Page)](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/src/lint/nursery/use_biome_top_level_types.rs)
+- [Test Cases](https://github.com/biomejs/biome/blob/main/crates/biome_js_analyze/tests/specs/nursery/useBiomeTopLevelTypes)
+- <RulePlaygroundLink rule="useBiomeTopLevelTypes" category="lint" language="js" code={"import { defineRule, nodeKinds } from \"@biomejs/runtime/plugin\";\n\nexport const rule = defineRule({\n    run(node) {\n        const CALLS = nodeKinds(\"JS_CALL_EXPRESSION\", \"JS_NEW_EXPRESSION\");\n        return CALLS.has(node.parent);\n    },\n});\n"} />
+
