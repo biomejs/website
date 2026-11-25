@@ -51,7 +51,7 @@ biome_yaml_analyze = { git = "https://github.com/biomejs/biome.git", rev = "cfef
 biome_yaml_parser = { git = "https://github.com/biomejs/biome.git", rev = "cfef4254da12420b9c832ad4ba45e2f75f0f3f34", version = "0.7.3" }
 biome_yaml_syntax = { git = "https://github.com/biomejs/biome.git", rev = "cfef4254da12420b9c832ad4ba45e2f75f0f3f34", version = "0.7.3" }
 
-bpaf = { version = "0.9.28", features = ["docgen"] }
+bpaf = { version = "0.9.29", features = ["docgen"] }
 # If you update this library, be aware of the breaking changes
 camino = "1.2.6"
 jiff-static = "0.2.39"
