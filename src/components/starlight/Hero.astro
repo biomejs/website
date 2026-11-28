@@ -1,10 +1,24 @@
 ---
 import Default from "@astrojs/starlight/components/Hero.astro";
+import PromoVideo from "@/components/PromoVideo.astro";
+
+const { id, locale } = Astro.locals.starlightRoute;
+// The homepage's id is its locale ("" for the root locale), other pages with a hero (404) don't get the video
+const isHome = id === (locale ?? "");
 ---
 
-<Default {...Astro.props}>
-	<slot />
-</Default>
+{isHome ? (
+	<div class="home-hero">
+		<Default {...Astro.props}>
+			<slot />
+		</Default>
+		<PromoVideo />
+	</div>
+) : (
+	<Default {...Astro.props}>
+		<slot />
+	</Default>
+)}
 
 <script>
 import "@/frontend-scripts/hover.ts";
@@ -17,5 +31,35 @@ import "@/frontend-scripts/hover.ts";
 		-50vh / 105vw 200vh,
 		radial-gradient(var(--sl-color-accent-low), transparent 50%) no-repeat 30vw
 		-100vh / 105vw 200vh;
+}
+
+.home-hero {
+	display: grid;
+	gap: 1rem;
+	align-items: center;
+	padding-bottom: 1rem;
+}
+
+/* The video takes the image column, so Starlight's hero only holds the copy */
+.home-hero :global(.hero) {
+	grid-template-columns: 100%;
+}
+
+.home-hero :global(promo-video) {
+	width: 100%;
+	margin: 0;
+}
+
+@media (min-width: 50rem) {
+	.home-hero {
+		grid-template-columns: 5fr 6fr;
+		gap: 3rem;
+		padding-top: clamp(2.5rem, calc(1rem + 10vmin), 10rem);
+		padding-bottom: 3rem;
+	}
+
+	.home-hero :global(.hero) {
+		padding-block: 0;
+	}
 }
 </style>
