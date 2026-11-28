@@ -211,6 +211,7 @@ self.addEventListener("message", async (e) => {
 				projectKey,
 				path,
 				features: ["debug", "format", "lint", "assist"],
+				ignoreKind: "ancestors",
 			});
 
 			const syntaxTree =
